@@ -1,2 +1,2 @@
 # LogicalArdour
-Gives Ardour functionality like Garageband/Logic
+Gives Ardour and Harrision Mixbus functionality like Garageband/Logic
