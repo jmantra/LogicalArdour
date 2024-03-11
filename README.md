@@ -1,2 +1,2 @@
 # LogicalArdour
-Gives Ardour and Harrision Mixbus functionality like Garageband/Logic
+This is a project currently in development to give Ardour functionality similiar to Garageband/Logic Pro out of the box. 
