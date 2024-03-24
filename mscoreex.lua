@@ -43,7 +43,9 @@ if count ~= 1 then
 end
 
 local rn = midi_region:name()
-local filepath = Session:path() .. "/interchange/" .. Session:name() .. "/midifiles/" .. rn .. ".mid"
+local source = midi_region:source(0):to_filesource():path()
+print(source)
+local filepath = source
 
 
 
@@ -86,6 +88,12 @@ while true do
 end
 
 end end
+
+
+
+
+
+
 
 
 
