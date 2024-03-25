@@ -3,7 +3,7 @@ ardour {
 	name = "Tempo - Estimate Tempo",
 	author      = "Justin Ehrlichman",
 description = [[
-Estimate the tempo of a selected audio region and tempo markers
+Estimate the tempo of a selected audio region and set tempo markers
 ]]
 }
 
@@ -43,15 +43,26 @@ print(source)
 local filepath = source
 
 
+local quotedfilepath = '"' .. filepath .. '"'
+
+local command = "bpmbin  " ..quotedfilepath
 
 
+os.execute(command)
 
+local handle = io.popen(command)
+local result = handle:read("*a")
+handle:close()
 
-local md = LuaDialog.Message ("Estimate Tempo", "The path is " .. filepath, LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
+local md = LuaDialog.Message("Estimate Tempo", result, LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
 print(md:run())
-
 md = nil
 collectgarbage()
+
+-- to do, add tempo markers and prompt whether or not you want to tempo markers
+
+
+
 
 end end
 
