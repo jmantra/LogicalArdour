@@ -1,15 +1,21 @@
 ardour {
 	["type"] = "EditorAction",
-	name = "Musescore - Open Midi region in Musescore",
+	name = "Musescore - Open Midi region in musical notation format",
 	author      = "Justin Ehrlichman",
 description = [[
-Open up selected midi region in musescore
+Takes a selected MIDI region, converts it to a PDF using musescore then opens up the PDF in Firefox
 ]]
 }
 
 function factory () return function (signal, ...)
 
-local md = LuaDialog.Message ("Open in Musescore", "If Musescore shows a blank page, you may have to wait a minute or two for Ardour to write the file to disk", LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
+local md = LuaDialog.Message ("Open Musical Score", "If Firefox shows a blank page, you may have to wait a minute or two for Ardour to write the file to disk", LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
+	print (md:run())
+
+	md = nil
+	collectgarbage ()
+
+	local md = LuaDialog.Message ("Open Musical Score", "To continue using Ardour you will need to close the Firefox window or the tab the score is open in", LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
 	print (md:run())
 
 	md = nil
@@ -48,44 +54,17 @@ print(source)
 local filepath = source
 
 
+local quotedfilepath = '"' .. filepath .. '"'
+
+local command = "mscore -o /tmp/output.pdf  " ..quotedfilepath
+
+os.execute(command)
+
+os.execute("firefox file:///tmp/output.pdf")
 
 
 
--- Add the cron job to launch MuseScore
-local cronJobCmd = string.format([[crontab -l | grep -q 'DISPLAY=:0.0 /usr/bin/mscore "%s"' || (crontab -l; echo '*/1 * * * * DISPLAY=:0.0 /usr/bin/mscore "%s" &') | crontab -]], filepath, filepath)
-os.execute(cronJobCmd)
 
-	local md = LuaDialog.Message ("Open in Musescore", "Please wait up to 1 minute for musescore, if Ardour crashes before musescore please run the following command in your terminal: crontab -r", LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
-	print (md:run())
-
-	md = nil
-	collectgarbage ()
-
--- Lua script to continuously check for the mscore process and remove crontab if it launches
-
-local function checkProcess(processName)
-    local handle = io.popen('pgrep -x ' .. processName)
-    local result = handle:read("*a")
-    handle:close()
-    return #result > 0
-end
-
-local function removeCrontab()
-    os.execute('crontab -r')
-end
-
--- Main loop
-while true do
-    -- Check if mscore process is running
-    if checkProcess('mscore') then
-        print("mscore process detected. Removing crontab...")
-        removeCrontab()
-        print("Crontab removed.")
-        break  -- Exit the loop once crontab is removed, change this if you want to continuously check
-    end
-    -- Adjust sleep time according to your needs
-    os.execute('sleep 5') -- Check every 5 seconds
-end
 
 end end
 
