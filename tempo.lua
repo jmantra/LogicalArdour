@@ -45,7 +45,7 @@ local filepath = source
 
 local quotedfilepath = '"' .. filepath .. '"'
 
-local command = "bpmbin  " ..quotedfilepath
+local command = "sox  " ..quotedfilepath.. " -t raw -r 48000  -e float -c 1 - | bpm"
 
 
 os.execute(command)
@@ -65,6 +65,7 @@ collectgarbage()
 
 
 end end
+
 
 
 
