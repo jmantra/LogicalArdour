@@ -220,6 +220,8 @@ cd x42-gmsynth/
 
 sh install-lv2.sh
 
+sudo apt install x42-plugins -y
+
 
 
 notify "Installing Musescore"
