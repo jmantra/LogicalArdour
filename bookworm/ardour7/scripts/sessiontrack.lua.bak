@@ -1,0 +1,85 @@
+ardour {
+	["type"]    = "EditorHook",
+	name        = "Load guided menu",
+	author      = "Justin Ehrlichman",
+	description = "Present a menu to load up different track templates",
+}
+
+
+
+function signals ()
+	s = LuaSignal.Set()
+	s:add ({[LuaSignal.SetSession] = true})
+	return s
+end
+
+function factory () return function (signal, ...)
+
+	local dialog_options = {
+		{
+			type = "dropdown", key = "dropdown", title = "Choose Track", values =
+			{
+				["Choose a track Type"] = 1, ["Drum Track"] =
+
+				{
+					["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Mt PowerDrumkit"] = "mt", ["Blonde Bop"] = "bo"
+				},["Drum Trac2"] =
+
+				{
+					["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Mt PowerDrumkit"] = "mt", ["Blonde Bop"] = "bo"
+				}
+			},
+			default = "Choose a track type"
+		}
+	}
+
+	local od = LuaDialog.Dialog ("Choose Track", dialog_options)
+	local rv = od:run()
+
+	if rv and rv["dropdown"] == "rz" then
+		print("You chose Red Zepplin")
+		-- Replace the path below with the path to your track template
+		local template_path = "/home/jman/.config/ardour8/route_templates/red zepplin.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Red Zepplin"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+
+	if rv and rv["dropdown"] == "bp" then
+		print("You picked Black Pearl")
+		-- Replace the path below with the path to your track template
+		local template_path = "/home/jman/.config/ardour8/route_templates/Black Pearl Drumkit.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Black Pearl Drum Kit"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+
+	if rv and rv["dropdown"] == "mt" then
+		print("Mt PowerDrumkit")
+		-- Replace the path below with the path to your track template
+		local template_path = "/home/jman/.config/ardour8/route_templates/MT-PowerDrumKit.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Mt PowerDrumkit"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+
+	if rv and rv["dropdown"] == "bo" then
+		print("bblond bop")
+		-- Replace the path below with the path to your track template
+		local template_path = "/home/jman/.config/ardour8/route_templates/Blonde Bop Drumkit.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Blonde Mop Drumkit "
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+end end
