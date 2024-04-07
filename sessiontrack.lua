@@ -15,7 +15,38 @@ end
 
 function factory () return function (signal, ...)
 
-	local dialog_options = {
+
+local path  = Session:path()
+print(path)
+
+
+local function get_folder_birth_time(path)
+    local command = "stat -c %W " .. path
+    local handle = io.popen(command)
+    local result = handle:read("*a")
+    handle:close()
+    return tonumber(result)
+end
+
+
+local function folder_created_less_than_minute_ago(path)
+    local folder_birth_time = get_folder_birth_time(path)
+    if folder_birth_time then
+        local current_time = os.time()
+        local difference = current_time - folder_birth_time
+        return difference < 60  -- 60 seconds = 1 minute
+    else
+        return false  -- Unable to get the birth time
+    end
+end
+
+
+
+local is_less_than_minute_ago = folder_created_less_than_minute_ago(path)
+
+if is_less_than_minute_ago then
+    print("The folder was created less than a minute ago.")
+    local dialog_options = {
 		{
 			type = "dropdown", key = "dropdown", title = "Choose Track", values =
 			{
@@ -27,7 +58,14 @@ function factory () return function (signal, ...)
 
 				{
 					["ACE Fluid (Traditional Instruments)"] = "ac", ["Zynaddsubfx (Traditional Synth)"] = "za", ["Surge XT (Synth with a LOT of presets)"] = "st"
+				},
+				["Record Audio"] =
+
+				{
+					["Voice"] = "vc", ["Guitar or Bass"] = "gt"
 				}
+
+
 			},
 			default = "Choose a track type"
 		}
@@ -125,4 +163,27 @@ function factory () return function (signal, ...)
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
+
+				if rv and rv["dropdown"] == "gt" then
+		print("Guitar")
+		-- Replace the path below with the path to your track template
+		local template_path = "/home/jman/templates/nam.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Neural Amp Modeler"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+else
+    print("The folder was not created less than a minute ago.")
+end
+
+
+
+
+
+
+
 end end
+
