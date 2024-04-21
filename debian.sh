@@ -165,7 +165,7 @@ wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-re
 # Install it
 sudo dpkg -i kxstudio-repos_11.1.0_all.deb
 
-sudo apt install zynaddsubfx zynaddsubfx -y
+sudo apt install zynaddsubfx zynaddsubfx-lv2 zynaddsubfx-data -y
 
 notify "Install Surge XT"
 
