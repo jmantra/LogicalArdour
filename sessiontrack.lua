@@ -46,7 +46,7 @@ local is_less_than_minute_ago = folder_created_less_than_minute_ago(path)
 
 if is_less_than_minute_ago then
     print("The folder was created less than a minute ago.")
-    local dialog_options = {
+  local dialog_options = {
 		{
 			type = "dropdown", key = "dropdown", title = "Choose Track", values =
 			{
@@ -62,7 +62,9 @@ if is_less_than_minute_ago then
 				["Record Audio"] =
 
 				{
-					["Voice"] = "vc", ["Guitar or Bass"] = "gt"
+					["Voice"] = "vc", ["Guitar or Bass"] = {
+					["Guitarix"] = "gx", ["Neural Amp Modeler"] = "nm"
+				},
 				}
 
 
@@ -164,13 +166,26 @@ if is_less_than_minute_ago then
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
 
-				if rv and rv["dropdown"] == "gt" then
-		print("Guitar")
+				if rv and rv["dropdown"] == "nm" then
+		print("NAM")
 		-- Replace the path below with the path to your track template
 		local template_path = "/home/jman/templates/nam.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Neural Amp Modeler"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+					if rv and rv["dropdown"] == "gx" then
+		print("Gutiarix")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = "/home/jman/templates/Guitarix.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Guitarix"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
@@ -186,4 +201,3 @@ end
 
 
 end end
-
