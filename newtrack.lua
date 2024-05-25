@@ -1,6 +1,6 @@
 ardour {
 	["type"] = "EditorAction",
-	name = "Dialog Menu",
+	name = "New Track - Dialog Menu",
 	author      = "Justin Ehrlichman",
 description = [[
 Brings up a dialog menu to select track types based on templates
@@ -21,7 +21,16 @@ local dialog_options = {
 
 				{
 					["ACE Fluid (Traditional Instruments)"] = "ac", ["Zynaddsubfx (Traditional Synth)"] = "za", ["Surge XT (Synth with a LOT of presets)"] = "st"
+				},
+				["Record Audio"] =
+
+				{
+					["Voice"] = "vc", ["Guitar or Bass"] = {
+					["Guitarix"] = "gx", ["Neural Amp Modeler"] = "nm"
+				},
 				}
+
+
 			},
 			default = "Choose a track type"
 		}
@@ -116,6 +125,30 @@ local dialog_options = {
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Surge XT"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+				if rv and rv["dropdown"] == "nm" then
+		print("NAM")
+		-- Replace the path below with the path to your track template
+		local template_path = "/home/jman/templates/nam.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Neural Amp Modeler"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+					if rv and rv["dropdown"] == "gx" then
+		print("Gutiarix")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = "/home/jman/templates/Guitarix.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Guitarix"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
