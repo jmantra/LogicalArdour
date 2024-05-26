@@ -7,6 +7,10 @@ Estimate the tempo of a selected audio region and set tempo markers
 ]]
 }
 
+-- In order for this script to work please download bpmbin from my Google Drive at this URL (https://drive.google.com/file/d/1Lda5WIYD2WcxZpkKeXbix9QoEcx5xIhd/view?usp=sharing)
+-- then copy to your /usr/bin directory 
+--bpmbin is a compiled binary based on bpmbin.py found in this repo
+
 function factory () return function (signal, ...)
 
 
