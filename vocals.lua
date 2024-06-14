@@ -8,9 +8,10 @@ ardour {
 
 function factory () return function ()
 
--- Code block to clear all plugins on the track
+-- Code block to clear all plugins on the track and change name
 
 local sel = Editor:get_selection ()
+local plugin_name = "classic"
 	-- for each selected track/bus
 	for r in sel.tracks:routelist ():iter () do
 		local plugs = ARDOUR.ProcessorList(); -- create a PluginList
@@ -25,6 +26,7 @@ local sel = Editor:get_selection ()
 		until proc:isnil ()
 
 		r:remove_processors (plugs, nil)
+		r:set_name(plugin_name, nil)
 	end
 
 -- Create a function to add plugins
@@ -105,12 +107,5 @@ proc:load_preset(preset)
 
 
 
-
-
-
-
-
-
-
-
 end end
+
