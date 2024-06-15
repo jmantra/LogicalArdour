@@ -257,7 +257,7 @@ local preset = proc:preset_by_label("dance")
 -- Load the preset
 proc:load_preset(preset)
 
-add_plugin_to_selected_tracks("GxChorus-Stereo", ARDOUR.PluginType.LV2, 5) --first EQ of the chain
+add_plugin_to_selected_tracks("ACE EQ", ARDOUR.PluginType.LV2, 5) --first EQ of the chain
 
 local proc = Session:route_by_name("dance"):to_track():nth_plugin(5):to_insert():plugin(5)
 
@@ -278,5 +278,3 @@ end
 
 
 end end
-
-
