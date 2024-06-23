@@ -12,7 +12,7 @@ local dialog_options = {
   {
    type = "dropdown", key = "dropdown", title = "Choose Vocal Preset", values =
    {
-    ["Choose Vocal Preset"] = 1, ["Classic"] = 2,["Bright"] = 3, ["Dance"] = 4, ["Compressed"] = 5
+    ["Choose Vocal Preset"] = 1, ["Classic"] = 2,["Bright"] = 3, ["Dance"] = 4, ["Compressed"] = 5, ["Telephone"] = 6
 
    },
    default = "Choose Vocal Preset"
@@ -347,6 +347,65 @@ proc:load_preset(preset)
 
 
 -- *** End of compressed vocals ****
+end
+
+if rv and rv["dropdown"] == 6 then
+
+apply_preset_to_tracks("telephone")
+
+-- Classic Vocals
+
+add_plugin_to_selected_tracks("ACE EQ", ARDOUR.PluginType.LV2, 0) --first EQ of the chain
+
+local proc = Session:route_by_name("telephone"):to_track():nth_plugin(0):to_insert():plugin(0)
+
+-- Get the preset
+local preset = proc:preset_by_label("telephone")
+
+-- Load the preset
+proc:load_preset(preset)
+
+-- ACE Compressor
+
+add_plugin_to_selected_tracks("ACE Compressor", ARDOUR.PluginType.LV2, 1) --first EQ of the chain
+
+local proc = Session:route_by_name("telephone"):to_track():nth_plugin(1):to_insert():plugin(1)
+
+-- Get the preset
+local preset = proc:preset_by_label("telephone")
+
+-- Load the preset
+proc:load_preset(preset)
+
+add_plugin_to_selected_tracks("TAP Scaling Limiter", ARDOUR.PluginType.LADSPA, 2) --first EQ of the chain
+
+local proc = Session:route_by_name("telephone"):to_track():nth_plugin(2):to_insert():plugin(2)
+
+-- Get the preset
+local preset = proc:preset_by_label("telephone")
+
+-- Load the preset
+proc:load_preset(preset)
+
+
+
+add_plugin_to_selected_tracks("Guitarix", ARDOUR.PluginType.VST3, 3) --first EQ of the chain
+
+local proc = Session:route_by_name("telephone"):to_track():nth_plugin(3):to_insert():plugin(3)
+
+-- Get the preset
+local preset = proc:preset_by_label("telephone")
+
+-- Load the preset
+proc:load_preset(preset)
+
+
+
+
+
+
+
+-- *** End of telephone vocals ****
 end
 
 
