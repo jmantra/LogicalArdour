@@ -16,7 +16,7 @@ local dialog_options = {
 				["Choose a track Type"] = 1, ["Drum Track"] =
 
 				{
-					["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Mt PowerDrumkit (Accoustic Kit with Grooves)"] = "mt", ["Blonde Bop"] = "bo", ["Beat DRMR (Electronic Drum Sampler with LOTS of kits)"] = "bd"
+					["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Mt PowerDrumkit (Accoustic Kit with Grooves)"] = "mt", ["Blonde Bop"] = "bo", ["Beat DRMR (Electronic Drum Sampler with LOTS of kits)"] = "bd",["Standard Drums (sfizz)"] = "std", ["Standard 2 Drums (sfizz)"] = "st2",["Electronic Drums"] = "eld"
 				},["Instrument"] =
 
 				{
@@ -65,7 +65,7 @@ print (full_path)
 	if rv and rv["dropdown"] == "rz" then
 		print("You chose Red Zepplin")
 		-- Replace the path below with the path to your track template
-		
+		-- local template_path = "/home/jman/templates/red zepplin.template"
 		local template_path = full_path .. "/red zepplin.template"
 
 		-- Replace "Track Name" with the name you want for your new track
@@ -264,6 +264,43 @@ print (full_path)
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
+
+		if rv and rv["dropdown"] == "std" then
+		print("Standard Drums")
+		-- Replace the path below with the path to your track template
+
+		local template_path = full_path .. "/Standard Drums.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Standard Drums"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+	if rv and rv["dropdown"] == "st2" then
+		print("Standard 2 Drums")
+		-- Replace the path below with the path to your track template
+
+		local template_path = full_path .. "/Standard 2 Drums.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Standard 2 Drums"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+		if rv and rv["dropdown"] == "eld" then
+		print("Electronic Drums")
+		-- Replace the path below with the path to your track template
+
+		local template_path = full_path .. "/Electronic Drums.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Electronic Drums"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
 
 
 
