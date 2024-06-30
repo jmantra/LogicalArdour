@@ -25,7 +25,8 @@ local dialog_options = {
 				["Record Audio"] =
 
 				{
-					["Voice"] = "vc", ["Guitar or Bass"] = {
+					["Vocals"] = { ["Classic"] = "clv",["Bright"] = "brv", ["Compressed"] = "cov", ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav"},
+					["Guitar or Bass"] = {
 					["Guitarix"] = "gx", ["Neural Amp Modeler"] = "nm"
 				},
 				}
@@ -36,13 +37,36 @@ local dialog_options = {
 		}
 	}
 
+	-- Fetch the user config directory
+local user_config_directory = ARDOUR.user_config_directory(8) -- get the config directory (using version 8)
+
+-- Print the user config directory
+print(user_config_directory)
+
+
+
+
+
+-- Define the subdirectory you want to concatenate
+local subdir = "route_templates"
+
+-- Concatenate the config directory with the subdirectory
+local full_path = user_config_directory .. "/" .. subdir
+
+-- Print the full path
+
+
+print (full_path)
+
+
 	local od = LuaDialog.Dialog ("Choose Track", dialog_options)
 	local rv = od:run()
 
 	if rv and rv["dropdown"] == "rz" then
 		print("You chose Red Zepplin")
 		-- Replace the path below with the path to your track template
-		local template_path = "/home/jman/templates/red zepplin.template"
+		-- local template_path = "/home/jman/templates/red zepplin.template"
+		local template_path = full_path .. "/red zepplin.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Red Zepplin"
@@ -54,7 +78,9 @@ local dialog_options = {
 	if rv and rv["dropdown"] == "bp" then
 		print("You picked Black Pearl")
 		-- Replace the path below with the path to your track template
-		local template_path = "/home/jman/templates/Black Pearl Drumkit.template"
+
+
+		local template_path = full_path .. "/Black Pearl Drumkit.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Black Pearl Drum Kit"
@@ -66,7 +92,8 @@ local dialog_options = {
 	if rv and rv["dropdown"] == "mt" then
 		print("Mt PowerDrumkit")
 		-- Replace the path below with the path to your track template
-		local template_path = "/home/jman/templates/MT-PowerDrumKit.template"
+		-- local template_path = "/home/jman/templates/MT-PowerDrumKit.template"
+		local template_path = full_path .. "/MT-PowerDrumKit.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Mt PowerDrumkit"
@@ -76,20 +103,24 @@ local dialog_options = {
 
 
 	if rv and rv["dropdown"] == "bo" then
-		print("bblond bop")
+		print("blond bop")
 		-- Replace the path below with the path to your track template
-		local template_path = "/home/jman/templates/Blonde Bop Drumkit.template"
+		--local template_path = "/home/jman/templates/Blonde Bop Drumkit.template"
+
+		local template_path = full_path .. "/Blonde Bop Drumkit.template"
+
 
 		-- Replace "Track Name" with the name you want for your new track
-		local track_name = "Blonde Bop Drumkit "
+		local track_name = "Blonde Bop Drumkit"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
 
 	if rv and rv["dropdown"] == "bd" then
-		print("bblond bop")
+		print("BeatDRMR")
 		-- Replace the path below with the path to your track template
-		local template_path = "/home/jman/templates/BeatDRMR.template"
+
+		local template_path = full_path .. "/BeatDRMR.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Beat DRMR"
@@ -99,7 +130,7 @@ local dialog_options = {
 		if rv and rv["dropdown"] == "ac" then
 		print("Ace Fluid Synth")
 		-- Replace the path below with the path to your track template
-		local template_path = "/home/jman/templates/Fluid.template"
+		local template_path = full_path .. "/Fluid.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Ace Fluid Synth"
@@ -110,7 +141,7 @@ local dialog_options = {
 			if rv and rv["dropdown"] == "za" then
 		print("Zynaddsubfx")
 		-- Replace the path below with the path to your track template
-		local template_path = "/home/jman/templates/zfx.template"
+		local template_path = full_path .. "/zfx.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Zynaddsubfx"
@@ -121,7 +152,8 @@ local dialog_options = {
 			if rv and rv["dropdown"] == "st" then
 		print("Surge XT")
 		-- Replace the path below with the path to your track template
-		local template_path = "/home/jman/templates/Surge XT.template"
+		-- local template_path = "/home/jman/templates/Surge XT.template"
+		 local template_path = full_path .. "/Surge XT.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Surge XT"
@@ -132,7 +164,7 @@ local dialog_options = {
 				if rv and rv["dropdown"] == "nm" then
 		print("NAM")
 		-- Replace the path below with the path to your track template
-		local template_path = "/home/jman/templates/nam.template"
+		local template_path = full_path .. "/nam.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Neural Amp Modeler"
@@ -145,13 +177,97 @@ local dialog_options = {
 
 
 		-- Replace the path below with the path to your track template
-		local template_path = "/home/jman/templates/Guitarix.template"
+		  local template_path = full_path .. "/Guitarix.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Guitarix"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
+
+						if rv and rv["dropdown"] == "clv" then
+		print("Classic Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/classic.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "classic"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+						if rv and rv["dropdown"] == "brv" then
+		print("Bright Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/bright.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "bright"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+						if rv and rv["dropdown"] == "cov" then
+		print("Compressed Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/compressed.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "compressed"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+
+						if rv and rv["dropdown"] == "tlv" then
+		print("telephone Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/telephone.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "telephone"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+
+						if rv and rv["dropdown"] == "dav" then
+		print("Dance Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/dance.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "dance"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+							if rv and rv["dropdown"] == "nav" then
+		print("Natural Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/natural.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "natural"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+
+
+
 end end
 
 
