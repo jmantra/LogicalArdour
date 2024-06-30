@@ -65,7 +65,7 @@ print (full_path)
 	if rv and rv["dropdown"] == "rz" then
 		print("You chose Red Zepplin")
 		-- Replace the path below with the path to your track template
-		-- local template_path = "/home/jman/templates/red zepplin.template"
+		
 		local template_path = full_path .. "/red zepplin.template"
 
 		-- Replace "Track Name" with the name you want for your new track
