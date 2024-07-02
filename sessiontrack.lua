@@ -54,7 +54,7 @@ local dialog_options = {
 				["Choose a track Type"] = 1, ["Drum Track"] =
 
 				{
-					["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Mt PowerDrumkit (Accoustic Kit with Grooves)"] = "mt", ["Blonde Bop"] = "bo", ["Beat DRMR (Electronic Drum Sampler with LOTS of kits)"] = "bd",["Standard Drums (sfizz)"] = "std", ["Standard 2 Drums (sfizz)"] = "st2",["Electronic Drums"] = "eld"
+					["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Mt PowerDrumkit (Accoustic Kit with Grooves)"] = "mt", ["Blonde Bop"] = "bo", ["Beat DRMR (Electronic Drum Sampler with LOTS of kits)"] = "bd",["Standard Drums (sfizz)"] = "std", ["Standard 2 Drums (sfizz)"] = "st2",["Electronic Drums"] = "eld", ["Room Drums (sfizz)"] = "rmd",   ["Power Drums (sfizz)"] = "pwd", ["Dance Drums (sfizz)"] = "dad",["Jazz Drums (sfizz)"] = "jzd"
 				},["Instrument"] =
 
 				{
@@ -338,6 +338,56 @@ print (full_path)
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
+
+
+		if rv and rv["dropdown"] == "rmd" then
+		print("Room Drums")
+		-- Replace the path below with the path to your track template
+
+		local template_path = full_path .. "/Room Drums.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Room Drums"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+			if rv and rv["dropdown"] == "pwd" then
+		print("Power Drums")
+		-- Replace the path below with the path to your track template
+
+		local template_path = full_path .. "/Power Drums.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Power Drums"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+			if rv and rv["dropdown"] == "dad" then
+		print("Dance Drums")
+		-- Replace the path below with the path to your track template
+
+		local template_path = full_path .. "/Dance Drums.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Dance Drums"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+			if rv and rv["dropdown"] == "jzd" then
+		print("Dance Drums")
+		-- Replace the path below with the path to your track template
+
+		local template_path = full_path .. "/Jazz Drums.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Jazz Drums"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
 
 
 
