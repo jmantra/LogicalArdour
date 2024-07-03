@@ -58,7 +58,10 @@ local dialog_options = {
 				},["Instrument"] =
 
 				{
-					["ACE Fluid (Traditional Instruments)"] = "ac", ["Zynaddsubfx (Traditional Synth)"] = "za", ["Surge XT (Synth with a LOT of presets)"] = "st"
+					["ACE Fluid (Traditional Instruments)"] = "ac", ["Zynaddsubfx (Traditional Synth)"] = "za", ["Surge XT (Synth with a LOT of presets)"] = "st" },
+						["Session Player"] = {
+					["ACE Fluid (Traditional Instruments)"] = "acs", ["Zynaddsubfx (Traditional Synth)"] = "zas",["Surge XT (Synth with a LOT of presets)"] = "sts"
+
 				},
 				["Record Audio"] =
 
@@ -387,6 +390,41 @@ print (full_path)
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
+
+			if rv and rv["dropdown"] == "acs" then
+		print("Ace Fluid Synth")
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/GM Session.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Ace Fluid Synth Session"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+				if rv and rv["dropdown"] == "zas" then
+		print("Zynaddsubfx")
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/zafx session.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Zynaddsubfx Session"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+		if rv and rv["dropdown"] == "sts" then
+		print("Surge XT")
+		-- Replace the path below with the path to your track template
+		-- local template_path = "/home/jman/templates/Surge XT.template"
+		 local template_path = full_path .. "/Surge XT Session.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Surge XT Session"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+
 
 
 
