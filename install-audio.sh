@@ -6,7 +6,7 @@
 # wget -O ~/install-audio.sh https://raw.githubusercontent.com/brendaningram/linux-audio-setup-scripts/main/ubuntu/2204/install-audio.sh && chmod +x ~/install-audio.sh && ~/install-audio.sh
 
 # Exit if any command fails
-set -e
+ #set -e
 
 notify () {
   echo "--------------------------------------------------------------------"
@@ -26,9 +26,9 @@ sudo apt update && sudo apt dist-upgrade -y
 # Install the Liquorix kernel
 # https://liquorix.net/
 # ---------------------------
-notify "Install the Liquorix kernel"
-sudo add-apt-repository ppa:damentz/liquorix -y && sudo apt-get update
-sudo apt-get install linux-image-liquorix-amd64 linux-headers-liquorix-amd64 -y
+#notify "Install the Liquorix kernel"
+#sudo add-apt-repository ppa:damentz/liquorix -y && sudo apt-get update
+#sudo apt-get install linux-image-liquorix-amd64 linux-headers-liquorix-amd64 -y
 
 
 # ------------------------------------------------------------------------------------
@@ -54,19 +54,19 @@ systemctl --user --now enable wireplumber.service
 # mitigations=off:
 # cpufreq.default_governor=performance:
 # ---------------------------
-notify "Modify GRUB options"
+#notify "Modify GRUB options"
 #sudo systemctl disable ondemand
-sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash threadirqs mitigations=off cpufreq.default_governor=performance"/g' /etc/default/grub
-sudo update-grub
+#sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash threadirqs mitigations=off cpufreq.default_governor=performance"/g' /etc/default/grub
+#sudo update-grub
 
 
 # ---------------------------
 # sysctl.conf
 # ---------------------------
-notify "sysctl.conf"
+#notify "sysctl.conf"
 # See https://wiki.linuxaudio.org/wiki/system_configuration for more information.
-echo 'vm.swappiness=10
-fs.inotify.max_user_watches=600000' | sudo tee -a /etc/sysctl.conf
+#echo 'vm.swappiness=10
+#fs.inotify.max_user_watches=600000' | sudo tee -a /etc/sysctl.conf
 
 
 # ---------------------------
@@ -84,12 +84,10 @@ echo '@audio - rtprio 90
 notify "Add user to the audio group"
 sudo adduser $USER audio
 
+set -e
 
-# ---------------------------
-# REAPER
-# Note: The instructions below will create a PORTABLE REAPER installation
-# at ~/REAPER.
-# ---------------------------
+
+
 notify "Install Ardour"
 
 sudo apt install ardour -y
@@ -105,7 +103,7 @@ notify "Install Wine"
 sudo dpkg --add-architecture i386
 sudo mkdir -pm755 /etc/apt/keyrings
 sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
-sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources
 sudo apt update
 sudo apt install --install-recommends winehq-staging -y
 
@@ -250,9 +248,42 @@ notify "Installing Musescore"
 sudo apt install musescore -y
 
 
-notify "Installing Sox and bpm-tools find for tempo estimation LUA script"
+notify "Installing tools for detecting key and bpm"
 
-sudo apt install sox bpm-tools -y
+# Key
+wget "https://drive.usercontent.google.com/download?id=1PiKx_JeGfiD1cstcJ00rMtY6hGny6WXV&export=download&authuser=0&confirm=t&uuid=3373d73c-0113-4a84-bffe-46fe227436c4&at=APZUnTVcx3H_plhebHeddP_PdgJ7:1720276179939"
+
+chmod + x key
+
+sudo cp key /usr/bin
+
+#BPM
+
+wget https://drive.usercontent.google.com/download?id=1Lda5WIYD2WcxZpkKeXbix9QoEcx5xIhd&export=download&authuser=0&confirm=t&uuid=d50e0718-5e01-4a59-92e7-0c3a0fcc27d6&at=APZUnTVeDS1Af5fgMKlfh7PhuLpl:1720276255286
+
+chmod + x bpmbin
+
+sudo cp bpmbin /usr/bin
+
+notify "Installing Calf Plugins"
+
+sudo apt install calf-plugins -y
+
+
+notify "Installing Steven Harris plugins"
+
+sudo apt install swh-lv2 -y 
+
+
+notify "Installing TAP plugins"
+
+sudo apt install tap-plugins -y
+
+
+
+
+
+
 
 notify "download and installing  ardour config files"
 
@@ -260,7 +291,25 @@ sudo apt install git -y
 
 git clone https://github.com/jmantra/LogicalArdour.git
 
-cp -rf LogicalArdour/bookworm/ardour7 ~/.config/
+cp -rf LogicalArdour/ardour8 ~/.config/
+
+notify "download and installing  lv2 presets"
+
+mkdir ~/.lv2
+
+cp -rf "lv2 presets/*"  ~/.lv2
+
+notify "downloading and installing Guitarix VST and presets"
+
+mkdir ~/.vst3
+
+cp -rf vst3/*  ~/.vst3
+
+notify "downloading and installing soundfonts and samples"
+
+sudo mkdir /opt/LogicalArdour
+
+sudo cp -rf /samples/* /opt/LogicalArdour
 
 rm -rf LogicalArdour/*
 
