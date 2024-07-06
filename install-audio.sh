@@ -176,7 +176,7 @@ yabridgectl add "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
 
 notify "Install zynaddsubfx"
 # Install required dependencies if needed
-sudo apt-get install apt-transport-https gpgv wget
+sudo apt-get install apt-transport-https gpgv wget -y
 
 # Download package file
 wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
