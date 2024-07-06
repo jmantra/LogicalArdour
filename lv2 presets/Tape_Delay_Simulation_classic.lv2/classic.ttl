@@ -1,0 +1,44 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<>
+	a pset:Preset ;
+	lv2:appliesTo <http://plugin.org.uk/swh-plugins/tapeDelay> ;
+	rdfs:label "classic" ;
+	lv2:port [
+		lv2:symbol "da_db" ;
+		pset:value -61.70103455
+	] , [
+		lv2:symbol "speed" ;
+		pset:value 2.7525773
+	] , [
+		lv2:symbol "t1a_db" ;
+		pset:value 0.0
+	] , [
+		lv2:symbol "t1d" ;
+		pset:value 0.78350514
+	] , [
+		lv2:symbol "t2a_db" ;
+		pset:value -90.0
+	] , [
+		lv2:symbol "t2d" ;
+		pset:value 1.0
+	] , [
+		lv2:symbol "t3a_db" ;
+		pset:value -77.01030731
+	] , [
+		lv2:symbol "t3d" ;
+		pset:value 2.0
+	] , [
+		lv2:symbol "t4a_db" ;
+		pset:value -69.12371063
+	] , [
+		lv2:symbol "t4d" ;
+		pset:value 3.0
+	] .
+

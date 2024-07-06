@@ -1,0 +1,807 @@
+@prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
+@prefix doap:  <http://usefulinc.com/ns/doap#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix kx:    <http://kxstudio.sf.net/ns/lv2ext/external-ui#> .
+@prefix log:   <http://lv2plug.in/ns/ext/log#> .
+@prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
+@prefix midi:  <http://lv2plug.in/ns/ext/midi#> .
+@prefix mod:   <http://moddevices.com/ns/mod#> .
+@prefix pprop: <http://lv2plug.in/ns/ext/port-props#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui:    <http://lv2plug.in/ns/extensions/ui#> .
+@prefix time:  <http://lv2plug.in/ns/ext/time#> .
+@prefix units: <http://lv2plug.in/ns/extensions/units#> .
+@prefix urid:  <http://lv2plug.in/ns/ext/urid#> .
+
+@prefix stepseq: <http://gareus.org/oss/lv2/stepseq#s8n8> .
+
+<http://gareus.org/rgareus#me>
+	a foaf:Person;
+	foaf:name "Robin Gareus";
+	foaf:mbox <mailto:robin@gareus.org>;
+	foaf:homepage <http://gareus.org/> .
+
+<http://gareus.org/oss/lv2/stepseq#s8n8>
+	a lv2:Plugin, doap:Project, lv2:UtilityPlugin;
+	doap:license <http://usefulinc.com/doap/licenses/gpl>;
+	doap:maintainer <http://gareus.org/rgareus#me>;
+	doap:name "MIDI Step Sequencer8x8";
+	rdfs:comment "A simple step sequencer. This plugin allows to trigger MIDI note events placed on a time/note grid with optional BPM and Transport synchronization. Different grid-size (note, step-count) variants are available. The Step-duration is configurable to musical time and can optionally be modulated for a swing-time effect.";
+	lv2:microVersion 0 ;lv2:minorVersion 1562 ;
+  ui:ui stepseq:ui_gl ;
+	lv2:optionalFeature lv2:hardRTCapable, log:log;
+	lv2:requiredFeature urid:map;
+	
+	
+	
+	lv2:port [
+		a atom:AtomPort, lv2:InputPort;
+		atom:bufferType atom:Sequence;
+		atom:supports time:Position;
+		lv2:index 0;
+		lv2:symbol "control";
+		lv2:name "Control Input";
+	] , [
+		a atom:AtomPort, lv2:OutputPort;
+		atom:bufferType atom:Sequence;
+		atom:supports midi:MidiEvent;
+		lv2:index 1;
+		lv2:symbol "midiout";
+		lv2:name "MIDI Out";
+	] , [
+		a lv2:InputPort, lv2:ControlPort;
+		lv2:index 2;
+		lv2:symbol "sync";
+		lv2:name "Sync";
+		lv2:minimum 0;
+		lv2:default 0;
+		lv2:maximum 1;
+		lv2:portProperty lv2:integer, lv2:enumeration, lv2:toggled;
+		lv2:scalePoint [ rdfs:label "Free Running"; rdf:value 0 ; ] ;
+		lv2:scalePoint [ rdfs:label "Host Sync (if available)"; rdf:value 1 ; ] ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort;
+		lv2:index 3;
+		lv2:symbol "bpm";
+		lv2:name "BPM";
+		lv2:minimum  40.0;
+		lv2:default 120.0;
+		lv2:maximum 208.0;
+		units:unit units:bpm;
+	] , [
+		a lv2:InputPort, lv2:ControlPort;
+		lv2:index 4;
+		lv2:symbol "div";
+		lv2:name "Step Duration (4/4)";
+		lv2:minimum 0;
+		lv2:maximum 9;
+		lv2:default 3;
+		lv2:scalePoint [ rdfs:label "32th";      rdf:value 0 ; ] ;
+		lv2:scalePoint [ rdfs:label "16th";      rdf:value 1 ; ] ;
+		lv2:scalePoint [ rdfs:label "8th";       rdf:value 2 ; ] ;
+		lv2:scalePoint [ rdfs:label "Quarter";   rdf:value 3 ; ] ;
+		lv2:scalePoint [ rdfs:label "Half Note"; rdf:value 4 ; ] ;
+		lv2:scalePoint [ rdfs:label "One Bar";   rdf:value 5 ; ] ;
+		lv2:scalePoint [ rdfs:label "3/2 Bars";  rdf:value 6 ; ] ;
+		lv2:scalePoint [ rdfs:label "2 Bars";    rdf:value 7 ; ] ;
+		lv2:scalePoint [ rdfs:label "3 Bars";    rdf:value 8 ; ] ;
+		lv2:scalePoint [ rdfs:label "4 Bars";    rdf:value 9 ; ] ;
+		lv2:portProperty lv2:integer, lv2:enumeration;
+	] , [
+		a lv2:InputPort, lv2:ControlPort;
+		lv2:index 5;
+		lv2:symbol "swing";
+		lv2:name "Swing";
+		lv2:minimum 0.0;
+		lv2:default 0.0;
+		lv2:maximum 0.5;
+		lv2:scalePoint [ rdfs:label "No";         rdf:value 0.0 ; ] ;
+		lv2:scalePoint [ rdfs:label "Light 3:2";  rdf:value 0.2 ; ] ;
+		lv2:scalePoint [ rdfs:label "Medium 2:1"; rdf:value 0.33334 ; ] ;
+		lv2:scalePoint [ rdfs:label "Hard 3:1";   rdf:value 0.5 ; ] ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort;
+		lv2:index 6;
+		lv2:symbol "drummode";
+		lv2:name "Drum Mode";
+		lv2:minimum 0;
+		lv2:default 0;
+		lv2:maximum 2;
+		lv2:portProperty lv2:integer;
+		lv2:scalePoint [ rdfs:label "Chromatic Scale"; rdf:value 0 ; ] ;
+		lv2:scalePoint [ rdfs:label "GM/GS Drums"; rdf:value 1 ; ] ;
+		lv2:scalePoint [ rdfs:label "AVLinux Drums"; rdf:value 2 ; ] ;
+		lv2:scalePoint [ rdfs:label "Nord Drum 2/3"; rdf:value 3 ; ] ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort;
+		lv2:index 7;
+		lv2:symbol "chn";
+		lv2:name "Midi Channel";
+		lv2:minimum 0;
+		lv2:default 0;
+		lv2:maximum 15;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort ,
+			lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "panic" ;
+		lv2:name "MIDI Panic";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:portProperty lv2:integer, lv2:toggled, pprop:trigger;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 9;
+		lv2:symbol "pos";
+		lv2:name "Step Position";
+		lv2:minimum 1;
+		lv2:maximum 8;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 10;
+		lv2:symbol "hostbpm";
+		lv2:name "Host BPM";
+		lv2:minimum -1;
+		lv2:maximum 208;
+		lv2:scalePoint [ rdfs:label "N/A"; rdf:value -1 ; ] ;
+		lv2:scalePoint [ rdfs:label "No Sync"; rdf:value 0 ; ] ;
+		lv2:portProperty pprop:notOnGUI ;
+		units:unit units:bpm;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11;
+		lv2:symbol "note1";
+		lv2:name "Note 1";
+		lv2:default 69;
+		lv2:minimum 0;
+		lv2:maximum 127;
+		lv2:portProperty lv2:integer
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12;
+		lv2:symbol "note2";
+		lv2:name "Note 2";
+		lv2:default 67;
+		lv2:minimum 0;
+		lv2:maximum 127;
+		lv2:portProperty lv2:integer
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13;
+		lv2:symbol "note3";
+		lv2:name "Note 3";
+		lv2:default 65;
+		lv2:minimum 0;
+		lv2:maximum 127;
+		lv2:portProperty lv2:integer
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14;
+		lv2:symbol "note4";
+		lv2:name "Note 4";
+		lv2:default 64;
+		lv2:minimum 0;
+		lv2:maximum 127;
+		lv2:portProperty lv2:integer
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15;
+		lv2:symbol "note5";
+		lv2:name "Note 5";
+		lv2:default 62;
+		lv2:minimum 0;
+		lv2:maximum 127;
+		lv2:portProperty lv2:integer
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16;
+		lv2:symbol "note6";
+		lv2:name "Note 6";
+		lv2:default 60;
+		lv2:minimum 0;
+		lv2:maximum 127;
+		lv2:portProperty lv2:integer
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17;
+		lv2:symbol "note7";
+		lv2:name "Note 7";
+		lv2:default 59;
+		lv2:minimum 0;
+		lv2:maximum 127;
+		lv2:portProperty lv2:integer
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18;
+		lv2:symbol "note8";
+		lv2:name "Note 8";
+		lv2:default 57;
+		lv2:minimum 0;
+		lv2:maximum 127;
+		lv2:portProperty lv2:integer
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "grid_1_1" ;
+		lv2:name "Grid S: 1 N: 1";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "grid_2_1" ;
+		lv2:name "Grid S: 2 N: 1";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "grid_3_1" ;
+		lv2:name "Grid S: 3 N: 1";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "grid_4_1" ;
+		lv2:name "Grid S: 4 N: 1";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "grid_5_1" ;
+		lv2:name "Grid S: 5 N: 1";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "grid_6_1" ;
+		lv2:name "Grid S: 6 N: 1";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "grid_7_1" ;
+		lv2:name "Grid S: 7 N: 1";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "grid_8_1" ;
+		lv2:name "Grid S: 8 N: 1";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "grid_1_2" ;
+		lv2:name "Grid S: 1 N: 2";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "grid_2_2" ;
+		lv2:name "Grid S: 2 N: 2";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "grid_3_2" ;
+		lv2:name "Grid S: 3 N: 2";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "grid_4_2" ;
+		lv2:name "Grid S: 4 N: 2";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 31 ;
+		lv2:symbol "grid_5_2" ;
+		lv2:name "Grid S: 5 N: 2";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 32 ;
+		lv2:symbol "grid_6_2" ;
+		lv2:name "Grid S: 6 N: 2";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 33 ;
+		lv2:symbol "grid_7_2" ;
+		lv2:name "Grid S: 7 N: 2";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "grid_8_2" ;
+		lv2:name "Grid S: 8 N: 2";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 35 ;
+		lv2:symbol "grid_1_3" ;
+		lv2:name "Grid S: 1 N: 3";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 36 ;
+		lv2:symbol "grid_2_3" ;
+		lv2:name "Grid S: 2 N: 3";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 37 ;
+		lv2:symbol "grid_3_3" ;
+		lv2:name "Grid S: 3 N: 3";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 38 ;
+		lv2:symbol "grid_4_3" ;
+		lv2:name "Grid S: 4 N: 3";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 39 ;
+		lv2:symbol "grid_5_3" ;
+		lv2:name "Grid S: 5 N: 3";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 40 ;
+		lv2:symbol "grid_6_3" ;
+		lv2:name "Grid S: 6 N: 3";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 41 ;
+		lv2:symbol "grid_7_3" ;
+		lv2:name "Grid S: 7 N: 3";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 42 ;
+		lv2:symbol "grid_8_3" ;
+		lv2:name "Grid S: 8 N: 3";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 43 ;
+		lv2:symbol "grid_1_4" ;
+		lv2:name "Grid S: 1 N: 4";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 44 ;
+		lv2:symbol "grid_2_4" ;
+		lv2:name "Grid S: 2 N: 4";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 45 ;
+		lv2:symbol "grid_3_4" ;
+		lv2:name "Grid S: 3 N: 4";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 46 ;
+		lv2:symbol "grid_4_4" ;
+		lv2:name "Grid S: 4 N: 4";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 47 ;
+		lv2:symbol "grid_5_4" ;
+		lv2:name "Grid S: 5 N: 4";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 48 ;
+		lv2:symbol "grid_6_4" ;
+		lv2:name "Grid S: 6 N: 4";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 49 ;
+		lv2:symbol "grid_7_4" ;
+		lv2:name "Grid S: 7 N: 4";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 50 ;
+		lv2:symbol "grid_8_4" ;
+		lv2:name "Grid S: 8 N: 4";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 51 ;
+		lv2:symbol "grid_1_5" ;
+		lv2:name "Grid S: 1 N: 5";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 52 ;
+		lv2:symbol "grid_2_5" ;
+		lv2:name "Grid S: 2 N: 5";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 53 ;
+		lv2:symbol "grid_3_5" ;
+		lv2:name "Grid S: 3 N: 5";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 54 ;
+		lv2:symbol "grid_4_5" ;
+		lv2:name "Grid S: 4 N: 5";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 55 ;
+		lv2:symbol "grid_5_5" ;
+		lv2:name "Grid S: 5 N: 5";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 56 ;
+		lv2:symbol "grid_6_5" ;
+		lv2:name "Grid S: 6 N: 5";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 57 ;
+		lv2:symbol "grid_7_5" ;
+		lv2:name "Grid S: 7 N: 5";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 58 ;
+		lv2:symbol "grid_8_5" ;
+		lv2:name "Grid S: 8 N: 5";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 59 ;
+		lv2:symbol "grid_1_6" ;
+		lv2:name "Grid S: 1 N: 6";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 60 ;
+		lv2:symbol "grid_2_6" ;
+		lv2:name "Grid S: 2 N: 6";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 61 ;
+		lv2:symbol "grid_3_6" ;
+		lv2:name "Grid S: 3 N: 6";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 62 ;
+		lv2:symbol "grid_4_6" ;
+		lv2:name "Grid S: 4 N: 6";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 63 ;
+		lv2:symbol "grid_5_6" ;
+		lv2:name "Grid S: 5 N: 6";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 64 ;
+		lv2:symbol "grid_6_6" ;
+		lv2:name "Grid S: 6 N: 6";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 65 ;
+		lv2:symbol "grid_7_6" ;
+		lv2:name "Grid S: 7 N: 6";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 66 ;
+		lv2:symbol "grid_8_6" ;
+		lv2:name "Grid S: 8 N: 6";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 67 ;
+		lv2:symbol "grid_1_7" ;
+		lv2:name "Grid S: 1 N: 7";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 68 ;
+		lv2:symbol "grid_2_7" ;
+		lv2:name "Grid S: 2 N: 7";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 69 ;
+		lv2:symbol "grid_3_7" ;
+		lv2:name "Grid S: 3 N: 7";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 70 ;
+		lv2:symbol "grid_4_7" ;
+		lv2:name "Grid S: 4 N: 7";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 71 ;
+		lv2:symbol "grid_5_7" ;
+		lv2:name "Grid S: 5 N: 7";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 72 ;
+		lv2:symbol "grid_6_7" ;
+		lv2:name "Grid S: 6 N: 7";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 73 ;
+		lv2:symbol "grid_7_7" ;
+		lv2:name "Grid S: 7 N: 7";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 74 ;
+		lv2:symbol "grid_8_7" ;
+		lv2:name "Grid S: 8 N: 7";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 75 ;
+		lv2:symbol "grid_1_8" ;
+		lv2:name "Grid S: 1 N: 8";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 76 ;
+		lv2:symbol "grid_2_8" ;
+		lv2:name "Grid S: 2 N: 8";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 77 ;
+		lv2:symbol "grid_3_8" ;
+		lv2:name "Grid S: 3 N: 8";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 78 ;
+		lv2:symbol "grid_4_8" ;
+		lv2:name "Grid S: 4 N: 8";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 79 ;
+		lv2:symbol "grid_5_8" ;
+		lv2:name "Grid S: 5 N: 8";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 80 ;
+		lv2:symbol "grid_6_8" ;
+		lv2:name "Grid S: 6 N: 8";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 81 ;
+		lv2:symbol "grid_7_8" ;
+		lv2:name "Grid S: 7 N: 8";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 82 ;
+		lv2:symbol "grid_8_8" ;
+		lv2:name "Grid S: 8 N: 8";
+		lv2:default 0 ;
+		lv2:minimum 0 ;
+		lv2:maximum 127 ;
+		lv2:portProperty lv2:integer;
+]; .
+
+stepseq:ui_gl
+	a ui:X11UI ;
+	lv2:requiredFeature ui:idleInterface; lv2:extensionData ui:idleInterface;
+  .

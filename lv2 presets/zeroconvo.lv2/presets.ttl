@@ -1,0 +1,99 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix zcpset: <http://gareus.org/oss/lv2/zeroconvolv/pset#> .
+
+zcpset:noopMono
+	a pset:Preset;
+	lv2:appliesTo <http://gareus.org/oss/lv2/zeroconvolv#Mono>;
+
+	rdfs:label "No-OP Mono";
+	rdfs:comment "A No-OP 1in, 1out test impulse response: delta-spike followed by 63 zeroes";
+	state:state [
+		<http://gareus.org/oss/lv2/zeroconvolv#ir> <ir/delta-48k.wav>;
+		<http://gareus.org/oss/lv2/zeroconvolv#predelay> "0"^^xsd:int;
+		<http://gareus.org/oss/lv2/zeroconvolv#artificial_latency> "0"^^xsd:int;
+	].
+zcpset:noopMonoToStereo
+	a pset:Preset;
+	lv2:appliesTo <http://gareus.org/oss/lv2/zeroconvolv#MonoToStereo>;
+
+	rdfs:label "No-OP Mono to Stereo";
+	rdfs:comment "A No-OP 1in, 2out test impulse response: delta-spike followed by 63 zeroes";
+	state:state [
+		<http://gareus.org/oss/lv2/zeroconvolv#ir> <ir/delta-48k.wav>;
+		<http://gareus.org/oss/lv2/zeroconvolv#predelay> "0"^^xsd:int;
+	].
+zcpset:noopStereo
+	a pset:Preset;
+	lv2:appliesTo <http://gareus.org/oss/lv2/zeroconvolv#Stereo>;
+
+	rdfs:label "No-OP Stereo";
+	rdfs:comment "A No-OP 2in, 2out test impulse response: delta-spike followed by 63 zeroes. left -> left, right -> right mapping no left/right crossover.";
+	state:state [
+
+		# Impulse response file, needs to be readable by libsndfile, prefer flac files
+		# Channels mapping as follows:
+		# - Mono (1 in, 1 out):
+		#    always use first channel only
+		# - MonoToStereo (1 in, 2 out):
+		#    mono-file: use only channel for both M -> L, M -> R
+		#    else: use first two channels
+		# - Stereo (2 in, 2 out):
+		#    mono-file: use 1st for both L -> L, R -> R, no x-over
+		#    stereo-file: L -> L, R -> R  -- no L/R, R/L x-over
+		#    3chan-file: ignore 3rd channel, use as stereo-file.
+		#    4chan file:  L -> L, L -> R, R -> L, R -> R
+		#
+		# Additional channels in the file are ignored.
+		# Note that if the plugin host's sample-rate mismatches, the file is resampled.
+		<http://gareus.org/oss/lv2/zeroconvolv#ir> <ir/delta-48k.wav>;
+
+		# pre-delay, additional silence added at the beginning before the IR.
+		# The value's unit is samples at sample-rate of the IR file.
+		<http://gareus.org/oss/lv2/zeroconvolv#predelay> "0"^^xsd:int;
+
+		# artificial latency, extra latency reported to the host. This is useful
+		# when using FIR filters that otherwise introduce a delay.
+		# Conceptually this is like negative pre-delay.
+		# The unit is samples at sample-rate of the IR file.
+		<http://gareus.org/oss/lv2/zeroconvolv#artificial_latency> "0"^^xsd:int;
+
+		# Gain to apply for all channels of the IR file.
+		# gain-coefficient: 0.0 =  silence, 1.0 =  unity-gain,
+		# negative values invert the polarity
+		<http://gareus.org/oss/lv2/zeroconvolv#gain> "1.0"^^xsd:float;
+
+		# Downmix stereo input (equal amplitude sum).
+		# Only useful with the true-stereo (2 in, 2 out) variant.
+		<http://gareus.org/oss/lv2/zeroconvolv#sum_inputs> false;
+
+		# per IR file channel pre-delay, added to zeroconvolv#predelay
+		<http://gareus.org/oss/lv2/zeroconvolv#channel_predelay> [
+			a atom:Vector;
+			atom:childType atom:Int;
+			rdf:value (
+				"0"^^xsd:int
+				"0"^^xsd:int
+				"0"^^xsd:int
+				"0"^^xsd:int
+			)
+		];
+
+		# per IR channel gain, multiplied with zeroconvolv#gain
+		<http://gareus.org/oss/lv2/zeroconvolv#channel_gain> [
+			a atom:Vector;
+			atom:childType atom:Float;
+			rdf:value (
+				"1.0"^^xsd:float
+				"1.0"^^xsd:float
+				"1.0"^^xsd:float
+				"1.0"^^xsd:float
+			)
+		];
+	].
