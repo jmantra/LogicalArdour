@@ -176,7 +176,7 @@ yabridgectl add "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
 
 notify "Install zynaddsubfx"
 # Install required dependencies if needed
-sudo apt-get install apt-transport-https gpgv wget -y
+sudo apt-get install apt-transport-https gpgv wget
 
 # Download package file
 wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
@@ -251,7 +251,9 @@ sudo apt install musescore -y
 notify "Installing tools for detecting key and bpm"
 
 # Key
-wget "https://drive.usercontent.google.com/download?id=1PiKx_JeGfiD1cstcJ00rMtY6hGny6WXV&export=download&authuser=0&confirm=t&uuid=3373d73c-0113-4a84-bffe-46fe227436c4&at=APZUnTVcx3H_plhebHeddP_PdgJ7:1720276179939"
+
+
+wget https://jmantra.blob.core.windows.net/data/key
 
 chmod + x key
 
@@ -259,7 +261,7 @@ sudo cp key /usr/bin
 
 #BPM
 
-wget https://drive.usercontent.google.com/download?id=1Lda5WIYD2WcxZpkKeXbix9QoEcx5xIhd&export=download&authuser=0&confirm=t&uuid=d50e0718-5e01-4a59-92e7-0c3a0fcc27d6&at=APZUnTVeDS1Af5fgMKlfh7PhuLpl:1720276255286
+wget https://jmantra.blob.core.windows.net/data/bpmbin
 
 chmod + x bpmbin
 
@@ -278,6 +280,16 @@ sudo apt install swh-lv2 -y
 notify "Installing TAP plugins"
 
 sudo apt install tap-plugins -y
+
+notify "Installing Guitarix and plugins"
+
+sudo apt install guitarix -y
+
+sudo apt install guitarix-lv2 -y
+
+sudo apt install gxplugins -y
+
+
 
 
 
