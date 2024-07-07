@@ -310,6 +310,8 @@ unzip beatdrmr.zip -d ./$(basename -s .zip beatdrmr.zip)
 
 cp -rf beatdrmr "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
 
+sudo cp -r ardour.desktop /usr/share/applications/
+
 
 
 
