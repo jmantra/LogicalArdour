@@ -74,80 +74,13 @@ echo '@audio - rtprio 90
 fi
 
 
-read -p "Do you want to configure Pipewire? (Configuring Pipewire will allow you to use Ardour and other audio applications (such as your web browser)simultaneously. Otherwise you will need to choose ALSA when starting Ardour or configure JACK audio manually (yes/no): " answer
 
-
-answer_lower=$(echo "$answer" | tr '[:upper:]' '[:lower:]')
-
-
-if [[ "$answer_lower" == "yes" || "$answer_lower" == "y" ]]; then
-    pw="yes"
-    
-   fi
-   
-
-
-if [[ "$pw" == "yes" ]]; then
-
-
-# ------------------------------------------------------------------------------------
-# Install the latest Pipewire
-# https://pipewire-debian.github.io/pipewire-debian/
-# ------------------------------------------------------------------------------------
-notify "Install Pipewire"
-sudo add-apt-repository ppa:pipewire-debian/pipewire-upstream -y
-sudo add-apt-repository ppa:pipewire-debian/wireplumber-upstream -y
-sudo apt update
-sudo apt install gstreamer1.0-pipewire libpipewire-0.3-{0,dev,modules} libspa-0.2-{bluetooth,dev,jack,modules} pipewire{,-{audio-client-libraries,pulse,bin,jack,alsa,v4l2,libcamera,locales,tests}} -y
-sudo apt install wireplumber{,-doc} gir1.2-wp-0.4 libwireplumber-0.4-{0,dev} -y
-systemctl --user --now disable pulseaudio.{socket,service}
-systemctl --user mask pulseaudio
-sudo cp -vRa /usr/share/pipewire /etc/
-systemctl --user --now enable pipewire{,-pulse}.{socket,service} filter-chain.service
-systemctl --user --now enable wireplumber.service
-
-fi
-
-
-
-
-
-
-
-
-
-
-
-# ---------------------------
-# Add the user to the audio group
-# ---------------------------
-notify "Add user to the audio group"
-sudo adduser $USER audio
 
 
 
 notify "Install Ardour"
 
 sudo apt install ardour -y
-
-
-
-notify "Installing x42 plugins"
-
-wget -O gm.tar.gz "https://x42-plugins.com/x42/linux/x42-gmsynth-v0.6.0-x86_64.tar.gz"
-
-tar xavf gm.tar.gz
-
-cd x42-gmsynth/
-
-sh install-lv2.sh
-
-sudo apt install x42-plugins -y
-
-
-
-
-
 
 
 notify "Installing Musescore"
@@ -180,38 +113,6 @@ sudo cp bpmbin /usr/bin
 
 sudo chmod 755 /usr/bin/key
 
-notify "Installing Calf Plugins"
-
-sudo apt install calf-plugins -y
-
-
-
-
-notify "Installing Steven Harris plugins"
-
-sudo apt install swh-lv2 -y
-
-
-
-
-notify "Installing TAP plugins"
-
-sudo apt install tap-plugins -y
-
-
-
-notify "Installing Guitarix and plugins"
-
-sudo apt install guitarix -y
-
-
-
-sudo apt install guitarix-lv2 -y
-
-
-
-sudo apt install gxplugins -y
-
 
 
 notify "Install Surge XT"
@@ -223,70 +124,6 @@ sudo apt install xclip -y
 
 
 sudo dpkg -i surge-xt-linux-x64-1.3.2.deb
-
-
-
-
-
-
-
-
-
-
-
-
-
-notify "download and installing  ardour config files"
-
-
-
-
-
-notify "downloading and installing Ardour config files"
-
-wget https://codeload.github.com/jmantra/LogicalArdour/zip/refs/heads/main
-
-mkdir LogicalArdour
-
-unzip main -d LogicalArdour
-
-
-cd LogicalArdour/LogicalArdour-main
-
-cp -rf /ardour8  ~/.config/
-
-notify "Install Neural Amp Modeler WINE plugin"
-
-# Create common VST paths
-mkdir -p "$HOME/.wine/drive_c/Program Files/Steinberg/VstPlugins"
-mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
-mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
-mkdir -p "$HOME/.vst"
-mkdir -p "$HOME/.vst3"
-
-cp -rf /NeuralAmpModeler.vst3 "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
-
-
-
-notify "installing  lv2 presets"
-
-mkdir ~/.lv2
-
-cp -rf "lv2 presets/*"  ~/.lv2
-
-notify "installing Guitarix VST and presets"
-
-mkdir ~/.vst3
-
-cp -rf vst3/*  ~/.vst3
-
-notify "installing soundfonts and samples"
-
-sudo mkdir /opt/LogicalArdour
-
-sudo cp -rf /samples/* /opt/LogicalArdour
-
-#rm -rf LogicalArdour/*
 
 
 notify "Install zynaddsubfx and enable kxstudio repos"
@@ -305,8 +142,19 @@ sudo dpkg -i kxstudio-repos_11.1.0_all.deb
 
 sudo apt install zynaddsubfx zynaddsubfx-lv2 zynaddsubfx-data -y
 
+notify "Installing all other lv2 plugins"
 
+wget -O gm.tar.gz "https://x42-plugins.com/x42/linux/x42-gmsynth-v0.6.0-x86_64.tar.gz"
 
+tar xavf gm.tar.gz
+
+cd x42-gmsynth/
+
+sh install-lv2.sh
+
+cd "$HOME/Downloads"
+
+sudo apt install x42-plugins avldrums.lv2 swh-lv2 calf-plugins tap-plugins guitarix-lv2 -y
 
 
 # ---------------------------
@@ -367,7 +215,75 @@ sudo apt install libnotify-bin -y
 
 
 
+notify "downloading and installing Ardour config files"
 
+
+
+wget https://codeload.github.com/jmantra/LogicalArdour/zip/refs/heads/main
+
+mkdir LogicalArdour
+
+unzip main -d LogicalArdour
+
+
+cd LogicalArdour/LogicalArdour-main
+
+
+
+# Function to check if folder exists, make a backup if exists, create if not
+backup_or_create_folder() {
+    local folder="$1"
+
+    if [ -d "$folder" ]; then
+        echo "Folder '$folder' already exists. Making a backup..."
+        cp -r "$folder" "${folder}_backup"
+    else
+        echo "Folder '$folder' does not exist. Creating folder..."
+        mkdir -p "$folder"
+    fi
+}
+
+
+folder="$HOME/.lv2"
+backup_or_create_folder "$folder"
+
+
+cp -rf 'lv2 presets/*' $HOME/.lv2
+
+folder="$HOME/.vst"
+backup_or_create_folder "$folder"
+
+
+cp -rf vst/* "$HOME/.vst"
+
+folder="$HOME/.vst3"
+backup_or_create_folder "$folder"
+
+cp -rf vst3/* "$HOME/.vst3"
+
+
+notify "installing soundfonts and samples"
+
+sudo mkdir -p /opt/LogicalArdour
+
+sudo cp -rf /samples/* /opt/LogicalArdour
+
+#rm -rf LogicalArdour/*
+
+notify "Install Neural Amp Modeler WINE plugin"
+
+# Create common VST paths
+mkdir -p "$HOME/.wine/drive_c/Program Files/Steinberg/VstPlugins"
+mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
+mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
+
+# Add them into yabridge
+yabridgectl add "$HOME/.wine/drive_c/Program Files/Steinberg/VstPlugins"
+yabridgectl add "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
+yabridgectl add "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
+
+
+cp -rf NeuralAmpModeler.vst3 "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
 
 
 
