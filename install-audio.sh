@@ -104,6 +104,25 @@ ensure_app_installed() {
     fi
 }
 
+ensure_package_installed() {
+    local package_name=$1
+    local deb_file=$2
+
+    if dpkg -l | grep -qw $package_name; then
+        echo "$package_name is  installed."
+    else
+        echo "$package_name is not installed. Installing from $deb_file..."
+            sudo apt update
+           sudo apt --fix-broken install -y
+
+        # Install the package using dpkg
+        sudo dpkg -i $deb_file
+
+
+        fi
+
+}
+
 
 
 notify "Install Ardour"
@@ -111,6 +130,170 @@ notify "Install Ardour"
 sudo apt install ardour -y
 
 ensure_app_installed "ardour"
+
+notify "Installing x42 plugins"
+
+wget -O gm.tar.gz "https://x42-plugins.com/x42/linux/x42-gmsynth-v0.6.0-x86_64.tar.gz"
+
+tar xavf gm.tar.gz
+
+cd x42-gmsynth/
+
+sh install-lv2.sh
+
+sudo apt install x42-plugins -y
+
+ensure_app_installed "x42-plugins"
+
+
+
+
+
+notify "Installing Musescore"
+
+sudo apt install musescore -y
+
+ensure_app_installed "musescore"
+
+
+notify "Downloading and installing tools for detecting key and bpm"
+
+# Key
+
+
+wget https://jmantra.blob.core.windows.net/data/key
+
+
+
+sudo cp key /usr/bin
+
+sudo chmod 755 /usr/bin/key
+
+#BPM
+
+wget https://jmantra.blob.core.windows.net/data/bpmbin
+
+
+
+sudo cp bpmbin /usr/bin
+
+sudo chmod 755 /usr/bin/key
+
+notify "Installing Calf Plugins"
+
+sudo apt install calf-plugins -y
+
+ensure_app_installed "calf-plugins"
+
+
+notify "Installing Steven Harris plugins"
+
+sudo apt install swh-lv2 -y
+
+ensure_app_installed "swh-lv2"
+
+
+notify "Installing TAP plugins"
+
+sudo apt install tap-plugins -y
+
+ensure_app_installed "tap-plugins"
+
+notify "Installing Guitarix and plugins"
+
+sudo apt install guitarix -y
+
+ensure_app_installed "guitarix"
+
+sudo apt install guitarix-lv2 -y
+
+ensure_app_installed "guitarix-lv2"
+
+sudo apt install gxplugins -y
+
+ensure_app_installed "gxplugins"
+
+notify "Install Surge XT"
+
+wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.2/surge-xt-linux-x64-1.3.2.deb
+
+sudo apt install xclip -y
+
+ensure_app_installed "xclip"
+
+sudo dpkg -i surge-xt-linux-x64-1.3.2.deb
+
+# Function to ensure Surge is installed
+
+
+
+
+
+ensure_package_installed "surge-xt" "surge-xt-linux-x64-1.3.2.deb"
+
+
+
+
+
+
+
+
+
+
+notify "download and installing  ardour config files"
+
+sudo apt install git -y
+
+ensure_app_installed "git"
+
+notify "downloading and installing Ardour config files"
+
+git clone https://github.com/jmantra/LogicalArdour.git
+
+cd LogicalArdour
+
+cp -rf /ardour8  ~/.config/
+
+notify "download and installing  lv2 presets"
+
+mkdir ~/.lv2
+
+cp -rf "lv2 presets/*"  ~/.lv2
+
+notify "downloading and installing Guitarix VST and presets"
+
+mkdir ~/.vst3
+
+cp -rf vst3/*  ~/.vst3
+
+notify "downloading and installing soundfonts and samples"
+
+sudo mkdir /opt/LogicalArdour
+
+sudo cp -rf /samples/* /opt/LogicalArdour
+
+rm -rf LogicalArdour/*
+
+
+notify "Install zynaddsubfx and enable kxstudio repos"
+# Install required dependencies if needed
+sudo apt-get install apt-transport-https gpgv wget
+
+ensure_app_installed "apt-transport-https"
+ensure_app_installed "gpgv"
+ensure_app_installed "wget"
+
+
+# Download package file
+wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
+
+# Install it
+sudo dpkg -i kxstudio-repos_11.1.0_all.deb
+
+ensure_package_installed "kxstudios-repos" "kxstudio-repos_11.1.0_all.deb"
+
+sudo apt install zynaddsubfx zynaddsubfx-lv2 zynaddsubfx-data -y
+
 
 
 
@@ -181,57 +364,7 @@ yabridgectl add "$HOME/.wine/drive_c/Program Files/Steinberg/VstPlugins"
 yabridgectl add "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
 yabridgectl add "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
 
-notify "Install zynaddsubfx"
-# Install required dependencies if needed
-sudo apt-get install apt-transport-https gpgv wget
 
-ensure_app_installed "apt-transport-https"
-ensure_app_installed "gpgv"
-ensure_app_installed "wget"
-
-
-# Download package file
-wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
-
-# Install it
-sudo dpkg -i kxstudio-repos_11.1.0_all.deb
-
-sudo apt install zynaddsubfx zynaddsubfx-lv2 zynaddsubfx-data -y
-
-notify "Install Surge XT"
-
-wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.1/surge-xt-linux-x64-1.3.2.deb
-
-sudo apt install xclip -y
-
-ensure_app_installed "xclip"
-
-sudo dpkg -i surge-xt-linux-x64-1.3.2.deb
-
-# Function to ensure Surge is installed
-
-ensure_package_installed() {
-    local package_name=$1
-    local deb_file=$2
-
-    if dpkg -l | grep -qw $package_name; then
-        echo "$package_name is  installed."
-    else
-        echo "$package_name is not installed. Installing from $deb_file..."
-            sudo apt update
-           sudo apt --fix-broken install -y
-
-        # Install the package using dpkg
-        sudo dpkg -i $deb_file
-
-
-        fi
-    fi
-}
-
-
-
-ensure_package_installed "surge-xt" "surge-xt-linux-x64-1.3.2.deb"
 
 
 
@@ -272,121 +405,6 @@ notify "Sync WINE plugins with yabridge"
 yabridgectl sync
 yabridgectl status
 
-notify "Installing x42 General Midi Synth"
-
-wget -O gm.tar.gz "https://x42-plugins.com/x42/linux/x42-gmsynth-v0.6.0-x86_64.tar.gz"
-
-tar xavf gm.tar.gz
-
-cd x42-gmsynth/
-
-sh install-lv2.sh
-
-sudo apt install x42-plugins -y
-
-ensure_app_installed "x42-plugins"
-
-
-
-
-
-notify "Installing Musescore"
-
-sudo apt install musescore -y
-
-ensure_app_installed "musescore"
-
-
-notify "Downloading and installing tools for detecting key and bpm"
-
-# Key
-
-
-wget https://jmantra.blob.core.windows.net/data/key
-
-chmod + x key
-
-sudo cp key /usr/bin
-
-#BPM
-
-wget https://jmantra.blob.core.windows.net/data/bpmbin
-
-chmod + x bpmbin
-
-sudo cp bpmbin /usr/bin
-
-notify "Installing Calf Plugins"
-
-sudo apt install calf-plugins -y
-
-ensure_app_installed "calf-plugins"
-
-
-notify "Installing Steven Harris plugins"
-
-sudo apt install swh-lv2 -y 
-
-ensure_app_installed "swh-lv2"
-
-
-notify "Installing TAP plugins"
-
-sudo apt install tap-plugins -y
-
-ensure_app_installed "tap-plugins"
-
-notify "Installing Guitarix and plugins"
-
-sudo apt install guitarix -y
-
-ensure_app_installed "guitarix"
-
-sudo apt install guitarix-lv2 -y
-
-ensure_app_installed "guitarix-lv2"
-
-sudo apt install gxplugins -y
-
-ensure_app_installed "gxplugins"
-
-
-
-
-
-
-
-
-
-notify "download and installing  ardour config files"
-
-sudo apt install git -y
-
-ensure_app_installed "git"
-
-git clone https://github.com/jmantra/LogicalArdour.git
-
-cp -rf LogicalArdour/ardour8 ~/.config/
-
-notify "download and installing  lv2 presets"
-
-mkdir ~/.lv2
-
-cp -rf "lv2 presets/*"  ~/.lv2
-
-notify "downloading and installing Guitarix VST and presets"
-
-mkdir ~/.vst3
-
-cp -rf vst3/*  ~/.vst3
-
-notify "downloading and installing soundfonts and samples"
-
-sudo mkdir /opt/LogicalArdour
-
-sudo cp -rf /samples/* /opt/LogicalArdour
-
-rm -rf LogicalArdour/*
 
 
 # ---------------------------
