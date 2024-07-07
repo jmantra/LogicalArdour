@@ -84,13 +84,33 @@ echo '@audio - rtprio 90
 notify "Add user to the audio group"
 sudo adduser $USER audio
 
-set -e
+# function to ensure package is installed and fix any broken dependencies
+ensure_app_installed() {
+    local app_name=$1
+
+    if command -v $app_name &> /dev/null; then
+        echo "$app_name is  installed."
+    else
+        echo "$app_name is not installed. Installing..."
+
+        # Only apply to Debian/Ubuntu systems
+        if command -v apt &> /dev/null; then
+            sudo apt update
+             sudo apt --fix-broken install -y
+            sudo apt install -y $app_name
+        else
+            echo "This script only supports Debian/Ubuntu systems with apt package manager."
+        fi
+    fi
+}
 
 
 
 notify "Install Ardour"
 
 sudo apt install ardour -y
+
+ensure_app_installed "ardour"
 
 
 
@@ -106,9 +126,11 @@ sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-bui
 sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources
 sudo apt update
 sudo apt install --install-recommends winehq-staging -y
+ensure_app_installed "winehq-staging"
 
 # Winetricks
 sudo apt install cabextract -y
+ensure_app_installed "cabextract"
 mkdir -p ~/.local/share
 wget -O winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
 mv winetricks ~/.local/share
@@ -126,23 +148,6 @@ winetricks corefonts
 cp -r ~/.wine ~/.wine-base
 
 
-# Winetricks
-sudo apt install cabextract -y
-mkdir -p ~/.local/share
-wget -O winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
-mv winetricks ~/.local/share
-chmod +x ~/.local/share/winetricks
-echo '' >> ~/.bash_aliases
-echo '# Audio: winetricks' >> ~/.bash_aliases
-echo 'export PATH="$PATH:$HOME/.local/share"' >> ~/.bash_aliases
-. ~/.bash_aliases
-
-# Base wine packages required for proper plugin functionality
-winetricks corefonts
-
-# Make a copy of .wine, as we will use this in the future as the base of
-# new wine prefixes (when installing plugins)
-cp -r ~/.wine ~/.wine-base
 
 
 # ---------------------------
@@ -164,6 +169,8 @@ echo 'export PATH="$PATH:$HOME/.local/share/yabridge"' >> ~/.bash_aliases
 # libnotify-bin contains notify-send, which is used for yabridge plugin notifications.
 sudo apt install libnotify-bin -y
 
+ensure_app_installed "libnotify-bin"
+
 # Create common VST paths
 mkdir -p "$HOME/.wine/drive_c/Program Files/Steinberg/VstPlugins"
 mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
@@ -178,6 +185,11 @@ notify "Install zynaddsubfx"
 # Install required dependencies if needed
 sudo apt-get install apt-transport-https gpgv wget
 
+ensure_app_installed "apt-transport-https"
+ensure_app_installed "gpgv"
+ensure_app_installed "wget"
+
+
 # Download package file
 wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
 
@@ -188,11 +200,42 @@ sudo apt install zynaddsubfx zynaddsubfx-lv2 zynaddsubfx-data -y
 
 notify "Install Surge XT"
 
-wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.1/surge-xt-linux-x64-1.3.1.deb
+wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.1/surge-xt-linux-x64-1.3.2.deb
 
 sudo apt install xclip -y
 
-sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
+ensure_app_installed "xclip"
+
+sudo dpkg -i surge-xt-linux-x64-1.3.2.deb
+
+# Function to ensure Surge is installed
+
+ensure_package_installed() {
+    local package_name=$1
+    local deb_file=$2
+
+    if dpkg -l | grep -qw $package_name; then
+        echo "$package_name is  installed."
+    else
+        echo "$package_name is not installed. Installing from $deb_file..."
+            sudo apt update
+           sudo apt --fix-broken install -y
+
+        # Install the package using dpkg
+        sudo dpkg -i $deb_file
+
+
+        fi
+    fi
+}
+
+
+
+ensure_package_installed "surge-xt" "surge-xt-linux-x64-1.3.2.deb"
+
+
+
+
 
 notify "Install WINE plugin  MTpowerDrumkit"
 
@@ -241,14 +284,20 @@ sh install-lv2.sh
 
 sudo apt install x42-plugins -y
 
+ensure_app_installed "x42-plugins"
+
+
+
 
 
 notify "Installing Musescore"
 
 sudo apt install musescore -y
 
+ensure_app_installed "musescore"
 
-notify "Installing tools for detecting key and bpm"
+
+notify "Downloading and installing tools for detecting key and bpm"
 
 # Key
 
@@ -271,23 +320,35 @@ notify "Installing Calf Plugins"
 
 sudo apt install calf-plugins -y
 
+ensure_app_installed "calf-plugins"
+
 
 notify "Installing Steven Harris plugins"
 
 sudo apt install swh-lv2 -y 
+
+ensure_app_installed "swh-lv2"
 
 
 notify "Installing TAP plugins"
 
 sudo apt install tap-plugins -y
 
+ensure_app_installed "tap-plugins"
+
 notify "Installing Guitarix and plugins"
 
 sudo apt install guitarix -y
 
+ensure_app_installed "guitarix"
+
 sudo apt install guitarix-lv2 -y
 
+ensure_app_installed "guitarix-lv2"
+
 sudo apt install gxplugins -y
+
+ensure_app_installed "gxplugins"
 
 
 
@@ -300,6 +361,8 @@ sudo apt install gxplugins -y
 notify "download and installing  ardour config files"
 
 sudo apt install git -y
+
+ensure_app_installed "git"
 
 git clone https://github.com/jmantra/LogicalArdour.git
 
