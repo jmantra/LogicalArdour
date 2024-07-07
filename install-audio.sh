@@ -1,9 +1,8 @@
 #!/bin/bash
 # ---------------------------
-# This is a bash script for configuring Ubuntu 22.04 (jammy) for pro audio using PIPEWIRE.
-# ---------------------------
-# NOTE: Execute this script by running the following command on your system:
-# wget -O ~/install-audio.sh https://raw.githubusercontent.com/brendaningram/linux-audio-setup-scripts/main/ubuntu/2204/install-audio.sh && chmod +x ~/install-audio.sh && ~/install-audio.sh
+# This is a bash script for configuring Ardour and all dependencies for LogicalArdour for  Ubuntu 24.04 (Noble Nombat)
+# This script is based on Bredan Ingraham's scripts for setting up pro audio on various distros, you can view his Github at 
+# https://github.com/brendaningram/linux-audio-setup-scripts
 
 # Exit if any command fails
  #set -e
@@ -22,13 +21,73 @@ notify "Update the system"
 sudo apt update && sudo apt dist-upgrade -y
 
 
-# ---------------------------
+read -p "Do you want to install a real-time kernel? (A real time kernel helps to reduce latency when recording) (yes/no): " answer
+
+
+answer_lower=$(echo "$answer" | tr '[:upper:]' '[:lower:]')
+
+
+if [[ "$answer_lower" == "yes" || "$answer_lower" == "y" ]]; then
+    kernel="yes"
+   
+fi
+
+
+
+
+if [[ "$kernel" == "yes" ]]; then
+    
+ 
 # Install the Liquorix kernel
 # https://liquorix.net/
 # ---------------------------
-#notify "Install the Liquorix kernel"
-#sudo add-apt-repository ppa:damentz/liquorix -y && sudo apt-get update
-#sudo apt-get install linux-image-liquorix-amd64 linux-headers-liquorix-amd64 -y
+notify "Install the Liquorix kernel"
+sudo add-apt-repository ppa:damentz/liquorix -y && sudo apt-get update
+sudo apt-get install linux-image-liquorix-amd64 linux-headers-liquorix-amd64 -y
+    
+# ---------------------------
+# Modify GRUB options
+# threadirqs:
+# mitigations=off:
+# cpufreq.default_governor=performance:
+# ---------------------------
+notify "Modify GRUB options"
+sudo systemctl disable ondemand
+sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash threadirqs mitigations=off cpufreq.default_governor=performance"/g' /etc/default/grub
+sudo update-grub
+
+# ---------------------------
+# sysctl.conf
+# ---------------------------
+notify "sysctl.conf"
+# See https://wiki.linuxaudio.org/wiki/system_configuration for more information.
+echo 'vm.swappiness=10
+fs.inotify.max_user_watches=600000' | sudo tee -a /etc/sysctl.conf
+
+# ---------------------------
+# audio.conf
+# ---------------------------
+notify "audio.conf"
+# See https://wiki.linuxaudio.org/wiki/system_configuration for more information.
+echo '@audio - rtprio 90
+@audio - memlock unlimited' | sudo tee -a /etc/security/limits.d/audio.conf
+fi
+
+
+read -p "Do you want to configure Pipewire? (Configuring Pipewire will allow you to use Ardour and other audio applications (such as your web browser)simultaneously. Otherwise you will need to choose ALSA when starting Ardour or configure JACK audio manually (yes/no): " answer
+
+
+answer_lower=$(echo "$answer" | tr '[:upper:]' '[:lower:]')
+
+
+if [[ "$answer_lower" == "yes" || "$answer_lower" == "y" ]]; then
+    pw="yes"
+    
+   fi
+   
+
+
+if [[ "$pw" == "yes" ]]; then
 
 
 # ------------------------------------------------------------------------------------
@@ -47,35 +106,16 @@ sudo cp -vRa /usr/share/pipewire /etc/
 systemctl --user --now enable pipewire{,-pulse}.{socket,service} filter-chain.service
 systemctl --user --now enable wireplumber.service
 
-
-# ---------------------------
-# Modify GRUB options
-# threadirqs:
-# mitigations=off:
-# cpufreq.default_governor=performance:
-# ---------------------------
-#notify "Modify GRUB options"
-#sudo systemctl disable ondemand
-#sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"/GRUB_CMDLINE_LINUX_DEFAULT="quiet splash threadirqs mitigations=off cpufreq.default_governor=performance"/g' /etc/default/grub
-#sudo update-grub
+fi
 
 
-# ---------------------------
-# sysctl.conf
-# ---------------------------
-#notify "sysctl.conf"
-# See https://wiki.linuxaudio.org/wiki/system_configuration for more information.
-#echo 'vm.swappiness=10
-#fs.inotify.max_user_watches=600000' | sudo tee -a /etc/sysctl.conf
 
 
-# ---------------------------
-# audio.conf
-# ---------------------------
-notify "audio.conf"
-# See https://wiki.linuxaudio.org/wiki/system_configuration for more information.
-echo '@audio - rtprio 90
-@audio - memlock unlimited' | sudo tee -a /etc/security/limits.d/audio.conf
+
+
+
+
+
 
 
 # ---------------------------
@@ -84,52 +124,13 @@ echo '@audio - rtprio 90
 notify "Add user to the audio group"
 sudo adduser $USER audio
 
-# function to ensure package is installed and fix any broken dependencies
-ensure_app_installed() {
-    local app_name=$1
-
-    if command -v $app_name &> /dev/null; then
-        echo "$app_name is  installed."
-    else
-        echo "$app_name is not installed. Installing..."
-
-        # Only apply to Debian/Ubuntu systems
-        if command -v apt &> /dev/null; then
-            sudo apt update
-             sudo apt --fix-broken install -y
-            sudo apt install -y $app_name
-        else
-            echo "This script only supports Debian/Ubuntu systems with apt package manager."
-        fi
-    fi
-}
-
-ensure_package_installed() {
-    local package_name=$1
-    local deb_file=$2
-
-    if dpkg -l | grep -qw $package_name; then
-        echo "$package_name is  installed."
-    else
-        echo "$package_name is not installed. Installing from $deb_file..."
-            sudo apt update
-           sudo apt --fix-broken install -y
-
-        # Install the package using dpkg
-        sudo dpkg -i $deb_file
-
-
-        fi
-
-}
-
 
 
 notify "Install Ardour"
 
 sudo apt install ardour -y
 
-ensure_app_installed "ardour"
+
 
 notify "Installing x42 plugins"
 
@@ -143,7 +144,7 @@ sh install-lv2.sh
 
 sudo apt install x42-plugins -y
 
-ensure_app_installed "x42-plugins"
+
 
 
 
@@ -153,7 +154,7 @@ notify "Installing Musescore"
 
 sudo apt install musescore -y
 
-ensure_app_installed "musescore"
+
 
 
 notify "Downloading and installing tools for detecting key and bpm"
@@ -183,35 +184,35 @@ notify "Installing Calf Plugins"
 
 sudo apt install calf-plugins -y
 
-ensure_app_installed "calf-plugins"
+
 
 
 notify "Installing Steven Harris plugins"
 
 sudo apt install swh-lv2 -y
 
-ensure_app_installed "swh-lv2"
+
 
 
 notify "Installing TAP plugins"
 
 sudo apt install tap-plugins -y
 
-ensure_app_installed "tap-plugins"
+
 
 notify "Installing Guitarix and plugins"
 
 sudo apt install guitarix -y
 
-ensure_app_installed "guitarix"
+
 
 sudo apt install guitarix-lv2 -y
 
-ensure_app_installed "guitarix-lv2"
+
 
 sudo apt install gxplugins -y
 
-ensure_app_installed "gxplugins"
+
 
 notify "Install Surge XT"
 
@@ -219,17 +220,12 @@ wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.2/su
 
 sudo apt install xclip -y
 
-ensure_app_installed "xclip"
+
 
 sudo dpkg -i surge-xt-linux-x64-1.3.2.deb
 
-# Function to ensure Surge is installed
 
 
-
-
-
-ensure_package_installed "surge-xt" "surge-xt-linux-x64-1.3.2.deb"
 
 
 
@@ -242,37 +238,42 @@ ensure_package_installed "surge-xt" "surge-xt-linux-x64-1.3.2.deb"
 
 notify "download and installing  ardour config files"
 
-sudo apt install git -y
 
-ensure_app_installed "git"
+
+
 
 notify "downloading and installing Ardour config files"
 
-git clone https://github.com/jmantra/LogicalArdour.git
+wget https://codeload.github.com/jmantra/LogicalArdour/zip/refs/heads/main
 
-cd LogicalArdour
+mkdir LogicalArdour
+
+unzip main -d LogicalArdour
+
+
+cd LogicalArdour/LogicalArdour-main
 
 cp -rf /ardour8  ~/.config/
 
-notify "download and installing  lv2 presets"
+notify "installing  lv2 presets"
 
 mkdir ~/.lv2
 
 cp -rf "lv2 presets/*"  ~/.lv2
 
-notify "downloading and installing Guitarix VST and presets"
+notify "installing Guitarix VST and presets"
 
 mkdir ~/.vst3
 
 cp -rf vst3/*  ~/.vst3
 
-notify "downloading and installing soundfonts and samples"
+notify "installing soundfonts and samples"
 
 sudo mkdir /opt/LogicalArdour
 
 sudo cp -rf /samples/* /opt/LogicalArdour
 
-rm -rf LogicalArdour/*
+#rm -rf LogicalArdour/*
 
 
 notify "Install zynaddsubfx and enable kxstudio repos"
@@ -290,9 +291,10 @@ wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-re
 # Install it
 sudo dpkg -i kxstudio-repos_11.1.0_all.deb
 
-ensure_package_installed "kxstudios-repos" "kxstudio-repos_11.1.0_all.deb"
+
 
 sudo apt install zynaddsubfx zynaddsubfx-lv2 zynaddsubfx-data -y
+
 
 
 
@@ -358,11 +360,17 @@ ensure_app_installed "libnotify-bin"
 mkdir -p "$HOME/.wine/drive_c/Program Files/Steinberg/VstPlugins"
 mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
 mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
+mkdir -p "$HOME/.vst"
+mkdir -p "$HOME/.vst3"
+
 
 # Add them into yabridge
 yabridgectl add "$HOME/.wine/drive_c/Program Files/Steinberg/VstPlugins"
 yabridgectl add "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
 yabridgectl add "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
+yabridgectl add "$HOME/.vst"
+yabridgectl add "$HOME/.vst3"
+
 
 
 
@@ -404,7 +412,6 @@ notify "Sync WINE plugins with yabridge"
 
 yabridgectl sync
 yabridgectl status
-
 
 
 # ---------------------------
