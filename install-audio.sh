@@ -255,6 +255,19 @@ cd LogicalArdour/LogicalArdour-main
 
 cp -rf /ardour8  ~/.config/
 
+notify "Install Neural Amp Modeler WINE plugin"
+
+# Create common VST paths
+mkdir -p "$HOME/.wine/drive_c/Program Files/Steinberg/VstPlugins"
+mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
+mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
+mkdir -p "$HOME/.vst"
+mkdir -p "$HOME/.vst3"
+
+cp -rf /NeuralAmpModeler.vst3 "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
+
+
+
 notify "installing  lv2 presets"
 
 mkdir ~/.lv2
@@ -280,9 +293,6 @@ notify "Install zynaddsubfx and enable kxstudio repos"
 # Install required dependencies if needed
 sudo apt-get install apt-transport-https gpgv wget
 
-ensure_app_installed "apt-transport-https"
-ensure_app_installed "gpgv"
-ensure_app_installed "wget"
 
 
 # Download package file
@@ -354,22 +364,10 @@ echo 'export PATH="$PATH:$HOME/.local/share/yabridge"' >> ~/.bash_aliases
 # libnotify-bin contains notify-send, which is used for yabridge plugin notifications.
 sudo apt install libnotify-bin -y
 
-ensure_app_installed "libnotify-bin"
-
-# Create common VST paths
-mkdir -p "$HOME/.wine/drive_c/Program Files/Steinberg/VstPlugins"
-mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
-mkdir -p "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
-mkdir -p "$HOME/.vst"
-mkdir -p "$HOME/.vst3"
 
 
-# Add them into yabridge
-yabridgectl add "$HOME/.wine/drive_c/Program Files/Steinberg/VstPlugins"
-yabridgectl add "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
-yabridgectl add "$HOME/.wine/drive_c/Program Files/Common Files/VST3"
-yabridgectl add "$HOME/.vst"
-yabridgectl add "$HOME/.vst3"
+
+
 
 
 
@@ -396,13 +394,9 @@ unzip beatdrmr.zip -d ./$(basename -s .zip beatdrmr.zip)
 
 cp -rf beatdrmr "$HOME/.wine/drive_c/Program Files/Common Files/VST2"
 
-notify "Install Neural Amp Modeler WINE plugin"
 
-wget -O nam.zip  https://github.com/sdatkinson/NeuralAmpModelerPlugin/releases/download/v0.7.8/NeuralAmpModeler-v0.7.8-win.zip
 
-unzip nam.zip
 
-wine "NeuralAmpModeler Installer.exe"
 
 
 
