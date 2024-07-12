@@ -28,7 +28,7 @@ local dialog_options = {
 				["Record Audio"] =
 
 				{
-					["Vocals"] = { ["Classic"] = "clv",["Bright"] = "brv", ["Compressed"] = "cov", ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav"},
+					["Vocals"] = { ["Classic"] = "clv",["Bright"] = "brv", ["Compressed"] = "cov", ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav", ["Edge"] =  "edv"},
 					["Guitar or Bass"] = {
 					["Guitarix"] = "gx", ["Neural Amp Modeler"] = "nm"
 				},
@@ -382,6 +382,20 @@ print (full_path)
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Surge XT Session"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+
+						if rv and rv["dropdown"] == "edv" then
+		print("Edge Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/Edge Vocals.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Edge Vocals"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
