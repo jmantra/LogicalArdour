@@ -1,60 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Route version="7003" id="13692" name="compressed" default-type="audio" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" audio-playlist="13754" saved-meter-point="MeterPostFader" alignment-choice="Automatic" mode="Normal">
-  <ProgramVersion created-with="Ardour 8.6-34-g895fe2f753" modified-with="Ardour 8.6-34-g895fe2f753" name="compressed"/>
+<Route version="7003" id="236" name="compressed" default-type="audio" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" audio-playlist="171" saved-meter-point="MeterPostFader" alignment-choice="Automatic" mode="Normal">
+  <ProgramVersion created-with="Ardour 8.6-300-g7052f57ee9" modified-with="Ardour 8.6-300-g7052f57ee9" name="compressed"/>
   <PresentationInfo order="1" flags="AudioTrack,OrderSet" color="151600127"/>
-  <Controllable name="solo" id="13717" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
-  <Controllable name="solo-iso" id="13723" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
-  <Controllable name="solo-safe" id="13725" flags="Toggle" value="0" solo-safe="0"/>
-  <IO name="679021-Small LoFi piano loop" id="13737" direction="Input" default-type="audio">
-    <Port name="679021-Small LoFi piano loop/audio_in 1" type="audio" direction="Input">
+  <Controllable name="solo" id="199" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="616" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+  <Controllable name="solo-safe" id="617" flags="Toggle" value="0" solo-safe="0"/>
+  <IO name="compressed" id="237" direction="Input" default-type="audio">
+    <Port name="compressed/audio_in 1" type="audio" direction="Input">
       <ExtConnection for="JACK"/>
       <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:capture_FL"/>
     </Port>
-    <Port name="679021-Small LoFi piano loop/audio_in 2" type="audio" direction="Input">
+    <Port name="compressed/audio_in 2" type="audio" direction="Input">
       <ExtConnection for="JACK"/>
       <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:capture_FR"/>
     </Port>
   </IO>
-  <IO name="679021-Small LoFi piano loop" id="13738" direction="Output" default-type="audio">
-    <Port name="679021-Small LoFi piano loop/audio_out 1" type="audio" direction="Output">
-      <Connection other="Master/audio_in 1"/>
+  <IO name="compressed" id="242" direction="Output" default-type="audio">
+    <Port name="compressed/audio_out 1" type="audio" direction="Output">
       <Connection other="Master/audio_in 1"/>
     </Port>
-    <Port name="679021-Small LoFi piano loop/audio_out 2" type="audio" direction="Output">
-      <Connection other="Master/audio_in 2"/>
+    <Port name="compressed/audio_out 2" type="audio" direction="Output">
       <Connection other="Master/audio_in 2"/>
     </Port>
   </IO>
   <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
-  <Controllable name="mute" id="13719" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="phase" id="13721" flags="Toggle" value="0" phase-invert="00"/>
+  <Controllable name="mute" id="618" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="phase" id="619" flags="Toggle" value="0" phase-invert="00"/>
   <Automation>
-    <AutomationList automation-id="solo" id="13716" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="solo-iso" id="13722" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="solo-safe" id="13724" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="mute" id="13718" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="rec-enable" id="13748" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="rec-safe" id="13750" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="phase" id="13720" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="monitor" id="13752" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="solo" id="620" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="solo-iso" id="621" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="solo-safe" id="622" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="mute" id="623" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="rec-enable" id="624" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="rec-safe" id="625" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="phase" id="626" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="monitor" id="627" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
   </Automation>
   <Pannable>
-    <Controllable name="pan-azimuth" id="13728" flags="" value="0.5"/>
-    <Controllable name="pan-width" id="13732" flags="" value="0"/>
-    <Controllable name="pan-elevation" id="13730" flags="" value="0"/>
-    <Controllable name="pan-frontback" id="13734" flags="" value="0"/>
-    <Controllable name="pan-lfe" id="13736" flags="" value="0"/>
+    <Controllable name="pan-azimuth" id="244" flags="" value="0.5"/>
+    <Controllable name="pan-width" id="245" flags="" value="0"/>
+    <Controllable name="pan-elevation" id="246" flags="" value="0"/>
+    <Controllable name="pan-frontback" id="247" flags="" value="0"/>
+    <Controllable name="pan-lfe" id="248" flags="" value="0"/>
     <Automation>
-      <AutomationList automation-id="pan-azimuth" id="13727" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-elevation" id="13729" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-width" id="13731" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-frontback" id="13733" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-lfe" id="13735" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-azimuth" id="249" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-elevation" id="250" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-width" id="251" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-frontback" id="252" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-lfe" id="253" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
     </Automation>
   </Pannable>
-  <Processor id="13747" name="recorder:679021-Small LoFi piano loop" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
-  <Processor id="13746" name="player:679021-Small LoFi piano loop" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
-  <Processor id="13695" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="audio" order="0">
+  <Processor id="254" name="recorder:679021-Small LoFi piano loop" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
+  <Processor id="259" name="player:679021-Small LoFi piano loop" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
+  <Processor id="260" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="audio" order="0">
     <Triggers>
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="0" segment-tempo="0" start="a0"/>
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="1" segment-tempo="0" start="a0"/>
@@ -74,39 +72,99 @@
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="15" segment-tempo="0" start="a0"/>
     </Triggers>
   </Processor>
-  <Processor id="13740" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
-  <Processor id="13742" name="Amp" active="1" user-latency="0" use-user-latency="0" type="trim">
+  <Processor id="293" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+  <Processor id="294" name="Amp" active="1" user-latency="0" use-user-latency="0" type="trim">
     <Automation>
-      <AutomationList automation-id="trim" id="13714" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="trim" id="295" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
     </Automation>
-    <Controllable name="trimcontrol" id="13715" flags="GainLike" value="1"/>
+    <Controllable name="trimcontrol" id="296" flags="GainLike" value="1"/>
   </Processor>
-  <Processor id="13834" name="ACE EQ" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-eq" count="2" custom="0">
+  <Processor id="679" name="x42-Autotune (scales)" active="0" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://gareus.org/oss/lv2/fat1#scales" count="2" custom="0">
     <Automation>
-      <AutomationList automation-id="parameter-0" id="13835" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-1" id="13837" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-2" id="13839" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-3" id="13841" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-4" id="13843" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-5" id="13845" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-6" id="13847" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-7" id="13849" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-8" id="13851" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-9" id="13853" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-10" id="13855" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-11" id="13857" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-12" id="13859" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-13" id="13861" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-14" id="13863" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-15" id="13865" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-16" id="13867" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-17" id="13869" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-18" id="13871" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-19" id="13873" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-20" id="13875" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-21" id="13877" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-22" id="13879" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-23" id="13881" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-3" id="680" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="682" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="684" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="686" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="688" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-8" id="690" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="692" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="694" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-11" id="696" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-12" id="698" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+    </Automation>
+    <ConfiguredInput>
+      <Channels type="audio" count="2"/>
+    </ConfiguredInput>
+    <CustomSinks>
+      <Channels type="audio" count="1"/>
+      <Channels type="midi" count="1"/>
+    </CustomSinks>
+    <ConfiguredOutput>
+      <Channels type="audio" count="2"/>
+    </ConfiguredOutput>
+    <PresetOutput/>
+    <InputMap-0>
+      <Channelmap type="audio" from="0" to="0"/>
+    </InputMap-0>
+    <OutputMap-0>
+      <Channelmap type="audio" from="0" to="0"/>
+    </OutputMap-0>
+    <InputMap-1>
+      <Channelmap type="audio" from="0" to="1"/>
+    </InputMap-1>
+    <OutputMap-1>
+      <Channelmap type="audio" from="0" to="1"/>
+    </OutputMap-1>
+    <ThruMap/>
+    <lv2 last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="0" template-dir="/home/jman/.config/ardour8/route_templates/compressed">
+      <Port symbol="mode" value="0"/>
+      <Port symbol="channelf" value="0"/>
+      <Port symbol="tuning" value="440"/>
+      <Port symbol="bias" value="0.5"/>
+      <Port symbol="filter" value="0.10000000149011612"/>
+      <Port symbol="corr" value="1"/>
+      <Port symbol="offset" value="0"/>
+      <Port symbol="bendrange" value="2"/>
+      <Port symbol="fastmode" value="0"/>
+      <Port symbol="scale" value="0"/>
+    </lv2>
+    <Controllable name="Mode" id="681" flags="" value="0" parameter="3" symbol="mode"/>
+    <Controllable name="Filter Channel" id="683" flags="" value="0" parameter="4" symbol="channelf"/>
+    <Controllable name="Tuning" id="685" flags="" value="440" parameter="5" symbol="tuning"/>
+    <Controllable name="Bias" id="687" flags="" value="0.5" parameter="6" symbol="bias"/>
+    <Controllable name="Filter" id="689" flags="" value="0.10000000149011612" parameter="7" symbol="filter"/>
+    <Controllable name="Correction" id="691" flags="" value="1" parameter="8" symbol="corr"/>
+    <Controllable name="Offset" id="693" flags="" value="0" parameter="9" symbol="offset"/>
+    <Controllable name="Pitch Bend Range" id="695" flags="" value="2" parameter="10" symbol="bendrange"/>
+    <Controllable name="Fast Correction" id="697" flags="Toggle" value="0" parameter="11" symbol="fastmode"/>
+    <Controllable name="Scale" id="699" flags="" value="0" parameter="12" symbol="scale"/>
+  </Processor>
+  <Processor id="373" name="ACE EQ" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-eq" count="2" custom="0">
+    <Automation>
+      <AutomationList automation-id="parameter-0" id="374" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-1" id="375" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-2" id="376" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-3" id="377" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="378" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="379" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="380" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="381" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-8" id="382" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="383" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="384" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-11" id="385" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-12" id="386" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-13" id="387" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-14" id="388" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-15" id="389" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-16" id="390" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-17" id="391" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-18" id="392" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-19" id="393" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-20" id="394" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-21" id="395" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-22" id="396" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-23" id="397" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="audio" count="2"/>
@@ -157,41 +215,41 @@
       <Port symbol="filtogh" value="1"/>
       <Port symbol="enable" value="1"/>
     </lv2>
-    <Controllable name="Frequency L" id="13836" flags="" value="48.097248077392578" parameter="0" symbol="freql"/>
-    <Controllable name="Gain L" id="13838" flags="" value="-18.559988021850586" parameter="1" symbol="gl"/>
-    <Controllable name="Frequency 1" id="13840" flags="" value="387.90133666992188" parameter="2" symbol="freq1"/>
-    <Controllable name="Gain 1" id="13842" flags="" value="4.6933345794677734" parameter="3" symbol="g1"/>
-    <Controllable name="Bandwidth 1" id="13844" flags="" value="1" parameter="4" symbol="bw1"/>
-    <Controllable name="Frequency 2" id="13846" flags="" value="1000" parameter="5" symbol="freq2"/>
-    <Controllable name="Gain 2" id="13848" flags="" value="0" parameter="6" symbol="g2"/>
-    <Controllable name="Bandwidth 2" id="13850" flags="" value="1" parameter="7" symbol="bw2"/>
-    <Controllable name="Frequency 3" id="13852" flags="" value="2627.48291015625" parameter="8" symbol="freq3"/>
-    <Controllable name="Gain 3" id="13854" flags="" value="-1.6639957427978516" parameter="9" symbol="g3"/>
-    <Controllable name="Bandwidth 3" id="13856" flags="" value="1" parameter="10" symbol="bw3"/>
-    <Controllable name="Frequency 4" id="13858" flags="" value="6000" parameter="11" symbol="freq4"/>
-    <Controllable name="Gain 4" id="13860" flags="" value="0" parameter="12" symbol="g4"/>
-    <Controllable name="Bandwidth 4" id="13862" flags="" value="1" parameter="13" symbol="bw4"/>
-    <Controllable name="Frequency H" id="13864" flags="" value="9000" parameter="14" symbol="freqh"/>
-    <Controllable name="Gain H" id="13866" flags="" value="0" parameter="15" symbol="gh"/>
-    <Controllable name="Master Gain" id="13868" flags="" value="0" parameter="16" symbol="master"/>
-    <Controllable name="Filter L" id="13870" flags="Toggle" value="1" parameter="17" symbol="filtogl"/>
-    <Controllable name="Filter 1" id="13872" flags="Toggle" value="1" parameter="18" symbol="filtog1"/>
-    <Controllable name="Filter 2" id="13874" flags="Toggle" value="1" parameter="19" symbol="filtog2"/>
-    <Controllable name="Filter 3" id="13876" flags="Toggle" value="1" parameter="20" symbol="filtog3"/>
-    <Controllable name="Filter 4" id="13878" flags="Toggle" value="1" parameter="21" symbol="filtog4"/>
-    <Controllable name="Filter H" id="13880" flags="Toggle" value="1" parameter="22" symbol="filtogh"/>
-    <Controllable name="Enable" id="13882" flags="Toggle" value="1" parameter="23" symbol="enable"/>
+    <Controllable name="Frequency L" id="348" flags="" value="48.097248077392578" parameter="0" symbol="freql"/>
+    <Controllable name="Gain L" id="349" flags="" value="-18.559988021850586" parameter="1" symbol="gl"/>
+    <Controllable name="Frequency 1" id="350" flags="" value="387.90133666992188" parameter="2" symbol="freq1"/>
+    <Controllable name="Gain 1" id="351" flags="" value="4.6933345794677734" parameter="3" symbol="g1"/>
+    <Controllable name="Bandwidth 1" id="352" flags="" value="1" parameter="4" symbol="bw1"/>
+    <Controllable name="Frequency 2" id="353" flags="" value="1000" parameter="5" symbol="freq2"/>
+    <Controllable name="Gain 2" id="354" flags="" value="0" parameter="6" symbol="g2"/>
+    <Controllable name="Bandwidth 2" id="355" flags="" value="1" parameter="7" symbol="bw2"/>
+    <Controllable name="Frequency 3" id="356" flags="" value="2627.48291015625" parameter="8" symbol="freq3"/>
+    <Controllable name="Gain 3" id="357" flags="" value="-1.6639957427978516" parameter="9" symbol="g3"/>
+    <Controllable name="Bandwidth 3" id="358" flags="" value="1" parameter="10" symbol="bw3"/>
+    <Controllable name="Frequency 4" id="359" flags="" value="6000" parameter="11" symbol="freq4"/>
+    <Controllable name="Gain 4" id="360" flags="" value="0" parameter="12" symbol="g4"/>
+    <Controllable name="Bandwidth 4" id="361" flags="" value="1" parameter="13" symbol="bw4"/>
+    <Controllable name="Frequency H" id="362" flags="" value="9000" parameter="14" symbol="freqh"/>
+    <Controllable name="Gain H" id="363" flags="" value="0" parameter="15" symbol="gh"/>
+    <Controllable name="Master Gain" id="364" flags="" value="0" parameter="16" symbol="master"/>
+    <Controllable name="Filter L" id="365" flags="Toggle" value="1" parameter="17" symbol="filtogl"/>
+    <Controllable name="Filter 1" id="366" flags="Toggle" value="1" parameter="18" symbol="filtog1"/>
+    <Controllable name="Filter 2" id="367" flags="Toggle" value="1" parameter="19" symbol="filtog2"/>
+    <Controllable name="Filter 3" id="368" flags="Toggle" value="1" parameter="20" symbol="filtog3"/>
+    <Controllable name="Filter 4" id="369" flags="Toggle" value="1" parameter="21" symbol="filtog4"/>
+    <Controllable name="Filter H" id="370" flags="Toggle" value="1" parameter="22" symbol="filtogh"/>
+    <Controllable name="Enable" id="371" flags="Toggle" value="1" parameter="23" symbol="enable"/>
   </Processor>
-  <Processor id="13887" name="ACE Compressor" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-comp" count="2" custom="0">
+  <Processor id="426" name="ACE Compressor" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-comp" count="2" custom="0">
     <Automation>
-      <AutomationList automation-id="parameter-0" id="13888" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-1" id="13890" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-2" id="13892" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-3" id="13894" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-4" id="13896" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-5" id="13898" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-9" id="13900" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-10" id="13902" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-0" id="427" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-1" id="428" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-2" id="429" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-3" id="430" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="431" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="432" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="433" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="434" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="audio" count="2"/>
@@ -226,25 +284,25 @@
       <Port symbol="sidech" value="0"/>
       <Port symbol="enable" value="1"/>
     </lv2>
-    <Controllable name="Attack" id="13889" flags="" value="34.969371795654297" parameter="0" symbol="att"/>
-    <Controllable name="Release" id="13891" flags="" value="80" parameter="1" symbol="rel"/>
-    <Controllable name="Knee" id="13893" flags="" value="0.98399990797042847" parameter="2" symbol="kn"/>
-    <Controllable name="Ratio" id="13895" flags="" value="4.0912961959838867" parameter="3" symbol="rat"/>
-    <Controllable name="Threshold" id="13897" flags="" value="-14.399936676025391" parameter="4" symbol="thr"/>
-    <Controllable name="Makeup" id="13899" flags="" value="0.98999989032745361" parameter="5" symbol="mak"/>
-    <Controllable name="Sidechain" id="13901" flags="Toggle" value="0" parameter="9" symbol="sidech"/>
-    <Controllable name="Enable" id="13903" flags="Toggle" value="1" parameter="10" symbol="enable"/>
+    <Controllable name="Attack" id="417" flags="" value="34.969371795654297" parameter="0" symbol="att"/>
+    <Controllable name="Release" id="418" flags="" value="80" parameter="1" symbol="rel"/>
+    <Controllable name="Knee" id="419" flags="" value="0.98399990797042847" parameter="2" symbol="kn"/>
+    <Controllable name="Ratio" id="420" flags="" value="4.0912961959838867" parameter="3" symbol="rat"/>
+    <Controllable name="Threshold" id="421" flags="" value="-14.399936676025391" parameter="4" symbol="thr"/>
+    <Controllable name="Makeup" id="422" flags="" value="0.98999989032745361" parameter="5" symbol="mak"/>
+    <Controllable name="Sidechain" id="423" flags="Toggle" value="0" parameter="9" symbol="sidech"/>
+    <Controllable name="Enable" id="424" flags="Toggle" value="1" parameter="10" symbol="enable"/>
   </Processor>
-  <Processor id="13908" name="ACE Compressor" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-comp" count="2" custom="0">
+  <Processor id="463" name="ACE Compressor" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-comp" count="2" custom="0">
     <Automation>
-      <AutomationList automation-id="parameter-0" id="13909" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-1" id="13911" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-2" id="13913" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-3" id="13915" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-4" id="13917" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-5" id="13919" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-9" id="13921" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-10" id="13923" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-0" id="464" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-1" id="465" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-2" id="466" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-3" id="467" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="468" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="469" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="470" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="471" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="audio" count="2"/>
@@ -279,18 +337,18 @@
       <Port symbol="sidech" value="0"/>
       <Port symbol="enable" value="1"/>
     </lv2>
-    <Controllable name="Attack" id="13910" flags="" value="10" parameter="0" symbol="att"/>
-    <Controllable name="Release" id="13912" flags="" value="80" parameter="1" symbol="rel"/>
-    <Controllable name="Knee" id="13914" flags="" value="0" parameter="2" symbol="kn"/>
-    <Controllable name="Ratio" id="13916" flags="" value="4.1374421119689941" parameter="3" symbol="rat"/>
-    <Controllable name="Threshold" id="13918" flags="" value="-13.679962158203125" parameter="4" symbol="thr"/>
-    <Controllable name="Makeup" id="13920" flags="" value="0.99000144004821777" parameter="5" symbol="mak"/>
-    <Controllable name="Sidechain" id="13922" flags="Toggle" value="0" parameter="9" symbol="sidech"/>
-    <Controllable name="Enable" id="13924" flags="Toggle" value="1" parameter="10" symbol="enable"/>
+    <Controllable name="Attack" id="454" flags="" value="10" parameter="0" symbol="att"/>
+    <Controllable name="Release" id="455" flags="" value="80" parameter="1" symbol="rel"/>
+    <Controllable name="Knee" id="456" flags="" value="0" parameter="2" symbol="kn"/>
+    <Controllable name="Ratio" id="457" flags="" value="4.1374421119689941" parameter="3" symbol="rat"/>
+    <Controllable name="Threshold" id="458" flags="" value="-13.679962158203125" parameter="4" symbol="thr"/>
+    <Controllable name="Makeup" id="459" flags="" value="0.99000144004821777" parameter="5" symbol="mak"/>
+    <Controllable name="Sidechain" id="460" flags="Toggle" value="0" parameter="9" symbol="sidech"/>
+    <Controllable name="Enable" id="461" flags="Toggle" value="1" parameter="10" symbol="enable"/>
   </Processor>
-  <Processor id="13828" name="Comb Splitter" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://plugin.org.uk/swh-plugins/combSplitter" count="1" custom="0">
+  <Processor id="478" name="Comb Splitter" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://plugin.org.uk/swh-plugins/combSplitter" count="1" custom="0">
     <Automation>
-      <AutomationList automation-id="parameter-0" id="13829" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-0" id="479" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="audio" count="2"/>
@@ -313,16 +371,16 @@
     <lv2 last-preset-uri="file:///home/jman/.lv2/Comb_Splitter_compressed.lv2/compressed.ttl" last-preset-label="compressed" parameter-changed-since-last-preset="0" template-dir="/home/jman/.config/ardour8/route_templates/compressed">
       <Port symbol="freq" value="172"/>
     </lv2>
-    <Controllable name="Band separation (Hz)" id="13830" flags="" value="172" parameter="0" symbol="freq"/>
+    <Controllable name="Band separation (Hz)" id="477" flags="" value="172" parameter="0" symbol="freq"/>
   </Processor>
-  <Processor id="13811" name="GxCompressor" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://guitarix.sourceforge.net/plugins/gx_compressor#_compressor" count="2" custom="0">
+  <Processor id="502" name="GxCompressor" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://guitarix.sourceforge.net/plugins/gx_compressor#_compressor" count="2" custom="0">
     <Automation>
-      <AutomationList automation-id="parameter-0" id="13812" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-1" id="13814" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-2" id="13816" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-3" id="13818" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-4" id="13820" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-7" id="13822" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-0" id="503" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-1" id="504" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-2" id="505" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-3" id="506" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="507" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="508" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="audio" count="2"/>
@@ -355,39 +413,39 @@
       <Port symbol="ATTACK" value="0.0020000000949949026"/>
       <Port symbol="BYPASS" value="1"/>
     </lv2>
-    <Controllable name="RATIO" id="13813" flags="" value="2" parameter="0" symbol="RATIO"/>
-    <Controllable name="KNEE" id="13815" flags="" value="3" parameter="1" symbol="KNEE"/>
-    <Controllable name="THRESHOLD" id="13817" flags="" value="-55" parameter="2" symbol="THRESHOLD"/>
-    <Controllable name="RELEASE" id="13819" flags="" value="0.90000003576278687" parameter="3" symbol="RELEASE"/>
-    <Controllable name="ATTACK" id="13821" flags="" value="0.0020000000949949026" parameter="4" symbol="ATTACK"/>
-    <Controllable name="BYPASS" id="13823" flags="Toggle" value="1" parameter="7" symbol="BYPASS"/>
+    <Controllable name="RATIO" id="495" flags="" value="2" parameter="0" symbol="RATIO"/>
+    <Controllable name="KNEE" id="496" flags="" value="3" parameter="1" symbol="KNEE"/>
+    <Controllable name="THRESHOLD" id="497" flags="" value="-55" parameter="2" symbol="THRESHOLD"/>
+    <Controllable name="RELEASE" id="498" flags="" value="0.90000003576278687" parameter="3" symbol="RELEASE"/>
+    <Controllable name="ATTACK" id="499" flags="" value="0.0020000000949949026" parameter="4" symbol="ATTACK"/>
+    <Controllable name="BYPASS" id="500" flags="Toggle" value="1" parameter="7" symbol="BYPASS"/>
   </Processor>
-  <Processor id="13929" name="ACE EQ" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-eq" count="2" custom="0">
+  <Processor id="585" name="ACE EQ" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-eq" count="2" custom="0">
     <Automation>
-      <AutomationList automation-id="parameter-0" id="13930" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-1" id="13932" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-2" id="13934" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-3" id="13936" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-4" id="13938" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-5" id="13940" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-6" id="13942" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-7" id="13944" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-8" id="13946" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-9" id="13948" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-10" id="13950" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-11" id="13952" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-12" id="13954" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-13" id="13956" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-14" id="13958" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-15" id="13960" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-16" id="13962" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-17" id="13964" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-18" id="13966" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-19" id="13968" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-20" id="13970" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-21" id="13972" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-22" id="13974" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-23" id="13976" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-0" id="586" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-1" id="587" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-2" id="588" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-3" id="589" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="590" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="591" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="592" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="593" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-8" id="594" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="595" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="596" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-11" id="597" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-12" id="598" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-13" id="599" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-14" id="600" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-15" id="601" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-16" id="602" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-17" id="603" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-18" id="604" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-19" id="605" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-20" id="606" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-21" id="607" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-22" id="608" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-23" id="609" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="audio" count="2"/>
@@ -438,43 +496,43 @@
       <Port symbol="filtogh" value="1"/>
       <Port symbol="enable" value="1"/>
     </lv2>
-    <Controllable name="Frequency L" id="13931" flags="" value="160" parameter="0" symbol="freql"/>
-    <Controllable name="Gain L" id="13933" flags="" value="0" parameter="1" symbol="gl"/>
-    <Controllable name="Frequency 1" id="13935" flags="" value="300" parameter="2" symbol="freq1"/>
-    <Controllable name="Gain 1" id="13937" flags="" value="0" parameter="3" symbol="g1"/>
-    <Controllable name="Bandwidth 1" id="13939" flags="" value="1" parameter="4" symbol="bw1"/>
-    <Controllable name="Frequency 2" id="13941" flags="" value="1000" parameter="5" symbol="freq2"/>
-    <Controllable name="Gain 2" id="13943" flags="" value="0" parameter="6" symbol="g2"/>
-    <Controllable name="Bandwidth 2" id="13945" flags="" value="1" parameter="7" symbol="bw2"/>
-    <Controllable name="Frequency 3" id="13947" flags="" value="2500" parameter="8" symbol="freq3"/>
-    <Controllable name="Gain 3" id="13949" flags="" value="0" parameter="9" symbol="g3"/>
-    <Controllable name="Bandwidth 3" id="13951" flags="" value="1" parameter="10" symbol="bw3"/>
-    <Controllable name="Frequency 4" id="13953" flags="" value="6000" parameter="11" symbol="freq4"/>
-    <Controllable name="Gain 4" id="13955" flags="" value="0" parameter="12" symbol="g4"/>
-    <Controllable name="Bandwidth 4" id="13957" flags="" value="1" parameter="13" symbol="bw4"/>
-    <Controllable name="Frequency H" id="13959" flags="" value="9777.84375" parameter="14" symbol="freqh"/>
-    <Controllable name="Gain H" id="13961" flags="" value="1.2373447418212891" parameter="15" symbol="gh"/>
-    <Controllable name="Master Gain" id="13963" flags="" value="0" parameter="16" symbol="master"/>
-    <Controllable name="Filter L" id="13965" flags="Toggle" value="1" parameter="17" symbol="filtogl"/>
-    <Controllable name="Filter 1" id="13967" flags="Toggle" value="1" parameter="18" symbol="filtog1"/>
-    <Controllable name="Filter 2" id="13969" flags="Toggle" value="1" parameter="19" symbol="filtog2"/>
-    <Controllable name="Filter 3" id="13971" flags="Toggle" value="1" parameter="20" symbol="filtog3"/>
-    <Controllable name="Filter 4" id="13973" flags="Toggle" value="1" parameter="21" symbol="filtog4"/>
-    <Controllable name="Filter H" id="13975" flags="Toggle" value="1" parameter="22" symbol="filtogh"/>
-    <Controllable name="Enable" id="13977" flags="Toggle" value="1" parameter="23" symbol="enable"/>
+    <Controllable name="Frequency L" id="560" flags="" value="160" parameter="0" symbol="freql"/>
+    <Controllable name="Gain L" id="561" flags="" value="0" parameter="1" symbol="gl"/>
+    <Controllable name="Frequency 1" id="562" flags="" value="300" parameter="2" symbol="freq1"/>
+    <Controllable name="Gain 1" id="563" flags="" value="0" parameter="3" symbol="g1"/>
+    <Controllable name="Bandwidth 1" id="564" flags="" value="1" parameter="4" symbol="bw1"/>
+    <Controllable name="Frequency 2" id="565" flags="" value="1000" parameter="5" symbol="freq2"/>
+    <Controllable name="Gain 2" id="566" flags="" value="0" parameter="6" symbol="g2"/>
+    <Controllable name="Bandwidth 2" id="567" flags="" value="1" parameter="7" symbol="bw2"/>
+    <Controllable name="Frequency 3" id="568" flags="" value="2500" parameter="8" symbol="freq3"/>
+    <Controllable name="Gain 3" id="569" flags="" value="0" parameter="9" symbol="g3"/>
+    <Controllable name="Bandwidth 3" id="570" flags="" value="1" parameter="10" symbol="bw3"/>
+    <Controllable name="Frequency 4" id="571" flags="" value="6000" parameter="11" symbol="freq4"/>
+    <Controllable name="Gain 4" id="572" flags="" value="0" parameter="12" symbol="g4"/>
+    <Controllable name="Bandwidth 4" id="573" flags="" value="1" parameter="13" symbol="bw4"/>
+    <Controllable name="Frequency H" id="574" flags="" value="9777.84375" parameter="14" symbol="freqh"/>
+    <Controllable name="Gain H" id="575" flags="" value="1.2373447418212891" parameter="15" symbol="gh"/>
+    <Controllable name="Master Gain" id="576" flags="" value="0" parameter="16" symbol="master"/>
+    <Controllable name="Filter L" id="577" flags="Toggle" value="1" parameter="17" symbol="filtogl"/>
+    <Controllable name="Filter 1" id="578" flags="Toggle" value="1" parameter="18" symbol="filtog1"/>
+    <Controllable name="Filter 2" id="579" flags="Toggle" value="1" parameter="19" symbol="filtog2"/>
+    <Controllable name="Filter 3" id="580" flags="Toggle" value="1" parameter="20" symbol="filtog3"/>
+    <Controllable name="Filter 4" id="581" flags="Toggle" value="1" parameter="21" symbol="filtog4"/>
+    <Controllable name="Filter H" id="582" flags="Toggle" value="1" parameter="22" symbol="filtogh"/>
+    <Controllable name="Enable" id="583" flags="Toggle" value="1" parameter="23" symbol="enable"/>
   </Processor>
-  <Processor id="13739" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+  <Processor id="610" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
     <Automation>
-      <AutomationList automation-id="gain" id="13712" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="gain" id="611" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
     </Automation>
-    <Controllable name="gaincontrol" id="13713" flags="GainLike" value="1"/>
+    <Controllable name="gaincontrol" id="612" flags="GainLike" value="1"/>
   </Processor>
-  <Processor id="13743" name="meter-Audio 1" active="1" user-latency="0" use-user-latency="0" type="meter"/>
-  <Processor id="13744" name="679021-Small LoFi piano loop" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="679021-Small LoFi piano loop" type="main-outs" role="Main">
+  <Processor id="613" name="meter-Audio 1" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+  <Processor id="614" name="compressed" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="compressed" type="main-outs" role="Main">
     <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
   </Processor>
   <Slavable/>
-  <Controllable name="monitor" id="13753" flags="RealTime" value="0" monitoring=""/>
-  <Controllable name="rec-safe" id="13751" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="rec-enable" id="13749" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="monitor" id="632" flags="RealTime" value="0" monitoring=""/>
+  <Controllable name="rec-safe" id="633" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="rec-enable" id="634" flags="Toggle,RealTime" value="0"/>
 </Route>

@@ -1,62 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Route version="7003" id="2936" name="nam" default-type="audio" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" audio-playlist="2998" saved-meter-point="MeterPostFader" alignment-choice="Automatic" mode="Normal">
-  <ProgramVersion created-with="Ardour 8.4-49-g922ad14217" modified-with="Ardour 8.4-49-g922ad14217" name="nam"/>
-  <PresentationInfo order="1" flags="AudioTrack,OrderSet,TriggerTrack" color="2861447679"/>
-  <Controllable name="solo" id="2961" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
-  <Controllable name="solo-iso" id="2967" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
-  <Controllable name="solo-safe" id="2969" flags="Toggle" value="0" solo-safe="0"/>
-  <IO name="Audio 1" id="2981" direction="Input" default-type="audio">
-    <Port name="Audio 1/audio_in 1" type="audio" direction="Input">
+<Route version="7003" id="2632" name="nam" default-type="audio" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" audio-playlist="2567" saved-meter-point="MeterPostFader" alignment-choice="Automatic" mode="Normal">
+  <ProgramVersion created-with="Ardour 8.4.0~ds1-2ubuntu8" modified-with="Ardour 8.4.0~ds1-2ubuntu8" name="nam"/>
+  <PresentationInfo order="5" flags="AudioTrack,OrderSet,TriggerTrack" color="2861447679"/>
+  <Controllable name="solo" id="2595" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="2747" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+  <Controllable name="solo-safe" id="2748" flags="Toggle" value="0" solo-safe="0"/>
+  <IO name="Neural Amp Modeler" id="2633" direction="Input" default-type="audio">
+    <Port name="Neural Amp Modeler/audio_in 1" type="audio" direction="Input">
       <ExtConnection for="JACK"/>
-      <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:capture_FL"/>
       <ExtConnection for="JACK" other="Scarlett 2i2 3rd Gen Analog Stereo:capture_FL"/>
     </Port>
-    <Port name="Audio 1/audio_in 2" type="audio" direction="Input">
+    <Port name="Neural Amp Modeler/audio_in 2" type="audio" direction="Input">
       <ExtConnection for="JACK"/>
-      <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:capture_FR"/>
       <ExtConnection for="JACK" other="Scarlett 2i2 3rd Gen Analog Stereo:capture_FR"/>
     </Port>
   </IO>
-  <IO name="Audio 1" id="2982" direction="Output" default-type="audio">
-    <Port name="Audio 1/audio_out 1" type="audio" direction="Output">
-      <Connection other="Master/audio_in 1"/>
+  <IO name="Neural Amp Modeler" id="2638" direction="Output" default-type="audio">
+    <Port name="Neural Amp Modeler/audio_out 1" type="audio" direction="Output">
       <Connection other="Master/audio_in 1"/>
     </Port>
-    <Port name="Audio 1/audio_out 2" type="audio" direction="Output">
-      <Connection other="Master/audio_in 2"/>
+    <Port name="Neural Amp Modeler/audio_out 2" type="audio" direction="Output">
       <Connection other="Master/audio_in 2"/>
     </Port>
   </IO>
   <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
-  <Controllable name="mute" id="2963" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="phase" id="2965" flags="Toggle" value="0" phase-invert="00"/>
+  <Controllable name="mute" id="2749" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="phase" id="2750" flags="Toggle" value="0" phase-invert="00"/>
   <Automation>
-    <AutomationList automation-id="solo" id="2960" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="solo-iso" id="2966" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="solo-safe" id="2968" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="mute" id="2962" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="rec-enable" id="2992" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="rec-safe" id="2994" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="phase" id="2964" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-    <AutomationList automation-id="monitor" id="2996" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="solo" id="2751" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="solo-iso" id="2752" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="solo-safe" id="2753" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="mute" id="2754" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="rec-enable" id="2755" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="rec-safe" id="2756" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="phase" id="2757" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+    <AutomationList automation-id="monitor" id="2758" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
   </Automation>
   <Pannable>
-    <Controllable name="pan-azimuth" id="2972" flags="" value="0.5"/>
-    <Controllable name="pan-width" id="2976" flags="" value="0"/>
-    <Controllable name="pan-elevation" id="2974" flags="" value="0"/>
-    <Controllable name="pan-frontback" id="2978" flags="" value="0"/>
-    <Controllable name="pan-lfe" id="2980" flags="" value="0"/>
+    <Controllable name="pan-azimuth" id="2640" flags="" value="0.5"/>
+    <Controllable name="pan-width" id="2641" flags="" value="0"/>
+    <Controllable name="pan-elevation" id="2642" flags="" value="0"/>
+    <Controllable name="pan-frontback" id="2643" flags="" value="0"/>
+    <Controllable name="pan-lfe" id="2644" flags="" value="0"/>
     <Automation>
-      <AutomationList automation-id="pan-azimuth" id="2971" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-elevation" id="2973" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-width" id="2975" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-frontback" id="2977" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-lfe" id="2979" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-azimuth" id="2645" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-elevation" id="2646" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-width" id="2647" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-frontback" id="2648" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-lfe" id="2649" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
     </Automation>
   </Pannable>
-  <Processor id="2991" name="recorder:Audio 1" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
-  <Processor id="2990" name="player:Audio 1" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
-  <Processor id="2939" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="audio" order="0">
+  <Processor id="2650" name="recorder:Audio 1" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
+  <Processor id="2655" name="player:Audio 1" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
+  <Processor id="2656" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="audio" order="4">
     <Triggers>
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="0" segment-tempo="0" start="a0"/>
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="1" segment-tempo="0" start="a0"/>
@@ -76,32 +72,26 @@
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="15" segment-tempo="0" start="a0"/>
     </Triggers>
   </Processor>
-  <Processor id="2984" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
-  <Processor id="2986" name="Amp" active="1" user-latency="0" use-user-latency="0" type="trim">
+  <Processor id="2689" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+  <Processor id="2690" name="Amp" active="1" user-latency="0" use-user-latency="0" type="trim">
     <Automation>
-      <AutomationList automation-id="trim" id="2958" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="trim" id="2691" interpolation-style="Logarithmic" time-domain="AudioTime" state="Off"/>
     </Automation>
-    <Controllable name="trimcontrol" id="2959" flags="GainLike" value="1"/>
+    <Controllable name="trimcontrol" id="2692" flags="GainLike" value="1"/>
   </Processor>
-  <Processor id="2983" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+  <Processor id="2732" name="NeuralAmpModeler" active="1" user-latency="0" use-user-latency="0" type="vst3" unique-id="F2AEE70D00DE4F4E534441613159456F" count="1" custom="0">
     <Automation>
-      <AutomationList automation-id="gain" id="2956" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
-    </Automation>
-    <Controllable name="gaincontrol" id="2957" flags="GainLike" value="1"/>
-  </Processor>
-  <Processor id="3011" name="NeuralAmpModeler" active="1" user-latency="0" use-user-latency="0" type="vst3" unique-id="F2AEE70D00DE4F4E534441613159456F" count="1" custom="0">
-    <Automation>
-      <AutomationList automation-id="parameter-0" id="3012" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-1" id="3014" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-2" id="3016" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-3" id="3018" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-4" id="3020" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-5" id="3022" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-6" id="3024" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-7" id="3026" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-8" id="3028" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-9" id="3030" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
-      <AutomationList automation-id="parameter-10" id="3032" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-0" id="2733" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-1" id="2734" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-2" id="2735" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-3" id="2736" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="2737" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="2738" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="2739" interpolation-style="Linear" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="2740" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-8" id="2741" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="2742" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="2743" interpolation-style="Discrete" time-domain="AudioTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="audio" count="2"/>
@@ -122,7 +112,7 @@
       <Channelmap type="audio" from="1" to="1"/>
     </OutputMap-0>
     <ThruMap/>
-    <vst3 last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="0">
+    <vst3 last-preset-uri="VST3-S:F2AEE70D00DE4F4E534441613159456F:default" last-preset-label="default" parameter-changed-since-last-preset="0">
       <Port id="65536" value="0"/>
       <Port id="0" value="0"/>
       <Port id="1" value="-80"/>
@@ -134,26 +124,32 @@
       <Port id="7" value="1"/>
       <Port id="8" value="1"/>
       <Port id="9" value="1"/>
-      <chunk>VlNUMwEAAABGMkFFRTcwRDAwREU0RjRFNTM0NDQxNjEzMTU5NDU2Ri4CAAAAAAAAdAAAAFo6XGhvbWVcam1hblxEb3dubG9hZHNcQW1wZWcgVkw1MDIgbXVsdGlwYWNrIFB1c2hlZCBDbGVhbiBhbmQgSGlnaCBHYWluXEFNUEVHIFZMNTAyIENIMiBBTVAgQ0FCIEU2MDkgTmVhciBDZW50ZXIubmFtLwAAAFo6XGhvbWVcam1hblxEb3dubG9hZHNcTWVzYV9PU180eDEyXzU3X20xNjAud2F2AAAAAAAAAAAAAAAAAABUwAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAAAAAAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAdAAAAFo6XGhvbWVcam1hblxEb3dubG9hZHNcQW1wZWcgVkw1MDIgbXVsdGlwYWNrIFB1c2hlZCBDbGVhbiBhbmQgSGlnaCBHYWluXEFNUEVHIFZMNTAyIENIMiBBTVAgQ0FCIEU2MDkgTmVhciBDZW50ZXIubmFtLwAAAFo6XGhvbWVcam1hblxEb3dubG9hZHNcTWVzYV9PU180eDEyXzU3X20xNjAud2F2AAAAAAAAAAAAAAAAAABUwAAAAAAAABRAAAAAAAAAFEAAAAAAAAAUQAAAAAAAAAAAAAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAATGlzdAIAAABDb21wMAAAAAAAAAD/AAAAAAAAAENvbnQvAQAAAAAAAP8AAAAAAAAA</chunk>
+      <chunk>VlNUMwEAAABGMkFFRTcwRDAwREU0RjRFNTM0NDQxNjEzMTU5NDU2RpoBAAAAAAAAWQAAAFo6XG9wdFxMb2dpY2FsQXJkb3VyXE5BTV9tb2RlbHMtbWFpblxHZW9yZ2UgQiBDZXJpYXRvbmUgS2luZyBLb25nICBjaGFuMiA2MHMgYnIgc3cyIEwubmFtAAAAAAAAAAAAAAAAAAAAAAAAVMAAAAAAAAAUQAAAAAAAABRAAAAAAAAAFEAAAAAAAAAAAAAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAAAAAPA/AAAAAFkAAABaOlxvcHRcTG9naWNhbEFyZG91clxOQU1fbW9kZWxzLW1haW5cR2VvcmdlIEIgQ2VyaWF0b25lIEtpbmcgS29uZyAgY2hhbjIgNjBzIGJyIHN3MiBMLm5hbQAAAAAAAAAAAAAAAAAAAAAAAFTAAAAAAAAAFEAAAAAAAAAUQAAAAAAAABRAAAAAAAAAAAAAAAAAAADwPwAAAAAAAPA/AAAAAAAA8D8AAAAAAADwPwAAAABMaXN0AgAAAENvbXAwAAAAAAAAALUAAAAAAAAAQ29udOUAAAAAAAAAtQAAAAAAAAA=</chunk>
     </vst3>
-    <Controllable name="Bypass" id="3013" flags="Toggle" value="0" parameter="0"/>
-    <Controllable name="Input" id="3015" flags="" value="0" parameter="1"/>
-    <Controllable name="Gate" id="3017" flags="" value="-80" parameter="2"/>
-    <Controllable name="Bass" id="3019" flags="" value="5" parameter="3"/>
-    <Controllable name="Middle" id="3021" flags="" value="5" parameter="4"/>
-    <Controllable name="Treble" id="3023" flags="" value="5" parameter="5"/>
-    <Controllable name="Output" id="3025" flags="" value="0" parameter="6"/>
-    <Controllable name="NoiseGateActive" id="3027" flags="Toggle" value="1" parameter="7"/>
-    <Controllable name="ToneStack" id="3029" flags="Toggle" value="1" parameter="8"/>
-    <Controllable name="OutNorm" id="3031" flags="Toggle" value="1" parameter="9"/>
-    <Controllable name="IRToggle" id="3033" flags="Toggle" value="1" parameter="10"/>
+    <Controllable name="Bypass" id="2721" flags="Toggle" value="0" parameter="0"/>
+    <Controllable name="Input" id="2722" flags="" value="0" parameter="1"/>
+    <Controllable name="Gate" id="2723" flags="" value="-80" parameter="2"/>
+    <Controllable name="Bass" id="2724" flags="" value="5" parameter="3"/>
+    <Controllable name="Middle" id="2725" flags="" value="5" parameter="4"/>
+    <Controllable name="Treble" id="2726" flags="" value="5" parameter="5"/>
+    <Controllable name="Output" id="2727" flags="" value="0" parameter="6"/>
+    <Controllable name="NoiseGateActive" id="2728" flags="Toggle" value="1" parameter="7"/>
+    <Controllable name="ToneStack" id="2729" flags="Toggle" value="1" parameter="8"/>
+    <Controllable name="OutNorm" id="2730" flags="Toggle" value="1" parameter="9"/>
+    <Controllable name="IRToggle" id="2731" flags="Toggle" value="1" parameter="10"/>
   </Processor>
-  <Processor id="2987" name="meter-Audio 1" active="1" user-latency="0" use-user-latency="0" type="meter"/>
-  <Processor id="2988" name="Audio 1" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Audio 1" type="main-outs" role="Main">
+  <Processor id="2693" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+    <Automation>
+      <AutomationList automation-id="gain" id="2694" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+    </Automation>
+    <Controllable name="gaincontrol" id="2695" flags="GainLike" value="1"/>
+  </Processor>
+  <Processor id="2744" name="meter-Audio 1" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+  <Processor id="2745" name="Neural Amp Modeler" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Neural Amp Modeler" type="main-outs" role="Main">
     <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
   </Processor>
   <Slavable/>
-  <Controllable name="monitor" id="2997" flags="RealTime" value="1" monitoring="MonitorInput,MonitorCue"/>
-  <Controllable name="rec-safe" id="2995" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="rec-enable" id="2993" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="monitor" id="2763" flags="RealTime" value="1" monitoring="MonitorInput,MonitorCue"/>
+  <Controllable name="rec-safe" id="2764" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="rec-enable" id="2765" flags="Toggle,RealTime" value="0"/>
 </Route>
