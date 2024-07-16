@@ -13,7 +13,7 @@ local dialog_options = {
    type = "dropdown", key = "dropdown", title = "Choose Vocal Preset", values =
    {
     ["Choose Vocal Preset"] = 1, ["Classic"] = 2,["Bright"] = 3, ["Dance"] = 4, ["Compressed"] = 5, ["Telephone"] = 6,
-    ["Natural"] = 7, ["Edge"] =8
+    ["Natural"] = 7, ["Edge"] =8, ["Fuzz Vocals"] = 9
 
    },
    default = "Choose Vocal Preset"
@@ -727,6 +727,76 @@ local preset = proc:preset_by_label("edge-2")
 
 -- Load the preset
 proc:load_preset(preset)
+
+
+-- *** End of natural vocals ****
+end
+
+if rv and rv["dropdown"] == 9 then
+
+apply_preset_to_tracks("fuzz")
+
+
+add_plugin_to_selected_tracks("x42-Autotune (scales)", ARDOUR.PluginType.LV2, 0) --first EQ of the chain
+
+local proc = Session:route_by_name("fuzz"):to_track():nth_plugin(0):to_insert():plugin(0)
+
+-- Get the preset
+local preset = proc:preset_by_label("temp")
+
+-- Load the preset
+proc:load_preset(preset)
+
+ proc:remove_preset("temp")
+
+ if active == false then
+
+ local sel = Editor:get_selection ()
+if not sel:empty () and not sel.tracks:routelist ():empty ()  then
+  -- for each selected track
+  for r in sel.tracks:routelist ():iter () do
+    if not r:to_track ():isnil () then
+    old = r:nth_plugin(0)
+      active =  old:deactivate()
+print (active)
+    --  assert (not new:isnil())
+
+end end end end
+
+-- Classic Vocals
+
+add_plugin_to_selected_tracks("ACE EQ", ARDOUR.PluginType.LV2, 1) --first EQ of the chain
+
+local proc = Session:route_by_name("fuzz"):to_track():nth_plugin(1):to_insert():plugin(1)
+
+-- Get the preset
+local preset = proc:preset_by_label("fuzz")
+
+-- Load the preset
+proc:load_preset(preset)
+
+-- ACE Compressor
+
+add_plugin_to_selected_tracks("ACE Compressor", ARDOUR.PluginType.LV2, 2) --first EQ of the chain
+
+local proc = Session:route_by_name("fuzz"):to_track():nth_plugin(2):to_insert():plugin(2)
+
+-- Get the preset
+local preset = proc:preset_by_label("fuzz")
+
+-- Load the preset
+proc:load_preset(preset)
+
+add_plugin_to_selected_tracks("MDA Overdrive", ARDOUR.PluginType.LV2, 3) --first EQ of the chain
+
+local proc = Session:route_by_name("fuzz"):to_track():nth_plugin(3):to_insert():plugin(3)
+
+-- Get the preset
+local preset = proc:preset_by_label("fuzz")
+
+proc:load_preset(preset)
+
+
 
 
 -- *** End of natural vocals ****

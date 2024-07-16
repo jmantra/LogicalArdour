@@ -66,7 +66,7 @@ local dialog_options = {
 				["Record Audio"] =
 
 				{
-					["Vocals"] = { ["Classic"] = "clv",["Bright"] = "brv", ["Compressed"] = "cov", ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav", ["Edge"] =  "edv"},
+					["Vocals"] = { ["Classic"] = "clv",["Bright"] = "brv", ["Compressed"] = "cov", ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav", ["Edge"] =  "edv",["Fuzz"] = "fzv"},
 					["Guitar or Bass"] = {
 					["Guitarix"] = "gx", ["Neural Amp Modeler"] = "nm"
 				},
@@ -434,6 +434,19 @@ print (full_path)
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Edge Vocals"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+							if rv and rv["dropdown"] == "fzv" then
+		print("Fuzz Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/Fuzz Vocals.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Fuzz Vocals"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
