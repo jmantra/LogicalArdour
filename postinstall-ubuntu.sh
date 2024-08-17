@@ -160,11 +160,10 @@ backup_or_create_folder "$folder"
 
 cp -rf ardour8/*  $folder
 
-# Find the directory with the highest number after the "."
+
 DIR=$(find /opt -maxdepth 1 -type d -name "Ardour-*" | sort -V | tail -n 1)
 
-# Output the selected directory
-echo "Selected directory: $DIR/share/media/"
+
 
 
 sudo cp -rf media/* $DIR/share/media/
