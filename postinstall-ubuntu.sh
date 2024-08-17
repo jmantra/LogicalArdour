@@ -167,7 +167,7 @@ DIR=$(find /opt -maxdepth 1 -type d -name "Ardour-*" | sort -V | tail -n 1)
 echo "Selected directory: $DIR/share/media/"
 
 
-cp -rf media/* $DIR/share/media/
+sudo cp -rf media/* $DIR/share/media/
 
 
 cd "$HOME/Downloads"
