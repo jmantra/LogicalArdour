@@ -1,5 +1,5 @@
 # LogicalArdour
-This is a project currently in development to give Ardour functionality similiar to Garageband/Logic Pro out of the box. 
+This is a project currently in development to give Ardour functionality similiar to GarageBand/Logic Pro out of the box. 
 
 
 
