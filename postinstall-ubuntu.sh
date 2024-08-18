@@ -51,7 +51,7 @@ sudo chmod 755 /usr/bin/bpmbin
 
 
 
-sudo apt install surge surge-data  surge-xt -y
+sudo apt install surge surge-data   -y
 
 
 
@@ -67,6 +67,10 @@ wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-re
 sudo dpkg -i kxstudio-repos_11.1.0_all.deb
 
 rm -rf kxstudio-repos_11.1.0_all.deb
+
+sudo apt update 
+
+sudo apt install surge surge-data   -y
 
 
 
@@ -149,11 +153,11 @@ cp -rf vst3/* "$HOME/.vst3"
 
 sudo mkdir -p /opt/LogicalArdour
 
-sudo cp -rf /samples/* /usr/share/ardour8/media
+sudo cp -rf samples/* /usr/share/ardour8/media
 
 mkdir ~/.config/LogicalArdour
 
-cp -rf /samples/* ~/.config/LogicalArdour
+
 
 folder="$HOME/.config/ardour8"
 backup_or_create_folder "$folder"
@@ -169,7 +173,7 @@ cp -rf ardour8/*  $folder
 #sudo cp -rf media/* $DIR/share/media/
 
 
-#cd "$HOME/Downloads"
+cd "$HOME/Downloads"
 
 
 rm -rf LogicalArdour/*
