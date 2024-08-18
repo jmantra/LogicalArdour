@@ -76,7 +76,13 @@ sudo apt upgrade -y
 
 
 
-sudo apt install zynaddsubfx zynaddsubfx-lv2 zynaddsubfx-data -y
+wget https://launchpad.net/~kxstudio-debian/+archive/plugins/+files/zynaddsubfx_3.0.5-1kxstudio7_amd64.deb
+
+sudo dpkg -i zynaddsubfx_3.0.5-1kxstudio7_amd64.deb
+
+wget https://launchpad.net/~kxstudio-debian/+archive/plugins/+files/zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
+
+sudo dpkg -i zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
 
 
 
