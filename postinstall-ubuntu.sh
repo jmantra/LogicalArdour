@@ -153,7 +153,7 @@ cp -rf vst3/* "$HOME/.vst3"
 
 sudo mkdir -p /opt/LogicalArdour
 
-sudo cp -rf samples/* /usr/share/ardour8/media
+sudo cp -rf samples/* /opt/LogicalArdour
 
 mkdir ~/.config/LogicalArdour
 
@@ -170,7 +170,7 @@ cp -rf ardour8/*  $folder
 
 
 
-#sudo cp -rf media/* $DIR/share/media/
+sudo cp -rf media/* /usr/share/ardour8/media
 
 
 cd "$HOME/Downloads"
