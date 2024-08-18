@@ -51,7 +51,7 @@ sudo chmod 755 /usr/bin/bpmbin
 
 
 
-sudo apt install surge surge-data   -y
+
 
 
 
@@ -70,21 +70,17 @@ rm -rf kxstudio-repos_11.1.0_all.deb
 
 sudo apt update 
 
-sudo apt install surge surge-data   -y
+
 
 
 
 sudo apt install zynaddsubfx zynaddsubfx-lv2 zynaddsubfx-data -y
 
-notify "Installing all other lv2 plugins"
+sudo apt upgrade -y 
 
-wget -O gm.tar.gz "https://x42-plugins.com/x42/linux/x42-gmsynth-v0.6.0-x86_64.tar.gz"
 
-tar xavf gm.tar.gz
 
-cd x42-gmsynth/
 
-sh install-lv2.sh
 
 
 
