@@ -93,6 +93,15 @@ sudo dpkg -i sfizz_1.2.3-0_amd64.deb
 rm -rf sfizz_1.2.3-0_amd64.deb
 
 
+wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.1/surge-xt-linux-x64-1.3.1.deb
+
+sudo apt install xclip -y
+
+sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
+
+sudo apt upgrade -y
+
+
 
 
 
