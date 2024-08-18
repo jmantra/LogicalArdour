@@ -70,13 +70,15 @@ rm -rf kxstudio-repos_11.1.0_all.deb
 
 sudo apt update 
 
+sudo apt upgrade -y 
+
 
 
 
 
 sudo apt install zynaddsubfx zynaddsubfx-lv2 zynaddsubfx-data -y
 
-sudo apt upgrade -y 
+
 
 
 
