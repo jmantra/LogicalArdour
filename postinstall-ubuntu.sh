@@ -17,14 +17,14 @@ cd "$HOME/Downloads"
 
 
 
-notify "Installing Musescore"
+
 
 sudo apt install musescore -y
 
 
 
 
-notify "Downloading and installing tools for detecting key and bpm"
+
 
 # Key
 
@@ -49,12 +49,12 @@ sudo chmod 755 /usr/bin/bpmbin
 
 
 
-notify "Install Surge XT"
-
-sudo apt install surge surge-data -y
 
 
-notify "Install zynaddsubfx and enable kxstudio repos"
+sudo apt install surge surge-data  surge-xt -y
+
+
+
 # Install required dependencies if needed
 sudo apt-get install apt-transport-https gpgv wget
 
@@ -98,7 +98,7 @@ rm -rf sfizz_1.2.3-0_amd64.deb
 
 
 
-notify "downloading and installing Ardour config files"
+
 
 
 
@@ -131,7 +131,7 @@ folder="$HOME/.lv2"
 backup_or_create_folder "$folder"
 
 
-cp -rf 'lv2_presets/*' $HOME/.lv2
+cp -rf lv2_presets/* $HOME/.lv2
 
 folder="$HOME/.vst"
 backup_or_create_folder "$folder"
@@ -145,11 +145,11 @@ backup_or_create_folder "$folder"
 cp -rf vst3/* "$HOME/.vst3"
 
 
-notify "installing soundfonts and samples"
+
 
 sudo mkdir -p /opt/LogicalArdour
 
-sudo cp -rf /samples/* /opt/LogicalArdour
+sudo cp -rf /samples/* /usr/share/ardour8/media
 
 mkdir ~/.config/LogicalArdour
 
@@ -161,15 +161,15 @@ backup_or_create_folder "$folder"
 cp -rf ardour8/*  $folder
 
 
-DIR=$(find /opt -maxdepth 1 -type d -name "Ardour-*" | sort -V | tail -n 1)
+#DIR=$(find /opt -maxdepth 1 -type d -name "Ardour-*" | sort -V | tail -n 1)
 
 
 
 
-sudo cp -rf media/* $DIR/share/media/
+#sudo cp -rf media/* $DIR/share/media/
 
 
-cd "$HOME/Downloads"
+#cd "$HOME/Downloads"
 
 
 rm -rf LogicalArdour/*
