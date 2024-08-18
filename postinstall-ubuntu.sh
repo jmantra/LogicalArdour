@@ -131,7 +131,7 @@ folder="$HOME/.lv2"
 backup_or_create_folder "$folder"
 
 
-cp -rf 'lv2 presets/*' $HOME/.lv2
+cp -rf 'lv2_presets/*' $HOME/.lv2
 
 folder="$HOME/.vst"
 backup_or_create_folder "$folder"
