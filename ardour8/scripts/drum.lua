@@ -14,10 +14,9 @@ local dialog_options = {
   {
    type = "dropdown", key = "dropdown", title = "Choose Drum Plugin", values =
    {
-    ["Choose Drum Plugin"] = 1, ["MTPowerDrumKit"] = 2,
+    ["Choose Drum Plugin"] = 1,
     ["Red Zeppelin"] = 3,
     ["Black Pearl"] = 4,
-      ["Beat DRMR"] = 5,
         ["Blonde Bop"] = 6,
         ["808/809 Drums (sfizz)"] = 7,
          ["Standard Drums (sfizz)"] = 8,
@@ -37,13 +36,6 @@ local dialog_options = {
 
  local plugin_name = nil
 
-if rv and rv["dropdown"] == 2 then
-		print("You Chose MT-PowerDrumKit")
-		plugin_name = "MT-PowerDrumKit"
-		track_name = plugin_name
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LXVST, "")
-	 end
 
 
 
@@ -67,14 +59,7 @@ if rv and rv["dropdown"] == 2 then
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
 	 end
 
-	  	if rv and rv["dropdown"] == 5 then
-		print("You Chose Beat DRMR")
 
-		plugin_name = "Beat DRMR"
-		track_name = plugin_name
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LXVST, "")
-	 end
 
 	  	if rv and rv["dropdown"] == 6 then
 		print("You Chose Blonde Bop Drumkit")

@@ -30,7 +30,7 @@ local dialog_options = {
 				{
 					["Vocals"] = { ["Classic"] = "clv",["Bright"] = "brv", ["Compressed"] = "cov", ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav", ["Edge"] =  "edv",["Fuzz"] = "fzv"},
 					["Guitar or Bass"] = {
-					["Guitarix"] = "gx", ["Neural Amp Modeler"] = "nm"
+					["Guitarix"] = "gx", ["Ratatouille"] = "ra"
 				},
 				}
 
@@ -144,13 +144,13 @@ print (full_path)
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
 
-				if rv and rv["dropdown"] == "nm" then
+				if rv and rv["dropdown"] == "ra" then
 		print("NAM")
 		-- Replace the path below with the path to your track template
-		local template_path = full_path .. "/nam.template"
+		local template_path = full_path .. "/Ratatouille.template"
 
 		-- Replace "Track Name" with the name you want for your new track
-		local track_name = "Neural Amp Modeler"
+		local track_name = "Ratatouille"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
