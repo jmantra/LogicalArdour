@@ -54,7 +54,7 @@ if rv and rv["dropdown"] == 2 then
 		print("You Chose Surge XT")
 
 		plugin_name = "Surge XT"
-		track_name "Surge XT Session"
+		track_name = "Surge XT Session"
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
 	 end
