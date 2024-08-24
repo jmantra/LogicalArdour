@@ -94,9 +94,9 @@ sudo dpkg -i zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
 
 sudo apt install x42-plugins avldrums.lv2 swh-lv2 calf-plugins tap-plugins guitarix-lv2  drumgizmo -y
 
-# wget https://download.opensuse.org/repositories/home:/sfztools:/sfizz/xUbuntu_23.10/amd64/sfizz_1.2.3-0_amd64.deb
+ wget https://download.opensuse.org/repositories/home:/sfztools:/sfizz/xUbuntu_23.10/amd64/sfizz_1.2.3-0_amd64.deb
 
-wget https://download.opensuse.org/repositories/home:/sfztools:/sfizz/Debian_12/amd64/sfizz_1.2.3-0_amd64.deb
+#wget https://download.opensuse.org/repositories/home:/sfztools:/sfizz/Debian_12/amd64/sfizz_1.2.3-0_amd64.deb
 
 sudo dpkg -i sfizz_1.2.3-0_amd64.deb
 
@@ -181,11 +181,12 @@ backup_or_create_folder "$folder"
 
 cp -rf ardour8/*  $folder
 
-for file in $HOME/.config/ardour8/*; do
+for file in /path/to/directory/*; do
     if [ -f "$file" ]; then
-        awk '{gsub("/home/jman", "/home/zack"); print}' "$file" > tmp && mv tmp "$file"
+        awk -v home="$HOME" '{gsub("/home/jman", home); print}' "$file" > tmp && mv tmp "$file"
     fi
 done
+
 
 
 #DIR=$(find /opt -maxdepth 1 -type d -name "Ardour-*" | sort -V | tail -n 1)
