@@ -174,10 +174,18 @@ mkdir ~/.config/LogicalArdour
 
 
 
+
+
 folder="$HOME/.config/ardour8"
 backup_or_create_folder "$folder"
 
 cp -rf ardour8/*  $folder
+
+for file in $HOME/.config/ardour8/*; do
+    if [ -f "$file" ]; then
+        awk '{gsub("/home/jman", "/home/zack"); print}' "$file" > tmp && mv tmp "$file"
+    fi
+done
 
 
 #DIR=$(find /opt -maxdepth 1 -type d -name "Ardour-*" | sort -V | tail -n 1)
