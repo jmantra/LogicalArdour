@@ -160,7 +160,7 @@ cp -rf vst3/* "$HOME/.vst3"
 folder="$HOME/.ladspa"
 backup_or_create_folder "$folder"
 
-cp -rf vst3/* "$HOME/.ladspa"
+cp -rf ladspa/* "$HOME/.ladspa"
 
 
 
