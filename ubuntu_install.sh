@@ -56,7 +56,7 @@ sudo chmod 755 /usr/bin/bpmbin
 
 
 # Install required dependencies if needed
-sudo apt-get install apt-transport-https gpgv wget
+sudo apt-get install apt-transport-https gpgv wget -y
 
 
 
@@ -70,7 +70,7 @@ rm -rf kxstudio-repos_11.1.0_all.deb
 
 sudo apt update 
 
-sudo apt upgrade -y 
+# sudo apt upgrade -y
 
 
 
@@ -92,7 +92,7 @@ sudo dpkg -i zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
 
 
 
-sudo apt install x42-plugins avldrums.lv2 swh-lv2 calf-plugins tap-plugins guitarix-lv2  drumgizmo -y
+sudo apt install x42-plugins avldrums.lv2 swh-lv2 calf-plugins tap-plugins guitarix-lv2  mda-lv2  -y
 
  wget https://download.opensuse.org/repositories/home:/sfztools:/sfizz/xUbuntu_23.10/amd64/sfizz_1.2.3-0_amd64.deb
 
