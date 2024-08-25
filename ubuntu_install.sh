@@ -1,11 +1,5 @@
 #!/bin/bash
-# ---------------------------
-# This is a bash script for configuring Ardour and all dependencies for LogicalArdour for  Ubuntu 24.04 (Noble Nombat)
-# This script is based on Bredan Ingraham's scripts for setting up pro audio on various distros, you can view his Github at 
-# https://github.com/brendaningram/linux-audio-setup-scripts
 
-# Exit if any command fails
- #set -e
 
 
 
@@ -109,7 +103,7 @@ sudo apt install xclip -y
 
 sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
 
-sudo apt upgrade -y
+#sudo apt upgrade -y
 
 
 
@@ -156,12 +150,17 @@ folder="$HOME/.vst"
 backup_or_create_folder "$folder"
 
 
-cp -rf vst/* "$HOME/.vst"
+
 
 folder="$HOME/.vst3"
 backup_or_create_folder "$folder"
 
 cp -rf vst3/* "$HOME/.vst3"
+
+folder="$HOME/.ladspa"
+backup_or_create_folder "$folder"
+
+cp -rf vst3/* "$HOME/.ladspa"
 
 
 
