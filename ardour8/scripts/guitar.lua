@@ -14,7 +14,7 @@ local dialog_options = {
   {
    type = "dropdown", key = "dropdown", title = "Choose Guitar Plugin", values =
    {
-    ["Choose Guitar Plugin"] = 1, ["Neural Amp Modeler"] = 2,
+    ["Choose Guitar Plugin"] = 1, ["Ratatouille"] = 2,
     ["Guitarix"] = 3
 
 
@@ -30,9 +30,9 @@ local dialog_options = {
 
 if rv and rv["dropdown"] == 2 then
 		print("You Chose Neural Amp Modeler")
-		plugin_name = "NeuralAmpModeler"
+		plugin_name = "Ratatouille"
 
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
 	 end
 
 
@@ -60,13 +60,7 @@ if not sel:empty () and not sel.tracks:routelist ():empty ()  then
       r:replace_processor (old, new, nil)
         r:set_name(plugin_name, nil)
 
-   local proc = Session:route_by_name(plugin_name):to_track():nth_plugin(0):to_insert():plugin(0)
 
--- Get the preset
-local preset = proc:preset_by_label("default")
-
--- Load the preset
-proc:load_preset(preset)
     end
   end
 end
