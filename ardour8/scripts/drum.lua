@@ -25,7 +25,11 @@ local dialog_options = {
                   ["Room Drums (sfizz)"] = 11,
                       ["Power Drums (sfizz)"] = 12,
                        ["Dance Drums (sfizz)"] = 13,
-						["Jazz Drums (sfizz)"] = 14
+						["Jazz Drums (sfizz)"] = 14,
+						["Cheetah SpecDrum Electro (Drumlabooh)"] =15,
+						["Cheetah SpecDrum Afro (Drumlabooh)"] =16,
+						["Gretch JazzKit (Drumlabooh)"] =17
+
    },
    default = "Choose Drum Plugin"
   }
@@ -160,6 +164,39 @@ local dialog_options = {
 
 
 
+	 	   	if rv and rv["dropdown"] == 15 then
+		print("Cheetah SpecDrum Electro")
+
+		plugin_name = "drumlabooh"
+		track_name = "Cheeatah SpecDrum Electro"
+		preset_name = "cse"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
+
+	 	 	   	if rv and rv["dropdown"] == 16 then
+		print("Cheetah SpecDrum Afro")
+
+		plugin_name = "drumlabooh"
+		track_name = "Cheeatah SpecDrum Afro"
+		preset_name = "csa"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
+	 	 	   	if rv and rv["dropdown"] == 17 then
+		print("Gretch JazzKit")
+
+		plugin_name = "drumlabooh"
+		track_name = "Gretch Jazzkit"
+		preset_name = "gre"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
+
+
 
 
 
@@ -176,6 +213,20 @@ if not sel:empty () and not sel.tracks:routelist ():empty ()  then
         r:set_name(track_name, nil)
 
  if plugin_name == "sfizz" then
+
+
+local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
+
+-- Get the preset
+local preset = proc:preset_by_label(preset_name)
+
+-- Load the preset
+proc:load_preset(preset)
+
+end
+
+
+ if plugin_name == "drumlabooh" then
 
 
 local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
