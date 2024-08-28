@@ -169,7 +169,13 @@ sudo mkdir -p /opt/LogicalArdour
 
 sudo cp -rf samples/* /opt/LogicalArdour
 
-mkdir ~/.config/LogicalArdour
+
+
+sudo cp -rf drumlabooh/* /usr/local/lib/lv2
+
+sudo cp -rf drumlabooh-kits /usr/local/share
+
+
 
 
 
@@ -180,7 +186,7 @@ backup_or_create_folder "$folder"
 
 cp -rf ardour8/*  $folder
 
-for file in /path/to/directory/*; do
+for file in $HOME/.config/ardour8/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/jman", home); print}' "$file" > tmp && mv tmp "$file"
     fi
@@ -205,17 +211,17 @@ rm -rf LogicalArdour/*
 
 
 
-ln -sf '/opt/LogicalArdour/Power Drums/Power Drums.sfz' ~/.lv2/sfizz_Power_Drums.lv2/'Power Drums.sfz'
+#ln -sf '/opt/LogicalArdour/Power Drums/Power Drums.sfz' ~/.lv2/sfizz_Power_Drums.lv2/'Power Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/Dance Drums/Dance Drums.sfz' ~/.lv2/sfizz_Dance_Drums.lv2/'Dance Drums.sfz'
+#ln -sf '/opt/LogicalArdour/Dance Drums/Dance Drums.sfz' ~/.lv2/sfizz_Dance_Drums.lv2/'Dance Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/Electronic/Electronic Drums.sfz' ~/.lv2/sfizz_Electronic_Drums.lv2/'Electronic Drums.sfz'
+#ln -sf '/opt/LogicalArdour/Electronic/Electronic Drums.sfz' ~/.lv2/sfizz_Electronic_Drums.lv2/'Electronic Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/Jazz Drums/Jazz Drums.sfz' ~/.lv2/sfizz_Jazz_Drums.lv2/'Jazz Drums.sfz'
+#ln -sf '/opt/LogicalArdour/Jazz Drums/Jazz Drums.sfz' ~/.lv2/sfizz_Jazz_Drums.lv2/'Jazz Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/Room Drums/Room Drums.sfz' ~/.lv2/sfizz_Room_Drums.lv2/'Room Drums.sfz'
+#ln -sf '/opt/LogicalArdour/Room Drums/Room Drums.sfz' ~/.lv2/sfizz_Room_Drums.lv2/'Room Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/Standard 2 Drums/Standard 2 Drums.sfz' ~/.lv2/sfizz_Standard_2_Drums.lv2/'Standard 2 Drums.sfz'
+#ln -sf '/opt/LogicalArdour/Standard 2 Drums/Standard 2 Drums.sfz' ~/.lv2/sfizz_Standard_2_Drums.lv2/'Standard 2 Drums.sfz'
 
 
 

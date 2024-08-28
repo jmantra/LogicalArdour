@@ -1,1 +1,0 @@
-/usr/bin/sonic-annotator -d vamp:vamp-example-plugins:fixedtempo:tempo "/home/jman/Untitled-2024-05-04-18-11-10/interchange/Untitled-2024-05-04-18-11-10/audiofiles/159118-HipHop Piano Loop%L.wav" -w csv  --csv-stdout > output.txt
