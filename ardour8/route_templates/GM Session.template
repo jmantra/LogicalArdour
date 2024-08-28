@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Route version="7003" id="5350" name="GM Session" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="5267" saved-meter-point="MeterPostFader" alignment-choice="Automatic" playback-channel-mode="AllChannels" capture-channel-mode="AllChannels" playback-channel-mask="0xffff" capture-channel-mask="0xffff" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
+<Route version="7003" id="3288" name="GM Session" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="3205" saved-meter-point="MeterPostFader" alignment-choice="Automatic" playback-channel-mode="AllChannels" capture-channel-mode="AllChannels" playback-channel-mask="0xffff" capture-channel-mask="0xffff" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
   <ProgramVersion created-with="Ardour 8.4.0~ds1-2ubuntu8" modified-with="Ardour 8.4.0~ds1-2ubuntu8" name="GM Session"/>
-  <PresentationInfo order="3" flags="MidiTrack,OrderSet,TriggerTrack" color="4289374975"/>
-  <Controllable name="solo" id="5311" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
-  <Controllable name="solo-iso" id="5477" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
-  <Controllable name="solo-safe" id="5478" flags="Toggle" value="0" solo-safe="0"/>
-  <IO name="Ace Fluid Synth Session" id="5351" direction="Input" default-type="midi">
+  <PresentationInfo order="2" flags="MidiTrack,OrderSet,TriggerTrack" color="4289374975"/>
+  <Controllable name="solo" id="3249" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="3468" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+  <Controllable name="solo-safe" id="3469" flags="Toggle" value="0" solo-safe="0"/>
+  <IO name="Ace Fluid Synth Session" id="3289" direction="Input" default-type="midi">
     <Port name="Ace Fluid Synth Session/midi_in 1" type="midi" direction="Input">
       <Connection other="x-virtual-keyboard"/>
       <ExtConnection for="JACK"/>
@@ -13,7 +13,7 @@
       <ExtConnection for="JACK" other="ardour:x-virtual-keyboard"/>
     </Port>
   </IO>
-  <IO name="Ace Fluid Synth Session" id="5352" direction="Output" default-type="midi">
+  <IO name="Ace Fluid Synth Session" id="3290" direction="Output" default-type="midi">
     <Port name="Ace Fluid Synth Session/audio_out 1" type="audio" direction="Output">
       <Connection other="Master/audio_in 1"/>
       <Connection other="Master/audio_in 2"/>
@@ -22,36 +22,36 @@
     <Port name="Ace Fluid Synth Session/midi_out 1" type="midi" direction="Output"/>
   </IO>
   <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
-  <Controllable name="mute" id="5479" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="phase" id="5480" flags="Toggle" value="0" phase-invert=""/>
+  <Controllable name="mute" id="3470" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="phase" id="3471" flags="Toggle" value="0" phase-invert=""/>
   <Automation>
-    <AutomationList automation-id="solo" id="5481" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="solo-iso" id="5482" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="solo-safe" id="5483" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="mute" id="5484" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="rec-enable" id="5485" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="rec-safe" id="5486" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="phase" id="5487" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="monitor" id="5488" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="midi-velocity" id="5489" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo" id="3472" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-iso" id="3473" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-safe" id="3474" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="mute" id="3475" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-enable" id="3476" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-safe" id="3477" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="phase" id="3478" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="monitor" id="3479" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="midi-velocity" id="3480" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
   </Automation>
   <Pannable>
-    <Controllable name="pan-azimuth" id="5353" flags="" value="0.5"/>
-    <Controllable name="pan-width" id="5354" flags="" value="0"/>
-    <Controllable name="pan-elevation" id="5355" flags="" value="0"/>
-    <Controllable name="pan-frontback" id="5356" flags="" value="0"/>
-    <Controllable name="pan-lfe" id="5357" flags="" value="0"/>
+    <Controllable name="pan-azimuth" id="3291" flags="" value="0.5"/>
+    <Controllable name="pan-width" id="3292" flags="" value="0"/>
+    <Controllable name="pan-elevation" id="3293" flags="" value="0"/>
+    <Controllable name="pan-frontback" id="3294" flags="" value="0"/>
+    <Controllable name="pan-lfe" id="3295" flags="" value="0"/>
     <Automation>
-      <AutomationList automation-id="pan-azimuth" id="5358" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-elevation" id="5359" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-width" id="5360" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-frontback" id="5361" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-lfe" id="5362" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-azimuth" id="3296" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-elevation" id="3297" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-width" id="3298" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-frontback" id="3299" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-lfe" id="3300" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
     </Automation>
   </Pannable>
-  <Processor id="5363" name="recorder:General MIDI Synth" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
-  <Processor id="5364" name="player:General MIDI Synth" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
-  <Processor id="5365" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="2">
+  <Processor id="3301" name="recorder:General MIDI Synth" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
+  <Processor id="3302" name="player:General MIDI Synth" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
+  <Processor id="3303" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="1">
     <Triggers>
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="0" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="1" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
@@ -71,21 +71,21 @@
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="15" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
     </Triggers>
   </Processor>
-  <Processor id="5414" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
-  <Processor id="5454" name="Arpeggiator" active="1" user-latency="0" use-user-latency="0" type="luaproc" unique-id="d4c8a70056e870a4a42ae26ee6f1c3220d53e14a" count="1" custom="0">
+  <Processor id="3352" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+  <Processor id="3392" name="Arpeggiator" active="1" user-latency="0" use-user-latency="0" type="luaproc" unique-id="d4c8a70056e870a4a42ae26ee6f1c3220d53e14a" count="1" custom="0">
     <Automation>
-      <AutomationList automation-id="parameter-0" id="5455" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-1" id="5456" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-2" id="5457" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-3" id="5458" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-4" id="5459" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-5" id="5460" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-6" id="5461" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-7" id="5462" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-8" id="5463" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-9" id="5464" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-10" id="5465" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-11" id="5466" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-0" id="3393" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-1" id="3394" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-2" id="3395" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-3" id="3396" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="3397" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="3398" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="3399" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="3400" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-8" id="3401" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="3402" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="3403" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-11" id="3404" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="midi" count="1"/>
@@ -119,34 +119,34 @@
       <Port id="10" value="1"/>
       <Port id="11" value="0.68943297863006592"/>
     </luaproc>
-    <Controllable name="Division" id="5442" flags="" value="2" parameter="0"/>
-    <Controllable name="Octave up" id="5443" flags="" value="1" parameter="1"/>
-    <Controllable name="Octave down" id="5444" flags="" value="1" parameter="2"/>
-    <Controllable name="Pattern" id="5445" flags="" value="6" parameter="3"/>
-    <Controllable name="Velocity 1" id="5446" flags="" value="100" parameter="4"/>
-    <Controllable name="Velocity 2" id="5447" flags="" value="100" parameter="5"/>
-    <Controllable name="Velocity 3" id="5448" flags="" value="76" parameter="6"/>
-    <Controllable name="Latch" id="5449" flags="Toggle" value="0" parameter="7"/>
-    <Controllable name="Sync" id="5450" flags="Toggle" value="1" parameter="8"/>
-    <Controllable name="Bypass" id="5451" flags="Toggle" value="0" parameter="9"/>
-    <Controllable name="Gate" id="5452" flags="" value="1" parameter="10"/>
-    <Controllable name="Swing" id="5453" flags="" value="0.68943297863006592" parameter="11"/>
+    <Controllable name="Division" id="3380" flags="" value="2" parameter="0"/>
+    <Controllable name="Octave up" id="3381" flags="" value="1" parameter="1"/>
+    <Controllable name="Octave down" id="3382" flags="" value="1" parameter="2"/>
+    <Controllable name="Pattern" id="3383" flags="" value="6" parameter="3"/>
+    <Controllable name="Velocity 1" id="3384" flags="" value="100" parameter="4"/>
+    <Controllable name="Velocity 2" id="3385" flags="" value="100" parameter="5"/>
+    <Controllable name="Velocity 3" id="3386" flags="" value="76" parameter="6"/>
+    <Controllable name="Latch" id="3387" flags="Toggle" value="0" parameter="7"/>
+    <Controllable name="Sync" id="3388" flags="Toggle" value="1" parameter="8"/>
+    <Controllable name="Bypass" id="3389" flags="Toggle" value="0" parameter="9"/>
+    <Controllable name="Gate" id="3390" flags="" value="1" parameter="10"/>
+    <Controllable name="Swing" id="3391" flags="" value="0.68943297863006592" parameter="11"/>
   </Processor>
-  <Processor id="5534" name="ACE Fluid Synth" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-fluidsynth" count="1" custom="0">
+  <Processor id="3448" name="ACE Fluid Synth" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-fluidsynth" count="1" custom="0">
     <Automation>
-      <AutomationList automation-id="parameter-4" id="5535" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-5" id="5537" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-6" id="5539" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-7" id="5541" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-8" id="5543" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-9" id="5545" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-10" id="5547" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-11" id="5549" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-12" id="5551" interpolation-style="Logarithmic" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-13" id="5553" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-14" id="5555" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-15" id="5557" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="parameter-16" id="5559" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="3449" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="3450" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="3451" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="3452" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-8" id="3453" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="3454" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="3455" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-11" id="3456" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-12" id="3457" interpolation-style="Logarithmic" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-13" id="3458" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-14" id="3459" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-15" id="3460" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-16" id="3461" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="midi" count="1"/>
@@ -167,7 +167,7 @@
       <Channelmap type="audio" from="1" to="1"/>
     </OutputMap-0>
     <ThruMap/>
-    <lv2 last-preset-uri="file:///home/jman/.lv2/ACE_Fluid_Synth_gm.lv2/gm.ttl" last-preset-label="gm" parameter-changed-since-last-preset="1" template-dir="/home/jman/.config/ardour8/route_templates/GM Session" state-dir="state2">
+    <lv2 last-preset-uri="file:///home/jman/.lv2/ACE_Fluid_Synth_gm.lv2/gm.ttl" last-preset-label="gm" parameter-changed-since-last-preset="1" template-dir="/home/jman/.config/ardour8/route_templates/GM Session" state-dir="state4">
       <Port symbol="level" value="0"/>
       <Port symbol="rev_enable" value="1"/>
       <Port symbol="rev_roomsize" value="0.88350516557693481"/>
@@ -182,36 +182,36 @@
       <Port symbol="chorus_type" value="0"/>
       <Port symbol="enable" value="1"/>
     </lv2>
-    <Controllable name="Output Level" id="5536" flags="" value="0" parameter="4" symbol="level"/>
-    <Controllable name="Reverb Enable" id="5538" flags="Toggle" value="1" parameter="5" symbol="rev_enable"/>
-    <Controllable name="Reverb Roomsize" id="5540" flags="" value="0.88350516557693481" parameter="6" symbol="rev_roomsize"/>
-    <Controllable name="Reverb Damping" id="5542" flags="" value="0.5" parameter="7" symbol="rev_damp"/>
-    <Controllable name="Reverb Width" id="5544" flags="" value="10" parameter="8" symbol="rev_width"/>
-    <Controllable name="Reverb Dry/Wet" id="5546" flags="" value="0.10000000149011612" parameter="9" symbol="rev_level"/>
-    <Controllable name="Chorus Enable" id="5548" flags="Toggle" value="1" parameter="10" symbol="chorus_enable"/>
-    <Controllable name="Chorus Voice Count" id="5550" flags="" value="1" parameter="11" symbol="chorus_nr"/>
-    <Controllable name="Chorus Speed" id="5552" flags="" value="1" parameter="12" symbol="chorus_speed"/>
-    <Controllable name="Chorus Depth" id="5554" flags="" value="0" parameter="13" symbol="chorus_depth"/>
-    <Controllable name="Chorus Level" id="5556" flags="" value="0" parameter="14" symbol="chorus_level"/>
-    <Controllable name="Chorus Type" id="5558" flags="" value="0" parameter="15" symbol="chorus_type"/>
-    <Controllable name="Enable" id="5560" flags="Toggle" value="1" parameter="16" symbol="enable"/>
-    <Controllable name="property-urn:ardour:a-fluidsynth:sf2file" id="5561" flags="NotAutomatable" property="75"/>
+    <Controllable name="Output Level" id="3435" flags="" value="0" parameter="4" symbol="level"/>
+    <Controllable name="Reverb Enable" id="3436" flags="Toggle" value="1" parameter="5" symbol="rev_enable"/>
+    <Controllable name="Reverb Roomsize" id="3437" flags="" value="0.88350516557693481" parameter="6" symbol="rev_roomsize"/>
+    <Controllable name="Reverb Damping" id="3438" flags="" value="0.5" parameter="7" symbol="rev_damp"/>
+    <Controllable name="Reverb Width" id="3439" flags="" value="10" parameter="8" symbol="rev_width"/>
+    <Controllable name="Reverb Dry/Wet" id="3440" flags="" value="0.10000000149011612" parameter="9" symbol="rev_level"/>
+    <Controllable name="Chorus Enable" id="3441" flags="Toggle" value="1" parameter="10" symbol="chorus_enable"/>
+    <Controllable name="Chorus Voice Count" id="3442" flags="" value="1" parameter="11" symbol="chorus_nr"/>
+    <Controllable name="Chorus Speed" id="3443" flags="" value="1" parameter="12" symbol="chorus_speed"/>
+    <Controllable name="Chorus Depth" id="3444" flags="" value="0" parameter="13" symbol="chorus_depth"/>
+    <Controllable name="Chorus Level" id="3445" flags="" value="0" parameter="14" symbol="chorus_level"/>
+    <Controllable name="Chorus Type" id="3446" flags="" value="0" parameter="15" symbol="chorus_type"/>
+    <Controllable name="Enable" id="3447" flags="Toggle" value="1" parameter="16" symbol="enable"/>
+    <Controllable name="property-urn:ardour:a-fluidsynth:sf2file" id="3434" flags="NotAutomatable" property="75"/>
   </Processor>
-  <Processor id="5471" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+  <Processor id="3462" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
     <Automation>
-      <AutomationList automation-id="gain" id="5472" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="gain" id="3463" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
     </Automation>
-    <Controllable name="gaincontrol" id="5473" flags="GainLike" value="1"/>
+    <Controllable name="gaincontrol" id="3464" flags="GainLike" value="1"/>
   </Processor>
-  <Processor id="5474" name="meter-ACE Fluid Synth" active="1" user-latency="0" use-user-latency="0" type="meter"/>
-  <Processor id="5475" name="Ace Fluid Synth Session" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Ace Fluid Synth Session" type="main-outs" role="Main">
+  <Processor id="3465" name="meter-ACE Fluid Synth" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+  <Processor id="3466" name="Ace Fluid Synth Session" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Ace Fluid Synth Session" type="main-outs" role="Main">
     <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
   </Processor>
   <Slavable/>
-  <Controllable name="monitor" id="5498" flags="RealTime" value="0" monitoring=""/>
-  <Controllable name="rec-safe" id="5499" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="rec-enable" id="5500" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="midicc-0-0" id="5491" flags="" value="0"/>
-  <Controllable name="midicc-0-32" id="5493" flags="" value="0"/>
-  <Controllable name="midi-pgm-change-0" id="5495" flags="" value="12"/>
+  <Controllable name="monitor" id="3489" flags="RealTime" value="0" monitoring=""/>
+  <Controllable name="rec-safe" id="3490" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="rec-enable" id="3491" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="midicc-0-0" id="3482" flags="" value="0"/>
+  <Controllable name="midicc-0-32" id="3484" flags="" value="0"/>
+  <Controllable name="midi-pgm-change-0" id="3486" flags="" value="0"/>
 </Route>

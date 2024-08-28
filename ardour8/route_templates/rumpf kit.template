@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Route version="7003" id="255" name="rumpf kit" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="172" saved-meter-point="MeterPostFader" alignment-choice="Automatic" playback-channel-mode="AllChannels" capture-channel-mode="AllChannels" playback-channel-mask="0xffff" capture-channel-mask="0xffff" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
+  <ProgramVersion created-with="Ardour 8.4.0~ds1-2ubuntu8" modified-with="Ardour 8.4.0~ds1-2ubuntu8" name="rumpf kit"/>
+  <PresentationInfo order="1" flags="MidiTrack,OrderSet,TriggerTrack" color="4289374975"/>
+  <Controllable name="solo" id="216" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="1533" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+  <Controllable name="solo-safe" id="1534" flags="Toggle" value="0" solo-safe="0"/>
+  <IO name="rumpf kit" id="256" direction="Input" default-type="midi">
+    <Port name="rumpf kit/midi_in 1" type="midi" direction="Input">
+      <Connection other="x-virtual-keyboard"/>
+      <ExtConnection for="JACK"/>
+      <ExtConnection for="JACK" other="Midi-Bridge:AKAI MPK mini 3 at usb-0000:00:14-0-5- full speed:(capture_0) MPK mini 3 MIDI 1"/>
+      <ExtConnection for="JACK" other="ardour:x-virtual-keyboard"/>
+    </Port>
+  </IO>
+  <IO name="rumpf kit" id="257" direction="Output" default-type="midi">
+    <Port name="rumpf kit/audio_out 1" type="audio" direction="Output">
+      <Connection other="Master/audio_in 1"/>
+    </Port>
+    <Port name="rumpf kit/audio_out 2" type="audio" direction="Output">
+      <Connection other="Master/audio_in 2"/>
+    </Port>
+    <Port name="rumpf kit/midi_out 1" type="midi" direction="Output"/>
+  </IO>
+  <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
+  <Controllable name="mute" id="1535" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="phase" id="1536" flags="Toggle" value="0" phase-invert=""/>
+  <Automation>
+    <AutomationList automation-id="solo" id="1537" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-iso" id="1538" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-safe" id="1539" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="mute" id="1540" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-enable" id="1541" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-safe" id="1542" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="phase" id="1543" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="monitor" id="1544" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="midi-velocity" id="1545" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+  </Automation>
+  <Pannable>
+    <Controllable name="pan-azimuth" id="258" flags="" value="0.5"/>
+    <Controllable name="pan-width" id="259" flags="" value="0"/>
+    <Controllable name="pan-elevation" id="260" flags="" value="0"/>
+    <Controllable name="pan-frontback" id="261" flags="" value="0"/>
+    <Controllable name="pan-lfe" id="262" flags="" value="0"/>
+    <Automation>
+      <AutomationList automation-id="pan-azimuth" id="263" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-elevation" id="264" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-width" id="265" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-frontback" id="266" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-lfe" id="267" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    </Automation>
+  </Pannable>
+  <Processor id="268" name="recorder:rumpf kit" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
+  <Processor id="269" name="player:rumpf kit" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
+  <Processor id="270" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="0">
+    <Triggers>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="0" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="1" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="2" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="3" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="4" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="5" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="6" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="7" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="8" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="9" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="10" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="11" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="12" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="13" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="14" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="15" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+    </Triggers>
+  </Processor>
+  <Processor id="319" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+  <Processor id="16671" name="DrMr Sampler" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://github.com/nicklan/drmr" count="1" custom="0">
+    <Automation>
+      <AutomationList automation-id="parameter-3" id="16672" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="16674" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="16676" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="16678" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="16680" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-8" id="16682" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="16684" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="16686" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-11" id="16688" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-12" id="16690" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-13" id="16692" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-14" id="16694" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-15" id="16696" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-16" id="16698" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-17" id="16700" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-18" id="16702" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-19" id="16704" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-20" id="16706" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-21" id="16708" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-22" id="16710" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-23" id="16712" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-24" id="16714" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-25" id="16716" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-26" id="16718" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-27" id="16720" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-28" id="16722" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-29" id="16724" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-30" id="16726" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-31" id="16728" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-32" id="16730" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-33" id="16732" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-34" id="16734" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-35" id="16736" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-36" id="16738" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-37" id="16740" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-38" id="16742" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-39" id="16744" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-40" id="16746" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-41" id="16748" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-42" id="16750" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-43" id="16752" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-44" id="16754" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-45" id="16756" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-46" id="16758" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-47" id="16760" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-48" id="16762" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-49" id="16764" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-50" id="16766" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-51" id="16768" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-52" id="16770" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-53" id="16772" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-54" id="16774" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-55" id="16776" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-56" id="16778" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-57" id="16780" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-58" id="16782" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-59" id="16784" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-60" id="16786" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-61" id="16788" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-62" id="16790" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-63" id="16792" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-64" id="16794" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-65" id="16796" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-66" id="16798" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-67" id="16800" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    </Automation>
+    <ConfiguredInput>
+      <Channels type="midi" count="1"/>
+    </ConfiguredInput>
+    <CustomSinks>
+      <Channels type="midi" count="1"/>
+    </CustomSinks>
+    <ConfiguredOutput>
+      <Channels type="audio" count="2"/>
+      <Channels type="midi" count="1"/>
+    </ConfiguredOutput>
+    <PresetOutput/>
+    <InputMap-0>
+      <Channelmap type="midi" from="0" to="0"/>
+    </InputMap-0>
+    <OutputMap-0>
+      <Channelmap type="audio" from="0" to="0"/>
+      <Channelmap type="audio" from="1" to="1"/>
+    </OutputMap-0>
+    <ThruMap/>
+    <lv2 last-preset-uri="file:///home/jman/.lv2/DrMr_Sampler_rumpf_kit.lv2/rumpf_kit.ttl" last-preset-label="rumpf kit" parameter-changed-since-last-preset="0" template-dir="/home/jman/.config/ardour8/route_templates/rumpf kit" state-dir="state1">
+      <Port symbol="base_note" value="36"/>
+      <Port symbol="gain_one" value="0"/>
+      <Port symbol="gain_two" value="0"/>
+      <Port symbol="gain_three" value="0"/>
+      <Port symbol="gain_four" value="0"/>
+      <Port symbol="gain_five" value="0"/>
+      <Port symbol="gain_six" value="0"/>
+      <Port symbol="gain_seven" value="0"/>
+      <Port symbol="gain_eight" value="0"/>
+      <Port symbol="gain_nine" value="0"/>
+      <Port symbol="gain_ten" value="0"/>
+      <Port symbol="gain_eleven" value="0"/>
+      <Port symbol="gain_twelve" value="0"/>
+      <Port symbol="gain_thirteen" value="0"/>
+      <Port symbol="gain_fourteen" value="0"/>
+      <Port symbol="gain_fifteen" value="0"/>
+      <Port symbol="gain_sixteen" value="0"/>
+      <Port symbol="gain_seventeen" value="0"/>
+      <Port symbol="gain_eighteen" value="0"/>
+      <Port symbol="gain_nineteen" value="0"/>
+      <Port symbol="gain_twenty" value="0"/>
+      <Port symbol="gain_twentyone" value="0"/>
+      <Port symbol="gain_twentytwo" value="0"/>
+      <Port symbol="gain_twentythree" value="0"/>
+      <Port symbol="gain_twentyfour" value="0"/>
+      <Port symbol="gain_twentyfive" value="0"/>
+      <Port symbol="gain_twentysix" value="0"/>
+      <Port symbol="gain_twentyseven" value="0"/>
+      <Port symbol="gain_twentyeight" value="0"/>
+      <Port symbol="gain_twentynine" value="0"/>
+      <Port symbol="gain_thirty" value="0"/>
+      <Port symbol="gain_thirtyone" value="0"/>
+      <Port symbol="gain_thirtytwo" value="0"/>
+      <Port symbol="pan_one" value="0"/>
+      <Port symbol="pan_two" value="0"/>
+      <Port symbol="pan_three" value="0"/>
+      <Port symbol="pan_four" value="0"/>
+      <Port symbol="pan_five" value="0"/>
+      <Port symbol="pan_six" value="0"/>
+      <Port symbol="pan_seven" value="0"/>
+      <Port symbol="pan_eight" value="0"/>
+      <Port symbol="pan_nine" value="0"/>
+      <Port symbol="pan_ten" value="0"/>
+      <Port symbol="pan_eleven" value="0"/>
+      <Port symbol="pan_twelve" value="0"/>
+      <Port symbol="pan_thirteen" value="0"/>
+      <Port symbol="pan_fourteen" value="0"/>
+      <Port symbol="pan_fifteen" value="0"/>
+      <Port symbol="pan_sixteen" value="0"/>
+      <Port symbol="pan_seventeen" value="0"/>
+      <Port symbol="pan_eighteen" value="0"/>
+      <Port symbol="pan_nineteen" value="0"/>
+      <Port symbol="pan_twenty" value="0"/>
+      <Port symbol="pan_twentyone" value="0"/>
+      <Port symbol="pan_twentytwo" value="0"/>
+      <Port symbol="pan_twentythree" value="0"/>
+      <Port symbol="pan_twentyfour" value="0"/>
+      <Port symbol="pan_twentyfive" value="0"/>
+      <Port symbol="pan_twentysix" value="0"/>
+      <Port symbol="pan_twentyseven" value="0"/>
+      <Port symbol="pan_twentyeight" value="0"/>
+      <Port symbol="pan_twentynine" value="0"/>
+      <Port symbol="pan_thirty" value="0"/>
+      <Port symbol="pan_thirtyone" value="0"/>
+      <Port symbol="pan_thirtytwo" value="0"/>
+    </lv2>
+    <Controllable name="Midi Base Note" id="16673" flags="" value="36" parameter="3" symbol="base_note"/>
+    <Controllable name="Sample One Gain" id="16675" flags="" value="0" parameter="4" symbol="gain_one"/>
+    <Controllable name="Sample Two Gain" id="16677" flags="" value="0" parameter="5" symbol="gain_two"/>
+    <Controllable name="Sample Three Gain" id="16679" flags="" value="0" parameter="6" symbol="gain_three"/>
+    <Controllable name="Sample Four Gain" id="16681" flags="" value="0" parameter="7" symbol="gain_four"/>
+    <Controllable name="Sample Five Gain" id="16683" flags="" value="0" parameter="8" symbol="gain_five"/>
+    <Controllable name="Sample Six Gain" id="16685" flags="" value="0" parameter="9" symbol="gain_six"/>
+    <Controllable name="Sample Seven Gain" id="16687" flags="" value="0" parameter="10" symbol="gain_seven"/>
+    <Controllable name="Sample Eight Gain" id="16689" flags="" value="0" parameter="11" symbol="gain_eight"/>
+    <Controllable name="Sample Nine Gain" id="16691" flags="" value="0" parameter="12" symbol="gain_nine"/>
+    <Controllable name="Sample Ten Gain" id="16693" flags="" value="0" parameter="13" symbol="gain_ten"/>
+    <Controllable name="Sample Eleven Gain" id="16695" flags="" value="0" parameter="14" symbol="gain_eleven"/>
+    <Controllable name="Sample Twelve Gain" id="16697" flags="" value="0" parameter="15" symbol="gain_twelve"/>
+    <Controllable name="Sample Thirteen Gain" id="16699" flags="" value="0" parameter="16" symbol="gain_thirteen"/>
+    <Controllable name="Sample Fourteen Gain" id="16701" flags="" value="0" parameter="17" symbol="gain_fourteen"/>
+    <Controllable name="Sample Fifteen Gain" id="16703" flags="" value="0" parameter="18" symbol="gain_fifteen"/>
+    <Controllable name="Sample Sixteen Gain" id="16705" flags="" value="0" parameter="19" symbol="gain_sixteen"/>
+    <Controllable name="Sample Seventeen Gain" id="16707" flags="" value="0" parameter="20" symbol="gain_seventeen"/>
+    <Controllable name="Sample Eighteen Gain" id="16709" flags="" value="0" parameter="21" symbol="gain_eighteen"/>
+    <Controllable name="Sample Nineteen Gain" id="16711" flags="" value="0" parameter="22" symbol="gain_nineteen"/>
+    <Controllable name="Sample Twenty Gain" id="16713" flags="" value="0" parameter="23" symbol="gain_twenty"/>
+    <Controllable name="Sample Twenty One Gain" id="16715" flags="" value="0" parameter="24" symbol="gain_twentyone"/>
+    <Controllable name="Sample Twenty Two Gain" id="16717" flags="" value="0" parameter="25" symbol="gain_twentytwo"/>
+    <Controllable name="Sample Twenty Three Gain" id="16719" flags="" value="0" parameter="26" symbol="gain_twentythree"/>
+    <Controllable name="Sample Twenty Four Gain" id="16721" flags="" value="0" parameter="27" symbol="gain_twentyfour"/>
+    <Controllable name="Sample Twenty Five Gain" id="16723" flags="" value="0" parameter="28" symbol="gain_twentyfive"/>
+    <Controllable name="Sample Twenty Six Gain" id="16725" flags="" value="0" parameter="29" symbol="gain_twentysix"/>
+    <Controllable name="Sample Twenty Seven Gain" id="16727" flags="" value="0" parameter="30" symbol="gain_twentyseven"/>
+    <Controllable name="Sample Twenty Eight Gain" id="16729" flags="" value="0" parameter="31" symbol="gain_twentyeight"/>
+    <Controllable name="Sample Twenty Nine Gain" id="16731" flags="" value="0" parameter="32" symbol="gain_twentynine"/>
+    <Controllable name="Sample Thirty Gain" id="16733" flags="" value="0" parameter="33" symbol="gain_thirty"/>
+    <Controllable name="Sample Thirty One Gain" id="16735" flags="" value="0" parameter="34" symbol="gain_thirtyone"/>
+    <Controllable name="Sample Thirty Two Gain" id="16737" flags="" value="0" parameter="35" symbol="gain_thirtytwo"/>
+    <Controllable name="Sample One Pan" id="16739" flags="" value="0" parameter="36" symbol="pan_one"/>
+    <Controllable name="Sample Two Pan" id="16741" flags="" value="0" parameter="37" symbol="pan_two"/>
+    <Controllable name="Sample Three Pan" id="16743" flags="" value="0" parameter="38" symbol="pan_three"/>
+    <Controllable name="Sample Four Pan" id="16745" flags="" value="0" parameter="39" symbol="pan_four"/>
+    <Controllable name="Sample Five Pan" id="16747" flags="" value="0" parameter="40" symbol="pan_five"/>
+    <Controllable name="Sample Six Pan" id="16749" flags="" value="0" parameter="41" symbol="pan_six"/>
+    <Controllable name="Sample Seven Pan" id="16751" flags="" value="0" parameter="42" symbol="pan_seven"/>
+    <Controllable name="Sample Eight Pan" id="16753" flags="" value="0" parameter="43" symbol="pan_eight"/>
+    <Controllable name="Sample Nine Pan" id="16755" flags="" value="0" parameter="44" symbol="pan_nine"/>
+    <Controllable name="Sample Ten Pan" id="16757" flags="" value="0" parameter="45" symbol="pan_ten"/>
+    <Controllable name="Sample Eleven Pan" id="16759" flags="" value="0" parameter="46" symbol="pan_eleven"/>
+    <Controllable name="Sample Twelve Pan" id="16761" flags="" value="0" parameter="47" symbol="pan_twelve"/>
+    <Controllable name="Sample Thirteen Pan" id="16763" flags="" value="0" parameter="48" symbol="pan_thirteen"/>
+    <Controllable name="Sample Fourteen Pan" id="16765" flags="" value="0" parameter="49" symbol="pan_fourteen"/>
+    <Controllable name="Sample Fifteen Pan" id="16767" flags="" value="0" parameter="50" symbol="pan_fifteen"/>
+    <Controllable name="Sample Sixteen Pan" id="16769" flags="" value="0" parameter="51" symbol="pan_sixteen"/>
+    <Controllable name="Sample Seventeen Pan" id="16771" flags="" value="0" parameter="52" symbol="pan_seventeen"/>
+    <Controllable name="Sample Eighteen Pan" id="16773" flags="" value="0" parameter="53" symbol="pan_eighteen"/>
+    <Controllable name="Sample Nineteen Pan" id="16775" flags="" value="0" parameter="54" symbol="pan_nineteen"/>
+    <Controllable name="Sample Twenty Pan" id="16777" flags="" value="0" parameter="55" symbol="pan_twenty"/>
+    <Controllable name="Sample Twenty One Pan" id="16779" flags="" value="0" parameter="56" symbol="pan_twentyone"/>
+    <Controllable name="Sample Twenty Two Pan" id="16781" flags="" value="0" parameter="57" symbol="pan_twentytwo"/>
+    <Controllable name="Sample Twenty Three Pan" id="16783" flags="" value="0" parameter="58" symbol="pan_twentythree"/>
+    <Controllable name="Sample Twenty Four Pan" id="16785" flags="" value="0" parameter="59" symbol="pan_twentyfour"/>
+    <Controllable name="Sample Twenty Five Pan" id="16787" flags="" value="0" parameter="60" symbol="pan_twentyfive"/>
+    <Controllable name="Sample Twenty Six Pan" id="16789" flags="" value="0" parameter="61" symbol="pan_twentysix"/>
+    <Controllable name="Sample Twenty Seven Pan" id="16791" flags="" value="0" parameter="62" symbol="pan_twentyseven"/>
+    <Controllable name="Sample Twenty Eight Pan" id="16793" flags="" value="0" parameter="63" symbol="pan_twentyeight"/>
+    <Controllable name="Sample Twenty Nine Pan" id="16795" flags="" value="0" parameter="64" symbol="pan_twentynine"/>
+    <Controllable name="Sample Thirty Pan" id="16797" flags="" value="0" parameter="65" symbol="pan_thirty"/>
+    <Controllable name="Sample Thirty One Pan" id="16799" flags="" value="0" parameter="66" symbol="pan_thirtyone"/>
+    <Controllable name="Sample Thirty Two Pan" id="16801" flags="" value="0" parameter="67" symbol="pan_thirtytwo"/>
+  </Processor>
+  <Processor id="1527" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+    <Automation>
+      <AutomationList automation-id="gain" id="1528" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+    </Automation>
+    <Controllable name="gaincontrol" id="1529" flags="GainLike" value="1"/>
+  </Processor>
+  <Processor id="1530" name="meter-Black Pearl Drumkit" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+  <Processor id="1531" name="rumpf kit" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="rumpf kit" type="main-outs" role="Main">
+    <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
+  </Processor>
+  <Slavable/>
+  <Controllable name="monitor" id="1548" flags="RealTime" value="0" monitoring=""/>
+  <Controllable name="rec-safe" id="1549" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="rec-enable" id="1550" flags="Toggle,RealTime" value="0"/>
+</Route>
