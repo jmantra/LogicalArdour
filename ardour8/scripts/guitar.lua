@@ -29,7 +29,7 @@ local dialog_options = {
  local plugin_name = nil
 
 if rv and rv["dropdown"] == 2 then
-		print("You Chose Neural Amp Modeler")
+		print("You Chose Ratatouille")
 		plugin_name = "Ratatouille"
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
