@@ -86,7 +86,7 @@ sudo dpkg -i zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
 
 
 
-sudo apt install x42-plugins avldrums.lv2 swh-lv2 calf-plugins tap-plugins guitarix-lv2  mda-lv2  -y
+sudo apt install x42-plugins avldrums.lv2 swh-lv2 calf-plugins tap-plugins guitarix guitarix-lv2  mda-lv2  -y
 
  wget https://download.opensuse.org/repositories/home:/sfztools:/sfizz/xUbuntu_23.10/amd64/sfizz_1.2.3-0_amd64.deb
 
