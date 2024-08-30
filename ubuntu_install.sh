@@ -171,7 +171,9 @@ sudo cp -rf samples/* /opt/LogicalArdour
 
 
 
-sudo cp -rf drumlabooh/drumlabooh.lv2/* /usr/lib/lv2
+sudo cp -rf drumlabooh/drumlabooh.lv2/ /usr/lib/lv2
+
+sudo cp -rf drumlabooh/drumlabooh-multi.lv2/ /usr/lib/lv2
 
 sudo cp -rf drumlabooh-kits /usr/local/share
 
