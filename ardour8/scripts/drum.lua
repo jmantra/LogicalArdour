@@ -16,7 +16,7 @@ local dialog_options = {
    {
     ["Choose Drum Plugin"] = 1,
     ["Red Zeppelin (AVL Drumkits)"] = 3,
-    ["Black Pearl(AVL Drumkits)"] = 4,
+    ["Black Pearl (AVL Drumkits)"] = 4,
         ["Blonde Bop(AVL Drumkits)"] = 6,
         ["808/809 Drums (ACE Fluid Synth)"] = 7,
          ["Standard Drums (ACE Fluid Synth)"] = 8,
@@ -173,7 +173,7 @@ local dialog_options = {
 		track_name = "Cheeatah SpecDrum Electro"
 		preset_name = "cse"
 
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
 	 end
 
 
@@ -184,7 +184,7 @@ local dialog_options = {
 		track_name = "Cheeatah SpecDrum Afro"
 		preset_name = "csa"
 
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
 	 end
 
 	 	 	   	if rv and rv["dropdown"] == 17 then
@@ -194,7 +194,7 @@ local dialog_options = {
 		track_name = "Gretch Jazzkit"
 		preset_name = "gre"
 
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
 	 end
 
 	 	 	 	   	if rv and rv["dropdown"] == 18 then

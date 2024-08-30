@@ -169,11 +169,11 @@ sudo mkdir -p /opt/LogicalArdour
 
 sudo cp -rf samples/* /opt/LogicalArdour
 
+sudo mkidr /usr/local/lib/vst3
 
+sudo cp -rf drumlabooh/drumlabooh.vst3/ /usr/lib/vst3
 
-sudo cp -rf drumlabooh/drumlabooh.lv2/ /usr/lib/lv2
-
-sudo cp -rf drumlabooh/drumlabooh-multi.lv2/ /usr/lib/lv2
+sudo cp -rf drumlabooh/drumlabooh-multi.vst3/ /usr/lib/vst3
 
 sudo cp -rf drumlabooh-kits /usr/local/share
 
