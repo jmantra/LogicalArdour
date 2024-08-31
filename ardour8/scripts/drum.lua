@@ -26,9 +26,9 @@ local dialog_options = {
                       ["Power Drums (ACE Fluid Synth)"] = 12,
                        ["Dance Drums (ACE Fluid Synth)"] = 13,
 						["Jazz Drums (ACE Fluid Synth)"] = 14,
-						["Cheetah SpecDrum Electro (Drumlabooh)"] =15,
-						["Cheetah SpecDrum Afro (Drumlabooh)"] =16,
-						["Gretch JazzKit (Drumlabooh)"] =17,
+						["Drumlabooh (Drum plugin with multiple kits)"] =15,
+					--	["Cheetah SpecDrum Afro (Drumlabooh)"] =16,
+						-- ["Gretch JazzKit (Drumlabooh)"] =17,
 						["Brush Drum (ACE Fluid Synth)"] = 18,
 						["Orchestral Perc (ACE Fluid Synth)"] = 19
 
@@ -170,32 +170,15 @@ local dialog_options = {
 		print("Cheetah SpecDrum Electro")
 
 		plugin_name = "drumlabooh"
-		track_name = "Cheeatah SpecDrum Electro"
-		preset_name = "cse"
+		track_name = "drumlabooh"
+		preset_name = "drumlabooh"
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
 	 end
 
 
-	 	 	   	if rv and rv["dropdown"] == 16 then
-		print("Cheetah SpecDrum Afro")
 
-		plugin_name = "drumlabooh"
-		track_name = "Cheeatah SpecDrum Afro"
-		preset_name = "csa"
 
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
-	 end
-
-	 	 	   	if rv and rv["dropdown"] == 17 then
-		print("Gretch JazzKit")
-
-		plugin_name = "drumlabooh"
-		track_name = "Gretch Jazzkit"
-		preset_name = "gre"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
-	 end
 
 	 	 	 	   	if rv and rv["dropdown"] == 18 then
 		print("Brush Drums")
