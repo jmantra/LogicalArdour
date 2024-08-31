@@ -213,24 +213,23 @@ rm -rf LogicalArdour/*
 
 
 
-ln -sf '/opt/LogicalArdour/soundfonts/Dance Drums.sf2' ~/.lv2/ACE_Fluid_Synth_Dance_Drums.lv2/'Dance Drums.sf2'
+ln -sf '/opt/LogicalArdour/Power Drums/Power Drums.sfz' ~/.lv2/sfizz_Power_Drums.lv2/'Power Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/soundfonts/Power Drums.sf2' ~/.lv2/ACE_Fluid_Synth_Power_Drums.lv2/'Power Drums.sf2'
+ln -sf '/opt/LogicalArdour/Dance Drums/Dance Drums.sfz' ~/.lv2/sfizz_Dance_Drums.lv2/'Dance Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/soundfonts/Power Drums.sf2' ~/.lv2/ACE_Fluid_Synth_Electronic_Drums.lv2/'Electronic Drums.sf2'
+ln -sf '/opt/LogicalArdour/Electronic/Electronic Drums.sfz' ~/.lv2/sfizz_Electronic_Drums.lv2/'Electronic Drums.sfz'
 
+ln -sf '/opt/LogicalArdour/Jazz Drums/Jazz Drums.sfz' ~/.lv2/sfizz_Jazz_Drums.lv2/'Jazz Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/soundfonts/Room Drums.sf2' ~/.lv2/ACE_Fluid_Synth_Room_Drums.lv2/'Room Drums.sf2'
+ln -sf '/opt/LogicalArdour/Room Drums/Room Drums.sfz' ~/.lv2/sfizz_Room_Drums.lv2/'Room Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/soundfonts/Standard 2 Drums.sf2' ~/.lv2/ACE_Fluid_Synth_Standard_2_Drums.lv2/'Standard 2 Drums.sf2'
+ln -sf '/opt/LogicalArdour/Standard 2 Drums/Standard 2 Drums.sfz' ~/.lv2/sfizz_Standard_2_Drums.lv2/'Standard 2 Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/soundfonts/Jazz Drums.sf2' ~/.lv2/ACE_Fluid_Synth_Jazz_Drums.lv2/'Jazz Drums.sf2'
+ln -sf '/opt/LogicalArdour/Brush Drums/Brush Drums.sfz' ~/.lv2/sfizz_Brush_Drums.lv2/'Brush Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/soundfonts/Brush Drums.sf2' ~/.lv2/ACE_Fluid_Synth_Brush_Drums.lv2/'Brush Drums.sf2'
+ln -sf '/opt/LogicalArdour/808 Drums/808_909 Drums.sfz' ~/.lv2/sfizz_808.lv2/'808_909 Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/soundfonts/Orchestral Perc.sf2' ~/.lv2/ACE_Fluid_Synth_Orchestral_Perc.lv2/'Orchestral Perc.sf2'
-
-ln -sf '/opt/LogicalArdour/soundfonts/808.sf2' ~/.lv2/ACE_Fluid_Synth_808.lv2/'808.sf2'
+ln -sf '/opt/LogicalArdour/Orchestral Perc/048_Orchestral Perc..sfz' ~/.lv2/sfizz_Orchestral_Perc.lv2/'048_Orchestral Perc..sfz'
 
 
 
