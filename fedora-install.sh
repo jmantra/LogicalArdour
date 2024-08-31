@@ -3,7 +3,7 @@
 
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-$ sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
+ sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
 
 sudo dnf install lame* --exclude=lame-devel
 
@@ -16,13 +16,15 @@ sudo dnf install lame* --exclude=lame-devel
 
 cd "$HOME/Downloads"
 
+sudo dnf install ardour8
 
 
 
 
 
 
-sudo apt install musescore -y
+
+sudo dnf install musescore
 
 
 
@@ -52,40 +54,7 @@ sudo chmod 755 /usr/bin/bpmbin
 
 
 
-
-
-
-
-
-
-# Install required dependencies if needed
-sudo apt-get install apt-transport-https gpgv wget -y
-
-
-
-# Download package file
-wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
-
-# Install it
-sudo dpkg -i kxstudio-repos_11.1.0_all.deb
-
-rm -rf kxstudio-repos_11.1.0_all.deb
-
-sudo apt update
-
-# sudo apt upgrade -y
-
-
-
-
-
-wget https://launchpad.net/~kxstudio-debian/+archive/plugins/+files/zynaddsubfx_3.0.5-1kxstudio7_amd64.deb
-
-sudo dpkg -i zynaddsubfx_3.0.5-1kxstudio7_amd64.deb
-
-wget https://launchpad.net/~kxstudio-debian/+archive/plugins/+files/zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
-
-sudo dpkg -i zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
+sudo dnf install zynaddsubfx lv2-zynadd-plugins lv2-swh-plugins ladspa-tap-plugins calf lv2-x42-plugins
 
 
 
@@ -95,24 +64,11 @@ sudo dpkg -i zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
 
 
 
-sudo apt install x42-plugins avldrums.lv2 swh-lv2 calf-plugins tap-plugins  guitarix-lv2  mda-lv2  -y
-
- wget https://download.opensuse.org/repositories/home:/sfztools:/sfizz/xUbuntu_23.10/amd64/sfizz_1.2.3-0_amd64.deb
-
-#wget https://download.opensuse.org/repositories/home:/sfztools:/sfizz/Debian_12/amd64/sfizz_1.2.3-0_amd64.deb
-
-sudo dpkg -i sfizz_1.2.3-0_amd64.deb
-
-rm -rf sfizz_1.2.3-0_amd64.deb
 
 
-wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.1/surge-xt-linux-x64-1.3.1.deb
+wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.4/surge-xt-x86_64-1.3.4.rpm
 
-sudo apt install xclip -y
-
-sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
-
-#sudo apt upgrade -y
+sudo dnf install surge-xt-x86_64-1.3.4.rpm
 
 
 
@@ -185,6 +141,12 @@ sudo cp -rf drumlabooh/drumlabooh.vst3/ /usr/lib/vst3
 sudo cp -rf drumlabooh/drumlabooh-multi.vst3/ /usr/lib/vst3
 
 sudo cp -rf drumlabooh-kits /usr/local/share
+
+sudo cp -rf mda-lv2/ /usr/lib/lv2
+
+sudo cp -rf gx/* /usr/lib/lv2
+
+
 
 
 
