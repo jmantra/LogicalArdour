@@ -18,19 +18,19 @@ local dialog_options = {
     ["Red Zeppelin (AVL Drumkits)"] = 3,
     ["Black Pearl (AVL Drumkits)"] = 4,
         ["Blonde Bop(AVL Drumkits)"] = 6,
-        ["808/809 Drums (ACE Fluid Synth)"] = 7,
-         ["Standard Drums (ACE Fluid Synth)"] = 8,
-          ["Standard 2 Drums (ACE Fluid Synth)"] = 9,
-           ["Electronic Drums (ACE Fluid Synth)"] = 10,
-                  ["Room Drums (ACE Fluid Synth)"] = 11,
-                      ["Power Drums (ACE Fluid Synth)"] = 12,
-                       ["Dance Drums (ACE Fluid Synth)"] = 13,
-						["Jazz Drums (ACE Fluid Synth)"] = 14,
+        ["808/809 Drums (sfizz)"] = 7,
+         ["Standard Drums (sfizz)"] = 8,
+          ["Standard 2 Drums (sfizz)"] = 9,
+           ["Electronic Drums (sfizz)"] = 10,
+                  ["Room Drums (sfizz)"] = 11,
+                      ["Power Drums (sfizz)"] = 12,
+                       ["Dance Drums (sfizz)"] = 13,
+						["Jazz Drums (sfizz)"] = 14,
 						["Drumlabooh (Drum plugin with multiple kits)"] =15,
 					--	["Cheetah SpecDrum Afro (Drumlabooh)"] =16,
 						-- ["Gretch JazzKit (Drumlabooh)"] =17,
-						["Brush Drum (ACE Fluid Synth)"] = 18,
-						["Orchestral Perc (ACE Fluid Synth)"] = 19
+						["Brush Drum (sfizz)"] = 18,
+						["Orchestral Perc (sfizz)"] = 19
 
    },
    default = "Choose Drum Plugin"
@@ -80,7 +80,7 @@ local dialog_options = {
 	  	if rv and rv["dropdown"] == 7 then
 		print("808/809")
 
-		plugin_name = "ACE Fluid Synth"
+		plugin_name = "sfizz"
 		track_name = "808/809 Drums"
 		preset_name = "808"
 
@@ -90,7 +90,7 @@ local dialog_options = {
 	   	if rv and rv["dropdown"] == 8 then
 		print("Standard Drums")
 
-		plugin_name = "ACE Fluid Synth"
+		plugin_name = "sfizz"
 		track_name = "Standard Drums"
 		preset_name = "Standard Drums"
 
@@ -102,7 +102,7 @@ local dialog_options = {
 	   	if rv and rv["dropdown"] == 9 then
 		print("Standard 2 Drums")
 
-		plugin_name = "ACE Fluid Synth"
+		plugin_name = "sfizz"
 		track_name = "Standard 2 Drums"
 		preset_name = "Standard 2 Drums"
 
@@ -114,7 +114,7 @@ local dialog_options = {
 	   	if rv and rv["dropdown"] == 10 then
 		print("Electronic Drums")
 
-		plugin_name = "ACE Fluid Synth"
+		plugin_name = "sfizz"
 		track_name = "Electronic Drums"
 		preset_name = "Electronic Drums"
 
@@ -125,7 +125,7 @@ local dialog_options = {
 	   	if rv and rv["dropdown"] == 11 then
 		print("Room Drums")
 
-		plugin_name = "ACE Fluid Synth"
+		plugin_name = "sfizz"
 		track_name = "Room Drums"
 		preset_name = "Room Drums"
 
@@ -136,7 +136,7 @@ local dialog_options = {
 	   	if rv and rv["dropdown"] == 12 then
 		print("Power Drums")
 
-		plugin_name = "ACE Fluid Synth"
+		plugin_name = "sfizz"
 		track_name = "Power Drums"
 		preset_name = "Power Drums"
 
@@ -147,7 +147,7 @@ local dialog_options = {
 	   	if rv and rv["dropdown"] == 13 then
 		print("Dance Drums")
 
-		plugin_name = "ACE Fluid Synth"
+		plugin_name = "sfizz"
 		track_name = "Dance Drums"
 		preset_name = "Dance Drums"
 
@@ -157,7 +157,7 @@ local dialog_options = {
 	 	   	if rv and rv["dropdown"] == 14 then
 		print("Jazz Drums")
 
-		plugin_name = "ACE Fluid Synth"
+		plugin_name = "sfizz"
 		track_name = "Jazz Drums"
 		preset_name = "Jazz Drums"
 
@@ -183,7 +183,7 @@ local dialog_options = {
 	 	 	 	   	if rv and rv["dropdown"] == 18 then
 		print("Brush Drums")
 
-		plugin_name = "ACE Fluid Synth"
+		plugin_name = "sfizz"
 		track_name = "Brush Drums"
 		preset_name = "Brush Drums"
 
@@ -191,9 +191,9 @@ local dialog_options = {
 	 end
 
 	 	 	 	 	   	if rv and rv["dropdown"] == 19 then
-		print("ACE Fluid Synth")
+		print("sfizz")
 
-		plugin_name = "ACE Fluid Synth"
+		plugin_name = "sfizz"
 		track_name = "Orchestral Perc"
 		preset_name = "Orchestral Perc"
 
@@ -217,7 +217,7 @@ if not sel:empty () and not sel.tracks:routelist ():empty ()  then
       r:replace_processor (old, new, nil)
         r:set_name(track_name, nil)
 
- if plugin_name == "ACE Fluid Synth" then
+ if plugin_name == "sfizz" then
 
 
 local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
