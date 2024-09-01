@@ -238,7 +238,7 @@ ln -sf '/opt/LogicalArdour/Standard 2 Drums/Standard 2 Drums.sfz' ~/.lv2/sfizz_S
 
 ln -sf '/opt/LogicalArdour/Brush Drums/Brush Drums.sfz' ~/.lv2/sfizz_Brush_Drums.lv2/'Brush Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/808 Drums/808_909 Drums.sfz' ~/.lv2/sfizz_808.lv2/'808_909 Drums.sfz'
+ln -sf '/opt/LogicalArdour/808 drums/808_909 Drums.sfz' ~/.lv2/sfizz_808.lv2/'808_909 Drums.sfz'
 
 ln -sf '/opt/LogicalArdour/Orchestral Perc/048_Orchestral Perc..sfz' ~/.lv2/sfizz_Orchestral_Perc.lv2/'048_Orchestral Perc..sfz'
 
