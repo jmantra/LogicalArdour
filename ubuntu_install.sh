@@ -5,7 +5,12 @@
 
 
 
+
+
+
 cd "$HOME/Downloads"
+
+sudo apt install ardour -y
 
 
 
