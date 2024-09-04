@@ -1,36 +1,14 @@
 #!/bin/bash
 
-
-
-
-
-
-
-
-
 cd "$HOME/Downloads"
 
 sudo apt install ardour -y
 
-
-
-
-
-
-
 sudo apt install musescore -y
-
-
-
-
-
 
 # Key
 
-
 wget https://jmantra.blob.core.windows.net/data/key
-
-
 
 sudo cp key /usr/bin
 
@@ -38,19 +16,13 @@ sudo chmod 755 /usr/bin/key
 
 #BPM
 
-wget https://jmantra.blob.core.windows.net/data/bpmbin
+#wget https://jmantra.blob.core.windows.net/data/bpmbin
 
+#sudo cp bpmbin /usr/bin
 
+#sudo chmod 755 /usr/bin/bpmbin
 
-sudo cp bpmbin /usr/bin
-
-sudo chmod 755 /usr/bin/bpmbin
-
-
-
-
-
-
+sudo apt install sox bpm-tools -y
 
 
 
@@ -71,10 +43,6 @@ sudo apt update
 
 # sudo apt upgrade -y
 
-
-
-
-
 wget https://launchpad.net/~kxstudio-debian/+archive/plugins/+files/zynaddsubfx_3.0.5-1kxstudio7_amd64.deb
 
 sudo dpkg -i zynaddsubfx_3.0.5-1kxstudio7_amd64.deb
@@ -82,13 +50,6 @@ sudo dpkg -i zynaddsubfx_3.0.5-1kxstudio7_amd64.deb
 wget https://launchpad.net/~kxstudio-debian/+archive/plugins/+files/zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
 
 sudo dpkg -i zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
-
-
-
-
-
-
-
 
 
 sudo apt install x42-plugins avldrums.lv2 swh-lv2 calf-plugins tap-plugins  guitarix-lv2  mda-lv2  -y
@@ -109,15 +70,6 @@ sudo apt install xclip -y
 sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
 
 #sudo apt upgrade -y
-
-
-
-
-
-
-
-
-
 
 
 wget https://codeload.github.com/jmantra/LogicalArdour/zip/refs/heads/main
@@ -182,12 +134,6 @@ sudo cp -rf drumlabooh/drumlabooh-multi.vst3/ /usr/lib/vst3
 
 sudo cp -rf drumlabooh-kits /usr/local/share
 
-
-
-
-
-
-
 folder="$HOME/.config/ardour8"
 backup_or_create_folder "$folder"
 
@@ -219,10 +165,6 @@ cd "$HOME/Downloads"
 
 
 rm -rf LogicalArdour/*
-
-
-
-
 
 ln -sf '/opt/LogicalArdour/Power Drums/Power Drums.sfz' ~/.lv2/sfizz_Power_Drums.lv2/'Power Drums.sfz'
 

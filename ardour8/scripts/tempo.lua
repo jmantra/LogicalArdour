@@ -95,11 +95,118 @@ if bpm then
 else
     print("BPM not found in filename.")
 
-    -- local command = "sox  " ..quotedfilepath.. " -t raw -r 48000  -e float -c 1 - | bpm"
+     -- get Editor selection
+    local sel = Editor:get_selection ()
 
+    -- Instantiate the QM BarBeat Tracker
+    local vamp = ARDOUR.LuaAPI.Vamp("libardourvampplugins:qm-barbeattracker", Session:nominal_sample_rate())
 
+    -- prepare tables to hold results
+    local beats = {}
+    local bars = {}
 
-  local command = "bpmbin " .. quotedfilepath
+    -- for each selected region
+    for r in sel.regions:regionlist ():iter () do
+        local ar = r:to_audioregion ()
+        if ar:isnil () then
+            goto next
+        end
+
+        beats[r:name ()] = {}
+        bars[r:name ()] = {}
+
+        -- callback to handle Vamp-Plugin analysis results
+        function callback (feats)
+            local fl = feats:table()[0]
+            if fl then
+                for f in fl:iter () do
+                    if f.hasTimestamp then
+                        local fn = Vamp.RealTime.realTime2Frame(f.timestamp, 48000)
+                        table.insert(beats[r:name ()], {pos = fn, beat = tonumber(f.label)})
+                    end
+                end
+            end
+
+            local fl = feats:table()[1]
+            if fl then
+                for f in fl:iter () do
+                    if f.hasTimestamp then
+                        local fn = Vamp.RealTime.realTime2Frame(f.timestamp, 48000)
+                        table.insert(bars[r:name ()], fn)
+                    end
+                end
+            end
+            return false -- continue, don't cancel
+        end
+
+        vamp:plugin():setParameter("Beats Per Bar", 4)
+
+        vamp:analyze(ar:to_readable(), 0, callback)
+        callback(vamp:plugin():getRemainingFeatures())
+        vamp:reset()
+        ::next::
+    end
+
+    -- Calculate distances between beats, ignoring the first Beat 4, and then average
+    local first_beat_4_skipped = false
+    local total_distance = 0
+    local distance_count = 0
+
+    for n, o in pairs(beats) do
+        print("Distance between beats for region:", n)
+
+        -- Iterate over the beats
+        for i = 2, #o do
+            local current_beat = o[i]['beat']
+            local previous_beat = o[i-1]['beat']
+
+            -- Skip the first occurrence of Beat 4
+            if current_beat == 4 and not first_beat_4_skipped then
+                first_beat_4_skipped = true
+            else
+                local distance = o[i]['pos'] - o[i-1]['pos']
+                total_distance = total_distance + distance
+                distance_count = distance_count + 1
+                print("Distance between Beat " .. previous_beat .. " and Beat " .. current_beat .. ":", distance, "samples")
+            end
+        end
+    end
+
+    -- Calculate and print the average distance
+    if distance_count > 0 then
+        local average_distance = total_distance / distance_count
+        print("Average distance between beats (excluding the first Beat 4):", average_distance, "samples")
+    num = 48000/average_distance * 60
+  print (num)
+
+     local md = LuaDialog.Message("Estimate Tempo", num, LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
+    print(md:run())
+    md = nil
+    collectgarbage()
+
+   local tm = Temporal.TempoMap.write_copy()
+    tm:set_tempo(Temporal.Tempo(num, num, 4), st)
+    tm:set_tempo(Temporal.Tempo(120, 120, 4), et)
+
+   Session:begin_reversible_command("Change Tempo Map")
+    Temporal.TempoMap.update(tm)
+    if not Session:abort_empty_reversible_command() then
+        Session:commit_reversible_command(nil)
+   end
+    tm = nil
+
+    -- Abort Edit example
+    -- after every call to Temporal.TempoMap.write_copy()
+    -- there must be a matching call to
+    -- Temporal.TempoMap.update() or Temporal.TempoMap.abort_update()
+    Temporal.TempoMap.write_copy()
+    Temporal.TempoMap.abort_update()
+    else
+        print("No distances calculated.")
+
+        -- local command = "bpmbin " .. quotedfilepath
+
+        local command = "sox  " ..quotedfilepath.. " -t raw -r 48000  -e float -c 1 - | bpm"
 
 os.execute(command)
 
@@ -119,22 +226,8 @@ os.execute(command)
     print(md:run())
     md = nil
     collectgarbage()
-
-
-
-
-
-
-
-
-
-
-
-
-    -- Convert the content to a number and store it in a variable
+-- Convert the content to a number and store it in a variable
     local num = tonumber(firstresult)
-
-
 
     -- set a tempo map
    local tm = Temporal.TempoMap.write_copy()
@@ -154,6 +247,17 @@ os.execute(command)
     -- Temporal.TempoMap.update() or Temporal.TempoMap.abort_update()
     Temporal.TempoMap.write_copy()
     Temporal.TempoMap.abort_update()
+
+
+
+    end
+
+    -- local command = "sox  " ..quotedfilepath.. " -t raw -r 48000  -e float -c 1 - | bpm"
+
+
+
+
+
 
 
 end
