@@ -71,7 +71,7 @@ os.execute(command)
     print(firstresult)
 
 
-     local md = LuaDialog.Message("Estimate Tempo", firstresult, LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
+     local md = LuaDialog.Message("Estimate Key", firstresult, LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
     print(md:run())
     md = nil
     collectgarbage()
