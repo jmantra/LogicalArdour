@@ -184,7 +184,7 @@
       <Window name="session-options-editor" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Window name="speaker-config" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Window name="about" visible="0" x-off="0" y-off="0" x-size="424" y-size="611"/>
-      <Window name="add-routes" visible="0" x-off="-1" y-off="-1" x-size="737" y-size="503"/>
+      <Window name="add-routes" visible="0" x-off="-1" y-off="-1" x-size="753" y-size="503"/>
       <Window name="add-video" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Window name="inspector" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Window name="audio-midi-setup" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
@@ -206,19 +206,17 @@
       <Window name="dsp-statistics" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Window name="transport-masters" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Window name="RPM-71" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
-      <Window name="RPM-208" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
-      <Window name="RPM-708" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
-      <Window name="P-708-812" visible="0" x-off="854" y-off="0" x-size="506" y-size="405" custom-ui="1"/>
-      <Window name="PM-708-812" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
-      <Window name="P-708-1056" visible="0" x-off="456" y-off="0" x-size="904" y-size="603" custom-ui="1"/>
-      <Window name="PM-708-1056" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
+      <Window name="RPM-609" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
+      <Window name="P-609-1486" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1" custom-ui="1"/>
+      <Window name="PM-609-1486" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
+      <Window name="RPM-2490" visible="0" x-off="-1" y-off="-1" x-size="-1" y-size="-1"/>
       <Tearoffs>
         <monitor-section tornoff="0"/>
       </Tearoffs>
     </UI>
     <AudioMIDISetup>
       <EngineStates>
-        <State backend="JACK" driver="" device="HDA Intel HDMI" input-device="" output-device="" sample-rate="48000" buffer-size="1024" n-periods="2" input-latency="0" output-latency="0" lm-input="" lm-output="" active="1" use-buffered-io="0" midi-option="" lru="1726174892">
+        <State backend="JACK" driver="" device="HDA Intel HDMI" input-device="" output-device="" sample-rate="48000" buffer-size="1024" n-periods="2" input-latency="0" output-latency="0" lm-input="" lm-output="" active="1" use-buffered-io="0" midi-option="" lru="1726357561">
           <MIDIDevices/>
         </State>
         <State backend="ALSA" driver="" device="" input-device="HDA Intel PCH" output-device="HDA Intel HDMI" sample-rate="48000" buffer-size="1024" n-periods="2" input-latency="0" output-latency="0" lm-input="" lm-output="" active="0" use-buffered-io="0" midi-option="ALSA sequencer" lru="1725763195">
@@ -258,7 +256,9 @@
       <Port/>
     </TransportMaster>
     <TransportMaster type="LTC" removeable="0" name="LTC" fr2997="0" sclock_synced="0" collect="1" allowed_transport_requests="">
-      <Port/>
+      <Port>
+        <Connection other="Built-in Audio Analog Stereo:capture_FL"/>
+      </Port>
     </TransportMaster>
     <TransportMaster type="MIDIClock" removeable="0" name="MIDI Clock" sclock_synced="0" collect="1" allowed_transport_requests="">
       <Port/>
