@@ -1,13 +1,38 @@
 ardour {
 	["type"] = "EditorAction",
-	name = "Tempo - Estimate Tempo",
+	name = "Tempo - Estimate  and set tempo",
 	author      = "Justin Ehrlichman",
 description = [[
-Estimate the tempo of a selected audio region and set tempo markers
+Estimate the tempo of a selected audio region and set tempo markers or set the estimated tempo for the entire project
 ]]
 }
 
 function factory () return function (signal, ...)
+
+local dialog_options = {
+  {
+    type = "dropdown", key = "dropdown", title = "Choose how to set tempo", values =
+    {
+      ["Set tempo for entire project"] = 1, ["Set tempo for length of the audio loop"] = 2
+    },
+    default = "Set tempo for entire project"
+  }
+}
+
+local od = LuaDialog.Dialog("Choose how to set tempo", dialog_options)
+local rv = od:run()
+
+-- Exit the script if 'Cancel' is pressed or the dialog is closed
+if not rv then
+  return -- Exits the script
+end
+
+if rv["dropdown"] == 2 then
+  dur = true
+else
+  dur = false
+end
+
 
 
 
@@ -38,11 +63,14 @@ if count ~= 1 then
 end
 
 local rn = audio_region:name()
+print (rn)
 local source = audio_region:source(0):to_filesource():path()
-print(source)
+--print(source)
 local filepath = source
 
 local st = audio_region:position()
+
+print (st)
 
 local ln = audio_region:length()
 local et = st + ln
@@ -50,17 +78,17 @@ print(et)
 
 local quotedfilepath = '"' .. filepath .. '"'
 
-function extractBPM(filename)
-    local bpm = string.match(filename, "(%d%d?%d?)[-_]?%s*[bB][pP][mM]", 1)
+function extractBPM(rn)
+    local bpm = string.match(rn, "(%d%d?%d?)[-_]?%s*[bB][pP][mM]", 1)
     if not bpm then
-        bpm = string.match(filename, "[bB][pP][mM]%s*[_-]?(%d+)", 1)
+        bpm = string.match(rn, "[bB][pP][mM]%s*[_-]?(%d+)", 1)
     end
     return bpm
 end
 
 -- Example usage:
-local filename = quotedfilepath
-local bpm = extractBPM(filename)
+
+local bpm = extractBPM(rn)
 if bpm then
     print(bpm)
     local result = bpm
@@ -76,14 +104,24 @@ if bpm then
 
     -- set a tempo map
     local tm = Temporal.TempoMap.write_copy()
+    if dur == true then
     tm:set_tempo(Temporal.Tempo(num, num, 4), st)
-    tm:set_tempo(Temporal.Tempo(120, 120, 4), et)
+   tm:set_tempo(Temporal.Tempo(120, 120, 4), et)
+   else
+
+    tp = Temporal.timepos_t (Session:nominal_sample_rate () * 0)
+
+
+     tm:set_tempo(Temporal.Tempo(num, num, 4), tp)
+
+     end
 
     Session:begin_reversible_command("Change Tempo Map")
     Temporal.TempoMap.update(tm)
     if not Session:abort_empty_reversible_command() then
         Session:commit_reversible_command(nil)
     end
+
     tm = nil
 
     -- Abort Edit example
@@ -184,15 +222,27 @@ else
     md = nil
     collectgarbage()
 
-   local tm = Temporal.TempoMap.write_copy()
-    tm:set_tempo(Temporal.Tempo(num, num, 4), st)
-    tm:set_tempo(Temporal.Tempo(120, 120, 4), et)
 
-   Session:begin_reversible_command("Change Tempo Map")
+    -- set a tempo map
+    local tm = Temporal.TempoMap.write_copy()
+    if dur == true then
+    tm:set_tempo(Temporal.Tempo(num, num, 4), st)
+   tm:set_tempo(Temporal.Tempo(120, 120, 4), et)
+   else
+
+    tp = Temporal.timepos_t (Session:nominal_sample_rate () * 0)
+
+
+     tm:set_tempo(Temporal.Tempo(num, num, 4), tp)
+
+     end
+
+    Session:begin_reversible_command("Change Tempo Map")
     Temporal.TempoMap.update(tm)
     if not Session:abort_empty_reversible_command() then
         Session:commit_reversible_command(nil)
-   end
+    end
+
     tm = nil
 
     -- Abort Edit example
@@ -229,16 +279,27 @@ os.execute(command)
 -- Convert the content to a number and store it in a variable
     local num = tonumber(firstresult)
 
-    -- set a tempo map
-   local tm = Temporal.TempoMap.write_copy()
-    tm:set_tempo(Temporal.Tempo(num, num, 4), st)
-    tm:set_tempo(Temporal.Tempo(120, 120, 4), et)
 
-   Session:begin_reversible_command("Change Tempo Map")
+    -- set a tempo map
+    local tm = Temporal.TempoMap.write_copy()
+    if dur == true then
+    tm:set_tempo(Temporal.Tempo(num, num, 4), st)
+   tm:set_tempo(Temporal.Tempo(120, 120, 4), et)
+   else
+
+    tp = Temporal.timepos_t (Session:nominal_sample_rate () * 0)
+
+
+     tm:set_tempo(Temporal.Tempo(num, num, 4), tp)
+
+     end
+
+    Session:begin_reversible_command("Change Tempo Map")
     Temporal.TempoMap.update(tm)
     if not Session:abort_empty_reversible_command() then
         Session:commit_reversible_command(nil)
-   end
+    end
+
     tm = nil
 
     -- Abort Edit example
