@@ -27,7 +27,7 @@ local dialog_options = {
                        ["Dance Drums (sfizz)"] = 13,
 						["Jazz Drums (sfizz)"] = 14,
 						["Drumlabooh (Drum plugin with multiple kits)"] =15,
-					--	["Cheetah SpecDrum Afro (Drumlabooh)"] =16,
+					["NIN Drumkit (ACE Fluid Synth)"] =16,
 						-- ["Gretch JazzKit (Drumlabooh)"] =17,
 						["Brush Drum (sfizz)"] = 18,
 						["Orchestral Perc (sfizz)"] = 19
@@ -173,8 +173,19 @@ local dialog_options = {
 		track_name = "drumlabooh"
 		preset_name = "drumlabooh"
 
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
 	 end
+
+	  	   	if rv and rv["dropdown"] == 16 then
+		print("NIN Drumkit")
+
+		plugin_name = "ACE Fluid Synth"
+		track_name = "NIN Drumkit"
+		preset_name = "nin"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
 
 
 
@@ -232,6 +243,20 @@ end
 
 
  if plugin_name == "drumlabooh" then
+
+
+local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
+
+-- Get the preset
+local preset = proc:preset_by_label(preset_name)
+
+-- Load the preset
+proc:load_preset(preset)
+
+end
+
+
+if plugin_name == "ACE Fluid Synth" then
 
 
 local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
