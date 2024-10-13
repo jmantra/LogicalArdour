@@ -53,7 +53,7 @@ local dialog_options = {
 				["Choose a track Type"] = 1, ["Drum Track"] =
 
 				{
-					["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Blonde Bop"] = "bo",["Standard Drums (sfizz)"] = "std", ["Standard 2 Drums (sfizz)"] = "st2",["Electronic Drums"] = "eld", ["Room Drums (sfizz)"] = "rmd",   ["Power Drums (sfizz)"] = "pwd", ["Dance Drums (sfizz)"] = "dad",["Jazz Drums (sfizz)"] = "jzd", ["808/809 Drums (sfizz)"] = "808", 	["Drumlabooh (Drum plugin with multiple kits)"] = "drl",["Brush Drums (sfizz)"] = "brd",["Orchestral Perc (sfizz)"] = "orp"
+					["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Blonde Bop"] = "bo",["Standard Drums (ACE Fluid Synth)"] = "std", ["Standard 2 Drums (ACE Fluid Synth)"] = "st2",["Electronic Drums"] = "eld", ["Room Drums (ACE Fluid Synth)"] = "rmd",   ["Power Drums (ACE Fluid Synth)"] = "pwd", ["Dance Drums (ACE Fluid Synth)"] = "dad",["Jazz Drums (ACE Fluid Synth)"] = "jzd", ["808/809 Drums (ACE Fluid Synth)"] = "808",["Brush Drums (ACE Fluid Synth)"] = "brd",["Orchestral Perc (ACE Fluid Synth)"] = "orp",["SoniNeko Drums (ACE Fluid Synth)"] = "son",["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al"
 				},["Instrument"] =
 
 				{
@@ -65,7 +65,7 @@ local dialog_options = {
 				["Record Audio"] =
 
 				{
-					["Vocals"] = { ["Classic"] = "clv",["Bright"] = "brv", ["Compressed"] = "cov", ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav", ["Edge"] =  "edv",["Fuzz"] = "fzv"},
+					["Vocals"] = { ["Classic"] = "clv",["Bright"] = "brv", ["Compressed"] = "cov", ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav", ["Edge"] =  "edv",["Fuzz"] = "fzv", ["Tube Vocals"] = "tub",["Deeper Vocals"] = "dp"},
 					["Guitar or Bass"] = {
 					["Guitarix"] = "gx", ["Ratatouille"] = "ra"
 				},
@@ -470,7 +470,7 @@ print (full_path)
 	end
 
 									if rv and rv["dropdown"] == "orp" then
-		print("Brush Drums")
+		print("Orchestral Perc")
 
 
 		-- Replace the path below with the path to your track template
@@ -481,6 +481,60 @@ print (full_path)
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
+
+										if rv and rv["dropdown"] == "son" then
+		print("SoniNeko Drums")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/soni.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "SoniNeko Drums"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+	if rv and rv["dropdown"] == "al" then
+	print("Alesis Drumkits")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/al.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Alesis Drumkits"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+		if rv and rv["dropdown"] == "tub" then
+	print("Tube Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/tube.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Tube Vocals"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+				if rv and rv["dropdown"] == "dp" then
+	print("Deeper Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/deeper.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Deeper Vocals"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+
+
 
 
 

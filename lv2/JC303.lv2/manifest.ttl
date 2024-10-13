@@ -1,0 +1,23 @@
+@prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pset:  <http://lv2plug.in/ns/ext/presets#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix ui:    <http://lv2plug.in/ns/extensions/ui#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+<http://github.com/midilab/JC303/>
+	a lv2:Plugin ;
+	lv2:binary <libJC303.so> ;
+	rdfs:seeAlso <dsp.ttl> .
+
+<http://github.com/midilab/JC303/:UI>
+	a ui:X11UI ;
+	lv2:binary <libJC303.so> ;
+	rdfs:seeAlso <ui.ttl> .
+
+<http://github.com/midilab/JC303/:preset1>
+	a pset:Preset ;
+	lv2:appliesTo <http://github.com/midilab/JC303/> ;
+	rdfs:label "" ;
+	state:state [ <http://github.com/midilab/JC303/:Program> "0"^^xsd:int ; ] .
+
