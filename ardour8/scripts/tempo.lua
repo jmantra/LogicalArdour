@@ -39,7 +39,7 @@ end
 
 local sel = Editor:get_selection()
 local count = 0
-local midi_region
+
 
 for r in sel.regions:regionlist():iter() do
     count = count + 1
