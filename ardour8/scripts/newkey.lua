@@ -117,9 +117,10 @@ if rv and rv["target_key"] == 35 and file_content:match("No key set") then
     return -- Exit the script
 end
 
-if rv and rv["target_key"] == 35
-    print("The key set "..file_content)
-    return -- Exit the script
+if rv and rv["target_key"] == 35 then
+    print("The key is set to "..file_content)
+
+
 end
 
 
@@ -308,7 +309,7 @@ print(type(ratio))
 		end
 
 		-- configure rubberband stretch tool
-		rb:set_strech_and_pitch (1, ratio) -- no overall stretching, no pitch-shift
+		rb:set_strech_and_pitch (1, ratio) -- no overall stretching, but pitch shifting
 		--rb:set_mapping (beat_map) -- apply beat-map from/to
 
 		-- now stretch the region
