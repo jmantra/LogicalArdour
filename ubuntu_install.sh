@@ -70,6 +70,7 @@ sudo apt install xclip -y
 sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
 
 #sudo apt upgrade -y
+sudo apt install zam-plugins
 
 
 wget https://codeload.github.com/jmantra/LogicalArdour/zip/refs/heads/main
@@ -128,11 +129,7 @@ sudo cp -rf samples/* /opt/LogicalArdour
 
 sudo mkdir /usr/local/lib/vst3
 
-sudo cp -rf drumlabooh/drumlabooh.vst3/ /usr/lib/vst3
 
-sudo cp -rf drumlabooh/drumlabooh-multi.vst3/ /usr/lib/vst3
-
-sudo cp -rf drumlabooh-kits /usr/local/share
 
 folder="$HOME/.config/ardour8"
 backup_or_create_folder "$folder"
@@ -166,23 +163,7 @@ cd "$HOME/Downloads"
 
 rm -rf LogicalArdour/*
 
-ln -sf '/opt/LogicalArdour/Power Drums/Power Drums.sfz' ~/.lv2/sfizz_Power_Drums.lv2/'Power Drums.sfz'
 
-ln -sf '/opt/LogicalArdour/Dance Drums/Dance Drums.sfz' ~/.lv2/sfizz_Dance_Drums.lv2/'Dance Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Electronic/Electronic Drums.sfz' ~/.lv2/sfizz_Electronic_Drums.lv2/'Electronic Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Jazz Drums/Jazz Drums.sfz' ~/.lv2/sfizz_Jazz_Drums.lv2/'Jazz Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Room Drums/Room Drums.sfz' ~/.lv2/sfizz_Room_Drums.lv2/'Room Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Standard 2 Drums/Standard 2 Drums.sfz' ~/.lv2/sfizz_Standard_2_Drums.lv2/'Standard 2 Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Brush Drums/Brush Drums.sfz' ~/.lv2/sfizz_Brush_Drums.lv2/'Brush Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/808 drums/808_909 Drums.sfz' ~/.lv2/sfizz_808.lv2/'808_909 Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Orchestral Perc/048_Orchestral Perc..sfz' ~/.lv2/sfizz_Orchestral_Perc.lv2/'048_Orchestral Perc..sfz'
 
 
 
