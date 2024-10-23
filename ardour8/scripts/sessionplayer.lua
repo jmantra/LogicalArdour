@@ -65,7 +65,7 @@ if not sel:empty () and not sel.tracks:routelist ():empty ()  then
   -- for each selected track
   for r in sel.tracks:routelist ():iter () do
     if not r:to_track ():isnil () then
-    old = r:nth_plugin(1)
+    old = r:nth_plugin(2)
     --  assert (not new:isnil())
       r:replace_processor (old, new, nil)
         r:set_name(track_name, nil)
@@ -73,7 +73,7 @@ if not sel:empty () and not sel.tracks:routelist ():empty ()  then
  if plugin_name == "ACE Fluid Synth" then
 
 
-local proc = Session:route_by_name(track_name):to_track():nth_plugin(1):to_insert():plugin(1)
+local proc = Session:route_by_name(track_name):to_track():nth_plugin(2):to_insert():plugin(2)
 
 -- Get the preset
 local preset = proc:preset_by_label(preset_name)
