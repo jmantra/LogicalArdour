@@ -75,6 +75,8 @@ sudo apt install zam-plugins
 
 sudo apt install git
 
+git clone https://github.com/jmantra/LogicalArdour.git
+
 cd LogicalArdour
 
 
