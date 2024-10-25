@@ -73,14 +73,9 @@ sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
 sudo apt install zam-plugins
 
 
-wget https://codeload.github.com/jmantra/LogicalArdour/zip/refs/heads/main
+sudo apt install git
 
-mkdir LogicalArdour
-
-unzip main -d LogicalArdour
-
-
-cd LogicalArdour/LogicalArdour-main
+cd LogicalArdour
 
 
 
@@ -155,7 +150,7 @@ done
 
 
 
-sudo cp -rf media/* /usr/share/ardour8/media
+
 
 
 cd "$HOME/Downloads"
