@@ -9,6 +9,72 @@ Replace Drum Plugin on currently selected track
 
 function factory () return function (signal, ...)
 
+ local sel = Editor:get_selection ()
+
+  -- Check if no track is selected
+  if sel:empty() or sel.tracks:routelist():empty() then
+    LuaDialog.Message("Error", "No track selected. Please select a track to continue.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.OK):run()
+    return
+  end
+
+  -- Check if more than one track is selected
+  if sel.tracks:routelist():size() > 1 then
+    LuaDialog.Message("Error", "More than one track selected. Please select only one track to continue.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.OK):run()
+    return
+  end
+
+
+     midiTrackFound = false -- Flag to check if any MIDI track is selected
+
+    -- for each selected track/bus
+    for r in sel.tracks:routelist():iter() do
+      if not r:to_track():isnil() and not r:to_track():to_midi_track():isnil() then
+       midiTrackFound = true
+       print("is a midi track")
+      end
+    end
+
+       if  midiTrackFound == false then
+      LuaDialog.Message("Error", "No MIDI track selected. Please select a MIDI track.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+      return
+    end
+
+
+    for r in sel.tracks:routelist():iter() do
+
+    local proc = r:nth_plugin(0) -- for every plugin
+    if proc:isnil() then break end
+    local pi = proc:to_insert()
+    local plugin_name = pi:plugin(0):name()
+    if plugin_name == "Arpeggiator" then
+
+       LuaDialog.Message("Error", "The currently selected track is a Session Player track, please select a drum track.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+      return
+
+    end
+
+       local proc2 = r:nth_plugin(1) -- for every plugin
+    if proc2:isnil() then break end
+    local pi2 = proc2:to_insert()
+    local plugin_name2 = pi2:plugin(1):name()
+    if plugin_name2 == "MIDI Strum" then
+
+
+
+      LuaDialog.Message("Error", "The currently selected track is a Session Player track, please select a drum track).", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+      return
+
+
+
+    end
+
+ end
+
+
+
+
+
+
 
 local dialog_options = {
   {
@@ -234,7 +300,7 @@ local sel = Editor:get_selection ()
 if not sel:empty () and not sel.tracks:routelist ():empty ()  then
   -- for each selected track
   for r in sel.tracks:routelist ():iter () do
-    if not r:to_track ():isnil () then
+ if not r:to_track ():isnil () then
     old = r:nth_plugin(0)
     --  assert (not new:isnil())
       r:replace_processor (old, new, nil)

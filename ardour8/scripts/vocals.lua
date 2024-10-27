@@ -8,6 +8,35 @@ ardour {
 
 function factory () return function ()
 
+ local sel = Editor:get_selection ()
+
+  -- Check if no track is selected
+  if sel:empty() or sel.tracks:routelist():empty() then
+    LuaDialog.Message("Error", "No track selected. Please select a track to continue.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.OK):run()
+    return
+  end
+
+  -- Check if more than one track is selected
+  if sel.tracks:routelist():size() > 1 then
+    LuaDialog.Message("Error", "More than one track selected. Please select only one track to continue.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.OK):run()
+    return
+  end
+audioTrackFound = false -- Flag to check if any audio track is selected
+
+    -- for each selected track/bus
+    for r in sel.tracks:routelist():iter() do
+      if not r:to_track():isnil() and not r:to_track():to_audio_track():isnil() then
+       audioTrackFound = true
+       print("is an audio track")
+      end
+    end
+
+       if  audioTrackFound == false then
+      LuaDialog.Message("Error", "No audio track selected. Please select an audio track.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+      return
+    end
+
+
 local dialog_options = {
   {
    type = "dropdown", key = "dropdown", title = "Choose Vocal Preset", values =

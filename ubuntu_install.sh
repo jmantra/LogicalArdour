@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Function to check if folder exists, make a backup if exists, create if not
+backup_or_create_folder() {
+    local folder="$1"
+
+    if [ -d "$folder" ]; then
+        echo "Folder '$folder' already exists. Making a backup..."
+        cp -r "$folder" "${folder}_backup"
+    else
+        echo "Folder '$folder' does not exist. Creating folder..."
+        mkdir -p "$folder"
+    fi
+}
+
 cd "$HOME/Downloads"
 
 sudo apt install ardour -y
@@ -21,6 +34,62 @@ sudo chmod 755 /usr/bin/key
 #sudo cp bpmbin /usr/bin
 
 #sudo chmod 755 /usr/bin/bpmbin
+
+
+while true; do
+  read -p "Would you like to configure Ardour to automatically use Pipewire-Jack when launching? (This is the reccommneded way as it allows other applications to use the sound card as well connect Musescore to Ardour) (y/n): " choice
+  case "$choice" in
+    y|Y )
+      # Replace the URL with the actual link to the file you want to download
+      echo "Configuring Pipewire-Jack"
+      sudo apt install pipewire-jack
+    sed -i 's|^Exec=/usr/bin/ardour %f$|Exec=/usr/bin/pw-jack /usr/bin/ardour %f|' ardour.desktop
+
+      break
+      ;;
+    n|N )
+      echo "Skipping Pipewire autoconfig."
+      break
+      ;;
+    * )
+      echo "Invalid input. Please enter y or n."
+      ;;
+  esac
+done
+
+# Continue with the rest of your script here
+echo "Continuing with the rest of the script..."
+
+
+##########
+
+
+
+while true; do
+  read -p "Do you want to download some loops? (3.5 GB)(Please Note: Loops can be downloaded later in the Library Downloader, however not all loop libraries work in the distro version of Ardour ) (y/n): " choice
+  case "$choice" in
+    y|Y )
+      # Replace the URL with the actual link to the file you want to download
+      echo "Downloading loops..."
+      folder="$HOME/.local/share/sounds/"
+backup_or_create_folder "$folder"
+      wget https://jmantra.blob.core.windows.net/data/clips.zip
+      unzip clips.zip -d $folder
+      rm -rf clips.zip
+      break
+      ;;
+    n|N )
+      echo "Skipping download."
+      break
+      ;;
+    * )
+      echo "Invalid input. Please enter y or n."
+      ;;
+  esac
+done
+
+# Continue with the rest of your script here
+echo "Continuing with the rest of the script..."
 
 sudo apt install sox bpm-tools -y
 
@@ -54,13 +123,7 @@ sudo dpkg -i zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
 
 sudo apt install x42-plugins avldrums.lv2 swh-lv2 calf-plugins tap-plugins  guitarix-lv2  mda-lv2  -y
 
- wget https://download.opensuse.org/repositories/home:/sfztools:/sfizz/xUbuntu_23.10/amd64/sfizz_1.2.3-0_amd64.deb
 
-#wget https://download.opensuse.org/repositories/home:/sfztools:/sfizz/Debian_12/amd64/sfizz_1.2.3-0_amd64.deb
-
-sudo dpkg -i sfizz_1.2.3-0_amd64.deb
-
-rm -rf sfizz_1.2.3-0_amd64.deb
 
 
 wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.1/surge-xt-linux-x64-1.3.1.deb
@@ -81,18 +144,7 @@ cd LogicalArdour
 
 
 
-# Function to check if folder exists, make a backup if exists, create if not
-backup_or_create_folder() {
-    local folder="$1"
 
-    if [ -d "$folder" ]; then
-        echo "Folder '$folder' already exists. Making a backup..."
-        cp -r "$folder" "${folder}_backup"
-    else
-        echo "Folder '$folder' does not exist. Creating folder..."
-        mkdir -p "$folder"
-    fi
-}
 
 
 folder="$HOME/.lv2"

@@ -47,13 +47,15 @@ end
 
 local rn = midi_region:name()
 local source = midi_region:source(0):to_filesource():path()
-print(source)
+
 local filepath = source
+ route = midi_region:playlist():name()
+print ( track)
 
 
 local quotedfilepath = '"' .. filepath .. '"'
 
-local command = "mscore -o /tmp/output.pdf  " ..quotedfilepath
+local command = "mscore2appimage " ..quotedfilepath
 
 -- Open the file "mscore.sh" for writing
 local file = io.open("mscore.sh", "w")
@@ -100,7 +102,7 @@ if not file then
     print("Error: Failed to create file 'mscore.sh'")
 else
     -- Write the command content to the file
- local command = "mscore " ..quotedfilepath
+ local command = "mscore2appimage " ..quotedfilepath
 
     file:write(command .. "\n") -- Write the command to the file
 
@@ -119,17 +121,34 @@ os.execute(mv)
 
 os.forkexec("/bin/bash", "/tmp/mscore.sh")
 
+for r in Session:get_routes ():iter () do
+   if not r:to_track ():isnil () and not r:to_track ():to_midi_track ():isnil () then
+     trackname = r:name()
 
 
+     if trackname == route then
 
 
-
-
-
-
-
-
+     local inputmidiport = r:input():midi(0)
+     print(inputmidiport:name())
+     --inputmidiport:disconnect_all()
+     inputmidiport:connect("mscore:mscore-midi-1")
+   end
+ end
+ end
 end end
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
