@@ -212,6 +212,33 @@ cd "$HOME/Downloads"
 
 rm -rf LogicalArdour/*
 
+while true; do
+  read -p "Would you like to install dependencies for stem sepearation(Note: This requires installing podman and downloading the langugae models/files) (1.2 GB)) (y/n): " choice
+  case "$choice" in
+    y|Y )
+      # Replace the URL with the actual link to the file you want to download
+sudo apt install podman buildah podman-docker -y
+
+sudo sed -i "s/# unqualified-search-registries.*/unqualified-search-registries\ =\ [\"docker.io\"]/" /etc/containers/registries.conf
+
+wget https://jmantra.blob.core.windows.net/data/demucs.zip
+unzip demucs.zip $HOME
+
+      break
+      ;;
+    n|N )
+      echo "Skipping Stem Separation config."
+      break
+      ;;
+    * )
+      echo "Invalid input. Please enter y or n."
+      ;;
+  esac
+done
+
+# Continue with the rest of your script here
+echo "Continuing with the rest of the script..."
+
 
 
 
