@@ -146,7 +146,7 @@ sudo apt install zam-plugins -y
 sudo apt install samplv1 -y
 
 
-sudo apt install git
+sudo apt install git -y
 
 git clone https://github.com/jmantra/LogicalArdour.git
 
