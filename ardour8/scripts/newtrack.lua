@@ -8,37 +8,44 @@ Brings up a dialog menu to select track types based on templates
 }
 
 function factory () return function (signal, ...)
-
 local dialog_options = {
-		{
-			type = "dropdown", key = "dropdown", title = "Choose Track", values =
-			{
-				["Choose a track Type"] = 1, ["Drum Track"] =
+  {
+    type = "dropdown", key = "dropdown", title = "Choose Track", values = {
+      ["Choose a track Type"] = 1,
+      ["Drum Track"] = {
+        ["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Blonde Bop"] = "bo",
+        ["Standard Drums (ACE Fluid Synth)"] = "std", ["Standard 2 Drums (ACE Fluid Synth)"] = "st2",
+        ["Electronic Drums"] = "eld", ["Room Drums (ACE Fluid Synth)"] = "rmd",
+        ["Power Drums (ACE Fluid Synth)"] = "pwd", ["Dance Drums (ACE Fluid Synth)"] = "dad",
+        ["Jazz Drums (ACE Fluid Synth)"] = "jzd", ["808/809 Drums (ACE Fluid Synth)"] = "808",
+        ["Brush Drums (ACE Fluid Synth)"] = "brd", ["Orchestral Perc (ACE Fluid Synth)"] = "orp",
+        ["SoniNeko Drums (ACE Fluid Synth)"] = "son", ["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al"
+      },
+      ["Play Software Instruments"] = {
+        ["ACE Fluid (Traditional Instruments)"] = "ac", ["Zynaddsubfx (Traditional Synth)"] = "za",
+        ["Surge XT (Synth with a LOT of presets)"] = "st",["Samplv1 Sampler"] = "samp"
+      },
+      ["Session Player"] = {
+        ["ACE Fluid (Traditional Instruments)"] = "acs", ["Zynaddsubfx (Traditional Synth)"] = "zas",
+        ["Surge XT (Synth with a LOT of presets)"] = "sts"
+      },
+      ["Record Audio"] = {
+        ["Vocals"] = {
+          ["Classic"] = "clv", ["Bright"] = "brv", ["Compressed"] = "cov",
+          ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav",
+          ["Edge"] = "edv", ["Fuzz"] = "fzv", ["Tube Vocals"] = "tub",
+          ["Deeper Vocals"] = "dp", ["Robot Vocals"] = "rob"
+        },
+        ["Blank Audio Track"] = "audio"
+      },
+      ["Record Guitar or Bass"] = {
+        ["Guitarix"] = "gx", ["Ratatouille"] = "ra"
+      }
+    },
+    default = "Choose a track type"
+  }
+}
 
-				{
-					["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Blonde Bop"] = "bo",["Standard Drums (ACE Fluid Synth)"] = "std", ["Standard 2 Drums (ACE Fluid Synth)"] = "st2",["Electronic Drums"] = "eld", ["Room Drums (ACE Fluid Synth)"] = "rmd",   ["Power Drums (ACE Fluid Synth)"] = "pwd", ["Dance Drums (ACE Fluid Synth)"] = "dad",["Jazz Drums (ACE Fluid Synth)"] = "jzd", ["808/809 Drums (ACE Fluid Synth)"] = "808",["Brush Drums (ACE Fluid Synth)"] = "brd",["Orchestral Perc (ACE Fluid Synth)"] = "orp",["SoniNeko Drums (ACE Fluid Synth)"] = "son",["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al"
-				},["Instrument"] =
-
-				{
-					["ACE Fluid (Traditional Instruments)"] = "ac", ["Zynaddsubfx (Traditional Synth)"] = "za", ["Surge XT (Synth with a LOT of presets)"] = "st" },
-						["Session Player"] = {
-					["ACE Fluid (Traditional Instruments)"] = "acs", ["Zynaddsubfx (Traditional Synth)"] = "zas",["Surge XT (Synth with a LOT of presets)"] = "sts"
-
-				},
-				["Record Audio"] =
-
-				{
-					["Vocals"] = { ["Classic"] = "clv",["Bright"] = "brv", ["Compressed"] = "cov", ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav", ["Edge"] =  "edv",["Fuzz"] = "fzv",["Tube Vocals"] = "tub",["Deeper Vocals"] = "dp",["Robot Vocals"] = "rob"},
-					["Guitar or Bass"] = {
-					["Guitarix"] = "gx", ["Ratatouille"] = "ra"
-				},
-				}
-
-
-			},
-			default = "Choose a track type"
-		}
-	}
 
 	-- Fetch the user config directory
 local user_config_directory = ARDOUR.user_config_directory(8) -- get the config directory (using version 8)
@@ -497,7 +504,7 @@ print (full_path)
 	end
 
 			if rv and rv["dropdown"] == "rob" then
-	print("Deeper Vocals")
+	print("Robot Vocals")
 
 
 		-- Replace the path below with the path to your track template
@@ -505,6 +512,44 @@ print (full_path)
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Robot Vocals"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+		if rv and rv["dropdown"] == "audio" then
+	print("Audio")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/audio.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "audio"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
+
+			if rv and rv["dropdown"] == "rob" then
+	print("Robot Vocals")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/robot vocals.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Robot Vocals"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+		if rv and rv["dropdown"] == "samp" then
+	print("Samplv1 Sampler")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/sampler.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Samplv1 Sampler"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end

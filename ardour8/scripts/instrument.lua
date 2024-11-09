@@ -76,7 +76,8 @@ local dialog_options = {
    {
     ["Choose Instrument Plugin"] = 1, ["ACE Fluid Synth"] = 2,
     ["Zynaddsubfx"] = 3,
-    ["Surge XT"] = 4
+    ["Surge XT"] = 4,
+    ["Samplv1 Sampler"] = 5
 
    },
    default = "Choose Instrument Plugin"
@@ -118,6 +119,16 @@ if rv and rv["dropdown"] == 2 then
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
 	 end
+
+	  	if rv and rv["dropdown"] == 5 then
+		print("You Chose Samplv1")
+
+		plugin_name = "samplv1"
+		track_name = "Samplv1 Sampler"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
 
 
 

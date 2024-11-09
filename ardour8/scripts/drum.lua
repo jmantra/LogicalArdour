@@ -215,7 +215,7 @@ local dialog_options = {
 
 		plugin_name = "ACE Fluid Synth"
 		track_name = "Dance Drums"
-		preset_name = "Dance Drums"
+		preset_name = "dance"
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
 	 end
@@ -320,32 +320,6 @@ proc:load_preset(preset)
 end
 
 
- if plugin_name == "drumlabooh" then
-
-
-local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
-
--- Get the preset
-local preset = proc:preset_by_label(preset_name)
-
--- Load the preset
-proc:load_preset(preset)
-
-end
-
-
-if plugin_name == "ACE Fluid Synth" then
-
-
-local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
-
--- Get the preset
-local preset = proc:preset_by_label(preset_name)
-
--- Load the preset
-proc:load_preset(preset)
-
-end
 
 
 
