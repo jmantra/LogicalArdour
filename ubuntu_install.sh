@@ -211,7 +211,8 @@ done
 
 #DIR=$(find /opt -maxdepth 1 -type d -name "Ardour-*" | sort -V | tail -n 1)
 
-
+sudo apt install libspa-0.2-jack -y
+sudo usermod -aG audio $USER
 
 
 
