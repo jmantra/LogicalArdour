@@ -139,7 +139,9 @@ sudo apt install libxcb-cursor0 -y
 sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
 
 #sudo apt upgrade -y
-sudo apt install zam-plugins
+sudo apt install zam-plugins -y
+
+sudo apt install samplv1 -y
 
 
 sudo apt install git
