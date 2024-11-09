@@ -19,6 +19,9 @@ sudo apt install ardour -y
 
 sudo apt install musescore -y
 
+folder="$HOME/.config/MuseScore"
+backup_or_create_folder "$folder"
+
 # Key
 
 wget https://jmantra.blob.core.windows.net/data/key
@@ -141,6 +144,8 @@ sudo apt install git
 git clone https://github.com/jmantra/LogicalArdour.git
 
 cd LogicalArdour
+
+cp MuseScore2.ini $HOME/.config/MuseScore
 
 
 
