@@ -133,6 +133,9 @@ wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.1/su
 
 sudo apt install xclip -y
 
+sudo apt install libxcb-cursor0 -y
+
+
 sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
 
 #sudo apt upgrade -y
