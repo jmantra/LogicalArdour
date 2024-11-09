@@ -47,6 +47,8 @@ while true; do
       echo "Configuring Pipewire-Jack"
       sudo apt install pipewire-jack
     sed -i 's|^Exec=/usr/bin/ardour %f$|Exec=/usr/bin/pw-jack /usr/bin/ardour %f|' ardour.desktop
+    sudo apt install libspa-0.2-jack -y
+sudo usermod -aG audio $USER
 
       break
       ;;
@@ -211,8 +213,7 @@ done
 
 #DIR=$(find /opt -maxdepth 1 -type d -name "Ardour-*" | sort -V | tail -n 1)
 
-sudo apt install libspa-0.2-jack -y
-sudo usermod -aG audio $USER
+
 
 
 
