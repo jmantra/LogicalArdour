@@ -119,13 +119,7 @@ sudo apt update
 
 # sudo apt upgrade -y
 
-wget https://launchpad.net/~kxstudio-debian/+archive/plugins/+files/zynaddsubfx_3.0.5-1kxstudio7_amd64.deb
-
-sudo dpkg -i zynaddsubfx_3.0.5-1kxstudio7_amd64.deb
-
-wget https://launchpad.net/~kxstudio-debian/+archive/plugins/+files/zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
-
-sudo dpkg -i zynaddsubfx-data_3.0.5-1kxstudio7_all.deb
+sudo apt install yoshimi -y 
 
 
 sudo apt install x42-plugins avldrums.lv2 swh-lv2 calf-plugins tap-plugins  guitarix-lv2  mda-lv2  -y
