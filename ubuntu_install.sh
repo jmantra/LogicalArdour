@@ -118,6 +118,7 @@ rm -rf kxstudio-repos_11.1.0_all.deb
 sudo apt update 
 
 # sudo apt upgrade -y
+echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections
 
 sudo apt install yoshimi -y 
 
@@ -138,7 +139,7 @@ sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
 
 #sudo apt upgrade -y
 sudo apt install zam-plugins -y
-echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections
+
 
 sudo apt install samplv1 -y
 
