@@ -184,6 +184,14 @@ backup_or_create_folder "$folder"
 
 cp -rf ladspa/* "$HOME/.ladspa"
 
+folder="/usr/lib/ladspa"
+sudo backup_or_create_folder "$folder"
+
+sudo cp -rf ladspa-rubberband.cat $folder
+sudo cp -rf ladspa-rubberband.so $folder
+
+
+
 
 
 
