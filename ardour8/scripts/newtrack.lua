@@ -22,11 +22,11 @@ local dialog_options = {
         ["SoniNeko Drums (ACE Fluid Synth)"] = "son", ["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al"
       },
       ["Play Software Instruments"] = {
-        ["ACE Fluid (Traditional Instruments)"] = "ac", ["Zynaddsubfx (Traditional Synth)"] = "za",
+        ["ACE Fluid (Traditional Instruments)"] = "ac", ["Yoshimi (Traditional Synth)"] = "za",
         ["Surge XT (Synth with a LOT of presets)"] = "st",["Samplv1 Sampler"] = "samp"
       },
       ["Session Player"] = {
-        ["ACE Fluid (Traditional Instruments)"] = "acs", ["Zynaddsubfx (Traditional Synth)"] = "zas",
+        ["ACE Fluid (Traditional Instruments)"] = "acs", ["Yoshimi (Traditional Synth)"] = "zas",
         ["Surge XT (Synth with a LOT of presets)"] = "sts"
       },
       ["Record Audio"] = {
@@ -129,12 +129,12 @@ print (full_path)
 	end
 
 			if rv and rv["dropdown"] == "za" then
-		print("Zynaddsubfx")
+		print("Yoshimi")
 		-- Replace the path below with the path to your track template
-		local template_path = full_path .. "/zfx.template"
+		local template_path = full_path .. "/Yoshimi.template"
 
 		-- Replace "Track Name" with the name you want for your new track
-		local track_name = "Zynaddsubfx"
+		local track_name = "Yoshimi"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
@@ -352,12 +352,12 @@ print (full_path)
 	end
 
 				if rv and rv["dropdown"] == "zas" then
-		print("Zynaddsubfx")
+		print("Yoshimi")
 		-- Replace the path below with the path to your track template
-		local template_path = full_path .. "/zafx session.template"
+		local template_path = full_path .. "/Yosh Session.template"
 
 		-- Replace "Track Name" with the name you want for your new track
-		local track_name = "Zynaddsubfx Session"
+		local track_name = "Yoshimi Session"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end

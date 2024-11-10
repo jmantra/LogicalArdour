@@ -129,7 +129,7 @@ for r in Session:get_routes ():iter () do
 
 
 
-os.execute("sleep 2")
+os.execute("sleep 5")
 
 
 

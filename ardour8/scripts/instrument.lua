@@ -75,7 +75,7 @@ local dialog_options = {
    type = "dropdown", key = "dropdown", title = "Choose Instrument Plugin", values =
    {
     ["Choose Instrument Plugin"] = 1, ["ACE Fluid Synth"] = 2,
-    ["Zynaddsubfx"] = 3,
+    ["Yoshimi"] = 3,
     ["Surge XT"] = 4,
     ["Samplv1 Sampler"] = 5
 
@@ -103,8 +103,8 @@ if rv and rv["dropdown"] == 2 then
 
 
  	if rv and rv["dropdown"] == 3 then
-		print("You Chose ZynAddSubFX")
-		plugin_name = "ZynAddSubFX"
+		print("You Chose Yoshimi")
+		plugin_name = "Yoshimi"
 		track_name = plugin_name
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
