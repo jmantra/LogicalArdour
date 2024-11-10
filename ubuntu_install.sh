@@ -16,8 +16,10 @@ backup_or_create_folder() {
 cd "$HOME/Downloads"
 
 sudo apt install ardour -y
-
-sudo apt install musescore -y
+sudo apt install libfuse3-3 libfuse3-dev livfuse2t64 -y
+wget https://ftp.osuosl.org/pub/musescore-nightlies/linux/3x/stable/MuseScore-3.0.0-x86_64.AppImage
+sudo cp -rf MuseScore-3.0.0-x86_64.AppImage /usr/bin/mscore
+sudo chmod 755 /usr/bin/mscore
 
 folder="$HOME/.config/MuseScore"
 backup_or_create_folder "$folder"
