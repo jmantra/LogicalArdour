@@ -155,7 +155,7 @@ git clone https://github.com/jmantra/LogicalArdour.git
 
 cd LogicalArdour
 
-cp MuseScore2.ini $HOME/.config/MuseScore
+cp MuseScore3.ini $HOME/.config/MuseScore
 
 
 
