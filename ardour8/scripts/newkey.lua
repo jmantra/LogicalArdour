@@ -1,6 +1,6 @@
 ardour {
     ["type"] = "EditorAction",
-    name = "Pitch - Adjust pitch of audio loop by key",
+    name = "Pitch - Change the pitch of audio loop by key",
     author = "Justin Ehrlichman",
     description = [[
 Transposes the key of audio loop
@@ -9,26 +9,6 @@ Transposes the key of audio loop
 
 function factory()
     return function(signal, ...)
-
-    -- Get the user config directory
-local user_config_directory = ARDOUR.user_config_directory(8)
-
--- Construct the full path to the key.txt file
-local key_file_path = user_config_directory .. "/key.txt"
-
--- Read the contents of the key.txt file
-local file = io.open(key_file_path, "r") -- Open the file in read mode
-local file_content = "No key set" -- Default value if the file cannot be read
-
-if file then
-    file_content = file:read("*a") -- Read the entire content of the file
-    file:close() -- Close the file
-else
-    print("Warning: Could not open file for reading at " .. key_file_path)
-end
-
--- Prepare the dialog option with the file content
-local current_key_option = "Set to current project key: " .. file_content
         local sel = Editor:get_selection()
         local count = 0
         local audio_region
@@ -36,7 +16,7 @@ local current_key_option = "Set to current project key: " .. file_content
         for r in sel.regions:regionlist():iter() do
             count = count + 1
             if r:to_audioregion():isnil() then
-                local md = LuaDialog.Message("Get Key", "The selected region is not an audio region. The  project key is currently set to "..file_content, LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
+                local md = LuaDialog.Message("Get Key", "The selected region is not an audio region", LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
                 print(md:run())
                 md = nil
                 collectgarbage()
@@ -47,7 +27,7 @@ local current_key_option = "Set to current project key: " .. file_content
         end
 
         if count ~= 1 then
-            local md = LuaDialog.Message("Get Key", "Please select exactly 1 audio region. The project key is currently set to "..file_content, LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
+            local md = LuaDialog.Message("Get Key", "Please select exactly 1 audio region", LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
             print(md:run())
             md = nil
             collectgarbage()
@@ -61,24 +41,7 @@ local current_key_option = "Set to current project key: " .. file_content
         local quotedfilepath = '"' .. filepath .. '"'
 
         -- Example usage:
-      --  local filename = quotedfilepath
-
-        -- Pattern to capture the key after "key_"
-    local fkey = rn:match("key_([A-G][#b]?m?)")
-
-    if fkey then
-        print("Extracted key:", fkey)
-
-        if fkey:find("m$") then
-            fkey = fkey .. " minor"
-        else
-            fkey = fkey .. " major"
-        end
-
-        dkey = fkey
-        print("Extracted key from file:", dkey)
-        cname = true
-        else
+        local filename = quotedfilepath
 
 
             firstresult = "Key not found."
@@ -106,8 +69,6 @@ end
 print("Key: " .. dkey)
 print("Scale: " .. scale)
 
-end
-
 
 
 -- Get the user config directory
@@ -129,19 +90,9 @@ end
 
 -- Prepare the dialog option with the file content
 local current_key_option = "Set to current project key: " .. file_content
-
-if cname == true then
-
-sentence = "Estimated key of loop: " .. dkey ..  ". Choose Target Key (Hit Cancel or select Do not change key to not change the key)"
-else
-
-sentence = "Estimated key of loop: " .. dkey .. " " .. scale .. ". Choose Target Key (Hit Cancel or select Do not change key to not change the key)"
-
-end
-
 local dialog_options = {
   {
-   type = "dropdown", key = "target_key", title = sentence, values =
+   type = "dropdown", key = "target_key", title = "Estimated key of loop: " .. dkey .. " " .. scale .. ". Choose Target Key (Hit Cancel or select Do not change key to not change the key)", values =
    {
     ["C"] = 1, ["C#"] = 2, ["Db"] = 3, ["D"] = 4, ["D#"] = 5, ["Eb"] = 6,
     ["E"] = 7, ["F"] = 8, ["F#"] = 9, ["Gb"] = 10, ["G"] = 11, ["G#"] = 12, ["Ab"] = 13,
@@ -159,17 +110,6 @@ local dialog_options = {
 -- Create and run the dialog
 local od = LuaDialog.Dialog("Choose Target Key", dialog_options)
 local rv = od:run()
-
-
--- Create a reverse lookup table to map numbers back to musical key strings
-local number_to_key = {
-    [1] = "C", [2] = "C#", [3] = "Db", [4] = "D", [5] = "D#", [6] = "Eb",
-    [7] = "E", [8] = "F", [9] = "F#", [10] = "Gb", [11] = "G", [12] = "G#", [13] = "Ab",
-    [14] = "A", [15] = "A#", [16] = "Bb", [17] = "B",
-    [18] = "Am", [19] = "A#m", [20] = "Bbm", [21] = "Bm", [22] = "Cm",
-    [23] = "C#m", [24] = "Dbm", [25] = "Dm", [26] = "D#m", [27] = "Ebm",
-    [28] = "Em", [29] = "Fm", [30] = "F#m", [31] = "Gbm", [32] = "Gm", [33] = "G#m", [34] = "Abm"
-}
 
 -- Check the user's selection
 if rv and rv["target_key"] == 35 and file_content:match("No key set") then
@@ -212,41 +152,7 @@ if rv and rv["target_key"] == 35 then
     else
         print("Error: The extracted key does not match any known key.")
     end
-
-    -- Map the numeric value back to the corresponding key string
- target_key = number_to_key[selected_number]
-
--- Define a mapping of musical keys to their corresponding note values (semitones)
-key_to_semitone = {
-    C = 0, ["C#"] = 1, Db = 1, D = 2, ["D#"] = 3, Eb = 3,
-    E = 4, F = 5, ["F#"] = 6, Gb = 6, G = 7, ["G#"] = 8, Ab = 8,
-    A = 9, ["A#"] = 10, Bb = 10, B = 11,
-    Am = 9, ["A#m"] = 10, Bbm = 10, Bm = 11, Cm = 0, ["C#m"] = 1,
-    Dbm = 1, Dm = 2, ["D#m"] = 3, Ebm = 3, Em = 4, Fm = 5,
-    ["F#m"] = 6, Gbm = 6, Gm = 7, ["G#m"] = 8, Abm = 8
-}
 end
-
-
-
-
-if rv and rv["target_key"] ~= 35 then
-   -- Get the selected target key's numeric value from the dialog
- selected_number = rv.target_key
- -- Map the numeric value back to the corresponding key string
- target_key = number_to_key[selected_number]
-
--- Define a mapping of musical keys to their corresponding note values (semitones)
-key_to_semitone = {
-    C = 0, ["C#"] = 1, Db = 1, D = 2, ["D#"] = 3, Eb = 3,
-    E = 4, F = 5, ["F#"] = 6, Gb = 6, G = 7, ["G#"] = 8, Ab = 8,
-    A = 9, ["A#"] = 10, Bb = 10, B = 11,
-    Am = 9, ["A#m"] = 10, Bbm = 10, Bm = 11, Cm = 0, ["C#m"] = 1,
-    Dbm = 1, Dm = 2, ["D#m"] = 3, Ebm = 3, Em = 4, Fm = 5,
-    ["F#m"] = 6, Gbm = 6, Gm = 7, ["G#m"] = 8, Abm = 8
-}
-end
-
 
 
 
@@ -260,18 +166,31 @@ end
 
 
 
+-- Create a reverse lookup table to map numbers back to musical key strings
+local number_to_key = {
+    [1] = "C", [2] = "C#", [3] = "Db", [4] = "D", [5] = "D#", [6] = "Eb",
+    [7] = "E", [8] = "F", [9] = "F#", [10] = "Gb", [11] = "G", [12] = "G#", [13] = "Ab",
+    [14] = "A", [15] = "A#", [16] = "Bb", [17] = "B",
+    [18] = "Am", [19] = "A#m", [20] = "Bbm", [21] = "Bm", [22] = "Cm",
+    [23] = "C#m", [24] = "Dbm", [25] = "Dm", [26] = "D#m", [27] = "Ebm",
+    [28] = "Em", [29] = "Fm", [30] = "F#m", [31] = "Gbm", [32] = "Gm", [33] = "G#m", [34] = "Abm"
+}
 
+-- Get the selected target key's numeric value from the dialog
+ selected_number = rv.target_key
 
--- Pattern to capture only the key part
-local key_only = dkey:match("^[A-G][#b]?m?")
+-- Map the numeric value back to the corresponding key string
+ target_key = number_to_key[selected_number]
 
-print("Key only:", key_only)
- detected_key = key_only
-
- print("detected is "..key_only)
-
-
-
+-- Define a mapping of musical keys to their corresponding note values (semitones)
+key_to_semitone = {
+    C = 0, ["C#"] = 1, Db = 1, D = 2, ["D#"] = 3, Eb = 3,
+    E = 4, F = 5, ["F#"] = 6, Gb = 6, G = 7, ["G#"] = 8, Ab = 8,
+    A = 9, ["A#"] = 10, Bb = 10, B = 11,
+    Am = 9, ["A#m"] = 10, Bbm = 10, Bm = 11, Cm = 0, ["C#m"] = 1,
+    Dbm = 1, Dm = 2, ["D#m"] = 3, Ebm = 3, Em = 4, Fm = 5,
+    ["F#m"] = 6, Gbm = 6, Gm = 7, ["G#m"] = 8, Abm = 8
+}
 
 -- Function to calculate the semitone shift between two keys
 function semitone_shift(detected_key, target_key)
@@ -297,31 +216,8 @@ function semitone_shift(detected_key, target_key)
     end
 end
 
-	if cname == true then
-
-	function formatKey(target_key)
-    local formatted_key = target_key
-
-    -- Check if fkey is major and remove " Major"
-    if formatted_key:match("Major$") then
-        formatted_key = formatted_key:gsub(" Major$", "")
-    -- Check if fkey is minor and replace " minor" with "m"
-    elseif formatted_key:match("minor$") then
-        formatted_key = formatted_key:gsub(" minor$", "m")
-    end
-
-    target_key = (formatKey(fkey))
-
-    return formatted_key
-end
-
-  rn = rn:gsub("key_" .. fkey:match("([A-G][#b]?m?)"), "")
-    print("Filename after removing key pattern:", rn)
-    audio_region:set_name(rn.."-key_"..target_key)
---end
-
-
-
+-- Example usage: Calculate semitone shift
+ detected_key = dkey  -- You can replace this with the actual detected key
 semitone_shift(detected_key, target_key)
 
 
@@ -444,7 +340,7 @@ print(type(ratio))
 		end
 
 		-- configure rubberband stretch tool
-		rb:set_strech_and_pitch (1, ratio) -- no overall stretching, but pitch shifting
+		rb:set_strech_and_pitch (1, ratio) -- no overall stretching, no pitch-shift
 		--rb:set_mapping (beat_map) -- apply beat-map from/to
 
 		-- now stretch the region
@@ -479,7 +375,4 @@ print(type(ratio))
 		Session:commit_reversible_command (nil)
 	end
 
-
-
-end
     end end

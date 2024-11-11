@@ -15,7 +15,31 @@ backup_or_create_folder() {
 
 cd "$HOME/Downloads"
 
-sudo apt install ardour -y
+
+while true; do
+  read -p "Do you already have Ardour installed? (y/n): " choice
+  case "$choice" in
+    y|Y )
+      # Replace the URL with the actual link to the file you want to download
+   echo "Skipping Ardour install"
+
+      break
+      ;;
+    n|N )
+      echo "Installing Ardour from repos"
+    sudo apt install ardour -y
+      break
+      ;;
+    * )
+      echo "Invalid input. Please enter y or n."
+      ;;
+  esac
+done
+
+# Continue with the rest of your script here
+echo "Continuing with the rest of the script..."
+
+
 sudo apt install libfuse3-3 libfuse3-dev libfuse2t64 -y
 wget https://jmantra.blob.core.windows.net/data/mscore
 sudo cp -rf mscore /usr/bin/mscore

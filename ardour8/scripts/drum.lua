@@ -96,7 +96,9 @@ local dialog_options = {
 					["NIN Drumkit (ACE Fluid Synth)"] =16,
 						 ["Alesis Drumkits(Use C1 to change kits) (ACE Fluid Synth)"] =17,
 						["Brush Drum (ACE Fluid Synth)"] = 18,
-						["Orchestral Perc (ACE Fluid Synth)"] = 19
+						["Orchestral Perc (ACE Fluid Synth)"] = 19,
+						["Buskman's Holiday Percussion (AVL Drumits)"] = 20,
+						["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = 21
 
    },
    default = "Choose Drum Plugin"
@@ -288,6 +290,27 @@ local dialog_options = {
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
 	 end
+
+	 	 	 	 	   	if rv and rv["dropdown"] == 20 then
+		print("Buskman's Holiday Percussion")
+
+		plugin_name = "Buskman's Holiday Percussion"
+		track_name = "Buskman's Holiday Percussion"
+		preset_name = "Buskman's Holiday Percussion"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
+	 	 	 	 	   	if rv and rv["dropdown"] == 21 then
+		print("Blonde Bop HotRod Drumkit")
+
+		plugin_name = "Blonde Bop HotRod Drumkit"
+		track_name = "Blonde Bop HotRod Drumkit"
+
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
 
 
 

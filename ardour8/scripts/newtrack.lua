@@ -13,13 +13,13 @@ local dialog_options = {
     type = "dropdown", key = "dropdown", title = "Choose Track", values = {
       ["Choose a track Type"] = 1,
       ["Drum Track"] = {
-        ["Red Zepplin"] = "rz", ["Black Pearl"] = "bp", ["Blonde Bop"] = "bo",
+        ["Red Zepplin (AVL Drumkits)"] = "rz", ["Black Pearl (AVL Drumkits)"] = "bp", ["Blonde Bop (AVL Drumkits)"] = "bo",
         ["Standard Drums (ACE Fluid Synth)"] = "std", ["Standard 2 Drums (ACE Fluid Synth)"] = "st2",
-        ["Electronic Drums"] = "eld", ["Room Drums (ACE Fluid Synth)"] = "rmd",
+        ["Electronic Drums (ACE Fluid SYnth)"] = "eld", ["Room Drums (ACE Fluid Synth)"] = "rmd",
         ["Power Drums (ACE Fluid Synth)"] = "pwd", ["Dance Drums (ACE Fluid Synth)"] = "dad",
         ["Jazz Drums (ACE Fluid Synth)"] = "jzd", ["808/809 Drums (ACE Fluid Synth)"] = "808",
         ["Brush Drums (ACE Fluid Synth)"] = "brd", ["Orchestral Perc (ACE Fluid Synth)"] = "orp",
-        ["SoniNeko Drums (ACE Fluid Synth)"] = "son", ["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al"
+        ["SoniNeko Drums (ACE Fluid Synth)"] = "son", ["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al",["Buskman's Holiday Percussion (AVL Drumkits)"] = "bus",["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = "hot"
       },
       ["Play Software Instruments"] = {
         ["ACE Fluid (Traditional Instruments)"] = "ac", ["Yoshimi (Traditional Synth)"] = "za",
@@ -405,7 +405,7 @@ print (full_path)
 
 
 		-- Replace the path below with the path to your track template
-		local template_path = full_path .. "/808-drums.template"
+		local template_path = full_path .. "/808-809 Drums.template"
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "808/809 Drums"
@@ -553,6 +553,32 @@ print (full_path)
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
+
+			if rv and rv["dropdown"] == "bus" then
+	print("Buskman's Holiday Percussion")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/Buskman.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Buskman's Holiday Percussion"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+		if rv and rv["dropdown"] == "hot" then
+	print("Blonde Bop HotRod Drumkit")
+
+
+		-- Replace the path below with the path to your track template
+		local template_path = full_path .. "/hotrod.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Blonde Bop HotRod Drumkit"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+	end
+
 
 
 
