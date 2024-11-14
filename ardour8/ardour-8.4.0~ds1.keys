@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BindingSet>
+  <Bindings name="Editor">
+    <Press>
+      <Binding key="apostrophe" action="Editor/edit-cursor-to-previous-region-sync"/>
+      <Binding key="minus" action="Editor/temporal-zoom-out"/>
+      <Binding key="slash" action="Editor/editor-fade-range"/>
+      <Binding key="0" action="Editor/set-tempo-from-edit-range"/>
+      <Binding key="1" action="Editor/cycle-edit-mode"/>
+      <Binding key="2" action="Editor/cycle-edit-point"/>
+      <Binding key="3" action="MouseMode/set-mouse-mode-object-range"/>
+      <Binding key="4" action="Editor/cycle-snap-mode"/>
+      <Binding key="5" action="Editor/prev-grid-choice"/>
+      <Binding key="6" action="Editor/next-grid-choice"/>
+      <Binding key="9" action="Region/set-tempo-from-region"/>
+      <Binding key="semicolon" action="Editor/edit-cursor-to-next-region-sync"/>
+      <Binding key="equal" action="Editor/temporal-zoom-in"/>
+      <Binding key="bracketleft" action="Editor/set-punch-from-edit-range"/>
+      <Binding key="bracketright" action="Editor/set-loop-from-edit-range"/>
+      <Binding key="c" action="MouseMode/set-mouse-mode-cut"/>
+      <Binding key="d" action="MouseMode/set-mouse-mode-draw"/>
+      <Binding key="e" action="MouseMode/set-mouse-mode-content"/>
+      <Binding key="f" action="Editor/fit-selection"/>
+      <Binding key="g" action="MouseMode/set-mouse-mode-object"/>
+      <Binding key="h" action="Region/play-selected-regions"/>
+      <Binding key="i" action="Region/insert-region-from-source-list"/>
+      <Binding key="j" action="Region/trim-front"/>
+      <Binding key="k" action="Region/trim-back"/>
+      <Binding key="m" action="Region/add-region-cue-marker"/>
+      <Binding key="p" action="Editor/set-playhead"/>
+      <Binding key="r" action="MouseMode/set-mouse-mode-range"/>
+      <Binding key="s" action="Editor/split-region"/>
+      <Binding key="t" action="MouseMode/set-mouse-mode-timefx"/>
+      <Binding key="u" action="Editor/select-all-within-cursors"/>
+      <Binding key="v" action="Region/set-region-sync-position"/>
+      <Binding key="x" action="Region/align-regions-sync-relative"/>
+      <Binding key="y" action="MouseMode/set-mouse-mode-grid"/>
+      <Binding key="z" action="Editor/zoom-to-selection"/>
+      <Binding key="BackSpace" action="Editor/alternate-editor-delete"/>
+      <Binding key="Up" action="Editor/step-tracks-up"/>
+      <Binding key="Down" action="Editor/step-tracks-down"/>
+      <Binding key="Page_Up" action="Editor/scroll-tracks-up"/>
+      <Binding key="Page_Down" action="Editor/scroll-tracks-down"/>
+      <Binding key="KP_Add" action="Editor/nudge-forward"/>
+      <Binding key="KP_Subtract" action="Editor/nudge-backward"/>
+      <Binding key="F1" action="Editor/goto-visual-state-1"/>
+      <Binding key="F2" action="Editor/goto-visual-state-2"/>
+      <Binding key="F3" action="Editor/goto-visual-state-3"/>
+      <Binding key="F4" action="Editor/goto-visual-state-4"/>
+      <Binding key="F5" action="Editor/goto-visual-state-5"/>
+      <Binding key="F6" action="Editor/goto-visual-state-6"/>
+      <Binding key="F7" action="Editor/goto-visual-state-7"/>
+      <Binding key="F8" action="Editor/goto-visual-state-8"/>
+      <Binding key="F9" action="Editor/goto-visual-state-9"/>
+      <Binding key="F10" action="Editor/goto-visual-state-10"/>
+      <Binding key="F11" action="Editor/goto-visual-state-11"/>
+      <Binding key="F12" action="Editor/goto-visual-state-12"/>
+      <Binding key="Delete" action="Editor/editor-delete"/>
+      <Binding key="Tertiary-quotedbl" action="Editor/new-playlists-for-selected-tracks"/>
+      <Binding key="Tertiary-plus" action="Editor/expand-tracks"/>
+      <Binding key="Tertiary-colon" action="Editor/copy-playlists-for-selected-tracks"/>
+      <Binding key="Tertiary-question" action="Editor/show-plist-selector"/>
+      <Binding key="Tertiary-a" action="Region/align-regions-sync"/>
+      <Binding key="Tertiary-b" action="Editor/track-record-enable-toggle"/>
+      <Binding key="Tertiary-d" action="Editor/select-all-in-punch-range"/>
+      <Binding key="Tertiary-e" action="Editor/show-editor-mixer"/>
+      <Binding key="Tertiary-f" action="Editor/toggle-stationary-playhead"/>
+      <Binding key="Tertiary-l" action="Editor/show-editor-list"/>
+      <Binding key="Tertiary-s" action="Editor/ToggleSummary"/>
+      <Binding key="Tertiary-u" action="Region/fork-regions-from-unselected"/>
+      <Binding key="Tertiary-z" action="Editor/toggle-zoom"/>
+      <Binding key="Tertiary-braceleft" action="Editor/layer-display-overlaid"/>
+      <Binding key="Tertiary-bar" action="Region/raise-region-to-top"/>
+      <Binding key="Tertiary-braceright" action="Editor/layer-display-stacked"/>
+      <Binding key="Primary-slash" action="Region/set-fade-in-length"/>
+      <Binding key="Primary-2" action="Editor/cycle-edit-point-with-marker"/>
+      <Binding key="Primary-backslash" action="Region/set-fade-out-length"/>
+      <Binding key="Primary-a" action="Editor/select-all-objects"/>
+      <Binding key="Primary-c" action="Editor/editor-copy"/>
+      <Binding key="Primary-d" action="Editor/duplicate"/>
+      <Binding key="Primary-f" action="Editor/toggle-follow-playhead"/>
+      <Binding key="Primary-g" action="Editor/group-selected-regions"/>
+      <Binding key="Primary-j" action="Region/trim-to-previous-region"/>
+      <Binding key="Primary-k" action="Region/trim-to-next-region"/>
+      <Binding key="Primary-l" action="Editor/select-all-in-loop-range"/>
+      <Binding key="Primary-r" action="Editor/redo"/>
+      <Binding key="Primary-u" action="Editor/select-all-between-cursors"/>
+      <Binding key="Primary-v" action="Editor/editor-paste"/>
+      <Binding key="Primary-x" action="Editor/editor-cut"/>
+      <Binding key="Primary-y" action="Editor/alternate-redo"/>
+      <Binding key="Primary-z" action="Editor/undo"/>
+      <Binding key="Primary-Left" action="Editor/tab-to-transient-backwards"/>
+      <Binding key="Primary-Up" action="Editor/move-selected-tracks-up"/>
+      <Binding key="Primary-Right" action="Editor/tab-to-transient-forwards"/>
+      <Binding key="Primary-Down" action="Editor/move-selected-tracks-down"/>
+      <Binding key="Primary-F1" action="Editor/save-visual-state-1"/>
+      <Binding key="Primary-F2" action="Editor/save-visual-state-2"/>
+      <Binding key="Primary-F3" action="Editor/save-visual-state-3"/>
+      <Binding key="Primary-F4" action="Editor/save-visual-state-4"/>
+      <Binding key="Primary-F5" action="Editor/save-visual-state-5"/>
+      <Binding key="Primary-F6" action="Editor/save-visual-state-6"/>
+      <Binding key="Primary-F7" action="Editor/save-visual-state-7"/>
+      <Binding key="Primary-F8" action="Editor/save-visual-state-8"/>
+      <Binding key="Primary-F9" action="Editor/save-visual-state-9"/>
+      <Binding key="Primary-F10" action="Editor/save-visual-state-10"/>
+      <Binding key="Primary-F11" action="Editor/save-visual-state-11"/>
+      <Binding key="Primary-F12" action="Editor/save-visual-state-12"/>
+      <Binding key="Primary-Tertiary-space" action="Editor/play-from-edit-point-and-return"/>
+      <Binding key="Primary-Tertiary-quotedbl" action="Editor/new-playlists-for-all-tracks"/>
+      <Binding key="Primary-Tertiary-colon" action="Editor/copy-playlists-for-all-tracks"/>
+      <Binding key="Primary-Tertiary-a" action="Region/align-regions-start-relative"/>
+      <Binding key="Primary-Tertiary-c" action="Editor/copy-paste-section"/>
+      <Binding key="Primary-Tertiary-e" action="Editor/select-all-after-edit-cursor"/>
+      <Binding key="Primary-Tertiary-g" action="Editor/ungroup-selected-regions"/>
+      <Binding key="Primary-Tertiary-r" action="Editor/select-from-regions"/>
+      <Binding key="Primary-Tertiary-x" action="Editor/cut-paste-section"/>
+      <Binding key="Primary-Tertiary-z" action="Editor/alternate-alternate-redo"/>
+      <Binding key="Primary-Tertiary-BackSpace" action="Editor/alternate-delete-section"/>
+      <Binding key="Primary-Tertiary-Left" action="Editor/selected-marker-to-previous-region-boundary"/>
+      <Binding key="Primary-Tertiary-Right" action="Editor/selected-marker-to-next-region-boundary"/>
+      <Binding key="Primary-Tertiary-Delete" action="Editor/delete-section"/>
+      <Binding key="Secondary-0" action="Region/toggle-opaque-region"/>
+      <Binding key="Secondary-1" action="Region/toggle-region-mute"/>
+      <Binding key="Secondary-2" action="Region/naturalize-region"/>
+      <Binding key="Secondary-3" action="Region/normalize-region"/>
+      <Binding key="Secondary-4" action="Region/reverse-region"/>
+      <Binding key="Secondary-5" action="Region/quantize-region"/>
+      <Binding key="Secondary-6" action="Region/boost-region-gain"/>
+      <Binding key="Secondary-7" action="Region/cut-region-gain"/>
+      <Binding key="Secondary-8" action="Region/pitch-shift-region"/>
+      <Binding key="Secondary-9" action="Region/rename-region"/>
+      <Binding key="Secondary-a" action="LuaAction/script-9"/>
+      <Binding key="Secondary-d" action="LuaAction/script-3"/>
+      <Binding key="Secondary-f" action="Region/show-rhythm-ferret"/>
+      <Binding key="Secondary-g" action="LuaAction/script-4"/>
+      <Binding key="Secondary-i" action="LuaAction/script-2"/>
+      <Binding key="Secondary-k" action="LuaAction/script-7"/>
+      <Binding key="Secondary-m" action="LuaAction/script-5"/>
+      <Binding key="Secondary-n" action="LuaAction/script-1"/>
+      <Binding key="Secondary-p" action="LuaAction/script-10"/>
+      <Binding key="Secondary-s" action="LuaAction/script-11"/>
+      <Binding key="Secondary-t" action="LuaAction/script-6"/>
+      <Binding key="Secondary-v" action="Editor/ToggleJadeo"/>
+      <Binding key="Secondary-Up" action="Editor/select-prev-route"/>
+      <Binding key="Secondary-Down" action="Editor/select-next-route"/>
+      <Binding key="Secondary-Tertiary-plus" action="Editor/shrink-tracks"/>
+      <Binding key="Secondary-Tertiary-underscore" action="Editor/zoom-to-session"/>
+      <Binding key="Secondary-Tertiary-c" action="Editor/editor-consolidate"/>
+      <Binding key="Secondary-Tertiary-r" action="Editor/add-range-marker-from-selection"/>
+      <Binding key="Secondary-Tertiary-Left" action="Editor/playhead-to-previous-region-boundary"/>
+      <Binding key="Secondary-Tertiary-Up" action="Editor/select-prev-stripable"/>
+      <Binding key="Secondary-Tertiary-Right" action="Editor/playhead-to-next-region-boundary"/>
+      <Binding key="Secondary-Tertiary-Down" action="Editor/select-next-stripable"/>
+      <Binding key="Primary-Secondary-a" action="Region/align-regions-start"/>
+      <Binding key="Primary-Secondary-c" action="Editor/editor-crop"/>
+      <Binding key="Primary-Secondary-e" action="Region/export-region"/>
+      <Binding key="Primary-Secondary-Left" action="Editor/playhead-to-previous-region-sync"/>
+      <Binding key="Primary-Secondary-Right" action="Editor/playhead-to-next-region-sync"/>
+      <Binding key="Primary-Secondary-Tertiary-quotedbl" action="Editor/new-playlists-for-armed-tracks"/>
+      <Binding key="Primary-Secondary-Tertiary-colon" action="Editor/copy-playlists-for-armed-tracks"/>
+    </Press>
+    <Release/>
+  </Bindings>
+  <Bindings name="Global">
+    <Press>
+      <Binding key="space" action="Transport/ToggleRoll"/>
+      <Binding key="comma" action="Common/start-range"/>
+      <Binding key="period" action="Common/finish-range"/>
+      <Binding key="7" action="Transport/ToggleAutoReturn"/>
+      <Binding key="8" action="Transport/TogglePunch"/>
+      <Binding key="grave" action="Transport/ToggleClick"/>
+      <Binding key="a" action="Transport/solo-selection"/>
+      <Binding key="l" action="Transport/Loop"/>
+      <Binding key="q" action="Common/jump-backward-to-mark"/>
+      <Binding key="w" action="Common/jump-forward-to-mark"/>
+      <Binding key="Tab" action="Common/add-location-from-playhead"/>
+      <Binding key="Return" action="Transport/alternate-GotoStart"/>
+      <Binding key="Escape" action="Main/Escape"/>
+      <Binding key="Home" action="Transport/GotoStart"/>
+      <Binding key="Left" action="Common/playhead-backward-to-grid"/>
+      <Binding key="Right" action="Common/playhead-forward-to-grid"/>
+      <Binding key="End" action="Transport/GotoEnd"/>
+      <Binding key="KP_Enter" action="Common/alternate-add-location-from-playhead"/>
+      <Binding key="KP_Separator" action="Transport/alternate-numpad-decimal"/>
+      <Binding key="KP_Decimal" action="Transport/numpad-decimal"/>
+      <Binding key="KP_Divide" action="Transport/focus-on-clock"/>
+      <Binding key="KP_0" action="Transport/numpad-0"/>
+      <Binding key="KP_1" action="Transport/numpad-1"/>
+      <Binding key="KP_2" action="Transport/numpad-2"/>
+      <Binding key="KP_3" action="Transport/numpad-3"/>
+      <Binding key="KP_4" action="Transport/numpad-4"/>
+      <Binding key="KP_5" action="Transport/numpad-5"/>
+      <Binding key="KP_6" action="Transport/numpad-6"/>
+      <Binding key="KP_7" action="Transport/numpad-7"/>
+      <Binding key="KP_8" action="Transport/numpad-8"/>
+      <Binding key="KP_9" action="Transport/numpad-9"/>
+      <Binding key="Tertiary-space" action="Transport/record-roll"/>
+      <Binding key="Tertiary-less" action="Transport/RecordPreroll"/>
+      <Binding key="Tertiary-greater" action="Transport/RecordCountIn"/>
+      <Binding key="Tertiary-r" action="Transport/Record"/>
+      <Binding key="Tertiary-Left" action="Transport/Rewind"/>
+      <Binding key="Tertiary-Up" action="Transport/TransitionToRoll"/>
+      <Binding key="Tertiary-Right" action="Transport/Forward"/>
+      <Binding key="Tertiary-Down" action="Transport/TransitionToReverse"/>
+      <Binding key="Primary-space" action="Transport/ToggleRollForgetCapture"/>
+      <Binding key="Primary-comma" action="Common/start-punch-range"/>
+      <Binding key="Primary-period" action="Common/finish-punch-range"/>
+      <Binding key="Primary-3" action="Transport/ToggleFollowEdits"/>
+      <Binding key="Primary-7" action="Transport/ToggleAutoPlay"/>
+      <Binding key="Primary-grave" action="MIDI/panic"/>
+      <Binding key="Primary-e" action="Main/QuickExport"/>
+      <Binding key="Primary-i" action="Common/addExistingAudioFiles"/>
+      <Binding key="Primary-m" action="Monitor Section/monitor-cut-all"/>
+      <Binding key="Primary-n" action="Main/New"/>
+      <Binding key="Primary-o" action="Main/Open"/>
+      <Binding key="Primary-q" action="Common/Quit"/>
+      <Binding key="Primary-s" action="Common/Save"/>
+      <Binding key="Primary-t" action="Common/select-all-visible-lanes"/>
+      <Binding key="Primary-nabla" action="Common/remove-location-from-playhead"/>
+      <Binding key="Primary-Page_Up" action="Common/previous-tab"/>
+      <Binding key="Primary-Page_Down" action="Common/next-tab"/>
+      <Binding key="Primary-KP_Enter" action="Common/alternate-remove-location-from-playhead"/>
+      <Binding key="Primary-KP_Left" action="Common/alternate-jump-backward-to-mark"/>
+      <Binding key="Primary-KP_Up" action="Common/alt-finish-range"/>
+      <Binding key="Primary-KP_Right" action="Common/alternate-jump-forward-to-mark"/>
+      <Binding key="Primary-KP_Down" action="Common/alt-start-range"/>
+      <Binding key="Primary-KP_Add" action="Common/nudge-next-forward"/>
+      <Binding key="Primary-KP_Subtract" action="Common/nudge-next-backward"/>
+      <Binding key="Primary-Tertiary-f" action="Common/ToggleMaximalMixer"/>
+      <Binding key="Primary-Tertiary-i" action="Common/invert-selection"/>
+      <Binding key="Primary-Tertiary-m" action="Monitor Section/monitor-dim-all"/>
+      <Binding key="Primary-Tertiary-n" action="Main/AddTrackBus"/>
+      <Binding key="Primary-Tertiary-o" action="Main/Recent"/>
+      <Binding key="Primary-Tertiary-s" action="Main/SnapshotStay"/>
+      <Binding key="Secondary-space" action="Transport/PlaySelection"/>
+      <Binding key="Secondary-comma" action="Common/start-loop-range"/>
+      <Binding key="Secondary-period" action="Common/finish-loop-range"/>
+      <Binding key="Secondary-grave" action="Transport/ToggleExternalSync"/>
+      <Binding key="Secondary-b" action="Common/toggle-meterbridge"/>
+      <Binding key="Secondary-c" action="Common/show-trigger"/>
+      <Binding key="Secondary-e" action="Main/ExportAudio"/>
+      <Binding key="Secondary-k" action="Window/toggle-virtual-keyboard"/>
+      <Binding key="Secondary-l" action="Window/toggle-locations"/>
+      <Binding key="Secondary-m" action="Common/show-mixer"/>
+      <Binding key="Secondary-o" action="Window/toggle-session-options-editor"/>
+      <Binding key="Secondary-r" action="Common/show-recorder"/>
+      <Binding key="Secondary-Left" action="Common/nudge-playhead-backward"/>
+      <Binding key="Secondary-Right" action="Common/nudge-playhead-forward"/>
+      <Binding key="Secondary-Tertiary-a" action="Window/toggle-audio-connection-manager"/>
+      <Binding key="Secondary-Tertiary-e" action="Main/StemExport"/>
+      <Binding key="Secondary-Tertiary-m" action="Window/toggle-midi-connection-manager"/>
+      <Binding key="Primary-Secondary-space" action="Transport/ToggleRollMaybe"/>
+      <Binding key="Primary-Secondary-f" action="Common/ToggleMaximalEditor"/>
+      <Binding key="Primary-Secondary-m" action="Monitor Section/monitor-mono"/>
+    </Press>
+    <Release/>
+  </Bindings>
+  <Bindings name="MIDI">
+    <Press>
+      <Binding key="comma" action="Notes/move-starts-earlier"/>
+      <Binding key="period" action="Notes/move-ends-later"/>
+      <Binding key="c" action="Notes/edit-channels"/>
+      <Binding key="j" action="Notes/join-notes"/>
+      <Binding key="q" action="Notes/quantize-selected-notes"/>
+      <Binding key="s" action="Notes/split-notes-more"/>
+      <Binding key="v" action="Notes/edit-velocities"/>
+      <Binding key="Tab" action="Notes/select-next"/>
+      <Binding key="Left" action="Notes/nudge-earlier"/>
+      <Binding key="Up" action="Notes/transpose-up-semitone"/>
+      <Binding key="Right" action="Notes/nudge-later"/>
+      <Binding key="Down" action="Notes/transpose-down-semitone"/>
+      <Binding key="Tertiary-s" action="Notes/split-notes-less"/>
+      <Binding key="Tertiary-ISO_Left_Tab" action="Notes/alt-add-select-next"/>
+      <Binding key="Tertiary-Tab" action="Notes/add-select-next"/>
+      <Binding key="Tertiary-Up" action="Notes/transpose-up-octave-smush"/>
+      <Binding key="Tertiary-Down" action="Notes/transpose-down-octave-smush"/>
+      <Binding key="Primary-comma" action="Notes/move-starts-later"/>
+      <Binding key="Primary-period" action="Notes/move-ends-earlier"/>
+      <Binding key="Primary-d" action="Notes/duplicate-selection"/>
+      <Binding key="Primary-e" action="Notes/split-notes-grid"/>
+      <Binding key="Primary-i" action="Notes/invert-selection"/>
+      <Binding key="Primary-Tab" action="Notes/select-previous"/>
+      <Binding key="Primary-Up" action="Notes/increase-velocity"/>
+      <Binding key="Primary-Down" action="Notes/decrease-velocity"/>
+      <Binding key="Primary-Tertiary-ISO_Left_Tab" action="Notes/alt-add-select-previous"/>
+      <Binding key="Primary-Tertiary-Tab" action="Notes/add-select-previous"/>
+      <Binding key="Primary-Tertiary-Up" action="Notes/increase-velocity-smush"/>
+      <Binding key="Primary-Tertiary-Down" action="Notes/decrease-velocity-smush"/>
+      <Binding key="Secondary-comma" action="Notes/move-starts-earlier-fine"/>
+      <Binding key="Secondary-period" action="Notes/move-ends-later-fine"/>
+      <Binding key="Secondary-Left" action="Notes/nudge-earlier-fine"/>
+      <Binding key="Secondary-Up" action="Notes/transpose-up-octave"/>
+      <Binding key="Secondary-Right" action="Notes/nudge-later-fine"/>
+      <Binding key="Secondary-Down" action="Notes/transpose-down-octave"/>
+      <Binding key="Secondary-Tertiary-Up" action="Notes/transpose-up-semitone-smush"/>
+      <Binding key="Secondary-Tertiary-Down" action="Notes/transpose-down-semitone-smush"/>
+      <Binding key="Primary-Secondary-comma" action="Notes/move-starts-later-fine"/>
+      <Binding key="Primary-Secondary-period" action="Notes/move-ends-earlier-fine"/>
+      <Binding key="Primary-Secondary-Up" action="Notes/increase-velocity-fine"/>
+      <Binding key="Primary-Secondary-Down" action="Notes/decrease-velocity-fine"/>
+      <Binding key="Primary-Secondary-Tertiary-Up" action="Notes/increase-velocity-fine-smush"/>
+      <Binding key="Primary-Secondary-Tertiary-Down" action="Notes/decrease-velocity-fine-smush"/>
+    </Press>
+    <Release/>
+  </Bindings>
+  <Bindings name="Recorder">
+    <Press>
+      <Binding key="Primary-r" action="Recorder/arm-all"/>
+      <Binding key="Primary-y" action="Recorder/alternate-rec-redo"/>
+      <Binding key="Primary-z" action="Recorder/rec-undo"/>
+      <Binding key="Primary-Tertiary-r" action="Recorder/arm-none"/>
+      <Binding key="Primary-Tertiary-z" action="Recorder/rec-redo"/>
+    </Press>
+    <Release/>
+  </Bindings>
+  <Bindings name="Mixer">
+    <Press>
+      <Binding key="slash" action="Mixer/ab-plugins"/>
+      <Binding key="0" action="Mixer/unity-gain"/>
+      <Binding key="d" action="Mixer/toggle-disk-monitor"/>
+      <Binding key="i" action="Mixer/toggle-input-monitor"/>
+      <Binding key="m" action="Mixer/mute"/>
+      <Binding key="r" action="Mixer/recenable"/>
+      <Binding key="s" action="Mixer/solo"/>
+      <Binding key="BackSpace" action="Mixer/delete-processors-alt"/>
+      <Binding key="Return" action="Transport/GotoStart"/>
+      <Binding key="Left" action="Mixer/scroll-left"/>
+      <Binding key="Up" action="Mixer/increment-gain"/>
+      <Binding key="Right" action="Mixer/scroll-right"/>
+      <Binding key="Down" action="Mixer/decrement-gain"/>
+      <Binding key="F1" action="Mixer/recall-mixer-scene-1"/>
+      <Binding key="F2" action="Mixer/recall-mixer-scene-2"/>
+      <Binding key="F3" action="Mixer/recall-mixer-scene-3"/>
+      <Binding key="F4" action="Mixer/recall-mixer-scene-4"/>
+      <Binding key="F5" action="Mixer/recall-mixer-scene-5"/>
+      <Binding key="F6" action="Mixer/recall-mixer-scene-6"/>
+      <Binding key="F7" action="Mixer/recall-mixer-scene-7"/>
+      <Binding key="F8" action="Mixer/recall-mixer-scene-8"/>
+      <Binding key="F9" action="Mixer/recall-mixer-scene-9"/>
+      <Binding key="F10" action="Mixer/recall-mixer-scene-10"/>
+      <Binding key="F11" action="Mixer/recall-mixer-scene-11"/>
+      <Binding key="F12" action="Mixer/recall-mixer-scene-12"/>
+      <Binding key="Delete" action="Mixer/delete-processors"/>
+      <Binding key="Tertiary-l" action="Mixer/ToggleMixerList"/>
+      <Binding key="Tertiary-m" action="Mixer/ToggleMonitorSection"/>
+      <Binding key="Tertiary-v" action="Mixer/ToggleVCAPane"/>
+      <Binding key="Primary-a" action="Mixer/select-all-processors"/>
+      <Binding key="Primary-c" action="Mixer/copy-processors"/>
+      <Binding key="Primary-v" action="Mixer/paste-processors"/>
+      <Binding key="Primary-x" action="Mixer/cut-processors"/>
+      <Binding key="Primary-F1" action="Mixer/store-mixer-scene-1"/>
+      <Binding key="Primary-F2" action="Mixer/store-mixer-scene-2"/>
+      <Binding key="Primary-F3" action="Mixer/store-mixer-scene-3"/>
+      <Binding key="Primary-F4" action="Mixer/store-mixer-scene-4"/>
+      <Binding key="Primary-F5" action="Mixer/store-mixer-scene-5"/>
+      <Binding key="Primary-F6" action="Mixer/store-mixer-scene-6"/>
+      <Binding key="Primary-F7" action="Mixer/store-mixer-scene-7"/>
+      <Binding key="Primary-F8" action="Mixer/store-mixer-scene-8"/>
+      <Binding key="Primary-F9" action="Mixer/store-mixer-scene-9"/>
+      <Binding key="Primary-F10" action="Mixer/store-mixer-scene-10"/>
+      <Binding key="Primary-F11" action="Mixer/store-mixer-scene-11"/>
+      <Binding key="Primary-F12" action="Mixer/store-mixer-scene-12"/>
+      <Binding key="Secondary-i" action="Mixer/toggle-midi-input-active"/>
+      <Binding key="Secondary-m" action="Common/show-editor"/>
+      <Binding key="Secondary-Up" action="Mixer/select-prev-stripable"/>
+      <Binding key="Secondary-Down" action="Mixer/select-next-stripable"/>
+    </Press>
+    <Release/>
+  </Bindings>
+  <Bindings name="Step Editing">
+    <Press>
+      <Binding key="apostrophe" action="StepEditing/toggle-triplet"/>
+      <Binding key="comma" action="StepEditing/note-velocity-fff"/>
+      <Binding key="period" action="StepEditing/toggle-dotted"/>
+      <Binding key="0" action="StepEditing/octave-10"/>
+      <Binding key="1" action="StepEditing/octave-1"/>
+      <Binding key="2" action="StepEditing/octave-2"/>
+      <Binding key="3" action="StepEditing/octave-3"/>
+      <Binding key="4" action="StepEditing/octave-4"/>
+      <Binding key="5" action="StepEditing/octave-5"/>
+      <Binding key="6" action="StepEditing/octave-6"/>
+      <Binding key="7" action="StepEditing/octave-7"/>
+      <Binding key="8" action="StepEditing/octave-8"/>
+      <Binding key="9" action="StepEditing/octave-9"/>
+      <Binding key="grave" action="StepEditing/octave-0"/>
+      <Binding key="a" action="StepEditing/insert-c"/>
+      <Binding key="b" action="StepEditing/note-velocity-mf"/>
+      <Binding key="c" action="StepEditing/note-velocity-p"/>
+      <Binding key="d" action="StepEditing/insert-e"/>
+      <Binding key="e" action="StepEditing/insert-dsharp"/>
+      <Binding key="f" action="StepEditing/insert-f"/>
+      <Binding key="g" action="StepEditing/insert-g"/>
+      <Binding key="h" action="StepEditing/insert-a"/>
+      <Binding key="j" action="StepEditing/insert-b"/>
+      <Binding key="m" action="StepEditing/note-velocity-ff"/>
+      <Binding key="n" action="StepEditing/note-velocity-f"/>
+      <Binding key="s" action="StepEditing/insert-d"/>
+      <Binding key="t" action="StepEditing/insert-fsharp"/>
+      <Binding key="u" action="StepEditing/insert-asharp"/>
+      <Binding key="v" action="StepEditing/note-velocity-mp"/>
+      <Binding key="w" action="StepEditing/insert-csharp"/>
+      <Binding key="x" action="StepEditing/note-velocity-pp"/>
+      <Binding key="y" action="StepEditing/insert-gsharp"/>
+      <Binding key="z" action="StepEditing/note-velocity-ppp"/>
+      <Binding key="BackSpace" action="StepEditing/back"/>
+      <Binding key="Tab" action="StepEditing/insert-rest"/>
+      <Binding key="Up" action="StepEditing/next-note-velocity"/>
+      <Binding key="Down" action="StepEditing/prev-note-velocity"/>
+      <Binding key="F1" action="StepEditing/note-length-whole"/>
+      <Binding key="F2" action="StepEditing/note-length-half"/>
+      <Binding key="F3" action="StepEditing/note-length-third"/>
+      <Binding key="F4" action="StepEditing/note-length-quarter"/>
+      <Binding key="F5" action="StepEditing/note-length-eighth"/>
+      <Binding key="F6" action="StepEditing/note-length-sixteenth"/>
+      <Binding key="F7" action="StepEditing/note-length-thirtysecond"/>
+      <Binding key="F8" action="StepEditing/note-length-sixtyfourth"/>
+      <Binding key="Tertiary-bar" action="StepEditing/toggle-chord"/>
+      <Binding key="Primary-period" action="StepEditing/no-dotted"/>
+      <Binding key="Primary-Tab" action="StepEditing/insert-snap-rest"/>
+      <Binding key="Primary-Up" action="StepEditing/next-note-length"/>
+      <Binding key="Primary-Down" action="StepEditing/prev-note-length"/>
+    </Press>
+    <Release/>
+  </Bindings>
+  <Bindings name="Monitor Section">
+    <Press>
+      <Binding key="a" action="Solo/solo-use-afl"/>
+      <Binding key="b" action="Monitor/toggle-monitor-processor-box"/>
+      <Binding key="e" action="Solo/toggle-exclusive-solo"/>
+      <Binding key="i" action="Solo/solo-use-in-place"/>
+      <Binding key="l" action="Monitor/monitor-cut-0"/>
+      <Binding key="o" action="Solo/toggle-mute-overrides-solo"/>
+      <Binding key="p" action="Solo/solo-use-pfl"/>
+      <Binding key="r" action="Monitor/monitor-cut-1"/>
+      <Binding key="Tertiary-l" action="Monitor/monitor-invert-0"/>
+      <Binding key="Tertiary-r" action="Monitor/monitor-invert-1"/>
+      <Binding key="Primary-l" action="Monitor/monitor-solo-0"/>
+      <Binding key="Primary-r" action="Monitor/monitor-solo-1"/>
+      <Binding key="Secondary-l" action="Monitor/monitor-dim-0"/>
+      <Binding key="Secondary-r" action="Monitor/monitor-dim-1"/>
+    </Press>
+    <Release/>
+  </Bindings>
+  <Bindings name="Processor Box">
+    <Press>
+      <Binding key="BackSpace" action="ProcessorMenu/backspace"/>
+      <Binding key="Delete" action="ProcessorMenu/delete"/>
+    </Press>
+    <Release/>
+  </Bindings>
+  <Bindings name="Cues">
+    <Press>
+      <Binding key="BackSpace" action="Cues/clear-trigger-slot-alt"/>
+      <Binding key="F1" action="Cues/trigger-cue-0"/>
+      <Binding key="F2" action="Cues/trigger-cue-1"/>
+      <Binding key="F3" action="Cues/trigger-cue-2"/>
+      <Binding key="F4" action="Cues/trigger-cue-3"/>
+      <Binding key="F5" action="Cues/trigger-cue-4"/>
+      <Binding key="F6" action="Cues/trigger-cue-5"/>
+      <Binding key="F7" action="Cues/trigger-cue-6"/>
+      <Binding key="F8" action="Cues/trigger-cue-7"/>
+      <Binding key="Delete" action="Cues/clear-trigger-slot"/>
+    </Press>
+    <Release/>
+  </Bindings>
+  <Bindings name="editor-mouse">
+    <Press/>
+    <Release/>
+  </Bindings>
+</BindingSet>

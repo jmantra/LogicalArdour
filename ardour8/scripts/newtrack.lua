@@ -19,7 +19,7 @@ local dialog_options = {
         ["Power Drums (ACE Fluid Synth)"] = "pwd", ["Dance Drums (ACE Fluid Synth)"] = "dad",
         ["Jazz Drums (ACE Fluid Synth)"] = "jzd", ["808/809 Drums (ACE Fluid Synth)"] = "808",
         ["Brush Drums (ACE Fluid Synth)"] = "brd", ["Orchestral Perc (ACE Fluid Synth)"] = "orp",
-        ["SoniNeko Drums (ACE Fluid Synth)"] = "son", ["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al",["Buskman's Holiday Percussion (AVL Drumkits)"] = "bus",["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = "hot"
+        ["SoniNeko Drums (ACE Fluid Synth)"] = "son", ["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al",["Buskman's Holiday Percussion (AVL Drumkits)"] = "bus",["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = "hot",["Help - How to use Drum Track"] ="drhelp"
       },
       ["Play Software Instruments"] = {
         ["ACE Fluid (Traditional Instruments)"] = "ac", ["Yoshimi (Traditional Synth)"] = "za",
@@ -63,7 +63,26 @@ local subdir = "route_templates"
 -- Concatenate the config directory with the subdirectory
 local full_path = user_config_directory .. "/" .. subdir
 
--- Print the full path
+local function open_url_in_browser(url)
+    -- Create the command with the given URL
+    local command = "xdg-open " .. url
+
+    -- Create a temporary file to store the command
+    local file = io.open("yt.sh", "w")
+
+    if not file then
+        print("Error: Failed to create file 'yt.sh'")
+    else
+        -- Write the command to the file
+        file:write(command .. "\n")
+        file:close()
+        print("File 'yt.sh' created successfully!")
+    end
+
+    -- Move the script to a temporary location and execute it
+    os.execute("mv yt.sh /tmp/yt.sh")
+    os.execute("/bin/bash /tmp/yt.sh")
+end
 
 
 print (full_path)
@@ -578,6 +597,14 @@ print (full_path)
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	end
+
+		if rv and rv["dropdown"] == "drhelp" then
+	print("Drum Help")
+
+-- Example usage
+open_url_in_browser("https://youtu.be/COm3ym6Y-s8")
+	end
+
 
 
 
