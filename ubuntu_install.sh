@@ -13,6 +13,18 @@ backup_or_create_folder() {
     fi
 }
 
+sudo_backup_or_create_folder() {
+    local folder="$1"
+
+    if [ -d "$folder" ]; then
+        echo "Folder '$folder' already exists. Making a backup..."
+      sudo  cp -r "$folder" "${folder}_backup"
+    else
+        echo "Folder '$folder' does not exist. Creating folder..."
+     sudo   mkdir -p "$folder"
+    fi
+}
+
 cd "$HOME/Downloads"
 
 
@@ -204,7 +216,7 @@ backup_or_create_folder "$folder"
 cp -rf ladspa/* "$HOME/.ladspa"
 
 folder="/usr/lib/ladspa"
-sudo backup_or_create_folder "$folder"
+ sudo_backup_or_create_folder "$folder"
 
 sudo cp -rf ladspa-rubberband.cat $folder
 sudo cp -rf ladspa-rubberband.so $folder
