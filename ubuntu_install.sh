@@ -239,6 +239,11 @@ backup_or_create_folder "$folder"
 
 cp -rf ardour8/*  $folder
 
+folder="$HOME/.config/guitarix"
+backup_or_create_folder "$folder"
+
+cp -rf guitarix/*  $folder
+
 for file in $HOME/.config/ardour8/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/jman", home); print}' "$file" > tmp && mv tmp "$file"
