@@ -1,6 +1,30 @@
 #!/bin/bash
 
 
+while true; do
+  read -p "Do you already have Ardour installed? If you say no Ardour will be installed for you (y/n): " choice
+  case "$choice" in
+    y|Y )
+      # Replace the URL with the actual link to the file you want to download
+   echo "Skipping Ardour install"
+
+      break
+      ;;
+    n|N )
+      echo "Installing Ardour from repos"
+    sudo dnf install ardour -y
+      break
+      ;;
+    * )
+      echo "Invalid input. Please enter y or n."
+      ;;
+  esac
+done
+
+# Continue with the rest of your script here
+echo "Continuing with the rest of the script..."
+
+
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
  sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
@@ -44,17 +68,40 @@ sudo chmod 755 /usr/bin/key
 
 #BPM
 
-wget https://jmantra.blob.core.windows.net/data/bpmbin
+#wget https://jmantra.blob.core.windows.net/data/bpmbin
 
 
 
-sudo cp bpmbin /usr/bin
+#sudo cp bpmbin /usr/bin
 
-sudo chmod 755 /usr/bin/bpmbin
+# sudo chmod 755 /usr/bin/bpmbin
+
+while true; do
+  read -p "Do you want to download some loops? (3.5 GB)(Please Note: Loops can be downloaded later in the Library Downloader, however not all loop libraries work in the distro version of Ardour ) (y/n): " choice
+  case "$choice" in
+    y|Y )
+      # Replace the URL with the actual link to the file you want to download
+      echo "Downloading loops..."
+      folder="$HOME/.local/share/sounds/"
+backup_or_create_folder "$folder"
+      wget https://jmantra.blob.core.windows.net/data/clips.zip
+      unzip clips.zip -d $folder
+      rm -rf clips.zip
+      break
+      ;;
+    n|N )
+      echo "Skipping download."
+      break
+      ;;
+    * )
+      echo "Invalid input. Please enter y or n."
+      ;;
+  esac
+done
 
 
 
-sudo dnf install zynaddsubfx lv2-zynadd-plugins lv2-swh-plugins ladspa-tap-plugins calf lv2-x42-plugins
+sudo dnf install yoshimi lv2-swh-plugins ladspa-tap-plugins calf lv2-x42-plugins
 
 
 
@@ -136,13 +183,9 @@ sudo cp -rf samples/* /opt/LogicalArdour
 
 sudo mkdir /usr/local/lib/vst3
 
-sudo cp -rf drumlabooh/drumlabooh.vst3/ /usr/lib/vst3
 
-sudo cp -rf drumlabooh/drumlabooh-multi.vst3/ /usr/lib/vst3
 
-sudo cp -rf drumlabooh-kits /usr/local/share
-
-sudo cp -rf mda-lv2/ /usr/lib/lv2
+sudo cp -rf mda.lv2/ /usr/lib/lv2
 
 sudo cp -rf gx/* /usr/lib/lv2
 
@@ -190,20 +233,3 @@ rm -rf LogicalArdour/*
 
 
 
-ln -sf '/opt/LogicalArdour/Power Drums/Power Drums.sfz' ~/.lv2/sfizz_Power_Drums.lv2/'Power Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Dance Drums/Dance Drums.sfz' ~/.lv2/sfizz_Dance_Drums.lv2/'Dance Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Electronic/Electronic Drums.sfz' ~/.lv2/sfizz_Electronic_Drums.lv2/'Electronic Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Jazz Drums/Jazz Drums.sfz' ~/.lv2/sfizz_Jazz_Drums.lv2/'Jazz Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Room Drums/Room Drums.sfz' ~/.lv2/sfizz_Room_Drums.lv2/'Room Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Standard 2 Drums/Standard 2 Drums.sfz' ~/.lv2/sfizz_Standard_2_Drums.lv2/'Standard 2 Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Brush Drums/Brush Drums.sfz' ~/.lv2/sfizz_Brush_Drums.lv2/'Brush Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/808 Drums/808_909 Drums.sfz' ~/.lv2/sfizz_808.lv2/'808_909 Drums.sfz'
-
-ln -sf '/opt/LogicalArdour/Orchestral Perc/048_Orchestral Perc..sfz' ~/.lv2/sfizz_Orchestral_Perc.lv2/'048_Orchestral Perc..sfz'
