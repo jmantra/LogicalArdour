@@ -60,13 +60,7 @@ sudo chmod 755 /usr/bin/mscore
 folder="$HOME/.config/MuseScore"
 backup_or_create_folder "$folder"
 
-# Key
 
-wget https://jmantra.blob.core.windows.net/data/key
-
-sudo cp key /usr/bin
-
-sudo chmod 755 /usr/bin/key
 
 #BPM
 
@@ -229,6 +223,20 @@ sudo cp -rf ladspa-rubberband.so $folder
 sudo mkdir -p /opt/LogicalArdour
 
 sudo cp -rf samples/* /opt/LogicalArdour
+
+# Key
+
+wget https://jmantra.blob.core.windows.net/data/key
+
+sudo cp key /opt/LogicalArdour
+
+sudo chmod 755 /opt/LogicalArdour/key
+
+wget https://jmantra.blob.core.windows.net/data/newchord
+
+sudo cp key /opt/LogicalArdour
+
+sudo chmod 755 /opt/LogicalArdour/newchord
 
 sudo mkdir /usr/local/lib/vst3
 

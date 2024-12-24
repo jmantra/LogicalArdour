@@ -9,6 +9,23 @@ Estimates the key of an audio loop for the purpose of autotune and setting the k
 
 function factory () return function (signal, ...)
 
+-- Get the user config directory
+ user_config_directory = ARDOUR.user_config_directory(8)
+
+-- Construct the full path to the key.txt file
+ key_file_path = user_config_directory .. "/key.txt"
+
+-- Read the contents of the key.txt file
+ file = io.open(key_file_path, "r") -- Open the file in read mode
+ file_content = "No key set" -- Default value if the file cannot be read
+
+if file then
+    file_content = file:read("*a") -- Read the entire content of the file
+    file:close() -- Close the file
+else
+    print("Warning: Could not open file for reading at " .. key_file_path)
+end
+
 
 
 
@@ -19,7 +36,7 @@ local midi_region
 for r in sel.regions:regionlist():iter() do
     count = count + 1
     if r:to_audioregion():isnil() then
-        local md = LuaDialog.Message("Get Key", "The selected region is not an audio region", LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
+        local md = LuaDialog.Message("Get Key", "The selected region is not an audio region. Current project key is set to "..file_content, LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
         print(md:run())
         md = nil
         collectgarbage()
@@ -30,7 +47,7 @@ for r in sel.regions:regionlist():iter() do
 end
 
 if count ~= 1 then
-    local md = LuaDialog.Message("Get Key", "Please select exactly 1 audio region", LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
+    local md = LuaDialog.Message("Get Key", "Please select exactly 1 audio region. Current project key is set to "..file_content, LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
     print(md:run())
     md = nil
     collectgarbage()
@@ -54,7 +71,7 @@ local filename = quotedfilepath
 
 
 
-  local command = "key " .. quotedfilepath
+  local command = "/opt/LogicalArdour/key " .. quotedfilepath
 
 os.execute(command)
 
@@ -93,7 +110,7 @@ print("Scale: " .. scale)
 
     local dialog_options = {
   {
-   type = "dropdown", key = "target_key", title = "Estimated key of loop: " .. dkey .. " " .. scale .. " Would you like to set this as the project key?", values =
+   type = "dropdown", key = "target_key", title = "Estimated key of loop: " .. dkey .. " " .. scale .. " Would you like to set this as the project key? Current project key is set to "..file_content, values =
    {
     ["Do not set project key"] = 1, ["set the key of the project"] = 2
    },

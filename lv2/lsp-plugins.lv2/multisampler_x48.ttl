@@ -1,0 +1,3862 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2ext:     <http://lv2plug.in/ns/ext/> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix patch:      <http://lv2plug.in/ns/ext/patch#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix midi:       <http://lv2plug.in/ns/ext/midi#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/multisampler_x48/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+@prefix plug_p:     <http://lsp-plug.in//ports#> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:v_sadovnikov
+	a foaf:Person ;
+	foaf:name "Vladimir Sadovnikov" ;
+	foaf:nick "SadKo" ;
+	foaf:mbox <mailto:sadko4u@gmail.com> ;
+	foaf:homepage <http://lsp-plug.in/#v_sadovnikov>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:stereo_in
+	a pg:StereoGroup, pg:InputGroup ;
+	lv2:symbol "stereo_in" ;
+	rdfs:label "Stereo Input" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:stereo_out
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "stereo_out" ;
+	rdfs:label "Stereo Output" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug:multisampler_x48
+	a lv2:InstrumentPlugin, doap:Project ;
+	doap:name "LSP Multi-Sampler x48 Stereo" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 27 ;
+	doap:developer plug_dev:v_sadovnikov ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:multisampler_x48 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:stereo_in ;
+	pg:mainOutput plug_pg:stereo_out ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in_l" ;
+		lv2:name "Input L" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "in_r" ;
+		lv2:name "Input R" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "out_l" ;
+		lv2:name "Output L" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 3 ;
+		lv2:symbol "out_r" ;
+		lv2:name "Output R" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:designation lv2:enabled ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "mute" ;
+		lv2:name "Forced mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "muting" ;
+		lv2:name "Mute on stop" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "noff" ;
+		lv2:name "Note-off handling" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "fout" ;
+		lv2:name "Note-off fadeout" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 50.000000 ;
+		lv2:default 10.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "dry" ;
+		lv2:name "Dry amount" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "wet" ;
+		lv2:name "Wet amount" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "drywet" ;
+		lv2:name "Dry/Wet balance" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "g_out" ;
+		lv2:name "Output gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "sets" ;
+		lv2:name "Sample Editor Tab Selection" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Main"; rdf:value 0 ] ,
+			[ rdfs:label "Pitch"; rdf:value 1 ] ,
+			[ rdfs:label "Stretch"; rdf:value 2 ] ,
+			[ rdfs:label "Loop"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14 ;
+		lv2:symbol "msel" ;
+		lv2:name "Area selector" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Instruments"; rdf:value 0 ] ,
+			[ rdfs:label "Mixer 0-11"; rdf:value 1 ] ,
+			[ rdfs:label "Mixer 12-23"; rdf:value 2 ] ,
+			[ rdfs:label "Mixer 24-35"; rdf:value 3 ] ,
+			[ rdfs:label "Mixer 36-47"; rdf:value 4 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 4 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "ion_0" ;
+		lv2:name "Instrument on 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "imix_0" ;
+		lv2:name "Instrument mix gain 0" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "panl_0" ;
+		lv2:name "Instrument panorama left 0" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "panr_0" ;
+		lv2:name "Instrument manorama right 0" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "iact_0" ;
+		lv2:name "Instrument activity 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "ion_1" ;
+		lv2:name "Instrument on 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "imix_1" ;
+		lv2:name "Instrument mix gain 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "panl_1" ;
+		lv2:name "Instrument panorama left 1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "panr_1" ;
+		lv2:name "Instrument manorama right 1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "iact_1" ;
+		lv2:name "Instrument activity 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "ion_2" ;
+		lv2:name "Instrument on 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "imix_2" ;
+		lv2:name "Instrument mix gain 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "panl_2" ;
+		lv2:name "Instrument panorama left 2" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "panr_2" ;
+		lv2:name "Instrument manorama right 2" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "iact_2" ;
+		lv2:name "Instrument activity 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "ion_3" ;
+		lv2:name "Instrument on 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 31 ;
+		lv2:symbol "imix_3" ;
+		lv2:name "Instrument mix gain 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 32 ;
+		lv2:symbol "panl_3" ;
+		lv2:name "Instrument panorama left 3" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 33 ;
+		lv2:symbol "panr_3" ;
+		lv2:name "Instrument manorama right 3" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "iact_3" ;
+		lv2:name "Instrument activity 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 35 ;
+		lv2:symbol "ion_4" ;
+		lv2:name "Instrument on 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 36 ;
+		lv2:symbol "imix_4" ;
+		lv2:name "Instrument mix gain 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 37 ;
+		lv2:symbol "panl_4" ;
+		lv2:name "Instrument panorama left 4" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 38 ;
+		lv2:symbol "panr_4" ;
+		lv2:name "Instrument manorama right 4" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 39 ;
+		lv2:symbol "iact_4" ;
+		lv2:name "Instrument activity 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 40 ;
+		lv2:symbol "ion_5" ;
+		lv2:name "Instrument on 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 41 ;
+		lv2:symbol "imix_5" ;
+		lv2:name "Instrument mix gain 5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 42 ;
+		lv2:symbol "panl_5" ;
+		lv2:name "Instrument panorama left 5" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 43 ;
+		lv2:symbol "panr_5" ;
+		lv2:name "Instrument manorama right 5" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 44 ;
+		lv2:symbol "iact_5" ;
+		lv2:name "Instrument activity 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 45 ;
+		lv2:symbol "ion_6" ;
+		lv2:name "Instrument on 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 46 ;
+		lv2:symbol "imix_6" ;
+		lv2:name "Instrument mix gain 6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 47 ;
+		lv2:symbol "panl_6" ;
+		lv2:name "Instrument panorama left 6" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 48 ;
+		lv2:symbol "panr_6" ;
+		lv2:name "Instrument manorama right 6" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 49 ;
+		lv2:symbol "iact_6" ;
+		lv2:name "Instrument activity 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 50 ;
+		lv2:symbol "ion_7" ;
+		lv2:name "Instrument on 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 51 ;
+		lv2:symbol "imix_7" ;
+		lv2:name "Instrument mix gain 7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 52 ;
+		lv2:symbol "panl_7" ;
+		lv2:name "Instrument panorama left 7" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 53 ;
+		lv2:symbol "panr_7" ;
+		lv2:name "Instrument manorama right 7" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 54 ;
+		lv2:symbol "iact_7" ;
+		lv2:name "Instrument activity 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 55 ;
+		lv2:symbol "ion_8" ;
+		lv2:name "Instrument on 8" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 56 ;
+		lv2:symbol "imix_8" ;
+		lv2:name "Instrument mix gain 8" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 57 ;
+		lv2:symbol "panl_8" ;
+		lv2:name "Instrument panorama left 8" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 58 ;
+		lv2:symbol "panr_8" ;
+		lv2:name "Instrument manorama right 8" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 59 ;
+		lv2:symbol "iact_8" ;
+		lv2:name "Instrument activity 8" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 60 ;
+		lv2:symbol "ion_9" ;
+		lv2:name "Instrument on 9" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 61 ;
+		lv2:symbol "imix_9" ;
+		lv2:name "Instrument mix gain 9" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 62 ;
+		lv2:symbol "panl_9" ;
+		lv2:name "Instrument panorama left 9" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 63 ;
+		lv2:symbol "panr_9" ;
+		lv2:name "Instrument manorama right 9" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 64 ;
+		lv2:symbol "iact_9" ;
+		lv2:name "Instrument activity 9" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 65 ;
+		lv2:symbol "ion_10" ;
+		lv2:name "Instrument on 10" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 66 ;
+		lv2:symbol "imix_10" ;
+		lv2:name "Instrument mix gain 10" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 67 ;
+		lv2:symbol "panl_10" ;
+		lv2:name "Instrument panorama left 10" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 68 ;
+		lv2:symbol "panr_10" ;
+		lv2:name "Instrument manorama right 10" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 69 ;
+		lv2:symbol "iact_10" ;
+		lv2:name "Instrument activity 10" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 70 ;
+		lv2:symbol "ion_11" ;
+		lv2:name "Instrument on 11" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 71 ;
+		lv2:symbol "imix_11" ;
+		lv2:name "Instrument mix gain 11" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 72 ;
+		lv2:symbol "panl_11" ;
+		lv2:name "Instrument panorama left 11" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 73 ;
+		lv2:symbol "panr_11" ;
+		lv2:name "Instrument manorama right 11" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 74 ;
+		lv2:symbol "iact_11" ;
+		lv2:name "Instrument activity 11" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 75 ;
+		lv2:symbol "ion_12" ;
+		lv2:name "Instrument on 12" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 76 ;
+		lv2:symbol "imix_12" ;
+		lv2:name "Instrument mix gain 12" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 77 ;
+		lv2:symbol "panl_12" ;
+		lv2:name "Instrument panorama left 12" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 78 ;
+		lv2:symbol "panr_12" ;
+		lv2:name "Instrument manorama right 12" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 79 ;
+		lv2:symbol "iact_12" ;
+		lv2:name "Instrument activity 12" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 80 ;
+		lv2:symbol "ion_13" ;
+		lv2:name "Instrument on 13" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 81 ;
+		lv2:symbol "imix_13" ;
+		lv2:name "Instrument mix gain 13" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 82 ;
+		lv2:symbol "panl_13" ;
+		lv2:name "Instrument panorama left 13" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 83 ;
+		lv2:symbol "panr_13" ;
+		lv2:name "Instrument manorama right 13" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 84 ;
+		lv2:symbol "iact_13" ;
+		lv2:name "Instrument activity 13" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 85 ;
+		lv2:symbol "ion_14" ;
+		lv2:name "Instrument on 14" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 86 ;
+		lv2:symbol "imix_14" ;
+		lv2:name "Instrument mix gain 14" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 87 ;
+		lv2:symbol "panl_14" ;
+		lv2:name "Instrument panorama left 14" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 88 ;
+		lv2:symbol "panr_14" ;
+		lv2:name "Instrument manorama right 14" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 89 ;
+		lv2:symbol "iact_14" ;
+		lv2:name "Instrument activity 14" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 90 ;
+		lv2:symbol "ion_15" ;
+		lv2:name "Instrument on 15" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 91 ;
+		lv2:symbol "imix_15" ;
+		lv2:name "Instrument mix gain 15" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 92 ;
+		lv2:symbol "panl_15" ;
+		lv2:name "Instrument panorama left 15" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 93 ;
+		lv2:symbol "panr_15" ;
+		lv2:name "Instrument manorama right 15" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 94 ;
+		lv2:symbol "iact_15" ;
+		lv2:name "Instrument activity 15" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 95 ;
+		lv2:symbol "ion_16" ;
+		lv2:name "Instrument on 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 96 ;
+		lv2:symbol "imix_16" ;
+		lv2:name "Instrument mix gain 16" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 97 ;
+		lv2:symbol "panl_16" ;
+		lv2:name "Instrument panorama left 16" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 98 ;
+		lv2:symbol "panr_16" ;
+		lv2:name "Instrument manorama right 16" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 99 ;
+		lv2:symbol "iact_16" ;
+		lv2:name "Instrument activity 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 100 ;
+		lv2:symbol "ion_17" ;
+		lv2:name "Instrument on 17" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 101 ;
+		lv2:symbol "imix_17" ;
+		lv2:name "Instrument mix gain 17" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 102 ;
+		lv2:symbol "panl_17" ;
+		lv2:name "Instrument panorama left 17" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 103 ;
+		lv2:symbol "panr_17" ;
+		lv2:name "Instrument manorama right 17" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 104 ;
+		lv2:symbol "iact_17" ;
+		lv2:name "Instrument activity 17" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 105 ;
+		lv2:symbol "ion_18" ;
+		lv2:name "Instrument on 18" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 106 ;
+		lv2:symbol "imix_18" ;
+		lv2:name "Instrument mix gain 18" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 107 ;
+		lv2:symbol "panl_18" ;
+		lv2:name "Instrument panorama left 18" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 108 ;
+		lv2:symbol "panr_18" ;
+		lv2:name "Instrument manorama right 18" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 109 ;
+		lv2:symbol "iact_18" ;
+		lv2:name "Instrument activity 18" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 110 ;
+		lv2:symbol "ion_19" ;
+		lv2:name "Instrument on 19" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 111 ;
+		lv2:symbol "imix_19" ;
+		lv2:name "Instrument mix gain 19" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 112 ;
+		lv2:symbol "panl_19" ;
+		lv2:name "Instrument panorama left 19" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 113 ;
+		lv2:symbol "panr_19" ;
+		lv2:name "Instrument manorama right 19" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 114 ;
+		lv2:symbol "iact_19" ;
+		lv2:name "Instrument activity 19" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 115 ;
+		lv2:symbol "ion_20" ;
+		lv2:name "Instrument on 20" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 116 ;
+		lv2:symbol "imix_20" ;
+		lv2:name "Instrument mix gain 20" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 117 ;
+		lv2:symbol "panl_20" ;
+		lv2:name "Instrument panorama left 20" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 118 ;
+		lv2:symbol "panr_20" ;
+		lv2:name "Instrument manorama right 20" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 119 ;
+		lv2:symbol "iact_20" ;
+		lv2:name "Instrument activity 20" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 120 ;
+		lv2:symbol "ion_21" ;
+		lv2:name "Instrument on 21" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 121 ;
+		lv2:symbol "imix_21" ;
+		lv2:name "Instrument mix gain 21" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 122 ;
+		lv2:symbol "panl_21" ;
+		lv2:name "Instrument panorama left 21" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 123 ;
+		lv2:symbol "panr_21" ;
+		lv2:name "Instrument manorama right 21" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 124 ;
+		lv2:symbol "iact_21" ;
+		lv2:name "Instrument activity 21" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 125 ;
+		lv2:symbol "ion_22" ;
+		lv2:name "Instrument on 22" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 126 ;
+		lv2:symbol "imix_22" ;
+		lv2:name "Instrument mix gain 22" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 127 ;
+		lv2:symbol "panl_22" ;
+		lv2:name "Instrument panorama left 22" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 128 ;
+		lv2:symbol "panr_22" ;
+		lv2:name "Instrument manorama right 22" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 129 ;
+		lv2:symbol "iact_22" ;
+		lv2:name "Instrument activity 22" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 130 ;
+		lv2:symbol "ion_23" ;
+		lv2:name "Instrument on 23" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 131 ;
+		lv2:symbol "imix_23" ;
+		lv2:name "Instrument mix gain 23" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 132 ;
+		lv2:symbol "panl_23" ;
+		lv2:name "Instrument panorama left 23" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 133 ;
+		lv2:symbol "panr_23" ;
+		lv2:name "Instrument manorama right 23" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 134 ;
+		lv2:symbol "iact_23" ;
+		lv2:name "Instrument activity 23" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 135 ;
+		lv2:symbol "ion_24" ;
+		lv2:name "Instrument on 24" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 136 ;
+		lv2:symbol "imix_24" ;
+		lv2:name "Instrument mix gain 24" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 137 ;
+		lv2:symbol "panl_24" ;
+		lv2:name "Instrument panorama left 24" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 138 ;
+		lv2:symbol "panr_24" ;
+		lv2:name "Instrument manorama right 24" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 139 ;
+		lv2:symbol "iact_24" ;
+		lv2:name "Instrument activity 24" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 140 ;
+		lv2:symbol "ion_25" ;
+		lv2:name "Instrument on 25" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 141 ;
+		lv2:symbol "imix_25" ;
+		lv2:name "Instrument mix gain 25" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 142 ;
+		lv2:symbol "panl_25" ;
+		lv2:name "Instrument panorama left 25" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 143 ;
+		lv2:symbol "panr_25" ;
+		lv2:name "Instrument manorama right 25" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 144 ;
+		lv2:symbol "iact_25" ;
+		lv2:name "Instrument activity 25" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 145 ;
+		lv2:symbol "ion_26" ;
+		lv2:name "Instrument on 26" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 146 ;
+		lv2:symbol "imix_26" ;
+		lv2:name "Instrument mix gain 26" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 147 ;
+		lv2:symbol "panl_26" ;
+		lv2:name "Instrument panorama left 26" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 148 ;
+		lv2:symbol "panr_26" ;
+		lv2:name "Instrument manorama right 26" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 149 ;
+		lv2:symbol "iact_26" ;
+		lv2:name "Instrument activity 26" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 150 ;
+		lv2:symbol "ion_27" ;
+		lv2:name "Instrument on 27" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 151 ;
+		lv2:symbol "imix_27" ;
+		lv2:name "Instrument mix gain 27" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 152 ;
+		lv2:symbol "panl_27" ;
+		lv2:name "Instrument panorama left 27" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 153 ;
+		lv2:symbol "panr_27" ;
+		lv2:name "Instrument manorama right 27" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 154 ;
+		lv2:symbol "iact_27" ;
+		lv2:name "Instrument activity 27" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 155 ;
+		lv2:symbol "ion_28" ;
+		lv2:name "Instrument on 28" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 156 ;
+		lv2:symbol "imix_28" ;
+		lv2:name "Instrument mix gain 28" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 157 ;
+		lv2:symbol "panl_28" ;
+		lv2:name "Instrument panorama left 28" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 158 ;
+		lv2:symbol "panr_28" ;
+		lv2:name "Instrument manorama right 28" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 159 ;
+		lv2:symbol "iact_28" ;
+		lv2:name "Instrument activity 28" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 160 ;
+		lv2:symbol "ion_29" ;
+		lv2:name "Instrument on 29" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 161 ;
+		lv2:symbol "imix_29" ;
+		lv2:name "Instrument mix gain 29" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 162 ;
+		lv2:symbol "panl_29" ;
+		lv2:name "Instrument panorama left 29" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 163 ;
+		lv2:symbol "panr_29" ;
+		lv2:name "Instrument manorama right 29" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 164 ;
+		lv2:symbol "iact_29" ;
+		lv2:name "Instrument activity 29" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 165 ;
+		lv2:symbol "ion_30" ;
+		lv2:name "Instrument on 30" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 166 ;
+		lv2:symbol "imix_30" ;
+		lv2:name "Instrument mix gain 30" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 167 ;
+		lv2:symbol "panl_30" ;
+		lv2:name "Instrument panorama left 30" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 168 ;
+		lv2:symbol "panr_30" ;
+		lv2:name "Instrument manorama right 30" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 169 ;
+		lv2:symbol "iact_30" ;
+		lv2:name "Instrument activity 30" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 170 ;
+		lv2:symbol "ion_31" ;
+		lv2:name "Instrument on 31" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 171 ;
+		lv2:symbol "imix_31" ;
+		lv2:name "Instrument mix gain 31" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 172 ;
+		lv2:symbol "panl_31" ;
+		lv2:name "Instrument panorama left 31" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 173 ;
+		lv2:symbol "panr_31" ;
+		lv2:name "Instrument manorama right 31" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 174 ;
+		lv2:symbol "iact_31" ;
+		lv2:name "Instrument activity 31" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 175 ;
+		lv2:symbol "ion_32" ;
+		lv2:name "Instrument on 32" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 176 ;
+		lv2:symbol "imix_32" ;
+		lv2:name "Instrument mix gain 32" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 177 ;
+		lv2:symbol "panl_32" ;
+		lv2:name "Instrument panorama left 32" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 178 ;
+		lv2:symbol "panr_32" ;
+		lv2:name "Instrument manorama right 32" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 179 ;
+		lv2:symbol "iact_32" ;
+		lv2:name "Instrument activity 32" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 180 ;
+		lv2:symbol "ion_33" ;
+		lv2:name "Instrument on 33" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 181 ;
+		lv2:symbol "imix_33" ;
+		lv2:name "Instrument mix gain 33" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 182 ;
+		lv2:symbol "panl_33" ;
+		lv2:name "Instrument panorama left 33" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 183 ;
+		lv2:symbol "panr_33" ;
+		lv2:name "Instrument manorama right 33" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 184 ;
+		lv2:symbol "iact_33" ;
+		lv2:name "Instrument activity 33" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 185 ;
+		lv2:symbol "ion_34" ;
+		lv2:name "Instrument on 34" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 186 ;
+		lv2:symbol "imix_34" ;
+		lv2:name "Instrument mix gain 34" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 187 ;
+		lv2:symbol "panl_34" ;
+		lv2:name "Instrument panorama left 34" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 188 ;
+		lv2:symbol "panr_34" ;
+		lv2:name "Instrument manorama right 34" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 189 ;
+		lv2:symbol "iact_34" ;
+		lv2:name "Instrument activity 34" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 190 ;
+		lv2:symbol "ion_35" ;
+		lv2:name "Instrument on 35" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 191 ;
+		lv2:symbol "imix_35" ;
+		lv2:name "Instrument mix gain 35" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 192 ;
+		lv2:symbol "panl_35" ;
+		lv2:name "Instrument panorama left 35" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 193 ;
+		lv2:symbol "panr_35" ;
+		lv2:name "Instrument manorama right 35" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 194 ;
+		lv2:symbol "iact_35" ;
+		lv2:name "Instrument activity 35" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 195 ;
+		lv2:symbol "ion_36" ;
+		lv2:name "Instrument on 36" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 196 ;
+		lv2:symbol "imix_36" ;
+		lv2:name "Instrument mix gain 36" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 197 ;
+		lv2:symbol "panl_36" ;
+		lv2:name "Instrument panorama left 36" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 198 ;
+		lv2:symbol "panr_36" ;
+		lv2:name "Instrument manorama right 36" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 199 ;
+		lv2:symbol "iact_36" ;
+		lv2:name "Instrument activity 36" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 200 ;
+		lv2:symbol "ion_37" ;
+		lv2:name "Instrument on 37" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 201 ;
+		lv2:symbol "imix_37" ;
+		lv2:name "Instrument mix gain 37" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 202 ;
+		lv2:symbol "panl_37" ;
+		lv2:name "Instrument panorama left 37" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 203 ;
+		lv2:symbol "panr_37" ;
+		lv2:name "Instrument manorama right 37" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 204 ;
+		lv2:symbol "iact_37" ;
+		lv2:name "Instrument activity 37" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 205 ;
+		lv2:symbol "ion_38" ;
+		lv2:name "Instrument on 38" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 206 ;
+		lv2:symbol "imix_38" ;
+		lv2:name "Instrument mix gain 38" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 207 ;
+		lv2:symbol "panl_38" ;
+		lv2:name "Instrument panorama left 38" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 208 ;
+		lv2:symbol "panr_38" ;
+		lv2:name "Instrument manorama right 38" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 209 ;
+		lv2:symbol "iact_38" ;
+		lv2:name "Instrument activity 38" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 210 ;
+		lv2:symbol "ion_39" ;
+		lv2:name "Instrument on 39" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 211 ;
+		lv2:symbol "imix_39" ;
+		lv2:name "Instrument mix gain 39" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 212 ;
+		lv2:symbol "panl_39" ;
+		lv2:name "Instrument panorama left 39" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 213 ;
+		lv2:symbol "panr_39" ;
+		lv2:name "Instrument manorama right 39" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 214 ;
+		lv2:symbol "iact_39" ;
+		lv2:name "Instrument activity 39" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 215 ;
+		lv2:symbol "ion_40" ;
+		lv2:name "Instrument on 40" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 216 ;
+		lv2:symbol "imix_40" ;
+		lv2:name "Instrument mix gain 40" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 217 ;
+		lv2:symbol "panl_40" ;
+		lv2:name "Instrument panorama left 40" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 218 ;
+		lv2:symbol "panr_40" ;
+		lv2:name "Instrument manorama right 40" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 219 ;
+		lv2:symbol "iact_40" ;
+		lv2:name "Instrument activity 40" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 220 ;
+		lv2:symbol "ion_41" ;
+		lv2:name "Instrument on 41" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 221 ;
+		lv2:symbol "imix_41" ;
+		lv2:name "Instrument mix gain 41" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 222 ;
+		lv2:symbol "panl_41" ;
+		lv2:name "Instrument panorama left 41" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 223 ;
+		lv2:symbol "panr_41" ;
+		lv2:name "Instrument manorama right 41" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 224 ;
+		lv2:symbol "iact_41" ;
+		lv2:name "Instrument activity 41" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 225 ;
+		lv2:symbol "ion_42" ;
+		lv2:name "Instrument on 42" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 226 ;
+		lv2:symbol "imix_42" ;
+		lv2:name "Instrument mix gain 42" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 227 ;
+		lv2:symbol "panl_42" ;
+		lv2:name "Instrument panorama left 42" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 228 ;
+		lv2:symbol "panr_42" ;
+		lv2:name "Instrument manorama right 42" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 229 ;
+		lv2:symbol "iact_42" ;
+		lv2:name "Instrument activity 42" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 230 ;
+		lv2:symbol "ion_43" ;
+		lv2:name "Instrument on 43" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 231 ;
+		lv2:symbol "imix_43" ;
+		lv2:name "Instrument mix gain 43" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 232 ;
+		lv2:symbol "panl_43" ;
+		lv2:name "Instrument panorama left 43" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 233 ;
+		lv2:symbol "panr_43" ;
+		lv2:name "Instrument manorama right 43" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 234 ;
+		lv2:symbol "iact_43" ;
+		lv2:name "Instrument activity 43" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 235 ;
+		lv2:symbol "ion_44" ;
+		lv2:name "Instrument on 44" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 236 ;
+		lv2:symbol "imix_44" ;
+		lv2:name "Instrument mix gain 44" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 237 ;
+		lv2:symbol "panl_44" ;
+		lv2:name "Instrument panorama left 44" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 238 ;
+		lv2:symbol "panr_44" ;
+		lv2:name "Instrument manorama right 44" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 239 ;
+		lv2:symbol "iact_44" ;
+		lv2:name "Instrument activity 44" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 240 ;
+		lv2:symbol "ion_45" ;
+		lv2:name "Instrument on 45" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 241 ;
+		lv2:symbol "imix_45" ;
+		lv2:name "Instrument mix gain 45" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 242 ;
+		lv2:symbol "panl_45" ;
+		lv2:name "Instrument panorama left 45" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 243 ;
+		lv2:symbol "panr_45" ;
+		lv2:name "Instrument manorama right 45" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 244 ;
+		lv2:symbol "iact_45" ;
+		lv2:name "Instrument activity 45" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 245 ;
+		lv2:symbol "ion_46" ;
+		lv2:name "Instrument on 46" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 246 ;
+		lv2:symbol "imix_46" ;
+		lv2:name "Instrument mix gain 46" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 247 ;
+		lv2:symbol "panl_46" ;
+		lv2:name "Instrument panorama left 46" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 248 ;
+		lv2:symbol "panr_46" ;
+		lv2:name "Instrument manorama right 46" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 249 ;
+		lv2:symbol "iact_46" ;
+		lv2:name "Instrument activity 46" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 250 ;
+		lv2:symbol "ion_47" ;
+		lv2:name "Instrument on 47" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 251 ;
+		lv2:symbol "imix_47" ;
+		lv2:name "Instrument mix gain 47" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 252 ;
+		lv2:symbol "panl_47" ;
+		lv2:name "Instrument panorama left 47" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 253 ;
+		lv2:symbol "panr_47" ;
+		lv2:name "Instrument manorama right 47" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 254 ;
+		lv2:symbol "iact_47" ;
+		lv2:name "Instrument activity 47" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position, midi:MidiEvent ;
+		lv2:designation lv2:control ;
+		lv2:index 255 ;
+		lv2:symbol "in_midi" ;
+		lv2:name "MIDI Input, UI Input" ;
+		rdfs:comment "MIDI IN, UI -> DSP communication" ;
+		rsz:minimumSize 8852992 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position, midi:MidiEvent ;
+		lv2:designation lv2:control ;
+		lv2:index 256 ;
+		lv2:symbol "out_midi" ;
+		lv2:name "MIDI Output, UI Output" ;
+		rdfs:comment "MIDI OUT, DSP -> UI communication" ;
+		rsz:minimumSize 13571584 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 257 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:multisampler_x48
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 27 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface, lv2ext:instance-access ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 4 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 6 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 7 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 8 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 10 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 11 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 13 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 14 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 16 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 17 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 19 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 20 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 21 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 23 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 24 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 25 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 26 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 27 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 28 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 30 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 31 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 32 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 33 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 34 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 35 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 36 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 37 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 38 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 39 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 40 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 41 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 42 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 43 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 44 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 45 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 46 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 47 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 48 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 49 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 50 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 51 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 52 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 53 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 54 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 55 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 56 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 57 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 58 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 59 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 60 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 61 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 62 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 63 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 64 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 65 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 66 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 67 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 68 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 69 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 70 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 71 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 72 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 73 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 74 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 75 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 76 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 77 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 78 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 79 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 80 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 81 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 82 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 83 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 84 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 85 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 86 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 87 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 88 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 89 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 90 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 91 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 92 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 93 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 94 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 95 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 96 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 97 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 98 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 99 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 100 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 101 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 102 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 103 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 104 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 105 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 106 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 107 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 108 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 109 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 110 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 111 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 112 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 113 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 114 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 115 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 116 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 117 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 118 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 119 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 120 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 121 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 122 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 123 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 124 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 125 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 126 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 127 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 128 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 129 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 130 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 131 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 132 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 133 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 134 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 135 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 136 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 137 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 138 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 139 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 140 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 141 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 142 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 143 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 144 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 145 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 146 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 147 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 148 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 149 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 150 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 151 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 152 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 153 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 154 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 155 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 156 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 157 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 158 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 159 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 160 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 161 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 162 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 163 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 164 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 165 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 166 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 167 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 168 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 169 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 170 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 171 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 172 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 173 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 174 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 175 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 176 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 177 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 178 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 179 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 180 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 181 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 182 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 183 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 184 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 185 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 186 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 187 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 188 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 189 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 190 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 191 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 192 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 193 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 194 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 195 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 196 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 197 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 198 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 199 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 200 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 201 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 202 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 203 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 204 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 205 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 206 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 207 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 208 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 209 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 210 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 211 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 212 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 213 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 214 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 215 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 216 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 217 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 218 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 219 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 220 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 221 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 222 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 223 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 224 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 225 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 226 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 227 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 228 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 229 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 230 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 231 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 232 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 233 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 234 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 235 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 236 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 237 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 238 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 239 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 240 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 241 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 242 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 243 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 244 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 245 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 246 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 247 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 248 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 249 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 250 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 251 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 252 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 253 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 254 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 255 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 256 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:multisampler_x48 ;
+		ui:portIndex 257 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+

@@ -1,0 +1,2616 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2ext:     <http://lv2plug.in/ns/ext/> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix patch:      <http://lv2plug.in/ns/ext/patch#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/dyna_processor_ms/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+@prefix plug_p:     <http://lsp-plug.in//ports#> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:v_sadovnikov
+	a foaf:Person ;
+	foaf:name "Vladimir Sadovnikov" ;
+	foaf:nick "SadKo" ;
+	foaf:mbox <mailto:sadko4u@gmail.com> ;
+	foaf:homepage <http://lsp-plug.in/#v_sadovnikov>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:stereo_in
+	a pg:StereoGroup, pg:InputGroup ;
+	lv2:symbol "stereo_in" ;
+	rdfs:label "Stereo Input" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:stereo_out
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "stereo_out" ;
+	rdfs:label "Stereo Output" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_p:link
+	a lv2:Parameter ;
+	rdfs:label "Side-chain shared memory link" ;
+	rdfs:range atom:String
+	.
+
+plug:dyna_processor_ms
+	a lv2:DynamicsPlugin, doap:Project ;
+	doap:name "LSP Dynamics Processor MidSide" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 27 ;
+	doap:developer plug_dev:v_sadovnikov ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:dyna_processor_ms ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:stereo_in ;
+	pg:mainOutput plug_pg:stereo_out ;
+	dc:replaces <urn:ladspa:5002101> ;
+
+	patch:writable plug_p:link ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in_l" ;
+		lv2:name "Input L" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "in_r" ;
+		lv2:name "Input R" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "out_l" ;
+		lv2:name "Output L" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 3 ;
+		lv2:symbol "out_r" ;
+		lv2:name "Output R" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:designation lv2:enabled ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "g_in" ;
+		lv2:name "Input gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "g_out" ;
+		lv2:name "Output gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "pause" ;
+		lv2:name "Pause graph analysis" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "clear" ;
+		lv2:name "Clear graph analysis" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "psel" ;
+		lv2:name "Processor selector" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Middle"; rdf:value 0 ] ,
+			[ rdfs:label "Side"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "msl" ;
+		lv2:name "Mid/Side listen" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "sct_m" ;
+		lv2:name "Sidechain type Mid" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Feed-forward"; rdf:value 0 ] ,
+			[ rdfs:label "Feed-back"; rdf:value 1 ] ,
+			[ rdfs:label "Link"; rdf:value 2 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 2 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "scm_m" ;
+		lv2:name "Sidechain mode Mid" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Peak"; rdf:value 0 ] ,
+			[ rdfs:label "RMS"; rdf:value 1 ] ,
+			[ rdfs:label "LPF"; rdf:value 2 ] ,
+			[ rdfs:label "SMA"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "sla_m" ;
+		lv2:name "Sidechain lookahead Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 20.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14 ;
+		lv2:symbol "scl_m" ;
+		lv2:name "Sidechain listen Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "scs_m" ;
+		lv2:name "Sidechain source Mid" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Middle"; rdf:value 0 ] ,
+			[ rdfs:label "Side"; rdf:value 1 ] ,
+			[ rdfs:label "Left"; rdf:value 2 ] ,
+			[ rdfs:label "Right"; rdf:value 3 ] ,
+			[ rdfs:label "Min"; rdf:value 4 ] ,
+			[ rdfs:label "Max"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "scr_m" ;
+		lv2:name "Sidechain reactivity Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 250.000000 ;
+		lv2:default 10.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "scp_m" ;
+		lv2:name "Sidechain preamp Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "shpm_m" ;
+		lv2:name "High-pass filter mode Mid" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "off"; rdf:value 0 ] ,
+			[ rdfs:label "12 dB/oct"; rdf:value 1 ] ,
+			[ rdfs:label "24 dB/oct"; rdf:value 2 ] ,
+			[ rdfs:label "36 dB/oct"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "shpf_m" ;
+		lv2:name "High-pass filter frequency Mid" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 10.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "slpm_m" ;
+		lv2:name "Low-pass filter mode Mid" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "off"; rdf:value 0 ] ,
+			[ rdfs:label "12 dB/oct"; rdf:value 1 ] ,
+			[ rdfs:label "24 dB/oct"; rdf:value 2 ] ,
+			[ rdfs:label "36 dB/oct"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "slpf_m" ;
+		lv2:name "Low-pass filter frequency Mid" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 20000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "sct_s" ;
+		lv2:name "Sidechain type Side" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Feed-forward"; rdf:value 0 ] ,
+			[ rdfs:label "Feed-back"; rdf:value 1 ] ,
+			[ rdfs:label "Link"; rdf:value 2 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 2 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "scm_s" ;
+		lv2:name "Sidechain mode Side" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Peak"; rdf:value 0 ] ,
+			[ rdfs:label "RMS"; rdf:value 1 ] ,
+			[ rdfs:label "LPF"; rdf:value 2 ] ,
+			[ rdfs:label "SMA"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "sla_s" ;
+		lv2:name "Sidechain lookahead Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 20.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "scl_s" ;
+		lv2:name "Sidechain listen Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "scs_s" ;
+		lv2:name "Sidechain source Side" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Middle"; rdf:value 0 ] ,
+			[ rdfs:label "Side"; rdf:value 1 ] ,
+			[ rdfs:label "Left"; rdf:value 2 ] ,
+			[ rdfs:label "Right"; rdf:value 3 ] ,
+			[ rdfs:label "Min"; rdf:value 4 ] ,
+			[ rdfs:label "Max"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "scr_s" ;
+		lv2:name "Sidechain reactivity Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 250.000000 ;
+		lv2:default 10.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "scp_s" ;
+		lv2:name "Sidechain preamp Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "shpm_s" ;
+		lv2:name "High-pass filter mode Side" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "off"; rdf:value 0 ] ,
+			[ rdfs:label "12 dB/oct"; rdf:value 1 ] ,
+			[ rdfs:label "24 dB/oct"; rdf:value 2 ] ,
+			[ rdfs:label "36 dB/oct"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "shpf_s" ;
+		lv2:name "High-pass filter frequency Side" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 10.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 31 ;
+		lv2:symbol "slpm_s" ;
+		lv2:name "Low-pass filter mode Side" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "off"; rdf:value 0 ] ,
+			[ rdfs:label "12 dB/oct"; rdf:value 1 ] ,
+			[ rdfs:label "24 dB/oct"; rdf:value 2 ] ,
+			[ rdfs:label "36 dB/oct"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 32 ;
+		lv2:symbol "slpf_s" ;
+		lv2:name "Low-pass filter frequency Side" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 20000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 33 ;
+		lv2:symbol "atd_m" ;
+		lv2:name "Attack time default Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "rtd_m" ;
+		lv2:name "Release time default Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 35 ;
+		lv2:symbol "pe0_m" ;
+		lv2:name "Point enable 0 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 36 ;
+		lv2:symbol "tl0_m" ;
+		lv2:name "Threshold 0 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 37 ;
+		lv2:symbol "gl0_m" ;
+		lv2:name "Gain 0 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 38 ;
+		lv2:symbol "kn0_m" ;
+		lv2:name "Knee 0 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.501180 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 39 ;
+		lv2:symbol "ae0_m" ;
+		lv2:name "Attack enable 0 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 40 ;
+		lv2:symbol "al0_m" ;
+		lv2:name "Attack level 0 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 41 ;
+		lv2:symbol "at0_m" ;
+		lv2:name "Attack time 0 Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 42 ;
+		lv2:symbol "re0_m" ;
+		lv2:name "Release enable 0 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 43 ;
+		lv2:symbol "rl0_m" ;
+		lv2:name "Relative level 0 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 44 ;
+		lv2:symbol "rt0_m" ;
+		lv2:name "Release time 0 Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 45 ;
+		lv2:symbol "pe1_m" ;
+		lv2:name "Point enable 1 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 46 ;
+		lv2:symbol "tl1_m" ;
+		lv2:name "Threshold 1 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.063100 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 47 ;
+		lv2:symbol "gl1_m" ;
+		lv2:name "Gain 1 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.063100 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 48 ;
+		lv2:symbol "kn1_m" ;
+		lv2:name "Knee 1 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.501180 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 49 ;
+		lv2:symbol "ae1_m" ;
+		lv2:name "Attack enable 1 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 50 ;
+		lv2:symbol "al1_m" ;
+		lv2:name "Attack level 1 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.063100 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 51 ;
+		lv2:symbol "at1_m" ;
+		lv2:name "Attack time 1 Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 52 ;
+		lv2:symbol "re1_m" ;
+		lv2:name "Release enable 1 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 53 ;
+		lv2:symbol "rl1_m" ;
+		lv2:name "Relative level 1 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.063100 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 54 ;
+		lv2:symbol "rt1_m" ;
+		lv2:name "Release time 1 Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 55 ;
+		lv2:symbol "pe2_m" ;
+		lv2:name "Point enable 2 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 56 ;
+		lv2:symbol "tl2_m" ;
+		lv2:name "Threshold 2 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.015850 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 57 ;
+		lv2:symbol "gl2_m" ;
+		lv2:name "Gain 2 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.015850 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 58 ;
+		lv2:symbol "kn2_m" ;
+		lv2:name "Knee 2 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.501180 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 59 ;
+		lv2:symbol "ae2_m" ;
+		lv2:name "Attack enable 2 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 60 ;
+		lv2:symbol "al2_m" ;
+		lv2:name "Attack level 2 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.015850 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 61 ;
+		lv2:symbol "at2_m" ;
+		lv2:name "Attack time 2 Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 62 ;
+		lv2:symbol "re2_m" ;
+		lv2:name "Release enable 2 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 63 ;
+		lv2:symbol "rl2_m" ;
+		lv2:name "Relative level 2 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.015850 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 64 ;
+		lv2:symbol "rt2_m" ;
+		lv2:name "Release time 2 Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 65 ;
+		lv2:symbol "pe3_m" ;
+		lv2:name "Point enable 3 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 66 ;
+		lv2:symbol "tl3_m" ;
+		lv2:name "Threshold 3 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.003981 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 67 ;
+		lv2:symbol "gl3_m" ;
+		lv2:name "Gain 3 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.003981 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 68 ;
+		lv2:symbol "kn3_m" ;
+		lv2:name "Knee 3 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.501180 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 69 ;
+		lv2:symbol "ae3_m" ;
+		lv2:name "Attack enable 3 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 70 ;
+		lv2:symbol "al3_m" ;
+		lv2:name "Attack level 3 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.003981 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 71 ;
+		lv2:symbol "at3_m" ;
+		lv2:name "Attack time 3 Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 72 ;
+		lv2:symbol "re3_m" ;
+		lv2:name "Release enable 3 Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 73 ;
+		lv2:symbol "rl3_m" ;
+		lv2:name "Relative level 3 Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.003981 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 74 ;
+		lv2:symbol "rt3_m" ;
+		lv2:name "Release time 3 Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 75 ;
+		lv2:symbol "hold_m" ;
+		lv2:name "Hold time Mid" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 76 ;
+		lv2:symbol "llr_m" ;
+		lv2:name "Low-level ratio Mid" ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.010000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 77 ;
+		lv2:symbol "hlr_m" ;
+		lv2:name "High-level ratio Mid" ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.010000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 78 ;
+		lv2:symbol "omk_m" ;
+		lv2:name "Overall makeup gain Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 79 ;
+		lv2:symbol "cdr_m" ;
+		lv2:name "Dry gain Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 80 ;
+		lv2:symbol "cwt_m" ;
+		lv2:name "Wet gain Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 81 ;
+		lv2:symbol "cdw_m" ;
+		lv2:name "Dry/Wet balance Mid" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 82 ;
+		lv2:symbol "cmv_m" ;
+		lv2:name "Curve modelling visibility Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 83 ;
+		lv2:symbol "atd_s" ;
+		lv2:name "Attack time default Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 84 ;
+		lv2:symbol "rtd_s" ;
+		lv2:name "Release time default Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 85 ;
+		lv2:symbol "pe0_s" ;
+		lv2:name "Point enable 0 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 86 ;
+		lv2:symbol "tl0_s" ;
+		lv2:name "Threshold 0 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 87 ;
+		lv2:symbol "gl0_s" ;
+		lv2:name "Gain 0 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 88 ;
+		lv2:symbol "kn0_s" ;
+		lv2:name "Knee 0 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.501180 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 89 ;
+		lv2:symbol "ae0_s" ;
+		lv2:name "Attack enable 0 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 90 ;
+		lv2:symbol "al0_s" ;
+		lv2:name "Attack level 0 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 91 ;
+		lv2:symbol "at0_s" ;
+		lv2:name "Attack time 0 Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 92 ;
+		lv2:symbol "re0_s" ;
+		lv2:name "Release enable 0 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 93 ;
+		lv2:symbol "rl0_s" ;
+		lv2:name "Relative level 0 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 94 ;
+		lv2:symbol "rt0_s" ;
+		lv2:name "Release time 0 Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 95 ;
+		lv2:symbol "pe1_s" ;
+		lv2:name "Point enable 1 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 96 ;
+		lv2:symbol "tl1_s" ;
+		lv2:name "Threshold 1 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.063100 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 97 ;
+		lv2:symbol "gl1_s" ;
+		lv2:name "Gain 1 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.063100 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 98 ;
+		lv2:symbol "kn1_s" ;
+		lv2:name "Knee 1 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.501180 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 99 ;
+		lv2:symbol "ae1_s" ;
+		lv2:name "Attack enable 1 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 100 ;
+		lv2:symbol "al1_s" ;
+		lv2:name "Attack level 1 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.063100 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 101 ;
+		lv2:symbol "at1_s" ;
+		lv2:name "Attack time 1 Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 102 ;
+		lv2:symbol "re1_s" ;
+		lv2:name "Release enable 1 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 103 ;
+		lv2:symbol "rl1_s" ;
+		lv2:name "Relative level 1 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.063100 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 104 ;
+		lv2:symbol "rt1_s" ;
+		lv2:name "Release time 1 Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 105 ;
+		lv2:symbol "pe2_s" ;
+		lv2:name "Point enable 2 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 106 ;
+		lv2:symbol "tl2_s" ;
+		lv2:name "Threshold 2 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.015850 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 107 ;
+		lv2:symbol "gl2_s" ;
+		lv2:name "Gain 2 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.015850 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 108 ;
+		lv2:symbol "kn2_s" ;
+		lv2:name "Knee 2 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.501180 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 109 ;
+		lv2:symbol "ae2_s" ;
+		lv2:name "Attack enable 2 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 110 ;
+		lv2:symbol "al2_s" ;
+		lv2:name "Attack level 2 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.015850 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 111 ;
+		lv2:symbol "at2_s" ;
+		lv2:name "Attack time 2 Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 112 ;
+		lv2:symbol "re2_s" ;
+		lv2:name "Release enable 2 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 113 ;
+		lv2:symbol "rl2_s" ;
+		lv2:name "Relative level 2 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.015850 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 114 ;
+		lv2:symbol "rt2_s" ;
+		lv2:name "Release time 2 Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 115 ;
+		lv2:symbol "pe3_s" ;
+		lv2:name "Point enable 3 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 116 ;
+		lv2:symbol "tl3_s" ;
+		lv2:name "Threshold 3 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.003981 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 117 ;
+		lv2:symbol "gl3_s" ;
+		lv2:name "Gain 3 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.003981 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 118 ;
+		lv2:symbol "kn3_s" ;
+		lv2:name "Knee 3 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.501180 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 119 ;
+		lv2:symbol "ae3_s" ;
+		lv2:name "Attack enable 3 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 120 ;
+		lv2:symbol "al3_s" ;
+		lv2:name "Attack level 3 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.003981 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 121 ;
+		lv2:symbol "at3_s" ;
+		lv2:name "Attack time 3 Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 122 ;
+		lv2:symbol "re3_s" ;
+		lv2:name "Release enable 3 Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 123 ;
+		lv2:symbol "rl3_s" ;
+		lv2:name "Relative level 3 Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.003981 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 124 ;
+		lv2:symbol "rt3_s" ;
+		lv2:name "Release time 3 Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 125 ;
+		lv2:symbol "hold_s" ;
+		lv2:name "Hold time Side" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 126 ;
+		lv2:symbol "llr_s" ;
+		lv2:name "Low-level ratio Side" ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.010000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 127 ;
+		lv2:symbol "hlr_s" ;
+		lv2:name "High-level ratio Side" ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.010000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 128 ;
+		lv2:symbol "omk_s" ;
+		lv2:name "Overall makeup gain Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000251 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 129 ;
+		lv2:symbol "cdr_s" ;
+		lv2:name "Dry gain Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 130 ;
+		lv2:symbol "cwt_s" ;
+		lv2:name "Wet gain Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 131 ;
+		lv2:symbol "cdw_s" ;
+		lv2:name "Dry/Wet balance Side" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 132 ;
+		lv2:symbol "cmv_s" ;
+		lv2:name "Curve modelling visibility Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 133 ;
+		lv2:symbol "slv_m" ;
+		lv2:name "Sidechain level visibility Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 134 ;
+		lv2:symbol "elv_m" ;
+		lv2:name "Envelope level visibility Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 135 ;
+		lv2:symbol "grv_m" ;
+		lv2:name "Gain reduction visibility Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 136 ;
+		lv2:symbol "ilv_m" ;
+		lv2:name "Input level visibility Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 137 ;
+		lv2:symbol "olv_m" ;
+		lv2:name "Output level visibility Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 138 ;
+		lv2:symbol "slm_m" ;
+		lv2:name "Sidechain level meter Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 139 ;
+		lv2:symbol "clm_m" ;
+		lv2:name "Curve level meter Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 140 ;
+		lv2:symbol "elm_m" ;
+		lv2:name "Envelope level meter Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 141 ;
+		lv2:symbol "rlm_m" ;
+		lv2:name "Reduction level meter Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 142 ;
+		lv2:symbol "ilm_m" ;
+		lv2:name "Input level meter Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 143 ;
+		lv2:symbol "olm_m" ;
+		lv2:name "Output level meter Mid" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 144 ;
+		lv2:symbol "slv_s" ;
+		lv2:name "Sidechain level visibility Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 145 ;
+		lv2:symbol "elv_s" ;
+		lv2:name "Envelope level visibility Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 146 ;
+		lv2:symbol "grv_s" ;
+		lv2:name "Gain reduction visibility Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 147 ;
+		lv2:symbol "ilv_s" ;
+		lv2:name "Input level visibility Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 148 ;
+		lv2:symbol "olv_s" ;
+		lv2:name "Output level visibility Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 149 ;
+		lv2:symbol "slm_s" ;
+		lv2:name "Sidechain level meter Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 150 ;
+		lv2:symbol "clm_s" ;
+		lv2:name "Curve level meter Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 151 ;
+		lv2:symbol "elm_s" ;
+		lv2:name "Envelope level meter Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 152 ;
+		lv2:symbol "rlm_s" ;
+		lv2:name "Reduction level meter Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 153 ;
+		lv2:symbol "ilm_s" ;
+		lv2:name "Input level meter Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 154 ;
+		lv2:symbol "olm_s" ;
+		lv2:name "Output level meter Side" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 155 ;
+		lv2:symbol "in_ui" ;
+		lv2:name "UI Input" ;
+		rdfs:comment "UI -> DSP communication" ;
+		rsz:minimumSize 27648 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 156 ;
+		lv2:symbol "out_ui" ;
+		lv2:name "UI Output" ;
+		rdfs:comment "DSP -> UI communication" ;
+		rsz:minimumSize 134144 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 157 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:dyna_processor_ms
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 27 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface, lv2ext:instance-access ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 4 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 6 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 7 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 8 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 10 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 11 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 13 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 14 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 16 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 17 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 19 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 20 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 21 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 23 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 24 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 25 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 26 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 27 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 28 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 30 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 31 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 32 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 33 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 34 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 35 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 36 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 37 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 38 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 39 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 40 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 41 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 42 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 43 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 44 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 45 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 46 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 47 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 48 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 49 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 50 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 51 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 52 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 53 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 54 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 55 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 56 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 57 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 58 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 59 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 60 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 61 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 62 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 63 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 64 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 65 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 66 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 67 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 68 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 69 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 70 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 71 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 72 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 73 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 74 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 75 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 76 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 77 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 78 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 79 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 80 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 81 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 82 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 83 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 84 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 85 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 86 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 87 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 88 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 89 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 90 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 91 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 92 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 93 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 94 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 95 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 96 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 97 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 98 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 99 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 100 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 101 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 102 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 103 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 104 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 105 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 106 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 107 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 108 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 109 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 110 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 111 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 112 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 113 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 114 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 115 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 116 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 117 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 118 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 119 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 120 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 121 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 122 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 123 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 124 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 125 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 126 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 127 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 128 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 129 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 130 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 131 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 132 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 133 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 134 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 135 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 136 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 137 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 138 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 139 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 140 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 141 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 142 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 143 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 144 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 145 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 146 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 147 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 148 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 149 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 150 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 151 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 152 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 153 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 154 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 155 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 156 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:dyna_processor_ms ;
+		ui:portIndex 157 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+

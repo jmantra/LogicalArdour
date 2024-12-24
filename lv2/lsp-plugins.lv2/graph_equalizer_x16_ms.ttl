@@ -1,0 +1,2876 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2ext:     <http://lv2plug.in/ns/ext/> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix patch:      <http://lv2plug.in/ns/ext/patch#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/graph_equalizer_x16_ms/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+@prefix plug_p:     <http://lsp-plug.in//ports#> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:v_sadovnikov
+	a foaf:Person ;
+	foaf:name "Vladimir Sadovnikov" ;
+	foaf:nick "SadKo" ;
+	foaf:mbox <mailto:sadko4u@gmail.com> ;
+	foaf:homepage <http://lsp-plug.in/#v_sadovnikov>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:stereo_in
+	a pg:StereoGroup, pg:InputGroup ;
+	lv2:symbol "stereo_in" ;
+	rdfs:label "Stereo Input" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:stereo_out
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "stereo_out" ;
+	rdfs:label "Stereo Output" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_p:send
+	a lv2:Parameter ;
+	rdfs:label "Audio send" ;
+	rdfs:range atom:String
+	.
+
+plug_p:return
+	a lv2:Parameter ;
+	rdfs:label "Audio return" ;
+	rdfs:range atom:String
+	.
+
+plug:graph_equalizer_x16_ms
+	a lv2:MultiEQPlugin, doap:Project ;
+	doap:name "LSP Graphic Equalizer x16 MidSide" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 27 ;
+	doap:developer plug_dev:v_sadovnikov ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:graph_equalizer_x16_ms ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:stereo_in ;
+	pg:mainOutput plug_pg:stereo_out ;
+	dc:replaces <urn:ladspa:5002088> ;
+
+	patch:writable
+		plug_p:send ,
+		plug_p:return ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in_l" ;
+		lv2:name "Input L" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "in_r" ;
+		lv2:name "Input R" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "out_l" ;
+		lv2:name "Output L" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 3 ;
+		lv2:symbol "out_r" ;
+		lv2:name "Output R" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:designation lv2:enabled ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "g_in" ;
+		lv2:name "Input gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "g_out" ;
+		lv2:name "Output gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "mode" ;
+		lv2:name "Equalizer mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "IIR"; rdf:value 0 ] ,
+			[ rdfs:label "FIR"; rdf:value 1 ] ,
+			[ rdfs:label "FFT"; rdf:value 2 ] ,
+			[ rdfs:label "SPM"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "slope" ;
+		lv2:name "Filter slope" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "BT48"; rdf:value 0 ] ,
+			[ rdfs:label "MT48"; rdf:value 1 ] ,
+			[ rdfs:label "BT72"; rdf:value 2 ] ,
+			[ rdfs:label "MT72"; rdf:value 3 ] ,
+			[ rdfs:label "BT96"; rdf:value 4 ] ,
+			[ rdfs:label "MT96"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "react" ;
+		lv2:name "FFT reactivity" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "shift" ;
+		lv2:name "Shift gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "zoom" ;
+		lv2:name "Graph zoom" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.007943 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.015850 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "ife_m" ;
+		lv2:name "Input FFT graph enable Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "ofe_m" ;
+		lv2:name "Output FFT graph enable Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14 ;
+		lv2:symbol "rfe_m" ;
+		lv2:name "Return FFT graph enable Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "ife_s" ;
+		lv2:name "Input FFT graph enable Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "ofe_s" ;
+		lv2:name "Output FFT graph enable Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "rfe_s" ;
+		lv2:name "Return FFT graph enable Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "fsel" ;
+		lv2:name "Band select" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Bands Middle"; rdf:value 0 ] ,
+			[ rdfs:label "Bands Side"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "bal" ;
+		lv2:name "Output balance" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "lstn" ;
+		lv2:name "Mid/Side listen" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "gain_m" ;
+		lv2:name "Mid gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "gain_s" ;
+		lv2:name "Side gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "iml" ;
+		lv2:name "Input signal meter Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "sml" ;
+		lv2:name "Output signal meter Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "fltv_m" ;
+		lv2:name "Filter visibility Mid" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "imr" ;
+		lv2:name "Input signal meter Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "smr" ;
+		lv2:name "Output signal meter Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "fltv_s" ;
+		lv2:name "Filter visibility Side" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "xsm_0" ;
+		lv2:name "Band solo Mid 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "xmm_0" ;
+		lv2:name "Band mute Mid 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 31 ;
+		lv2:symbol "xem_0" ;
+		lv2:name "Band on Mid 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 32 ;
+		lv2:symbol "fvm_0" ;
+		lv2:name "Filter visibility  Mid 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 33 ;
+		lv2:symbol "gm_0" ;
+		lv2:name "Band gain Mid 16" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "xss_0" ;
+		lv2:name "Band solo Side 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 35 ;
+		lv2:symbol "xms_0" ;
+		lv2:name "Band mute Side 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 36 ;
+		lv2:symbol "xes_0" ;
+		lv2:name "Band on Side 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 37 ;
+		lv2:symbol "fvs_0" ;
+		lv2:name "Filter visibility  Side 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 38 ;
+		lv2:symbol "gs_0" ;
+		lv2:name "Band gain Side 16" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 39 ;
+		lv2:symbol "xsm_1" ;
+		lv2:name "Band solo Mid 25" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 40 ;
+		lv2:symbol "xmm_1" ;
+		lv2:name "Band mute Mid 25" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 41 ;
+		lv2:symbol "xem_1" ;
+		lv2:name "Band on Mid 25" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 42 ;
+		lv2:symbol "fvm_1" ;
+		lv2:name "Filter visibility  Mid 25" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 43 ;
+		lv2:symbol "gm_1" ;
+		lv2:name "Band gain Mid 25" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 44 ;
+		lv2:symbol "xss_1" ;
+		lv2:name "Band solo Side 25" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 45 ;
+		lv2:symbol "xms_1" ;
+		lv2:name "Band mute Side 25" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 46 ;
+		lv2:symbol "xes_1" ;
+		lv2:name "Band on Side 25" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 47 ;
+		lv2:symbol "fvs_1" ;
+		lv2:name "Filter visibility  Side 25" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 48 ;
+		lv2:symbol "gs_1" ;
+		lv2:name "Band gain Side 25" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 49 ;
+		lv2:symbol "xsm_2" ;
+		lv2:name "Band solo Mid 40" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 50 ;
+		lv2:symbol "xmm_2" ;
+		lv2:name "Band mute Mid 40" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 51 ;
+		lv2:symbol "xem_2" ;
+		lv2:name "Band on Mid 40" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 52 ;
+		lv2:symbol "fvm_2" ;
+		lv2:name "Filter visibility  Mid 40" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 53 ;
+		lv2:symbol "gm_2" ;
+		lv2:name "Band gain Mid 40" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 54 ;
+		lv2:symbol "xss_2" ;
+		lv2:name "Band solo Side 40" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 55 ;
+		lv2:symbol "xms_2" ;
+		lv2:name "Band mute Side 40" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 56 ;
+		lv2:symbol "xes_2" ;
+		lv2:name "Band on Side 40" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 57 ;
+		lv2:symbol "fvs_2" ;
+		lv2:name "Filter visibility  Side 40" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 58 ;
+		lv2:symbol "gs_2" ;
+		lv2:name "Band gain Side 40" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 59 ;
+		lv2:symbol "xsm_3" ;
+		lv2:name "Band solo Mid 63" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 60 ;
+		lv2:symbol "xmm_3" ;
+		lv2:name "Band mute Mid 63" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 61 ;
+		lv2:symbol "xem_3" ;
+		lv2:name "Band on Mid 63" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 62 ;
+		lv2:symbol "fvm_3" ;
+		lv2:name "Filter visibility  Mid 63" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 63 ;
+		lv2:symbol "gm_3" ;
+		lv2:name "Band gain Mid 63" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 64 ;
+		lv2:symbol "xss_3" ;
+		lv2:name "Band solo Side 63" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 65 ;
+		lv2:symbol "xms_3" ;
+		lv2:name "Band mute Side 63" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 66 ;
+		lv2:symbol "xes_3" ;
+		lv2:name "Band on Side 63" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 67 ;
+		lv2:symbol "fvs_3" ;
+		lv2:name "Filter visibility  Side 63" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 68 ;
+		lv2:symbol "gs_3" ;
+		lv2:name "Band gain Side 63" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 69 ;
+		lv2:symbol "xsm_4" ;
+		lv2:name "Band solo Mid 100" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 70 ;
+		lv2:symbol "xmm_4" ;
+		lv2:name "Band mute Mid 100" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 71 ;
+		lv2:symbol "xem_4" ;
+		lv2:name "Band on Mid 100" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 72 ;
+		lv2:symbol "fvm_4" ;
+		lv2:name "Filter visibility  Mid 100" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 73 ;
+		lv2:symbol "gm_4" ;
+		lv2:name "Band gain Mid 100" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 74 ;
+		lv2:symbol "xss_4" ;
+		lv2:name "Band solo Side 100" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 75 ;
+		lv2:symbol "xms_4" ;
+		lv2:name "Band mute Side 100" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 76 ;
+		lv2:symbol "xes_4" ;
+		lv2:name "Band on Side 100" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 77 ;
+		lv2:symbol "fvs_4" ;
+		lv2:name "Filter visibility  Side 100" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 78 ;
+		lv2:symbol "gs_4" ;
+		lv2:name "Band gain Side 100" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 79 ;
+		lv2:symbol "xsm_5" ;
+		lv2:name "Band solo Mid 160" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 80 ;
+		lv2:symbol "xmm_5" ;
+		lv2:name "Band mute Mid 160" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 81 ;
+		lv2:symbol "xem_5" ;
+		lv2:name "Band on Mid 160" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 82 ;
+		lv2:symbol "fvm_5" ;
+		lv2:name "Filter visibility  Mid 160" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 83 ;
+		lv2:symbol "gm_5" ;
+		lv2:name "Band gain Mid 160" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 84 ;
+		lv2:symbol "xss_5" ;
+		lv2:name "Band solo Side 160" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 85 ;
+		lv2:symbol "xms_5" ;
+		lv2:name "Band mute Side 160" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 86 ;
+		lv2:symbol "xes_5" ;
+		lv2:name "Band on Side 160" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 87 ;
+		lv2:symbol "fvs_5" ;
+		lv2:name "Filter visibility  Side 160" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 88 ;
+		lv2:symbol "gs_5" ;
+		lv2:name "Band gain Side 160" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 89 ;
+		lv2:symbol "xsm_6" ;
+		lv2:name "Band solo Mid 250" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 90 ;
+		lv2:symbol "xmm_6" ;
+		lv2:name "Band mute Mid 250" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 91 ;
+		lv2:symbol "xem_6" ;
+		lv2:name "Band on Mid 250" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 92 ;
+		lv2:symbol "fvm_6" ;
+		lv2:name "Filter visibility  Mid 250" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 93 ;
+		lv2:symbol "gm_6" ;
+		lv2:name "Band gain Mid 250" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 94 ;
+		lv2:symbol "xss_6" ;
+		lv2:name "Band solo Side 250" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 95 ;
+		lv2:symbol "xms_6" ;
+		lv2:name "Band mute Side 250" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 96 ;
+		lv2:symbol "xes_6" ;
+		lv2:name "Band on Side 250" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 97 ;
+		lv2:symbol "fvs_6" ;
+		lv2:name "Filter visibility  Side 250" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 98 ;
+		lv2:symbol "gs_6" ;
+		lv2:name "Band gain Side 250" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 99 ;
+		lv2:symbol "xsm_7" ;
+		lv2:name "Band solo Mid 400" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 100 ;
+		lv2:symbol "xmm_7" ;
+		lv2:name "Band mute Mid 400" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 101 ;
+		lv2:symbol "xem_7" ;
+		lv2:name "Band on Mid 400" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 102 ;
+		lv2:symbol "fvm_7" ;
+		lv2:name "Filter visibility  Mid 400" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 103 ;
+		lv2:symbol "gm_7" ;
+		lv2:name "Band gain Mid 400" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 104 ;
+		lv2:symbol "xss_7" ;
+		lv2:name "Band solo Side 400" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 105 ;
+		lv2:symbol "xms_7" ;
+		lv2:name "Band mute Side 400" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 106 ;
+		lv2:symbol "xes_7" ;
+		lv2:name "Band on Side 400" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 107 ;
+		lv2:symbol "fvs_7" ;
+		lv2:name "Filter visibility  Side 400" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 108 ;
+		lv2:symbol "gs_7" ;
+		lv2:name "Band gain Side 400" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 109 ;
+		lv2:symbol "xsm_8" ;
+		lv2:name "Band solo Mid 630" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 110 ;
+		lv2:symbol "xmm_8" ;
+		lv2:name "Band mute Mid 630" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 111 ;
+		lv2:symbol "xem_8" ;
+		lv2:name "Band on Mid 630" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 112 ;
+		lv2:symbol "fvm_8" ;
+		lv2:name "Filter visibility  Mid 630" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 113 ;
+		lv2:symbol "gm_8" ;
+		lv2:name "Band gain Mid 630" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 114 ;
+		lv2:symbol "xss_8" ;
+		lv2:name "Band solo Side 630" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 115 ;
+		lv2:symbol "xms_8" ;
+		lv2:name "Band mute Side 630" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 116 ;
+		lv2:symbol "xes_8" ;
+		lv2:name "Band on Side 630" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 117 ;
+		lv2:symbol "fvs_8" ;
+		lv2:name "Filter visibility  Side 630" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 118 ;
+		lv2:symbol "gs_8" ;
+		lv2:name "Band gain Side 630" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 119 ;
+		lv2:symbol "xsm_9" ;
+		lv2:name "Band solo Mid 1K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 120 ;
+		lv2:symbol "xmm_9" ;
+		lv2:name "Band mute Mid 1K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 121 ;
+		lv2:symbol "xem_9" ;
+		lv2:name "Band on Mid 1K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 122 ;
+		lv2:symbol "fvm_9" ;
+		lv2:name "Filter visibility  Mid 1K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 123 ;
+		lv2:symbol "gm_9" ;
+		lv2:name "Band gain Mid 1K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 124 ;
+		lv2:symbol "xss_9" ;
+		lv2:name "Band solo Side 1K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 125 ;
+		lv2:symbol "xms_9" ;
+		lv2:name "Band mute Side 1K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 126 ;
+		lv2:symbol "xes_9" ;
+		lv2:name "Band on Side 1K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 127 ;
+		lv2:symbol "fvs_9" ;
+		lv2:name "Filter visibility  Side 1K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 128 ;
+		lv2:symbol "gs_9" ;
+		lv2:name "Band gain Side 1K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 129 ;
+		lv2:symbol "xsm_10" ;
+		lv2:name "Band solo Mid 1.6K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 130 ;
+		lv2:symbol "xmm_10" ;
+		lv2:name "Band mute Mid 1.6K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 131 ;
+		lv2:symbol "xem_10" ;
+		lv2:name "Band on Mid 1.6K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 132 ;
+		lv2:symbol "fvm_10" ;
+		lv2:name "Filter visibility  Mid 1.6K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 133 ;
+		lv2:symbol "gm_10" ;
+		lv2:name "Band gain Mid 1.6K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 134 ;
+		lv2:symbol "xss_10" ;
+		lv2:name "Band solo Side 1.6K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 135 ;
+		lv2:symbol "xms_10" ;
+		lv2:name "Band mute Side 1.6K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 136 ;
+		lv2:symbol "xes_10" ;
+		lv2:name "Band on Side 1.6K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 137 ;
+		lv2:symbol "fvs_10" ;
+		lv2:name "Filter visibility  Side 1.6K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 138 ;
+		lv2:symbol "gs_10" ;
+		lv2:name "Band gain Side 1.6K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 139 ;
+		lv2:symbol "xsm_11" ;
+		lv2:name "Band solo Mid 2.5K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 140 ;
+		lv2:symbol "xmm_11" ;
+		lv2:name "Band mute Mid 2.5K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 141 ;
+		lv2:symbol "xem_11" ;
+		lv2:name "Band on Mid 2.5K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 142 ;
+		lv2:symbol "fvm_11" ;
+		lv2:name "Filter visibility  Mid 2.5K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 143 ;
+		lv2:symbol "gm_11" ;
+		lv2:name "Band gain Mid 2.5K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 144 ;
+		lv2:symbol "xss_11" ;
+		lv2:name "Band solo Side 2.5K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 145 ;
+		lv2:symbol "xms_11" ;
+		lv2:name "Band mute Side 2.5K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 146 ;
+		lv2:symbol "xes_11" ;
+		lv2:name "Band on Side 2.5K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 147 ;
+		lv2:symbol "fvs_11" ;
+		lv2:name "Filter visibility  Side 2.5K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 148 ;
+		lv2:symbol "gs_11" ;
+		lv2:name "Band gain Side 2.5K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 149 ;
+		lv2:symbol "xsm_12" ;
+		lv2:name "Band solo Mid 4K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 150 ;
+		lv2:symbol "xmm_12" ;
+		lv2:name "Band mute Mid 4K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 151 ;
+		lv2:symbol "xem_12" ;
+		lv2:name "Band on Mid 4K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 152 ;
+		lv2:symbol "fvm_12" ;
+		lv2:name "Filter visibility  Mid 4K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 153 ;
+		lv2:symbol "gm_12" ;
+		lv2:name "Band gain Mid 4K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 154 ;
+		lv2:symbol "xss_12" ;
+		lv2:name "Band solo Side 4K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 155 ;
+		lv2:symbol "xms_12" ;
+		lv2:name "Band mute Side 4K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 156 ;
+		lv2:symbol "xes_12" ;
+		lv2:name "Band on Side 4K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 157 ;
+		lv2:symbol "fvs_12" ;
+		lv2:name "Filter visibility  Side 4K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 158 ;
+		lv2:symbol "gs_12" ;
+		lv2:name "Band gain Side 4K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 159 ;
+		lv2:symbol "xsm_13" ;
+		lv2:name "Band solo Mid 6.3K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 160 ;
+		lv2:symbol "xmm_13" ;
+		lv2:name "Band mute Mid 6.3K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 161 ;
+		lv2:symbol "xem_13" ;
+		lv2:name "Band on Mid 6.3K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 162 ;
+		lv2:symbol "fvm_13" ;
+		lv2:name "Filter visibility  Mid 6.3K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 163 ;
+		lv2:symbol "gm_13" ;
+		lv2:name "Band gain Mid 6.3K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 164 ;
+		lv2:symbol "xss_13" ;
+		lv2:name "Band solo Side 6.3K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 165 ;
+		lv2:symbol "xms_13" ;
+		lv2:name "Band mute Side 6.3K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 166 ;
+		lv2:symbol "xes_13" ;
+		lv2:name "Band on Side 6.3K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 167 ;
+		lv2:symbol "fvs_13" ;
+		lv2:name "Filter visibility  Side 6.3K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 168 ;
+		lv2:symbol "gs_13" ;
+		lv2:name "Band gain Side 6.3K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 169 ;
+		lv2:symbol "xsm_14" ;
+		lv2:name "Band solo Mid 10K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 170 ;
+		lv2:symbol "xmm_14" ;
+		lv2:name "Band mute Mid 10K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 171 ;
+		lv2:symbol "xem_14" ;
+		lv2:name "Band on Mid 10K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 172 ;
+		lv2:symbol "fvm_14" ;
+		lv2:name "Filter visibility  Mid 10K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 173 ;
+		lv2:symbol "gm_14" ;
+		lv2:name "Band gain Mid 10K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 174 ;
+		lv2:symbol "xss_14" ;
+		lv2:name "Band solo Side 10K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 175 ;
+		lv2:symbol "xms_14" ;
+		lv2:name "Band mute Side 10K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 176 ;
+		lv2:symbol "xes_14" ;
+		lv2:name "Band on Side 10K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 177 ;
+		lv2:symbol "fvs_14" ;
+		lv2:name "Filter visibility  Side 10K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 178 ;
+		lv2:symbol "gs_14" ;
+		lv2:name "Band gain Side 10K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 179 ;
+		lv2:symbol "xsm_15" ;
+		lv2:name "Band solo Mid 16K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 180 ;
+		lv2:symbol "xmm_15" ;
+		lv2:name "Band mute Mid 16K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 181 ;
+		lv2:symbol "xem_15" ;
+		lv2:name "Band on Mid 16K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 182 ;
+		lv2:symbol "fvm_15" ;
+		lv2:name "Filter visibility  Mid 16K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 183 ;
+		lv2:symbol "gm_15" ;
+		lv2:name "Band gain Mid 16K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 184 ;
+		lv2:symbol "xss_15" ;
+		lv2:name "Band solo Side 16K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 185 ;
+		lv2:symbol "xms_15" ;
+		lv2:name "Band mute Side 16K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 186 ;
+		lv2:symbol "xes_15" ;
+		lv2:name "Band on Side 16K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 187 ;
+		lv2:symbol "fvs_15" ;
+		lv2:name "Filter visibility  Side 16K" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 188 ;
+		lv2:symbol "gs_15" ;
+		lv2:name "Band gain Side 16K" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 189 ;
+		lv2:symbol "in_ui" ;
+		lv2:name "UI Input" ;
+		rdfs:comment "UI -> DSP communication" ;
+		rsz:minimumSize 33792 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 190 ;
+		lv2:symbol "out_ui" ;
+		lv2:name "UI Output" ;
+		rdfs:comment "DSP -> UI communication" ;
+		rsz:minimumSize 132096 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 191 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:graph_equalizer_x16_ms
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 27 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface, lv2ext:instance-access ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 4 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 6 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 7 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 8 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 10 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 11 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 13 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 14 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 16 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 17 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 19 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 20 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 21 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 23 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 24 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 25 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 26 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 27 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 28 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 30 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 31 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 32 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 33 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 34 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 35 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 36 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 37 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 38 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 39 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 40 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 41 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 42 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 43 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 44 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 45 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 46 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 47 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 48 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 49 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 50 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 51 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 52 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 53 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 54 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 55 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 56 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 57 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 58 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 59 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 60 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 61 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 62 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 63 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 64 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 65 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 66 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 67 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 68 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 69 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 70 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 71 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 72 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 73 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 74 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 75 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 76 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 77 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 78 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 79 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 80 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 81 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 82 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 83 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 84 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 85 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 86 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 87 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 88 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 89 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 90 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 91 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 92 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 93 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 94 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 95 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 96 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 97 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 98 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 99 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 100 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 101 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 102 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 103 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 104 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 105 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 106 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 107 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 108 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 109 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 110 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 111 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 112 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 113 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 114 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 115 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 116 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 117 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 118 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 119 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 120 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 121 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 122 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 123 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 124 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 125 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 126 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 127 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 128 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 129 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 130 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 131 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 132 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 133 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 134 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 135 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 136 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 137 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 138 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 139 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 140 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 141 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 142 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 143 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 144 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 145 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 146 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 147 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 148 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 149 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 150 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 151 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 152 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 153 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 154 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 155 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 156 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 157 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 158 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 159 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 160 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 161 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 162 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 163 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 164 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 165 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 166 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 167 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 168 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 169 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 170 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 171 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 172 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 173 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 174 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 175 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 176 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 177 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 178 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 179 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 180 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 181 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 182 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 183 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 184 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 185 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 186 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 187 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 188 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 189 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 190 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:graph_equalizer_x16_ms ;
+		ui:portIndex 191 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+

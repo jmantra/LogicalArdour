@@ -1,0 +1,530 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2ext:     <http://lv2plug.in/ns/ext/> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/oscilloscope_x1/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:s_tronci
+	a foaf:Person ;
+	foaf:name "Stefano Tronci" ;
+	foaf:nick "CrocoDuck" ;
+	foaf:mbox <mailto:crocoduck.oducks@gmail.com> ;
+	foaf:homepage <https://thecrocoduckspond.wordpress.com/#s_tronci>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:in_1
+	a pg:StereoGroup, pg:InputGroup ;
+	lv2:symbol "in_1" ;
+	rdfs:label "Input 1" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:ext_1
+	a pg:MonoGroup, pg:InputGroup ;
+	lv2:symbol "ext_1" ;
+	rdfs:label "External 1" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:center
+	]
+	.
+
+plug_pg:out_1
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "out_1" ;
+	rdfs:label "Output 1" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug:oscilloscope_x1
+	a lv2:UtilityPlugin, doap:Project ;
+	doap:name "LSP Oscilloscope x1" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 23 ;
+	doap:developer plug_dev:s_tronci ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:oscilloscope_x1 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:in_1 ;
+	pg:mainOutput plug_pg:out_1 ;
+	dc:replaces <urn:ladspa:5002172> ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in_x_1" ;
+		lv2:name "Input x 1" ;
+		pg:group plug_pg:in_1 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "in_y_1" ;
+		lv2:name "Input y 1" ;
+		pg:group plug_pg:in_1 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "in_ext_1" ;
+		lv2:name "Input external 1" ;
+		pg:group plug_pg:ext_1 ;
+		lv2:designation pg:center ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 3 ;
+		lv2:symbol "out_x_1" ;
+		lv2:name "Output x 1" ;
+		pg:group plug_pg:out_1 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 4 ;
+		lv2:symbol "out_y_1" ;
+		lv2:name "Output y 1" ;
+		pg:group plug_pg:out_1 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "sh_sz" ;
+		lv2:name "Strobe History Size" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "xyrt" ;
+		lv2:name "XY Record Time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 50.000000 ;
+		lv2:default 10.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "maxdots" ;
+		lv2:name "Maximum Dots for Plotting" ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 512.000000 ;
+		lv2:maximum 16384.000000 ;
+		lv2:default 8192.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "freeze" ;
+		lv2:name "Global Freeze Switch" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "ovmo_1" ;
+		lv2:name "Oversampler Mode 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "None"; rdf:value 0 ] ,
+			[ rdfs:label "2X"; rdf:value 1 ] ,
+			[ rdfs:label "3X"; rdf:value 2 ] ,
+			[ rdfs:label "4X"; rdf:value 3 ] ,
+			[ rdfs:label "6X"; rdf:value 4 ] ,
+			[ rdfs:label "8X"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 5 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "scmo_1" ;
+		lv2:name "Mode 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "XY"; rdf:value 0 ] ,
+			[ rdfs:label "Triggered"; rdf:value 1 ] ,
+			[ rdfs:label "Goniometer"; rdf:value 2 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 2 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "sccx_1" ;
+		lv2:name "Coupling X 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "AC"; rdf:value 0 ] ,
+			[ rdfs:label "DC"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "sccy_1" ;
+		lv2:name "Coupling Y 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "AC"; rdf:value 0 ] ,
+			[ rdfs:label "DC"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "scce_1" ;
+		lv2:name "Coupling EXT 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "AC"; rdf:value 0 ] ,
+			[ rdfs:label "DC"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14 ;
+		lv2:symbol "swtp_1" ;
+		lv2:name "Sweep Type 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Sawtooth"; rdf:value 0 ] ,
+			[ rdfs:label "Triangular"; rdf:value 1 ] ,
+			[ rdfs:label "Sine"; rdf:value 2 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 2 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "tmdv_1" ;
+		lv2:name "Time Division 1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.050000 ;
+		lv2:maximum 50.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "hzdv_1" ;
+		lv2:name "Horizontal Division 1" ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.001000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "hzps_1" ;
+		lv2:name "Horizontal Position 1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "vedv_1" ;
+		lv2:name "Vertical Division 1" ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.001000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "veps_1" ;
+		lv2:name "Vertical Position 1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "trhy_1" ;
+		lv2:name "Trigger Hysteresis 1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 50.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "trlv_1" ;
+		lv2:name "Trigger Level 1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "trho_1" ;
+		lv2:name "Trigger Hold Time 1" ;
+		units:unit units:s ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 60.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "trmo_1" ;
+		lv2:name "Trigger Mode 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Single"; rdf:value 0 ] ,
+			[ rdfs:label "Manual"; rdf:value 1 ] ,
+			[ rdfs:label "Repeat"; rdf:value 2 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 2 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "trtp_1" ;
+		lv2:name "Trigger Type 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "None"; rdf:value 0 ] ,
+			[ rdfs:label "Simple Rising Edge"; rdf:value 1 ] ,
+			[ rdfs:label "Simple Falling Edge"; rdf:value 2 ] ,
+			[ rdfs:label "Advanced Rising Edge"; rdf:value 3 ] ,
+			[ rdfs:label "Advanced Falling Edge"; rdf:value 4 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 4 ;
+		lv2:default 3 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "trin_1" ;
+		lv2:name "Trigger Input 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Y"; rdf:value 0 ] ,
+			[ rdfs:label "EXT"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "trre_1" ;
+		lv2:name "Trigger Reset" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 27 ;
+		lv2:symbol "in_ui" ;
+		lv2:name "UI Input" ;
+		rdfs:comment "UI -> DSP communication" ;
+		rsz:minimumSize 5120 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 28 ;
+		lv2:symbol "out_ui" ;
+		lv2:name "UI Output" ;
+		rdfs:comment "DSP -> UI communication" ;
+		rsz:minimumSize 12626944 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:oscilloscope_x1
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 23 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface, lv2ext:instance-access ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 6 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 7 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 8 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 10 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 11 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 13 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 14 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 16 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 17 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 19 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 20 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 21 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 23 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 24 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 25 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 26 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 27 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 28 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:oscilloscope_x1 ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+

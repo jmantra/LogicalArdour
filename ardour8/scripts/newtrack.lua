@@ -101,6 +101,14 @@ print (full_path)
 		local track_name = "Red Zepplin"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 
@@ -115,6 +123,14 @@ print (full_path)
 		local track_name = "Black Pearl Drum Kit"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 
@@ -133,6 +149,14 @@ print (full_path)
 		local track_name = "Blonde Bop Drumkit"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 
@@ -284,6 +308,14 @@ print (full_path)
 		local track_name = "Standard Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 	if rv and rv["dropdown"] == "st2" then
@@ -296,6 +328,14 @@ print (full_path)
 		local track_name = "Standard 2 Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 		if rv and rv["dropdown"] == "eld" then
@@ -308,6 +348,14 @@ print (full_path)
 		local track_name = "Electronic Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 
@@ -321,6 +369,14 @@ print (full_path)
 		local track_name = "Room Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 			if rv and rv["dropdown"] == "pwd" then
@@ -333,6 +389,14 @@ print (full_path)
 		local track_name = "Power Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 			if rv and rv["dropdown"] == "dad" then
@@ -345,6 +409,14 @@ print (full_path)
 		local track_name = "Dance Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 			if rv and rv["dropdown"] == "jzd" then
@@ -357,6 +429,14 @@ print (full_path)
 		local track_name = "Jazz Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 			if rv and rv["dropdown"] == "acs" then
@@ -368,7 +448,191 @@ print (full_path)
 		local track_name = "Ace Fluid Synth Session"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-	end
+
+local key_file_path = user_config_directory .. "/key.txt"
+
+-- Read the contents of the key.txt file
+local file = io.open(key_file_path, "r") -- Open the file in read mode
+local file_content = "No key set" -- Default value if the file cannot be read
+
+if file then
+    file_content = file:read("*a") -- Read the entire content of the file
+    file:close() -- Close the file
+else
+    print("Warning: Could not open file for reading at " .. key_file_path)
+end
+
+local scurrent_key_option = "Set to current project key: " .. file_content
+local sdialog_options = {
+  {
+    type = "dropdown",
+    key = "target_key",
+    title = "Choose the key you want the session player to follow",
+    values = {
+      ["C"] = 1, ["C#"] = 2, ["Db"] = 3, ["D"] = 4, ["D#"] = 5, ["Eb"] = 6,
+      ["E"] = 7, ["F"] = 8, ["F#"] = 9, ["Gb"] = 10, ["G"] = 11, ["G#"] = 12, ["Ab"] = 13,
+      ["A"] = 14, ["A#"] = 15, ["Bb"] = 16, ["B"] = 17,
+      ["Am"] = 18, ["A#m"] = 19, ["Bbm"] = 20, ["Bm"] = 21, ["Cm"] = 22,
+      ["C#m"] = 23, ["Dbm"] = 24, ["Dm"] = 25, ["D#m"] = 26, ["Ebm"] = 27,
+      ["Em"] = 28, ["Fm"] = 29, ["F#m"] = 30, ["Gbm"] = 31, ["Gm"] = 32, ["G#m"] = 33, ["Abm"] = 34,
+      [scurrent_key_option] = 35,
+      ["Do not change key"] = 36
+    },
+    default = scurrent_key_option
+  }
+}
+
+local reverse_lookup = {}
+for skey, value in pairs(sdialog_options[1].values) do
+  reverse_lookup[value] = skey
+end
+
+-- Create and run the dialog
+local sod = LuaDialog.Dialog("Choose Target Key", sdialog_options)
+local srv = sod:run()
+
+-- Exit if dialog is canceled
+if not srv then
+  print("Dialog was canceled.")
+  return
+end
+
+local selected_key_value = srv["target_key"]
+local skey = reverse_lookup[selected_key_value] -- Get the key name from the value
+local scale = ""
+
+-- Handle "Set to current project key"
+if selected_key_value == 35 then
+  if file_content:match("No key set") then
+    print("No key is set in the file. Exiting the script.")
+    return -- Exit the script
+  end
+  skey = file_content:match("^%a#?b?m?") -- Extract the key
+end
+
+-- Determine scale (major or minor)
+if skey:find("m") then
+  scale = "minor"
+else
+  scale = "major"
+end
+
+scale = scale:sub(1, 1):upper() .. scale:sub(2)
+
+-- Print the result
+print("Key: " .. skey .. " Scale: " .. scale)
+
+if skey:sub(-1) == "m" then
+  skey = skey:sub(1, -2) -- Extract everything except the last character
+end
+
+-- Print the result
+print("Key without 'm': " .. skey)
+-- Define the key to search for
+ desired_key = skey -- Change this to the desired key (e.g., "A", "Ab", "A#")
+
+-- Define the directory containing the chord progressions
+ directory = "/opt/LogicalArdour/Drum loops, chords, and chord progressions/MIDI Progressions/"..scale.."/"
+
+-- Function to get files in a directory
+function get_files_in_directory(dir)
+    local files = {}
+    for file in io.popen('ls "' .. dir .. '"'):lines() do
+        if file:match("%.mid$") then -- Check if the file ends with .mid
+            table.insert(files, file)
+        end
+    end
+    return files
+end
+
+-- Function to filter files by key
+function filter_files_by_key(files, fkey)
+    local filtered_files = {}
+  --  print("Filtering files for key:", key) -- Debugging key being searched
+    for _, file in ipairs(files) do
+       -- print("Checking file:", file) -- Debug each file
+        -- Match files that start with the exact key followed by a non-word character or `.mid`
+        if file:match("^" .. fkey .. "[%W_]") or file:match("^" .. fkey .. "%.mid$") then
+         --   print("Matched file:", file) -- Debug matched files
+            table.insert(filtered_files, file)
+        end
+    end
+    return filtered_files
+end
+
+-- Function to pick a random file
+function pick_random_file(files)
+    if #files == 0 then
+        return nil -- No files matched
+    end
+    math.randomseed(os.time()) -- Seed the random number generator
+    local random_index = math.random(1, #files)
+    return files[random_index]
+end
+
+-- Main logic
+local all_files = get_files_in_directory(directory)
+--print("All files found:") -- Debug all files in the directory
+--for _, file in ipairs(all_files) do print(file) end
+
+local matching_files = filter_files_by_key(all_files, desired_key)
+--print("Matching files for key " .. desired_key .. ":")
+--for _, file in ipairs(matching_files) do print(file) end
+
+local random_file = pick_random_file(matching_files)
+
+if random_file then
+    print("Random progression in key " .. desired_key .. ": " .. random_file)
+    local full_file_path = directory .. random_file
+print(full_file_path)
+	local files = C.StringVector();
+
+
+
+	files:push_back(full_file_path)
+
+	local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+else
+    print("No progressions found for key: " .. desired_key)
+ scale = scale:sub(1, 1):lower() .. scale:sub(2)
+
+    local filepath = "/tmp/chord"..desired_key..scale..".mid"
+
+
+local quotedfilepath = '"' .. filepath .. '"'
+
+local command = "/opt/LogicalArdour/newchord " .. desired_key.." "..scale.." 4 --output "..quotedfilepath
+
+os.execute(command)
+
+local files = C.StringVector();
+
+	files:push_back(filepath)
+
+	local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+
+			local delete_file = "rm -rf "..filepath
+
+os.execute(delete_file)
+
+
+
+
+
+
+
+end
+
+end
+
 
 				if rv and rv["dropdown"] == "zas" then
 		print("Yoshimi")
@@ -379,6 +643,187 @@ print (full_path)
 		local track_name = "Yoshimi Session"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local key_file_path = user_config_directory .. "/key.txt"
+
+-- Read the contents of the key.txt file
+local file = io.open(key_file_path, "r") -- Open the file in read mode
+local file_content = "No key set" -- Default value if the file cannot be read
+
+if file then
+    file_content = file:read("*a") -- Read the entire content of the file
+    file:close() -- Close the file
+else
+    print("Warning: Could not open file for reading at " .. key_file_path)
+end
+
+local scurrent_key_option = "Set to current project key: " .. file_content
+local sdialog_options = {
+  {
+    type = "dropdown",
+    key = "target_key",
+    title = "Choose the key you want the session player to follow",
+    values = {
+      ["C"] = 1, ["C#"] = 2, ["Db"] = 3, ["D"] = 4, ["D#"] = 5, ["Eb"] = 6,
+      ["E"] = 7, ["F"] = 8, ["F#"] = 9, ["Gb"] = 10, ["G"] = 11, ["G#"] = 12, ["Ab"] = 13,
+      ["A"] = 14, ["A#"] = 15, ["Bb"] = 16, ["B"] = 17,
+      ["Am"] = 18, ["A#m"] = 19, ["Bbm"] = 20, ["Bm"] = 21, ["Cm"] = 22,
+      ["C#m"] = 23, ["Dbm"] = 24, ["Dm"] = 25, ["D#m"] = 26, ["Ebm"] = 27,
+      ["Em"] = 28, ["Fm"] = 29, ["F#m"] = 30, ["Gbm"] = 31, ["Gm"] = 32, ["G#m"] = 33, ["Abm"] = 34,
+      [scurrent_key_option] = 35,
+      ["Do not change key"] = 36
+    },
+    default = scurrent_key_option
+  }
+}
+
+local reverse_lookup = {}
+for skey, value in pairs(sdialog_options[1].values) do
+  reverse_lookup[value] = skey
+end
+
+-- Create and run the dialog
+local sod = LuaDialog.Dialog("Choose Target Key", sdialog_options)
+local srv = sod:run()
+
+-- Exit if dialog is canceled
+if not srv then
+  print("Dialog was canceled.")
+  return
+end
+
+local selected_key_value = srv["target_key"]
+local skey = reverse_lookup[selected_key_value] -- Get the key name from the value
+local scale = ""
+
+-- Handle "Set to current project key"
+if selected_key_value == 35 then
+  if file_content:match("No key set") then
+    print("No key is set in the file. Exiting the script.")
+    return -- Exit the script
+  end
+  skey = file_content:match("^%a#?b?m?") -- Extract the key
+end
+
+-- Determine scale (major or minor)
+if skey:find("m") then
+  scale = "minor"
+else
+  scale = "major"
+end
+
+scale = scale:sub(1, 1):upper() .. scale:sub(2)
+
+-- Print the result
+print("Key: " .. skey .. " Scale: " .. scale)
+
+if skey:sub(-1) == "m" then
+  skey = skey:sub(1, -2) -- Extract everything except the last character
+end
+
+-- Print the result
+print("Key without 'm': " .. skey)
+-- Define the key to search for
+ desired_key = skey -- Change this to the desired key (e.g., "A", "Ab", "A#")
+
+-- Define the directory containing the chord progressions
+ directory = "/opt/LogicalArdour/Drum loops, chords, and chord progressions/MIDI Progressions/"..scale.."/"
+
+-- Function to get files in a directory
+function get_files_in_directory(dir)
+    local files = {}
+    for file in io.popen('ls "' .. dir .. '"'):lines() do
+        if file:match("%.mid$") then -- Check if the file ends with .mid
+            table.insert(files, file)
+        end
+    end
+    return files
+end
+
+-- Function to filter files by key
+function filter_files_by_key(files, fkey)
+    local filtered_files = {}
+  --  print("Filtering files for key:", key) -- Debugging key being searched
+    for _, file in ipairs(files) do
+       -- print("Checking file:", file) -- Debug each file
+        -- Match files that start with the exact key followed by a non-word character or `.mid`
+        if file:match("^" .. fkey .. "[%W_]") or file:match("^" .. fkey .. "%.mid$") then
+         --   print("Matched file:", file) -- Debug matched files
+            table.insert(filtered_files, file)
+        end
+    end
+    return filtered_files
+end
+
+-- Function to pick a random file
+function pick_random_file(files)
+    if #files == 0 then
+        return nil -- No files matched
+    end
+    math.randomseed(os.time()) -- Seed the random number generator
+    local random_index = math.random(1, #files)
+    return files[random_index]
+end
+
+-- Main logic
+local all_files = get_files_in_directory(directory)
+--print("All files found:") -- Debug all files in the directory
+--for _, file in ipairs(all_files) do print(file) end
+
+local matching_files = filter_files_by_key(all_files, desired_key)
+--print("Matching files for key " .. desired_key .. ":")
+--for _, file in ipairs(matching_files) do print(file) end
+
+local random_file = pick_random_file(matching_files)
+
+if random_file then
+    print("Random progression in key " .. desired_key .. ": " .. random_file)
+    local full_file_path = directory .. random_file
+print(full_file_path)
+	local files = C.StringVector();
+
+
+
+	files:push_back(full_file_path)
+
+	local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+else
+    print("No progressions found for key: " .. desired_key)
+ scale = scale:sub(1, 1):lower() .. scale:sub(2)
+
+    local filepath = "/tmp/chord"..desired_key..scale..".mid"
+
+
+local quotedfilepath = '"' .. filepath .. '"'
+
+local command = "/opt/LogicalArdour/newchord " .. desired_key.." "..scale.." 4 --output "..quotedfilepath
+
+os.execute(command)
+
+local files = C.StringVector();
+
+	files:push_back(filepath)
+
+	local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+
+		local delete_file = "rm -rf "..filepath
+
+os.execute(delete_file)
+
+
+
+
+
+
+
+end
 	end
 		if rv and rv["dropdown"] == "sts" then
 		print("Surge XT")
@@ -390,6 +835,185 @@ print (full_path)
 		local track_name = "Surge XT Session"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local key_file_path = user_config_directory .. "/key.txt"
+
+-- Read the contents of the key.txt file
+local file = io.open(key_file_path, "r") -- Open the file in read mode
+local file_content = "No key set" -- Default value if the file cannot be read
+
+if file then
+    file_content = file:read("*a") -- Read the entire content of the file
+    file:close() -- Close the file
+else
+    print("Warning: Could not open file for reading at " .. key_file_path)
+end
+
+local scurrent_key_option = "Set to current project key: " .. file_content
+local sdialog_options = {
+  {
+    type = "dropdown",
+    key = "target_key",
+    title = "Choose the key you want the session player to follow",
+    values = {
+      ["C"] = 1, ["C#"] = 2, ["Db"] = 3, ["D"] = 4, ["D#"] = 5, ["Eb"] = 6,
+      ["E"] = 7, ["F"] = 8, ["F#"] = 9, ["Gb"] = 10, ["G"] = 11, ["G#"] = 12, ["Ab"] = 13,
+      ["A"] = 14, ["A#"] = 15, ["Bb"] = 16, ["B"] = 17,
+      ["Am"] = 18, ["A#m"] = 19, ["Bbm"] = 20, ["Bm"] = 21, ["Cm"] = 22,
+      ["C#m"] = 23, ["Dbm"] = 24, ["Dm"] = 25, ["D#m"] = 26, ["Ebm"] = 27,
+      ["Em"] = 28, ["Fm"] = 29, ["F#m"] = 30, ["Gbm"] = 31, ["Gm"] = 32, ["G#m"] = 33, ["Abm"] = 34,
+      [scurrent_key_option] = 35,
+      ["Do not change key"] = 36
+    },
+    default = scurrent_key_option
+  }
+}
+
+local reverse_lookup = {}
+for skey, value in pairs(sdialog_options[1].values) do
+  reverse_lookup[value] = skey
+end
+
+-- Create and run the dialog
+local sod = LuaDialog.Dialog("Choose Target Key", sdialog_options)
+local srv = sod:run()
+
+-- Exit if dialog is canceled
+if not srv then
+  print("Dialog was canceled.")
+  return
+end
+
+local selected_key_value = srv["target_key"]
+local skey = reverse_lookup[selected_key_value] -- Get the key name from the value
+local scale = ""
+
+-- Handle "Set to current project key"
+if selected_key_value == 35 then
+  if file_content:match("No key set") then
+    print("No key is set in the file. Exiting the script.")
+    return -- Exit the script
+  end
+  skey = file_content:match("^%a#?b?m?") -- Extract the key
+end
+
+-- Determine scale (major or minor)
+if skey:find("m") then
+  scale = "minor"
+else
+  scale = "major"
+end
+
+scale = scale:sub(1, 1):upper() .. scale:sub(2)
+
+-- Print the result
+print("Key: " .. skey .. " Scale: " .. scale)
+
+if skey:sub(-1) == "m" then
+  skey = skey:sub(1, -2) -- Extract everything except the last character
+end
+
+-- Print the result
+print("Key without 'm': " .. skey)
+-- Define the key to search for
+ desired_key = skey -- Change this to the desired key (e.g., "A", "Ab", "A#")
+
+-- Define the directory containing the chord progressions
+ directory = "/opt/LogicalArdour/Drum loops, chords, and chord progressions/MIDI Progressions/"..scale.."/"
+
+-- Function to get files in a directory
+function get_files_in_directory(dir)
+    local files = {}
+    for file in io.popen('ls "' .. dir .. '"'):lines() do
+        if file:match("%.mid$") then -- Check if the file ends with .mid
+            table.insert(files, file)
+        end
+    end
+    return files
+end
+
+-- Function to filter files by key
+function filter_files_by_key(files, fkey)
+    local filtered_files = {}
+  --  print("Filtering files for key:", key) -- Debugging key being searched
+    for _, file in ipairs(files) do
+       -- print("Checking file:", file) -- Debug each file
+        -- Match files that start with the exact key followed by a non-word character or `.mid`
+        if file:match("^" .. fkey .. "[%W_]") or file:match("^" .. fkey .. "%.mid$") then
+         --   print("Matched file:", file) -- Debug matched files
+            table.insert(filtered_files, file)
+        end
+    end
+    return filtered_files
+end
+
+-- Function to pick a random file
+function pick_random_file(files)
+    if #files == 0 then
+        return nil -- No files matched
+    end
+    math.randomseed(os.time()) -- Seed the random number generator
+    local random_index = math.random(1, #files)
+    return files[random_index]
+end
+
+-- Main logic
+local all_files = get_files_in_directory(directory)
+--print("All files found:") -- Debug all files in the directory
+--for _, file in ipairs(all_files) do print(file) end
+
+local matching_files = filter_files_by_key(all_files, desired_key)
+--print("Matching files for key " .. desired_key .. ":")
+--for _, file in ipairs(matching_files) do print(file) end
+
+local random_file = pick_random_file(matching_files)
+
+if random_file then
+    print("Random progression in key " .. desired_key .. ": " .. random_file)
+    local full_file_path = directory .. random_file
+print(full_file_path)
+	local files = C.StringVector();
+
+
+
+	files:push_back(full_file_path)
+
+	local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+else
+    print("No progressions found for key: " .. desired_key)
+ scale = scale:sub(1, 1):lower() .. scale:sub(2)
+
+    local filepath = "/tmp/chord"..desired_key..scale..".mid"
+
+
+local quotedfilepath = '"' .. filepath .. '"'
+
+local command = "/opt/LogicalArdour/newchord " .. desired_key.." "..scale.." 4 --output "..quotedfilepath
+
+os.execute(command)
+
+local files = C.StringVector();
+
+	files:push_back(filepath)
+
+	local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+
+
+
+local delete_file = "rm -rf "..filepath
+
+os.execute(delete_file)
+
+
+
+end
 	end
 
 
@@ -430,6 +1054,14 @@ print (full_path)
 		local track_name = "808/809 Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 								if rv and rv["dropdown"] == "drl" then
@@ -456,6 +1088,14 @@ print (full_path)
 		local track_name = "Brush Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 									if rv and rv["dropdown"] == "orp" then
@@ -469,6 +1109,14 @@ print (full_path)
 		local track_name = "Orchestral Perc"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 										if rv and rv["dropdown"] == "son" then
@@ -482,6 +1130,14 @@ print (full_path)
 		local track_name = "SoniNeko Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 	if rv and rv["dropdown"] == "al" then
 	print("Alesis Drumkits")
@@ -494,6 +1150,14 @@ print (full_path)
 		local track_name = "Alesis Drumkits"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 		if rv and rv["dropdown"] == "tub" then
@@ -584,6 +1248,14 @@ print (full_path)
 		local track_name = "Buskman's Holiday Percussion"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 		if rv and rv["dropdown"] == "hot" then
 	print("Blonde Bop HotRod Drumkit")
@@ -596,6 +1268,14 @@ print (full_path)
 		local track_name = "Blonde Bop HotRod Drumkit"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		local files = C.StringVector();
+
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
 
 		if rv and rv["dropdown"] == "drhelp" then
@@ -604,14 +1284,6 @@ print (full_path)
 -- Example usage
 open_url_in_browser("https://youtu.be/COm3ym6Y-s8")
 	end
-
-
-
-
-
-
-
-
 
 end end
 

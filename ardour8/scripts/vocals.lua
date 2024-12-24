@@ -29,6 +29,14 @@ audioTrackFound = false -- Flag to check if any audio track is selected
        audioTrackFound = true
        print("is an audio track")
       end
+
+         is_recording = r:rec_enable_control():get_value()
+  print("is recording "..is_recording)
+  print(type(is_recording))
+  if is_recording == 1.0 then
+      LuaDialog.Message("Error", "Vocal presets cannot be changed when track is armed for recording", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+      return
+    end
     end
 
        if  audioTrackFound == false then
@@ -60,6 +68,8 @@ if not sel:empty () and not sel.tracks:routelist ():empty ()  then
   for r in sel.tracks:routelist ():iter () do
 
   local trackname =  r:name()
+
+
 
     if not r:to_track ():isnil () then
    local proc = r:nth_plugin (0) -- for every plugin
@@ -1045,6 +1055,7 @@ proc:load_preset(preset)
 if not sel:empty () and not sel.tracks:routelist ():empty ()  then
   -- for each selected track
   for r in sel.tracks:routelist ():iter () do
+
     if not r:to_track ():isnil () then
     old = r:nth_plugin(0)
       active =  old:deactivate()

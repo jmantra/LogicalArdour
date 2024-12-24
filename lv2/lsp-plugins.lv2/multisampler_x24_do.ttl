@@ -1,0 +1,3094 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2ext:     <http://lv2plug.in/ns/ext/> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix patch:      <http://lv2plug.in/ns/ext/patch#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix midi:       <http://lv2plug.in/ns/ext/midi#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/multisampler_x24_do/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+@prefix plug_p:     <http://lsp-plug.in//ports#> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:v_sadovnikov
+	a foaf:Person ;
+	foaf:name "Vladimir Sadovnikov" ;
+	foaf:nick "SadKo" ;
+	foaf:mbox <mailto:sadko4u@gmail.com> ;
+	foaf:homepage <http://lsp-plug.in/#v_sadovnikov>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:stereo_in
+	a pg:StereoGroup, pg:InputGroup ;
+	lv2:symbol "stereo_in" ;
+	rdfs:label "Stereo Input" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:stereo_out
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "stereo_out" ;
+	rdfs:label "Stereo Output" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_0
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_0" ;
+	rdfs:label "Direct Output 0" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_1
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_1" ;
+	rdfs:label "Direct Output 1" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_2
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_2" ;
+	rdfs:label "Direct Output 2" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_3
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_3" ;
+	rdfs:label "Direct Output 3" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_4
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_4" ;
+	rdfs:label "Direct Output 4" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_5
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_5" ;
+	rdfs:label "Direct Output 5" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_6
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_6" ;
+	rdfs:label "Direct Output 6" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_7
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_7" ;
+	rdfs:label "Direct Output 7" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_8
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_8" ;
+	rdfs:label "Direct Output 8" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_9
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_9" ;
+	rdfs:label "Direct Output 9" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_10
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_10" ;
+	rdfs:label "Direct Output 10" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_11
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_11" ;
+	rdfs:label "Direct Output 11" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_12
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_12" ;
+	rdfs:label "Direct Output 12" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_13
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_13" ;
+	rdfs:label "Direct Output 13" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_14
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_14" ;
+	rdfs:label "Direct Output 14" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_15
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_15" ;
+	rdfs:label "Direct Output 15" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_16
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_16" ;
+	rdfs:label "Direct Output 16" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_17
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_17" ;
+	rdfs:label "Direct Output 17" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_18
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_18" ;
+	rdfs:label "Direct Output 18" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_19
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_19" ;
+	rdfs:label "Direct Output 19" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_20
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_20" ;
+	rdfs:label "Direct Output 20" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_21
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_21" ;
+	rdfs:label "Direct Output 21" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_22
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_22" ;
+	rdfs:label "Direct Output 22" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:direct_out_23
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "direct_out_23" ;
+	rdfs:label "Direct Output 23" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug:multisampler_x24_do
+	a lv2:InstrumentPlugin, doap:Project ;
+	doap:name "LSP Multi-Sampler x24 DirectOut" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 27 ;
+	doap:developer plug_dev:v_sadovnikov ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:multisampler_x24_do ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:stereo_in ;
+	pg:mainOutput plug_pg:stereo_out ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in_l" ;
+		lv2:name "Input L" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "in_r" ;
+		lv2:name "Input R" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "out_l" ;
+		lv2:name "Output L" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 3 ;
+		lv2:symbol "out_r" ;
+		lv2:name "Output R" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:designation lv2:enabled ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "mute" ;
+		lv2:name "Forced mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "muting" ;
+		lv2:name "Mute on stop" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "noff" ;
+		lv2:name "Note-off handling" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "fout" ;
+		lv2:name "Note-off fadeout" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 50.000000 ;
+		lv2:default 10.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "dry" ;
+		lv2:name "Dry amount" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "wet" ;
+		lv2:name "Wet amount" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "drywet" ;
+		lv2:name "Dry/Wet balance" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "g_out" ;
+		lv2:name "Output gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "sets" ;
+		lv2:name "Sample Editor Tab Selection" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Main"; rdf:value 0 ] ,
+			[ rdfs:label "Pitch"; rdf:value 1 ] ,
+			[ rdfs:label "Stretch"; rdf:value 2 ] ,
+			[ rdfs:label "Loop"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14 ;
+		lv2:symbol "do_gain" ;
+		lv2:name "Apply gain to direct-out" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "do_pan" ;
+		lv2:name "Apply panning to direct-out" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "msel" ;
+		lv2:name "Area selector" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Instruments"; rdf:value 0 ] ,
+			[ rdfs:label "Mixer 0-11"; rdf:value 1 ] ,
+			[ rdfs:label "Mixer 12-23"; rdf:value 2 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 2 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "ion_0" ;
+		lv2:name "Instrument on 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "imix_0" ;
+		lv2:name "Instrument mix gain 0" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "panl_0" ;
+		lv2:name "Instrument panorama left 0" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "panr_0" ;
+		lv2:name "Instrument manorama right 0" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "iact_0" ;
+		lv2:name "Instrument activity 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "don_0" ;
+		lv2:name "Direct output on 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 23 ;
+		lv2:symbol "dol_0" ;
+		lv2:name "Direct output left 0" ;
+		pg:group plug_pg:direct_out_0 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 24 ;
+		lv2:symbol "dor_0" ;
+		lv2:name "Direct output right 0" ;
+		pg:group plug_pg:direct_out_0 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "ion_1" ;
+		lv2:name "Instrument on 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "imix_1" ;
+		lv2:name "Instrument mix gain 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "panl_1" ;
+		lv2:name "Instrument panorama left 1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "panr_1" ;
+		lv2:name "Instrument manorama right 1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "iact_1" ;
+		lv2:name "Instrument activity 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "don_1" ;
+		lv2:name "Direct output on 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 31 ;
+		lv2:symbol "dol_1" ;
+		lv2:name "Direct output left 1" ;
+		pg:group plug_pg:direct_out_1 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 32 ;
+		lv2:symbol "dor_1" ;
+		lv2:name "Direct output right 1" ;
+		pg:group plug_pg:direct_out_1 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 33 ;
+		lv2:symbol "ion_2" ;
+		lv2:name "Instrument on 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "imix_2" ;
+		lv2:name "Instrument mix gain 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 35 ;
+		lv2:symbol "panl_2" ;
+		lv2:name "Instrument panorama left 2" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 36 ;
+		lv2:symbol "panr_2" ;
+		lv2:name "Instrument manorama right 2" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 37 ;
+		lv2:symbol "iact_2" ;
+		lv2:name "Instrument activity 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 38 ;
+		lv2:symbol "don_2" ;
+		lv2:name "Direct output on 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 39 ;
+		lv2:symbol "dol_2" ;
+		lv2:name "Direct output left 2" ;
+		pg:group plug_pg:direct_out_2 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 40 ;
+		lv2:symbol "dor_2" ;
+		lv2:name "Direct output right 2" ;
+		pg:group plug_pg:direct_out_2 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 41 ;
+		lv2:symbol "ion_3" ;
+		lv2:name "Instrument on 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 42 ;
+		lv2:symbol "imix_3" ;
+		lv2:name "Instrument mix gain 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 43 ;
+		lv2:symbol "panl_3" ;
+		lv2:name "Instrument panorama left 3" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 44 ;
+		lv2:symbol "panr_3" ;
+		lv2:name "Instrument manorama right 3" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 45 ;
+		lv2:symbol "iact_3" ;
+		lv2:name "Instrument activity 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 46 ;
+		lv2:symbol "don_3" ;
+		lv2:name "Direct output on 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 47 ;
+		lv2:symbol "dol_3" ;
+		lv2:name "Direct output left 3" ;
+		pg:group plug_pg:direct_out_3 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 48 ;
+		lv2:symbol "dor_3" ;
+		lv2:name "Direct output right 3" ;
+		pg:group plug_pg:direct_out_3 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 49 ;
+		lv2:symbol "ion_4" ;
+		lv2:name "Instrument on 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 50 ;
+		lv2:symbol "imix_4" ;
+		lv2:name "Instrument mix gain 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 51 ;
+		lv2:symbol "panl_4" ;
+		lv2:name "Instrument panorama left 4" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 52 ;
+		lv2:symbol "panr_4" ;
+		lv2:name "Instrument manorama right 4" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 53 ;
+		lv2:symbol "iact_4" ;
+		lv2:name "Instrument activity 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 54 ;
+		lv2:symbol "don_4" ;
+		lv2:name "Direct output on 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 55 ;
+		lv2:symbol "dol_4" ;
+		lv2:name "Direct output left 4" ;
+		pg:group plug_pg:direct_out_4 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 56 ;
+		lv2:symbol "dor_4" ;
+		lv2:name "Direct output right 4" ;
+		pg:group plug_pg:direct_out_4 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 57 ;
+		lv2:symbol "ion_5" ;
+		lv2:name "Instrument on 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 58 ;
+		lv2:symbol "imix_5" ;
+		lv2:name "Instrument mix gain 5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 59 ;
+		lv2:symbol "panl_5" ;
+		lv2:name "Instrument panorama left 5" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 60 ;
+		lv2:symbol "panr_5" ;
+		lv2:name "Instrument manorama right 5" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 61 ;
+		lv2:symbol "iact_5" ;
+		lv2:name "Instrument activity 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 62 ;
+		lv2:symbol "don_5" ;
+		lv2:name "Direct output on 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 63 ;
+		lv2:symbol "dol_5" ;
+		lv2:name "Direct output left 5" ;
+		pg:group plug_pg:direct_out_5 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 64 ;
+		lv2:symbol "dor_5" ;
+		lv2:name "Direct output right 5" ;
+		pg:group plug_pg:direct_out_5 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 65 ;
+		lv2:symbol "ion_6" ;
+		lv2:name "Instrument on 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 66 ;
+		lv2:symbol "imix_6" ;
+		lv2:name "Instrument mix gain 6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 67 ;
+		lv2:symbol "panl_6" ;
+		lv2:name "Instrument panorama left 6" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 68 ;
+		lv2:symbol "panr_6" ;
+		lv2:name "Instrument manorama right 6" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 69 ;
+		lv2:symbol "iact_6" ;
+		lv2:name "Instrument activity 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 70 ;
+		lv2:symbol "don_6" ;
+		lv2:name "Direct output on 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 71 ;
+		lv2:symbol "dol_6" ;
+		lv2:name "Direct output left 6" ;
+		pg:group plug_pg:direct_out_6 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 72 ;
+		lv2:symbol "dor_6" ;
+		lv2:name "Direct output right 6" ;
+		pg:group plug_pg:direct_out_6 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 73 ;
+		lv2:symbol "ion_7" ;
+		lv2:name "Instrument on 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 74 ;
+		lv2:symbol "imix_7" ;
+		lv2:name "Instrument mix gain 7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 75 ;
+		lv2:symbol "panl_7" ;
+		lv2:name "Instrument panorama left 7" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 76 ;
+		lv2:symbol "panr_7" ;
+		lv2:name "Instrument manorama right 7" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 77 ;
+		lv2:symbol "iact_7" ;
+		lv2:name "Instrument activity 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 78 ;
+		lv2:symbol "don_7" ;
+		lv2:name "Direct output on 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 79 ;
+		lv2:symbol "dol_7" ;
+		lv2:name "Direct output left 7" ;
+		pg:group plug_pg:direct_out_7 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 80 ;
+		lv2:symbol "dor_7" ;
+		lv2:name "Direct output right 7" ;
+		pg:group plug_pg:direct_out_7 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 81 ;
+		lv2:symbol "ion_8" ;
+		lv2:name "Instrument on 8" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 82 ;
+		lv2:symbol "imix_8" ;
+		lv2:name "Instrument mix gain 8" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 83 ;
+		lv2:symbol "panl_8" ;
+		lv2:name "Instrument panorama left 8" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 84 ;
+		lv2:symbol "panr_8" ;
+		lv2:name "Instrument manorama right 8" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 85 ;
+		lv2:symbol "iact_8" ;
+		lv2:name "Instrument activity 8" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 86 ;
+		lv2:symbol "don_8" ;
+		lv2:name "Direct output on 8" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 87 ;
+		lv2:symbol "dol_8" ;
+		lv2:name "Direct output left 8" ;
+		pg:group plug_pg:direct_out_8 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 88 ;
+		lv2:symbol "dor_8" ;
+		lv2:name "Direct output right 8" ;
+		pg:group plug_pg:direct_out_8 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 89 ;
+		lv2:symbol "ion_9" ;
+		lv2:name "Instrument on 9" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 90 ;
+		lv2:symbol "imix_9" ;
+		lv2:name "Instrument mix gain 9" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 91 ;
+		lv2:symbol "panl_9" ;
+		lv2:name "Instrument panorama left 9" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 92 ;
+		lv2:symbol "panr_9" ;
+		lv2:name "Instrument manorama right 9" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 93 ;
+		lv2:symbol "iact_9" ;
+		lv2:name "Instrument activity 9" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 94 ;
+		lv2:symbol "don_9" ;
+		lv2:name "Direct output on 9" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 95 ;
+		lv2:symbol "dol_9" ;
+		lv2:name "Direct output left 9" ;
+		pg:group plug_pg:direct_out_9 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 96 ;
+		lv2:symbol "dor_9" ;
+		lv2:name "Direct output right 9" ;
+		pg:group plug_pg:direct_out_9 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 97 ;
+		lv2:symbol "ion_10" ;
+		lv2:name "Instrument on 10" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 98 ;
+		lv2:symbol "imix_10" ;
+		lv2:name "Instrument mix gain 10" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 99 ;
+		lv2:symbol "panl_10" ;
+		lv2:name "Instrument panorama left 10" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 100 ;
+		lv2:symbol "panr_10" ;
+		lv2:name "Instrument manorama right 10" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 101 ;
+		lv2:symbol "iact_10" ;
+		lv2:name "Instrument activity 10" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 102 ;
+		lv2:symbol "don_10" ;
+		lv2:name "Direct output on 10" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 103 ;
+		lv2:symbol "dol_10" ;
+		lv2:name "Direct output left 10" ;
+		pg:group plug_pg:direct_out_10 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 104 ;
+		lv2:symbol "dor_10" ;
+		lv2:name "Direct output right 10" ;
+		pg:group plug_pg:direct_out_10 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 105 ;
+		lv2:symbol "ion_11" ;
+		lv2:name "Instrument on 11" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 106 ;
+		lv2:symbol "imix_11" ;
+		lv2:name "Instrument mix gain 11" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 107 ;
+		lv2:symbol "panl_11" ;
+		lv2:name "Instrument panorama left 11" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 108 ;
+		lv2:symbol "panr_11" ;
+		lv2:name "Instrument manorama right 11" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 109 ;
+		lv2:symbol "iact_11" ;
+		lv2:name "Instrument activity 11" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 110 ;
+		lv2:symbol "don_11" ;
+		lv2:name "Direct output on 11" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 111 ;
+		lv2:symbol "dol_11" ;
+		lv2:name "Direct output left 11" ;
+		pg:group plug_pg:direct_out_11 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 112 ;
+		lv2:symbol "dor_11" ;
+		lv2:name "Direct output right 11" ;
+		pg:group plug_pg:direct_out_11 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 113 ;
+		lv2:symbol "ion_12" ;
+		lv2:name "Instrument on 12" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 114 ;
+		lv2:symbol "imix_12" ;
+		lv2:name "Instrument mix gain 12" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 115 ;
+		lv2:symbol "panl_12" ;
+		lv2:name "Instrument panorama left 12" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 116 ;
+		lv2:symbol "panr_12" ;
+		lv2:name "Instrument manorama right 12" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 117 ;
+		lv2:symbol "iact_12" ;
+		lv2:name "Instrument activity 12" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 118 ;
+		lv2:symbol "don_12" ;
+		lv2:name "Direct output on 12" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 119 ;
+		lv2:symbol "dol_12" ;
+		lv2:name "Direct output left 12" ;
+		pg:group plug_pg:direct_out_12 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 120 ;
+		lv2:symbol "dor_12" ;
+		lv2:name "Direct output right 12" ;
+		pg:group plug_pg:direct_out_12 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 121 ;
+		lv2:symbol "ion_13" ;
+		lv2:name "Instrument on 13" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 122 ;
+		lv2:symbol "imix_13" ;
+		lv2:name "Instrument mix gain 13" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 123 ;
+		lv2:symbol "panl_13" ;
+		lv2:name "Instrument panorama left 13" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 124 ;
+		lv2:symbol "panr_13" ;
+		lv2:name "Instrument manorama right 13" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 125 ;
+		lv2:symbol "iact_13" ;
+		lv2:name "Instrument activity 13" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 126 ;
+		lv2:symbol "don_13" ;
+		lv2:name "Direct output on 13" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 127 ;
+		lv2:symbol "dol_13" ;
+		lv2:name "Direct output left 13" ;
+		pg:group plug_pg:direct_out_13 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 128 ;
+		lv2:symbol "dor_13" ;
+		lv2:name "Direct output right 13" ;
+		pg:group plug_pg:direct_out_13 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 129 ;
+		lv2:symbol "ion_14" ;
+		lv2:name "Instrument on 14" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 130 ;
+		lv2:symbol "imix_14" ;
+		lv2:name "Instrument mix gain 14" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 131 ;
+		lv2:symbol "panl_14" ;
+		lv2:name "Instrument panorama left 14" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 132 ;
+		lv2:symbol "panr_14" ;
+		lv2:name "Instrument manorama right 14" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 133 ;
+		lv2:symbol "iact_14" ;
+		lv2:name "Instrument activity 14" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 134 ;
+		lv2:symbol "don_14" ;
+		lv2:name "Direct output on 14" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 135 ;
+		lv2:symbol "dol_14" ;
+		lv2:name "Direct output left 14" ;
+		pg:group plug_pg:direct_out_14 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 136 ;
+		lv2:symbol "dor_14" ;
+		lv2:name "Direct output right 14" ;
+		pg:group plug_pg:direct_out_14 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 137 ;
+		lv2:symbol "ion_15" ;
+		lv2:name "Instrument on 15" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 138 ;
+		lv2:symbol "imix_15" ;
+		lv2:name "Instrument mix gain 15" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 139 ;
+		lv2:symbol "panl_15" ;
+		lv2:name "Instrument panorama left 15" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 140 ;
+		lv2:symbol "panr_15" ;
+		lv2:name "Instrument manorama right 15" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 141 ;
+		lv2:symbol "iact_15" ;
+		lv2:name "Instrument activity 15" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 142 ;
+		lv2:symbol "don_15" ;
+		lv2:name "Direct output on 15" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 143 ;
+		lv2:symbol "dol_15" ;
+		lv2:name "Direct output left 15" ;
+		pg:group plug_pg:direct_out_15 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 144 ;
+		lv2:symbol "dor_15" ;
+		lv2:name "Direct output right 15" ;
+		pg:group plug_pg:direct_out_15 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 145 ;
+		lv2:symbol "ion_16" ;
+		lv2:name "Instrument on 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 146 ;
+		lv2:symbol "imix_16" ;
+		lv2:name "Instrument mix gain 16" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 147 ;
+		lv2:symbol "panl_16" ;
+		lv2:name "Instrument panorama left 16" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 148 ;
+		lv2:symbol "panr_16" ;
+		lv2:name "Instrument manorama right 16" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 149 ;
+		lv2:symbol "iact_16" ;
+		lv2:name "Instrument activity 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 150 ;
+		lv2:symbol "don_16" ;
+		lv2:name "Direct output on 16" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 151 ;
+		lv2:symbol "dol_16" ;
+		lv2:name "Direct output left 16" ;
+		pg:group plug_pg:direct_out_16 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 152 ;
+		lv2:symbol "dor_16" ;
+		lv2:name "Direct output right 16" ;
+		pg:group plug_pg:direct_out_16 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 153 ;
+		lv2:symbol "ion_17" ;
+		lv2:name "Instrument on 17" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 154 ;
+		lv2:symbol "imix_17" ;
+		lv2:name "Instrument mix gain 17" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 155 ;
+		lv2:symbol "panl_17" ;
+		lv2:name "Instrument panorama left 17" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 156 ;
+		lv2:symbol "panr_17" ;
+		lv2:name "Instrument manorama right 17" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 157 ;
+		lv2:symbol "iact_17" ;
+		lv2:name "Instrument activity 17" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 158 ;
+		lv2:symbol "don_17" ;
+		lv2:name "Direct output on 17" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 159 ;
+		lv2:symbol "dol_17" ;
+		lv2:name "Direct output left 17" ;
+		pg:group plug_pg:direct_out_17 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 160 ;
+		lv2:symbol "dor_17" ;
+		lv2:name "Direct output right 17" ;
+		pg:group plug_pg:direct_out_17 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 161 ;
+		lv2:symbol "ion_18" ;
+		lv2:name "Instrument on 18" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 162 ;
+		lv2:symbol "imix_18" ;
+		lv2:name "Instrument mix gain 18" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 163 ;
+		lv2:symbol "panl_18" ;
+		lv2:name "Instrument panorama left 18" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 164 ;
+		lv2:symbol "panr_18" ;
+		lv2:name "Instrument manorama right 18" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 165 ;
+		lv2:symbol "iact_18" ;
+		lv2:name "Instrument activity 18" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 166 ;
+		lv2:symbol "don_18" ;
+		lv2:name "Direct output on 18" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 167 ;
+		lv2:symbol "dol_18" ;
+		lv2:name "Direct output left 18" ;
+		pg:group plug_pg:direct_out_18 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 168 ;
+		lv2:symbol "dor_18" ;
+		lv2:name "Direct output right 18" ;
+		pg:group plug_pg:direct_out_18 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 169 ;
+		lv2:symbol "ion_19" ;
+		lv2:name "Instrument on 19" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 170 ;
+		lv2:symbol "imix_19" ;
+		lv2:name "Instrument mix gain 19" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 171 ;
+		lv2:symbol "panl_19" ;
+		lv2:name "Instrument panorama left 19" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 172 ;
+		lv2:symbol "panr_19" ;
+		lv2:name "Instrument manorama right 19" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 173 ;
+		lv2:symbol "iact_19" ;
+		lv2:name "Instrument activity 19" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 174 ;
+		lv2:symbol "don_19" ;
+		lv2:name "Direct output on 19" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 175 ;
+		lv2:symbol "dol_19" ;
+		lv2:name "Direct output left 19" ;
+		pg:group plug_pg:direct_out_19 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 176 ;
+		lv2:symbol "dor_19" ;
+		lv2:name "Direct output right 19" ;
+		pg:group plug_pg:direct_out_19 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 177 ;
+		lv2:symbol "ion_20" ;
+		lv2:name "Instrument on 20" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 178 ;
+		lv2:symbol "imix_20" ;
+		lv2:name "Instrument mix gain 20" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 179 ;
+		lv2:symbol "panl_20" ;
+		lv2:name "Instrument panorama left 20" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 180 ;
+		lv2:symbol "panr_20" ;
+		lv2:name "Instrument manorama right 20" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 181 ;
+		lv2:symbol "iact_20" ;
+		lv2:name "Instrument activity 20" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 182 ;
+		lv2:symbol "don_20" ;
+		lv2:name "Direct output on 20" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 183 ;
+		lv2:symbol "dol_20" ;
+		lv2:name "Direct output left 20" ;
+		pg:group plug_pg:direct_out_20 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 184 ;
+		lv2:symbol "dor_20" ;
+		lv2:name "Direct output right 20" ;
+		pg:group plug_pg:direct_out_20 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 185 ;
+		lv2:symbol "ion_21" ;
+		lv2:name "Instrument on 21" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 186 ;
+		lv2:symbol "imix_21" ;
+		lv2:name "Instrument mix gain 21" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 187 ;
+		lv2:symbol "panl_21" ;
+		lv2:name "Instrument panorama left 21" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 188 ;
+		lv2:symbol "panr_21" ;
+		lv2:name "Instrument manorama right 21" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 189 ;
+		lv2:symbol "iact_21" ;
+		lv2:name "Instrument activity 21" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 190 ;
+		lv2:symbol "don_21" ;
+		lv2:name "Direct output on 21" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 191 ;
+		lv2:symbol "dol_21" ;
+		lv2:name "Direct output left 21" ;
+		pg:group plug_pg:direct_out_21 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 192 ;
+		lv2:symbol "dor_21" ;
+		lv2:name "Direct output right 21" ;
+		pg:group plug_pg:direct_out_21 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 193 ;
+		lv2:symbol "ion_22" ;
+		lv2:name "Instrument on 22" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 194 ;
+		lv2:symbol "imix_22" ;
+		lv2:name "Instrument mix gain 22" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 195 ;
+		lv2:symbol "panl_22" ;
+		lv2:name "Instrument panorama left 22" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 196 ;
+		lv2:symbol "panr_22" ;
+		lv2:name "Instrument manorama right 22" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 197 ;
+		lv2:symbol "iact_22" ;
+		lv2:name "Instrument activity 22" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 198 ;
+		lv2:symbol "don_22" ;
+		lv2:name "Direct output on 22" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 199 ;
+		lv2:symbol "dol_22" ;
+		lv2:name "Direct output left 22" ;
+		pg:group plug_pg:direct_out_22 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 200 ;
+		lv2:symbol "dor_22" ;
+		lv2:name "Direct output right 22" ;
+		pg:group plug_pg:direct_out_22 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 201 ;
+		lv2:symbol "ion_23" ;
+		lv2:name "Instrument on 23" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 202 ;
+		lv2:symbol "imix_23" ;
+		lv2:name "Instrument mix gain 23" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 203 ;
+		lv2:symbol "panl_23" ;
+		lv2:name "Instrument panorama left 23" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 204 ;
+		lv2:symbol "panr_23" ;
+		lv2:name "Instrument manorama right 23" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 205 ;
+		lv2:symbol "iact_23" ;
+		lv2:name "Instrument activity 23" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 206 ;
+		lv2:symbol "don_23" ;
+		lv2:name "Direct output on 23" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 207 ;
+		lv2:symbol "dol_23" ;
+		lv2:name "Direct output left 23" ;
+		pg:group plug_pg:direct_out_23 ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 208 ;
+		lv2:symbol "dor_23" ;
+		lv2:name "Direct output right 23" ;
+		pg:group plug_pg:direct_out_23 ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position, midi:MidiEvent ;
+		lv2:designation lv2:control ;
+		lv2:index 209 ;
+		lv2:symbol "in_midi" ;
+		lv2:name "MIDI Input, UI Input" ;
+		rdfs:comment "MIDI IN, UI -> DSP communication" ;
+		rsz:minimumSize 5616128 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position, midi:MidiEvent ;
+		lv2:designation lv2:control ;
+		lv2:index 210 ;
+		lv2:symbol "out_midi" ;
+		lv2:name "MIDI Output, UI Output" ;
+		rdfs:comment "MIDI OUT, DSP -> UI communication" ;
+		rsz:minimumSize 7975424 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 211 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:multisampler_x24_do
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 27 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface, lv2ext:instance-access ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 4 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 6 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 7 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 8 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 10 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 11 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 13 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 14 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 16 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 17 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 19 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 20 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 21 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 25 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 26 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 27 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 28 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 30 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 33 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 34 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 35 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 36 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 37 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 38 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 41 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 42 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 43 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 44 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 45 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 46 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 49 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 50 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 51 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 52 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 53 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 54 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 57 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 58 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 59 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 60 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 61 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 62 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 65 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 66 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 67 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 68 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 69 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 70 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 73 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 74 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 75 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 76 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 77 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 78 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 81 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 82 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 83 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 84 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 85 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 86 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 89 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 90 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 91 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 92 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 93 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 94 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 97 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 98 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 99 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 100 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 101 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 102 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 105 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 106 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 107 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 108 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 109 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 110 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 113 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 114 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 115 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 116 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 117 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 118 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 121 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 122 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 123 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 124 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 125 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 126 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 129 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 130 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 131 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 132 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 133 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 134 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 137 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 138 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 139 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 140 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 141 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 142 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 145 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 146 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 147 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 148 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 149 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 150 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 153 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 154 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 155 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 156 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 157 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 158 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 161 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 162 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 163 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 164 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 165 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 166 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 169 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 170 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 171 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 172 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 173 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 174 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 177 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 178 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 179 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 180 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 181 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 182 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 185 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 186 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 187 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 188 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 189 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 190 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 193 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 194 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 195 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 196 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 197 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 198 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 201 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 202 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 203 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 204 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 205 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 206 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 209 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 210 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:multisampler_x24_do ;
+		ui:portIndex 211 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+

@@ -1,0 +1,6953 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2ext:     <http://lv2plug.in/ns/ext/> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix patch:      <http://lv2plug.in/ns/ext/patch#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/room_builder_stereo/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+@prefix plug_p:     <http://lsp-plug.in//ports#> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:v_sadovnikov
+	a foaf:Person ;
+	foaf:name "Vladimir Sadovnikov" ;
+	foaf:nick "SadKo" ;
+	foaf:mbox <mailto:sadko4u@gmail.com> ;
+	foaf:homepage <http://lsp-plug.in/#v_sadovnikov>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:stereo_in
+	a pg:StereoGroup, pg:InputGroup ;
+	lv2:symbol "stereo_in" ;
+	rdfs:label "Stereo Input" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:stereo_out
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "stereo_out" ;
+	rdfs:label "Stereo Output" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_p:ifn
+	a lv2:Parameter ;
+	rdfs:label "Input 3D model file name" ;
+	rdfs:range atom:Path
+	.
+
+plug_p:ofn_0
+	a lv2:Parameter ;
+	rdfs:label "Sample file name0" ;
+	rdfs:range atom:Path
+	.
+
+plug_p:ofn_1
+	a lv2:Parameter ;
+	rdfs:label "Sample file name1" ;
+	rdfs:range atom:Path
+	.
+
+plug_p:ofn_2
+	a lv2:Parameter ;
+	rdfs:label "Sample file name2" ;
+	rdfs:range atom:Path
+	.
+
+plug_p:ofn_3
+	a lv2:Parameter ;
+	rdfs:label "Sample file name3" ;
+	rdfs:range atom:Path
+	.
+
+plug_p:ofn_4
+	a lv2:Parameter ;
+	rdfs:label "Sample file name4" ;
+	rdfs:range atom:Path
+	.
+
+plug_p:ofn_5
+	a lv2:Parameter ;
+	rdfs:label "Sample file name5" ;
+	rdfs:range atom:Path
+	.
+
+plug_p:ofn_6
+	a lv2:Parameter ;
+	rdfs:label "Sample file name6" ;
+	rdfs:range atom:Path
+	.
+
+plug_p:ofn_7
+	a lv2:Parameter ;
+	rdfs:label "Sample file name7" ;
+	rdfs:range atom:Path
+	.
+
+plug:room_builder_stereo
+	a lv2:ReverbPlugin, doap:Project ;
+	doap:name "LSP Room Builder Stereo" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 24 ;
+	doap:developer plug_dev:v_sadovnikov ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:room_builder_stereo ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:stereo_in ;
+	pg:mainOutput plug_pg:stereo_out ;
+
+	patch:writable
+		plug_p:ifn ,
+		plug_p:ofn_0 ,
+		plug_p:ofn_1 ,
+		plug_p:ofn_2 ,
+		plug_p:ofn_3 ,
+		plug_p:ofn_4 ,
+		plug_p:ofn_5 ,
+		plug_p:ofn_6 ,
+		plug_p:ofn_7 ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in_l" ;
+		lv2:name "Input L" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "in_r" ;
+		lv2:name "Input R" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "out_l" ;
+		lv2:name "Output L" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 3 ;
+		lv2:symbol "out_r" ;
+		lv2:name "Output R" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:designation lv2:enabled ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "view" ;
+		lv2:name "Current view" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Room browser"; rdf:value 0 ] ,
+			[ rdfs:label "Sample 0"; rdf:value 1 ] ,
+			[ rdfs:label "Sample 1"; rdf:value 2 ] ,
+			[ rdfs:label "Sample 2"; rdf:value 3 ] ,
+			[ rdfs:label "Sample 3"; rdf:value 4 ] ,
+			[ rdfs:label "Sample 4"; rdf:value 5 ] ,
+			[ rdfs:label "Sample 5"; rdf:value 6 ] ,
+			[ rdfs:label "Sample 6"; rdf:value 7 ] ,
+			[ rdfs:label "Sample 7"; rdf:value 8 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 8 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "editor" ;
+		lv2:name "Current editor" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Source editor"; rdf:value 0 ] ,
+			[ rdfs:label "Capture editor"; rdf:value 1 ] ,
+			[ rdfs:label "Object editor"; rdf:value 2 ] ,
+			[ rdfs:label "Material editor"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "signal" ;
+		lv2:name "Current signal processor" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Convolvers"; rdf:value 0 ] ,
+			[ rdfs:label "IR Equalizer"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "fft" ;
+		lv2:name "FFT size" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "512"; rdf:value 0 ] ,
+			[ rdfs:label "1024"; rdf:value 1 ] ,
+			[ rdfs:label "2048"; rdf:value 2 ] ,
+			[ rdfs:label "4096"; rdf:value 3 ] ,
+			[ rdfs:label "8192"; rdf:value 4 ] ,
+			[ rdfs:label "16384"; rdf:value 5 ] ,
+			[ rdfs:label "32768"; rdf:value 6 ] ,
+			[ rdfs:label "65536"; rdf:value 7 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 7 ;
+		lv2:default 6 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "pd" ;
+		lv2:name "Pre-delay" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "pl" ;
+		lv2:name "Left channel panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "pr" ;
+		lv2:name "Right channel panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "dry" ;
+		lv2:name "Dry amount" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "wet" ;
+		lv2:name "Wet amount" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14 ;
+		lv2:symbol "drywet" ;
+		lv2:name "Dry/Wet balance" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "g_out" ;
+		lv2:name "Output gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "threads" ;
+		lv2:name "Number of threads for processing" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 65536.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "quality" ;
+		lv2:name "Quality factor" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 50.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "status" ;
+		lv2:name "Render status" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "prog" ;
+		lv2:name "Rendering progress" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "normal" ;
+		lv2:name "Normalize rendered samples" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "render" ;
+		lv2:name "Launch/Stop rendering process" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "ifs" ;
+		lv2:name "Input 3D model load status" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "ifp" ;
+		lv2:name "File loading progress" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "ifo" ;
+		lv2:name "Input 3D model orientation" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "+X forward, +Y up"; rdf:value 0 ] ,
+			[ rdfs:label "+X forward, +Z up"; rdf:value 1 ] ,
+			[ rdfs:label "+X forward, -Y up"; rdf:value 2 ] ,
+			[ rdfs:label "+X forward, -Z up"; rdf:value 3 ] ,
+			[ rdfs:label "-X forward, +Y up"; rdf:value 4 ] ,
+			[ rdfs:label "-X forward, +Z up"; rdf:value 5 ] ,
+			[ rdfs:label "-X forward, -Y up"; rdf:value 6 ] ,
+			[ rdfs:label "-X forward, -Z up"; rdf:value 7 ] ,
+			[ rdfs:label "+Y forward, +X up"; rdf:value 8 ] ,
+			[ rdfs:label "+Y forward, +Z up"; rdf:value 9 ] ,
+			[ rdfs:label "+Y forward, -X up"; rdf:value 10 ] ,
+			[ rdfs:label "+Y forward, -Z up"; rdf:value 11 ] ,
+			[ rdfs:label "-Y forward, +X up"; rdf:value 12 ] ,
+			[ rdfs:label "-Y forward, +Z up"; rdf:value 13 ] ,
+			[ rdfs:label "-Y forward, -X up"; rdf:value 14 ] ,
+			[ rdfs:label "-Y forward, -Z up"; rdf:value 15 ] ,
+			[ rdfs:label "+Z forward, +X up"; rdf:value 16 ] ,
+			[ rdfs:label "+Z forward, +Y up"; rdf:value 17 ] ,
+			[ rdfs:label "+Z forward, -X up"; rdf:value 18 ] ,
+			[ rdfs:label "+Z forward, -Y up"; rdf:value 19 ] ,
+			[ rdfs:label "-Z forward, +X up"; rdf:value 20 ] ,
+			[ rdfs:label "-Z forward, +Y up"; rdf:value 21 ] ,
+			[ rdfs:label "-Z forward, -X up"; rdf:value 22 ] ,
+			[ rdfs:label "-Z forward, -Y up"; rdf:value 23 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 23 ;
+		lv2:default 9 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "xscale" ;
+		lv2:name "Scene X scale" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "yscale" ;
+		lv2:name "Scene Y scale" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "zscale" ;
+		lv2:name "Scene Z scale" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "cposx" ;
+		lv2:name "Camera X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "cposy" ;
+		lv2:name "Camera Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -0.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "cposz" ;
+		lv2:name "Camera Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 31 ;
+		lv2:symbol "cyaw" ;
+		lv2:name "Camera Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 80.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 32 ;
+		lv2:symbol "cpitch" ;
+		lv2:name "Camera Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -89.000000 ;
+		lv2:maximum 89.000000 ;
+		lv2:default -25.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 33 ;
+		lv2:symbol "ssel" ;
+		lv2:name "Source selector" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "0"; rdf:value 0 ] ,
+			[ rdfs:label "1"; rdf:value 1 ] ,
+			[ rdfs:label "2"; rdf:value 2 ] ,
+			[ rdfs:label "3"; rdf:value 3 ] ,
+			[ rdfs:label "4"; rdf:value 4 ] ,
+			[ rdfs:label "5"; rdf:value 5 ] ,
+			[ rdfs:label "6"; rdf:value 6 ] ,
+			[ rdfs:label "7"; rdf:value 7 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 7 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "sse_0" ;
+		lv2:name "Source 0 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 35 ;
+		lv2:symbol "sscf_0" ;
+		lv2:name "Source 0 type" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Triangle"; rdf:value 0 ] ,
+			[ rdfs:label "Tetrahedron"; rdf:value 1 ] ,
+			[ rdfs:label "Octahedron"; rdf:value 2 ] ,
+			[ rdfs:label "Box"; rdf:value 3 ] ,
+			[ rdfs:label "Icosahedron"; rdf:value 4 ] ,
+			[ rdfs:label "Cylinder"; rdf:value 5 ] ,
+			[ rdfs:label "Cone"; rdf:value 6 ] ,
+			[ rdfs:label "Octasphere"; rdf:value 7 ] ,
+			[ rdfs:label "Icosphere"; rdf:value 8 ] ,
+			[ rdfs:label "Flat spot"; rdf:value 9 ] ,
+			[ rdfs:label "Cylindrical spot"; rdf:value 10 ] ,
+			[ rdfs:label "Spherical spot"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 36 ;
+		lv2:symbol "ssph_0" ;
+		lv2:name "Source 0 phase invert" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 37 ;
+		lv2:symbol "sspx_0" ;
+		lv2:name "Source 0 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 38 ;
+		lv2:symbol "sspy_0" ;
+		lv2:name "Source 0 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 39 ;
+		lv2:symbol "sspz_0" ;
+		lv2:name "Source 0 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 40 ;
+		lv2:symbol "ssay_0" ;
+		lv2:name "Source 0 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 41 ;
+		lv2:symbol "ssap_0" ;
+		lv2:name "Source 0 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 42 ;
+		lv2:symbol "ssar_0" ;
+		lv2:name "Source 0 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 43 ;
+		lv2:symbol "sss_0" ;
+		lv2:name "Source 0 size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 30.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 44 ;
+		lv2:symbol "shh_0" ;
+		lv2:name "Source 0 height" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 15.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 45 ;
+		lv2:symbol "ssa_0" ;
+		lv2:name "Source 0 angle" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 50.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 46 ;
+		lv2:symbol "sscv_0" ;
+		lv2:name "Source 0 curvature" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 47 ;
+		lv2:symbol "ssh_0" ;
+		lv2:name "Source 0 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 48 ;
+		lv2:symbol "sse_1" ;
+		lv2:name "Source 1 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 49 ;
+		lv2:symbol "sscf_1" ;
+		lv2:name "Source 1 type" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Triangle"; rdf:value 0 ] ,
+			[ rdfs:label "Tetrahedron"; rdf:value 1 ] ,
+			[ rdfs:label "Octahedron"; rdf:value 2 ] ,
+			[ rdfs:label "Box"; rdf:value 3 ] ,
+			[ rdfs:label "Icosahedron"; rdf:value 4 ] ,
+			[ rdfs:label "Cylinder"; rdf:value 5 ] ,
+			[ rdfs:label "Cone"; rdf:value 6 ] ,
+			[ rdfs:label "Octasphere"; rdf:value 7 ] ,
+			[ rdfs:label "Icosphere"; rdf:value 8 ] ,
+			[ rdfs:label "Flat spot"; rdf:value 9 ] ,
+			[ rdfs:label "Cylindrical spot"; rdf:value 10 ] ,
+			[ rdfs:label "Spherical spot"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 50 ;
+		lv2:symbol "ssph_1" ;
+		lv2:name "Source 1 phase invert" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 51 ;
+		lv2:symbol "sspx_1" ;
+		lv2:name "Source 1 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 52 ;
+		lv2:symbol "sspy_1" ;
+		lv2:name "Source 1 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 53 ;
+		lv2:symbol "sspz_1" ;
+		lv2:name "Source 1 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 54 ;
+		lv2:symbol "ssay_1" ;
+		lv2:name "Source 1 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 55 ;
+		lv2:symbol "ssap_1" ;
+		lv2:name "Source 1 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 56 ;
+		lv2:symbol "ssar_1" ;
+		lv2:name "Source 1 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 57 ;
+		lv2:symbol "sss_1" ;
+		lv2:name "Source 1 size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 30.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 58 ;
+		lv2:symbol "shh_1" ;
+		lv2:name "Source 1 height" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 15.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 59 ;
+		lv2:symbol "ssa_1" ;
+		lv2:name "Source 1 angle" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 50.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 60 ;
+		lv2:symbol "sscv_1" ;
+		lv2:name "Source 1 curvature" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 61 ;
+		lv2:symbol "ssh_1" ;
+		lv2:name "Source 1 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.125000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 62 ;
+		lv2:symbol "sse_2" ;
+		lv2:name "Source 2 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 63 ;
+		lv2:symbol "sscf_2" ;
+		lv2:name "Source 2 type" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Triangle"; rdf:value 0 ] ,
+			[ rdfs:label "Tetrahedron"; rdf:value 1 ] ,
+			[ rdfs:label "Octahedron"; rdf:value 2 ] ,
+			[ rdfs:label "Box"; rdf:value 3 ] ,
+			[ rdfs:label "Icosahedron"; rdf:value 4 ] ,
+			[ rdfs:label "Cylinder"; rdf:value 5 ] ,
+			[ rdfs:label "Cone"; rdf:value 6 ] ,
+			[ rdfs:label "Octasphere"; rdf:value 7 ] ,
+			[ rdfs:label "Icosphere"; rdf:value 8 ] ,
+			[ rdfs:label "Flat spot"; rdf:value 9 ] ,
+			[ rdfs:label "Cylindrical spot"; rdf:value 10 ] ,
+			[ rdfs:label "Spherical spot"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 64 ;
+		lv2:symbol "ssph_2" ;
+		lv2:name "Source 2 phase invert" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 65 ;
+		lv2:symbol "sspx_2" ;
+		lv2:name "Source 2 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 66 ;
+		lv2:symbol "sspy_2" ;
+		lv2:name "Source 2 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 67 ;
+		lv2:symbol "sspz_2" ;
+		lv2:name "Source 2 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 68 ;
+		lv2:symbol "ssay_2" ;
+		lv2:name "Source 2 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 69 ;
+		lv2:symbol "ssap_2" ;
+		lv2:name "Source 2 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 70 ;
+		lv2:symbol "ssar_2" ;
+		lv2:name "Source 2 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 71 ;
+		lv2:symbol "sss_2" ;
+		lv2:name "Source 2 size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 30.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 72 ;
+		lv2:symbol "shh_2" ;
+		lv2:name "Source 2 height" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 15.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 73 ;
+		lv2:symbol "ssa_2" ;
+		lv2:name "Source 2 angle" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 50.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 74 ;
+		lv2:symbol "sscv_2" ;
+		lv2:name "Source 2 curvature" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 75 ;
+		lv2:symbol "ssh_2" ;
+		lv2:name "Source 2 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.250000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 76 ;
+		lv2:symbol "sse_3" ;
+		lv2:name "Source 3 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 77 ;
+		lv2:symbol "sscf_3" ;
+		lv2:name "Source 3 type" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Triangle"; rdf:value 0 ] ,
+			[ rdfs:label "Tetrahedron"; rdf:value 1 ] ,
+			[ rdfs:label "Octahedron"; rdf:value 2 ] ,
+			[ rdfs:label "Box"; rdf:value 3 ] ,
+			[ rdfs:label "Icosahedron"; rdf:value 4 ] ,
+			[ rdfs:label "Cylinder"; rdf:value 5 ] ,
+			[ rdfs:label "Cone"; rdf:value 6 ] ,
+			[ rdfs:label "Octasphere"; rdf:value 7 ] ,
+			[ rdfs:label "Icosphere"; rdf:value 8 ] ,
+			[ rdfs:label "Flat spot"; rdf:value 9 ] ,
+			[ rdfs:label "Cylindrical spot"; rdf:value 10 ] ,
+			[ rdfs:label "Spherical spot"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 78 ;
+		lv2:symbol "ssph_3" ;
+		lv2:name "Source 3 phase invert" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 79 ;
+		lv2:symbol "sspx_3" ;
+		lv2:name "Source 3 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 80 ;
+		lv2:symbol "sspy_3" ;
+		lv2:name "Source 3 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 81 ;
+		lv2:symbol "sspz_3" ;
+		lv2:name "Source 3 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 82 ;
+		lv2:symbol "ssay_3" ;
+		lv2:name "Source 3 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 83 ;
+		lv2:symbol "ssap_3" ;
+		lv2:name "Source 3 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 84 ;
+		lv2:symbol "ssar_3" ;
+		lv2:name "Source 3 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 85 ;
+		lv2:symbol "sss_3" ;
+		lv2:name "Source 3 size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 30.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 86 ;
+		lv2:symbol "shh_3" ;
+		lv2:name "Source 3 height" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 15.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 87 ;
+		lv2:symbol "ssa_3" ;
+		lv2:name "Source 3 angle" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 50.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 88 ;
+		lv2:symbol "sscv_3" ;
+		lv2:name "Source 3 curvature" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 89 ;
+		lv2:symbol "ssh_3" ;
+		lv2:name "Source 3 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.375000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 90 ;
+		lv2:symbol "sse_4" ;
+		lv2:name "Source 4 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 91 ;
+		lv2:symbol "sscf_4" ;
+		lv2:name "Source 4 type" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Triangle"; rdf:value 0 ] ,
+			[ rdfs:label "Tetrahedron"; rdf:value 1 ] ,
+			[ rdfs:label "Octahedron"; rdf:value 2 ] ,
+			[ rdfs:label "Box"; rdf:value 3 ] ,
+			[ rdfs:label "Icosahedron"; rdf:value 4 ] ,
+			[ rdfs:label "Cylinder"; rdf:value 5 ] ,
+			[ rdfs:label "Cone"; rdf:value 6 ] ,
+			[ rdfs:label "Octasphere"; rdf:value 7 ] ,
+			[ rdfs:label "Icosphere"; rdf:value 8 ] ,
+			[ rdfs:label "Flat spot"; rdf:value 9 ] ,
+			[ rdfs:label "Cylindrical spot"; rdf:value 10 ] ,
+			[ rdfs:label "Spherical spot"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 92 ;
+		lv2:symbol "ssph_4" ;
+		lv2:name "Source 4 phase invert" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 93 ;
+		lv2:symbol "sspx_4" ;
+		lv2:name "Source 4 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 94 ;
+		lv2:symbol "sspy_4" ;
+		lv2:name "Source 4 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 95 ;
+		lv2:symbol "sspz_4" ;
+		lv2:name "Source 4 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 96 ;
+		lv2:symbol "ssay_4" ;
+		lv2:name "Source 4 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 97 ;
+		lv2:symbol "ssap_4" ;
+		lv2:name "Source 4 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 98 ;
+		lv2:symbol "ssar_4" ;
+		lv2:name "Source 4 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 99 ;
+		lv2:symbol "sss_4" ;
+		lv2:name "Source 4 size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 30.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 100 ;
+		lv2:symbol "shh_4" ;
+		lv2:name "Source 4 height" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 15.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 101 ;
+		lv2:symbol "ssa_4" ;
+		lv2:name "Source 4 angle" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 50.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 102 ;
+		lv2:symbol "sscv_4" ;
+		lv2:name "Source 4 curvature" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 103 ;
+		lv2:symbol "ssh_4" ;
+		lv2:name "Source 4 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 104 ;
+		lv2:symbol "sse_5" ;
+		lv2:name "Source 5 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 105 ;
+		lv2:symbol "sscf_5" ;
+		lv2:name "Source 5 type" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Triangle"; rdf:value 0 ] ,
+			[ rdfs:label "Tetrahedron"; rdf:value 1 ] ,
+			[ rdfs:label "Octahedron"; rdf:value 2 ] ,
+			[ rdfs:label "Box"; rdf:value 3 ] ,
+			[ rdfs:label "Icosahedron"; rdf:value 4 ] ,
+			[ rdfs:label "Cylinder"; rdf:value 5 ] ,
+			[ rdfs:label "Cone"; rdf:value 6 ] ,
+			[ rdfs:label "Octasphere"; rdf:value 7 ] ,
+			[ rdfs:label "Icosphere"; rdf:value 8 ] ,
+			[ rdfs:label "Flat spot"; rdf:value 9 ] ,
+			[ rdfs:label "Cylindrical spot"; rdf:value 10 ] ,
+			[ rdfs:label "Spherical spot"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 106 ;
+		lv2:symbol "ssph_5" ;
+		lv2:name "Source 5 phase invert" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 107 ;
+		lv2:symbol "sspx_5" ;
+		lv2:name "Source 5 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 108 ;
+		lv2:symbol "sspy_5" ;
+		lv2:name "Source 5 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 109 ;
+		lv2:symbol "sspz_5" ;
+		lv2:name "Source 5 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 110 ;
+		lv2:symbol "ssay_5" ;
+		lv2:name "Source 5 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 111 ;
+		lv2:symbol "ssap_5" ;
+		lv2:name "Source 5 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 112 ;
+		lv2:symbol "ssar_5" ;
+		lv2:name "Source 5 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 113 ;
+		lv2:symbol "sss_5" ;
+		lv2:name "Source 5 size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 30.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 114 ;
+		lv2:symbol "shh_5" ;
+		lv2:name "Source 5 height" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 15.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 115 ;
+		lv2:symbol "ssa_5" ;
+		lv2:name "Source 5 angle" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 50.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 116 ;
+		lv2:symbol "sscv_5" ;
+		lv2:name "Source 5 curvature" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 117 ;
+		lv2:symbol "ssh_5" ;
+		lv2:name "Source 5 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.625000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 118 ;
+		lv2:symbol "sse_6" ;
+		lv2:name "Source 6 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 119 ;
+		lv2:symbol "sscf_6" ;
+		lv2:name "Source 6 type" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Triangle"; rdf:value 0 ] ,
+			[ rdfs:label "Tetrahedron"; rdf:value 1 ] ,
+			[ rdfs:label "Octahedron"; rdf:value 2 ] ,
+			[ rdfs:label "Box"; rdf:value 3 ] ,
+			[ rdfs:label "Icosahedron"; rdf:value 4 ] ,
+			[ rdfs:label "Cylinder"; rdf:value 5 ] ,
+			[ rdfs:label "Cone"; rdf:value 6 ] ,
+			[ rdfs:label "Octasphere"; rdf:value 7 ] ,
+			[ rdfs:label "Icosphere"; rdf:value 8 ] ,
+			[ rdfs:label "Flat spot"; rdf:value 9 ] ,
+			[ rdfs:label "Cylindrical spot"; rdf:value 10 ] ,
+			[ rdfs:label "Spherical spot"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 120 ;
+		lv2:symbol "ssph_6" ;
+		lv2:name "Source 6 phase invert" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 121 ;
+		lv2:symbol "sspx_6" ;
+		lv2:name "Source 6 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 122 ;
+		lv2:symbol "sspy_6" ;
+		lv2:name "Source 6 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 123 ;
+		lv2:symbol "sspz_6" ;
+		lv2:name "Source 6 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 124 ;
+		lv2:symbol "ssay_6" ;
+		lv2:name "Source 6 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 125 ;
+		lv2:symbol "ssap_6" ;
+		lv2:name "Source 6 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 126 ;
+		lv2:symbol "ssar_6" ;
+		lv2:name "Source 6 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 127 ;
+		lv2:symbol "sss_6" ;
+		lv2:name "Source 6 size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 30.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 128 ;
+		lv2:symbol "shh_6" ;
+		lv2:name "Source 6 height" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 15.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 129 ;
+		lv2:symbol "ssa_6" ;
+		lv2:name "Source 6 angle" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 50.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 130 ;
+		lv2:symbol "sscv_6" ;
+		lv2:name "Source 6 curvature" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 131 ;
+		lv2:symbol "ssh_6" ;
+		lv2:name "Source 6 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.750000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 132 ;
+		lv2:symbol "sse_7" ;
+		lv2:name "Source 7 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 133 ;
+		lv2:symbol "sscf_7" ;
+		lv2:name "Source 7 type" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Triangle"; rdf:value 0 ] ,
+			[ rdfs:label "Tetrahedron"; rdf:value 1 ] ,
+			[ rdfs:label "Octahedron"; rdf:value 2 ] ,
+			[ rdfs:label "Box"; rdf:value 3 ] ,
+			[ rdfs:label "Icosahedron"; rdf:value 4 ] ,
+			[ rdfs:label "Cylinder"; rdf:value 5 ] ,
+			[ rdfs:label "Cone"; rdf:value 6 ] ,
+			[ rdfs:label "Octasphere"; rdf:value 7 ] ,
+			[ rdfs:label "Icosphere"; rdf:value 8 ] ,
+			[ rdfs:label "Flat spot"; rdf:value 9 ] ,
+			[ rdfs:label "Cylindrical spot"; rdf:value 10 ] ,
+			[ rdfs:label "Spherical spot"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 134 ;
+		lv2:symbol "ssph_7" ;
+		lv2:name "Source 7 phase invert" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 135 ;
+		lv2:symbol "sspx_7" ;
+		lv2:name "Source 7 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 136 ;
+		lv2:symbol "sspy_7" ;
+		lv2:name "Source 7 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 137 ;
+		lv2:symbol "sspz_7" ;
+		lv2:name "Source 7 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 138 ;
+		lv2:symbol "ssay_7" ;
+		lv2:name "Source 7 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 139 ;
+		lv2:symbol "ssap_7" ;
+		lv2:name "Source 7 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 140 ;
+		lv2:symbol "ssar_7" ;
+		lv2:name "Source 7 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 141 ;
+		lv2:symbol "sss_7" ;
+		lv2:name "Source 7 size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 30.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 142 ;
+		lv2:symbol "shh_7" ;
+		lv2:name "Source 7 height" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 15.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 143 ;
+		lv2:symbol "ssa_7" ;
+		lv2:name "Source 7 angle" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 50.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 144 ;
+		lv2:symbol "sscv_7" ;
+		lv2:name "Source 7 curvature" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 145 ;
+		lv2:symbol "ssh_7" ;
+		lv2:name "Source 7 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.875000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 146 ;
+		lv2:symbol "csel" ;
+		lv2:name "Capture selector" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "0"; rdf:value 0 ] ,
+			[ rdfs:label "1"; rdf:value 1 ] ,
+			[ rdfs:label "2"; rdf:value 2 ] ,
+			[ rdfs:label "3"; rdf:value 3 ] ,
+			[ rdfs:label "4"; rdf:value 4 ] ,
+			[ rdfs:label "5"; rdf:value 5 ] ,
+			[ rdfs:label "6"; rdf:value 6 ] ,
+			[ rdfs:label "7"; rdf:value 7 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 7 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 147 ;
+		lv2:symbol "sce_0" ;
+		lv2:name "Capture 0 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 148 ;
+		lv2:symbol "scf_0" ;
+		lv2:name "Capture 0 first reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 149 ;
+		lv2:symbol "scl_0" ;
+		lv2:name "Capture 0 last reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 150 ;
+		lv2:symbol "scpx_0" ;
+		lv2:name "Capture 0 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 151 ;
+		lv2:symbol "scpy_0" ;
+		lv2:name "Capture 0 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 152 ;
+		lv2:symbol "scpz_0" ;
+		lv2:name "Capture 0 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 153 ;
+		lv2:symbol "scay_0" ;
+		lv2:name "Capture 0 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 270.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 154 ;
+		lv2:symbol "scap_0" ;
+		lv2:name "Capture 0 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 155 ;
+		lv2:symbol "scar_0" ;
+		lv2:name "Capture 0 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 156 ;
+		lv2:symbol "sccs_0" ;
+		lv2:name "Capture 0 capsule size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 30.000000 ;
+		lv2:default 2.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 157 ;
+		lv2:symbol "sccf_0" ;
+		lv2:name "Capture 0 configuration" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Mono"; rdf:value 0 ] ,
+			[ rdfs:label "XY"; rdf:value 1 ] ,
+			[ rdfs:label "AB"; rdf:value 2 ] ,
+			[ rdfs:label "ORTF"; rdf:value 3 ] ,
+			[ rdfs:label "MS"; rdf:value 4 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 4 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 158 ;
+		lv2:symbol "sca_0" ;
+		lv2:name "Capture 0 angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 45.000000 ;
+		lv2:maximum 135.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 159 ;
+		lv2:symbol "scab_0" ;
+		lv2:name "Capture 0 AB distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 160 ;
+		lv2:symbol "scmd_0" ;
+		lv2:name "Capture 0 microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Cardioid"; rdf:value 0 ] ,
+			[ rdfs:label "Supercardioid"; rdf:value 1 ] ,
+			[ rdfs:label "Hypercardioid"; rdf:value 2 ] ,
+			[ rdfs:label "Bidirectional"; rdf:value 3 ] ,
+			[ rdfs:label "8-directional"; rdf:value 4 ] ,
+			[ rdfs:label "Omnidirectional"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 161 ;
+		lv2:symbol "scsd_0" ;
+		lv2:name "Capture 0 side microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Bidirectional"; rdf:value 0 ] ,
+			[ rdfs:label "8-directional"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 162 ;
+		lv2:symbol "ihc_0" ;
+		lv2:name "Head cut0" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 163 ;
+		lv2:symbol "itc_0" ;
+		lv2:name "Tail cut0" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 164 ;
+		lv2:symbol "ifi_0" ;
+		lv2:name "Fade in0" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 165 ;
+		lv2:symbol "ifo_0" ;
+		lv2:name "Fade out0" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 166 ;
+		lv2:symbol "ils_0" ;
+		lv2:name "Impulse listen preview0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 167 ;
+		lv2:symbol "ilc_0" ;
+		lv2:name "Impulse stop preview0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 168 ;
+		lv2:symbol "irv_0" ;
+		lv2:name "Impulse reverse0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 169 ;
+		lv2:symbol "imkp_0" ;
+		lv2:name "Impulse makeup gain0" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.001000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 170 ;
+		lv2:symbol "ifs_0" ;
+		lv2:name "Impulse status0" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 171 ;
+		lv2:symbol "ifl_0" ;
+		lv2:name "Impulse length0" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 172 ;
+		lv2:symbol "sdur_0" ;
+		lv2:name "Impulse current duration0" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 173 ;
+		lv2:symbol "smdur_0" ;
+		lv2:name "Impulse max duration0" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 174 ;
+		lv2:symbol "ofc_0" ;
+		lv2:name "Sample save command0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 175 ;
+		lv2:symbol "ofs_0" ;
+		lv2:name "Sample saving status0" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 176 ;
+		lv2:symbol "ofp_0" ;
+		lv2:name "Sample saving progress0" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 177 ;
+		lv2:symbol "sch_0" ;
+		lv2:name "Capture 0 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 178 ;
+		lv2:symbol "sce_1" ;
+		lv2:name "Capture 1 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 179 ;
+		lv2:symbol "scf_1" ;
+		lv2:name "Capture 1 first reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 180 ;
+		lv2:symbol "scl_1" ;
+		lv2:name "Capture 1 last reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 181 ;
+		lv2:symbol "scpx_1" ;
+		lv2:name "Capture 1 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 182 ;
+		lv2:symbol "scpy_1" ;
+		lv2:name "Capture 1 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 183 ;
+		lv2:symbol "scpz_1" ;
+		lv2:name "Capture 1 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 184 ;
+		lv2:symbol "scay_1" ;
+		lv2:name "Capture 1 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 270.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 185 ;
+		lv2:symbol "scap_1" ;
+		lv2:name "Capture 1 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 186 ;
+		lv2:symbol "scar_1" ;
+		lv2:name "Capture 1 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 187 ;
+		lv2:symbol "sccs_1" ;
+		lv2:name "Capture 1 capsule size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 30.000000 ;
+		lv2:default 2.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 188 ;
+		lv2:symbol "sccf_1" ;
+		lv2:name "Capture 1 configuration" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Mono"; rdf:value 0 ] ,
+			[ rdfs:label "XY"; rdf:value 1 ] ,
+			[ rdfs:label "AB"; rdf:value 2 ] ,
+			[ rdfs:label "ORTF"; rdf:value 3 ] ,
+			[ rdfs:label "MS"; rdf:value 4 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 4 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 189 ;
+		lv2:symbol "sca_1" ;
+		lv2:name "Capture 1 angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 45.000000 ;
+		lv2:maximum 135.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 190 ;
+		lv2:symbol "scab_1" ;
+		lv2:name "Capture 1 AB distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 191 ;
+		lv2:symbol "scmd_1" ;
+		lv2:name "Capture 1 microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Cardioid"; rdf:value 0 ] ,
+			[ rdfs:label "Supercardioid"; rdf:value 1 ] ,
+			[ rdfs:label "Hypercardioid"; rdf:value 2 ] ,
+			[ rdfs:label "Bidirectional"; rdf:value 3 ] ,
+			[ rdfs:label "8-directional"; rdf:value 4 ] ,
+			[ rdfs:label "Omnidirectional"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 192 ;
+		lv2:symbol "scsd_1" ;
+		lv2:name "Capture 1 side microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Bidirectional"; rdf:value 0 ] ,
+			[ rdfs:label "8-directional"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 193 ;
+		lv2:symbol "ihc_1" ;
+		lv2:name "Head cut1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 194 ;
+		lv2:symbol "itc_1" ;
+		lv2:name "Tail cut1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 195 ;
+		lv2:symbol "ifi_1" ;
+		lv2:name "Fade in1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 196 ;
+		lv2:symbol "ifo_1" ;
+		lv2:name "Fade out1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 197 ;
+		lv2:symbol "ils_1" ;
+		lv2:name "Impulse listen preview1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 198 ;
+		lv2:symbol "ilc_1" ;
+		lv2:name "Impulse stop preview1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 199 ;
+		lv2:symbol "irv_1" ;
+		lv2:name "Impulse reverse1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 200 ;
+		lv2:symbol "imkp_1" ;
+		lv2:name "Impulse makeup gain1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.001000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 201 ;
+		lv2:symbol "ifs_1" ;
+		lv2:name "Impulse status1" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 202 ;
+		lv2:symbol "ifl_1" ;
+		lv2:name "Impulse length1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 203 ;
+		lv2:symbol "sdur_1" ;
+		lv2:name "Impulse current duration1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 204 ;
+		lv2:symbol "smdur_1" ;
+		lv2:name "Impulse max duration1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 205 ;
+		lv2:symbol "ofc_1" ;
+		lv2:name "Sample save command1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 206 ;
+		lv2:symbol "ofs_1" ;
+		lv2:name "Sample saving status1" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 207 ;
+		lv2:symbol "ofp_1" ;
+		lv2:name "Sample saving progress1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 208 ;
+		lv2:symbol "sch_1" ;
+		lv2:name "Capture 1 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.125000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 209 ;
+		lv2:symbol "sce_2" ;
+		lv2:name "Capture 2 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 210 ;
+		lv2:symbol "scf_2" ;
+		lv2:name "Capture 2 first reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 211 ;
+		lv2:symbol "scl_2" ;
+		lv2:name "Capture 2 last reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 212 ;
+		lv2:symbol "scpx_2" ;
+		lv2:name "Capture 2 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 213 ;
+		lv2:symbol "scpy_2" ;
+		lv2:name "Capture 2 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 214 ;
+		lv2:symbol "scpz_2" ;
+		lv2:name "Capture 2 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 215 ;
+		lv2:symbol "scay_2" ;
+		lv2:name "Capture 2 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 270.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 216 ;
+		lv2:symbol "scap_2" ;
+		lv2:name "Capture 2 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 217 ;
+		lv2:symbol "scar_2" ;
+		lv2:name "Capture 2 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 218 ;
+		lv2:symbol "sccs_2" ;
+		lv2:name "Capture 2 capsule size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 30.000000 ;
+		lv2:default 2.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 219 ;
+		lv2:symbol "sccf_2" ;
+		lv2:name "Capture 2 configuration" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Mono"; rdf:value 0 ] ,
+			[ rdfs:label "XY"; rdf:value 1 ] ,
+			[ rdfs:label "AB"; rdf:value 2 ] ,
+			[ rdfs:label "ORTF"; rdf:value 3 ] ,
+			[ rdfs:label "MS"; rdf:value 4 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 4 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 220 ;
+		lv2:symbol "sca_2" ;
+		lv2:name "Capture 2 angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 45.000000 ;
+		lv2:maximum 135.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 221 ;
+		lv2:symbol "scab_2" ;
+		lv2:name "Capture 2 AB distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 222 ;
+		lv2:symbol "scmd_2" ;
+		lv2:name "Capture 2 microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Cardioid"; rdf:value 0 ] ,
+			[ rdfs:label "Supercardioid"; rdf:value 1 ] ,
+			[ rdfs:label "Hypercardioid"; rdf:value 2 ] ,
+			[ rdfs:label "Bidirectional"; rdf:value 3 ] ,
+			[ rdfs:label "8-directional"; rdf:value 4 ] ,
+			[ rdfs:label "Omnidirectional"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 223 ;
+		lv2:symbol "scsd_2" ;
+		lv2:name "Capture 2 side microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Bidirectional"; rdf:value 0 ] ,
+			[ rdfs:label "8-directional"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 224 ;
+		lv2:symbol "ihc_2" ;
+		lv2:name "Head cut2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 225 ;
+		lv2:symbol "itc_2" ;
+		lv2:name "Tail cut2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 226 ;
+		lv2:symbol "ifi_2" ;
+		lv2:name "Fade in2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 227 ;
+		lv2:symbol "ifo_2" ;
+		lv2:name "Fade out2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 228 ;
+		lv2:symbol "ils_2" ;
+		lv2:name "Impulse listen preview2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 229 ;
+		lv2:symbol "ilc_2" ;
+		lv2:name "Impulse stop preview2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 230 ;
+		lv2:symbol "irv_2" ;
+		lv2:name "Impulse reverse2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 231 ;
+		lv2:symbol "imkp_2" ;
+		lv2:name "Impulse makeup gain2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.001000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 232 ;
+		lv2:symbol "ifs_2" ;
+		lv2:name "Impulse status2" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 233 ;
+		lv2:symbol "ifl_2" ;
+		lv2:name "Impulse length2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 234 ;
+		lv2:symbol "sdur_2" ;
+		lv2:name "Impulse current duration2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 235 ;
+		lv2:symbol "smdur_2" ;
+		lv2:name "Impulse max duration2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 236 ;
+		lv2:symbol "ofc_2" ;
+		lv2:name "Sample save command2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 237 ;
+		lv2:symbol "ofs_2" ;
+		lv2:name "Sample saving status2" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 238 ;
+		lv2:symbol "ofp_2" ;
+		lv2:name "Sample saving progress2" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 239 ;
+		lv2:symbol "sch_2" ;
+		lv2:name "Capture 2 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.250000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 240 ;
+		lv2:symbol "sce_3" ;
+		lv2:name "Capture 3 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 241 ;
+		lv2:symbol "scf_3" ;
+		lv2:name "Capture 3 first reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 242 ;
+		lv2:symbol "scl_3" ;
+		lv2:name "Capture 3 last reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 243 ;
+		lv2:symbol "scpx_3" ;
+		lv2:name "Capture 3 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 244 ;
+		lv2:symbol "scpy_3" ;
+		lv2:name "Capture 3 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 245 ;
+		lv2:symbol "scpz_3" ;
+		lv2:name "Capture 3 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 246 ;
+		lv2:symbol "scay_3" ;
+		lv2:name "Capture 3 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 270.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 247 ;
+		lv2:symbol "scap_3" ;
+		lv2:name "Capture 3 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 248 ;
+		lv2:symbol "scar_3" ;
+		lv2:name "Capture 3 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 249 ;
+		lv2:symbol "sccs_3" ;
+		lv2:name "Capture 3 capsule size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 30.000000 ;
+		lv2:default 2.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 250 ;
+		lv2:symbol "sccf_3" ;
+		lv2:name "Capture 3 configuration" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Mono"; rdf:value 0 ] ,
+			[ rdfs:label "XY"; rdf:value 1 ] ,
+			[ rdfs:label "AB"; rdf:value 2 ] ,
+			[ rdfs:label "ORTF"; rdf:value 3 ] ,
+			[ rdfs:label "MS"; rdf:value 4 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 4 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 251 ;
+		lv2:symbol "sca_3" ;
+		lv2:name "Capture 3 angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 45.000000 ;
+		lv2:maximum 135.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 252 ;
+		lv2:symbol "scab_3" ;
+		lv2:name "Capture 3 AB distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 253 ;
+		lv2:symbol "scmd_3" ;
+		lv2:name "Capture 3 microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Cardioid"; rdf:value 0 ] ,
+			[ rdfs:label "Supercardioid"; rdf:value 1 ] ,
+			[ rdfs:label "Hypercardioid"; rdf:value 2 ] ,
+			[ rdfs:label "Bidirectional"; rdf:value 3 ] ,
+			[ rdfs:label "8-directional"; rdf:value 4 ] ,
+			[ rdfs:label "Omnidirectional"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 254 ;
+		lv2:symbol "scsd_3" ;
+		lv2:name "Capture 3 side microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Bidirectional"; rdf:value 0 ] ,
+			[ rdfs:label "8-directional"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 255 ;
+		lv2:symbol "ihc_3" ;
+		lv2:name "Head cut3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 256 ;
+		lv2:symbol "itc_3" ;
+		lv2:name "Tail cut3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 257 ;
+		lv2:symbol "ifi_3" ;
+		lv2:name "Fade in3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 258 ;
+		lv2:symbol "ifo_3" ;
+		lv2:name "Fade out3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 259 ;
+		lv2:symbol "ils_3" ;
+		lv2:name "Impulse listen preview3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 260 ;
+		lv2:symbol "ilc_3" ;
+		lv2:name "Impulse stop preview3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 261 ;
+		lv2:symbol "irv_3" ;
+		lv2:name "Impulse reverse3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 262 ;
+		lv2:symbol "imkp_3" ;
+		lv2:name "Impulse makeup gain3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.001000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 263 ;
+		lv2:symbol "ifs_3" ;
+		lv2:name "Impulse status3" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 264 ;
+		lv2:symbol "ifl_3" ;
+		lv2:name "Impulse length3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 265 ;
+		lv2:symbol "sdur_3" ;
+		lv2:name "Impulse current duration3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 266 ;
+		lv2:symbol "smdur_3" ;
+		lv2:name "Impulse max duration3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 267 ;
+		lv2:symbol "ofc_3" ;
+		lv2:name "Sample save command3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 268 ;
+		lv2:symbol "ofs_3" ;
+		lv2:name "Sample saving status3" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 269 ;
+		lv2:symbol "ofp_3" ;
+		lv2:name "Sample saving progress3" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 270 ;
+		lv2:symbol "sch_3" ;
+		lv2:name "Capture 3 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.375000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 271 ;
+		lv2:symbol "sce_4" ;
+		lv2:name "Capture 4 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 272 ;
+		lv2:symbol "scf_4" ;
+		lv2:name "Capture 4 first reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 273 ;
+		lv2:symbol "scl_4" ;
+		lv2:name "Capture 4 last reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 274 ;
+		lv2:symbol "scpx_4" ;
+		lv2:name "Capture 4 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 275 ;
+		lv2:symbol "scpy_4" ;
+		lv2:name "Capture 4 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 276 ;
+		lv2:symbol "scpz_4" ;
+		lv2:name "Capture 4 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 277 ;
+		lv2:symbol "scay_4" ;
+		lv2:name "Capture 4 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 270.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 278 ;
+		lv2:symbol "scap_4" ;
+		lv2:name "Capture 4 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 279 ;
+		lv2:symbol "scar_4" ;
+		lv2:name "Capture 4 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 280 ;
+		lv2:symbol "sccs_4" ;
+		lv2:name "Capture 4 capsule size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 30.000000 ;
+		lv2:default 2.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 281 ;
+		lv2:symbol "sccf_4" ;
+		lv2:name "Capture 4 configuration" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Mono"; rdf:value 0 ] ,
+			[ rdfs:label "XY"; rdf:value 1 ] ,
+			[ rdfs:label "AB"; rdf:value 2 ] ,
+			[ rdfs:label "ORTF"; rdf:value 3 ] ,
+			[ rdfs:label "MS"; rdf:value 4 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 4 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 282 ;
+		lv2:symbol "sca_4" ;
+		lv2:name "Capture 4 angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 45.000000 ;
+		lv2:maximum 135.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 283 ;
+		lv2:symbol "scab_4" ;
+		lv2:name "Capture 4 AB distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 284 ;
+		lv2:symbol "scmd_4" ;
+		lv2:name "Capture 4 microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Cardioid"; rdf:value 0 ] ,
+			[ rdfs:label "Supercardioid"; rdf:value 1 ] ,
+			[ rdfs:label "Hypercardioid"; rdf:value 2 ] ,
+			[ rdfs:label "Bidirectional"; rdf:value 3 ] ,
+			[ rdfs:label "8-directional"; rdf:value 4 ] ,
+			[ rdfs:label "Omnidirectional"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 285 ;
+		lv2:symbol "scsd_4" ;
+		lv2:name "Capture 4 side microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Bidirectional"; rdf:value 0 ] ,
+			[ rdfs:label "8-directional"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 286 ;
+		lv2:symbol "ihc_4" ;
+		lv2:name "Head cut4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 287 ;
+		lv2:symbol "itc_4" ;
+		lv2:name "Tail cut4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 288 ;
+		lv2:symbol "ifi_4" ;
+		lv2:name "Fade in4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 289 ;
+		lv2:symbol "ifo_4" ;
+		lv2:name "Fade out4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 290 ;
+		lv2:symbol "ils_4" ;
+		lv2:name "Impulse listen preview4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 291 ;
+		lv2:symbol "ilc_4" ;
+		lv2:name "Impulse stop preview4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 292 ;
+		lv2:symbol "irv_4" ;
+		lv2:name "Impulse reverse4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 293 ;
+		lv2:symbol "imkp_4" ;
+		lv2:name "Impulse makeup gain4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.001000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 294 ;
+		lv2:symbol "ifs_4" ;
+		lv2:name "Impulse status4" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 295 ;
+		lv2:symbol "ifl_4" ;
+		lv2:name "Impulse length4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 296 ;
+		lv2:symbol "sdur_4" ;
+		lv2:name "Impulse current duration4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 297 ;
+		lv2:symbol "smdur_4" ;
+		lv2:name "Impulse max duration4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 298 ;
+		lv2:symbol "ofc_4" ;
+		lv2:name "Sample save command4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 299 ;
+		lv2:symbol "ofs_4" ;
+		lv2:name "Sample saving status4" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 300 ;
+		lv2:symbol "ofp_4" ;
+		lv2:name "Sample saving progress4" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 301 ;
+		lv2:symbol "sch_4" ;
+		lv2:name "Capture 4 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 302 ;
+		lv2:symbol "sce_5" ;
+		lv2:name "Capture 5 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 303 ;
+		lv2:symbol "scf_5" ;
+		lv2:name "Capture 5 first reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 304 ;
+		lv2:symbol "scl_5" ;
+		lv2:name "Capture 5 last reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 305 ;
+		lv2:symbol "scpx_5" ;
+		lv2:name "Capture 5 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 306 ;
+		lv2:symbol "scpy_5" ;
+		lv2:name "Capture 5 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 307 ;
+		lv2:symbol "scpz_5" ;
+		lv2:name "Capture 5 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 308 ;
+		lv2:symbol "scay_5" ;
+		lv2:name "Capture 5 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 270.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 309 ;
+		lv2:symbol "scap_5" ;
+		lv2:name "Capture 5 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 310 ;
+		lv2:symbol "scar_5" ;
+		lv2:name "Capture 5 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 311 ;
+		lv2:symbol "sccs_5" ;
+		lv2:name "Capture 5 capsule size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 30.000000 ;
+		lv2:default 2.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 312 ;
+		lv2:symbol "sccf_5" ;
+		lv2:name "Capture 5 configuration" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Mono"; rdf:value 0 ] ,
+			[ rdfs:label "XY"; rdf:value 1 ] ,
+			[ rdfs:label "AB"; rdf:value 2 ] ,
+			[ rdfs:label "ORTF"; rdf:value 3 ] ,
+			[ rdfs:label "MS"; rdf:value 4 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 4 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 313 ;
+		lv2:symbol "sca_5" ;
+		lv2:name "Capture 5 angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 45.000000 ;
+		lv2:maximum 135.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 314 ;
+		lv2:symbol "scab_5" ;
+		lv2:name "Capture 5 AB distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 315 ;
+		lv2:symbol "scmd_5" ;
+		lv2:name "Capture 5 microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Cardioid"; rdf:value 0 ] ,
+			[ rdfs:label "Supercardioid"; rdf:value 1 ] ,
+			[ rdfs:label "Hypercardioid"; rdf:value 2 ] ,
+			[ rdfs:label "Bidirectional"; rdf:value 3 ] ,
+			[ rdfs:label "8-directional"; rdf:value 4 ] ,
+			[ rdfs:label "Omnidirectional"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 316 ;
+		lv2:symbol "scsd_5" ;
+		lv2:name "Capture 5 side microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Bidirectional"; rdf:value 0 ] ,
+			[ rdfs:label "8-directional"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 317 ;
+		lv2:symbol "ihc_5" ;
+		lv2:name "Head cut5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 318 ;
+		lv2:symbol "itc_5" ;
+		lv2:name "Tail cut5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 319 ;
+		lv2:symbol "ifi_5" ;
+		lv2:name "Fade in5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 320 ;
+		lv2:symbol "ifo_5" ;
+		lv2:name "Fade out5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 321 ;
+		lv2:symbol "ils_5" ;
+		lv2:name "Impulse listen preview5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 322 ;
+		lv2:symbol "ilc_5" ;
+		lv2:name "Impulse stop preview5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 323 ;
+		lv2:symbol "irv_5" ;
+		lv2:name "Impulse reverse5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 324 ;
+		lv2:symbol "imkp_5" ;
+		lv2:name "Impulse makeup gain5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.001000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 325 ;
+		lv2:symbol "ifs_5" ;
+		lv2:name "Impulse status5" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 326 ;
+		lv2:symbol "ifl_5" ;
+		lv2:name "Impulse length5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 327 ;
+		lv2:symbol "sdur_5" ;
+		lv2:name "Impulse current duration5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 328 ;
+		lv2:symbol "smdur_5" ;
+		lv2:name "Impulse max duration5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 329 ;
+		lv2:symbol "ofc_5" ;
+		lv2:name "Sample save command5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 330 ;
+		lv2:symbol "ofs_5" ;
+		lv2:name "Sample saving status5" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 331 ;
+		lv2:symbol "ofp_5" ;
+		lv2:name "Sample saving progress5" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 332 ;
+		lv2:symbol "sch_5" ;
+		lv2:name "Capture 5 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.625000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 333 ;
+		lv2:symbol "sce_6" ;
+		lv2:name "Capture 6 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 334 ;
+		lv2:symbol "scf_6" ;
+		lv2:name "Capture 6 first reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 335 ;
+		lv2:symbol "scl_6" ;
+		lv2:name "Capture 6 last reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 336 ;
+		lv2:symbol "scpx_6" ;
+		lv2:name "Capture 6 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 337 ;
+		lv2:symbol "scpy_6" ;
+		lv2:name "Capture 6 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 338 ;
+		lv2:symbol "scpz_6" ;
+		lv2:name "Capture 6 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 339 ;
+		lv2:symbol "scay_6" ;
+		lv2:name "Capture 6 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 270.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 340 ;
+		lv2:symbol "scap_6" ;
+		lv2:name "Capture 6 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 341 ;
+		lv2:symbol "scar_6" ;
+		lv2:name "Capture 6 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 342 ;
+		lv2:symbol "sccs_6" ;
+		lv2:name "Capture 6 capsule size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 30.000000 ;
+		lv2:default 2.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 343 ;
+		lv2:symbol "sccf_6" ;
+		lv2:name "Capture 6 configuration" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Mono"; rdf:value 0 ] ,
+			[ rdfs:label "XY"; rdf:value 1 ] ,
+			[ rdfs:label "AB"; rdf:value 2 ] ,
+			[ rdfs:label "ORTF"; rdf:value 3 ] ,
+			[ rdfs:label "MS"; rdf:value 4 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 4 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 344 ;
+		lv2:symbol "sca_6" ;
+		lv2:name "Capture 6 angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 45.000000 ;
+		lv2:maximum 135.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 345 ;
+		lv2:symbol "scab_6" ;
+		lv2:name "Capture 6 AB distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 346 ;
+		lv2:symbol "scmd_6" ;
+		lv2:name "Capture 6 microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Cardioid"; rdf:value 0 ] ,
+			[ rdfs:label "Supercardioid"; rdf:value 1 ] ,
+			[ rdfs:label "Hypercardioid"; rdf:value 2 ] ,
+			[ rdfs:label "Bidirectional"; rdf:value 3 ] ,
+			[ rdfs:label "8-directional"; rdf:value 4 ] ,
+			[ rdfs:label "Omnidirectional"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 347 ;
+		lv2:symbol "scsd_6" ;
+		lv2:name "Capture 6 side microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Bidirectional"; rdf:value 0 ] ,
+			[ rdfs:label "8-directional"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 348 ;
+		lv2:symbol "ihc_6" ;
+		lv2:name "Head cut6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 349 ;
+		lv2:symbol "itc_6" ;
+		lv2:name "Tail cut6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 350 ;
+		lv2:symbol "ifi_6" ;
+		lv2:name "Fade in6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 351 ;
+		lv2:symbol "ifo_6" ;
+		lv2:name "Fade out6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 352 ;
+		lv2:symbol "ils_6" ;
+		lv2:name "Impulse listen preview6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 353 ;
+		lv2:symbol "ilc_6" ;
+		lv2:name "Impulse stop preview6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 354 ;
+		lv2:symbol "irv_6" ;
+		lv2:name "Impulse reverse6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 355 ;
+		lv2:symbol "imkp_6" ;
+		lv2:name "Impulse makeup gain6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.001000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 356 ;
+		lv2:symbol "ifs_6" ;
+		lv2:name "Impulse status6" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 357 ;
+		lv2:symbol "ifl_6" ;
+		lv2:name "Impulse length6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 358 ;
+		lv2:symbol "sdur_6" ;
+		lv2:name "Impulse current duration6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 359 ;
+		lv2:symbol "smdur_6" ;
+		lv2:name "Impulse max duration6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 360 ;
+		lv2:symbol "ofc_6" ;
+		lv2:name "Sample save command6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 361 ;
+		lv2:symbol "ofs_6" ;
+		lv2:name "Sample saving status6" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 362 ;
+		lv2:symbol "ofp_6" ;
+		lv2:name "Sample saving progress6" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 363 ;
+		lv2:symbol "sch_6" ;
+		lv2:name "Capture 6 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.750000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 364 ;
+		lv2:symbol "sce_7" ;
+		lv2:name "Capture 7 enable" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 365 ;
+		lv2:symbol "scf_7" ;
+		lv2:name "Capture 7 first reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 366 ;
+		lv2:symbol "scl_7" ;
+		lv2:name "Capture 7 last reflection order" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Any"; rdf:value 0 ] ,
+			[ rdfs:label "0"; rdf:value 1 ] ,
+			[ rdfs:label "1"; rdf:value 2 ] ,
+			[ rdfs:label "2"; rdf:value 3 ] ,
+			[ rdfs:label "3"; rdf:value 4 ] ,
+			[ rdfs:label "4"; rdf:value 5 ] ,
+			[ rdfs:label "5"; rdf:value 6 ] ,
+			[ rdfs:label "6"; rdf:value 7 ] ,
+			[ rdfs:label "7"; rdf:value 8 ] ,
+			[ rdfs:label "8"; rdf:value 9 ] ,
+			[ rdfs:label "9"; rdf:value 10 ] ,
+			[ rdfs:label "10"; rdf:value 11 ] ,
+			[ rdfs:label "11"; rdf:value 12 ] ,
+			[ rdfs:label "12"; rdf:value 13 ] ,
+			[ rdfs:label "13"; rdf:value 14 ] ,
+			[ rdfs:label "14"; rdf:value 15 ] ,
+			[ rdfs:label "15"; rdf:value 16 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 16 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 367 ;
+		lv2:symbol "scpx_7" ;
+		lv2:name "Capture 7 X position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 368 ;
+		lv2:symbol "scpy_7" ;
+		lv2:name "Capture 7 Y position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 369 ;
+		lv2:symbol "scpz_7" ;
+		lv2:name "Capture 7 Z position" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 370 ;
+		lv2:symbol "scay_7" ;
+		lv2:name "Capture 7 Yaw angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 270.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 371 ;
+		lv2:symbol "scap_7" ;
+		lv2:name "Capture 7 Pitch angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -90.000000 ;
+		lv2:maximum 90.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 372 ;
+		lv2:symbol "scar_7" ;
+		lv2:name "Capture 7 Roll angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 373 ;
+		lv2:symbol "sccs_7" ;
+		lv2:name "Capture 7 capsule size" ;
+		units:unit units:cm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 30.000000 ;
+		lv2:default 2.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 374 ;
+		lv2:symbol "sccf_7" ;
+		lv2:name "Capture 7 configuration" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Mono"; rdf:value 0 ] ,
+			[ rdfs:label "XY"; rdf:value 1 ] ,
+			[ rdfs:label "AB"; rdf:value 2 ] ,
+			[ rdfs:label "ORTF"; rdf:value 3 ] ,
+			[ rdfs:label "MS"; rdf:value 4 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 4 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 375 ;
+		lv2:symbol "sca_7" ;
+		lv2:name "Capture 7 angle" ;
+		units:unit units:degree ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 45.000000 ;
+		lv2:maximum 135.000000 ;
+		lv2:default 90.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 376 ;
+		lv2:symbol "scab_7" ;
+		lv2:name "Capture 7 AB distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 377 ;
+		lv2:symbol "scmd_7" ;
+		lv2:name "Capture 7 microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Cardioid"; rdf:value 0 ] ,
+			[ rdfs:label "Supercardioid"; rdf:value 1 ] ,
+			[ rdfs:label "Hypercardioid"; rdf:value 2 ] ,
+			[ rdfs:label "Bidirectional"; rdf:value 3 ] ,
+			[ rdfs:label "8-directional"; rdf:value 4 ] ,
+			[ rdfs:label "Omnidirectional"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 378 ;
+		lv2:symbol "scsd_7" ;
+		lv2:name "Capture 7 side microphone direction" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Bidirectional"; rdf:value 0 ] ,
+			[ rdfs:label "8-directional"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 379 ;
+		lv2:symbol "ihc_7" ;
+		lv2:name "Head cut7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 380 ;
+		lv2:symbol "itc_7" ;
+		lv2:name "Tail cut7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 381 ;
+		lv2:symbol "ifi_7" ;
+		lv2:name "Fade in7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 382 ;
+		lv2:symbol "ifo_7" ;
+		lv2:name "Fade out7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 383 ;
+		lv2:symbol "ils_7" ;
+		lv2:name "Impulse listen preview7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 384 ;
+		lv2:symbol "ilc_7" ;
+		lv2:name "Impulse stop preview7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 385 ;
+		lv2:symbol "irv_7" ;
+		lv2:name "Impulse reverse7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 386 ;
+		lv2:symbol "imkp_7" ;
+		lv2:name "Impulse makeup gain7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.001000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 387 ;
+		lv2:symbol "ifs_7" ;
+		lv2:name "Impulse status7" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 388 ;
+		lv2:symbol "ifl_7" ;
+		lv2:name "Impulse length7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 389 ;
+		lv2:symbol "sdur_7" ;
+		lv2:name "Impulse current duration7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 390 ;
+		lv2:symbol "smdur_7" ;
+		lv2:name "Impulse max duration7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 391 ;
+		lv2:symbol "ofc_7" ;
+		lv2:name "Sample save command7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 392 ;
+		lv2:symbol "ofs_7" ;
+		lv2:name "Sample saving status7" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 0 ;
+		lv2:maximum 61 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 393 ;
+		lv2:symbol "ofp_7" ;
+		lv2:name "Sample saving progress7" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 394 ;
+		lv2:symbol "sch_7" ;
+		lv2:name "Capture 7 hue" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.875000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 395 ;
+		lv2:symbol "cim0" ;
+		lv2:name "Left/Right input mix 0" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 396 ;
+		lv2:symbol "csf0" ;
+		lv2:name "Channel source sample 0" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "None"; rdf:value 0 ] ,
+			[ rdfs:label "Sample 0"; rdf:value 1 ] ,
+			[ rdfs:label "Sample 1"; rdf:value 2 ] ,
+			[ rdfs:label "Sample 2"; rdf:value 3 ] ,
+			[ rdfs:label "Sample 3"; rdf:value 4 ] ,
+			[ rdfs:label "Sample 4"; rdf:value 5 ] ,
+			[ rdfs:label "Sample 5"; rdf:value 6 ] ,
+			[ rdfs:label "Sample 6"; rdf:value 7 ] ,
+			[ rdfs:label "Sample 7"; rdf:value 8 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 8 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 397 ;
+		lv2:symbol "cst0" ;
+		lv2:name "Channel source track 0" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Left"; rdf:value 0 ] ,
+			[ rdfs:label "Right"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 398 ;
+		lv2:symbol "mk0" ;
+		lv2:name "Makeup gain 0" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 399 ;
+		lv2:symbol "cam0" ;
+		lv2:name "Channel mute 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 400 ;
+		lv2:symbol "ca0" ;
+		lv2:name "Channel activity 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 401 ;
+		lv2:symbol "pd0" ;
+		lv2:name "Channel pre-delay 0" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 402 ;
+		lv2:symbol "com0" ;
+		lv2:name "Channel Left/Right output mix 0" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 403 ;
+		lv2:symbol "cim1" ;
+		lv2:name "Left/Right input mix 1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 404 ;
+		lv2:symbol "csf1" ;
+		lv2:name "Channel source sample 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "None"; rdf:value 0 ] ,
+			[ rdfs:label "Sample 0"; rdf:value 1 ] ,
+			[ rdfs:label "Sample 1"; rdf:value 2 ] ,
+			[ rdfs:label "Sample 2"; rdf:value 3 ] ,
+			[ rdfs:label "Sample 3"; rdf:value 4 ] ,
+			[ rdfs:label "Sample 4"; rdf:value 5 ] ,
+			[ rdfs:label "Sample 5"; rdf:value 6 ] ,
+			[ rdfs:label "Sample 6"; rdf:value 7 ] ,
+			[ rdfs:label "Sample 7"; rdf:value 8 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 8 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 405 ;
+		lv2:symbol "cst1" ;
+		lv2:name "Channel source track 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Left"; rdf:value 0 ] ,
+			[ rdfs:label "Right"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 406 ;
+		lv2:symbol "mk1" ;
+		lv2:name "Makeup gain 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 407 ;
+		lv2:symbol "cam1" ;
+		lv2:name "Channel mute 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 408 ;
+		lv2:symbol "ca1" ;
+		lv2:name "Channel activity 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 409 ;
+		lv2:symbol "pd1" ;
+		lv2:name "Channel pre-delay 1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 410 ;
+		lv2:symbol "com1" ;
+		lv2:name "Channel Left/Right output mix 1" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 411 ;
+		lv2:symbol "cim2" ;
+		lv2:name "Left/Right input mix 2" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 412 ;
+		lv2:symbol "csf2" ;
+		lv2:name "Channel source sample 2" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "None"; rdf:value 0 ] ,
+			[ rdfs:label "Sample 0"; rdf:value 1 ] ,
+			[ rdfs:label "Sample 1"; rdf:value 2 ] ,
+			[ rdfs:label "Sample 2"; rdf:value 3 ] ,
+			[ rdfs:label "Sample 3"; rdf:value 4 ] ,
+			[ rdfs:label "Sample 4"; rdf:value 5 ] ,
+			[ rdfs:label "Sample 5"; rdf:value 6 ] ,
+			[ rdfs:label "Sample 6"; rdf:value 7 ] ,
+			[ rdfs:label "Sample 7"; rdf:value 8 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 8 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 413 ;
+		lv2:symbol "cst2" ;
+		lv2:name "Channel source track 2" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Left"; rdf:value 0 ] ,
+			[ rdfs:label "Right"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 414 ;
+		lv2:symbol "mk2" ;
+		lv2:name "Makeup gain 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 415 ;
+		lv2:symbol "cam2" ;
+		lv2:name "Channel mute 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 416 ;
+		lv2:symbol "ca2" ;
+		lv2:name "Channel activity 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 417 ;
+		lv2:symbol "pd2" ;
+		lv2:name "Channel pre-delay 2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 418 ;
+		lv2:symbol "com2" ;
+		lv2:name "Channel Left/Right output mix 2" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default -100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 419 ;
+		lv2:symbol "cim3" ;
+		lv2:name "Left/Right input mix 3" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 420 ;
+		lv2:symbol "csf3" ;
+		lv2:name "Channel source sample 3" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "None"; rdf:value 0 ] ,
+			[ rdfs:label "Sample 0"; rdf:value 1 ] ,
+			[ rdfs:label "Sample 1"; rdf:value 2 ] ,
+			[ rdfs:label "Sample 2"; rdf:value 3 ] ,
+			[ rdfs:label "Sample 3"; rdf:value 4 ] ,
+			[ rdfs:label "Sample 4"; rdf:value 5 ] ,
+			[ rdfs:label "Sample 5"; rdf:value 6 ] ,
+			[ rdfs:label "Sample 6"; rdf:value 7 ] ,
+			[ rdfs:label "Sample 7"; rdf:value 8 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 8 ;
+		lv2:default 2 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 421 ;
+		lv2:symbol "cst3" ;
+		lv2:name "Channel source track 3" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Left"; rdf:value 0 ] ,
+			[ rdfs:label "Right"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 422 ;
+		lv2:symbol "mk3" ;
+		lv2:name "Makeup gain 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 423 ;
+		lv2:symbol "cam3" ;
+		lv2:name "Channel mute 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 424 ;
+		lv2:symbol "ca3" ;
+		lv2:name "Channel activity 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 425 ;
+		lv2:symbol "pd3" ;
+		lv2:name "Channel pre-delay 3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 426 ;
+		lv2:symbol "com3" ;
+		lv2:name "Channel Left/Right output mix 3" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 427 ;
+		lv2:symbol "wpp" ;
+		lv2:name "Wet post-process" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 428 ;
+		lv2:symbol "lcm" ;
+		lv2:name "Low-cut mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "off"; rdf:value 0 ] ,
+			[ rdfs:label "6 dB/oct"; rdf:value 1 ] ,
+			[ rdfs:label "12 dB/oct"; rdf:value 2 ] ,
+			[ rdfs:label "18 dB/oct"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 429 ;
+		lv2:symbol "lcf" ;
+		lv2:name "Low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 50.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 430 ;
+		lv2:symbol "eq_0" ;
+		lv2:name "Band 50Hz gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.251190 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 431 ;
+		lv2:symbol "eq_1" ;
+		lv2:name "Band 107Hz gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.251190 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 432 ;
+		lv2:symbol "eq_2" ;
+		lv2:name "Band 227Hz gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.251190 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 433 ;
+		lv2:symbol "eq_3" ;
+		lv2:name "Band 484Hz gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.251190 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 434 ;
+		lv2:symbol "eq_4" ;
+		lv2:name "Band 1 kHz gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.251190 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 435 ;
+		lv2:symbol "eq_5" ;
+		lv2:name "Band 2.2 kHz gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.251190 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 436 ;
+		lv2:symbol "eq_6" ;
+		lv2:name "Band 4.7 kHz gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.251190 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 437 ;
+		lv2:symbol "eq_7" ;
+		lv2:name "Band 10 kHz gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.251190 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 438 ;
+		lv2:symbol "hcm" ;
+		lv2:name "High-cut mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "off"; rdf:value 0 ] ,
+			[ rdfs:label "6 dB/oct"; rdf:value 1 ] ,
+			[ rdfs:label "12 dB/oct"; rdf:value 2 ] ,
+			[ rdfs:label "18 dB/oct"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 439 ;
+		lv2:symbol "hcf" ;
+		lv2:name "High-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 2000.000000 ;
+		lv2:maximum 22000.000000 ;
+		lv2:default 10000.000000 ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 440 ;
+		lv2:symbol "in_ui" ;
+		lv2:name "UI Input" ;
+		rdfs:comment "UI -> DSP communication" ;
+		rsz:minimumSize 2250752 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 441 ;
+		lv2:symbol "out_ui" ;
+		lv2:name "UI Output" ;
+		rdfs:comment "DSP -> UI communication" ;
+		rsz:minimumSize 2308096 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 442 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:room_builder_stereo
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 24 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface, lv2ext:instance-access ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 4 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 6 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 7 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 8 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 10 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 11 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 13 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 14 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 16 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 17 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 19 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 20 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 21 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 23 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 24 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 25 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 26 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 27 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 28 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 30 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 31 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 32 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 33 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 34 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 35 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 36 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 37 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 38 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 39 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 40 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 41 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 42 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 43 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 44 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 45 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 46 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 47 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 48 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 49 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 50 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 51 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 52 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 53 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 54 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 55 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 56 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 57 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 58 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 59 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 60 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 61 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 62 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 63 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 64 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 65 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 66 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 67 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 68 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 69 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 70 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 71 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 72 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 73 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 74 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 75 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 76 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 77 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 78 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 79 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 80 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 81 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 82 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 83 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 84 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 85 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 86 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 87 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 88 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 89 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 90 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 91 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 92 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 93 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 94 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 95 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 96 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 97 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 98 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 99 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 100 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 101 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 102 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 103 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 104 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 105 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 106 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 107 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 108 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 109 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 110 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 111 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 112 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 113 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 114 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 115 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 116 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 117 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 118 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 119 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 120 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 121 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 122 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 123 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 124 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 125 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 126 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 127 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 128 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 129 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 130 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 131 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 132 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 133 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 134 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 135 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 136 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 137 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 138 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 139 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 140 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 141 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 142 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 143 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 144 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 145 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 146 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 147 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 148 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 149 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 150 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 151 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 152 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 153 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 154 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 155 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 156 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 157 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 158 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 159 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 160 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 161 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 162 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 163 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 164 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 165 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 166 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 167 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 168 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 169 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 170 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 171 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 172 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 173 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 174 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 175 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 176 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 177 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 178 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 179 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 180 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 181 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 182 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 183 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 184 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 185 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 186 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 187 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 188 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 189 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 190 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 191 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 192 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 193 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 194 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 195 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 196 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 197 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 198 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 199 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 200 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 201 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 202 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 203 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 204 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 205 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 206 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 207 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 208 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 209 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 210 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 211 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 212 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 213 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 214 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 215 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 216 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 217 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 218 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 219 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 220 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 221 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 222 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 223 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 224 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 225 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 226 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 227 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 228 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 229 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 230 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 231 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 232 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 233 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 234 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 235 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 236 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 237 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 238 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 239 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 240 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 241 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 242 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 243 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 244 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 245 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 246 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 247 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 248 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 249 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 250 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 251 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 252 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 253 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 254 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 255 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 256 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 257 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 258 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 259 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 260 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 261 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 262 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 263 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 264 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 265 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 266 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 267 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 268 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 269 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 270 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 271 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 272 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 273 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 274 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 275 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 276 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 277 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 278 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 279 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 280 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 281 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 282 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 283 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 284 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 285 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 286 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 287 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 288 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 289 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 290 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 291 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 292 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 293 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 294 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 295 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 296 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 297 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 298 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 299 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 300 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 301 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 302 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 303 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 304 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 305 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 306 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 307 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 308 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 309 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 310 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 311 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 312 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 313 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 314 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 315 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 316 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 317 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 318 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 319 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 320 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 321 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 322 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 323 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 324 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 325 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 326 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 327 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 328 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 329 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 330 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 331 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 332 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 333 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 334 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 335 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 336 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 337 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 338 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 339 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 340 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 341 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 342 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 343 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 344 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 345 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 346 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 347 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 348 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 349 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 350 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 351 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 352 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 353 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 354 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 355 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 356 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 357 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 358 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 359 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 360 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 361 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 362 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 363 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 364 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 365 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 366 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 367 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 368 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 369 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 370 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 371 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 372 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 373 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 374 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 375 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 376 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 377 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 378 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 379 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 380 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 381 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 382 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 383 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 384 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 385 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 386 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 387 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 388 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 389 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 390 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 391 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 392 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 393 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 394 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 395 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 396 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 397 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 398 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 399 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 400 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 401 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 402 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 403 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 404 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 405 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 406 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 407 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 408 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 409 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 410 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 411 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 412 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 413 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 414 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 415 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 416 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 417 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 418 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 419 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 420 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 421 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 422 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 423 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 424 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 425 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 426 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 427 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 428 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 429 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 430 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 431 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 432 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 433 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 434 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 435 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 436 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 437 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 438 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 439 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 440 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 441 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:room_builder_stereo ;
+		ui:portIndex 442 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+

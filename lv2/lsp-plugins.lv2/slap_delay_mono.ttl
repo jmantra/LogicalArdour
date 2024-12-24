@@ -1,0 +1,5647 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/slap_delay_mono/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:v_sadovnikov
+	a foaf:Person ;
+	foaf:name "Vladimir Sadovnikov" ;
+	foaf:nick "SadKo" ;
+	foaf:mbox <mailto:sadko4u@gmail.com> ;
+	foaf:homepage <http://lsp-plug.in/#v_sadovnikov>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:mono_in
+	a pg:MonoGroup, pg:InputGroup ;
+	lv2:symbol "mono_in" ;
+	rdfs:label "Mono Input" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:center
+	]
+	.
+
+plug_pg:stereo_out
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "stereo_out" ;
+	rdfs:label "Stereo Output" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug:slap_delay_mono
+	a lv2:DelayPlugin, doap:Project ;
+	doap:name "LSP Slapback Delay Mono" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 24 ;
+	doap:developer plug_dev:v_sadovnikov ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:slap_delay_mono ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:mono_in ;
+	pg:mainOutput plug_pg:stereo_out ;
+	dc:replaces <urn:ladspa:5002130> ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in" ;
+		lv2:name "Input" ;
+		pg:group plug_pg:mono_in ;
+		lv2:designation pg:center ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "out_l" ;
+		lv2:name "Output L" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "out_r" ;
+		lv2:name "Output R" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 3 ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:designation lv2:enabled ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "lsel" ;
+		lv2:name "Delay line selector" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "0-3"; rdf:value 0 ] ,
+			[ rdfs:label "4-7"; rdf:value 1 ] ,
+			[ rdfs:label "8-11"; rdf:value 2 ] ,
+			[ rdfs:label "12-15"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "temp" ;
+		lv2:name "Temperature" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "degrees Celsium" ;
+			units:symbol "°C" ;
+			units:render "%.2f °C" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -60.000000 ;
+		lv2:maximum 60.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "pred" ;
+		lv2:name "Pre-delay" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 200.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "strch" ;
+		lv2:name "Stretch time" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 25.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "tempo" ;
+		lv2:name "Tempo" ;
+		units:unit units:bpm ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 20.000000 ;
+		lv2:maximum 360.000000 ;
+		lv2:default 120.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "sync" ;
+		lv2:name "Tempo sync" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "ramp" ;
+		lv2:name "Ramping delay" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "p_in" ;
+		lv2:name "Input panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "dry" ;
+		lv2:name "Dry amount" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "dm" ;
+		lv2:name "Dry mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14 ;
+		lv2:symbol "wet" ;
+		lv2:name "Wet amount" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "wm" ;
+		lv2:name "Wet mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "drywet" ;
+		lv2:name "Dry/Wet balance" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "mono" ;
+		lv2:name "Mono output" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "g_out" ;
+		lv2:name "Output gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "dm0" ;
+		lv2:name "Delay 0 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "p0" ;
+		lv2:name "Delay 0 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "s0" ;
+		lv2:name "Delay 0 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "m0" ;
+		lv2:name "Delay 0 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "ph0" ;
+		lv2:name "Delay 0 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "dt0" ;
+		lv2:name "Delay 0 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "dd0" ;
+		lv2:name "Delay 0 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "df0" ;
+		lv2:name "Delay 0 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "ds0" ;
+		lv2:name "Delay 0 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "eq0" ;
+		lv2:name "Equalizer 0 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "lfc0" ;
+		lv2:name "Delay 0 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "flc0" ;
+		lv2:name "Delay 0 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 31 ;
+		lv2:symbol "hfc0" ;
+		lv2:name "Delay 0 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 32 ;
+		lv2:symbol "fhc0" ;
+		lv2:name "Delay 0 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 33 ;
+		lv2:symbol "fbs0" ;
+		lv2:name "Delay 0 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "fbb0" ;
+		lv2:name "Delay 0 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 35 ;
+		lv2:symbol "fbm0" ;
+		lv2:name "Delay 0 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 36 ;
+		lv2:symbol "fbp0" ;
+		lv2:name "Delay 0 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 37 ;
+		lv2:symbol "fbt0" ;
+		lv2:name "Delay 0 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 38 ;
+		lv2:symbol "dfb0" ;
+		lv2:name "Delay 0 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 39 ;
+		lv2:symbol "dg0" ;
+		lv2:name "Delay 0 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 40 ;
+		lv2:symbol "dm1" ;
+		lv2:name "Delay 1 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 41 ;
+		lv2:symbol "p1" ;
+		lv2:name "Delay 1 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 42 ;
+		lv2:symbol "s1" ;
+		lv2:name "Delay 1 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 43 ;
+		lv2:symbol "m1" ;
+		lv2:name "Delay 1 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 44 ;
+		lv2:symbol "ph1" ;
+		lv2:name "Delay 1 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 45 ;
+		lv2:symbol "dt1" ;
+		lv2:name "Delay 1 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 46 ;
+		lv2:symbol "dd1" ;
+		lv2:name "Delay 1 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 47 ;
+		lv2:symbol "df1" ;
+		lv2:name "Delay 1 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 48 ;
+		lv2:symbol "ds1" ;
+		lv2:name "Delay 1 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 49 ;
+		lv2:symbol "eq1" ;
+		lv2:name "Equalizer 1 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 50 ;
+		lv2:symbol "lfc1" ;
+		lv2:name "Delay 1 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 51 ;
+		lv2:symbol "flc1" ;
+		lv2:name "Delay 1 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 52 ;
+		lv2:symbol "hfc1" ;
+		lv2:name "Delay 1 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 53 ;
+		lv2:symbol "fhc1" ;
+		lv2:name "Delay 1 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 54 ;
+		lv2:symbol "fbs1" ;
+		lv2:name "Delay 1 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 55 ;
+		lv2:symbol "fbb1" ;
+		lv2:name "Delay 1 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 56 ;
+		lv2:symbol "fbm1" ;
+		lv2:name "Delay 1 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 57 ;
+		lv2:symbol "fbp1" ;
+		lv2:name "Delay 1 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 58 ;
+		lv2:symbol "fbt1" ;
+		lv2:name "Delay 1 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 59 ;
+		lv2:symbol "dfb1" ;
+		lv2:name "Delay 1 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 60 ;
+		lv2:symbol "dg1" ;
+		lv2:name "Delay 1 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 61 ;
+		lv2:symbol "dm2" ;
+		lv2:name "Delay 2 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 62 ;
+		lv2:symbol "p2" ;
+		lv2:name "Delay 2 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 63 ;
+		lv2:symbol "s2" ;
+		lv2:name "Delay 2 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 64 ;
+		lv2:symbol "m2" ;
+		lv2:name "Delay 2 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 65 ;
+		lv2:symbol "ph2" ;
+		lv2:name "Delay 2 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 66 ;
+		lv2:symbol "dt2" ;
+		lv2:name "Delay 2 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 67 ;
+		lv2:symbol "dd2" ;
+		lv2:name "Delay 2 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 68 ;
+		lv2:symbol "df2" ;
+		lv2:name "Delay 2 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 69 ;
+		lv2:symbol "ds2" ;
+		lv2:name "Delay 2 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 70 ;
+		lv2:symbol "eq2" ;
+		lv2:name "Equalizer 2 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 71 ;
+		lv2:symbol "lfc2" ;
+		lv2:name "Delay 2 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 72 ;
+		lv2:symbol "flc2" ;
+		lv2:name "Delay 2 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 73 ;
+		lv2:symbol "hfc2" ;
+		lv2:name "Delay 2 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 74 ;
+		lv2:symbol "fhc2" ;
+		lv2:name "Delay 2 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 75 ;
+		lv2:symbol "fbs2" ;
+		lv2:name "Delay 2 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 76 ;
+		lv2:symbol "fbb2" ;
+		lv2:name "Delay 2 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 77 ;
+		lv2:symbol "fbm2" ;
+		lv2:name "Delay 2 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 78 ;
+		lv2:symbol "fbp2" ;
+		lv2:name "Delay 2 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 79 ;
+		lv2:symbol "fbt2" ;
+		lv2:name "Delay 2 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 80 ;
+		lv2:symbol "dfb2" ;
+		lv2:name "Delay 2 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 81 ;
+		lv2:symbol "dg2" ;
+		lv2:name "Delay 2 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 82 ;
+		lv2:symbol "dm3" ;
+		lv2:name "Delay 3 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 83 ;
+		lv2:symbol "p3" ;
+		lv2:name "Delay 3 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 84 ;
+		lv2:symbol "s3" ;
+		lv2:name "Delay 3 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 85 ;
+		lv2:symbol "m3" ;
+		lv2:name "Delay 3 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 86 ;
+		lv2:symbol "ph3" ;
+		lv2:name "Delay 3 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 87 ;
+		lv2:symbol "dt3" ;
+		lv2:name "Delay 3 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 88 ;
+		lv2:symbol "dd3" ;
+		lv2:name "Delay 3 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 89 ;
+		lv2:symbol "df3" ;
+		lv2:name "Delay 3 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 90 ;
+		lv2:symbol "ds3" ;
+		lv2:name "Delay 3 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 91 ;
+		lv2:symbol "eq3" ;
+		lv2:name "Equalizer 3 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 92 ;
+		lv2:symbol "lfc3" ;
+		lv2:name "Delay 3 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 93 ;
+		lv2:symbol "flc3" ;
+		lv2:name "Delay 3 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 94 ;
+		lv2:symbol "hfc3" ;
+		lv2:name "Delay 3 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 95 ;
+		lv2:symbol "fhc3" ;
+		lv2:name "Delay 3 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 96 ;
+		lv2:symbol "fbs3" ;
+		lv2:name "Delay 3 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 97 ;
+		lv2:symbol "fbb3" ;
+		lv2:name "Delay 3 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 98 ;
+		lv2:symbol "fbm3" ;
+		lv2:name "Delay 3 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 99 ;
+		lv2:symbol "fbp3" ;
+		lv2:name "Delay 3 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 100 ;
+		lv2:symbol "fbt3" ;
+		lv2:name "Delay 3 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 101 ;
+		lv2:symbol "dfb3" ;
+		lv2:name "Delay 3 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 102 ;
+		lv2:symbol "dg3" ;
+		lv2:name "Delay 3 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 103 ;
+		lv2:symbol "dm4" ;
+		lv2:name "Delay 4 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 104 ;
+		lv2:symbol "p4" ;
+		lv2:name "Delay 4 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 105 ;
+		lv2:symbol "s4" ;
+		lv2:name "Delay 4 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 106 ;
+		lv2:symbol "m4" ;
+		lv2:name "Delay 4 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 107 ;
+		lv2:symbol "ph4" ;
+		lv2:name "Delay 4 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 108 ;
+		lv2:symbol "dt4" ;
+		lv2:name "Delay 4 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 109 ;
+		lv2:symbol "dd4" ;
+		lv2:name "Delay 4 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 110 ;
+		lv2:symbol "df4" ;
+		lv2:name "Delay 4 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 111 ;
+		lv2:symbol "ds4" ;
+		lv2:name "Delay 4 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 112 ;
+		lv2:symbol "eq4" ;
+		lv2:name "Equalizer 4 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 113 ;
+		lv2:symbol "lfc4" ;
+		lv2:name "Delay 4 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 114 ;
+		lv2:symbol "flc4" ;
+		lv2:name "Delay 4 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 115 ;
+		lv2:symbol "hfc4" ;
+		lv2:name "Delay 4 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 116 ;
+		lv2:symbol "fhc4" ;
+		lv2:name "Delay 4 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 117 ;
+		lv2:symbol "fbs4" ;
+		lv2:name "Delay 4 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 118 ;
+		lv2:symbol "fbb4" ;
+		lv2:name "Delay 4 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 119 ;
+		lv2:symbol "fbm4" ;
+		lv2:name "Delay 4 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 120 ;
+		lv2:symbol "fbp4" ;
+		lv2:name "Delay 4 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 121 ;
+		lv2:symbol "fbt4" ;
+		lv2:name "Delay 4 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 122 ;
+		lv2:symbol "dfb4" ;
+		lv2:name "Delay 4 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 123 ;
+		lv2:symbol "dg4" ;
+		lv2:name "Delay 4 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 124 ;
+		lv2:symbol "dm5" ;
+		lv2:name "Delay 5 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 125 ;
+		lv2:symbol "p5" ;
+		lv2:name "Delay 5 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 126 ;
+		lv2:symbol "s5" ;
+		lv2:name "Delay 5 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 127 ;
+		lv2:symbol "m5" ;
+		lv2:name "Delay 5 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 128 ;
+		lv2:symbol "ph5" ;
+		lv2:name "Delay 5 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 129 ;
+		lv2:symbol "dt5" ;
+		lv2:name "Delay 5 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 130 ;
+		lv2:symbol "dd5" ;
+		lv2:name "Delay 5 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 131 ;
+		lv2:symbol "df5" ;
+		lv2:name "Delay 5 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 132 ;
+		lv2:symbol "ds5" ;
+		lv2:name "Delay 5 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 133 ;
+		lv2:symbol "eq5" ;
+		lv2:name "Equalizer 5 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 134 ;
+		lv2:symbol "lfc5" ;
+		lv2:name "Delay 5 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 135 ;
+		lv2:symbol "flc5" ;
+		lv2:name "Delay 5 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 136 ;
+		lv2:symbol "hfc5" ;
+		lv2:name "Delay 5 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 137 ;
+		lv2:symbol "fhc5" ;
+		lv2:name "Delay 5 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 138 ;
+		lv2:symbol "fbs5" ;
+		lv2:name "Delay 5 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 139 ;
+		lv2:symbol "fbb5" ;
+		lv2:name "Delay 5 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 140 ;
+		lv2:symbol "fbm5" ;
+		lv2:name "Delay 5 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 141 ;
+		lv2:symbol "fbp5" ;
+		lv2:name "Delay 5 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 142 ;
+		lv2:symbol "fbt5" ;
+		lv2:name "Delay 5 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 143 ;
+		lv2:symbol "dfb5" ;
+		lv2:name "Delay 5 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 144 ;
+		lv2:symbol "dg5" ;
+		lv2:name "Delay 5 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 145 ;
+		lv2:symbol "dm6" ;
+		lv2:name "Delay 6 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 146 ;
+		lv2:symbol "p6" ;
+		lv2:name "Delay 6 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 147 ;
+		lv2:symbol "s6" ;
+		lv2:name "Delay 6 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 148 ;
+		lv2:symbol "m6" ;
+		lv2:name "Delay 6 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 149 ;
+		lv2:symbol "ph6" ;
+		lv2:name "Delay 6 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 150 ;
+		lv2:symbol "dt6" ;
+		lv2:name "Delay 6 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 151 ;
+		lv2:symbol "dd6" ;
+		lv2:name "Delay 6 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 152 ;
+		lv2:symbol "df6" ;
+		lv2:name "Delay 6 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 153 ;
+		lv2:symbol "ds6" ;
+		lv2:name "Delay 6 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 154 ;
+		lv2:symbol "eq6" ;
+		lv2:name "Equalizer 6 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 155 ;
+		lv2:symbol "lfc6" ;
+		lv2:name "Delay 6 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 156 ;
+		lv2:symbol "flc6" ;
+		lv2:name "Delay 6 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 157 ;
+		lv2:symbol "hfc6" ;
+		lv2:name "Delay 6 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 158 ;
+		lv2:symbol "fhc6" ;
+		lv2:name "Delay 6 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 159 ;
+		lv2:symbol "fbs6" ;
+		lv2:name "Delay 6 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 160 ;
+		lv2:symbol "fbb6" ;
+		lv2:name "Delay 6 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 161 ;
+		lv2:symbol "fbm6" ;
+		lv2:name "Delay 6 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 162 ;
+		lv2:symbol "fbp6" ;
+		lv2:name "Delay 6 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 163 ;
+		lv2:symbol "fbt6" ;
+		lv2:name "Delay 6 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 164 ;
+		lv2:symbol "dfb6" ;
+		lv2:name "Delay 6 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 165 ;
+		lv2:symbol "dg6" ;
+		lv2:name "Delay 6 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 166 ;
+		lv2:symbol "dm7" ;
+		lv2:name "Delay 7 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 167 ;
+		lv2:symbol "p7" ;
+		lv2:name "Delay 7 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 168 ;
+		lv2:symbol "s7" ;
+		lv2:name "Delay 7 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 169 ;
+		lv2:symbol "m7" ;
+		lv2:name "Delay 7 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 170 ;
+		lv2:symbol "ph7" ;
+		lv2:name "Delay 7 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 171 ;
+		lv2:symbol "dt7" ;
+		lv2:name "Delay 7 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 172 ;
+		lv2:symbol "dd7" ;
+		lv2:name "Delay 7 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 173 ;
+		lv2:symbol "df7" ;
+		lv2:name "Delay 7 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 174 ;
+		lv2:symbol "ds7" ;
+		lv2:name "Delay 7 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 175 ;
+		lv2:symbol "eq7" ;
+		lv2:name "Equalizer 7 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 176 ;
+		lv2:symbol "lfc7" ;
+		lv2:name "Delay 7 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 177 ;
+		lv2:symbol "flc7" ;
+		lv2:name "Delay 7 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 178 ;
+		lv2:symbol "hfc7" ;
+		lv2:name "Delay 7 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 179 ;
+		lv2:symbol "fhc7" ;
+		lv2:name "Delay 7 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 180 ;
+		lv2:symbol "fbs7" ;
+		lv2:name "Delay 7 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 181 ;
+		lv2:symbol "fbb7" ;
+		lv2:name "Delay 7 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 182 ;
+		lv2:symbol "fbm7" ;
+		lv2:name "Delay 7 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 183 ;
+		lv2:symbol "fbp7" ;
+		lv2:name "Delay 7 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 184 ;
+		lv2:symbol "fbt7" ;
+		lv2:name "Delay 7 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 185 ;
+		lv2:symbol "dfb7" ;
+		lv2:name "Delay 7 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 186 ;
+		lv2:symbol "dg7" ;
+		lv2:name "Delay 7 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 187 ;
+		lv2:symbol "dm8" ;
+		lv2:name "Delay 8 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 188 ;
+		lv2:symbol "p8" ;
+		lv2:name "Delay 8 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 189 ;
+		lv2:symbol "s8" ;
+		lv2:name "Delay 8 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 190 ;
+		lv2:symbol "m8" ;
+		lv2:name "Delay 8 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 191 ;
+		lv2:symbol "ph8" ;
+		lv2:name "Delay 8 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 192 ;
+		lv2:symbol "dt8" ;
+		lv2:name "Delay 8 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 193 ;
+		lv2:symbol "dd8" ;
+		lv2:name "Delay 8 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 194 ;
+		lv2:symbol "df8" ;
+		lv2:name "Delay 8 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 195 ;
+		lv2:symbol "ds8" ;
+		lv2:name "Delay 8 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 196 ;
+		lv2:symbol "eq8" ;
+		lv2:name "Equalizer 8 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 197 ;
+		lv2:symbol "lfc8" ;
+		lv2:name "Delay 8 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 198 ;
+		lv2:symbol "flc8" ;
+		lv2:name "Delay 8 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 199 ;
+		lv2:symbol "hfc8" ;
+		lv2:name "Delay 8 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 200 ;
+		lv2:symbol "fhc8" ;
+		lv2:name "Delay 8 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 201 ;
+		lv2:symbol "fbs8" ;
+		lv2:name "Delay 8 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 202 ;
+		lv2:symbol "fbb8" ;
+		lv2:name "Delay 8 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 203 ;
+		lv2:symbol "fbm8" ;
+		lv2:name "Delay 8 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 204 ;
+		lv2:symbol "fbp8" ;
+		lv2:name "Delay 8 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 205 ;
+		lv2:symbol "fbt8" ;
+		lv2:name "Delay 8 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 206 ;
+		lv2:symbol "dfb8" ;
+		lv2:name "Delay 8 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 207 ;
+		lv2:symbol "dg8" ;
+		lv2:name "Delay 8 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 208 ;
+		lv2:symbol "dm9" ;
+		lv2:name "Delay 9 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 209 ;
+		lv2:symbol "p9" ;
+		lv2:name "Delay 9 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 210 ;
+		lv2:symbol "s9" ;
+		lv2:name "Delay 9 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 211 ;
+		lv2:symbol "m9" ;
+		lv2:name "Delay 9 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 212 ;
+		lv2:symbol "ph9" ;
+		lv2:name "Delay 9 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 213 ;
+		lv2:symbol "dt9" ;
+		lv2:name "Delay 9 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 214 ;
+		lv2:symbol "dd9" ;
+		lv2:name "Delay 9 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 215 ;
+		lv2:symbol "df9" ;
+		lv2:name "Delay 9 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 216 ;
+		lv2:symbol "ds9" ;
+		lv2:name "Delay 9 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 217 ;
+		lv2:symbol "eq9" ;
+		lv2:name "Equalizer 9 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 218 ;
+		lv2:symbol "lfc9" ;
+		lv2:name "Delay 9 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 219 ;
+		lv2:symbol "flc9" ;
+		lv2:name "Delay 9 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 220 ;
+		lv2:symbol "hfc9" ;
+		lv2:name "Delay 9 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 221 ;
+		lv2:symbol "fhc9" ;
+		lv2:name "Delay 9 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 222 ;
+		lv2:symbol "fbs9" ;
+		lv2:name "Delay 9 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 223 ;
+		lv2:symbol "fbb9" ;
+		lv2:name "Delay 9 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 224 ;
+		lv2:symbol "fbm9" ;
+		lv2:name "Delay 9 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 225 ;
+		lv2:symbol "fbp9" ;
+		lv2:name "Delay 9 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 226 ;
+		lv2:symbol "fbt9" ;
+		lv2:name "Delay 9 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 227 ;
+		lv2:symbol "dfb9" ;
+		lv2:name "Delay 9 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 228 ;
+		lv2:symbol "dg9" ;
+		lv2:name "Delay 9 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 229 ;
+		lv2:symbol "dm10" ;
+		lv2:name "Delay 10 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 230 ;
+		lv2:symbol "p10" ;
+		lv2:name "Delay 10 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 231 ;
+		lv2:symbol "s10" ;
+		lv2:name "Delay 10 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 232 ;
+		lv2:symbol "m10" ;
+		lv2:name "Delay 10 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 233 ;
+		lv2:symbol "ph10" ;
+		lv2:name "Delay 10 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 234 ;
+		lv2:symbol "dt10" ;
+		lv2:name "Delay 10 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 235 ;
+		lv2:symbol "dd10" ;
+		lv2:name "Delay 10 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 236 ;
+		lv2:symbol "df10" ;
+		lv2:name "Delay 10 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 237 ;
+		lv2:symbol "ds10" ;
+		lv2:name "Delay 10 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 238 ;
+		lv2:symbol "eq10" ;
+		lv2:name "Equalizer 10 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 239 ;
+		lv2:symbol "lfc10" ;
+		lv2:name "Delay 10 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 240 ;
+		lv2:symbol "flc10" ;
+		lv2:name "Delay 10 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 241 ;
+		lv2:symbol "hfc10" ;
+		lv2:name "Delay 10 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 242 ;
+		lv2:symbol "fhc10" ;
+		lv2:name "Delay 10 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 243 ;
+		lv2:symbol "fbs10" ;
+		lv2:name "Delay 10 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 244 ;
+		lv2:symbol "fbb10" ;
+		lv2:name "Delay 10 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 245 ;
+		lv2:symbol "fbm10" ;
+		lv2:name "Delay 10 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 246 ;
+		lv2:symbol "fbp10" ;
+		lv2:name "Delay 10 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 247 ;
+		lv2:symbol "fbt10" ;
+		lv2:name "Delay 10 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 248 ;
+		lv2:symbol "dfb10" ;
+		lv2:name "Delay 10 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 249 ;
+		lv2:symbol "dg10" ;
+		lv2:name "Delay 10 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 250 ;
+		lv2:symbol "dm11" ;
+		lv2:name "Delay 11 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 251 ;
+		lv2:symbol "p11" ;
+		lv2:name "Delay 11 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 252 ;
+		lv2:symbol "s11" ;
+		lv2:name "Delay 11 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 253 ;
+		lv2:symbol "m11" ;
+		lv2:name "Delay 11 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 254 ;
+		lv2:symbol "ph11" ;
+		lv2:name "Delay 11 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 255 ;
+		lv2:symbol "dt11" ;
+		lv2:name "Delay 11 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 256 ;
+		lv2:symbol "dd11" ;
+		lv2:name "Delay 11 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 257 ;
+		lv2:symbol "df11" ;
+		lv2:name "Delay 11 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 258 ;
+		lv2:symbol "ds11" ;
+		lv2:name "Delay 11 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 259 ;
+		lv2:symbol "eq11" ;
+		lv2:name "Equalizer 11 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 260 ;
+		lv2:symbol "lfc11" ;
+		lv2:name "Delay 11 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 261 ;
+		lv2:symbol "flc11" ;
+		lv2:name "Delay 11 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 262 ;
+		lv2:symbol "hfc11" ;
+		lv2:name "Delay 11 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 263 ;
+		lv2:symbol "fhc11" ;
+		lv2:name "Delay 11 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 264 ;
+		lv2:symbol "fbs11" ;
+		lv2:name "Delay 11 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 265 ;
+		lv2:symbol "fbb11" ;
+		lv2:name "Delay 11 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 266 ;
+		lv2:symbol "fbm11" ;
+		lv2:name "Delay 11 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 267 ;
+		lv2:symbol "fbp11" ;
+		lv2:name "Delay 11 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 268 ;
+		lv2:symbol "fbt11" ;
+		lv2:name "Delay 11 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 269 ;
+		lv2:symbol "dfb11" ;
+		lv2:name "Delay 11 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 270 ;
+		lv2:symbol "dg11" ;
+		lv2:name "Delay 11 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 271 ;
+		lv2:symbol "dm12" ;
+		lv2:name "Delay 12 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 272 ;
+		lv2:symbol "p12" ;
+		lv2:name "Delay 12 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 273 ;
+		lv2:symbol "s12" ;
+		lv2:name "Delay 12 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 274 ;
+		lv2:symbol "m12" ;
+		lv2:name "Delay 12 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 275 ;
+		lv2:symbol "ph12" ;
+		lv2:name "Delay 12 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 276 ;
+		lv2:symbol "dt12" ;
+		lv2:name "Delay 12 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 277 ;
+		lv2:symbol "dd12" ;
+		lv2:name "Delay 12 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 278 ;
+		lv2:symbol "df12" ;
+		lv2:name "Delay 12 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 279 ;
+		lv2:symbol "ds12" ;
+		lv2:name "Delay 12 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 280 ;
+		lv2:symbol "eq12" ;
+		lv2:name "Equalizer 12 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 281 ;
+		lv2:symbol "lfc12" ;
+		lv2:name "Delay 12 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 282 ;
+		lv2:symbol "flc12" ;
+		lv2:name "Delay 12 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 283 ;
+		lv2:symbol "hfc12" ;
+		lv2:name "Delay 12 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 284 ;
+		lv2:symbol "fhc12" ;
+		lv2:name "Delay 12 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 285 ;
+		lv2:symbol "fbs12" ;
+		lv2:name "Delay 12 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 286 ;
+		lv2:symbol "fbb12" ;
+		lv2:name "Delay 12 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 287 ;
+		lv2:symbol "fbm12" ;
+		lv2:name "Delay 12 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 288 ;
+		lv2:symbol "fbp12" ;
+		lv2:name "Delay 12 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 289 ;
+		lv2:symbol "fbt12" ;
+		lv2:name "Delay 12 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 290 ;
+		lv2:symbol "dfb12" ;
+		lv2:name "Delay 12 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 291 ;
+		lv2:symbol "dg12" ;
+		lv2:name "Delay 12 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 292 ;
+		lv2:symbol "dm13" ;
+		lv2:name "Delay 13 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 293 ;
+		lv2:symbol "p13" ;
+		lv2:name "Delay 13 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 294 ;
+		lv2:symbol "s13" ;
+		lv2:name "Delay 13 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 295 ;
+		lv2:symbol "m13" ;
+		lv2:name "Delay 13 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 296 ;
+		lv2:symbol "ph13" ;
+		lv2:name "Delay 13 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 297 ;
+		lv2:symbol "dt13" ;
+		lv2:name "Delay 13 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 298 ;
+		lv2:symbol "dd13" ;
+		lv2:name "Delay 13 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 299 ;
+		lv2:symbol "df13" ;
+		lv2:name "Delay 13 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 300 ;
+		lv2:symbol "ds13" ;
+		lv2:name "Delay 13 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 301 ;
+		lv2:symbol "eq13" ;
+		lv2:name "Equalizer 13 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 302 ;
+		lv2:symbol "lfc13" ;
+		lv2:name "Delay 13 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 303 ;
+		lv2:symbol "flc13" ;
+		lv2:name "Delay 13 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 304 ;
+		lv2:symbol "hfc13" ;
+		lv2:name "Delay 13 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 305 ;
+		lv2:symbol "fhc13" ;
+		lv2:name "Delay 13 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 306 ;
+		lv2:symbol "fbs13" ;
+		lv2:name "Delay 13 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 307 ;
+		lv2:symbol "fbb13" ;
+		lv2:name "Delay 13 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 308 ;
+		lv2:symbol "fbm13" ;
+		lv2:name "Delay 13 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 309 ;
+		lv2:symbol "fbp13" ;
+		lv2:name "Delay 13 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 310 ;
+		lv2:symbol "fbt13" ;
+		lv2:name "Delay 13 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 311 ;
+		lv2:symbol "dfb13" ;
+		lv2:name "Delay 13 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 312 ;
+		lv2:symbol "dg13" ;
+		lv2:name "Delay 13 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 313 ;
+		lv2:symbol "dm14" ;
+		lv2:name "Delay 14 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 314 ;
+		lv2:symbol "p14" ;
+		lv2:name "Delay 14 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 315 ;
+		lv2:symbol "s14" ;
+		lv2:name "Delay 14 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 316 ;
+		lv2:symbol "m14" ;
+		lv2:name "Delay 14 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 317 ;
+		lv2:symbol "ph14" ;
+		lv2:name "Delay 14 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 318 ;
+		lv2:symbol "dt14" ;
+		lv2:name "Delay 14 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 319 ;
+		lv2:symbol "dd14" ;
+		lv2:name "Delay 14 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 320 ;
+		lv2:symbol "df14" ;
+		lv2:name "Delay 14 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 321 ;
+		lv2:symbol "ds14" ;
+		lv2:name "Delay 14 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 322 ;
+		lv2:symbol "eq14" ;
+		lv2:name "Equalizer 14 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 323 ;
+		lv2:symbol "lfc14" ;
+		lv2:name "Delay 14 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 324 ;
+		lv2:symbol "flc14" ;
+		lv2:name "Delay 14 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 325 ;
+		lv2:symbol "hfc14" ;
+		lv2:name "Delay 14 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 326 ;
+		lv2:symbol "fhc14" ;
+		lv2:name "Delay 14 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 327 ;
+		lv2:symbol "fbs14" ;
+		lv2:name "Delay 14 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 328 ;
+		lv2:symbol "fbb14" ;
+		lv2:name "Delay 14 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 329 ;
+		lv2:symbol "fbm14" ;
+		lv2:name "Delay 14 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 330 ;
+		lv2:symbol "fbp14" ;
+		lv2:name "Delay 14 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 331 ;
+		lv2:symbol "fbt14" ;
+		lv2:name "Delay 14 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 332 ;
+		lv2:symbol "dfb14" ;
+		lv2:name "Delay 14 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 333 ;
+		lv2:symbol "dg14" ;
+		lv2:name "Delay 14 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 334 ;
+		lv2:symbol "dm15" ;
+		lv2:name "Delay 15 mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Time"; rdf:value 1 ] ,
+			[ rdfs:label "Distance"; rdf:value 2 ] ,
+			[ rdfs:label "Notes"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 335 ;
+		lv2:symbol "p15" ;
+		lv2:name "Delay 15 panorama" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 336 ;
+		lv2:symbol "s15" ;
+		lv2:name "Delay 15 solo" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 337 ;
+		lv2:symbol "m15" ;
+		lv2:name "Delay 15 mute" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 338 ;
+		lv2:symbol "ph15" ;
+		lv2:name "Delay 15 phase" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 339 ;
+		lv2:symbol "dt15" ;
+		lv2:name "Delay 15 time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 340 ;
+		lv2:symbol "dd15" ;
+		lv2:name "Delay 15 distance" ;
+		units:unit units:m ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 400.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 341 ;
+		lv2:symbol "df15" ;
+		lv2:name "Delay 15 fraction" ;
+		units:unit units:bar ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 2.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 342 ;
+		lv2:symbol "ds15" ;
+		lv2:name "Delay 15 denominator" ;
+		units:unit units:beat ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum 1 ;
+		lv2:maximum 64 ;
+		lv2:default 4 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 343 ;
+		lv2:symbol "eq15" ;
+		lv2:name "Equalizer 15 on" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 344 ;
+		lv2:symbol "lfc15" ;
+		lv2:name "Delay 15 low-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 345 ;
+		lv2:symbol "flc15" ;
+		lv2:name "Delay 15 low-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 346 ;
+		lv2:symbol "hfc15" ;
+		lv2:name "Delay 15 high-cut" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 347 ;
+		lv2:symbol "fhc15" ;
+		lv2:name "Delay 15 high-cut frequency" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1000.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 8000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 348 ;
+		lv2:symbol "fbs15" ;
+		lv2:name "Delay 15 sub-bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 349 ;
+		lv2:symbol "fbb15" ;
+		lv2:name "Delay 15 bass" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 350 ;
+		lv2:symbol "fbm15" ;
+		lv2:name "Delay 15 middle" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 351 ;
+		lv2:symbol "fbp15" ;
+		lv2:name "Delay 15 presence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 352 ;
+		lv2:symbol "fbt15" ;
+		lv2:name "Delay 15 treble" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 353 ;
+		lv2:symbol "dfb15" ;
+		lv2:name "Delay 15 feedback" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 354 ;
+		lv2:symbol "dg15" ;
+		lv2:name "Delay 15 gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 355 ;
+		lv2:symbol "in_ui" ;
+		lv2:name "UI Input" ;
+		rdfs:comment "UI -> DSP communication" ;
+		rsz:minimumSize 63488 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 356 ;
+		lv2:symbol "out_ui" ;
+		lv2:name "UI Output" ;
+		rdfs:comment "DSP -> UI communication" ;
+		rsz:minimumSize 63488 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 357 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:slap_delay_mono
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 24 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 3 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 4 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 6 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 7 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 8 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 10 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 11 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 13 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 14 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 16 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 17 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 19 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 20 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 21 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 23 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 24 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 25 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 26 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 27 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 28 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 30 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 31 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 32 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 33 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 34 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 35 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 36 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 37 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 38 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 39 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 40 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 41 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 42 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 43 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 44 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 45 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 46 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 47 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 48 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 49 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 50 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 51 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 52 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 53 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 54 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 55 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 56 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 57 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 58 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 59 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 60 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 61 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 62 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 63 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 64 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 65 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 66 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 67 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 68 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 69 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 70 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 71 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 72 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 73 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 74 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 75 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 76 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 77 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 78 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 79 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 80 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 81 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 82 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 83 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 84 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 85 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 86 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 87 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 88 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 89 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 90 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 91 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 92 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 93 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 94 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 95 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 96 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 97 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 98 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 99 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 100 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 101 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 102 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 103 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 104 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 105 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 106 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 107 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 108 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 109 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 110 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 111 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 112 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 113 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 114 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 115 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 116 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 117 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 118 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 119 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 120 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 121 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 122 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 123 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 124 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 125 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 126 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 127 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 128 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 129 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 130 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 131 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 132 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 133 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 134 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 135 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 136 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 137 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 138 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 139 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 140 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 141 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 142 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 143 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 144 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 145 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 146 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 147 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 148 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 149 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 150 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 151 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 152 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 153 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 154 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 155 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 156 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 157 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 158 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 159 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 160 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 161 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 162 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 163 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 164 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 165 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 166 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 167 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 168 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 169 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 170 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 171 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 172 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 173 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 174 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 175 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 176 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 177 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 178 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 179 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 180 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 181 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 182 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 183 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 184 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 185 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 186 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 187 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 188 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 189 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 190 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 191 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 192 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 193 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 194 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 195 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 196 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 197 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 198 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 199 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 200 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 201 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 202 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 203 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 204 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 205 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 206 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 207 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 208 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 209 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 210 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 211 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 212 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 213 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 214 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 215 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 216 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 217 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 218 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 219 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 220 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 221 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 222 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 223 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 224 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 225 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 226 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 227 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 228 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 229 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 230 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 231 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 232 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 233 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 234 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 235 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 236 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 237 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 238 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 239 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 240 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 241 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 242 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 243 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 244 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 245 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 246 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 247 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 248 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 249 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 250 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 251 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 252 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 253 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 254 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 255 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 256 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 257 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 258 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 259 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 260 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 261 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 262 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 263 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 264 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 265 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 266 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 267 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 268 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 269 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 270 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 271 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 272 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 273 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 274 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 275 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 276 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 277 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 278 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 279 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 280 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 281 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 282 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 283 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 284 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 285 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 286 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 287 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 288 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 289 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 290 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 291 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 292 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 293 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 294 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 295 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 296 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 297 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 298 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 299 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 300 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 301 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 302 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 303 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 304 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 305 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 306 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 307 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 308 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 309 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 310 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 311 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 312 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 313 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 314 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 315 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 316 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 317 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 318 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 319 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 320 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 321 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 322 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 323 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 324 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 325 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 326 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 327 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 328 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 329 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 330 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 331 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 332 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 333 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 334 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 335 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 336 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 337 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 338 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 339 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 340 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 341 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 342 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 343 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 344 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 345 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 346 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 347 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 348 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 349 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 350 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 351 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 352 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 353 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 354 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 355 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 356 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:slap_delay_mono ;
+		ui:portIndex 357 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+

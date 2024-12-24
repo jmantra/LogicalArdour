@@ -144,7 +144,7 @@ if rv and rv["target_key"] == 35 then
     }
 
     -- Look up the extracted key in the table to get the number
-    local selected_number = key_to_number[pkey]
+     selected_number = key_to_number[pkey]
 
     if selected_number then
         print("Matched Key Number:", selected_number)
@@ -176,9 +176,9 @@ local number_to_key = {
     [28] = "Em", [29] = "Fm", [30] = "F#m", [31] = "Gbm", [32] = "Gm", [33] = "G#m", [34] = "Abm"
 }
 
--- Get the selected target key's numeric value from the dialog
+if rv and rv["target_key"] ~= 35 then
  selected_number = rv.target_key
-
+end
 -- Map the numeric value back to the corresponding key string
  target_key = number_to_key[selected_number]
 
@@ -374,5 +374,62 @@ print(type(ratio))
 	if not Session:abort_empty_reversible_command () then
 		Session:commit_reversible_command (nil)
 	end
+
+	  local ndialog_options = {
+  {
+   type = "dropdown", key = "target_key", title = "Would you like to set the project key to the new key of "..target_key, values =
+   {
+    ["Do not set "..target_key.." as project key or press cancel"] = 1, ["set "..target_key.." as the new key of the project"] = 2
+   },
+   default = "Do not set "..target_key.." as project key or press cancel"
+
+   }
+ }
+
+ if target_key:match("m$") then
+    scale = "minor"
+elseif target_key:match("[A-G]$") then
+    scale = "major"
+
+end
+
+print("The scale is:", scale)
+
+
+
+ local nod = LuaDialog.Dialog ("Change Key", ndialog_options)
+ local nrv = nod:run()
+
+if nrv and nrv["target_key"] == 1 then
+return
+end
+
+if nrv and nrv["target_key"] == 2 then
+
+print ("setting key of project")
+print(target_key)
+
+-- Get the user config directory
+local user_config_directory = ARDOUR.user_config_directory(8)
+
+-- Construct the full path to the key.txt file
+local key_file_path = user_config_directory .. "/key.txt"
+
+-- Open the file in write mode (this will overwrite any existing content)
+local file = io.open(key_file_path, "w")
+
+-- Check if the file was opened successfully
+if file then
+    -- Optionally, you can write new content to the file
+    file:write(target_key .. "  " .. scale .. "\n")
+
+    -- Close the file
+    file:close()
+    print("File cleared and data written to " .. key_file_path .. " successfully.")
+else
+    print("Error: Could not open file for writing at " .. key_file_path)
+end
+
+end
 
     end end

@@ -1,0 +1,694 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2ext:     <http://lv2plug.in/ns/ext/> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix patch:      <http://lv2plug.in/ns/ext/patch#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/mixer_x4_mono/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+@prefix plug_p:     <http://lsp-plug.in//ports#> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:v_sadovnikov
+	a foaf:Person ;
+	foaf:name "Vladimir Sadovnikov" ;
+	foaf:nick "SadKo" ;
+	foaf:mbox <mailto:sadko4u@gmail.com> ;
+	foaf:homepage <http://lsp-plug.in/#v_sadovnikov>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:mono_in
+	a pg:MonoGroup, pg:InputGroup ;
+	lv2:symbol "mono_in" ;
+	rdfs:label "Mono Input" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:center
+	]
+	.
+
+plug_pg:mono_out
+	a pg:MonoGroup, pg:OutputGroup ;
+	lv2:symbol "mono_out" ;
+	rdfs:label "Mono Output" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:center
+	]
+	.
+
+plug_pg:mix_in1
+	a pg:MonoGroup, pg:InputGroup ;
+	lv2:symbol "mix_in1" ;
+	rdfs:label "Mixer input 1" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:center
+	]
+	.
+
+plug_pg:mix_in2
+	a pg:MonoGroup, pg:InputGroup ;
+	lv2:symbol "mix_in2" ;
+	rdfs:label "Mixer input 2" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:center
+	]
+	.
+
+plug_pg:mix_in3
+	a pg:MonoGroup, pg:InputGroup ;
+	lv2:symbol "mix_in3" ;
+	rdfs:label "Mixer input 3" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:center
+	]
+	.
+
+plug_pg:mix_in4
+	a pg:MonoGroup, pg:InputGroup ;
+	lv2:symbol "mix_in4" ;
+	rdfs:label "Mixer input 4" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:center
+	]
+	.
+
+plug_p:send
+	a lv2:Parameter ;
+	rdfs:label "Mix send" ;
+	rdfs:range atom:String
+	.
+
+plug_p:return
+	a lv2:Parameter ;
+	rdfs:label "Mix return" ;
+	rdfs:range atom:String
+	.
+
+plug_p:ret_1
+	a lv2:Parameter ;
+	rdfs:label "Audio channel 1 return" ;
+	rdfs:range atom:String
+	.
+
+plug_p:ret_2
+	a lv2:Parameter ;
+	rdfs:label "Audio channel 2 return" ;
+	rdfs:range atom:String
+	.
+
+plug_p:ret_3
+	a lv2:Parameter ;
+	rdfs:label "Audio channel 3 return" ;
+	rdfs:range atom:String
+	.
+
+plug_p:ret_4
+	a lv2:Parameter ;
+	rdfs:label "Audio channel 4 return" ;
+	rdfs:range atom:String
+	.
+
+plug:mixer_x4_mono
+	a lv2:MixerPlugin, doap:Project ;
+	doap:name "LSP Mixer x4 Mono" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 15 ;
+	doap:developer plug_dev:v_sadovnikov ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:mixer_x4_mono ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:mono_in ;
+	pg:mainOutput plug_pg:mono_out ;
+	dc:replaces <urn:ladspa:5002204> ;
+
+	patch:writable
+		plug_p:send ,
+		plug_p:return ,
+		plug_p:ret_1 ,
+		plug_p:ret_2 ,
+		plug_p:ret_3 ,
+		plug_p:ret_4 ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in" ;
+		lv2:name "Input" ;
+		pg:group plug_pg:mono_in ;
+		lv2:designation pg:center ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "out" ;
+		lv2:name "Output" ;
+		pg:group plug_pg:mono_out ;
+		lv2:designation pg:center ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 2 ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:designation lv2:enabled ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 3 ;
+		lv2:symbol "dry" ;
+		lv2:name "Dry amount" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "wet" ;
+		lv2:name "Wet amount" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "g_out" ;
+		lv2:name "Output gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "ilm" ;
+		lv2:name "Input level meter" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "olm" ;
+		lv2:name "Output level meter" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 8 ;
+		lv2:symbol "in_1" ;
+		lv2:name "Audio input 1" ;
+		pg:group plug_pg:mix_in1 ;
+		lv2:designation pg:center ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "cs_1" ;
+		lv2:name "Channel solo 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "cm_1" ;
+		lv2:name "Channel mute 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "ci_1" ;
+		lv2:name "Channel phase invert 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "cg_1" ;
+		lv2:name "Channel gain 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "cl_1" ;
+		lv2:name "Channel signal level 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 14 ;
+		lv2:symbol "in_2" ;
+		lv2:name "Audio input 2" ;
+		pg:group plug_pg:mix_in2 ;
+		lv2:designation pg:center ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "cs_2" ;
+		lv2:name "Channel solo 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "cm_2" ;
+		lv2:name "Channel mute 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "ci_2" ;
+		lv2:name "Channel phase invert 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "cg_2" ;
+		lv2:name "Channel gain 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "cl_2" ;
+		lv2:name "Channel signal level 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 20 ;
+		lv2:symbol "in_3" ;
+		lv2:name "Audio input 3" ;
+		pg:group plug_pg:mix_in3 ;
+		lv2:designation pg:center ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "cs_3" ;
+		lv2:name "Channel solo 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "cm_3" ;
+		lv2:name "Channel mute 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "ci_3" ;
+		lv2:name "Channel phase invert 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "cg_3" ;
+		lv2:name "Channel gain 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "cl_3" ;
+		lv2:name "Channel signal level 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 26 ;
+		lv2:symbol "in_4" ;
+		lv2:name "Audio input 4" ;
+		pg:group plug_pg:mix_in4 ;
+		lv2:designation pg:center ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "cs_4" ;
+		lv2:name "Channel solo 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "cm_4" ;
+		lv2:name "Channel mute 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "ci_4" ;
+		lv2:name "Channel phase invert 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "cg_4" ;
+		lv2:name "Channel gain 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 31 ;
+		lv2:symbol "cl_4" ;
+		lv2:name "Channel signal level 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 32 ;
+		lv2:symbol "in_ui" ;
+		lv2:name "UI Input" ;
+		rdfs:comment "UI -> DSP communication" ;
+		rsz:minimumSize 2103296 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 33 ;
+		lv2:symbol "out_ui" ;
+		lv2:name "UI Output" ;
+		rdfs:comment "DSP -> UI communication" ;
+		rsz:minimumSize 2103296 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:mixer_x4_mono
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 15 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface, lv2ext:instance-access ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 2 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 3 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 4 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 6 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 7 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 10 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 11 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 13 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 16 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 17 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 19 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 21 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 23 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 24 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 25 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 27 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 28 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 30 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 31 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 32 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 33 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:mixer_x4_mono ;
+		ui:portIndex 34 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+

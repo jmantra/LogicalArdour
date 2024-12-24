@@ -1,0 +1,3433 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2ext:     <http://lv2plug.in/ns/ext/> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix patch:      <http://lv2plug.in/ns/ext/patch#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/para_equalizer_x8_lr/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+@prefix plug_p:     <http://lsp-plug.in//ports#> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:v_sadovnikov
+	a foaf:Person ;
+	foaf:name "Vladimir Sadovnikov" ;
+	foaf:nick "SadKo" ;
+	foaf:mbox <mailto:sadko4u@gmail.com> ;
+	foaf:homepage <http://lsp-plug.in/#v_sadovnikov>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:stereo_in
+	a pg:StereoGroup, pg:InputGroup ;
+	lv2:symbol "stereo_in" ;
+	rdfs:label "Stereo Input" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:stereo_out
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "stereo_out" ;
+	rdfs:label "Stereo Output" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_p:send
+	a lv2:Parameter ;
+	rdfs:label "Audio send" ;
+	rdfs:range atom:String
+	.
+
+plug_p:return
+	a lv2:Parameter ;
+	rdfs:label "Audio return" ;
+	rdfs:range atom:String
+	.
+
+plug:para_equalizer_x8_lr
+	a lv2:ParaEQPlugin, doap:Project ;
+	doap:name "LSP Parametric Equalizer x8 LeftRight" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 28 ;
+	doap:developer plug_dev:v_sadovnikov ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:para_equalizer_x8_lr ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:stereo_in ;
+	pg:mainOutput plug_pg:stereo_out ;
+	dc:replaces <urn:ladspa:5002306> ;
+
+	patch:writable
+		plug_p:send ,
+		plug_p:return ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in_l" ;
+		lv2:name "Input L" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "in_r" ;
+		lv2:name "Input R" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "out_l" ;
+		lv2:name "Output L" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 3 ;
+		lv2:symbol "out_r" ;
+		lv2:name "Output R" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:designation lv2:enabled ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "g_in" ;
+		lv2:name "Input gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "g_out" ;
+		lv2:name "Output gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "mode" ;
+		lv2:name "Equalizer mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "IIR"; rdf:value 0 ] ,
+			[ rdfs:label "FIR"; rdf:value 1 ] ,
+			[ rdfs:label "FFT"; rdf:value 2 ] ,
+			[ rdfs:label "SPM"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "react" ;
+		lv2:name "FFT reactivity" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "shift" ;
+		lv2:name "Shift gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "zoom" ;
+		lv2:name "Graph zoom" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.007943 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.015850 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "fsel" ;
+		lv2:name "Filter select" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Filters Left 0-7"; rdf:value 0 ] ,
+			[ rdfs:label "Filters Right 0-7"; rdf:value 1 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "insp_id" ;
+		lv2:name "Inspected filter identifier" ;
+		lv2:portProperty lv2:integer, pp:hasStrictBounds ;
+		lv2:minimum -1 ;
+		lv2:maximum 15 ;
+		lv2:default -1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "insp_r" ;
+		lv2:name "Inspect frequency range" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14 ;
+		lv2:symbol "insp_on" ;
+		lv2:name "Automatically inspect filter when editing" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "ife_l" ;
+		lv2:name "Input FFT graph enable Left" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "ofe_l" ;
+		lv2:name "Output FFT graph enable Left" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "rfe_l" ;
+		lv2:name "Return FFT graph enable Left" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "ife_r" ;
+		lv2:name "Input FFT graph enable Right" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "ofe_r" ;
+		lv2:name "Output FFT graph enable Right" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "rfe_r" ;
+		lv2:name "Return FFT graph enable Right" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "bal" ;
+		lv2:name "Output balance" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -100.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "frqs_l" ;
+		lv2:name "Frequency shift Left" ;
+		units:unit units:semitone12TET ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -120.000000 ;
+		lv2:maximum 120.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "iml" ;
+		lv2:name "Input signal meter Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "sml" ;
+		lv2:name "Output signal meter Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "fltv_l" ;
+		lv2:name "Filter visibility Left" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "frqs_r" ;
+		lv2:name "Frequency shift Right" ;
+		units:unit units:semitone12TET ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -120.000000 ;
+		lv2:maximum 120.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "imr" ;
+		lv2:name "Input signal meter Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "smr" ;
+		lv2:name "Output signal meter Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "fltv_r" ;
+		lv2:name "Filter visibility Right" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "ftl_0" ;
+		lv2:name "Filter type Left 0" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 31 ;
+		lv2:symbol "fml_0" ;
+		lv2:name "Filter mode Left 0" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 32 ;
+		lv2:symbol "sl_0" ;
+		lv2:name "Filter slope Left 0" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 33 ;
+		lv2:symbol "xsl_0" ;
+		lv2:name "Filter solo Left 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "xml_0" ;
+		lv2:name "Filter mute Left 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 35 ;
+		lv2:symbol "fl_0" ;
+		lv2:name "Frequency Left 0" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 16.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 36 ;
+		lv2:symbol "wl_0" ;
+		lv2:name "Filter Width Left 0" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 37 ;
+		lv2:symbol "gl_0" ;
+		lv2:name "Gain Left 0" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 38 ;
+		lv2:symbol "ql_0" ;
+		lv2:name "Quality factor Left 0" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 39 ;
+		lv2:symbol "huel_0" ;
+		lv2:name "Hue Left 0" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 40 ;
+		lv2:symbol "fvl_0" ;
+		lv2:name "Filter visibility Left 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 41 ;
+		lv2:symbol "ftr_0" ;
+		lv2:name "Filter type Right 0" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 42 ;
+		lv2:symbol "fmr_0" ;
+		lv2:name "Filter mode Right 0" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 43 ;
+		lv2:symbol "sr_0" ;
+		lv2:name "Filter slope Right 0" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 44 ;
+		lv2:symbol "xsr_0" ;
+		lv2:name "Filter solo Right 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 45 ;
+		lv2:symbol "xmr_0" ;
+		lv2:name "Filter mute Right 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 46 ;
+		lv2:symbol "fr_0" ;
+		lv2:name "Frequency Right 0" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 16.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 47 ;
+		lv2:symbol "wr_0" ;
+		lv2:name "Filter Width Right 0" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 48 ;
+		lv2:symbol "gr_0" ;
+		lv2:name "Gain Right 0" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 49 ;
+		lv2:symbol "qr_0" ;
+		lv2:name "Quality factor Right 0" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 50 ;
+		lv2:symbol "huer_0" ;
+		lv2:name "Hue Right 0" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 51 ;
+		lv2:symbol "fvr_0" ;
+		lv2:name "Filter visibility Right 0" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 52 ;
+		lv2:symbol "ftl_1" ;
+		lv2:name "Filter type Left 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 53 ;
+		lv2:symbol "fml_1" ;
+		lv2:name "Filter mode Left 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 54 ;
+		lv2:symbol "sl_1" ;
+		lv2:name "Filter slope Left 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 55 ;
+		lv2:symbol "xsl_1" ;
+		lv2:name "Filter solo Left 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 56 ;
+		lv2:symbol "xml_1" ;
+		lv2:name "Filter mute Left 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 57 ;
+		lv2:symbol "fl_1" ;
+		lv2:name "Frequency Left 1" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 40.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 58 ;
+		lv2:symbol "wl_1" ;
+		lv2:name "Filter Width Left 1" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 59 ;
+		lv2:symbol "gl_1" ;
+		lv2:name "Gain Left 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 60 ;
+		lv2:symbol "ql_1" ;
+		lv2:name "Quality factor Left 1" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 61 ;
+		lv2:symbol "huel_1" ;
+		lv2:name "Hue Left 1" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.125000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 62 ;
+		lv2:symbol "fvl_1" ;
+		lv2:name "Filter visibility Left 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 63 ;
+		lv2:symbol "ftr_1" ;
+		lv2:name "Filter type Right 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 64 ;
+		lv2:symbol "fmr_1" ;
+		lv2:name "Filter mode Right 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 65 ;
+		lv2:symbol "sr_1" ;
+		lv2:name "Filter slope Right 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 66 ;
+		lv2:symbol "xsr_1" ;
+		lv2:name "Filter solo Right 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 67 ;
+		lv2:symbol "xmr_1" ;
+		lv2:name "Filter mute Right 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 68 ;
+		lv2:symbol "fr_1" ;
+		lv2:name "Frequency Right 1" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 40.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 69 ;
+		lv2:symbol "wr_1" ;
+		lv2:name "Filter Width Right 1" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 70 ;
+		lv2:symbol "gr_1" ;
+		lv2:name "Gain Right 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 71 ;
+		lv2:symbol "qr_1" ;
+		lv2:name "Quality factor Right 1" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 72 ;
+		lv2:symbol "huer_1" ;
+		lv2:name "Hue Right 1" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.125000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 73 ;
+		lv2:symbol "fvr_1" ;
+		lv2:name "Filter visibility Right 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 74 ;
+		lv2:symbol "ftl_2" ;
+		lv2:name "Filter type Left 2" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 75 ;
+		lv2:symbol "fml_2" ;
+		lv2:name "Filter mode Left 2" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 76 ;
+		lv2:symbol "sl_2" ;
+		lv2:name "Filter slope Left 2" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 77 ;
+		lv2:symbol "xsl_2" ;
+		lv2:name "Filter solo Left 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 78 ;
+		lv2:symbol "xml_2" ;
+		lv2:name "Filter mute Left 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 79 ;
+		lv2:symbol "fl_2" ;
+		lv2:name "Frequency Left 2" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 80 ;
+		lv2:symbol "wl_2" ;
+		lv2:name "Filter Width Left 2" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 81 ;
+		lv2:symbol "gl_2" ;
+		lv2:name "Gain Left 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 82 ;
+		lv2:symbol "ql_2" ;
+		lv2:name "Quality factor Left 2" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 83 ;
+		lv2:symbol "huel_2" ;
+		lv2:name "Hue Left 2" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.250000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 84 ;
+		lv2:symbol "fvl_2" ;
+		lv2:name "Filter visibility Left 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 85 ;
+		lv2:symbol "ftr_2" ;
+		lv2:name "Filter type Right 2" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 86 ;
+		lv2:symbol "fmr_2" ;
+		lv2:name "Filter mode Right 2" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 87 ;
+		lv2:symbol "sr_2" ;
+		lv2:name "Filter slope Right 2" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 88 ;
+		lv2:symbol "xsr_2" ;
+		lv2:name "Filter solo Right 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 89 ;
+		lv2:symbol "xmr_2" ;
+		lv2:name "Filter mute Right 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 90 ;
+		lv2:symbol "fr_2" ;
+		lv2:name "Frequency Right 2" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 91 ;
+		lv2:symbol "wr_2" ;
+		lv2:name "Filter Width Right 2" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 92 ;
+		lv2:symbol "gr_2" ;
+		lv2:name "Gain Right 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 93 ;
+		lv2:symbol "qr_2" ;
+		lv2:name "Quality factor Right 2" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 94 ;
+		lv2:symbol "huer_2" ;
+		lv2:name "Hue Right 2" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.250000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 95 ;
+		lv2:symbol "fvr_2" ;
+		lv2:name "Filter visibility Right 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 96 ;
+		lv2:symbol "ftl_3" ;
+		lv2:name "Filter type Left 3" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 97 ;
+		lv2:symbol "fml_3" ;
+		lv2:name "Filter mode Left 3" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 98 ;
+		lv2:symbol "sl_3" ;
+		lv2:name "Filter slope Left 3" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 99 ;
+		lv2:symbol "xsl_3" ;
+		lv2:name "Filter solo Left 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 100 ;
+		lv2:symbol "xml_3" ;
+		lv2:name "Filter mute Left 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 101 ;
+		lv2:symbol "fl_3" ;
+		lv2:name "Frequency Left 3" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 250.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 102 ;
+		lv2:symbol "wl_3" ;
+		lv2:name "Filter Width Left 3" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 103 ;
+		lv2:symbol "gl_3" ;
+		lv2:name "Gain Left 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 104 ;
+		lv2:symbol "ql_3" ;
+		lv2:name "Quality factor Left 3" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 105 ;
+		lv2:symbol "huel_3" ;
+		lv2:name "Hue Left 3" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.375000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 106 ;
+		lv2:symbol "fvl_3" ;
+		lv2:name "Filter visibility Left 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 107 ;
+		lv2:symbol "ftr_3" ;
+		lv2:name "Filter type Right 3" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 108 ;
+		lv2:symbol "fmr_3" ;
+		lv2:name "Filter mode Right 3" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 109 ;
+		lv2:symbol "sr_3" ;
+		lv2:name "Filter slope Right 3" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 110 ;
+		lv2:symbol "xsr_3" ;
+		lv2:name "Filter solo Right 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 111 ;
+		lv2:symbol "xmr_3" ;
+		lv2:name "Filter mute Right 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 112 ;
+		lv2:symbol "fr_3" ;
+		lv2:name "Frequency Right 3" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 250.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 113 ;
+		lv2:symbol "wr_3" ;
+		lv2:name "Filter Width Right 3" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 114 ;
+		lv2:symbol "gr_3" ;
+		lv2:name "Gain Right 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 115 ;
+		lv2:symbol "qr_3" ;
+		lv2:name "Quality factor Right 3" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 116 ;
+		lv2:symbol "huer_3" ;
+		lv2:name "Hue Right 3" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.375000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 117 ;
+		lv2:symbol "fvr_3" ;
+		lv2:name "Filter visibility Right 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 118 ;
+		lv2:symbol "ftl_4" ;
+		lv2:name "Filter type Left 4" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 119 ;
+		lv2:symbol "fml_4" ;
+		lv2:name "Filter mode Left 4" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 120 ;
+		lv2:symbol "sl_4" ;
+		lv2:name "Filter slope Left 4" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 121 ;
+		lv2:symbol "xsl_4" ;
+		lv2:name "Filter solo Left 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 122 ;
+		lv2:symbol "xml_4" ;
+		lv2:name "Filter mute Left 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 123 ;
+		lv2:symbol "fl_4" ;
+		lv2:name "Frequency Left 4" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 630.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 124 ;
+		lv2:symbol "wl_4" ;
+		lv2:name "Filter Width Left 4" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 125 ;
+		lv2:symbol "gl_4" ;
+		lv2:name "Gain Left 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 126 ;
+		lv2:symbol "ql_4" ;
+		lv2:name "Quality factor Left 4" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 127 ;
+		lv2:symbol "huel_4" ;
+		lv2:name "Hue Left 4" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.500000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 128 ;
+		lv2:symbol "fvl_4" ;
+		lv2:name "Filter visibility Left 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 129 ;
+		lv2:symbol "ftr_4" ;
+		lv2:name "Filter type Right 4" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 130 ;
+		lv2:symbol "fmr_4" ;
+		lv2:name "Filter mode Right 4" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 131 ;
+		lv2:symbol "sr_4" ;
+		lv2:name "Filter slope Right 4" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 132 ;
+		lv2:symbol "xsr_4" ;
+		lv2:name "Filter solo Right 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 133 ;
+		lv2:symbol "xmr_4" ;
+		lv2:name "Filter mute Right 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 134 ;
+		lv2:symbol "fr_4" ;
+		lv2:name "Frequency Right 4" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 630.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 135 ;
+		lv2:symbol "wr_4" ;
+		lv2:name "Filter Width Right 4" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 136 ;
+		lv2:symbol "gr_4" ;
+		lv2:name "Gain Right 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 137 ;
+		lv2:symbol "qr_4" ;
+		lv2:name "Quality factor Right 4" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 138 ;
+		lv2:symbol "huer_4" ;
+		lv2:name "Hue Right 4" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.500000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 139 ;
+		lv2:symbol "fvr_4" ;
+		lv2:name "Filter visibility Right 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 140 ;
+		lv2:symbol "ftl_5" ;
+		lv2:name "Filter type Left 5" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 141 ;
+		lv2:symbol "fml_5" ;
+		lv2:name "Filter mode Left 5" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 142 ;
+		lv2:symbol "sl_5" ;
+		lv2:name "Filter slope Left 5" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 143 ;
+		lv2:symbol "xsl_5" ;
+		lv2:name "Filter solo Left 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 144 ;
+		lv2:symbol "xml_5" ;
+		lv2:name "Filter mute Left 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 145 ;
+		lv2:symbol "fl_5" ;
+		lv2:name "Frequency Left 5" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 1600.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 146 ;
+		lv2:symbol "wl_5" ;
+		lv2:name "Filter Width Left 5" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 147 ;
+		lv2:symbol "gl_5" ;
+		lv2:name "Gain Left 5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 148 ;
+		lv2:symbol "ql_5" ;
+		lv2:name "Quality factor Left 5" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 149 ;
+		lv2:symbol "huel_5" ;
+		lv2:name "Hue Left 5" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.625000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 150 ;
+		lv2:symbol "fvl_5" ;
+		lv2:name "Filter visibility Left 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 151 ;
+		lv2:symbol "ftr_5" ;
+		lv2:name "Filter type Right 5" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 152 ;
+		lv2:symbol "fmr_5" ;
+		lv2:name "Filter mode Right 5" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 153 ;
+		lv2:symbol "sr_5" ;
+		lv2:name "Filter slope Right 5" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 154 ;
+		lv2:symbol "xsr_5" ;
+		lv2:name "Filter solo Right 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 155 ;
+		lv2:symbol "xmr_5" ;
+		lv2:name "Filter mute Right 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 156 ;
+		lv2:symbol "fr_5" ;
+		lv2:name "Frequency Right 5" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 1600.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 157 ;
+		lv2:symbol "wr_5" ;
+		lv2:name "Filter Width Right 5" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 158 ;
+		lv2:symbol "gr_5" ;
+		lv2:name "Gain Right 5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 159 ;
+		lv2:symbol "qr_5" ;
+		lv2:name "Quality factor Right 5" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 160 ;
+		lv2:symbol "huer_5" ;
+		lv2:name "Hue Right 5" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.625000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 161 ;
+		lv2:symbol "fvr_5" ;
+		lv2:name "Filter visibility Right 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 162 ;
+		lv2:symbol "ftl_6" ;
+		lv2:name "Filter type Left 6" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 163 ;
+		lv2:symbol "fml_6" ;
+		lv2:name "Filter mode Left 6" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 164 ;
+		lv2:symbol "sl_6" ;
+		lv2:name "Filter slope Left 6" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 165 ;
+		lv2:symbol "xsl_6" ;
+		lv2:name "Filter solo Left 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 166 ;
+		lv2:symbol "xml_6" ;
+		lv2:name "Filter mute Left 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 167 ;
+		lv2:symbol "fl_6" ;
+		lv2:name "Frequency Left 6" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 4000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 168 ;
+		lv2:symbol "wl_6" ;
+		lv2:name "Filter Width Left 6" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 169 ;
+		lv2:symbol "gl_6" ;
+		lv2:name "Gain Left 6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 170 ;
+		lv2:symbol "ql_6" ;
+		lv2:name "Quality factor Left 6" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 171 ;
+		lv2:symbol "huel_6" ;
+		lv2:name "Hue Left 6" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.750000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 172 ;
+		lv2:symbol "fvl_6" ;
+		lv2:name "Filter visibility Left 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 173 ;
+		lv2:symbol "ftr_6" ;
+		lv2:name "Filter type Right 6" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 174 ;
+		lv2:symbol "fmr_6" ;
+		lv2:name "Filter mode Right 6" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 175 ;
+		lv2:symbol "sr_6" ;
+		lv2:name "Filter slope Right 6" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 176 ;
+		lv2:symbol "xsr_6" ;
+		lv2:name "Filter solo Right 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 177 ;
+		lv2:symbol "xmr_6" ;
+		lv2:name "Filter mute Right 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 178 ;
+		lv2:symbol "fr_6" ;
+		lv2:name "Frequency Right 6" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 4000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 179 ;
+		lv2:symbol "wr_6" ;
+		lv2:name "Filter Width Right 6" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 180 ;
+		lv2:symbol "gr_6" ;
+		lv2:name "Gain Right 6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 181 ;
+		lv2:symbol "qr_6" ;
+		lv2:name "Quality factor Right 6" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 182 ;
+		lv2:symbol "huer_6" ;
+		lv2:name "Hue Right 6" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.750000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 183 ;
+		lv2:symbol "fvr_6" ;
+		lv2:name "Filter visibility Right 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 184 ;
+		lv2:symbol "ftl_7" ;
+		lv2:name "Filter type Left 7" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 185 ;
+		lv2:symbol "fml_7" ;
+		lv2:name "Filter mode Left 7" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 186 ;
+		lv2:symbol "sl_7" ;
+		lv2:name "Filter slope Left 7" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 187 ;
+		lv2:symbol "xsl_7" ;
+		lv2:name "Filter solo Left 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 188 ;
+		lv2:symbol "xml_7" ;
+		lv2:name "Filter mute Left 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 189 ;
+		lv2:symbol "fl_7" ;
+		lv2:name "Frequency Left 7" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 10000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 190 ;
+		lv2:symbol "wl_7" ;
+		lv2:name "Filter Width Left 7" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 191 ;
+		lv2:symbol "gl_7" ;
+		lv2:name "Gain Left 7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 192 ;
+		lv2:symbol "ql_7" ;
+		lv2:name "Quality factor Left 7" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 193 ;
+		lv2:symbol "huel_7" ;
+		lv2:name "Hue Left 7" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.875000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 194 ;
+		lv2:symbol "fvl_7" ;
+		lv2:name "Filter visibility Left 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 195 ;
+		lv2:symbol "ftr_7" ;
+		lv2:name "Filter type Right 7" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Off"; rdf:value 0 ] ,
+			[ rdfs:label "Bell"; rdf:value 1 ] ,
+			[ rdfs:label "Hi-pass"; rdf:value 2 ] ,
+			[ rdfs:label "Hi-shelf"; rdf:value 3 ] ,
+			[ rdfs:label "Lo-pass"; rdf:value 4 ] ,
+			[ rdfs:label "Lo-shelf"; rdf:value 5 ] ,
+			[ rdfs:label "Notch"; rdf:value 6 ] ,
+			[ rdfs:label "Resonance"; rdf:value 7 ] ,
+			[ rdfs:label "Allpass"; rdf:value 8 ] ,
+			[ rdfs:label "Bandpass"; rdf:value 9 ] ,
+			[ rdfs:label "Ladder-pass"; rdf:value 10 ] ,
+			[ rdfs:label "Ladder-rej"; rdf:value 11 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 11 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 196 ;
+		lv2:symbol "fmr_7" ;
+		lv2:name "Filter mode Right 7" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "RLC (BT)"; rdf:value 0 ] ,
+			[ rdfs:label "RLC (MT)"; rdf:value 1 ] ,
+			[ rdfs:label "BWC (BT)"; rdf:value 2 ] ,
+			[ rdfs:label "BWC (MT)"; rdf:value 3 ] ,
+			[ rdfs:label "LRX (BT)"; rdf:value 4 ] ,
+			[ rdfs:label "LRX (MT)"; rdf:value 5 ] ,
+			[ rdfs:label "APO (DR)"; rdf:value 6 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 6 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 197 ;
+		lv2:symbol "sr_7" ;
+		lv2:name "Filter slope Right 7" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "x1"; rdf:value 0 ] ,
+			[ rdfs:label "x2"; rdf:value 1 ] ,
+			[ rdfs:label "x3"; rdf:value 2 ] ,
+			[ rdfs:label "x4"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 198 ;
+		lv2:symbol "xsr_7" ;
+		lv2:name "Filter solo Right 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 199 ;
+		lv2:symbol "xmr_7" ;
+		lv2:name "Filter mute Right 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 200 ;
+		lv2:symbol "fr_7" ;
+		lv2:name "Frequency Right 7" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 24000.000000 ;
+		lv2:default 10000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 201 ;
+		lv2:symbol "wr_7" ;
+		lv2:name "Filter Width Right 7" ;
+		units:unit units:oct ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 4.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 202 ;
+		lv2:symbol "gr_7" ;
+		lv2:name "Gain Right 7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.015850 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 203 ;
+		lv2:symbol "qr_7" ;
+		lv2:name "Quality factor Right 7" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 204 ;
+		lv2:symbol "huer_7" ;
+		lv2:name "Hue Right 7" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.875000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 205 ;
+		lv2:symbol "fvr_7" ;
+		lv2:name "Filter visibility Right 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 206 ;
+		lv2:symbol "in_ui" ;
+		lv2:name "UI Input" ;
+		rdfs:comment "UI -> DSP communication" ;
+		rsz:minimumSize 36864 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 207 ;
+		lv2:symbol "out_ui" ;
+		lv2:name "UI Output" ;
+		rdfs:comment "DSP -> UI communication" ;
+		rsz:minimumSize 331776 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 208 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:para_equalizer_x8_lr
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 28 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface, lv2ext:instance-access ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 4 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 6 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 7 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 8 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 10 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 11 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 13 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 14 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 16 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 17 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 19 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 20 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 21 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 23 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 24 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 25 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 26 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 27 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 28 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 30 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 31 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 32 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 33 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 34 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 35 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 36 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 37 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 38 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 39 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 40 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 41 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 42 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 43 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 44 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 45 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 46 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 47 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 48 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 49 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 50 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 51 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 52 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 53 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 54 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 55 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 56 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 57 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 58 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 59 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 60 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 61 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 62 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 63 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 64 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 65 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 66 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 67 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 68 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 69 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 70 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 71 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 72 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 73 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 74 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 75 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 76 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 77 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 78 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 79 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 80 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 81 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 82 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 83 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 84 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 85 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 86 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 87 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 88 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 89 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 90 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 91 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 92 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 93 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 94 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 95 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 96 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 97 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 98 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 99 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 100 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 101 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 102 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 103 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 104 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 105 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 106 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 107 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 108 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 109 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 110 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 111 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 112 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 113 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 114 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 115 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 116 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 117 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 118 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 119 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 120 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 121 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 122 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 123 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 124 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 125 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 126 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 127 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 128 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 129 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 130 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 131 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 132 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 133 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 134 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 135 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 136 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 137 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 138 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 139 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 140 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 141 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 142 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 143 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 144 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 145 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 146 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 147 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 148 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 149 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 150 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 151 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 152 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 153 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 154 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 155 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 156 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 157 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 158 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 159 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 160 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 161 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 162 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 163 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 164 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 165 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 166 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 167 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 168 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 169 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 170 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 171 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 172 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 173 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 174 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 175 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 176 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 177 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 178 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 179 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 180 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 181 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 182 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 183 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 184 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 185 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 186 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 187 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 188 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 189 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 190 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 191 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 192 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 193 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 194 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 195 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 196 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 197 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 198 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 199 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 200 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 201 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 202 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 203 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 204 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 205 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 206 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 207 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:para_equalizer_x8_lr ;
+		ui:portIndex 208 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+
