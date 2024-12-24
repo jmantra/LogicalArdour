@@ -98,7 +98,8 @@ local dialog_options = {
 						["Brush Drum (ACE Fluid Synth)"] = 18,
 						["Orchestral Perc (ACE Fluid Synth)"] = 19,
 						["Buskman's Holiday Percussion (AVL Drumits)"] = 20,
-						["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = 21
+						["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = 21,
+						["Connect Step Sequencer"] = 22
 
    },
    default = "Choose Drum Plugin"
@@ -309,6 +310,40 @@ local dialog_options = {
 
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
+	  	 	 	   	if rv and rv["dropdown"] == 22 then
+		print("Step Sequencer")
+			  local sel = Editor:get_selection()
+  for r in sel.tracks:routelist():iter() do
+    the_name = r:name()
+    print(the_name)
+  end
+  	-- Fetch the user config directory
+local user_config_directory = ARDOUR.user_config_directory(8) -- get the config directory (using version 8)
+
+print(user_config_directory)
+
+local subdir = "route_templates"
+
+-- Concatenate the config directory with the subdirectory
+local full_path = user_config_directory .. "/" .. subdir
+		 local template_path = full_path .. "/Step Sequencer.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Step Sequencer "..the_name
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		--local nsel = Editor:get_selection()
+		for r in sel.tracks:routelist():iter() do
+
+    if not r:to_track():isnil() and not r:to_track():to_midi_track():isnil() then
+      local outputmidiport = r:output():midi(0)
+      outputmidiport:connect(the_name .. "/midi_in 1")
+    end
+  end
+		return
+
 	 end
 
 

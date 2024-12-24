@@ -12,39 +12,84 @@ local dialog_options = {
   {
     type = "dropdown", key = "dropdown", title = "Choose Track", values = {
       ["Choose a track Type"] = 1,
-      ["Drum Track"] = {
-        ["Red Zepplin (AVL Drumkits)"] = "rz", ["Black Pearl (AVL Drumkits)"] = "bp", ["Blonde Bop (AVL Drumkits)"] = "bo",
-        ["Standard Drums (ACE Fluid Synth)"] = "std", ["Standard 2 Drums (ACE Fluid Synth)"] = "st2",
-        ["Electronic Drums (ACE Fluid SYnth)"] = "eld", ["Room Drums (ACE Fluid Synth)"] = "rmd",
-        ["Power Drums (ACE Fluid Synth)"] = "pwd", ["Dance Drums (ACE Fluid Synth)"] = "dad",
-        ["Jazz Drums (ACE Fluid Synth)"] = "jzd", ["808/809 Drums (ACE Fluid Synth)"] = "808",
-        ["Brush Drums (ACE Fluid Synth)"] = "brd", ["Orchestral Perc (ACE Fluid Synth)"] = "orp",
-        ["SoniNeko Drums (ACE Fluid Synth)"] = "son", ["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al",["Buskman's Holiday Percussion (AVL Drumkits)"] = "bus",["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = "hot",["Help - How to use Drum Track"] ="drhelp"
+      ["Drummer"] = {
+        ["Red Zepplin (AVL Drumkits)"] = "rz",
+        ["Black Pearl (AVL Drumkits)"] = "bp",
+        ["Blonde Bop (AVL Drumkits)"] = "bo",
+        ["Standard Drums (ACE Fluid Synth)"] = "std",
+        ["Standard 2 Drums (ACE Fluid Synth)"] = "st2",
+        ["Electronic Drums (ACE Fluid SYnth)"] = "eld",
+        ["Room Drums (ACE Fluid Synth)"] = "rmd",
+        ["Power Drums (ACE Fluid Synth)"] = "pwd",
+        ["Dance Drums (ACE Fluid Synth)"] = "dad",
+        ["Jazz Drums (ACE Fluid Synth)"] = "jzd",
+        ["808/809 Drums (ACE Fluid Synth)"] = "808",
+        ["Brush Drums (ACE Fluid Synth)"] = "brd",
+        ["Orchestral Perc (ACE Fluid Synth)"] = "orp",
+        ["SoniNeko Drums (ACE Fluid Synth)"] = "son",
+        ["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al",
+        ["Buskman's Holiday Percussion (AVL Drumkits)"] = "bus",
+        ["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = "hot",
+        ["Help - How to use Drum Track"] = "drhelp",
+         ["NIN Drumkit (ACE Fluid Synth)"] = "nin",
+        -- Add Step Sequencing submenu here
+        ["Step Sequencing"] = {
+          ["Red Zepplin"] = "steprz",
+          ["Black Pearl Drumkit"] = "stepblack",
+          ["Blonde Bop"] = "stepblond",
+          ["Standard Drums"] = "stepstd",
+          ["Standard 2 Drums"] = "stepst2",
+          ["Electronic Drums"] = "stepel",
+           ["Room Drums"] = "steproom",
+            ["Power Drums"] = "steppower",
+             ["Dance Drums"] = "stepdance",
+             ["Jazz Drums"] = "stepjazz",
+               ["808/809 Drums"] = "step808",
+               ["Brush Drums"] = "stepbrush",
+                 ["Orchestral Perc"] = "steporch",
+                 ["SoniNeko Drums"] = "stepson",
+                 ["Buskman's Holiday Percussion"] = "stepbusk",
+                 ["Alesis Drumkits (Use C1 to change kits)"] = "stepal",
+                 ["Blonde Bop HotRod Drumkit"] = "stephot",
+                  ["NIN Drumkit"] = "stepnin",
+        }
       },
       ["Play Software Instruments"] = {
-        ["ACE Fluid (Traditional Instruments)"] = "ac", ["Yoshimi (Traditional Synth)"] = "za",
-        ["Surge XT (Synth with a LOT of presets)"] = "st",["Samplv1 Sampler"] = "samp"
+        ["ACE Fluid (Traditional Instruments)"] = "ac",
+        ["Yoshimi (Traditional Synth)"] = "za",
+        ["Surge XT (Synth with a LOT of presets)"] = "st",
+        ["Samplv1 Sampler"] = "samp"
       },
       ["Session Player"] = {
-        ["ACE Fluid (Traditional Instruments)"] = "acs", ["Yoshimi (Traditional Synth)"] = "zas",
+        ["ACE Fluid (Traditional Instruments)"] = "acs",
+        ["Yoshimi (Traditional Synth)"] = "zas",
         ["Surge XT (Synth with a LOT of presets)"] = "sts"
       },
       ["Record Audio"] = {
         ["Vocals"] = {
-          ["Classic"] = "clv", ["Bright"] = "brv", ["Compressed"] = "cov",
-          ["Telephone"] = "tlv", ["Dance"] = "dav", ["Natural"] = "nav",
-          ["Edge"] = "edv", ["Fuzz"] = "fzv", ["Tube Vocals"] = "tub",
-          ["Deeper Vocals"] = "dp", ["Robot Vocals"] = "rob"
+          ["Classic"] = "clv",
+          ["Bright"] = "brv",
+          ["Compressed"] = "cov",
+          ["Telephone"] = "tlv",
+          ["Dance"] = "dav",
+          ["Natural"] = "nav",
+          ["Edge"] = "edv",
+          ["Fuzz"] = "fzv",
+          ["Tube Vocals"] = "tub",
+          ["Deeper Vocals"] = "dp",
+          ["Robot Vocals"] = "rob"
         },
         ["Blank Audio Track"] = "audio"
       },
       ["Record Guitar or Bass"] = {
-        ["Guitarix"] = "gx", ["Ratatouille"] = "ra"
+        ["Guitarix"] = "gx",
+        ["Ratatouille"] = "ra"
       }
     },
     default = "Choose a track type"
   }
 }
+
 
 
 	-- Fetch the user config directory
@@ -84,6 +129,31 @@ local function open_url_in_browser(url)
     os.execute("/bin/bash /tmp/yt.sh")
 end
 
+function create_seq(stemplate_path, strack_name, template_path, track_name)
+  -- Create the first route from the specified template and track name
+  Session:new_route_from_template(1, ARDOUR.PresentationInfo.max_order, stemplate_path, strack_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+
+  -- Get the selection and print track names
+  local sel = Editor:get_selection()
+  for r in sel.tracks:routelist():iter() do
+    the_name = r:name()
+    print(the_name)
+  end
+
+  -- Create the second route from the specified template and track name
+  Session:new_route_from_template(1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+
+  -- Get the selection again and connect MIDI input ports
+  sel = Editor:get_selection()
+  for r in sel.tracks:routelist():iter() do
+    if not r:to_track():isnil() and not r:to_track():to_midi_track():isnil() then
+      local inputmidiport = r:input():midi(0)
+      inputmidiport:connect(the_name .. "/midi_out 1")
+    end
+  end
+end
+
+
 
 print (full_path)
 
@@ -92,23 +162,24 @@ print (full_path)
 	local rv = od:run()
 
 	if rv and rv["dropdown"] == "rz" then
-		print("You chose Red Zepplin")
+		print("You picked Red Zepplin Drumkit")
 		-- Replace the path below with the path to your track template
-		-- local template_path = "/home/jman/templates/red zepplin.template"
+
+
 		local template_path = full_path .. "/red zepplin.template"
 
 		-- Replace "Track Name" with the name you want for your new track
-		local track_name = "Red Zepplin"
+		local track_name = "Red Zepplin Drumkit"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
 		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
 		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
 		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+
 	end
 
 
@@ -120,17 +191,38 @@ local pos = Temporal.timepos_t(0)
 		local template_path = full_path .. "/Black Pearl Drumkit.template"
 
 		-- Replace "Track Name" with the name you want for your new track
-		local track_name = "Black Pearl Drum Kit"
+		local track_name = "Black Pearl Drumkit"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
 		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
 		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
 		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+
+	end
+
+		if rv and rv["dropdown"] == "nin" then
+		print("You picked NIN Drunkit")
+		-- Replace the path below with the path to your track template
+
+
+		local template_path = full_path .. "/NIN Drumkit.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "NIN Drumkit"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+				local files = C.StringVector();
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+
 	end
 
 
@@ -149,8 +241,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Blonde Bop Drumkit"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+				local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -308,8 +399,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Standard Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+				local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -328,8 +418,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Standard 2 Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -348,8 +437,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Electronic Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -369,8 +457,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Room Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -389,8 +476,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Power Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -409,8 +495,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Dance Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -429,8 +514,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Jazz Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -1054,8 +1138,7 @@ end
 		local track_name = "808/809 Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -1088,8 +1171,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Brush Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -1109,8 +1191,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Orchestral Perc"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -1130,8 +1211,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "SoniNeko Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -1150,8 +1230,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Alesis Drumkits"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -1248,8 +1327,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Buskman's Holiday Percussion"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -1268,8 +1346,7 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Blonde Bop HotRod Drumkit"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local files = C.StringVector();
-
+			local files = C.StringVector();
 files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
 local pos = Temporal.timepos_t(0)
 	Editor:do_import (files,
@@ -1284,7 +1361,210 @@ local pos = Temporal.timepos_t(0)
 -- Example usage
 open_url_in_browser("https://youtu.be/COm3ym6Y-s8")
 	end
+		if rv and rv["dropdown"] == "steprz" then
 
+
+	create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Red Zepplin",
+  full_path .. "/red zepplin.template",
+  "Red Zepplin"
+)
+end
+
+
+
+			if rv and rv["dropdown"] == "stepblack" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Black Pearl Drumkit",
+  full_path .. "/Black Pearl Drumkit.template",
+  "Black Pearl"
+)
+	end
+
+
+
+				if rv and rv["dropdown"] == "stepblond" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Blonde Bop Drumkit",
+  full_path .. "/Blonde Bop Drumkit.template",
+  "Blonde Bop"
+)
+	end
+
+
+
+					if rv and rv["dropdown"] == "stepstd" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Standard Drums",
+  full_path .. "/Standard Drums.template",
+  "Standard Drums"
+)
+	end
+
+				if rv and rv["dropdown"] == "stepst2" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Standard 2 Drums",
+  full_path .. "/Standard 2 Drums.template",
+  "Standard 2 Drums"
+)
+	end
+
+
+					if rv and rv["dropdown"] == "stepel" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Electronic Drums",
+  full_path .. "/Electronic Drums.template",
+  "Electronic Drums"
+)
+	end
+
+					if rv and rv["dropdown"] == "steproom" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Room Drums",
+  full_path .. "/Room Drums.template",
+  "Room Drums"
+)
+	end
+
+
+					if rv and rv["dropdown"] == "steppower" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Power Drums",
+  full_path .. "/Power Drums.template",
+  "Power Drums"
+)
+end
+
+
+					if rv and rv["dropdown"] == "stepdance" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Dance Drums",
+  full_path .. "/Dance Drums.template",
+  "Dance Drums"
+)
+end
+
+
+
+					if rv and rv["dropdown"] == "stepjazz" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Jazz Drums",
+  full_path .. "/Jazz Drums.template",
+  "Jazz Drums"
+)
+end
+
+
+					if rv and rv["dropdown"] == "step808" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-808-809 Drums",
+  full_path .. "/808-809 Drums.template",
+  "808-809 Drums"
+)
+end
+if rv and rv["dropdown"] == "stepbrush" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Brush Drums",
+  full_path .. "/Brush Drums.template",
+  "Brush Drums"
+)
+end
+
+
+if rv and rv["dropdown"] == "steporch" then
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Orchestral Perc",
+  full_path .. "/Orchestral Perc.template",
+  "Orchestral Perc"
+)
+end
+
+if rv and rv["dropdown"] == "stepson" then
+
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-SoniNeko",
+  full_path .. "/soni.template",
+  "SoniNeko Drums"
+)
+end
+--Buskman's Holiday Percussion
+if rv and rv["dropdown"] == "stepbusk" then
+
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Buskman's Holiday Percussion",
+  full_path .. "/Buskman.template",
+  "Buskman's Holiday Percussion"
+)
+end
+
+--/al.template  Alesis Drumkits
+
+if rv and rv["dropdown"] == "stepal" then
+
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Alesis Drumkits",
+  full_path .. "/al.template",
+  "Alesis Drumkits"
+)
+end
+
+if rv and rv["dropdown"] == "stephot" then
+
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Blonde Bop HotRod Kit",
+  full_path .. "/hotrod.template",
+  "Blonde Bop HotRod Kit"
+)
+end
+
+if rv and rv["dropdown"] == "stepnin" then
+
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-NIN Drumkit",
+  full_path .. "/NIN Drumkit.template",
+  "NIN Drumkit"
+)
+end
 end end
 
 
