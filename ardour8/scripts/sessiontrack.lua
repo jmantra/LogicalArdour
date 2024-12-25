@@ -1171,10 +1171,10 @@ end
 
 
 		-- Replace the path below with the path to your track template
-		local template_path = full_path .. "/808-809 Drums.template"
+		local template_path = full_path .. "/808-909.template"
 
 		-- Replace "Track Name" with the name you want for your new track
-		local track_name = "808/809 Drums"
+		local track_name = "808-909 Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 			local files = C.StringVector();
@@ -1517,9 +1517,9 @@ end
 
 create_seq(
   full_path .. "/Step Sequencer.template",
-  "Step Sequencer-808-809 Drums",
-  full_path .. "/808-809 Drums.template",
-  "808-809 Drums"
+  "Step Sequencer-808-909 Drums",
+  full_path .. "/808-909.template",
+  "808-909 Drums"
 )
 end
 if rv and rv["dropdown"] == "stepbrush" then
