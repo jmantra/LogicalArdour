@@ -45,7 +45,7 @@ function factory()
 
 
             firstresult = "Key not found."
-            local command = "key " .. quotedfilepath
+            local command = "/opt/LogicalArdour/key " .. quotedfilepath
             os.execute(command)
 
             -- Open the file in write mode

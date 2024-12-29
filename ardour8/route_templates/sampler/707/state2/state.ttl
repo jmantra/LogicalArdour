@@ -1,0 +1,21 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<>
+	a pset:Preset ;
+	lv2:appliesTo <http://samplv1.sourceforge.net/lv2> ;
+	state:state [
+		<http://samplv1.sourceforge.net/lv2#P101_SAMPLE_FILE> <bowwow.wav> ;
+		<http://samplv1.sourceforge.net/lv2#P102_OFFSET_START> "0"^^xsd:int ;
+		<http://samplv1.sourceforge.net/lv2#P103_OFFSET_END> "102775"^^xsd:int ;
+		<http://samplv1.sourceforge.net/lv2#P104_LOOP_START> "0"^^xsd:int ;
+		<http://samplv1.sourceforge.net/lv2#P105_LOOP_END> "102775"^^xsd:int ;
+		<http://samplv1.sourceforge.net/lv2#P105_LOOP_END_RELEASE> false ;
+		<http://samplv1.sourceforge.net/lv2#P106_LOOP_FADE> "0"^^xsd:int ;
+		<http://samplv1.sourceforge.net/lv2#P107_LOOP_ZERO> true
+	] .

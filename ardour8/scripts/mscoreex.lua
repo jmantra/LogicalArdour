@@ -57,7 +57,7 @@ print (pid)
 
 local quotedfilepath = '"' .. filepath .. '"'
 
-local command = "mscore -a jack -o /tmp/output.pdf  " ..quotedfilepath
+local command = "/opt/LogicalArdour/mscore -a jack -o /tmp/output.pdf  " ..quotedfilepath
 
 -- Open the file "mscore.sh" for writing
 local file = io.open("mscore.sh", "w")

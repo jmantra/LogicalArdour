@@ -29,7 +29,7 @@ cd "$HOME/Downloads"
 
 
 while true; do
-  read -p "Do you already have Ardour installed? If you say no Ardour will be installed for you (y/n): " choice
+  read -p "Do you already have Ardour installed? If you say no Ardour will be compiled/installed for you (y/n): " choice
   case "$choice" in
     y|Y )
       # Replace the URL with the actual link to the file you want to download
@@ -38,8 +38,21 @@ while true; do
       break
       ;;
     n|N )
-      echo "Installing Ardour from repos"
-    sudo apt install ardour -y
+      echo "Compiling Ardour"
+      cd $HOME
+    sudo apt install build-essential git libboost-all-dev gcc g++ pkg-config libasound2-dev libgtk2.0-dev libglibmm-2.4-dev libsndfile1-dev libarchive-dev liblo-dev libtag1-dev vamp-plugin-sdk librubberband-dev libfftw3-dev libaubio-dev libxml2-dev libsamplerate0-dev lv2-dev libserd-dev libsord-dev libsratom-dev liblilv-dev libgtkmm-2.4-dev libjack-jackd2-dev libogg-dev libcppunit-dev libudev-dev libwebsockets-dev libusb-dev libsuil-dev libdbus-1-dev xjadeo libusb-1.0-0-dev libreadline-dev  libarchive-dev liblo-dev libtag1-dev libvamp-sdk2v5 librubberband-dev libaubio-dev libpangomm-1.4-dev libserd-dev libsord-dev libsratom-dev liblilv-dev libgtkmm-2.4-dev libsuil-dev libcppunit-dev python3 liblrdf0-dev libraptor2-dev python-is-python3 git -y
+
+    git clone https://github.com/Ardour/ardour.git
+    cd ardour
+    git checkout 8.10
+
+    ./waf configure --cxx11 --optimize
+    ./waf -j `nproc`
+    ./waf install
+
+    compiled=true
+
+
       break
       ;;
     * )
@@ -52,13 +65,7 @@ done
 echo "Continuing with the rest of the script..."
 
 
-sudo apt install libfuse3-3 libfuse3-dev libfuse2t64 -y
-wget https://jmantra.blob.core.windows.net/data/mscore
-sudo cp -rf mscore /usr/bin/mscore
-sudo chmod 755 /usr/bin/mscore
 
-folder="$HOME/.config/MuseScore"
-backup_or_create_folder "$folder"
 
 
 
@@ -78,9 +85,11 @@ while true; do
       # Replace the URL with the actual link to the file you want to download
       echo "Configuring Pipewire-Jack"
       sudo apt install pipewire-jack
-    sed -i 's|^Exec=/usr/bin/ardour %f$|Exec=/usr/bin/pw-jack /usr/bin/ardour %f|' ardour.desktop
+
     sudo apt install libspa-0.2-jack -y
+
 sudo usermod -aG audio $USER
+pipewire=true
 
       break
       ;;
@@ -224,7 +233,42 @@ sudo mkdir -p /opt/LogicalArdour
 
 sudo cp -rf samples/* /opt/LogicalArdour
 
-# Key
+sudo apt install libfuse3-3 libfuse3-dev libfuse2t64 -y
+wget https://jmantra.blob.core.windows.net/data/mscore
+sudo cp -rf mscore /opt/LogicalArdour
+sudo chmod 755 /opt/LogicalArdour
+
+folder="$HOME/.config/MuseScore"
+backup_or_create_folder "$folder"
+
+if ["$compiled" = true]
+
+if [ "$pipewire" = true ]; then
+  sudo cp pwardour.desktop /usr/share/applications/ardour.desktop
+else
+ sudo cp ardour.desktop /usr/share/applications/ardour.desktop
+fi
+else
+check_file_pattern() {
+  local file_pattern="$1"  # Argument to the function
+  # Check if any file matches the pattern
+  if match=$(ls $file_pattern 2> /dev/null); then
+    echo "Matching file(s):"
+    echo "$match"
+    desktop=$match
+  else
+    echo "No files matching '$file_pattern' were found."
+  fi
+}
+check_file_pattern "/usr/share/applications/Ardour-Ardour_8.10.0.desktop"
+check_file_pattern "/usr/share/applications/ardour.desktop"
+
+if [ "$pipewire" = true ]; then
+  sudo cp pwregardour.desktop $desktop
+else
+ sudo cp regardour.desktop $desktop
+fi
+fi
 
 wget https://jmantra.blob.core.windows.net/data/key
 
@@ -234,10 +278,16 @@ sudo chmod 755 /opt/LogicalArdour/key
 
 wget https://jmantra.blob.core.windows.net/data/newchord
 
-sudo cp key /opt/LogicalArdour
+sudo cp newchord /opt/LogicalArdour
 
 sudo chmod 755 /opt/LogicalArdour/newchord
 
+
+wget https://jmantra.blob.core.windows.net/data/bassline_generator
+
+sudo cp bassline_generator /opt/LogicalArdour
+
+sudo chmod 755 /opt/LogicalArdour/bassline_generator
 sudo mkdir /usr/local/lib/vst3
 
 
