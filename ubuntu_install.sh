@@ -266,7 +266,11 @@ else
   }
 
   check_file_pattern "/usr/share/applications/Ardour-Ardour_8.10.0.desktop"
-  check_file_pattern "/usr/share/applications/ardour.desktop"
+ if [ -z "$desktop" ]; then
+ check_file_pattern "/usr/share/applications/ardour.desktop"
+else
+  echo "Desktop file already exists. No action needed."
+fi
 
   if [ "$pipewire" = true ]; then
     sudo cp pwregardour.desktop "$desktop"
@@ -275,6 +279,22 @@ else
   fi
 
 fi
+for file in $HOME/.config/ardour8/*; do
+    if [ -f "$file" ]; then
+        awk -v home="$HOME" '{gsub("/home/[^/]+", home); print}' "$file" > tmp && mv tmp "$file"
+    fi
+done
+for file in $HOME/.config/ardour8/route_templates/*; do
+    if [ -f "$file" ]; then
+        awk -v home="$HOME" '{gsub("/home/[^/]+", home); print}' "$file" > tmp && mv tmp "$file"
+    fi
+done
+for file in $HOME/.config/MuseScore/*; do
+    if [ -f "$file" ]; then
+        awk -v home="$HOME" '{gsub("/home/[^/]+", home); print}' "$file" > tmp && mv tmp "$file"
+    fi
+    done
+
 
 
 wget https://jmantra.blob.core.windows.net/data/key
