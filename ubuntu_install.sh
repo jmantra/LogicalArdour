@@ -189,7 +189,7 @@ git clone https://github.com/jmantra/LogicalArdour.git
 
 cd LogicalArdour
 
-cp MuseScore3.ini $HOME/.config/MuseScore
+
 
 
 
@@ -241,34 +241,41 @@ sudo chmod 755 /opt/LogicalArdour
 folder="$HOME/.config/MuseScore"
 backup_or_create_folder "$folder"
 
-if ["$compiled" = true]
+cp MuseScore3.ini $HOME/.config/MuseScore
 
-if [ "$pipewire" = true ]; then
-  sudo cp pwardour.desktop /usr/share/applications/ardour.desktop
-else
- sudo cp ardour.desktop /usr/share/applications/ardour.desktop
-fi
-else
-check_file_pattern() {
-  local file_pattern="$1"  # Argument to the function
-  # Check if any file matches the pattern
-  if match=$(ls $file_pattern 2> /dev/null); then
-    echo "Matching file(s):"
-    echo "$match"
-    desktop=$match
+if [ "$compiled" = true ]; then
+
+  if [ "$pipewire" = true ]; then
+    sudo cp pwardour.desktop /usr/share/applications/ardour.desktop
   else
-    echo "No files matching '$file_pattern' were found."
+    sudo cp ardour.desktop /usr/share/applications/ardour.desktop
   fi
-}
-check_file_pattern "/usr/share/applications/Ardour-Ardour_8.10.0.desktop"
-check_file_pattern "/usr/share/applications/ardour.desktop"
 
-if [ "$pipewire" = true ]; then
-  sudo cp pwregardour.desktop $desktop
 else
- sudo cp regardour.desktop $desktop
+
+  check_file_pattern() {
+    local file_pattern="$1"  # Argument to the function
+    # Check if any file matches the pattern
+    if match=$(ls $file_pattern 2> /dev/null); then
+      echo "Matching file(s):"
+      echo "$match"
+      desktop=$match
+    else
+      echo "No files matching '$file_pattern' were found."
+    fi
+  }
+
+  check_file_pattern "/usr/share/applications/Ardour-Ardour_8.10.0.desktop"
+  check_file_pattern "/usr/share/applications/ardour.desktop"
+
+  if [ "$pipewire" = true ]; then
+    sudo cp pwregardour.desktop "$desktop"
+  else
+    sudo cp regardour.desktop "$desktop"
+  fi
+
 fi
-fi
+
 
 wget https://jmantra.blob.core.windows.net/data/key
 
