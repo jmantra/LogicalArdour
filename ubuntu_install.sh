@@ -252,22 +252,12 @@ backup_or_create_folder "$folder"
 
 cp -rf guitarix/*  $folder
 
-for file in $HOME/.config/ardour8/*; do
-    if [ -f "$file" ]; then
-        awk -v home="$HOME" '{gsub("/home/jman", home); print}' "$file" > tmp && mv tmp "$file"
-    fi
-done
-
-for file in $HOME/.config/ardour8/route_templates/*; do
-    if [ -f "$file" ]; then
-        awk -v home="$HOME" '{gsub("/home/jman", home); print}' "$file" > tmp && mv tmp "$file"
-    fi
-done
-
-for file in $HOME/.config/MuseScore/*; do
-    if [ -f "$file" ]; then
-        awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
-    fi
+for dir in "$HOME/.config/ardour8" "$HOME/.config/ardour8/route_templates" "$HOME/.config/MuseScore"; do
+    for file in "$dir"/*; do
+        if [ -f "$file" ]; then
+            awk -v home="$HOME" '{gsub("/home/[^/]+", home); print}' "$file" > tmp && mv tmp "$file"
+        fi
+    done
 done
 
 
