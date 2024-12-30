@@ -281,17 +281,17 @@ fi
 fi
 for file in $HOME/.config/ardour8/*; do
     if [ -f "$file" ]; then
-        awk -v home="$HOME" '{gsub("/home/[^/]+", home); print}' "$file" > tmp && mv tmp "$file"
+        awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
 done
 for file in $HOME/.config/ardour8/route_templates/*; do
     if [ -f "$file" ]; then
-        awk -v home="$HOME" '{gsub("/home/[^/]+", home); print}' "$file" > tmp && mv tmp "$file"
+        awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
 done
 for file in $HOME/.config/MuseScore/*; do
     if [ -f "$file" ]; then
-        awk -v home="$HOME" '{gsub("/home/[^/]+", home); print}' "$file" > tmp && mv tmp "$file"
+        awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
     done
 
