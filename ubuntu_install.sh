@@ -147,14 +147,14 @@ sudo apt-get install apt-transport-https gpgv wget -y
 
 
 # Download package file
-wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
+#wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
 
 # Install it
-sudo dpkg -i kxstudio-repos_11.1.0_all.deb
+#sudo dpkg -i kxstudio-repos_11.1.0_all.deb
 
-rm -rf kxstudio-repos_11.1.0_all.deb
+#rm -rf kxstudio-repos_11.1.0_all.deb
 
-sudo apt update 
+#sudo apt update
 
 # sudo apt upgrade -y
 echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections
@@ -242,6 +242,7 @@ folder="$HOME/.config/MuseScore"
 backup_or_create_folder "$folder"
 
 cp MuseScore3.ini $HOME/.config/MuseScore
+cp MuseScore2.ini $HOME/.config/MuseScore
 
 if [ "$compiled" = true ]; then
 

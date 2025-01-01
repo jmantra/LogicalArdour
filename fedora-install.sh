@@ -25,49 +25,15 @@ done
 echo "Continuing with the rest of the script..."
 
 
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 
- sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
+ sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel -y
 
-sudo dnf install lame* --exclude=lame-devel
-
-
-
-
-
-
+sudo dnf install lame* --exclude=lame-devel -y
 
 
 cd "$HOME/Downloads"
 
-sudo dnf install ardour8
-
-
-
-
-
-
-
-sudo dnf install musescore
-
-
-
-
-
-
-# Key
-
-
-
-#BPM
-
-#wget https://jmantra.blob.core.windows.net/data/bpmbin
-
-
-
-#sudo cp bpmbin /usr/bin
-
-# sudo chmod 755 /usr/bin/bpmbin
 
 while true; do
   read -p "Do you want to download some loops? (3.5 GB)(Please Note: Loops can be downloaded later in the Library Downloader, however not all loop libraries work in the distro version of Ardour ) (y/n): " choice
@@ -102,17 +68,15 @@ sudo dnf install yoshimi lv2-swh-plugins ladspa-tap-plugins calf lv2-x42-plugins
 
 
 
-
-
-
-
 wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.4/surge-xt-x86_64-1.3.4.rpm
 
-sudo dnf install surge-xt-x86_64-1.3.4.rpm
+sudo dnf -y install surge-xt-x86_64-1.3.4.rpm
 
 
 
+sudo dnf -y copr enable patrickl/libcurl-gnutls
 
+sudo dnf -y install libcurl-gnutls --refresh
 
 
 
@@ -186,7 +150,19 @@ sudo cp key /opt/LogicalArdour
 
 sudo chmod 755 /opt/LogicalArdour/newchord
 
-sudo mkdir /usr/local/lib/vst3
+wget https://jmantra.blob.core.windows.net/data/bassline_generator
+
+sudo cp bassline_generator /opt/LogicalArdour
+
+sudo chmod 755 /opt/LogicalArdour/bassline_generator
+
+wget https://jmantra.blob.core.windows.net/data/mscore
+
+sudo cp mscore /opt/LogicalArdour
+
+sudo chmod 755 /opt/LogicalArdour/mscore
+
+
 
 
 
@@ -205,34 +181,49 @@ sudo cp -rf gx/* /usr/lib/lv2
 folder="$HOME/.config/ardour8"
 backup_or_create_folder "$folder"
 
+folder="$HOME/.config/guitarix"
+backup_or_create_folder "$folder"
+
+cp -rf guitarix/*  $folder
+
 cp -rf ardour8/*  $folder
 
 for file in $HOME/.config/ardour8/*; do
     if [ -f "$file" ]; then
-        awk -v home="$HOME" '{gsub("/home/jman", home); print}' "$file" > tmp && mv tmp "$file"
+        awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
 done
-
 for file in $HOME/.config/ardour8/route_templates/*; do
     if [ -f "$file" ]; then
-        awk -v home="$HOME" '{gsub("/home/jman", home); print}' "$file" > tmp && mv tmp "$file"
+        awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
 done
-
+for file in $HOME/.config/MuseScore/*; do
+    if [ -f "$file" ]; then
+        awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
+    fi
+    done
 
 
 #DIR=$(find /opt -maxdepth 1 -type d -name "Ardour-*" | sort -V | tail -n 1)
-
-
-
-
-sudo cp -rf media/* /usr/share/ardour8/media
-
 
 cd "$HOME/Downloads"
 
 
 rm -rf LogicalArdour/*
+
+
+# Prompt the user for confirmation
+read -p "In order for everything to work properly it is highly reccommended you restart your computer? Do you want to restart the computer? (y/n): " answer
+
+# Check the user's response
+if [[ "$answer" =~ ^[Yy]$ ]]; then
+    echo "Restarting the computer..."
+    sudo shutdown -r now
+else
+    echo "Restart canceled."
+fi
+
 
 
 
