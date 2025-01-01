@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Session version="7003" id-counter="195" rg-counter="0" name-counter="1" event-counter="0" vca-counter="1">
+  <ProgramVersion created-with="Ardour 8.4-49-g922ad14217" modified-with="Ardour 8.4-49-g922ad14217"/>
+  <MIDIPorts>
+    <Port name="Cue Control in" type="midi" direction="Input"/>
+    <Port name="MIDI Clock out" type="midi" direction="Output"/>
+    <Port name="MMC in" type="midi" direction="Input"/>
+    <Port name="MMC out" type="midi" direction="Output"/>
+    <Port name="MTC out" type="midi" direction="Output"/>
+    <Port name="Scene in" type="midi" direction="Input"/>
+    <Port name="Scene out" type="midi" direction="Output"/>
+    <Port name="x-virtual-keyboard" type="midi" direction="Output"/>
+  </MIDIPorts>
+  <Config>
+    <Option name="use-region-fades" value="1"/>
+    <Option name="use-transport-fades" value="1"/>
+    <Option name="use-monitor-fades" value="1"/>
+    <Option name="native-file-data-format" value="FormatFloat"/>
+    <Option name="native-file-header-format" value="WAVE"/>
+    <Option name="auto-play" value="0"/>
+    <Option name="auto-return" value="0"/>
+    <Option name="auto-input" value="1"/>
+    <Option name="triggerbox-overrides-disk-monitoring" value="1"/>
+    <Option name="cue-behavior" value="FollowCues"/>
+    <Option name="punch-in" value="0"/>
+    <Option name="punch-out" value="0"/>
+    <Option name="count-in" value="0"/>
+    <Option name="session-monitoring" value=""/>
+    <Option name="record-mode" value="RecLayered"/>
+    <Option name="draw-opaque-midi_regions" value="0"/>
+    <Option name="subframes-per-frame" value="100"/>
+    <Option name="timecode-format" value="timecode_30"/>
+    <Option name="minitimeline-span" value="120"/>
+    <Option name="track-name-number" value="0"/>
+    <Option name="track-name-take" value="1"/>
+    <Option name="take-name" value="Take1"/>
+    <Option name="jack-time-master" value="1"/>
+    <Option name="use-video-sync" value="0"/>
+    <Option name="video-pullup" value="0"/>
+    <Option name="external-sync" value="0"/>
+    <Option name="insert-merge-policy" value="InsertMergeRelax"/>
+    <Option name="timecode-offset" value="0"/>
+    <Option name="timecode-offset-negative" value="1"/>
+    <Option name="slave-timecode-offset" value=" 00:00:00:00"/>
+    <Option name="timecode-generator-offset" value=" 00:00:00:00"/>
+    <Option name="midi-copy-is-fork" value="1"/>
+    <Option name="tracks-follow-session-time" value="0"/>
+    <Option name="realtime-export" value="0"/>
+    <Option name="use-surround-master" value="0"/>
+    <Option name="use-video-file-fps" value="0"/>
+    <Option name="videotimeline-pullup" value="1"/>
+    <Option name="wave-amplitude-zoom" value="0"/>
+    <Option name="wave-zoom-factor" value="2"/>
+    <Option name="show-summary" value="1"/>
+    <Option name="show-group-tabs" value="1"/>
+    <Option name="show-region-fades" value="1"/>
+    <Option name="show-busses-on-meterbridge" value="0"/>
+    <Option name="show-master-on-meterbridge" value="1"/>
+    <Option name="show-midi-on-meterbridge" value="1"/>
+    <Option name="show-rec-on-meterbridge" value="1"/>
+    <Option name="show-mute-on-meterbridge" value="0"/>
+    <Option name="show-solo-on-meterbridge" value="0"/>
+    <Option name="show-monitor-on-meterbridge" value="0"/>
+    <Option name="show-name-on-meterbridge" value="1"/>
+    <Option name="show-fader-on-meterbridge" value="0"/>
+    <Option name="meterbridge-label-height" value="0"/>
+    <Option name="default-time-domain" value="BeatTime"/>
+  </Config>
+  <Metadata/>
+  <Sources/>
+  <TriggerBindings/>
+  <Regions/>
+  <Locations>
+    <Location id="197" name="session" start="b0" end="b0" flags="IsSessionRange" locked="0" timestamp="1710627843" cue="0"/>
+  </Locations>
+  <Bundles/>
+  <VCAManager/>
+  <Routes>
+    <Route version="7003" id="71" name="Master" default-type="audio" strict-io="1" volume-applies-to-output="1" active="1" denormal-protection="0" meter-point="MeterOutput" disk-io-point="DiskIOPreFader" meter-type="MeterK14">
+      <ProgramVersion created-with="Ardour 8.4-49-g922ad14217" modified-with="Ardour 8.4-49-g922ad14217"/>
+      <PresentationInfo order="0" flags="MasterOut,OrderSet" color="2855877119"/>
+      <Controllable name="solo" id="79" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+      <Controllable name="solo-iso" id="85" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+      <Controllable name="solo-safe" id="87" flags="Toggle" value="0" solo-safe="0"/>
+      <IO name="Master" id="99" direction="Input" default-type="audio">
+        <Port name="Master/audio_in 1" type="audio" direction="Input"/>
+        <Port name="Master/audio_in 2" type="audio" direction="Input"/>
+      </IO>
+      <IO name="Master" id="100" direction="Output" default-type="audio">
+        <Port name="Master/audio_out 1" type="audio" direction="Output">
+          <ExtConnection for="JACK"/>
+          <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:playback_FL"/>
+        </Port>
+        <Port name="Master/audio_out 2" type="audio" direction="Output">
+          <ExtConnection for="JACK"/>
+          <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:playback_FR"/>
+        </Port>
+      </IO>
+      <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
+      <Controllable name="mute" id="81" flags="Toggle,RealTime" value="0"/>
+      <Controllable name="phase" id="83" flags="Toggle" value="0" phase-invert="00"/>
+      <Controllable name="mastervolume" id="107" flags="GainLike,NotAutomatable" value="1"/>
+      <Pannable>
+        <Controllable name="pan-azimuth" id="90" flags="" value="0.5"/>
+        <Controllable name="pan-width" id="94" flags="" value="0"/>
+        <Controllable name="pan-elevation" id="92" flags="" value="0"/>
+        <Controllable name="pan-frontback" id="96" flags="" value="0"/>
+        <Controllable name="pan-lfe" id="98" flags="" value="0"/>
+        <Automation>
+          <AutomationList automation-id="pan-azimuth" id="89" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+          <AutomationList automation-id="pan-elevation" id="91" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+          <AutomationList automation-id="pan-width" id="93" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+          <AutomationList automation-id="pan-frontback" id="95" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+          <AutomationList automation-id="pan-lfe" id="97" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+        </Automation>
+      </Pannable>
+      <Processor id="102" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+      <Processor id="103" name="Amp" active="1" user-latency="0" use-user-latency="0" type="trim">
+        <Controllable name="trimcontrol" id="77" flags="GainLike" value="1"/>
+      </Processor>
+      <Processor id="101" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+        <Controllable name="gaincontrol" id="75" flags="GainLike" value="1"/>
+      </Processor>
+      <Processor id="171" name="x42-Autotune (scales)" active="0" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://gareus.org/oss/lv2/fat1#scales" count="2" custom="0">
+        <ConfiguredInput>
+          <Channels type="audio" count="2"/>
+        </ConfiguredInput>
+        <CustomSinks>
+          <Channels type="audio" count="1"/>
+          <Channels type="midi" count="1"/>
+        </CustomSinks>
+        <ConfiguredOutput>
+          <Channels type="audio" count="2"/>
+        </ConfiguredOutput>
+        <PresetOutput/>
+        <InputMap-0>
+          <Channelmap type="audio" from="0" to="0"/>
+        </InputMap-0>
+        <OutputMap-0>
+          <Channelmap type="audio" from="0" to="0"/>
+        </OutputMap-0>
+        <InputMap-1>
+          <Channelmap type="audio" from="0" to="1"/>
+        </InputMap-1>
+        <OutputMap-1>
+          <Channelmap type="audio" from="0" to="1"/>
+        </OutputMap-1>
+        <ThruMap/>
+        <lv2 last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="0" template-dir="/home/jman/.config/ardour8/templates/Emply Template">
+          <Port symbol="mode" value="0"/>
+          <Port symbol="channelf" value="0"/>
+          <Port symbol="tuning" value="440"/>
+          <Port symbol="bias" value="0.5"/>
+          <Port symbol="filter" value="0.10000000149011612"/>
+          <Port symbol="corr" value="1"/>
+          <Port symbol="offset" value="0"/>
+          <Port symbol="bendrange" value="2"/>
+          <Port symbol="fastmode" value="0"/>
+          <Port symbol="scale" value="0"/>
+        </lv2>
+        <Controllable name="Mode" id="173" flags="" value="0" parameter="3" symbol="mode"/>
+        <Controllable name="Filter Channel" id="175" flags="" value="0" parameter="4" symbol="channelf"/>
+        <Controllable name="Tuning" id="177" flags="" value="440" parameter="5" symbol="tuning"/>
+        <Controllable name="Bias" id="179" flags="" value="0.5" parameter="6" symbol="bias"/>
+        <Controllable name="Filter" id="181" flags="" value="0.10000000149011612" parameter="7" symbol="filter"/>
+        <Controllable name="Correction" id="183" flags="" value="1" parameter="8" symbol="corr"/>
+        <Controllable name="Offset" id="185" flags="" value="0" parameter="9" symbol="offset"/>
+        <Controllable name="Pitch Bend Range" id="187" flags="" value="2" parameter="10" symbol="bendrange"/>
+        <Controllable name="Fast Correction" id="189" flags="Toggle" value="0" parameter="11" symbol="fastmode"/>
+        <Controllable name="Scale" id="191" flags="" value="0" parameter="12" symbol="scale"/>
+      </Processor>
+      <Processor id="105" name="Master" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Master" type="main-outs" role="Main">
+        <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
+      </Processor>
+      <Processor id="104" name="meter-Master" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+      <Slavable/>
+    </Route>
+  </Routes>
+  <Playlists/>
+  <UnusedPlaylists/>
+  <RouteGroups/>
+  <Click>
+    <IO name="Click" id="68" direction="Output" default-type="audio">
+      <Port name="Click/audio_out 1" type="audio" direction="Output">
+        <ExtConnection for="JACK"/>
+        <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:playback_FL"/>
+      </Port>
+      <Port name="Click/audio_out 2" type="audio" direction="Output">
+        <ExtConnection for="JACK"/>
+        <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:playback_FR"/>
+      </Port>
+    </IO>
+    <Processor id="69" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+      <Controllable name="gaincontrol" id="67" flags="GainLike" value="1"/>
+    </Processor>
+  </Click>
+  <Speakers>
+    <Speaker azimuth="240" elevation="0" distance="1"/>
+    <Speaker azimuth="120" elevation="0" distance="1"/>
+  </Speakers>
+  <TempoMap superclocks-per-second="282240000">
+    <Tempos>
+      <Tempo npm="120" enpm="120" note-type="4" type="Constant" locked-to-meter="0" continuing="0" active="1" sclock="0" quarters="0:0" bbt="1|1|0" omega="0"/>
+    </Tempos>
+    <Meters>
+      <Meter note-value="4" divisions-per-bar="4" sclock="0" quarters="0:0" bbt="1|1|0"/>
+    </Meters>
+    <MusicTimes/>
+  </TempoMap>
+  <ControlProtocols>
+    <Protocol name="Ableton Push 2" active="0" session-state="0"/>
+    <Protocol name="ContourDesign" active="0" session-state="0"/>
+    <Protocol name="Generic MIDI" active="0" session-state="0"/>
+    <Protocol name="Mackie" active="0" session-state="0"/>
+    <Protocol name="Novation Launch Control XL" active="0" session-state="0"/>
+    <Protocol name="Novation LaunchPad Mini" active="0" session-state="0"/>
+    <Protocol name="Novation LaunchPad Pro" active="0" session-state="0"/>
+    <Protocol name="Novation LaunchPad X" active="0" session-state="0"/>
+    <Protocol name="Open Sound Control (OSC)" active="0" session-state="0"/>
+    <Protocol name="PreSonus FaderPort" active="0" session-state="0"/>
+    <Protocol name="PreSonus FaderPort16" active="0" session-state="0"/>
+    <Protocol name="PreSonus FaderPort2" active="0" session-state="0"/>
+    <Protocol name="PreSonus FaderPort8" active="0" session-state="0"/>
+    <Protocol name="SSL 360: UF8 UF1" active="0" session-state="0"/>
+    <Protocol name="Softube Console1" active="0" session-state="0"/>
+    <Protocol name="Steinberg CC121" active="0" session-state="0"/>
+    <Protocol name="Tascam US-2400" active="0" session-state="0"/>
+    <Protocol name="WebSockets Server (Experimental)" active="0" session-state="0"/>
+  </ControlProtocols>
+  <Extra>
+    <Videomonitor active="0"/>
+  </Extra>
+  <Script lua="Lua 5.3">c2NyaXB0cyA9IHt9IA==</Script>
+  <IOPlugins/>
+</Session>

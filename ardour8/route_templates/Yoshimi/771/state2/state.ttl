@@ -1,0 +1,4291 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<>
+	a pset:Preset ;
+	lv2:appliesTo <http://yoshimi.sourceforge.net/lv2_plugin> ;
+	state:state [
+		<http://yoshimi.sourceforge.net/lv2_plugin#state> """<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Yoshimi-data>
+<Yoshimi-data Yoshimi-author="Alan Ernest Calvert" Yoshimi-major="2"
+Yoshimi-minor="3" Yoshimi-revision="2">
+<INFORMATION>
+<string name="XMLtype">Session</string>
+</INFORMATION>
+<MASTER>
+<par name="current_midi_parts" value="16" />
+<par name="panning_law" value="1" />
+<par name="volume" value="90" exact_value="0x42B40000" />
+<par name="key_shift" value="64" />
+<par_real name="bpm_fallback" value="      120" exact_value="0x42F00000" />
+<par name="channel_switch_type" value="0" />
+<par name="channel_switch_CC" value="128" />
+<MICROTONAL>
+<string name="name">12tET</string>
+<string name="comment">Equal Temperament 12 notes per octave</string>
+<par_bool name="invert_up_down" value="no" />
+<par name="invert_up_down_center" value="60" />
+<par_bool name="enabled" value="no" />
+<par name="global_fine_detune" value="64" exact_value="0x42800000" />
+<par name="a_note" value="69" />
+<par_real name="a_freq" value="      440" exact_value="0x43DC0000" />
+</MICROTONAL>
+<PART id="0">
+<par_bool name="enabled" value="yes" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="0" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="1">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="1" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="2">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="2" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="3">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="3" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="4">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="4" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="5">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="5" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="6">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="6" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="7">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="7" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="8">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="8" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="9">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="9" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="10">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="10" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="11">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="11" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="12">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="12" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="13">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="13" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="14">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="14" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="15">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="15" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="16">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="0" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="17">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="1" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="18">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="2" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="19">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="3" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="20">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="4" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="21">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="5" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="22">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="6" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="23">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="7" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="24">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="8" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="25">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="9" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="26">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="10" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="27">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="11" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="28">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="12" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="29">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="13" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="30">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="14" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="31">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="15" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="32">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="0" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="33">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="1" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="34">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="2" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="35">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="3" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="36">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="4" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="37">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="5" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="38">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="6" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="39">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="7" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="40">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="8" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="41">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="9" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="42">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="10" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="43">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="11" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="44">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="12" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="45">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="13" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="46">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="14" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="47">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="15" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="48">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="0" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="49">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="1" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="50">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="2" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="51">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="3" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="52">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="4" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="53">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="5" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="54">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="6" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="55">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="7" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="56">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="8" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="57">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="9" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="58">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="10" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="59">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="11" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="60">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="12" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="61">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="13" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="62">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="14" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<PART id="63">
+<par_bool name="enabled" value="no" />
+<par name="volume" value="96" />
+<par name="panning" value="64" />
+<par name="min_key" value="0" />
+<par name="max_key" value="127" />
+<par name="key_shift" value="64" />
+<par name="rcv_chn" value="15" />
+<par name="velocity_sensing" value="64" />
+<par name="velocity_offset" value="64" />
+<par_bool name="poly_mode" value="yes" />
+<par name="legato_mode" value="0" />
+<par name="channel_aftertouch" value="0" />
+<par name="key_aftertouch" value="0" />
+<par name="key_limit" value="20" />
+<par name="random_detune" value="0" />
+<par name="random_velocity" value="0" />
+<par name="destination" value="1" />
+<INSTRUMENT>
+<INFO>
+<string name="name">No Title</string>
+<string name="author"></string>
+<string name="comments"></string>
+<par name="type" value="0" />
+<string name="file">Simple Sound</string>
+</INFO>
+</INSTRUMENT>
+<CONTROLLER>
+<par name="pitchwheel_bendrange" value="200" />
+<par_bool name="expression_receive" value="yes" />
+<par name="panning_depth" value="64" />
+<par name="filter_cutoff_depth" value="64" />
+<par name="filter_q_depth" value="64" />
+<par name="bandwidth_depth" value="64" />
+<par name="mod_wheel_depth" value="80" />
+<par_bool name="mod_wheel_exponential" value="no" />
+<par_bool name="fm_amp_receive" value="yes" />
+<par_bool name="volume_receive" value="yes" />
+<par name="volume_range" value="96" />
+<par_bool name="sustain_receive" value="yes" />
+<par_bool name="portamento_receive" value="yes" />
+<par name="portamento_time" value="64" />
+<par name="portamento_pitchthresh" value="3" />
+<par name="portamento_pitchthreshtype" value="1" />
+<par name="portamento_portamento" value="0" />
+<par name="portamento_updowntimestretch" value="64" />
+<par name="portamento_proportional" value="0" />
+<par name="portamento_proprate" value="80" />
+<par name="portamento_propdepth" value="90" />
+<par name="resonance_center_depth" value="64" />
+<par name="resonance_bandwidth_depth" value="64" />
+</CONTROLLER>
+</PART>
+<SYSTEM_EFFECTS>
+<SYSTEM_EFFECT id="0">
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+<VOLUME id="0">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="1">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="2">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="3">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="4">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="5">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="6">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="7">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="8">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="9">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="10">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="11">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="12">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="13">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="14">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="15">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="16">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="17">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="18">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="19">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="20">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="21">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="22">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="23">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="24">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="25">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="26">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="27">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="28">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="29">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="30">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="31">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="32">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="33">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="34">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="35">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="36">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="37">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="38">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="39">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="40">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="41">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="42">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="43">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="44">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="45">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="46">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="47">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="48">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="49">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="50">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="51">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="52">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="53">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="54">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="55">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="56">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="57">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="58">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="59">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="60">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="61">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="62">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="63">
+<par name="vol" value="0" />
+</VOLUME>
+<SENDTO id="1">
+<par name="send_vol" value="0" />
+</SENDTO>
+<SENDTO id="2">
+<par name="send_vol" value="0" />
+</SENDTO>
+<SENDTO id="3">
+<par name="send_vol" value="0" />
+</SENDTO>
+</SYSTEM_EFFECT>
+<SYSTEM_EFFECT id="1">
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+<VOLUME id="0">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="1">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="2">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="3">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="4">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="5">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="6">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="7">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="8">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="9">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="10">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="11">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="12">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="13">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="14">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="15">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="16">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="17">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="18">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="19">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="20">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="21">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="22">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="23">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="24">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="25">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="26">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="27">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="28">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="29">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="30">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="31">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="32">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="33">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="34">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="35">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="36">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="37">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="38">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="39">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="40">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="41">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="42">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="43">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="44">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="45">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="46">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="47">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="48">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="49">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="50">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="51">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="52">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="53">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="54">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="55">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="56">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="57">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="58">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="59">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="60">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="61">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="62">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="63">
+<par name="vol" value="0" />
+</VOLUME>
+<SENDTO id="2">
+<par name="send_vol" value="0" />
+</SENDTO>
+<SENDTO id="3">
+<par name="send_vol" value="0" />
+</SENDTO>
+</SYSTEM_EFFECT>
+<SYSTEM_EFFECT id="2">
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+<VOLUME id="0">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="1">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="2">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="3">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="4">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="5">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="6">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="7">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="8">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="9">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="10">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="11">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="12">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="13">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="14">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="15">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="16">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="17">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="18">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="19">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="20">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="21">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="22">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="23">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="24">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="25">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="26">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="27">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="28">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="29">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="30">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="31">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="32">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="33">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="34">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="35">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="36">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="37">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="38">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="39">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="40">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="41">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="42">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="43">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="44">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="45">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="46">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="47">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="48">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="49">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="50">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="51">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="52">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="53">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="54">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="55">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="56">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="57">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="58">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="59">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="60">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="61">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="62">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="63">
+<par name="vol" value="0" />
+</VOLUME>
+<SENDTO id="3">
+<par name="send_vol" value="0" />
+</SENDTO>
+</SYSTEM_EFFECT>
+<SYSTEM_EFFECT id="3">
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+<VOLUME id="0">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="1">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="2">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="3">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="4">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="5">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="6">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="7">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="8">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="9">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="10">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="11">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="12">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="13">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="14">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="15">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="16">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="17">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="18">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="19">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="20">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="21">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="22">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="23">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="24">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="25">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="26">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="27">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="28">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="29">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="30">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="31">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="32">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="33">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="34">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="35">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="36">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="37">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="38">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="39">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="40">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="41">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="42">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="43">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="44">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="45">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="46">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="47">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="48">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="49">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="50">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="51">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="52">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="53">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="54">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="55">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="56">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="57">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="58">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="59">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="60">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="61">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="62">
+<par name="vol" value="0" />
+</VOLUME>
+<VOLUME id="63">
+<par name="vol" value="0" />
+</VOLUME>
+</SYSTEM_EFFECT>
+</SYSTEM_EFFECTS>
+<INSERTION_EFFECTS>
+<INSERTION_EFFECT id="0">
+<par name="part" value="-1" />
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+</INSERTION_EFFECT>
+<INSERTION_EFFECT id="1">
+<par name="part" value="-1" />
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+</INSERTION_EFFECT>
+<INSERTION_EFFECT id="2">
+<par name="part" value="-1" />
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+</INSERTION_EFFECT>
+<INSERTION_EFFECT id="3">
+<par name="part" value="-1" />
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+</INSERTION_EFFECT>
+<INSERTION_EFFECT id="4">
+<par name="part" value="-1" />
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+</INSERTION_EFFECT>
+<INSERTION_EFFECT id="5">
+<par name="part" value="-1" />
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+</INSERTION_EFFECT>
+<INSERTION_EFFECT id="6">
+<par name="part" value="-1" />
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+</INSERTION_EFFECT>
+<INSERTION_EFFECT id="7">
+<par name="part" value="-1" />
+<EFFECT>
+<par name="type" value="0" />
+</EFFECT>
+</INSERTION_EFFECT>
+</INSERTION_EFFECTS>
+</MASTER>
+</Yoshimi-data>
+"""
+	] .

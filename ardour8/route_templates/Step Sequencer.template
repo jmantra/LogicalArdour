@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Route version="7003" id="703" name="Step Sequencer" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="620" alignment-choice="Automatic" playback-channel-mode="AllChannels" capture-channel-mode="AllChannels" playback-channel-mask="0xffff" capture-channel-mask="0xffff" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
+  <ProgramVersion created-with="Ardour 8.10" modified-with="Ardour 8.10" name="Step Sequencer"/>
+  <PresentationInfo order="2" flags="MidiTrack,OrderSet,TriggerTrack" color="4289374975"/>
+  <Controllable name="solo" id="664" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="1093" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+  <Controllable name="solo-safe" id="1094" flags="Toggle" value="0" solo-safe="0"/>
+  <IO name="Step Sequencer" id="704" direction="Input" default-type="midi">
+    <Port name="Step Sequencer/midi_in 1" type="midi" direction="Input">
+      <Connection other="Black Pearl Drumkit/midi_out 1"/>
+      <Connection other="x-virtual-keyboard"/>
+      <ExtConnection for="JACK"/>
+      <ExtConnection for="JACK" other="Midi-Bridge:AKAI MPK mini 3 at usb-0000:00:14-0-1-2-3- full speed:(capture_0) MPK mini 3 MIDI 1"/>
+    </Port>
+  </IO>
+  <IO name="Step Sequencer" id="705" direction="Output" default-type="midi">
+    <Port name="Step Sequencer/midi_out 1" type="midi" direction="Output">
+      <Connection other="Black Pearl Drumkit/midi_in 1"/>
+    </Port>
+  </IO>
+  <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
+  <Controllable name="mute" id="1095" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="phase" id="1096" flags="Toggle" value="0" phase-invert=""/>
+  <Automation>
+    <AutomationList automation-id="solo" id="1097" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-iso" id="1098" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-safe" id="1099" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="mute" id="1100" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-enable" id="1101" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-safe" id="1102" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="phase" id="1103" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="monitor" id="1104" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="midi-velocity" id="1105" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+  </Automation>
+  <Pannable>
+    <Controllable name="pan-azimuth" id="706" flags="" value="0.5"/>
+    <Controllable name="pan-width" id="707" flags="" value="0"/>
+    <Controllable name="pan-elevation" id="708" flags="" value="0"/>
+    <Controllable name="pan-frontback" id="709" flags="" value="0"/>
+    <Controllable name="pan-lfe" id="710" flags="" value="0"/>
+    <Automation>
+      <AutomationList automation-id="pan-azimuth" id="711" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-elevation" id="712" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-width" id="713" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-frontback" id="714" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-lfe" id="715" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    </Automation>
+  </Pannable>
+  <Processor id="716" name="recorder:Step Sequencer" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
+  <Processor id="717" name="player:Step Sequencer" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
+  <Processor id="718" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="1">
+    <Triggers>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="0" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="1" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="2" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="3" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="4" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="5" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="6" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="7" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="8" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="9" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="10" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="11" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="12" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="13" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="14" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="15" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+    </Triggers>
+  </Processor>
+  <Processor id="767" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+  <Processor id="1008" name="MIDI Step Sequencer8x8" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://gareus.org/oss/lv2/stepseq#s8n8" count="1" custom="0">
+    <Automation>
+      <AutomationList automation-id="parameter-2" id="1009" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-3" id="1010" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-4" id="1011" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="1012" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="1013" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="1014" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-8" id="1015" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-11" id="1016" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-12" id="1017" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-13" id="1018" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-14" id="1019" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-15" id="1020" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-16" id="1021" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-17" id="1022" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-18" id="1023" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-19" id="1024" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-20" id="1025" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-21" id="1026" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-22" id="1027" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-23" id="1028" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-24" id="1029" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-25" id="1030" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-26" id="1031" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-27" id="1032" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-28" id="1033" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-29" id="1034" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-30" id="1035" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-31" id="1036" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-32" id="1037" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-33" id="1038" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-34" id="1039" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-35" id="1040" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-36" id="1041" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-37" id="1042" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-38" id="1043" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-39" id="1044" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-40" id="1045" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-41" id="1046" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-42" id="1047" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-43" id="1048" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-44" id="1049" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-45" id="1050" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-46" id="1051" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-47" id="1052" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-48" id="1053" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-49" id="1054" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-50" id="1055" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-51" id="1056" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-52" id="1057" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-53" id="1058" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-54" id="1059" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-55" id="1060" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-56" id="1061" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-57" id="1062" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-58" id="1063" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-59" id="1064" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-60" id="1065" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-61" id="1066" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-62" id="1067" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-63" id="1068" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-64" id="1069" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-65" id="1070" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-66" id="1071" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-67" id="1072" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-68" id="1073" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-69" id="1074" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-70" id="1075" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-71" id="1076" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-72" id="1077" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-73" id="1078" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-74" id="1079" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-75" id="1080" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-76" id="1081" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-77" id="1082" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-78" id="1083" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-79" id="1084" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-80" id="1085" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-81" id="1086" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-82" id="1087" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    </Automation>
+    <ConfiguredInput>
+      <Channels type="midi" count="1"/>
+    </ConfiguredInput>
+    <CustomSinks/>
+    <ConfiguredOutput>
+      <Channels type="midi" count="1"/>
+    </ConfiguredOutput>
+    <PresetOutput/>
+    <InputMap-0/>
+    <OutputMap-0>
+      <Channelmap type="midi" from="0" to="0"/>
+    </OutputMap-0>
+    <ThruMap/>
+    <lv2 last-preset-uri="file:///home/justin/.lv2/MIDI_Step_Sequencer8x8_drums.lv2/drums.ttl" last-preset-label="drums" parameter-changed-since-last-preset="0" template-dir="/home/justin/.config/ardour8/route_templates/Step Sequencer">
+      <Port symbol="sync" value="1"/>
+      <Port symbol="bpm" value="120"/>
+      <Port symbol="div" value="2"/>
+      <Port symbol="swing" value="0"/>
+      <Port symbol="drummode" value="1"/>
+      <Port symbol="chn" value="0"/>
+      <Port symbol="panic" value="0"/>
+      <Port symbol="note1" value="49"/>
+      <Port symbol="note2" value="46"/>
+      <Port symbol="note3" value="44"/>
+      <Port symbol="note4" value="42"/>
+      <Port symbol="note5" value="45"/>
+      <Port symbol="note6" value="38"/>
+      <Port symbol="note7" value="41"/>
+      <Port symbol="note8" value="36"/>
+      <Port symbol="grid_1_1" value="0"/>
+      <Port symbol="grid_2_1" value="0"/>
+      <Port symbol="grid_3_1" value="0"/>
+      <Port symbol="grid_4_1" value="0"/>
+      <Port symbol="grid_5_1" value="0"/>
+      <Port symbol="grid_6_1" value="0"/>
+      <Port symbol="grid_7_1" value="0"/>
+      <Port symbol="grid_8_1" value="0"/>
+      <Port symbol="grid_1_2" value="0"/>
+      <Port symbol="grid_2_2" value="0"/>
+      <Port symbol="grid_3_2" value="0"/>
+      <Port symbol="grid_4_2" value="0"/>
+      <Port symbol="grid_5_2" value="0"/>
+      <Port symbol="grid_6_2" value="0"/>
+      <Port symbol="grid_7_2" value="0"/>
+      <Port symbol="grid_8_2" value="0"/>
+      <Port symbol="grid_1_3" value="0"/>
+      <Port symbol="grid_2_3" value="0"/>
+      <Port symbol="grid_3_3" value="0"/>
+      <Port symbol="grid_4_3" value="0"/>
+      <Port symbol="grid_5_3" value="0"/>
+      <Port symbol="grid_6_3" value="0"/>
+      <Port symbol="grid_7_3" value="0"/>
+      <Port symbol="grid_8_3" value="0"/>
+      <Port symbol="grid_1_4" value="0"/>
+      <Port symbol="grid_2_4" value="0"/>
+      <Port symbol="grid_3_4" value="0"/>
+      <Port symbol="grid_4_4" value="0"/>
+      <Port symbol="grid_5_4" value="0"/>
+      <Port symbol="grid_6_4" value="0"/>
+      <Port symbol="grid_7_4" value="0"/>
+      <Port symbol="grid_8_4" value="0"/>
+      <Port symbol="grid_1_5" value="0"/>
+      <Port symbol="grid_2_5" value="0"/>
+      <Port symbol="grid_3_5" value="0"/>
+      <Port symbol="grid_4_5" value="0"/>
+      <Port symbol="grid_5_5" value="0"/>
+      <Port symbol="grid_6_5" value="0"/>
+      <Port symbol="grid_7_5" value="0"/>
+      <Port symbol="grid_8_5" value="0"/>
+      <Port symbol="grid_1_6" value="0"/>
+      <Port symbol="grid_2_6" value="0"/>
+      <Port symbol="grid_3_6" value="0"/>
+      <Port symbol="grid_4_6" value="0"/>
+      <Port symbol="grid_5_6" value="0"/>
+      <Port symbol="grid_6_6" value="0"/>
+      <Port symbol="grid_7_6" value="0"/>
+      <Port symbol="grid_8_6" value="0"/>
+      <Port symbol="grid_1_7" value="0"/>
+      <Port symbol="grid_2_7" value="0"/>
+      <Port symbol="grid_3_7" value="0"/>
+      <Port symbol="grid_4_7" value="0"/>
+      <Port symbol="grid_5_7" value="0"/>
+      <Port symbol="grid_6_7" value="0"/>
+      <Port symbol="grid_7_7" value="0"/>
+      <Port symbol="grid_8_7" value="0"/>
+      <Port symbol="grid_1_8" value="0"/>
+      <Port symbol="grid_2_8" value="0"/>
+      <Port symbol="grid_3_8" value="0"/>
+      <Port symbol="grid_4_8" value="0"/>
+      <Port symbol="grid_5_8" value="0"/>
+      <Port symbol="grid_6_8" value="0"/>
+      <Port symbol="grid_7_8" value="0"/>
+      <Port symbol="grid_8_8" value="0"/>
+    </lv2>
+    <Controllable name="Sync" id="929" flags="Toggle" value="1" parameter="2" symbol="sync"/>
+    <Controllable name="BPM" id="930" flags="" value="120" parameter="3" symbol="bpm"/>
+    <Controllable name="Step Duration (4/4)" id="931" flags="" value="2" parameter="4" symbol="div"/>
+    <Controllable name="Swing" id="932" flags="" value="0" parameter="5" symbol="swing"/>
+    <Controllable name="Drum Mode" id="933" flags="" value="1" parameter="6" symbol="drummode"/>
+    <Controllable name="Midi Channel" id="934" flags="" value="0" parameter="7" symbol="chn"/>
+    <Controllable name="MIDI Panic" id="935" flags="Toggle" value="0" parameter="8" symbol="panic"/>
+    <Controllable name="Note 1" id="936" flags="" value="49" parameter="11" symbol="note1"/>
+    <Controllable name="Note 2" id="937" flags="" value="46" parameter="12" symbol="note2"/>
+    <Controllable name="Note 3" id="938" flags="" value="44" parameter="13" symbol="note3"/>
+    <Controllable name="Note 4" id="939" flags="" value="42" parameter="14" symbol="note4"/>
+    <Controllable name="Note 5" id="940" flags="" value="45" parameter="15" symbol="note5"/>
+    <Controllable name="Note 6" id="941" flags="" value="38" parameter="16" symbol="note6"/>
+    <Controllable name="Note 7" id="942" flags="" value="41" parameter="17" symbol="note7"/>
+    <Controllable name="Note 8" id="943" flags="" value="36" parameter="18" symbol="note8"/>
+    <Controllable name="Grid S: 1 N: 1" id="944" flags="" value="0" parameter="19" symbol="grid_1_1"/>
+    <Controllable name="Grid S: 2 N: 1" id="945" flags="" value="0" parameter="20" symbol="grid_2_1"/>
+    <Controllable name="Grid S: 3 N: 1" id="946" flags="" value="0" parameter="21" symbol="grid_3_1"/>
+    <Controllable name="Grid S: 4 N: 1" id="947" flags="" value="0" parameter="22" symbol="grid_4_1"/>
+    <Controllable name="Grid S: 5 N: 1" id="948" flags="" value="0" parameter="23" symbol="grid_5_1"/>
+    <Controllable name="Grid S: 6 N: 1" id="949" flags="" value="0" parameter="24" symbol="grid_6_1"/>
+    <Controllable name="Grid S: 7 N: 1" id="950" flags="" value="0" parameter="25" symbol="grid_7_1"/>
+    <Controllable name="Grid S: 8 N: 1" id="951" flags="" value="0" parameter="26" symbol="grid_8_1"/>
+    <Controllable name="Grid S: 1 N: 2" id="952" flags="" value="0" parameter="27" symbol="grid_1_2"/>
+    <Controllable name="Grid S: 2 N: 2" id="953" flags="" value="0" parameter="28" symbol="grid_2_2"/>
+    <Controllable name="Grid S: 3 N: 2" id="954" flags="" value="0" parameter="29" symbol="grid_3_2"/>
+    <Controllable name="Grid S: 4 N: 2" id="955" flags="" value="0" parameter="30" symbol="grid_4_2"/>
+    <Controllable name="Grid S: 5 N: 2" id="956" flags="" value="0" parameter="31" symbol="grid_5_2"/>
+    <Controllable name="Grid S: 6 N: 2" id="957" flags="" value="0" parameter="32" symbol="grid_6_2"/>
+    <Controllable name="Grid S: 7 N: 2" id="958" flags="" value="0" parameter="33" symbol="grid_7_2"/>
+    <Controllable name="Grid S: 8 N: 2" id="959" flags="" value="0" parameter="34" symbol="grid_8_2"/>
+    <Controllable name="Grid S: 1 N: 3" id="960" flags="" value="0" parameter="35" symbol="grid_1_3"/>
+    <Controllable name="Grid S: 2 N: 3" id="961" flags="" value="0" parameter="36" symbol="grid_2_3"/>
+    <Controllable name="Grid S: 3 N: 3" id="962" flags="" value="0" parameter="37" symbol="grid_3_3"/>
+    <Controllable name="Grid S: 4 N: 3" id="963" flags="" value="0" parameter="38" symbol="grid_4_3"/>
+    <Controllable name="Grid S: 5 N: 3" id="964" flags="" value="0" parameter="39" symbol="grid_5_3"/>
+    <Controllable name="Grid S: 6 N: 3" id="965" flags="" value="0" parameter="40" symbol="grid_6_3"/>
+    <Controllable name="Grid S: 7 N: 3" id="966" flags="" value="0" parameter="41" symbol="grid_7_3"/>
+    <Controllable name="Grid S: 8 N: 3" id="967" flags="" value="0" parameter="42" symbol="grid_8_3"/>
+    <Controllable name="Grid S: 1 N: 4" id="968" flags="" value="0" parameter="43" symbol="grid_1_4"/>
+    <Controllable name="Grid S: 2 N: 4" id="969" flags="" value="0" parameter="44" symbol="grid_2_4"/>
+    <Controllable name="Grid S: 3 N: 4" id="970" flags="" value="0" parameter="45" symbol="grid_3_4"/>
+    <Controllable name="Grid S: 4 N: 4" id="971" flags="" value="0" parameter="46" symbol="grid_4_4"/>
+    <Controllable name="Grid S: 5 N: 4" id="972" flags="" value="0" parameter="47" symbol="grid_5_4"/>
+    <Controllable name="Grid S: 6 N: 4" id="973" flags="" value="0" parameter="48" symbol="grid_6_4"/>
+    <Controllable name="Grid S: 7 N: 4" id="974" flags="" value="0" parameter="49" symbol="grid_7_4"/>
+    <Controllable name="Grid S: 8 N: 4" id="975" flags="" value="0" parameter="50" symbol="grid_8_4"/>
+    <Controllable name="Grid S: 1 N: 5" id="976" flags="" value="0" parameter="51" symbol="grid_1_5"/>
+    <Controllable name="Grid S: 2 N: 5" id="977" flags="" value="0" parameter="52" symbol="grid_2_5"/>
+    <Controllable name="Grid S: 3 N: 5" id="978" flags="" value="0" parameter="53" symbol="grid_3_5"/>
+    <Controllable name="Grid S: 4 N: 5" id="979" flags="" value="0" parameter="54" symbol="grid_4_5"/>
+    <Controllable name="Grid S: 5 N: 5" id="980" flags="" value="0" parameter="55" symbol="grid_5_5"/>
+    <Controllable name="Grid S: 6 N: 5" id="981" flags="" value="0" parameter="56" symbol="grid_6_5"/>
+    <Controllable name="Grid S: 7 N: 5" id="982" flags="" value="0" parameter="57" symbol="grid_7_5"/>
+    <Controllable name="Grid S: 8 N: 5" id="983" flags="" value="0" parameter="58" symbol="grid_8_5"/>
+    <Controllable name="Grid S: 1 N: 6" id="984" flags="" value="0" parameter="59" symbol="grid_1_6"/>
+    <Controllable name="Grid S: 2 N: 6" id="985" flags="" value="0" parameter="60" symbol="grid_2_6"/>
+    <Controllable name="Grid S: 3 N: 6" id="986" flags="" value="0" parameter="61" symbol="grid_3_6"/>
+    <Controllable name="Grid S: 4 N: 6" id="987" flags="" value="0" parameter="62" symbol="grid_4_6"/>
+    <Controllable name="Grid S: 5 N: 6" id="988" flags="" value="0" parameter="63" symbol="grid_5_6"/>
+    <Controllable name="Grid S: 6 N: 6" id="989" flags="" value="0" parameter="64" symbol="grid_6_6"/>
+    <Controllable name="Grid S: 7 N: 6" id="990" flags="" value="0" parameter="65" symbol="grid_7_6"/>
+    <Controllable name="Grid S: 8 N: 6" id="991" flags="" value="0" parameter="66" symbol="grid_8_6"/>
+    <Controllable name="Grid S: 1 N: 7" id="992" flags="" value="0" parameter="67" symbol="grid_1_7"/>
+    <Controllable name="Grid S: 2 N: 7" id="993" flags="" value="0" parameter="68" symbol="grid_2_7"/>
+    <Controllable name="Grid S: 3 N: 7" id="994" flags="" value="0" parameter="69" symbol="grid_3_7"/>
+    <Controllable name="Grid S: 4 N: 7" id="995" flags="" value="0" parameter="70" symbol="grid_4_7"/>
+    <Controllable name="Grid S: 5 N: 7" id="996" flags="" value="0" parameter="71" symbol="grid_5_7"/>
+    <Controllable name="Grid S: 6 N: 7" id="997" flags="" value="0" parameter="72" symbol="grid_6_7"/>
+    <Controllable name="Grid S: 7 N: 7" id="998" flags="" value="0" parameter="73" symbol="grid_7_7"/>
+    <Controllable name="Grid S: 8 N: 7" id="999" flags="" value="0" parameter="74" symbol="grid_8_7"/>
+    <Controllable name="Grid S: 1 N: 8" id="1000" flags="" value="0" parameter="75" symbol="grid_1_8"/>
+    <Controllable name="Grid S: 2 N: 8" id="1001" flags="" value="0" parameter="76" symbol="grid_2_8"/>
+    <Controllable name="Grid S: 3 N: 8" id="1002" flags="" value="0" parameter="77" symbol="grid_3_8"/>
+    <Controllable name="Grid S: 4 N: 8" id="1003" flags="" value="0" parameter="78" symbol="grid_4_8"/>
+    <Controllable name="Grid S: 5 N: 8" id="1004" flags="" value="0" parameter="79" symbol="grid_5_8"/>
+    <Controllable name="Grid S: 6 N: 8" id="1005" flags="" value="0" parameter="80" symbol="grid_6_8"/>
+    <Controllable name="Grid S: 7 N: 8" id="1006" flags="" value="0" parameter="81" symbol="grid_7_8"/>
+    <Controllable name="Grid S: 8 N: 8" id="1007" flags="" value="0" parameter="82" symbol="grid_8_8"/>
+  </Processor>
+  <Processor id="1088" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+    <Automation>
+      <AutomationList automation-id="gain" id="1089" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+    </Automation>
+    <Controllable name="gaincontrol" id="1090" flags="GainLike" value="1"/>
+  </Processor>
+  <Processor id="1091" name="meter-MIDI 1" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+  <Processor id="1092" name="Step Sequencer" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Step Sequencer" type="main-outs" role="Main">
+    <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
+  </Processor>
+  <Slavable/>
+  <Controllable name="monitor" id="1108" flags="RealTime" value="0" monitoring=""/>
+  <Controllable name="rec-safe" id="1109" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="rec-enable" id="1110" flags="Toggle,RealTime" value="0"/>
+</Route>
