@@ -188,6 +188,12 @@ cp -rf guitarix/*  $folder
 
 cp -rf ardour8/*  $folder
 
+folder="$HOME/.config/MuseScore"
+backup_or_create_folder "$folder"
+
+cp MuseScore3.ini $HOME/.config/MuseScore
+cp MuseScore2.ini $HOME/.config/MuseScore
+
 for file in $HOME/.config/ardour8/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
