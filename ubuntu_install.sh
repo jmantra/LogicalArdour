@@ -191,11 +191,8 @@ git clone https://github.com/jmantra/LogicalArdour.git
 
 cd LogicalArdour
 
-
-
-
-
-
+sudo cp LogicalArdour.desktop /usr/share/applications
+sudo cp gb.png /opt/LogicalArdour
 
 
 folder="$HOME/.lv2"
@@ -238,7 +235,7 @@ sudo cp -rf samples/* /opt/LogicalArdour
 sudo apt install libfuse3-3 libfuse3-dev libfuse2t64 -y
 wget https://jmantra.blob.core.windows.net/data/mscore
 sudo cp -rf mscore /opt/LogicalArdour
-sudo chmod 755 /opt/LogicalArdour
+sudo chmod 755 /opt/LogicalArdour/mscore
 
 folder="$HOME/.config/MuseScore"
 backup_or_create_folder "$folder"
