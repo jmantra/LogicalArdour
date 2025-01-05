@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Function to check if folder exists, make a backup if exists, create if not
+backup_or_create_folder() {
+    local folder="$1"
+
+    if [ -d "$folder" ]; then
+        echo "Folder '$folder' already exists. Making a backup..."
+        cp -r "$folder" "${folder}_backup"
+    else
+        echo "Folder '$folder' does not exist. Creating folder..."
+        mkdir -p "$folder"
+    fi
+}
+
+
 
 while true; do
   read -p "Do you already have Ardour installed? If you say no Ardour will be installed for you (y/n): " choice
@@ -93,20 +107,12 @@ unzip main -d LogicalArdour
 
 cd LogicalArdour/LogicalArdour-main
 
+#Copying desktop file
+
+sudo cp -rf LogicalArdour.desktop /usr/share/applications
 
 
-# Function to check if folder exists, make a backup if exists, create if not
-backup_or_create_folder() {
-    local folder="$1"
 
-    if [ -d "$folder" ]; then
-        echo "Folder '$folder' already exists. Making a backup..."
-        cp -r "$folder" "${folder}_backup"
-    else
-        echo "Folder '$folder' does not exist. Creating folder..."
-        mkdir -p "$folder"
-    fi
-}
 
 
 folder="$HOME/.lv2"
@@ -137,6 +143,9 @@ cp -rf ladspa/* "$HOME/.ladspa"
 sudo mkdir -p /opt/LogicalArdour
 
 sudo cp -rf samples/* /opt/LogicalArdour
+
+sudo cp -rf logicalardour /opt/LogicalArdour/LogicalArdour.sh
+sudo chmod 755 /opt/LogicalArdour/LogicalArdour.sh
 
 wget https://jmantra.blob.core.windows.net/data/key
 
@@ -178,15 +187,17 @@ sudo cp -rf gx/* /usr/lib/lv2
 
 
 
-folder="$HOME/.config/ardour8"
+folder="$HOME/.config/LogicalArdour"
 backup_or_create_folder "$folder"
+
+$config_folder ="$HOME/.config/LogicalArdour"
 
 folder="$HOME/.config/guitarix"
 backup_or_create_folder "$folder"
 
 cp -rf guitarix/*  $folder
 
-cp -rf ardour8/*  $folder
+#cp -rf ardour8/*  $folder
 
 folder="$HOME/.config/MuseScore"
 backup_or_create_folder "$folder"
