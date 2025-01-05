@@ -146,6 +146,7 @@ sudo cp -rf samples/* /opt/LogicalArdour
 
 sudo cp -rf logicalardour /opt/LogicalArdour/LogicalArdour.sh
 sudo chmod 755 /opt/LogicalArdour/LogicalArdour.sh
+sudo cp -rf gb.png /opt/LogicalArdour
 
 wget https://jmantra.blob.core.windows.net/data/key
 
@@ -205,12 +206,12 @@ backup_or_create_folder "$folder"
 cp MuseScore3.ini $HOME/.config/MuseScore
 cp MuseScore2.ini $HOME/.config/MuseScore
 
-for file in $HOME/.config/ardour8/*; do
+for file in $HOME/.config//LogicalArdour/ardour8/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
 done
-for file in $HOME/.config/ardour8/route_templates/*; do
+for file in $HOME/.config/LogicalArdour/ardour8/route_templates/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
