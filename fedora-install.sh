@@ -188,10 +188,10 @@ sudo cp -rf gx/* /usr/lib/lv2
 
 
 
-folder="$HOME/.config/LogicalArdour"
+folder="$HOME/.config/LogicalArdour/ardour8"
 backup_or_create_folder "$folder"
 
-$config_folder ="$HOME/.config/LogicalArdour"
+$config_folder ="$HOME/.config/LogicalArdour/ardour8"
 
 folder="$HOME/.config/guitarix"
 backup_or_create_folder "$folder"
