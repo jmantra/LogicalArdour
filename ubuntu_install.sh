@@ -50,7 +50,7 @@ unzip ardour.zip
 
    # ./waf configure --cxx11 --optimize
     #./waf -j `nproc`
-    ./waf install
+   sudo ./waf install
 
     compiled=true
 
@@ -86,9 +86,11 @@ while true; do
     y|Y )
       # Replace the URL with the actual link to the file you want to download
       echo "Configuring Pipewire-Jack"
-      sudo apt install pipewire-jack
+sudo apt install pipewire pipewire-alsa pipewire-audio pipewire-audio-client-libraries pipewire-jack pipewire-pulse libspa-0.2-jack wireplumber -y
 
-    sudo apt install libspa-0.2-jack -y
+# Tell all apps that use JACK to now use the Pipewire JACK
+sudo cp /usr/share/doc/pipewire/examples/ld.so.conf.d/pipewire-jack-*.conf /etc/ld.so.conf.d/
+sudo ldconfig
 
 sudo usermod -aG audio $USER
 pipewire=true
@@ -299,7 +301,7 @@ wget https://jmantra.blob.core.windows.net/data/bassline_generator
 
 sudo cp bassline_generator /opt/LogicalArdour
 
-sudo chmod 755 /opt/LogicalArdour/bassline_generator
+sudo chmod 755 /opt/LogicalArdour/bassline_generator.py
 sudo mkdir /usr/local/lib/vst3
 
 
