@@ -26,7 +26,7 @@ while true; do
       ;;
     n|N )
       echo "Installing Ardour from repos"
-    sudo dnf install ardour -y
+    sudo dnf install ardour8 -y
       break
       ;;
     * )
@@ -74,7 +74,7 @@ done
 
 
 
-sudo dnf install yoshimi lv2-swh-plugins ladspa-tap-plugins calf lv2-x42-plugins
+sudo dnf install yoshimi lv2-swh-plugins ladspa-tap-plugins calf lv2-x42-plugins -y
 
 
 
@@ -144,9 +144,9 @@ sudo mkdir -p /opt/LogicalArdour
 
 sudo cp -rf samples/* /opt/LogicalArdour
 
-sudo cp -rf logicalardour /opt/LogicalArdour/LogicalArdour.sh
-sudo chmod 755 /opt/LogicalArdour/LogicalArdour.sh
-sudo cp -rf gb.png /opt/LogicalArdour
+#sudo cp -rf logicalardour /opt/LogicalArdour/LogicalArdour.sh
+#sudo chmod 755 /opt/LogicalArdour/LogicalArdour.sh
+#sudo cp -rf gb.png /opt/LogicalArdour
 
 wget https://jmantra.blob.core.windows.net/data/key
 
@@ -188,10 +188,12 @@ sudo cp -rf gx/* /usr/lib/lv2
 
 
 
-folder="$HOME/.config/LogicalArdour/ardour8"
+folder="$HOME/.config/ardour8"
 backup_or_create_folder "$folder"
 
-$config_folder ="$HOME/.config/LogicalArdour/ardour8"
+cp -rf ardour8/*  $folder
+
+#$config_folder ="$HOME/.config/LogicalArdour/ardour8"
 
 folder="$HOME/.config/guitarix"
 backup_or_create_folder "$folder"
