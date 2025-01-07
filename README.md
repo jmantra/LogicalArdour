@@ -1,5 +1,5 @@
 # LogicalArdour
-This is a project currently in development to give Ardour functionality similiar to GarageBand/Logic Pro out of the box using Ardour's Lua scripting interface as well as some Python and Bash scrpting.
+This is a project currently in development to give Ardour functionality similiar to GarageBand/Logic Pro out of the box using Ardour's Lua scripting interface as well as some Python, Bash scripting and FOSS plugins.
 
 # Talk/Demo
 Here is my Ohio LinuxFest talk: "Why Ardour is the GarageBand of Linux: Elevating Ardour with Lua scripting": https://www.youtube.com/live/JOPmdu7Wrh4?si=pqtiZVCIf2Y8QHny&t=7369
