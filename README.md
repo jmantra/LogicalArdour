@@ -31,4 +31,5 @@ Below are a list of additional functionality that has been implemented in this p
 * Random Chord Genrator
 * Random Bassline Generator
 * Voice to MIDI using moified version of Ardour's audio to MIDI lua script.
+* Drum sequencing: While GarageBand for iOS does have a drum sequencer, GarageBand fro Mac does not.
 * Unlimited tracks and customizability: Unlike GarageBand, Ardour is a full DAW.
