@@ -6,6 +6,7 @@ Here is my Ohio LinuxFest talk on this project: "Why Ardour is the GarageBand of
 
 # Goals
 * Guided menu system for creating different track types as well as changing Instruments/Plugins and presets.
+* Have lots of MIDI/Audio loops available at your disposal(Ardour has these by default out of the box.
 * Instruments: Have access to a full library of Instruments and instrument sounds out of the box and be easily able to switch
 * between the different instruments.
 * Drums: Have a wide variety of drum sets available and the ability to easily switch between them. Have drum loops
