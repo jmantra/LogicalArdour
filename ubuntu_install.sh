@@ -193,6 +193,11 @@ git clone https://github.com/jmantra/LogicalArdour.git
 
 cd LogicalArdour
 
+sudo mkdir  /opt/LogicalArdour
+
+sudo cp logicalardour /opt/LogicalArdour/LogicalArdour.sh
+sudo chmod +x /opt/LogicalArdour/LogicalArdour.sh
+
 sudo cp LogicalArdour.desktop /usr/share/applications
 sudo cp gb.png /opt/LogicalArdour
 
@@ -230,7 +235,7 @@ sudo cp -rf ladspa-rubberband.so $folder
 
 
 
-sudo mkdir -p /opt/LogicalArdour
+
 
 sudo cp -rf samples/* /opt/LogicalArdour
 
@@ -245,42 +250,10 @@ backup_or_create_folder "$folder"
 cp MuseScore3.ini $HOME/.config/MuseScore
 cp MuseScore2.ini $HOME/.config/MuseScore
 
-if [ "$compiled" = true ]; then
 
-  if [ "$pipewire" = true ]; then
-    sudo cp pwardour.desktop /usr/share/applications/ardour.desktop
-  else
-    sudo cp ardour.desktop /usr/share/applications/ardour.desktop
-  fi
 
-else
 
-  check_file_pattern() {
-    local file_pattern="$1"  # Argument to the function
-    # Check if any file matches the pattern
-    if match=$(ls $file_pattern 2> /dev/null); then
-      echo "Matching file(s):"
-      echo "$match"
-      desktop=$match
-    else
-      echo "No files matching '$file_pattern' were found."
-    fi
-  }
 
-  check_file_pattern "/usr/share/applications/Ardour-Ardour_8.10.0.desktop"
- if [ -z "$desktop" ]; then
- check_file_pattern "/usr/share/applications/ardour.desktop"
-else
-  echo "Desktop file already exists. No action needed."
-fi
-
-  if [ "$pipewire" = true ]; then
-    sudo cp pwregardour.desktop "$desktop"
-  else
-    sudo cp regardour.desktop "$desktop"
-  fi
-
-fi
 
 
 
@@ -306,7 +279,7 @@ sudo mkdir /usr/local/lib/vst3
 
 
 
-folder="$HOME/.config/ardour8"
+folder="$HOME/.config/LogicalArdour"
 backup_or_create_folder "$folder"
 
 cp -rf ardour8/*  $folder
@@ -316,12 +289,12 @@ backup_or_create_folder "$folder"
 
 cp -rf guitarix/*  $folder
 
-for file in $HOME/.config/ardour8/*; do
+for file in $HOME/.config/LogicalArdour/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
 done
-for file in $HOME/.config/ardour8/route_templates/*; do
+for file in $HOME/.config/LogicalArdour/route_templates/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
