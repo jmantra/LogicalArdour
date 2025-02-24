@@ -2,7 +2,7 @@
 This is a project currently in development to give Ardour functionality similiar to GarageBand/Logic Pro out of the box using Ardour's Lua scripting interface as well as some Python, Bash scripting and FOSS plugins.
 
 # Talk/Demo
-Here is my Ohio LinuxFest talk on this project: "Why Ardour is the GarageBand of Linux: Elevating Ardour with Lua scripting": https://www.youtube.com/live/JOPmdu7Wrh4?si=pqtiZVCIf2Y8QHny&t=7369
+Here is my Ohio LinuxFest talk on this project: "Why Ardour is the GarageBand of Linux: Elevating Ardour with Lua scripting": [https://www.youtube.com/live/JOPmdu7Wrh4?si=pqtiZVCIf2Y8QHny&t=7369](https://youtu.be/7pHYfIuJUJM?si=ObLpCj466z-aOyd6)
 
 # Goals
 * Guided menu system for creating different track types as well as changing Instruments/Plugins and presets.
