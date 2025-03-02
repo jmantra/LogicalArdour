@@ -82,7 +82,8 @@ local dialog_options = {
    {
     ["Choose Instrument Plugin"] = 1, ["ACE Fluid Synth"] = 2,
     ["Yoshimi"] = 3,
-    ["Surge XT"] = 4
+    ["Surge XT"] = 4,
+     ["Connect Ripchord"] = 5
 
    },
    default = "Choose Instrument Plugin"
@@ -123,6 +124,41 @@ if rv and rv["dropdown"] == 2 then
 		track_name = "Surge XT Session"
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
+	 end
+
+	 	 	  	 	 	   	if rv and rv["dropdown"] == 5 then
+		print("Ripchord")
+		plugin_name = "Ripchord"
+			  local sel = Editor:get_selection()
+  for r in sel.tracks:routelist():iter() do
+    the_name = r:name()
+    print(the_name)
+  end
+  	-- Fetch the user config directory
+local user_config_directory = ARDOUR.user_config_directory(8) -- get the config directory (using version 8)
+
+print(user_config_directory)
+
+local subdir = "route_templates"
+
+-- Concatenate the config directory with the subdirectory
+local full_path = user_config_directory .. "/" .. subdir
+		 local template_path = full_path .. "/Ripchord.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Ripchord "..the_name
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+		--local nsel = Editor:get_selection()
+		for r in sel.tracks:routelist():iter() do
+
+    if not r:to_track():isnil() and not r:to_track():to_midi_track():isnil() then
+      local outputmidiport = r:output():midi(0)
+      outputmidiport:connect(the_name .. "/midi_in 1")
+    end
+  end
+		return
+
 	 end
 
 
