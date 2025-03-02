@@ -46,7 +46,6 @@ local is_less_than_minute_ago = folder_created_less_than_minute_ago(path)
 
 if is_less_than_minute_ago then
     print("The folder was created less than a minute ago.")
-
 local dialog_options = {
   {
     type = "dropdown", key = "dropdown", title = "Choose Track", values = {
@@ -71,6 +70,12 @@ local dialog_options = {
         ["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = "hot",
         ["Help - How to use Drum Track"] = "drhelp",
         ["NIN Drumkit (ACE Fluid Synth)"] = "nin",
+         ["Muldjord (ACE Fluid Synth)"] = "mj",
+           ["HouseKit (ACE Fluid Synth)"] = "house",
+           ["PowerKit2 (ACE Fluid Synth)"] = "pk2",
+           ["Standard3 (ACE Fluid Synth)"] = "std3",
+            ["AnalogT9Kit (ACE Fluid Synth)"] = "at9",
+            ["AnalogT8Kit (ACE Fluid Synth)"] = "at8",
         ["Step Sequencing"] = {
           ["Red Zepplin"] = "steprz",
           ["Black Pearl Drumkit"] = "stepblack",
@@ -90,6 +95,12 @@ local dialog_options = {
           ["Alesis Drumkits (Use C1 to change kits)"] = "stepal",
           ["Blonde Bop HotRod Drumkit"] = "stephot",
           ["NIN Drumkit"] = "stepnin",
+          ["Muldjord"] = "stepmj",
+          ["HouseKit"] = "stephouse",
+            ["PowerKit2"] = "steppk2",
+             ["Standard3"] = "stepstd3",
+             ["AnalogT9Kit"] = "stepat9",
+              ["AnalogT8Kit"] = "stepat8",
         }
       },
       ["Play Software Instruments"] = {
@@ -136,7 +147,6 @@ local dialog_options = {
     default = "Choose a track type"
   }
 }
-
 
 
 
@@ -208,7 +218,8 @@ print (full_path)
 
 	local od = LuaDialog.Dialog ("Choose Track", dialog_options)
 	local rv = od:run()
-		    	if rv and rv["dropdown"] == "bassline_gen" then
+
+	    	if rv and rv["dropdown"] == "bassline_gen" then
 		print("You picked Bassline Generator")
 		-- Replace the path below with the path to your track template
 
@@ -219,8 +230,8 @@ print (full_path)
 		local track_name = "Bassline"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-
-local key_file_path = user_config_directory .. "/key.txt"
+local sespath = Session:path()
+local key_file_path = sespath .. "/key.txt"
 
 -- Read the contents of the key.txt file
 local file = io.open(key_file_path, "r") -- Open the file in read mode
@@ -349,6 +360,93 @@ local pos = Temporal.timepos_t(0)
 
 	end
 
+		if rv and rv["dropdown"] == "pk2" then
+		print("You picked Red Zepplin Drumkit")
+		-- Replace the path below with the path to your track template
+
+
+		local template_path = full_path .. "/powerkit2.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "PowerKit2"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+			local files = C.StringVector();
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+
+	end
+
+			if rv and rv["dropdown"] == "std3" then
+		print("You picked Standard 3 Kit")
+		-- Replace the path below with the path to your track template
+
+
+		local template_path = full_path .. "/standard3.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Standard3kit"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+			local files = C.StringVector();
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+
+	end
+
+
+			if rv and rv["dropdown"] == "at9" then
+		print("You picked AnalogT9Kit")
+		-- Replace the path below with the path to your track template
+
+
+		local template_path = full_path .. "/at9.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "AnalogT9Kit"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+			local files = C.StringVector();
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+
+	end
+
+
+			if rv and rv["dropdown"] == "at8" then
+		print("You picked AnalogT8Kit")
+		-- Replace the path below with the path to your track template
+
+
+		local template_path = full_path .. "/at8.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "AnalogT8Kit"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+			local files = C.StringVector();
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+
+	end
+
+
 
 	if rv and rv["dropdown"] == "bp" then
 		print("You picked Black Pearl")
@@ -406,6 +504,27 @@ local pos = Temporal.timepos_t(0)
 
 		-- Replace "Track Name" with the name you want for your new track
 		local track_name = "Blonde Bop Drumkit"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+				local files = C.StringVector();
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+	end
+
+		if rv and rv["dropdown"] == "house" then
+		print("blond bop")
+		-- Replace the path below with the path to your track template
+		--local template_path = "/home/jman/templates/Blonde Bop Drumkit.template"
+
+		local template_path = full_path .. "/HouseKit.template"
+
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "HouseKit"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 				local files = C.StringVector();
@@ -574,6 +693,25 @@ local pos = Temporal.timepos_t(0)
 		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
 		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 	end
+			if rv and rv["dropdown"] == "mj" then
+		print("Drumlabooh")
+		-- Replace the path below with the path to your track template
+
+		local template_path = full_path .. "/muldjord.template"
+
+		-- Replace "Track Name" with the name you want for your new track
+		local track_name = "Muldjord Kit"
+
+		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
+				local files = C.StringVector();
+files:push_back("/opt/LogicalArdour/Drum loops, chords, and chord progressions/drumjockey/Basic Beats/Basicbeat_0001.mid")
+local pos = Temporal.timepos_t(0)
+	Editor:do_import (files,
+		Editing.ImportDistinctFiles, Editing.ImportToTrack, ARDOUR.SrcQuality.SrcBest,
+		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
+		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
+	end
+
 
 	if rv and rv["dropdown"] == "st2" then
 		print("Standard 2 Drums")
@@ -699,8 +837,8 @@ local pos = Temporal.timepos_t(0)
 		local track_name = "Ace Fluid Synth Session"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-
-local key_file_path = user_config_directory .. "/key.txt"
+local sespath = Session:path()
+local key_file_path = sespath .. "/key.txt"
 
 -- Read the contents of the key.txt file
 local file = io.open(key_file_path, "r") -- Open the file in read mode
@@ -894,7 +1032,8 @@ end
 		local track_name = "Yoshimi Session"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local key_file_path = user_config_directory .. "/key.txt"
+	local sespath = Session:path()
+local key_file_path = sespath .. "/key.txt"
 
 -- Read the contents of the key.txt file
 local file = io.open(key_file_path, "r") -- Open the file in read mode
@@ -1086,7 +1225,8 @@ end
 		local track_name = "Surge XT Session"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-		local key_file_path = user_config_directory .. "/key.txt"
+		local sespath = Session:path()
+		local key_file_path = sespath .. "/key.txt"
 
 -- Read the contents of the key.txt file
 local file = io.open(key_file_path, "r") -- Open the file in read mode
@@ -1302,7 +1442,7 @@ end
 		local template_path = full_path .. "/808-909.template"
 
 		-- Replace "Track Name" with the name you want for your new track
-		local track_name = "808-909 Drums"
+		local track_name = "808-809 Drums"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 			local files = C.StringVector();
@@ -1732,7 +1872,76 @@ create_seq(
   "NIN Drumkit"
 )
 end
+if rv and rv["dropdown"] == "stepmj" then
 
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Muldjord",
+  full_path .. "/muldjord.template",
+  "Muldjord"
+)
+end
+
+if rv and rv["dropdown"] == "stephouse" then
+
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-HouseKit",
+  full_path .. "/HouseKit.template",
+  "HouseKit"
+)
+end
+
+if rv and rv["dropdown"] == "steppk2" then
+
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-PowerKit2",
+  full_path .. "/powerkit2.template",
+  "Powerkit2"
+)
+end
+
+if rv and rv["dropdown"] == "stepstd3" then
+
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-Standard3Kit",
+  full_path .. "/standard3.template",
+  "Standard3Kit"
+)
+end
+if rv and rv["dropdown"] == "stepat9" then
+
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-AnalogT9Kit",
+  full_path .. "/at9.template",
+  "AnalogT9Kit"
+)
+end
+
+if rv and rv["dropdown"] == "stepat8" then
+
+
+
+create_seq(
+  full_path .. "/Step Sequencer.template",
+  "Step Sequencer-AnalogT8Kit",
+  full_path .. "/at8.template",
+  "AnalogT8Kit"
+)
+end
 			if rv and rv["dropdown"] == "fluchord" then
 		print("Ace Fluid Synth")
 		-- Replace the path below with the path to your track template
@@ -1743,7 +1952,8 @@ end
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 
-local key_file_path = user_config_directory .. "/key.txt"
+local sespath = Session:path()
+local key_file_path = sespath .. "/key.txt"
 
 -- Read the contents of the key.txt file
 local file = io.open(key_file_path, "r") -- Open the file in read mode
@@ -1926,8 +2136,8 @@ end end
 		local track_name = "Chord Generation - Surge XT"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-
-local key_file_path = user_config_directory .. "/key.txt"
+local sespath = Session:path()
+local key_file_path = sespath .. "/key.txt"
 
 -- Read the contents of the key.txt file
 local file = io.open(key_file_path, "r") -- Open the file in read mode
@@ -2111,7 +2321,8 @@ end end
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 
-local key_file_path = user_config_directory .. "/key.txt"
+local sespath = Session:path()
+local key_file_path = sespath .. "/key.txt"
 
 -- Read the contents of the key.txt file
 local file = io.open(key_file_path, "r") -- Open the file in read mode
@@ -2285,6 +2496,8 @@ local files = C.StringVector();
 
 os.execute(delete_file)
 end end
+
+
 
 
 

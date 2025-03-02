@@ -10,10 +10,10 @@ Estimates the key of an audio loop for the purpose of setting a default key and 
 function factory () return function (signal, ...)
 
 -- Get the user config directory
- user_config_directory = ARDOUR.user_config_directory(8)
+ spath = Session:path()
 
 -- Construct the full path to the key.txt file
- key_file_path = user_config_directory .. "/key.txt"
+ key_file_path = spath .. "/key.txt"
 
 -- Read the contents of the key.txt file
  file = io.open(key_file_path, "r") -- Open the file in read mode
@@ -131,10 +131,10 @@ if rv and rv["target_key"] == 2 then
 print ("setting key of project")
 
 -- Get the user config directory
-local user_config_directory = ARDOUR.user_config_directory(8)
+ spath = Session:path()
 
 -- Construct the full path to the key.txt file
-local key_file_path = user_config_directory .. "/key.txt"
+ key_file_path = spath .. "/key.txt"
 
 -- Open the file in write mode (this will overwrite any existing content)
 local file = io.open(key_file_path, "w")
@@ -148,7 +148,7 @@ if file then
     file:close()
 
     -- Construct the full path to the key.txt file
- key_file_path = user_config_directory .. "/key.txt"
+ key_file_path = spath .. "/key.txt"
 
 -- Read the contents of the key.txt file
  file = io.open(key_file_path, "r") -- Open the file in read mode

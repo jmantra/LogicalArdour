@@ -99,7 +99,13 @@ local dialog_options = {
 						["Orchestral Perc (ACE Fluid Synth)"] = 19,
 						["Buskman's Holiday Percussion (AVL Drumits)"] = 20,
 						["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = 21,
-						["Connect Step Sequencer"] = 22
+						["Connect Step Sequencer"] = 22,
+						["Muldjord"] = 23,
+						["HouseKit"] = 24,
+						["PowerKit2"] = 25,
+						["Standard 3"] = 26,
+						["AnalogT9Kit"] = 27,
+						["AnalogT8Kit"] = 28
 
    },
    default = "Choose Drum Plugin"
@@ -346,6 +352,67 @@ local full_path = user_config_directory .. "/" .. subdir
 
 	 end
 
+	   	if rv and rv["dropdown"] == 23 then
+		print("")
+
+		plugin_name = "ACE Fluid Synth"
+		track_name = "Muldjord"
+		preset_name = "mj"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
+	 	if rv and rv["dropdown"] == 24 then
+		print("")
+
+		plugin_name = "ACE Fluid Synth"
+		track_name = "HouseKit"
+		preset_name = "house"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
+	 	if rv and rv["dropdown"] == 25 then
+		print("")
+
+		plugin_name = "ACE Fluid Synth"
+		track_name = "PowerKit2"
+		preset_name = "powerkit2"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
+	 	if rv and rv["dropdown"] == 26 then
+		print("")
+
+		plugin_name = "ACE Fluid Synth"
+		track_name = "Standard3Kit"
+		preset_name = "standard3"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
+	if rv and rv["dropdown"] == 27 then
+		print("")
+
+		plugin_name = "ACE Fluid Synth"
+		track_name = "AnalogT9Kit"
+		preset_name = "at9"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+	 if rv and rv["dropdown"] == 28 then
+		print("")
+
+		plugin_name = "ACE Fluid Synth"
+		track_name = "AnalogT8Kit"
+		preset_name = "at8"
+
+	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 end
+
+
+
 
 
 
@@ -365,6 +432,19 @@ if not sel:empty () and not sel.tracks:routelist ():empty ()  then
         r:set_name(track_name, nil)
 
  if plugin_name == "ACE Fluid Synth" then
+
+
+local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
+
+-- Get the preset
+local preset = proc:preset_by_label(preset_name)
+
+-- Load the preset
+proc:load_preset(preset)
+
+end
+
+if plugin_name == "drumlabooh" then
 
 
 local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)

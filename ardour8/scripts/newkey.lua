@@ -72,10 +72,10 @@ print("Scale: " .. scale)
 
 
 -- Get the user config directory
-local user_config_directory = ARDOUR.user_config_directory(8)
+local spath = Session:path()
 
 -- Construct the full path to the key.txt file
-local key_file_path = user_config_directory .. "/key.txt"
+local key_file_path = spath .. "/key.txt"
 
 -- Read the contents of the key.txt file
 local file = io.open(key_file_path, "r") -- Open the file in read mode
@@ -410,10 +410,10 @@ print ("setting key of project")
 print(target_key)
 
 -- Get the user config directory
-local user_config_directory = ARDOUR.user_config_directory(8)
+local spath = Session:path()
 
 -- Construct the full path to the key.txt file
-local key_file_path = user_config_directory .. "/key.txt"
+local key_file_path = spath .. "/key.txt"
 
 -- Open the file in write mode (this will overwrite any existing content)
 local file = io.open(key_file_path, "w")

@@ -1,57 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Route version="7003" id="9817" name="Yoshimi" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="9734" saved-meter-point="MeterPostFader" alignment-choice="Automatic" playback-channel-mode="ForceChannel" capture-channel-mode="ForceChannel" playback-channel-mask="0x1" capture-channel-mask="0x1" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
-  <ProgramVersion created-with="Ardour 8.10" modified-with="Ardour 8.10" name="Yoshimi"/>
-  <PresentationInfo order="3" flags="MidiTrack,OrderSet,TriggerTrack" color="3563743999"/>
-  <Controllable name="solo" id="9778" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
-  <Controllable name="solo-iso" id="9896" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
-  <Controllable name="solo-safe" id="9897" flags="Toggle" value="0" solo-safe="0"/>
-  <IO name="Yoshimi" id="9818" direction="Input" default-type="midi">
+<Route version="7003" id="796" name="Yoshimi" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="874" alignment-choice="Automatic" playback-channel-mode="AllChannels" capture-channel-mode="AllChannels" playback-channel-mask="0xffff" capture-channel-mask="0xffff" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
+  <ProgramVersion created-with="Ardour 8.11" modified-with="Ardour 8.11" name="Yoshimi"/>
+  <PresentationInfo order="2" flags="MidiTrack,OrderSet,TriggerTrack" color="1426063615"/>
+  <Controllable name="solo" id="837" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="843" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+  <Controllable name="solo-safe" id="845" flags="Toggle" value="0" solo-safe="0"/>
+  <IO name="Yoshimi" id="857" direction="Input" default-type="midi">
     <Port name="Yoshimi/midi_in 1" type="midi" direction="Input">
-      <Connection other="x-virtual-keyboard"/>
       <ExtConnection for="JACK"/>
-      <ExtConnection for="JACK" other="Midi-Bridge:MPK mini 3 3:(capture_0) MPK mini 3 MIDI 1"/>
+      <ExtConnection for="JACK" other="Midi-Bridge:AKAI MPK mini 3 at usb-0000:00:14-0-11- full speed:(capture_0) MPK mini 3 MIDI 1"/>
     </Port>
   </IO>
-  <IO name="Yoshimi" id="9819" direction="Output" default-type="midi">
+  <IO name="Yoshimi" id="858" direction="Output" default-type="midi">
     <Port name="Yoshimi/audio_out 1" type="audio" direction="Output">
+      <Connection other="Master/audio_in 1"/>
       <Connection other="Master/audio_in 1"/>
     </Port>
     <Port name="Yoshimi/audio_out 2" type="audio" direction="Output">
+      <Connection other="Master/audio_in 2"/>
       <Connection other="Master/audio_in 2"/>
     </Port>
     <Port name="Yoshimi/midi_out 1" type="midi" direction="Output"/>
   </IO>
   <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
-  <Controllable name="mute" id="9898" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="phase" id="9899" flags="Toggle" value="0" phase-invert=""/>
+  <Controllable name="mute" id="839" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="phase" id="841" flags="Toggle" value="0" phase-invert=""/>
   <Automation>
-    <AutomationList automation-id="solo" id="9900" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="solo-iso" id="9901" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="solo-safe" id="9902" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="mute" id="9903" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="rec-enable" id="9904" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="rec-safe" id="9905" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="phase" id="9906" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="monitor" id="9907" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="midi-velocity" id="9908" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo" id="836" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-iso" id="842" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-safe" id="844" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="mute" id="838" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-enable" id="868" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-safe" id="870" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="phase" id="840" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="monitor" id="872" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="midi-velocity" id="878" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
   </Automation>
   <Pannable>
-    <Controllable name="pan-azimuth" id="9820" flags="" value="0.5"/>
-    <Controllable name="pan-width" id="9821" flags="" value="0"/>
-    <Controllable name="pan-elevation" id="9822" flags="" value="0"/>
-    <Controllable name="pan-frontback" id="9823" flags="" value="0"/>
-    <Controllable name="pan-lfe" id="9824" flags="" value="0"/>
+    <Controllable name="pan-azimuth" id="848" flags="" value="0.5"/>
+    <Controllable name="pan-width" id="852" flags="" value="0"/>
+    <Controllable name="pan-elevation" id="850" flags="" value="0"/>
+    <Controllable name="pan-frontback" id="854" flags="" value="0"/>
+    <Controllable name="pan-lfe" id="856" flags="" value="0"/>
     <Automation>
-      <AutomationList automation-id="pan-azimuth" id="9825" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-elevation" id="9826" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-width" id="9827" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-frontback" id="9828" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-lfe" id="9829" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-azimuth" id="847" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-elevation" id="849" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-width" id="851" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-frontback" id="853" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-lfe" id="855" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
     </Automation>
   </Pannable>
-  <Processor id="9830" name="recorder:Yoshimi" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
-  <Processor id="9831" name="player:Yoshimi" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
-  <Processor id="9832" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="2">
+  <Processor id="867" name="recorder:Yoshimi" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
+  <Processor id="866" name="player:Yoshimi" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
+  <Processor id="799" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="1">
     <Triggers>
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="0" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="1" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
@@ -71,10 +72,10 @@
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="15" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
     </Triggers>
   </Processor>
-  <Processor id="9881" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
-  <Processor id="9888" name="Yoshimi" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://yoshimi.sourceforge.net/lv2_plugin" count="1" custom="0">
+  <Processor id="860" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+  <Processor id="907" name="Yoshimi" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://yoshimi.sourceforge.net/lv2_plugin" count="1" custom="0">
     <Automation>
-      <AutomationList automation-id="parameter-1" id="9889" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-1" id="908" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="midi" count="1"/>
@@ -95,23 +96,23 @@
       <Channelmap type="audio" from="1" to="1"/>
     </OutputMap-0>
     <ThruMap/>
-    <lv2 last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="0" template-dir="/home/justin/.config/ardour8/route_templates/Yoshimi" state-dir="state3">
+    <lv2 last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="0" template-dir="/home/justin/.config/ardour8/route_templates/Yoshimi" state-dir="state1">
       <Port symbol="lv2_freewheel" value="0"/>
     </lv2>
-    <Controllable name="hidden" id="9887" flags="Toggle" value="0" parameter="1" symbol="lv2_freewheel"/>
+    <Controllable name="hidden" id="909" flags="Toggle" value="0" parameter="1" symbol="lv2_freewheel"/>
   </Processor>
-  <Processor id="9890" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+  <Processor id="859" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
     <Automation>
-      <AutomationList automation-id="gain" id="9891" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="gain" id="832" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
     </Automation>
-    <Controllable name="gaincontrol" id="9892" flags="GainLike" value="1"/>
+    <Controllable name="gaincontrol" id="833" flags="GainLike" value="1"/>
   </Processor>
-  <Processor id="9893" name="meter-Yoshimi" active="1" user-latency="0" use-user-latency="0" type="meter"/>
-  <Processor id="9894" name="Yoshimi" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Yoshimi" type="main-outs" role="Main">
+  <Processor id="863" name="meter-Yoshimi" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+  <Processor id="864" name="Yoshimi" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Yoshimi" type="main-outs" role="Main">
     <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
   </Processor>
   <Slavable/>
-  <Controllable name="monitor" id="9911" flags="RealTime" value="0" monitoring=""/>
-  <Controllable name="rec-safe" id="9912" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="rec-enable" id="9913" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="monitor" id="873" flags="RealTime" value="0" monitoring=""/>
+  <Controllable name="rec-safe" id="871" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="rec-enable" id="869" flags="Toggle,RealTime" value="0"/>
 </Route>

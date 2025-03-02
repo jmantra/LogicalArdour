@@ -195,7 +195,7 @@ cd LogicalArdour
 
 sudo mkdir  /opt/LogicalArdour
 
-sudo cp logicalardour /opt/LogicalArdour/LogicalArdour.sh
+sudo cp LogicalArdour.sh /opt/LogicalArdour/LogicalArdour.sh
 sudo chmod +x /opt/LogicalArdour/LogicalArdour.sh
 
 sudo cp LogicalArdour.desktop /usr/share/applications
