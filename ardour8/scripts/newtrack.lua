@@ -2092,10 +2092,10 @@ end end
 		if rv and rv["dropdown"] == "yoshchord" then
 		print("Surge XT")
 		-- Replace the path below with the path to your track template
-		local template_path = full_path .. "/Surge XT.template"
+		local template_path = full_path .. "/Yoshimi.template"
 
 		-- Replace "Track Name" with the name you want for your new track
-		local track_name = "Chord Generation - Surge XT"
+		local track_name = "Chord Generation - Yoshimi"
 
 		Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 local sespath = Session:path()

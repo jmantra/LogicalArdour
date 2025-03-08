@@ -57,17 +57,40 @@ function factory () return function (signal, ...)
     local pi2 = proc2:to_insert()
     local plugin_name2 = pi2:plugin(1):name()
     if plugin_name2 == "MIDI Strum" then
+LuaDialog.Message("Error", "The currently selected track is a Session Player track, please select an instrument track).", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+      return
+    end
+ end
 
+    for r in sel.tracks:routelist():iter() do
 
+    local proc = r:nth_plugin(0) -- for every plugin
+    if proc:isnil() then break end
+    local pi = proc:to_insert()
+    local plugin_name = pi:plugin(0):name()
+    if plugin_name == "Ripchord" then
 
-      LuaDialog.Message("Error", "The currently selected track is a Session Player track, please select an instrument).", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+       LuaDialog.Message("Error", "The currently selected track is a Ripchord track, please select an instrument track.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
       return
 
+    end end
+--MIDI Step Sequencer8x8
+
+   for r in sel.tracks:routelist():iter() do
+
+    local proc = r:nth_plugin(0) -- for every plugin
+    if proc:isnil() then break end
+    local pi = proc:to_insert()
+    local plugin_name = pi:plugin(0):name()
+    if plugin_name == "MIDI Step Sequencer8x8" then
+
+       LuaDialog.Message("Error", "The currently selected track is a Step Sequencer track, please select an instrument track.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+      return
+
+    end end
 
 
-    end
 
- end
 
 
 local dialog_options = {
@@ -89,6 +112,7 @@ local dialog_options = {
  local rv = od:run()
 
  local plugin_name = nil
+ ripchord = "not set" -- will be set to "set" if we decided to connect Ripchord
 
 if rv and rv["dropdown"] == 2 then
 		print("ACE Fluid Synth")
@@ -133,6 +157,7 @@ if rv and rv["dropdown"] == 2 then
 	 	  	 	 	   	if rv and rv["dropdown"] == 6 then
 		print("Ripchord")
 		plugin_name = "Ripchord"
+		ripchord = "set"
 			  local sel = Editor:get_selection()
   for r in sel.tracks:routelist():iter() do
     the_name = r:name()
@@ -196,6 +221,58 @@ end
   end
 end
 
+-- Check for ripchord
+if ripchord == "not set" then -- make sure we didn't already select the option to connect Ripchord
+local a = Session:engine()
+
+_, t = a:get_ports(ARDOUR.DataType("midi"), ARDOUR.PortList())
+
+local port_name = nil
+for p in t[2]:iter() do
+    local name = p:name()
+    -- print(name)
+
+    local sel = Editor:get_selection()
+    -- for each selected track/bus
+    for r in sel.tracks:routelist():iter() do
+        local current_track = r:name()
+        -- print(current_track)
+        if not r:to_track():isnil() and not r:to_track():to_midi_track():isnil() then
+            local inputmidiport = r:input():midi(0)
+            if inputmidiport:connected_to(name) == true then
+                if name:find("/midi_out 1") then
+                    correct_name = name:match("(.+)/midi_out 1")
+                    print("Correct name is " .. correct_name)
+                end
+            end
+        end
+    end
+end
+
+local track = Session:route_by_name(correct_name):to_track()
+if not track:isnil() then
+    local i = 0
+    local found_ripchord = false
+    repeat -- iterate over all plugins/processors
+        local proc = track:nth_processor(i)
+        if not proc:isnil() then
+            local proc_name = proc:display_name()
+           -- print(proc_name)
+            if proc_name == "Ripchord" then
+               -- print("Ripchord true")
+                found_ripchord = true
+                track:set_name("Ripchord "..track_name)
+            end
+        end
+        i = i + 1
+    until proc:isnil()
+
+    if not found_ripchord then
+        print("Ripchord not found")
+    end
+else
+    print("Track '" .. correct_name .. "' not found")
+end end
 end end
 
 
