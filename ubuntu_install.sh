@@ -211,6 +211,11 @@ cp -rf lv2/* $HOME/.lv2
 folder="$HOME/.vst"
 backup_or_create_folder "$folder"
 
+folder="$HOME/.local/share/Trackbout/Ripchord/Presets/
+backup_or_create_folder "$folder"
+
+cp -rf Ripchord/* $folder
+
 
 
 
