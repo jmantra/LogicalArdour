@@ -15,7 +15,7 @@ between the different instruments.
  be able to customize your sound.
 * Vocals: Be able to easily switch between different vocal presets.
 * Autotune: Easy to setup autotune that can “follow” the key of your project.(Sound like T-pain)
-* Be able to transpose audio by key and scale. (I.E. change the pitch of an audio loop for C Major to F Major)
+* Be able to transpose audio loops by key and scale. (I.E. change the pitch of an audio loop for C Major to F Major)
 * Be able to time stretch an audio loop to a fixed BPM (Beats Per Minute or Tempo).
 * Be able to view and edit MIDI regions as musical scores (sheet music)
 * Other functionality not found in GB.
