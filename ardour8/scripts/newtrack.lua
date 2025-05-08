@@ -12,6 +12,17 @@ local dialog_options = {
   {
     type = "dropdown", key = "dropdown", title = "Choose Track", values = {
       ["Choose a track Type"] = 1,
+      ["Help"] = {
+        ["How to use Drum Tracks"] = "drhelp",
+        ["How to use Software Instruments"] = "insthelp",
+        ["How to use Audio Recording"] = "audiohelp",
+        ["How to use Guitar/Bass Recording"] = "guitarhelp",
+        ["How to use Session Players"] = "sessionhelp",
+        ["How to use Generators"] = "genhelp",
+        ["Reference Materials"] = {
+          ["Circle of Fifths"] = "cofhelp"
+        }
+      },
       ["Drummer"] = {
         ["Red Zepplin (AVL Drumkits)"] = "rz",
         ["Black Pearl (AVL Drumkits)"] = "bp",
@@ -30,7 +41,6 @@ local dialog_options = {
         ["Alesis Drumkits (Use C1 to change kits) (ACE Fluid Synth)"] = "al",
         ["Buskman's Holiday Percussion (AVL Drumkits)"] = "bus",
         ["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = "hot",
-        ["Help - How to use Drum Track"] = "drhelp",
         ["NIN Drumkit (ACE Fluid Synth)"] = "nin",
          ["Muldjord (ACE Fluid Synth)"] = "mj",
            ["HouseKit (ACE Fluid Synth)"] = "house",
@@ -146,7 +156,8 @@ local function open_url_in_browser(url)
 
     -- Move the script to a temporary location and execute it
     os.execute("mv yt.sh /tmp/yt.sh")
-    os.execute("/bin/bash /tmp/yt.sh")
+   -- os.execute("/bin/bash /tmp/yt.sh")
+    os.forkexec("/bin/bash", "/tmp/yt.sh")
 end
 
 function create_seq(stemplate_path, strack_name, template_path, track_name)
@@ -973,19 +984,8 @@ local files = C.StringVector();
 			local delete_file = "rm -rf "..filepath
 
 os.execute(delete_file)
-
-
-
-
-
-
-
-end
-
-end
-
-
-				if rv and rv["dropdown"] == "zas" then
+end end
+		if rv and rv["dropdown"] == "zas" then
 		print("Yoshimi")
 		-- Replace the path below with the path to your track template
 		local template_path = full_path .. "/Yosh Session.template"
@@ -1165,18 +1165,10 @@ local files = C.StringVector();
 		ARDOUR.MidiTrackNameSource.SMFFileAndTrackName, ARDOUR.MidiTempoMapDisposition.SMFTempoIgnore,
 		pos, ARDOUR.PluginInfo(), ARDOUR.Track(), false)
 
-		local delete_file = "rm -rf "..filepath
+			local delete_file = "rm -rf "..filepath
 
 os.execute(delete_file)
-
-
-
-
-
-
-
-end
-	end
+end end
 		if rv and rv["dropdown"] == "sts" then
 		print("Surge XT")
 		-- Replace the path below with the path to your track template
@@ -1626,10 +1618,39 @@ local pos = Temporal.timepos_t(0)
 
 		if rv and rv["dropdown"] == "drhelp" then
 	print("Drum Help")
-
--- Example usage
 open_url_in_browser("https://youtu.be/COm3ym6Y-s8")
 	end
+
+		if rv and rv["dropdown"] == "insthelp" then
+	print("Software Instruments Help")
+open_url_in_browser("https://youtu.be/your_software_instruments_video")
+	end
+
+		if rv and rv["dropdown"] == "audiohelp" then
+	print("Audio Recording Help")
+open_url_in_browser("https://youtu.be/your_audio_recording_video")
+	end
+
+		if rv and rv["dropdown"] == "guitarhelp" then
+	print("Guitar/Bass Recording Help")
+open_url_in_browser("https://youtu.be/your_guitar_recording_video")
+	end
+
+		if rv and rv["dropdown"] == "sessionhelp" then
+	print("Session Players Help")
+open_url_in_browser("https://youtu.be/your_session_players_video")
+	end
+
+		if rv and rv["dropdown"] == "genhelp" then
+	print("Generators Help")
+open_url_in_browser("https://youtu.be/your_generators_video")
+	end
+
+		if rv and rv["dropdown"] == "cofhelp" then
+	print("Opening Circle of Fifths Reference")
+open_url_in_browser("https://randscullard.com/CircleOfFifths/")
+	end
+
 		if rv and rv["dropdown"] == "steprz" then
 
 
@@ -2461,5 +2482,6 @@ end end
 
 
 end end
+
 
 

@@ -38,7 +38,7 @@ while true; do
       break
       ;;
     n|N )
-      echo "Compiling Ardour"
+      echo "Installing Ardour"
       cd $HOME
     sudo apt install build-essential git libboost-all-dev gcc g++ pkg-config libasound2-dev libgtk2.0-dev libglibmm-2.4-dev libsndfile1-dev libarchive-dev liblo-dev libtag1-dev vamp-plugin-sdk librubberband-dev libfftw3-dev libaubio-dev libxml2-dev libsamplerate0-dev lv2-dev libserd-dev libsord-dev libsratom-dev liblilv-dev libgtkmm-2.4-dev libjack-jackd2-dev libogg-dev libcppunit-dev libudev-dev libwebsockets-dev libusb-dev libsuil-dev libdbus-1-dev xjadeo libusb-1.0-0-dev libreadline-dev  libarchive-dev liblo-dev libtag1-dev libvamp-sdk2v5 librubberband-dev libaubio-dev libpangomm-1.4-dev libserd-dev libsord-dev libsratom-dev liblilv-dev libgtkmm-2.4-dev libsuil-dev libcppunit-dev python3 liblrdf0-dev libraptor2-dev python-is-python3 git -y
 wget https://jmantra.blob.core.windows.net/data/ardour.zip
@@ -65,19 +65,6 @@ done
 
 # Continue with the rest of your script here
 echo "Continuing with the rest of the script..."
-
-
-
-
-
-
-#BPM
-
-#wget https://jmantra.blob.core.windows.net/data/bpmbin
-
-#sudo cp bpmbin /usr/bin
-
-#sudo chmod 755 /usr/bin/bpmbin
 
 
 while true; do
@@ -112,9 +99,6 @@ echo "Continuing with the rest of the script..."
 
 
 ##########
-
-
-
 while true; do
   read -p "Do you want to download some loops? (3.5 GB)(Please Note: Loops can be downloaded later in the Library Downloader, however not all loop libraries work in the distro version of Ardour ) (y/n): " choice
   case "$choice" in
@@ -150,17 +134,6 @@ sudo apt-get install apt-transport-https gpgv wget -y
 
 
 
-# Download package file
-#wget https://launchpad.net/~kxstudio-debian/+archive/kxstudio/+files/kxstudio-repos_11.1.0_all.deb
-
-# Install it
-#sudo dpkg -i kxstudio-repos_11.1.0_all.deb
-
-#rm -rf kxstudio-repos_11.1.0_all.deb
-
-#sudo apt update
-
-# sudo apt upgrade -y
 echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections
 
 sudo apt install yoshimi -y 
@@ -195,11 +168,10 @@ cd LogicalArdour
 
 sudo mkdir  /opt/LogicalArdour
 
-sudo cp LogicalArdour.sh /opt/LogicalArdour/LogicalArdour.sh
-sudo chmod +x /opt/LogicalArdour/LogicalArdour.sh
 
-sudo cp LogicalArdour.desktop /usr/share/applications
-sudo cp gb.png /opt/LogicalArdour
+
+sudo cp minibpm /opt/LogicalArdour/minibpm
+sudo chmod +x /opt/LogicalArdour/minibpm
 
 
 folder="$HOME/.lv2"
@@ -236,12 +208,6 @@ sudo cp -rf ladspa-rubberband.cat $folder
 sudo cp -rf ladspa-rubberband.so $folder
 
 
-
-
-
-
-
-
 sudo cp -rf samples/* /opt/LogicalArdour
 
 sudo apt install libfuse3-3 libfuse3-dev libfuse2t64 -y
@@ -255,13 +221,6 @@ backup_or_create_folder "$folder"
 cp MuseScore3.ini $HOME/.config/MuseScore
 cp MuseScore2.ini $HOME/.config/MuseScore
 
-
-
-
-
-
-
-
 wget https://jmantra.blob.core.windows.net/data/key
 
 sudo cp key /opt/LogicalArdour
@@ -274,17 +233,17 @@ sudo cp newchord /opt/LogicalArdour
 
 sudo chmod 755 /opt/LogicalArdour/newchord
 
-
 wget https://jmantra.blob.core.windows.net/data/bassline_generator
 
 sudo cp bassline_generator /opt/LogicalArdour
+sudo chmod 755 /opt/LogicalArdour/bassline_generator
 
 sudo chmod 755 /opt/LogicalArdour/bassline_generator.py
 sudo mkdir /usr/local/lib/vst3
 
 
 
-folder="$HOME/.config/LogicalArdour"
+folder="$HOME/.config/ardour8"
 backup_or_create_folder "$folder"
 
 cp -rf ardour8/*  $folder
@@ -294,12 +253,12 @@ backup_or_create_folder "$folder"
 
 cp -rf guitarix/*  $folder
 
-for file in $HOME/.config/LogicalArdour/*; do
+for file in $HOME/.config/ardour8/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
 done
-for file in $HOME/.config/LogicalArdour/route_templates/*; do
+for file in $HOME/.config/ardour8/route_templates/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
@@ -309,17 +268,6 @@ for file in $HOME/.config/MuseScore/*; do
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
     done
-
-
-
-
-
-#DIR=$(find /opt -maxdepth 1 -type d -name "Ardour-*" | sort -V | tail -n 1)
-
-
-
-
-
 
 
 cd "$HOME/Downloads"

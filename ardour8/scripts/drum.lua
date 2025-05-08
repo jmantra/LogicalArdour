@@ -441,101 +441,74 @@ local sel = Editor:get_selection ()
 if not sel:empty () and not sel.tracks:routelist ():empty ()  then
   -- for each selected track
   for r in sel.tracks:routelist ():iter () do
- if not r:to_track ():isnil () then
-    old = r:nth_plugin(0)
-    --  assert (not new:isnil())
+    if not r:to_track ():isnil () then
+      old = r:nth_plugin(0)
+      --  assert (not new:isnil())
       r:replace_processor (old, new, nil)
-        r:set_name(track_name, nil)
+      r:set_name(track_name, nil)
 
- if plugin_name == "ACE Fluid Synth" then
+      if plugin_name == "ACE Fluid Synth" then
+        local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
+        -- Get the preset
+        local preset = proc:preset_by_label(preset_name)
+        -- Load the preset
+        proc:load_preset(preset)
+      end
 
-
-local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
-
--- Get the preset
-local preset = proc:preset_by_label(preset_name)
-
--- Load the preset
-proc:load_preset(preset)
-
-end
-
-if plugin_name == "drumlabooh" then
-
-
-local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
-
--- Get the preset
-local preset = proc:preset_by_label(preset_name)
-
--- Load the preset
-proc:load_preset(preset)
-
-end
-
-
-
-
-
-
-
+      if plugin_name == "drumlabooh" then
+        local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
+        -- Get the preset
+        local preset = proc:preset_by_label(preset_name)
+        -- Load the preset
+        proc:load_preset(preset)
+      end
     end
   end
 end
 
--- Check for Step Sequencer
-if step == "not set" then -- make sure we didn't already select the option to connect Ripchord
+-- Check for connected Step Sequencer and rename it
 local a = Session:engine()
-
 _, t = a:get_ports(ARDOUR.DataType("midi"), ARDOUR.PortList())
 
 local port_name = nil
 for p in t[2]:iter() do
     local name = p:name()
-    -- print(name)
-
     local sel = Editor:get_selection()
-    -- for each selected track/bus
     for r in sel.tracks:routelist():iter() do
         local current_track = r:name()
-        -- print(current_track)
         if not r:to_track():isnil() and not r:to_track():to_midi_track():isnil() then
             local inputmidiport = r:input():midi(0)
             if inputmidiport:connected_to(name) == true then
                 if name:find("/midi_out 1") then
                     correct_name = name:match("(.+)/midi_out 1")
-                    print("Correct name is " .. correct_name)
+                    print("Found connected sequencer: " .. correct_name)
+                    
+                    -- Try to rename the connected sequencer
+                    local track = Session:route_by_name(correct_name):to_track()
+                    if not track:isnil() then
+                        local i = 0
+                        repeat
+                            local proc = track:nth_processor(i)
+                            if not proc:isnil() then
+                                local proc_name = proc:display_name()
+                                if proc_name == "MIDI Step Sequencer8x8" then
+                                    track:set_name("Step Sequencer " .. track_name)
+                                    print("Renamed sequencer to: Step Sequencer " .. track_name)
+                                end
+                            end
+                            i = i + 1
+                        until proc:isnil()
+                    end
                 end
             end
         end
     end
 end
 
-local track = Session:route_by_name(correct_name):to_track()
-if not track:isnil() then
-    local i = 0
-    local found_step = false
-    repeat -- iterate over all plugins/processors
-        local proc = track:nth_processor(i)
-        if not proc:isnil() then
-            local proc_name = proc:display_name()
-           -- print(proc_name)
-            if proc_name == "MIDI Step Sequencer8x8" then
-               -- print("Ripchord true")
-                found_step = true
-                track:set_name("Step Sequencer "..track_name)
-            end
-        end
-        i = i + 1
-    until proc:isnil()
-
-    if not found_step then
-        print("Ripchord not found")
-    end
-else
-    print("Track '" .. correct_name .. "' not found")
-end end
-
+-- Handle special case for step=="set"
+if step == "set" then
+    -- ... existing step=="set" specific code ...
+end
 end end
 
 

@@ -249,6 +249,11 @@ for p in t[2]:iter() do
     end
 end
 
+if correct_name == nil then
+    print("No connected MIDI output port found")
+    return
+end
+
 local track = Session:route_by_name(correct_name):to_track()
 if not track:isnil() then
     local i = 0
