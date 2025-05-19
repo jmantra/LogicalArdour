@@ -29,7 +29,7 @@ cd "$HOME/Downloads"
 
 
 while true; do
-  read -p "Do you already have Ardour installed? If you say no Ardour will be compiled/installed for you (y/n): " choice
+  read -p "Do you already have Ardour installed? If you say no Ardour will be compiled/installed for you. Note: You must have Ardour 8.6 or higher for everything to work properly (y/n): " choice
   case "$choice" in
     y|Y )
       # Replace the URL with the actual link to the file you want to download
