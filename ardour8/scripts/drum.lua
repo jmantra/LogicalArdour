@@ -1,19 +1,48 @@
 ardour {
  ["type"] = "EditorAction",
- name = "Drum - Change Drum Plugin",
+ name = "Drummer - Change Drum Plugin on track/add and remove drum notes",
  author      = "Justin Ehrlichman",
 description = [[
-Replace Drum Plugin on currently selected track
+Replace Drum Plugin on currently selected track if a track is selected or add/removes drum notes if a midi region is selected
 ]]
 }
 
 function factory () return function (signal, ...)
 
- local sel = Editor:get_selection ()
+
+
+local sel = Editor:get_selection()
+local count = 0
+local is_midi_region = false  -- fixed variable name
+
+for r in sel.regions:regionlist():iter() do
+    count = count + 1
+    if r:to_midiregion():isnil() then
+     is_midi_region = false
+        --return
+    else
+        is_midi_region = true  -- corrected variable name
+    end
+end
+
+if count > 1 then
+    local md = LuaDialog.Message("Estimate Tempo", "Please select exactly 1 MIDI region", LuaDialog.MessageType.Info, LuaDialog.ButtonType.Close)
+    print(md:run())
+    md = nil
+    collectgarbage()
+    return
+end
+
+if is_midi_region == true then  -- correct comparison
+    Editor:access_action("LuaAction", "script-14")
+    return  -- stop further processing
+else
+
+
 
   -- Check if no track is selected
   if sel:empty() or sel.tracks:routelist():empty() then
-    LuaDialog.Message("Error", "No track selected. Please select a track to continue.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.OK):run()
+    LuaDialog.Message("Error", "No track or midi drum region selected. Please select a track or midi drum region.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.OK):run()
     return
   end
 
@@ -77,7 +106,7 @@ function factory () return function (signal, ...)
       LuaDialog.Message("Error", "The currently selected track is a Session Player track, please select a drum track).", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
       return
 
-
+end
 
     end
 
@@ -482,7 +511,7 @@ for p in t[2]:iter() do
                 if name:find("/midi_out 1") then
                     correct_name = name:match("(.+)/midi_out 1")
                     print("Found connected sequencer: " .. correct_name)
-                    
+
                     -- Try to rename the connected sequencer
                     local track = Session:route_by_name(correct_name):to_track()
                     if not track:isnil() then

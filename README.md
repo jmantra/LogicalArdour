@@ -11,6 +11,7 @@ Here is my Ohio LinuxFest talk on this project: "Why Ardour is the GarageBand of
 between the different instruments.
 * Drums: Have a wide variety of drum sets available and the ability to easily switch between them.
 * Have drum loops automatically "follow" an audio loop.
+* Be able to easily and dynamically adjust drum instruments for a drum loop.
 * Guitar: have a ton of presets for guitar/bass sounds available out of the box, be easily able to switch between guitar sounds and
  be able to customize your sound.
 * Vocals: Be able to easily switch between different vocal presets.
