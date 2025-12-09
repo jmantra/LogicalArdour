@@ -76,12 +76,6 @@ done
 
 sudo dnf install yoshimi lv2-swh-plugins ladspa-tap-plugins calf lv2-x42-plugins -y
 
-
-
-
-
-
-
 wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.4/surge-xt-x86_64-1.3.4.rpm
 
 sudo dnf -y install surge-xt-x86_64-1.3.4.rpm
@@ -91,12 +85,6 @@ sudo dnf -y install surge-xt-x86_64-1.3.4.rpm
 sudo dnf -y copr enable patrickl/libcurl-gnutls
 
 sudo dnf -y install libcurl-gnutls --refresh
-
-
-
-
-
-
 
 wget https://codeload.github.com/jmantra/LogicalArdour/zip/refs/heads/main
 
@@ -109,10 +97,7 @@ cd LogicalArdour/LogicalArdour-main
 
 #Copying desktop file
 
-sudo cp -rf LogicalArdour.desktop /usr/share/applications
-
-
-
+sudo dnf -y install guitarix-vst3-0.4-1.fc43.x86_64.rpm
 
 
 folder="$HOME/.lv2"
@@ -124,9 +109,6 @@ cp -rf lv2/* $HOME/.lv2
 folder="$HOME/.vst"
 backup_or_create_folder "$folder"
 
-
-
-
 folder="$HOME/.vst3"
 backup_or_create_folder "$folder"
 
@@ -136,9 +118,6 @@ folder="$HOME/.ladspa"
 backup_or_create_folder "$folder"
 
 cp -rf ladspa/* "$HOME/.ladspa"
-
-
-
 
 sudo mkdir -p /opt/LogicalArdour
 
@@ -172,21 +151,9 @@ sudo cp mscore /opt/LogicalArdour
 
 sudo chmod 755 /opt/LogicalArdour/mscore
 
-
-
-
-
 sudo cp -rf mda.lv2/ /usr/lib/lv2
 
 sudo cp -rf gx/* /usr/lib/lv2
-
-
-
-
-
-
-
-
 
 folder="$HOME/.config/ardour8"
 backup_or_create_folder "$folder"
