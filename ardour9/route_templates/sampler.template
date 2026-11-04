@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Route version="7003" id="256" name="sampler" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="173" alignment-choice="Automatic" playback-channel-mode="AllChannels" capture-channel-mode="AllChannels" playback-channel-mask="0xffff" capture-channel-mask="0xffff" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
+  <ProgramVersion created-with="Ardour 8.10" modified-with="Ardour 8.10" name="sampler"/>
+  <PresentationInfo order="1" flags="MidiTrack,OrderSet,TriggerTrack" color="3563743999"/>
+  <Controllable name="solo" id="217" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="688" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+  <Controllable name="solo-safe" id="689" flags="Toggle" value="0" solo-safe="0"/>
+  <IO name="sampler 1" id="257" direction="Input" default-type="midi">
+    <Port name="sampler 1/midi_in 1" type="midi" direction="Input">
+      <Connection other="x-virtual-keyboard"/>
+      <ExtConnection for="JACK"/>
+      <ExtConnection for="JACK" other="Midi-Bridge:MPK mini 3 1:(capture_0) MPK mini 3 MIDI 1"/>
+    </Port>
+  </IO>
+  <IO name="sampler 1" id="258" direction="Output" default-type="midi">
+    <Port name="sampler 1/audio_out 1" type="audio" direction="Output">
+      <Connection other="Master/audio_in 1"/>
+    </Port>
+    <Port name="sampler 1/audio_out 2" type="audio" direction="Output">
+      <Connection other="Master/audio_in 2"/>
+    </Port>
+    <Port name="sampler 1/midi_out 1" type="midi" direction="Output"/>
+  </IO>
+  <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
+  <Controllable name="mute" id="690" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="phase" id="691" flags="Toggle" value="0" phase-invert=""/>
+  <Automation>
+    <AutomationList automation-id="solo" id="692" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-iso" id="693" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-safe" id="694" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="mute" id="695" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-enable" id="696" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-safe" id="697" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="phase" id="698" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="monitor" id="699" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="midi-velocity" id="700" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+  </Automation>
+  <Pannable>
+    <Controllable name="pan-azimuth" id="259" flags="" value="0.5"/>
+    <Controllable name="pan-width" id="260" flags="" value="0"/>
+    <Controllable name="pan-elevation" id="261" flags="" value="0"/>
+    <Controllable name="pan-frontback" id="262" flags="" value="0"/>
+    <Controllable name="pan-lfe" id="263" flags="" value="0"/>
+    <Automation>
+      <AutomationList automation-id="pan-azimuth" id="264" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-elevation" id="265" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-width" id="266" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-frontback" id="267" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-lfe" id="268" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    </Automation>
+  </Pannable>
+  <Processor id="269" name="recorder:MIDI 1" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
+  <Processor id="270" name="player:MIDI 1" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
+  <Processor id="271" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="0">
+    <Triggers>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="0" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="1" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="2" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="3" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="4" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="5" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="6" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="7" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="8" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="9" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="10" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="11" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="12" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="13" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="14" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="15" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+    </Triggers>
+  </Processor>
+  <Processor id="320" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+  <Processor id="590" name="samplv1" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="http://samplv1.sourceforge.net/lv2" count="1" custom="1">
+    <Automation>
+      <AutomationList automation-id="parameter-6" id="591" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="592" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-8" id="593" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="594" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="595" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-11" id="596" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-12" id="597" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-13" id="598" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-14" id="599" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-15" id="600" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-16" id="601" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-17" id="602" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-18" id="603" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-19" id="604" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-20" id="605" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-21" id="606" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-22" id="607" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-23" id="608" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-24" id="609" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-25" id="610" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-26" id="611" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-27" id="612" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-28" id="613" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-29" id="614" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-30" id="615" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-31" id="616" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-32" id="617" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-33" id="618" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-34" id="619" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-35" id="620" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-36" id="621" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-37" id="622" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-38" id="623" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-39" id="624" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-40" id="625" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-41" id="626" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-42" id="627" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-43" id="628" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-44" id="629" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-45" id="630" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-46" id="631" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-47" id="632" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-48" id="633" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-49" id="634" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-50" id="635" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-51" id="636" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-52" id="637" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-53" id="638" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-54" id="639" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-55" id="640" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-56" id="641" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-57" id="642" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-58" id="643" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-59" id="644" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-60" id="645" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-61" id="646" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-62" id="647" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-63" id="648" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-64" id="649" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-65" id="650" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-66" id="651" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-67" id="652" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-68" id="653" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-69" id="654" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-70" id="655" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-71" id="656" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-72" id="657" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-73" id="658" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-74" id="659" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-75" id="660" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-76" id="661" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-77" id="662" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-78" id="663" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-79" id="664" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-80" id="665" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-81" id="666" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-82" id="667" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-83" id="668" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-84" id="669" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-85" id="670" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-86" id="671" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-http://samplv1.sourceforge.net/lv2#P102_OFFSET_START" id="672" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-http://samplv1.sourceforge.net/lv2#P103_OFFSET_END" id="673" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-http://samplv1.sourceforge.net/lv2#P104_LOOP_START" id="674" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-http://samplv1.sourceforge.net/lv2#P105_LOOP_END" id="675" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-http://samplv1.sourceforge.net/lv2#P106_LOOP_FADE" id="676" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-http://samplv1.sourceforge.net/lv2#P107_LOOP_ZERO" id="677" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-http://samplv1.sourceforge.net/lv2#P108_SAMPLE_OTABS" id="678" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-http://samplv1.sourceforge.net/lv2#P201_TUNING_ENABLED" id="679" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-http://samplv1.sourceforge.net/lv2#P202_TUNING_REF_PITCH" id="680" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-http://samplv1.sourceforge.net/lv2#P203_TUNING_REF_NOTE" id="681" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    </Automation>
+    <ConfiguredInput>
+      <Channels type="midi" count="1"/>
+    </ConfiguredInput>
+    <CustomSinks>
+      <Channels type="audio" count="2"/>
+      <Channels type="midi" count="1"/>
+    </CustomSinks>
+    <ConfiguredOutput>
+      <Channels type="audio" count="1"/>
+      <Channels type="midi" count="1"/>
+    </ConfiguredOutput>
+    <PresetOutput/>
+    <InputMap-0>
+      <Channelmap type="midi" from="0" to="0"/>
+    </InputMap-0>
+    <OutputMap-0>
+      <Channelmap type="audio" from="0" to="0"/>
+    </OutputMap-0>
+    <ThruMap/>
+    <lv2 last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="1" template-dir="/home/justin/.config/ardour8/route_templates/sampler" state-dir="state3">
+      <Port symbol="GEN1_SAMPLE" value="60"/>
+      <Port symbol="GEN1_REVERSE" value="0"/>
+      <Port symbol="GEN1_OFFSET" value="0"/>
+      <Port symbol="GEN1_OFFSET_1" value="0"/>
+      <Port symbol="GEN1_OFFSET_2" value="1"/>
+      <Port symbol="GEN1_LOOP" value="0"/>
+      <Port symbol="GEN1_LOOP_1" value="0"/>
+      <Port symbol="GEN1_LOOP_2" value="1"/>
+      <Port symbol="GEN1_OCTAVE" value="0"/>
+      <Port symbol="GEN1_TUNING" value="0"/>
+      <Port symbol="GEN1_GLIDE" value="0"/>
+      <Port symbol="GEN1_ENVTIME" value="0.5"/>
+      <Port symbol="DCF1_ENABLED" value="1"/>
+      <Port symbol="DCF1_CUTOFF" value="1"/>
+      <Port symbol="DCF1_RESO" value="0"/>
+      <Port symbol="DCF1_TYPE" value="0"/>
+      <Port symbol="DCF1_SLOPE" value="0"/>
+      <Port symbol="DCF1_ENVELOPE" value="1"/>
+      <Port symbol="DCF1_ATTACK" value="0"/>
+      <Port symbol="DCF1_DECAY" value="0.20000000298023224"/>
+      <Port symbol="DCF1_SUSTAIN" value="0.5"/>
+      <Port symbol="DCF1_RELEASE" value="0.5"/>
+      <Port symbol="LFO1_ENABLED" value="1"/>
+      <Port symbol="LFO1_SHAPE" value="1"/>
+      <Port symbol="LFO1_WIDTH" value="1"/>
+      <Port symbol="LFO1_BPM" value="180"/>
+      <Port symbol="LFO1_RATE" value="0.5"/>
+      <Port symbol="LFO1_SYNC" value="0"/>
+      <Port symbol="LFO1_SWEEP" value="0"/>
+      <Port symbol="LFO1_PITCH" value="0"/>
+      <Port symbol="LFO1_CUTOFF" value="0"/>
+      <Port symbol="LFO1_RESO" value="0"/>
+      <Port symbol="LFO1_PANNING" value="0"/>
+      <Port symbol="LFO1_VOLUME" value="0"/>
+      <Port symbol="LFO1_ATTACK" value="0"/>
+      <Port symbol="LFO1_DECAY" value="0.10000000149011612"/>
+      <Port symbol="LFO1_SUSTAIN" value="1"/>
+      <Port symbol="LFO1_RELEASE" value="0.5"/>
+      <Port symbol="DCA1_ENABLED" value="1"/>
+      <Port symbol="DCA1_VOLUME" value="0.5"/>
+      <Port symbol="DCA1_ATTACK" value="0"/>
+      <Port symbol="DCA1_DECAY" value="0.10000000149011612"/>
+      <Port symbol="DCA1_SUSTAIN" value="1"/>
+      <Port symbol="DCA1_RELEASE" value="0.5"/>
+      <Port symbol="OUT1_WIDTH" value="0"/>
+      <Port symbol="OUT1_PANNING" value="0"/>
+      <Port symbol="OUT1_FXSEND" value="1"/>
+      <Port symbol="OUT1_VOLUME" value="0.5"/>
+      <Port symbol="DEF1_PITCHBEND" value="0.20000000298023224"/>
+      <Port symbol="DEF1_MODWHEEL" value="0.20000000298023224"/>
+      <Port symbol="DEF1_PRESSURE" value="0.20000000298023224"/>
+      <Port symbol="DEF1_VELOCITY" value="0.20000000298023224"/>
+      <Port symbol="DEF1_CHANNEL" value="0"/>
+      <Port symbol="DEF1_MONO" value="0"/>
+      <Port symbol="CHO1_WET" value="0"/>
+      <Port symbol="CHO1_DELAY" value="0.5"/>
+      <Port symbol="CHO1_FEEDB" value="0.5"/>
+      <Port symbol="CHO1_RATE" value="0.5"/>
+      <Port symbol="CHO1_MOD" value="0.5"/>
+      <Port symbol="FLA1_WET" value="0"/>
+      <Port symbol="FLA1_DELAY" value="0.5"/>
+      <Port symbol="FLA1_FEEDB" value="0.5"/>
+      <Port symbol="FLA1_DAFT" value="0"/>
+      <Port symbol="PHA1_WET" value="0"/>
+      <Port symbol="PHA1_RATE" value="0.5"/>
+      <Port symbol="PHA1_FEEDB" value="0.5"/>
+      <Port symbol="PHA1_DEPTH" value="0.5"/>
+      <Port symbol="PHA1_DAFT" value="0"/>
+      <Port symbol="DEL1_WET" value="0"/>
+      <Port symbol="DEL1_DELAY" value="0.5"/>
+      <Port symbol="DEL1_FEEDB" value="0.5"/>
+      <Port symbol="DEL1_BPM" value="180"/>
+      <Port symbol="REV1_WET" value="0"/>
+      <Port symbol="REV1_ROOM" value="0.5"/>
+      <Port symbol="REV1_DAMP" value="0.5"/>
+      <Port symbol="REV1_FEEDB" value="0.5"/>
+      <Port symbol="REV1_WIDTH" value="0"/>
+      <Port symbol="DYN1_COMPRESS" value="0"/>
+      <Port symbol="DYN1_LIMITER" value="1"/>
+      <Port symbol="KEY1_LOW" value="0"/>
+      <Port symbol="KEY1_HIGH" value="127"/>
+    </lv2>
+    <Controllable name="GEN1 Sample" id="509" flags="" value="60" parameter="6" symbol="GEN1_SAMPLE"/>
+    <Controllable name="GEN1 Reverse" id="510" flags="Toggle" value="0" parameter="7" symbol="GEN1_REVERSE"/>
+    <Controllable name="GEN1 Offset" id="511" flags="Toggle" value="0" parameter="8" symbol="GEN1_OFFSET"/>
+    <Controllable name="GEN1 Offset Start" id="512" flags="" value="0" parameter="9" symbol="GEN1_OFFSET_1"/>
+    <Controllable name="GEN1 Offset End" id="513" flags="" value="1" parameter="10" symbol="GEN1_OFFSET_2"/>
+    <Controllable name="GEN1 Loop" id="514" flags="Toggle" value="0" parameter="11" symbol="GEN1_LOOP"/>
+    <Controllable name="GEN1 Loop Start" id="515" flags="" value="0" parameter="12" symbol="GEN1_LOOP_1"/>
+    <Controllable name="GEN1 Loop End" id="516" flags="" value="1" parameter="13" symbol="GEN1_LOOP_2"/>
+    <Controllable name="GEN1 Octave" id="517" flags="" value="0" parameter="14" symbol="GEN1_OCTAVE"/>
+    <Controllable name="GEN1 Tuning" id="518" flags="" value="0" parameter="15" symbol="GEN1_TUNING"/>
+    <Controllable name="GEN1 Glide" id="519" flags="" value="0" parameter="16" symbol="GEN1_GLIDE"/>
+    <Controllable name="GEN1 Env.Time" id="520" flags="" value="0.5" parameter="17" symbol="GEN1_ENVTIME"/>
+    <Controllable name="DCF1 Enabled" id="521" flags="Toggle" value="1" parameter="18" symbol="DCF1_ENABLED"/>
+    <Controllable name="DCF1 Cutoff" id="522" flags="" value="1" parameter="19" symbol="DCF1_CUTOFF"/>
+    <Controllable name="DCF1 Resonance" id="523" flags="" value="0" parameter="20" symbol="DCF1_RESO"/>
+    <Controllable name="DCF1 Type" id="524" flags="" value="0" parameter="21" symbol="DCF1_TYPE"/>
+    <Controllable name="DCF1 Slope" id="525" flags="" value="0" parameter="22" symbol="DCF1_SLOPE"/>
+    <Controllable name="DCF1 Envelope" id="526" flags="" value="1" parameter="23" symbol="DCF1_ENVELOPE"/>
+    <Controllable name="DCF1 Attack" id="527" flags="" value="0" parameter="24" symbol="DCF1_ATTACK"/>
+    <Controllable name="DCF1 Decay" id="528" flags="" value="0.20000000298023224" parameter="25" symbol="DCF1_DECAY"/>
+    <Controllable name="DCF1 Sustain" id="529" flags="" value="0.5" parameter="26" symbol="DCF1_SUSTAIN"/>
+    <Controllable name="DCF1 Release" id="530" flags="" value="0.5" parameter="27" symbol="DCF1_RELEASE"/>
+    <Controllable name="LFO1 Enabled" id="531" flags="Toggle" value="1" parameter="28" symbol="LFO1_ENABLED"/>
+    <Controllable name="LFO1 Wave Shape" id="532" flags="" value="1" parameter="29" symbol="LFO1_SHAPE"/>
+    <Controllable name="LFO1 Wave Width" id="533" flags="" value="1" parameter="30" symbol="LFO1_WIDTH"/>
+    <Controllable name="LFO1 BPM" id="534" flags="" value="180" parameter="31" symbol="LFO1_BPM"/>
+    <Controllable name="LFO1 Rate" id="535" flags="" value="0.5" parameter="32" symbol="LFO1_RATE"/>
+    <Controllable name="LFO1 Sync" id="536" flags="Toggle" value="0" parameter="33" symbol="LFO1_SYNC"/>
+    <Controllable name="LFO1 Sweep" id="537" flags="" value="0" parameter="34" symbol="LFO1_SWEEP"/>
+    <Controllable name="LFO1 Pitch" id="538" flags="" value="0" parameter="35" symbol="LFO1_PITCH"/>
+    <Controllable name="LFO1 Cutoff" id="539" flags="" value="0" parameter="36" symbol="LFO1_CUTOFF"/>
+    <Controllable name="LFO1 Resonance" id="540" flags="" value="0" parameter="37" symbol="LFO1_RESO"/>
+    <Controllable name="LFO1 Panning" id="541" flags="" value="0" parameter="38" symbol="LFO1_PANNING"/>
+    <Controllable name="LFO1 Volume" id="542" flags="" value="0" parameter="39" symbol="LFO1_VOLUME"/>
+    <Controllable name="LFO1 Attack" id="543" flags="" value="0" parameter="40" symbol="LFO1_ATTACK"/>
+    <Controllable name="LFO1 Decay" id="544" flags="" value="0.10000000149011612" parameter="41" symbol="LFO1_DECAY"/>
+    <Controllable name="LFO1 Sustain" id="545" flags="" value="1" parameter="42" symbol="LFO1_SUSTAIN"/>
+    <Controllable name="LFO1 Release" id="546" flags="" value="0.5" parameter="43" symbol="LFO1_RELEASE"/>
+    <Controllable name="DCA1 Enabled" id="547" flags="Toggle" value="1" parameter="44" symbol="DCA1_ENABLED"/>
+    <Controllable name="DCA1 Volume" id="548" flags="" value="0.5" parameter="45" symbol="DCA1_VOLUME"/>
+    <Controllable name="DCA1 Attack" id="549" flags="" value="0" parameter="46" symbol="DCA1_ATTACK"/>
+    <Controllable name="DCA1 Decay" id="550" flags="" value="0.10000000149011612" parameter="47" symbol="DCA1_DECAY"/>
+    <Controllable name="DCA1 Sustain" id="551" flags="" value="1" parameter="48" symbol="DCA1_SUSTAIN"/>
+    <Controllable name="DCA1 Release" id="552" flags="" value="0.5" parameter="49" symbol="DCA1_RELEASE"/>
+    <Controllable name="OUT1 Stereo Width" id="553" flags="" value="0" parameter="50" symbol="OUT1_WIDTH"/>
+    <Controllable name="OUT1 Panning" id="554" flags="" value="0" parameter="51" symbol="OUT1_PANNING"/>
+    <Controllable name="OUT1 FX Send" id="555" flags="" value="1" parameter="52" symbol="OUT1_FXSEND"/>
+    <Controllable name="OUT1 Volume" id="556" flags="" value="0.5" parameter="53" symbol="OUT1_VOLUME"/>
+    <Controllable name="DEF1 Pitchbend" id="557" flags="" value="0.20000000298023224" parameter="54" symbol="DEF1_PITCHBEND"/>
+    <Controllable name="DEF1 Modwheel" id="558" flags="" value="0.20000000298023224" parameter="55" symbol="DEF1_MODWHEEL"/>
+    <Controllable name="DEF1 Pressure" id="559" flags="" value="0.20000000298023224" parameter="56" symbol="DEF1_PRESSURE"/>
+    <Controllable name="DEF1 Velocity" id="560" flags="" value="0.20000000298023224" parameter="57" symbol="DEF1_VELOCITY"/>
+    <Controllable name="DEF1 Channel" id="561" flags="" value="0" parameter="58" symbol="DEF1_CHANNEL"/>
+    <Controllable name="DEF1 Mono" id="562" flags="" value="0" parameter="59" symbol="DEF1_MONO"/>
+    <Controllable name="Chorus Wet" id="563" flags="" value="0" parameter="60" symbol="CHO1_WET"/>
+    <Controllable name="Chorus Delay" id="564" flags="" value="0.5" parameter="61" symbol="CHO1_DELAY"/>
+    <Controllable name="Chorus Feedback" id="565" flags="" value="0.5" parameter="62" symbol="CHO1_FEEDB"/>
+    <Controllable name="Chorus Rate" id="566" flags="" value="0.5" parameter="63" symbol="CHO1_RATE"/>
+    <Controllable name="Chorus Modulation" id="567" flags="" value="0.5" parameter="64" symbol="CHO1_MOD"/>
+    <Controllable name="Flanger Wet" id="568" flags="" value="0" parameter="65" symbol="FLA1_WET"/>
+    <Controllable name="Flanger Delay" id="569" flags="" value="0.5" parameter="66" symbol="FLA1_DELAY"/>
+    <Controllable name="Flanger Feedback" id="570" flags="" value="0.5" parameter="67" symbol="FLA1_FEEDB"/>
+    <Controllable name="Flanger Daft" id="571" flags="" value="0" parameter="68" symbol="FLA1_DAFT"/>
+    <Controllable name="Phaser Wet" id="572" flags="" value="0" parameter="69" symbol="PHA1_WET"/>
+    <Controllable name="Phaser Rate" id="573" flags="" value="0.5" parameter="70" symbol="PHA1_RATE"/>
+    <Controllable name="Phaser Feedback" id="574" flags="" value="0.5" parameter="71" symbol="PHA1_FEEDB"/>
+    <Controllable name="Phaser Depth" id="575" flags="" value="0.5" parameter="72" symbol="PHA1_DEPTH"/>
+    <Controllable name="Phaser Daft" id="576" flags="" value="0" parameter="73" symbol="PHA1_DAFT"/>
+    <Controllable name="Delay Wet" id="577" flags="" value="0" parameter="74" symbol="DEL1_WET"/>
+    <Controllable name="Delay Delay" id="578" flags="" value="0.5" parameter="75" symbol="DEL1_DELAY"/>
+    <Controllable name="Delay Feedback" id="579" flags="" value="0.5" parameter="76" symbol="DEL1_FEEDB"/>
+    <Controllable name="Delay BPM" id="580" flags="" value="180" parameter="77" symbol="DEL1_BPM"/>
+    <Controllable name="Reverb Wet" id="581" flags="" value="0" parameter="78" symbol="REV1_WET"/>
+    <Controllable name="Reverb Room" id="582" flags="" value="0.5" parameter="79" symbol="REV1_ROOM"/>
+    <Controllable name="Reverb Damp" id="583" flags="" value="0.5" parameter="80" symbol="REV1_DAMP"/>
+    <Controllable name="Reverb Feedback" id="584" flags="" value="0.5" parameter="81" symbol="REV1_FEEDB"/>
+    <Controllable name="Reverb Width" id="585" flags="" value="0" parameter="82" symbol="REV1_WIDTH"/>
+    <Controllable name="Dynamic Compressor" id="586" flags="Toggle" value="0" parameter="83" symbol="DYN1_COMPRESS"/>
+    <Controllable name="Dynamic Limiter" id="587" flags="Toggle" value="1" parameter="84" symbol="DYN1_LIMITER"/>
+    <Controllable name="Keyboard Low" id="588" flags="" value="0" parameter="85" symbol="KEY1_LOW"/>
+    <Controllable name="Keyboard High" id="589" flags="" value="127" parameter="86" symbol="KEY1_HIGH"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P101_SAMPLE_FILE" id="486" flags="NotAutomatable" property="94"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P102_OFFSET_START" id="488" flags="" property="95"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P103_OFFSET_END" id="490" flags="" property="96"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P104_LOOP_START" id="492" flags="" property="97"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P105_LOOP_END" id="494" flags="" property="98"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P106_LOOP_FADE" id="496" flags="" property="100"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P107_LOOP_ZERO" id="498" flags="Toggle" property="101"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P108_SAMPLE_OTABS" id="500" flags="" property="102"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P201_TUNING_ENABLED" id="502" flags="Toggle" property="104"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P202_TUNING_REF_PITCH" id="504" flags="" property="105"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P203_TUNING_REF_NOTE" id="506" flags="" property="106"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P204_TUNING_SCALE_FILE" id="507" flags="NotAutomatable" property="107"/>
+    <Controllable name="property-http://samplv1.sourceforge.net/lv2#P205_TUNING_KEYMAP_FILE" id="508" flags="NotAutomatable" property="108"/>
+  </Processor>
+  <Processor id="682" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+    <Automation>
+      <AutomationList automation-id="gain" id="683" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+    </Automation>
+    <Controllable name="gaincontrol" id="684" flags="GainLike" value="1"/>
+  </Processor>
+  <Processor id="685" name="meter-MIDI 1" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+  <Processor id="686" name="sampler 1" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="sampler 1" type="main-outs" role="Main">
+    <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
+  </Processor>
+  <Slavable/>
+  <Controllable name="monitor" id="703" flags="RealTime" value="0" monitoring=""/>
+  <Controllable name="rec-safe" id="704" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="rec-enable" id="705" flags="Toggle,RealTime" value="0"/>
+</Route>

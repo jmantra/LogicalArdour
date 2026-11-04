@@ -120,249 +120,25 @@ end
 
 local dialog_options = {
   {
-   type = "dropdown", key = "dropdown", title = "Choose Drum Plugin", values =
+   type = "dropdown", key = "dropdown", title = "Choose an action", values =
    {
-    ["Choose Drum Plugin"] = 1,
-    ["Red Zeppelin (AVL Drumkits)"] = 3,
-    ["Black Pearl (AVL Drumkits)"] = 4,
-        ["Blonde Bop(AVL Drumkits)"] = 6,
-        ["808/809 Drums (ACE Fluid Synth)"] = 7,
-         ["Standard Drums (ACE Fluid Synth)"] = 8,
-          ["Standard 2 Drums (ACE Fluid Synth)"] = 9,
-           ["Electronic Drums (ACE Fluid Synth)"] = 10,
-                  ["Room Drums (ACE Fluid Synth)"] = 11,
-                      ["Power Drums (ACE Fluid Synth)"] = 12,
-                       ["Dance Drums (ACE Fluid Synth)"] = 13,
-						["Jazz Drums (ACE Fluid Synth)"] = 14,
-						["SoniNeko (ACE Fluid Synth)"] =15,
-					["NIN Drumkit (ACE Fluid Synth)"] =16,
-						 ["Alesis Drumkits(Use C1 to change kits) (ACE Fluid Synth)"] =17,
-						["Brush Drum (ACE Fluid Synth)"] = 18,
-						["Orchestral Perc (ACE Fluid Synth)"] = 19,
-						["Buskman's Holiday Percussion (AVL Drumits)"] = 20,
-						["Blonde Bop HotRod Drumkit (AVL Drumkits)"] = 21,
-						["Connect Step Sequencer"] = 22,
-						["Muldjord"] = 23,
-						["HouseKit"] = 24,
-						["PowerKit2"] = 25,
-						["Standard 3"] = 26,
-						["AnalogT9Kit"] = 27,
-						["AnalogT8Kit"] = 28
-
+    ["Change drum kit"] = 1,
+    ["Connect step sequencer"] = 2
    },
-   default = "Choose Drum Plugin"
+   default = "Change drum kit"
   }
  }
 
- local od = LuaDialog.Dialog ("Choose Drum Plugin", dialog_options)
+ local od = LuaDialog.Dialog ("Drum Track", dialog_options)
  local rv = od:run()
 
- local plugin_name = nil
+ if not rv then
+    return
+ end
 
  step = "not set"
 
-
-
-
-
-
- 	if rv and rv["dropdown"] == 3 then
-		print("You Chose Red Zeppelin Drumkit")
-		plugin_name = "Red Zeppelin Drumkit"
-		track_name = plugin_name
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
- 	if rv and rv["dropdown"] == 4 then
-		print("You Chose Black Pearl Drumkit")
-
-		plugin_name = "Black Pearl Drumkit"
-		track_name = plugin_name
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
-
-	  	if rv and rv["dropdown"] == 6 then
-		print("You Chose Blonde Bop Drumkit")
-
-		plugin_name = "Blonde Bop Drumkit"
-		track_name = plugin_name
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
-	  	if rv and rv["dropdown"] == 7 then
-		print("808/809")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "808-809 Drums"
-		preset_name = "eight"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-	   	if rv and rv["dropdown"] == 8 then
-		print("Standard Drums")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Standard Drums"
-		preset_name = "Standard Drums"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
-
-	   	if rv and rv["dropdown"] == 9 then
-		print("Standard 2 Drums")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Standard 2 Drums"
-		preset_name = "Standard 2 Drums"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
-
-	   	if rv and rv["dropdown"] == 10 then
-		print("Electronic Drums")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Electronic Drums"
-		preset_name = "Electronic Drums"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
-	   	if rv and rv["dropdown"] == 11 then
-		print("Room Drums")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Room Drums"
-		preset_name = "Room Drums"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
-	   	if rv and rv["dropdown"] == 12 then
-		print("Power Drums")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Power Drums"
-		preset_name = "Power Drums"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
-	   	if rv and rv["dropdown"] == 13 then
-		print("Dance Drums")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Dance Drums"
-		preset_name = "dance"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-	 	   	if rv and rv["dropdown"] == 14 then
-		print("Jazz Drums")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Jazz Drums"
-		preset_name = "Jazz Drums"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-	  	   	if rv and rv["dropdown"] == 15 then
-		print("SoniNeko")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "SoniNeko Drums"
-		preset_name = "soni"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
-
-
-
-	  	   	if rv and rv["dropdown"] == 16 then
-		print("NIN Drumkit")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "NIN Drumkit"
-		preset_name = "nin"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-	 	  	   	if rv and rv["dropdown"] == 17 then
-		print("Alesis Drumkits")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Alesis Drumkits"
-		preset_name = "al"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
-
-
-
-
-	 	 	 	   	if rv and rv["dropdown"] == 18 then
-		print("Brush Drums")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Brush Drums"
-		preset_name = "Brush Drums"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-	 	 	 	 	   	if rv and rv["dropdown"] == 19 then
-		print("ACE Fluid Synth")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Orchestral Perc"
-		preset_name = "Orchestral Perc"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-	 	 	 	 	   	if rv and rv["dropdown"] == 20 then
-		print("Buskman's Holiday Percussion")
-
-		plugin_name = "Buskman's Holiday Percussion"
-		track_name = "Buskman's Holiday Percussion"
-		preset_name = "Buskman's Holiday Percussion"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-	 	 	 	 	   	if rv and rv["dropdown"] == 21 then
-		print("Blonde Bop HotRod Drumkit")
-
-		plugin_name = "Blonde Bop HotRod Drumkit"
-		track_name = "Blonde Bop HotRod Drumkit"
-
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-	  	 	 	   	if rv and rv["dropdown"] == 22 then
+ if rv["dropdown"] == 2 then
 		print("Step Sequencer")
 			  local sel = Editor:get_selection()
   for r in sel.tracks:routelist():iter() do
@@ -395,105 +171,95 @@ local full_path = user_config_directory .. "/" .. subdir
   end
 		return
 
-	 end
+ end
 
-	   	if rv and rv["dropdown"] == 23 then
-		print("")
+ if rv["dropdown"] ~= 1 then
+    return
+ end
 
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Muldjord"
-		preset_name = "mj"
+ local function show_error (message)
+    LuaDialog.Message("Drum Track", message, LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+ end
 
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
+ local fluidsynth_id = "urn:ardour:a-fluidsynth"
+ local sf2_property = "urn:ardour:a-fluidsynth:sf2file"
+ local browser = "/opt/LogicalArdour/drum-soundfont-browser"
 
-	 	if rv and rv["dropdown"] == 24 then
-		print("")
+ local handle = io.popen (browser)
+ if not handle then
+    show_error ("Could not start the drum soundfont browser:\n" .. browser)
+    return
+ end
+ local contents = handle:read ("*a")
+ handle:close ()
+ if not contents or contents == "" then
+    return
+ end
 
-		plugin_name = "ACE Fluid Synth"
-		track_name = "HouseKit"
-		preset_name = "house"
+ local soundfont_path, chosen_name, kind, avl_plugin = contents:match ("^([^\r\n]*)\r?\n([^\r\n]*)\r?\n([^\r\n]*)\r?\n([^\r\n]*)")
+ soundfont_path = (soundfont_path or ""):gsub ("%s+$", "")
+ track_name = (chosen_name or ""):gsub ("[\r\n]+$", "")
+ kind = (kind or ""):gsub ("%s+$", "")
+ avl_plugin = (avl_plugin or ""):gsub ("[\r\n]+$", "")
 
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
+ if soundfont_path == "" then
+    show_error ("The browser did not return a soundfont path.")
+    return
+ end
+ if not ARDOUR.LuaAPI.file_test (soundfont_path, ARDOUR.LuaAPI.FileTest.Exists) then
+    show_error ("Soundfont not found:\n" .. soundfont_path)
+    return
+ end
+ if track_name == "" then
+    local file_name = soundfont_path:match ("([^/]+)$") or soundfont_path
+    track_name = file_name:gsub ("%.sf2$", ""):gsub ("%.sf3$", "")
+ end
 
-	 	if rv and rv["dropdown"] == 25 then
-		print("")
+ local route = Editor:get_selection ().tracks:routelist ():front ()
+ local old = route:nth_plugin (0)
+ if old:isnil () then
+    show_error ("The selected track has no plugin to replace.")
+    return
+ end
 
-		plugin_name = "ACE Fluid Synth"
-		track_name = "PowerKit2"
-		preset_name = "powerkit2"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-	 	if rv and rv["dropdown"] == 26 then
-		print("")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "Standard3Kit"
-		preset_name = "standard3"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-	if rv and rv["dropdown"] == 27 then
-		print("")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "AnalogT9Kit"
-		preset_name = "at9"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-	 if rv and rv["dropdown"] == 28 then
-		print("")
-
-		plugin_name = "ACE Fluid Synth"
-		track_name = "AnalogT8Kit"
-		preset_name = "at8"
-
-	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
-	 end
-
-
-
-
-
-
-
-
-
-
-
-local sel = Editor:get_selection ()
-if not sel:empty () and not sel.tracks:routelist ():empty ()  then
-  -- for each selected track
-  for r in sel.tracks:routelist ():iter () do
-    if not r:to_track ():isnil () then
-      old = r:nth_plugin(0)
-      --  assert (not new:isnil())
-      r:replace_processor (old, new, nil)
-      r:set_name(track_name, nil)
-
-      if plugin_name == "ACE Fluid Synth" then
-        local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
-        -- Get the preset
-        local preset = proc:preset_by_label(preset_name)
-        -- Load the preset
-        proc:load_preset(preset)
-      end
-
-      if plugin_name == "drumlabooh" then
-        local proc = Session:route_by_name(track_name):to_track():nth_plugin(0):to_insert():plugin(0)
-        -- Get the preset
-        local preset = proc:preset_by_label(preset_name)
-        -- Load the preset
-        proc:load_preset(preset)
-      end
+ local load_soundfont = kind ~= "avl"
+ local create_name = "ACE Fluid Synth"
+ if not load_soundfont then
+    if avl_plugin == "" then
+       show_error ("The browser did not name an AVL drumkit.")
+       return
     end
-  end
-end
+    create_name = avl_plugin
+ end
+
+ local new_plugin = ARDOUR.LuaAPI.new_plugin (Session, create_name, ARDOUR.PluginType.LV2, "")
+ if not new_plugin or new_plugin:isnil () then
+    show_error ("Could not create " .. create_name .. ".")
+    return
+ end
+
+ route:replace_processor (old, new_plugin, nil)
+
+ local replaced = route:nth_plugin (0)
+ if replaced:isnil () then
+    show_error (create_name .. " was replaced, but the new plugin could not be found.")
+    return
+ end
+
+ if load_soundfont then
+    local insert = replaced:to_insert ()
+    if insert:isnil () or insert:plugin (0):unique_id () ~= fluidsynth_id then
+       show_error ("The replacement plugin is not ACE Fluid Synth.")
+       return
+    end
+    local ok = ARDOUR.LuaAPI.set_plugin_insert_property (insert, sf2_property, soundfont_path)
+    if not ok then
+       show_error ("Could not set the ACE Fluid Synth soundfont.")
+       return
+    end
+ end
+
+ route:set_name (track_name, nil)
 
 -- Check for connected Step Sequencer and rename it
 local a = Session:engine()

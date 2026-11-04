@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Route version="7003" id="2687" name="Dance Drums" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="2604" alignment-choice="Automatic" playback-channel-mode="ForceChannel" capture-channel-mode="ForceChannel" playback-channel-mask="0x1" capture-channel-mask="0x1" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
+  <ProgramVersion created-with="Ardour 8.10" modified-with="Ardour 8.10" name="Dance Drums"/>
+  <PresentationInfo order="2" flags="MidiTrack,OrderSet,TriggerTrack" color="4289374975"/>
+  <Controllable name="solo" id="2648" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="2852" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+  <Controllable name="solo-safe" id="2853" flags="Toggle" value="0" solo-safe="0"/>
+  <IO name="Dance Drums" id="2688" direction="Input" default-type="midi">
+    <Port name="Dance Drums/midi_in 1" type="midi" direction="Input">
+      <Connection other="x-virtual-keyboard"/>
+      <ExtConnection for="JACK"/>
+      <ExtConnection for="JACK" other="Midi-Bridge:MPK mini 3 3:(capture_0) MPK mini 3 MIDI 1"/>
+    </Port>
+  </IO>
+  <IO name="Dance Drums" id="2689" direction="Output" default-type="midi">
+    <Port name="Dance Drums/audio_out 1" type="audio" direction="Output">
+      <Connection other="Master/audio_in 1"/>
+    </Port>
+    <Port name="Dance Drums/audio_out 2" type="audio" direction="Output">
+      <Connection other="Master/audio_in 2"/>
+    </Port>
+    <Port name="Dance Drums/midi_out 1" type="midi" direction="Output"/>
+  </IO>
+  <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
+  <Controllable name="mute" id="2854" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="phase" id="2855" flags="Toggle" value="0" phase-invert=""/>
+  <Automation>
+    <AutomationList automation-id="solo" id="2856" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-iso" id="2857" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-safe" id="2858" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="mute" id="2859" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-enable" id="2860" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-safe" id="2861" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="phase" id="2862" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="monitor" id="2863" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="midi-velocity" id="2864" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+  </Automation>
+  <Pannable>
+    <Controllable name="pan-azimuth" id="2690" flags="" value="0.5"/>
+    <Controllable name="pan-width" id="2691" flags="" value="0"/>
+    <Controllable name="pan-elevation" id="2692" flags="" value="0"/>
+    <Controllable name="pan-frontback" id="2693" flags="" value="0"/>
+    <Controllable name="pan-lfe" id="2694" flags="" value="0"/>
+    <Automation>
+      <AutomationList automation-id="pan-azimuth" id="2695" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-elevation" id="2696" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-width" id="2697" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-frontback" id="2698" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-lfe" id="2699" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    </Automation>
+  </Pannable>
+  <Processor id="2700" name="recorder:Dance Drums" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
+  <Processor id="2701" name="player:Dance Drums" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
+  <Processor id="2702" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="1">
+    <Triggers>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="0" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="1" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="2" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="3" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="4" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="5" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="6" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="7" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="8" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="9" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="10" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="11" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="12" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="13" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="14" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="15" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+    </Triggers>
+  </Processor>
+  <Processor id="2751" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+  <Processor id="2795" name="ACE Fluid Synth" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="urn:ardour:a-fluidsynth" count="1" custom="0">
+    <Automation>
+      <AutomationList automation-id="parameter-4" id="2796" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="2797" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="2798" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-7" id="2799" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-8" id="2800" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-9" id="2801" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-10" id="2802" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-11" id="2803" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-12" id="2804" interpolation-style="Logarithmic" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-13" id="2805" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-14" id="2806" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-15" id="2807" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-16" id="2808" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    </Automation>
+    <ConfiguredInput>
+      <Channels type="midi" count="1"/>
+    </ConfiguredInput>
+    <CustomSinks>
+      <Channels type="midi" count="1"/>
+    </CustomSinks>
+    <ConfiguredOutput>
+      <Channels type="audio" count="2"/>
+      <Channels type="midi" count="1"/>
+    </ConfiguredOutput>
+    <PresetOutput>
+      <Channels type="audio" count="2"/>
+    </PresetOutput>
+    <InputMap-0>
+      <Channelmap type="midi" from="0" to="0"/>
+    </InputMap-0>
+    <OutputMap-0>
+      <Channelmap type="audio" from="0" to="0"/>
+      <Channelmap type="audio" from="1" to="1"/>
+    </OutputMap-0>
+    <ThruMap/>
+    <lv2 last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="1" template-dir="/home/justin/.config/ardour8/route_templates/Dance Drums" state-dir="state3">
+      <Port symbol="level" value="0"/>
+      <Port symbol="rev_enable" value="1"/>
+      <Port symbol="rev_roomsize" value="0.5"/>
+      <Port symbol="rev_damp" value="0.5"/>
+      <Port symbol="rev_width" value="10"/>
+      <Port symbol="rev_level" value="0.10000000149011612"/>
+      <Port symbol="chorus_enable" value="1"/>
+      <Port symbol="chorus_nr" value="1"/>
+      <Port symbol="chorus_speed" value="1"/>
+      <Port symbol="chorus_depth" value="0"/>
+      <Port symbol="chorus_level" value="0"/>
+      <Port symbol="chorus_type" value="0"/>
+      <Port symbol="enable" value="1"/>
+    </lv2>
+    <Controllable name="Output Level" id="2782" flags="" value="0" parameter="4" symbol="level"/>
+    <Controllable name="Reverb Enable" id="2783" flags="Toggle" value="1" parameter="5" symbol="rev_enable"/>
+    <Controllable name="Reverb Roomsize" id="2784" flags="" value="0.5" parameter="6" symbol="rev_roomsize"/>
+    <Controllable name="Reverb Damping" id="2785" flags="" value="0.5" parameter="7" symbol="rev_damp"/>
+    <Controllable name="Reverb Width" id="2786" flags="" value="10" parameter="8" symbol="rev_width"/>
+    <Controllable name="Reverb Dry/Wet" id="2787" flags="" value="0.10000000149011612" parameter="9" symbol="rev_level"/>
+    <Controllable name="Chorus Enable" id="2788" flags="Toggle" value="1" parameter="10" symbol="chorus_enable"/>
+    <Controllable name="Chorus Voice Count" id="2789" flags="" value="1" parameter="11" symbol="chorus_nr"/>
+    <Controllable name="Chorus Speed" id="2790" flags="" value="1" parameter="12" symbol="chorus_speed"/>
+    <Controllable name="Chorus Depth" id="2791" flags="" value="0" parameter="13" symbol="chorus_depth"/>
+    <Controllable name="Chorus Level" id="2792" flags="" value="0" parameter="14" symbol="chorus_level"/>
+    <Controllable name="Chorus Type" id="2793" flags="" value="0" parameter="15" symbol="chorus_type"/>
+    <Controllable name="Enable" id="2794" flags="Toggle" value="1" parameter="16" symbol="enable"/>
+    <Controllable name="property-urn:ardour:a-fluidsynth:sf2file" id="2781" flags="NotAutomatable" property="87"/>
+  </Processor>
+  <Processor id="2846" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+    <Automation>
+      <AutomationList automation-id="gain" id="2847" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+    </Automation>
+    <Controllable name="gaincontrol" id="2848" flags="GainLike" value="1"/>
+  </Processor>
+  <Processor id="2849" name="meter-Black Pearl Drumkit" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+  <Processor id="2850" name="Dance Drums" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Dance Drums" type="main-outs" role="Main">
+    <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
+  </Processor>
+  <Slavable/>
+  <Controllable name="monitor" id="2867" flags="RealTime" value="0" monitoring=""/>
+  <Controllable name="rec-safe" id="2868" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="rec-enable" id="2869" flags="Toggle,RealTime" value="0"/>
+</Route>

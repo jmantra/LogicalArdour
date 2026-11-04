@@ -121,6 +121,9 @@ if rv and rv["dropdown"] == 2 then
 		preset_name = "gm"
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+
+     Editor:access_action("LuaAction", "script-15")
+     return  -- stop further processing
 	 end
 
 

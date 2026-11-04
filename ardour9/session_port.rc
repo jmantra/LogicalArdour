@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SessionPorts>
+  <Auditioner>
+    <DirectOut>
+      <IO name="auditioner" id="7988" direction="Output" default-type="audio">
+        <Port name="auditioner/audio_out 1" type="audio" direction="Output">
+          <ExtConnection for="JACK"/>
+          <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:playback_FL"/>
+        </Port>
+        <Port name="auditioner/audio_out 2" type="audio" direction="Output">
+          <ExtConnection for="JACK"/>
+          <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:playback_FR"/>
+        </Port>
+      </IO>
+    </DirectOut>
+  </Auditioner>
+  <Click>
+    <IO name="Click" id="7915" direction="Output" default-type="audio">
+      <Port name="Click/audio_out 1" type="audio" direction="Output">
+        <ExtConnection for="JACK"/>
+        <ExtConnection for="JACK/Pipewire;ALSA;HDA Intel PCH"/>
+        <ExtConnection for="JACK/Pipewire;ALSA;HDA Intel PCH" other="Built-in Audio Analog Stereo:playback_FL"/>
+        <ExtConnection for="JACK/Pipewire;ALSA;HDA Intel PCH" other="Built-in Audio Analog Stereo:playback_FR"/>
+      </Port>
+    </IO>
+    <Processor id="77" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+      <Automation>
+        <AutomationList automation-id="gain" id="74" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+      </Automation>
+      <Controllable name="gaincontrol" id="75" flags="GainLike" value="1"/>
+    </Processor>
+  </Click>
+  <LTC>
+    <Port name="LTC-Out" type="audio" direction="Output"/>
+  </LTC>
+</SessionPorts>

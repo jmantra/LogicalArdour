@@ -59,8 +59,10 @@ audioTrackFound = false -- Flag to check if any audio track is selected
     new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
   elseif rv and rv["dropdown"] == 3 then
     print("You Chose Guitarix")
-    plugin_name = "Guitarix"
-    new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.VST3, "")
+    -- Load Guitarix Preset replaces the plugin and names the track.
+    -- Stop here so this script does not install a blank Guitarix afterwards.
+    Editor:access_action("LuaAction", "script-17")
+    return
   else
     return
   end

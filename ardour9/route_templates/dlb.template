@@ -1,0 +1,927 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Route version="7003" id="257" name="dlb" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="174" alignment-choice="Automatic" playback-channel-mode="ForceChannel" capture-channel-mode="ForceChannel" playback-channel-mask="0x1" capture-channel-mask="0x1" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
+  <ProgramVersion created-with="Ardour 8.11" modified-with="Ardour 8.11" name="dlb"/>
+  <PresentationInfo order="1" flags="MidiTrack,OrderSet,TriggerTrack" color="3563743999"/>
+  <Controllable name="solo" id="218" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="1543" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+  <Controllable name="solo-safe" id="1544" flags="Toggle" value="0" solo-safe="0"/>
+  <IO name="drumlabooh 1" id="258" direction="Input" default-type="midi">
+    <Port name="drumlabooh 1/midi_in 1" type="midi" direction="Input">
+      <ExtConnection for="JACK"/>
+      <ExtConnection for="JACK" other="Midi-Bridge:AKAI MPK mini 3 at usb-0000:00:14-0-11- full speed:(capture_0) MPK mini 3 MIDI 1"/>
+    </Port>
+  </IO>
+  <IO name="drumlabooh 1" id="259" direction="Output" default-type="midi">
+    <Port name="drumlabooh 1/audio_out 1" type="audio" direction="Output">
+      <Connection other="Master/audio_in 1"/>
+    </Port>
+    <Port name="drumlabooh 1/audio_out 2" type="audio" direction="Output">
+      <Connection other="Master/audio_in 2"/>
+    </Port>
+    <Port name="drumlabooh 1/midi_out 1" type="midi" direction="Output"/>
+  </IO>
+  <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
+  <Controllable name="mute" id="1545" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="phase" id="1546" flags="Toggle" value="0" phase-invert=""/>
+  <Automation>
+    <AutomationList automation-id="solo" id="1547" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-iso" id="1548" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-safe" id="1549" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="mute" id="1550" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-enable" id="1551" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-safe" id="1552" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="phase" id="1553" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="monitor" id="1554" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="midi-velocity" id="1555" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+  </Automation>
+  <Pannable>
+    <Controllable name="pan-azimuth" id="260" flags="" value="0.5"/>
+    <Controllable name="pan-width" id="261" flags="" value="0"/>
+    <Controllable name="pan-elevation" id="262" flags="" value="0"/>
+    <Controllable name="pan-frontback" id="263" flags="" value="0"/>
+    <Controllable name="pan-lfe" id="264" flags="" value="0"/>
+    <Automation>
+      <AutomationList automation-id="pan-azimuth" id="265" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-elevation" id="266" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-width" id="267" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-frontback" id="268" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-lfe" id="269" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    </Automation>
+  </Pannable>
+  <Processor id="270" name="recorder:drumlabooh" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
+  <Processor id="271" name="player:drumlabooh" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
+  <Processor id="272" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="0">
+    <Triggers>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="0" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="1" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="2" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="3" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="4" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="5" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="6" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="7" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="8" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="9" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="10" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="11" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="12" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="13" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="14" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+      <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="15" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
+    </Triggers>
+  </Processor>
+  <Processor id="321" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+  <Processor id="1133" name="drumlabooh" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="https://github.com/psemiletov/drumlabooh" count="1" custom="0">
+    <Automation>
+      <AutomationList automation-id="parameter-5" id="1134" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="1135" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:midimap_mode" id="1136" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:panner_mode" id="1137" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:ignore_midi_velocity" id="1138" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol0" id="1139" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan0" id="1140" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute0" id="1141" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp0" id="1142" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp0" id="1143" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog0" id="1144" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff0" id="1145" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso0" id="1146" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff0" id="1147" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso0" id="1148" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount0" id="1149" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol1" id="1150" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan1" id="1151" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute1" id="1152" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp1" id="1153" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp1" id="1154" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog1" id="1155" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff1" id="1156" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso1" id="1157" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff1" id="1158" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso1" id="1159" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount1" id="1160" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol2" id="1161" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan2" id="1162" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute2" id="1163" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp2" id="1164" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp2" id="1165" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog2" id="1166" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff2" id="1167" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso2" id="1168" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff2" id="1169" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso2" id="1170" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount2" id="1171" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol3" id="1172" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan3" id="1173" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute3" id="1174" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp3" id="1175" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp3" id="1176" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog3" id="1177" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff3" id="1178" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso3" id="1179" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff3" id="1180" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso3" id="1181" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount3" id="1182" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol4" id="1183" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan4" id="1184" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute4" id="1185" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp4" id="1186" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp4" id="1187" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog4" id="1188" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff4" id="1189" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso4" id="1190" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff4" id="1191" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso4" id="1192" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount4" id="1193" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol5" id="1194" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan5" id="1195" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute5" id="1196" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp5" id="1197" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp5" id="1198" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog5" id="1199" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff5" id="1200" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso5" id="1201" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff5" id="1202" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso5" id="1203" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount5" id="1204" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol6" id="1205" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan6" id="1206" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute6" id="1207" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp6" id="1208" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp6" id="1209" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog6" id="1210" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff6" id="1211" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso6" id="1212" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff6" id="1213" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso6" id="1214" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount6" id="1215" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol7" id="1216" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan7" id="1217" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute7" id="1218" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp7" id="1219" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp7" id="1220" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog7" id="1221" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff7" id="1222" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso7" id="1223" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff7" id="1224" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso7" id="1225" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount7" id="1226" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol8" id="1227" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan8" id="1228" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute8" id="1229" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp8" id="1230" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp8" id="1231" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog8" id="1232" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff8" id="1233" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso8" id="1234" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff8" id="1235" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso8" id="1236" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount8" id="1237" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol9" id="1238" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan9" id="1239" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute9" id="1240" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp9" id="1241" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp9" id="1242" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog9" id="1243" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff9" id="1244" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso9" id="1245" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff9" id="1246" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso9" id="1247" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount9" id="1248" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol10" id="1249" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan10" id="1250" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute10" id="1251" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp10" id="1252" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp10" id="1253" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog10" id="1254" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff10" id="1255" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso10" id="1256" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff10" id="1257" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso10" id="1258" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount10" id="1259" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol11" id="1260" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan11" id="1261" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute11" id="1262" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp11" id="1263" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp11" id="1264" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog11" id="1265" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff11" id="1266" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso11" id="1267" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff11" id="1268" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso11" id="1269" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount11" id="1270" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol12" id="1271" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan12" id="1272" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute12" id="1273" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp12" id="1274" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp12" id="1275" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog12" id="1276" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff12" id="1277" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso12" id="1278" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff12" id="1279" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso12" id="1280" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount12" id="1281" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol13" id="1282" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan13" id="1283" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute13" id="1284" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp13" id="1285" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp13" id="1286" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog13" id="1287" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff13" id="1288" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso13" id="1289" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff13" id="1290" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso13" id="1291" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount13" id="1292" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol14" id="1293" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan14" id="1294" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute14" id="1295" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp14" id="1296" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp14" id="1297" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog14" id="1298" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff14" id="1299" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso14" id="1300" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff14" id="1301" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso14" id="1302" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount14" id="1303" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol15" id="1304" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan15" id="1305" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute15" id="1306" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp15" id="1307" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp15" id="1308" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog15" id="1309" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff15" id="1310" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso15" id="1311" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff15" id="1312" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso15" id="1313" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount15" id="1314" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol16" id="1315" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan16" id="1316" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute16" id="1317" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp16" id="1318" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp16" id="1319" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog16" id="1320" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff16" id="1321" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso16" id="1322" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff16" id="1323" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso16" id="1324" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount16" id="1325" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol17" id="1326" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan17" id="1327" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute17" id="1328" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp17" id="1329" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp17" id="1330" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog17" id="1331" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff17" id="1332" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso17" id="1333" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff17" id="1334" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso17" id="1335" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount17" id="1336" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol18" id="1337" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan18" id="1338" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute18" id="1339" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp18" id="1340" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp18" id="1341" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog18" id="1342" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff18" id="1343" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso18" id="1344" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff18" id="1345" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso18" id="1346" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount18" id="1347" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol19" id="1348" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan19" id="1349" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute19" id="1350" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp19" id="1351" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp19" id="1352" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog19" id="1353" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff19" id="1354" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso19" id="1355" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff19" id="1356" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso19" id="1357" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount19" id="1358" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol20" id="1359" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan20" id="1360" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute20" id="1361" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp20" id="1362" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp20" id="1363" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog20" id="1364" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff20" id="1365" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso20" id="1366" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff20" id="1367" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso20" id="1368" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount20" id="1369" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol21" id="1370" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan21" id="1371" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute21" id="1372" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp21" id="1373" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp21" id="1374" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog21" id="1375" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff21" id="1376" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso21" id="1377" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff21" id="1378" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso21" id="1379" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount21" id="1380" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol22" id="1381" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan22" id="1382" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute22" id="1383" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp22" id="1384" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp22" id="1385" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog22" id="1386" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff22" id="1387" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso22" id="1388" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff22" id="1389" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso22" id="1390" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount22" id="1391" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol23" id="1392" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan23" id="1393" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute23" id="1394" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp23" id="1395" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp23" id="1396" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog23" id="1397" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff23" id="1398" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso23" id="1399" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff23" id="1400" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso23" id="1401" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount23" id="1402" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol24" id="1403" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan24" id="1404" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute24" id="1405" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp24" id="1406" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp24" id="1407" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog24" id="1408" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff24" id="1409" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso24" id="1410" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff24" id="1411" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso24" id="1412" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount24" id="1413" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol25" id="1414" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan25" id="1415" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute25" id="1416" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp25" id="1417" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp25" id="1418" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog25" id="1419" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff25" id="1420" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso25" id="1421" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff25" id="1422" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso25" id="1423" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount25" id="1424" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol26" id="1425" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan26" id="1426" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute26" id="1427" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp26" id="1428" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp26" id="1429" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog26" id="1430" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff26" id="1431" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso26" id="1432" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff26" id="1433" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso26" id="1434" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount26" id="1435" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol27" id="1436" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan27" id="1437" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute27" id="1438" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp27" id="1439" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp27" id="1440" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog27" id="1441" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff27" id="1442" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso27" id="1443" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff27" id="1444" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso27" id="1445" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount27" id="1446" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol28" id="1447" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan28" id="1448" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute28" id="1449" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp28" id="1450" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp28" id="1451" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog28" id="1452" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff28" id="1453" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso28" id="1454" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff28" id="1455" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso28" id="1456" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount28" id="1457" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol29" id="1458" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan29" id="1459" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute29" id="1460" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp29" id="1461" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp29" id="1462" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog29" id="1463" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff29" id="1464" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso29" id="1465" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff29" id="1466" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso29" id="1467" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount29" id="1468" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol30" id="1469" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan30" id="1470" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute30" id="1471" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp30" id="1472" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp30" id="1473" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog30" id="1474" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff30" id="1475" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso30" id="1476" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff30" id="1477" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso30" id="1478" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount30" id="1479" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol31" id="1480" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan31" id="1481" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute31" id="1482" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp31" id="1483" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp31" id="1484" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog31" id="1485" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff31" id="1486" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso31" id="1487" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff31" id="1488" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso31" id="1489" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount31" id="1490" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol32" id="1491" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan32" id="1492" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute32" id="1493" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp32" id="1494" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp32" id="1495" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog32" id="1496" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff32" id="1497" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso32" id="1498" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff32" id="1499" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso32" id="1500" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount32" id="1501" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol33" id="1502" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan33" id="1503" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute33" id="1504" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp33" id="1505" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp33" id="1506" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog33" id="1507" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff33" id="1508" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso33" id="1509" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff33" id="1510" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso33" id="1511" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount33" id="1512" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol34" id="1513" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan34" id="1514" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute34" id="1515" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp34" id="1516" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp34" id="1517" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog34" id="1518" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff34" id="1519" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso34" id="1520" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff34" id="1521" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso34" id="1522" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount34" id="1523" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:vol35" id="1524" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:pan35" id="1525" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:mute35" id="1526" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp35" id="1527" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp35" id="1528" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog35" id="1529" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_cutoff35" id="1530" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:lp_reso35" id="1531" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_cutoff35" id="1532" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:hp_reso35" id="1533" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:analog_amount35" id="1534" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:global_analog_on" id="1535" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="property-https://github.com/psemiletov/drumlabooh:global_analog_amount" id="1536" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    </Automation>
+    <ConfiguredInput>
+      <Channels type="midi" count="1"/>
+    </ConfiguredInput>
+    <CustomSinks>
+      <Channels type="midi" count="1"/>
+    </CustomSinks>
+    <ConfiguredOutput>
+      <Channels type="audio" count="2"/>
+      <Channels type="midi" count="1"/>
+    </ConfiguredOutput>
+    <PresetOutput/>
+    <InputMap-0>
+      <Channelmap type="midi" from="0" to="0"/>
+    </InputMap-0>
+    <OutputMap-0>
+      <Channelmap type="audio" from="0" to="0"/>
+      <Channelmap type="audio" from="1" to="1"/>
+    </OutputMap-0>
+    <ThruMap/>
+    <lv2 last-preset-uri="file:///home/justin/.lv2/drumlabooh_drumulator.lv2/drumulator.ttl" last-preset-label="drumulator" parameter-changed-since-last-preset="0" template-dir="/home/justin/.config/ardour8/route_templates/dlb" state-dir="state3">
+      <Port symbol="freeWheeling" value="0"/>
+      <Port symbol="enabled" value="1"/>
+    </lv2>
+    <Controllable name="hidden" id="1131" flags="Toggle" value="0" parameter="5" symbol="freeWheeling"/>
+    <Controllable name="hidden" id="1132" flags="Toggle" value="1" parameter="6" symbol="enabled"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:midimap_mode" id="330" flags="" property="87"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:panner_mode" id="332" flags="" property="88"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:ignore_midi_velocity" id="334" flags="" property="89"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol0" id="336" flags="" property="90"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan0" id="338" flags="" property="91"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute0" id="340" flags="" property="92"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp0" id="342" flags="" property="93"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp0" id="344" flags="" property="94"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog0" id="346" flags="" property="95"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff0" id="348" flags="" property="96"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso0" id="350" flags="" property="97"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff0" id="352" flags="" property="98"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso0" id="354" flags="" property="99"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount0" id="356" flags="" property="100"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol1" id="358" flags="" property="101"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan1" id="360" flags="" property="102"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute1" id="362" flags="" property="103"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp1" id="364" flags="" property="104"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp1" id="366" flags="" property="105"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog1" id="368" flags="" property="106"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff1" id="370" flags="" property="107"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso1" id="372" flags="" property="108"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff1" id="374" flags="" property="109"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso1" id="376" flags="" property="110"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount1" id="378" flags="" property="111"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol2" id="380" flags="" property="112"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan2" id="382" flags="" property="113"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute2" id="384" flags="" property="114"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp2" id="386" flags="" property="115"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp2" id="388" flags="" property="116"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog2" id="390" flags="" property="117"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff2" id="392" flags="" property="118"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso2" id="394" flags="" property="119"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff2" id="396" flags="" property="120"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso2" id="398" flags="" property="121"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount2" id="400" flags="" property="122"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol3" id="402" flags="" property="123"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan3" id="404" flags="" property="124"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute3" id="406" flags="" property="125"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp3" id="408" flags="" property="126"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp3" id="410" flags="" property="127"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog3" id="412" flags="" property="128"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff3" id="414" flags="" property="129"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso3" id="416" flags="" property="130"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff3" id="418" flags="" property="131"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso3" id="420" flags="" property="132"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount3" id="422" flags="" property="133"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol4" id="424" flags="" property="134"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan4" id="426" flags="" property="135"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute4" id="428" flags="" property="136"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp4" id="430" flags="" property="137"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp4" id="432" flags="" property="138"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog4" id="434" flags="" property="139"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff4" id="436" flags="" property="140"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso4" id="438" flags="" property="141"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff4" id="440" flags="" property="142"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso4" id="442" flags="" property="143"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount4" id="444" flags="" property="144"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol5" id="446" flags="" property="145"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan5" id="448" flags="" property="146"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute5" id="450" flags="" property="147"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp5" id="452" flags="" property="148"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp5" id="454" flags="" property="149"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog5" id="456" flags="" property="150"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff5" id="458" flags="" property="151"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso5" id="460" flags="" property="152"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff5" id="462" flags="" property="153"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso5" id="464" flags="" property="154"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount5" id="466" flags="" property="155"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol6" id="468" flags="" property="156"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan6" id="470" flags="" property="157"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute6" id="472" flags="" property="158"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp6" id="474" flags="" property="159"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp6" id="476" flags="" property="160"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog6" id="478" flags="" property="161"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff6" id="480" flags="" property="162"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso6" id="482" flags="" property="163"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff6" id="484" flags="" property="164"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso6" id="486" flags="" property="165"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount6" id="488" flags="" property="166"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol7" id="490" flags="" property="167"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan7" id="492" flags="" property="168"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute7" id="494" flags="" property="169"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp7" id="496" flags="" property="170"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp7" id="498" flags="" property="171"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog7" id="500" flags="" property="172"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff7" id="502" flags="" property="173"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso7" id="504" flags="" property="174"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff7" id="506" flags="" property="175"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso7" id="508" flags="" property="176"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount7" id="510" flags="" property="177"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol8" id="512" flags="" property="178"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan8" id="514" flags="" property="179"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute8" id="516" flags="" property="180"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp8" id="518" flags="" property="181"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp8" id="520" flags="" property="182"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog8" id="522" flags="" property="183"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff8" id="524" flags="" property="184"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso8" id="526" flags="" property="185"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff8" id="528" flags="" property="186"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso8" id="530" flags="" property="187"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount8" id="532" flags="" property="188"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol9" id="534" flags="" property="189"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan9" id="536" flags="" property="190"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute9" id="538" flags="" property="191"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp9" id="540" flags="" property="192"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp9" id="542" flags="" property="193"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog9" id="544" flags="" property="194"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff9" id="546" flags="" property="195"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso9" id="548" flags="" property="196"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff9" id="550" flags="" property="197"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso9" id="552" flags="" property="198"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount9" id="554" flags="" property="199"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol10" id="556" flags="" property="200"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan10" id="558" flags="" property="201"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute10" id="560" flags="" property="202"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp10" id="562" flags="" property="203"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp10" id="564" flags="" property="204"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog10" id="566" flags="" property="205"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff10" id="568" flags="" property="206"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso10" id="570" flags="" property="207"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff10" id="572" flags="" property="208"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso10" id="574" flags="" property="209"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount10" id="576" flags="" property="210"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol11" id="578" flags="" property="211"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan11" id="580" flags="" property="212"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute11" id="582" flags="" property="213"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp11" id="584" flags="" property="214"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp11" id="586" flags="" property="215"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog11" id="588" flags="" property="216"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff11" id="590" flags="" property="217"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso11" id="592" flags="" property="218"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff11" id="594" flags="" property="219"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso11" id="596" flags="" property="220"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount11" id="598" flags="" property="221"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol12" id="600" flags="" property="222"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan12" id="602" flags="" property="223"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute12" id="604" flags="" property="224"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp12" id="606" flags="" property="225"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp12" id="608" flags="" property="226"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog12" id="610" flags="" property="227"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff12" id="612" flags="" property="228"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso12" id="614" flags="" property="229"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff12" id="616" flags="" property="230"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso12" id="618" flags="" property="231"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount12" id="620" flags="" property="232"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol13" id="622" flags="" property="233"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan13" id="624" flags="" property="234"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute13" id="626" flags="" property="235"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp13" id="628" flags="" property="236"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp13" id="630" flags="" property="237"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog13" id="632" flags="" property="238"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff13" id="634" flags="" property="239"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso13" id="636" flags="" property="240"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff13" id="638" flags="" property="241"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso13" id="640" flags="" property="242"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount13" id="642" flags="" property="243"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol14" id="644" flags="" property="244"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan14" id="646" flags="" property="245"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute14" id="648" flags="" property="246"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp14" id="650" flags="" property="247"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp14" id="652" flags="" property="248"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog14" id="654" flags="" property="249"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff14" id="656" flags="" property="250"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso14" id="658" flags="" property="251"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff14" id="660" flags="" property="252"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso14" id="662" flags="" property="253"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount14" id="664" flags="" property="254"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol15" id="666" flags="" property="255"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan15" id="668" flags="" property="256"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute15" id="670" flags="" property="257"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp15" id="672" flags="" property="258"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp15" id="674" flags="" property="259"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog15" id="676" flags="" property="260"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff15" id="678" flags="" property="261"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso15" id="680" flags="" property="262"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff15" id="682" flags="" property="263"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso15" id="684" flags="" property="264"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount15" id="686" flags="" property="265"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol16" id="688" flags="" property="266"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan16" id="690" flags="" property="267"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute16" id="692" flags="" property="268"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp16" id="694" flags="" property="269"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp16" id="696" flags="" property="270"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog16" id="698" flags="" property="271"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff16" id="700" flags="" property="272"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso16" id="702" flags="" property="273"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff16" id="704" flags="" property="274"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso16" id="706" flags="" property="275"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount16" id="708" flags="" property="276"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol17" id="710" flags="" property="277"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan17" id="712" flags="" property="278"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute17" id="714" flags="" property="279"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp17" id="716" flags="" property="280"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp17" id="718" flags="" property="281"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog17" id="720" flags="" property="282"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff17" id="722" flags="" property="283"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso17" id="724" flags="" property="284"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff17" id="726" flags="" property="285"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso17" id="728" flags="" property="286"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount17" id="730" flags="" property="287"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol18" id="732" flags="" property="288"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan18" id="734" flags="" property="289"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute18" id="736" flags="" property="290"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp18" id="738" flags="" property="291"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp18" id="740" flags="" property="292"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog18" id="742" flags="" property="293"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff18" id="744" flags="" property="294"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso18" id="746" flags="" property="295"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff18" id="748" flags="" property="296"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso18" id="750" flags="" property="297"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount18" id="752" flags="" property="298"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol19" id="754" flags="" property="299"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan19" id="756" flags="" property="300"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute19" id="758" flags="" property="301"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp19" id="760" flags="" property="302"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp19" id="762" flags="" property="303"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog19" id="764" flags="" property="304"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff19" id="766" flags="" property="305"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso19" id="768" flags="" property="306"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff19" id="770" flags="" property="307"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso19" id="772" flags="" property="308"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount19" id="774" flags="" property="309"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol20" id="776" flags="" property="310"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan20" id="778" flags="" property="311"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute20" id="780" flags="" property="312"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp20" id="782" flags="" property="313"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp20" id="784" flags="" property="314"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog20" id="786" flags="" property="315"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff20" id="788" flags="" property="316"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso20" id="790" flags="" property="317"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff20" id="792" flags="" property="318"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso20" id="794" flags="" property="319"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount20" id="796" flags="" property="320"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol21" id="798" flags="" property="321"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan21" id="800" flags="" property="322"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute21" id="802" flags="" property="323"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp21" id="804" flags="" property="324"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp21" id="806" flags="" property="325"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog21" id="808" flags="" property="326"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff21" id="810" flags="" property="327"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso21" id="812" flags="" property="328"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff21" id="814" flags="" property="329"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso21" id="816" flags="" property="330"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount21" id="818" flags="" property="331"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol22" id="820" flags="" property="332"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan22" id="822" flags="" property="333"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute22" id="824" flags="" property="334"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp22" id="826" flags="" property="335"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp22" id="828" flags="" property="336"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog22" id="830" flags="" property="337"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff22" id="832" flags="" property="338"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso22" id="834" flags="" property="339"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff22" id="836" flags="" property="340"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso22" id="838" flags="" property="341"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount22" id="840" flags="" property="342"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol23" id="842" flags="" property="343"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan23" id="844" flags="" property="344"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute23" id="846" flags="" property="345"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp23" id="848" flags="" property="346"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp23" id="850" flags="" property="347"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog23" id="852" flags="" property="348"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff23" id="854" flags="" property="349"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso23" id="856" flags="" property="350"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff23" id="858" flags="" property="351"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso23" id="860" flags="" property="352"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount23" id="862" flags="" property="353"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol24" id="864" flags="" property="354"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan24" id="866" flags="" property="355"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute24" id="868" flags="" property="356"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp24" id="870" flags="" property="357"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp24" id="872" flags="" property="358"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog24" id="874" flags="" property="359"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff24" id="876" flags="" property="360"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso24" id="878" flags="" property="361"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff24" id="880" flags="" property="362"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso24" id="882" flags="" property="363"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount24" id="884" flags="" property="364"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol25" id="886" flags="" property="365"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan25" id="888" flags="" property="366"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute25" id="890" flags="" property="367"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp25" id="892" flags="" property="368"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp25" id="894" flags="" property="369"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog25" id="896" flags="" property="370"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff25" id="898" flags="" property="371"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso25" id="900" flags="" property="372"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff25" id="902" flags="" property="373"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso25" id="904" flags="" property="374"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount25" id="906" flags="" property="375"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol26" id="908" flags="" property="376"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan26" id="910" flags="" property="377"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute26" id="912" flags="" property="378"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp26" id="914" flags="" property="379"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp26" id="916" flags="" property="380"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog26" id="918" flags="" property="381"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff26" id="920" flags="" property="382"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso26" id="922" flags="" property="383"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff26" id="924" flags="" property="384"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso26" id="926" flags="" property="385"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount26" id="928" flags="" property="386"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol27" id="930" flags="" property="387"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan27" id="932" flags="" property="388"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute27" id="934" flags="" property="389"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp27" id="936" flags="" property="390"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp27" id="938" flags="" property="391"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog27" id="940" flags="" property="392"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff27" id="942" flags="" property="393"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso27" id="944" flags="" property="394"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff27" id="946" flags="" property="395"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso27" id="948" flags="" property="396"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount27" id="950" flags="" property="397"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol28" id="952" flags="" property="398"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan28" id="954" flags="" property="399"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute28" id="956" flags="" property="400"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp28" id="958" flags="" property="401"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp28" id="960" flags="" property="402"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog28" id="962" flags="" property="403"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff28" id="964" flags="" property="404"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso28" id="966" flags="" property="405"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff28" id="968" flags="" property="406"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso28" id="970" flags="" property="407"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount28" id="972" flags="" property="408"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol29" id="974" flags="" property="409"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan29" id="976" flags="" property="410"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute29" id="978" flags="" property="411"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp29" id="980" flags="" property="412"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp29" id="982" flags="" property="413"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog29" id="984" flags="" property="414"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff29" id="986" flags="" property="415"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso29" id="988" flags="" property="416"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff29" id="990" flags="" property="417"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso29" id="992" flags="" property="418"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount29" id="994" flags="" property="419"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol30" id="996" flags="" property="420"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan30" id="998" flags="" property="421"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute30" id="1000" flags="" property="422"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp30" id="1002" flags="" property="423"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp30" id="1004" flags="" property="424"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog30" id="1006" flags="" property="425"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff30" id="1008" flags="" property="426"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso30" id="1010" flags="" property="427"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff30" id="1012" flags="" property="428"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso30" id="1014" flags="" property="429"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount30" id="1016" flags="" property="430"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol31" id="1018" flags="" property="431"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan31" id="1020" flags="" property="432"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute31" id="1022" flags="" property="433"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp31" id="1024" flags="" property="434"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp31" id="1026" flags="" property="435"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog31" id="1028" flags="" property="436"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff31" id="1030" flags="" property="437"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso31" id="1032" flags="" property="438"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff31" id="1034" flags="" property="439"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso31" id="1036" flags="" property="440"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount31" id="1038" flags="" property="441"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol32" id="1040" flags="" property="442"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan32" id="1042" flags="" property="443"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute32" id="1044" flags="" property="444"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp32" id="1046" flags="" property="445"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp32" id="1048" flags="" property="446"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog32" id="1050" flags="" property="447"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff32" id="1052" flags="" property="448"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso32" id="1054" flags="" property="449"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff32" id="1056" flags="" property="450"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso32" id="1058" flags="" property="451"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount32" id="1060" flags="" property="452"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol33" id="1062" flags="" property="453"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan33" id="1064" flags="" property="454"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute33" id="1066" flags="" property="455"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp33" id="1068" flags="" property="456"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp33" id="1070" flags="" property="457"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog33" id="1072" flags="" property="458"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff33" id="1074" flags="" property="459"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso33" id="1076" flags="" property="460"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff33" id="1078" flags="" property="461"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso33" id="1080" flags="" property="462"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount33" id="1082" flags="" property="463"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol34" id="1084" flags="" property="464"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan34" id="1086" flags="" property="465"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute34" id="1088" flags="" property="466"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp34" id="1090" flags="" property="467"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp34" id="1092" flags="" property="468"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog34" id="1094" flags="" property="469"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff34" id="1096" flags="" property="470"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso34" id="1098" flags="" property="471"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff34" id="1100" flags="" property="472"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso34" id="1102" flags="" property="473"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount34" id="1104" flags="" property="474"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:vol35" id="1106" flags="" property="475"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:pan35" id="1108" flags="" property="476"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:mute35" id="1110" flags="" property="477"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp35" id="1112" flags="" property="478"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp35" id="1114" flags="" property="479"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog35" id="1116" flags="" property="480"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_cutoff35" id="1118" flags="" property="481"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:lp_reso35" id="1120" flags="" property="482"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_cutoff35" id="1122" flags="" property="483"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:hp_reso35" id="1124" flags="" property="484"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:analog_amount35" id="1126" flags="" property="485"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:global_analog_on" id="1128" flags="" property="486"/>
+    <Controllable name="property-https://github.com/psemiletov/drumlabooh:global_analog_amount" id="1130" flags="" property="487"/>
+  </Processor>
+  <Processor id="1537" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+    <Automation>
+      <AutomationList automation-id="gain" id="1538" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+    </Automation>
+    <Controllable name="gaincontrol" id="1539" flags="GainLike" value="1"/>
+  </Processor>
+  <Processor id="1540" name="meter-Fluida" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+  <Processor id="1541" name="drumlabooh 1" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="drumlabooh 1" type="main-outs" role="Main">
+    <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
+  </Processor>
+  <Slavable/>
+  <Controllable name="monitor" id="1570" flags="RealTime" value="0" monitoring=""/>
+  <Controllable name="rec-safe" id="1571" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="rec-enable" id="1572" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="midicc-0-0" id="1557" flags="" value="0"/>
+  <Controllable name="midicc-0-32" id="1559" flags="" value="120"/>
+  <Controllable name="midicc-9-0" id="1561" flags="" value="0"/>
+  <Controllable name="midicc-9-32" id="1563" flags="" value="120"/>
+  <Controllable name="midi-pgm-change-0" id="1565" flags="" value="24"/>
+  <Controllable name="midi-pgm-change-9" id="1567" flags="" value="25"/>
+</Route>

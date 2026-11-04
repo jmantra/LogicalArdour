@@ -3,21 +3,105 @@ ardour {
     name = "Drum Loop Editor",
     license = "MIT",
     author = "Justin Ehrlichman",
-    description = "Dynamically adds and 'removes' drum notes from a midi drum loop based on a percentage.'Removes' is in quotes because it doesn't actually remove the note just turns off (or back on) the velocity of  existing notes."
+    description = "Dynamically adds and 'removes' drum notes from a midi drum loop based on a percentage.'Removes' is in quotes because it doesn't actually remove the note just turns off (or back on) the velocity of  existing notes. Optionally adds a snare and tom fill on the last bar of the loop. On startup, choose to modify the loop or reset it to the notes saved the first time it was modified in this session."
 }
 
 function factory () return function ()
     local sel = Editor:get_selection()
     local midi_region = nil
 
-    -- Find the selected MIDI region
+    -- Find the selected MIDI region. to_midiregion() is still a Lua object
+    -- when the region is not MIDI, so isnil() is the check that matters.
     for r in sel.regions:regionlist():iter() do
-        midi_region = r:to_midiregion()
-        if midi_region then break end
+        local mr = r:to_midiregion()
+        if not mr:isnil() then
+            midi_region = mr
+            break
+        end
     end
 
     if not midi_region then
         LuaDialog.Message("Add Notes to MIDI", "No MIDI region selected.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+        return
+    end
+
+    -- Key the snapshot by the MIDI source name when that method is available.
+    -- Otherwise use the region name. Calling a missing source name throws.
+    local source_name
+    local source_ok, source_or_err = pcall(function()
+        return midi_region:midi_source(0):name()
+    end)
+    if source_ok and source_or_err and source_or_err ~= "" then
+        source_name = source_or_err
+    else
+        source_name = midi_region:name()
+    end
+
+    if drum_loop_original_notes == nil then
+        drum_loop_original_notes = {}
+    end
+
+    local dialog_ok, start_dialog = pcall(function()
+        return LuaDialog.Dialog("Drum Loop Editor", {
+            { type = "label", title = "Drum Loop Editor" },
+            {
+                type = "radio",
+                key = "action",
+                title = "What do you want to do?",
+                values = {
+                    ["Modify the drum loop"] = "modify",
+                    ["Reset the loop to how it originally was"] = "reset",
+                },
+                default = "Modify the drum loop",
+            },
+        })
+    end)
+    if not dialog_ok then
+        local msg = tostring(start_dialog)
+        if msg == "" or msg == "nil" then
+            msg = "Could not open the startup dialog."
+        end
+        LuaDialog.Message("Drum Loop Editor", msg, LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+        return
+    end
+    local start_result = start_dialog:run()
+    if not start_result then
+        return
+    end
+
+    local action = start_result["action"]
+    if action == "reset" or action == "Reset the loop to how it originally was" then
+        local saved = drum_loop_original_notes[source_name]
+        if not saved then
+            LuaDialog.Message(
+                "Drum Loop Editor",
+                "This loop has not been modified by Drum Loop Editor in this session, so there is no original to restore.",
+                LuaDialog.MessageType.Info,
+                LuaDialog.ButtonType.Close
+            ):run()
+            return
+        end
+
+        local reset_model = midi_region:midi_source(0):model()
+        local reset_notes = ARDOUR.LuaAPI.note_list(reset_model)
+        local reset_command = reset_model:new_note_diff_command("Reset Drum Loop")
+        for n in reset_notes:iter() do
+            reset_command:remove(n)
+        end
+        for _, saved_note in ipairs(saved) do
+            reset_command:add(ARDOUR.LuaAPI.new_noteptr(
+                saved_note.channel,
+                saved_note.time,
+                saved_note.length,
+                saved_note.note,
+                saved_note.velocity
+            ))
+        end
+        reset_model:apply_command(Session, reset_command)
+        return
+    end
+
+    if action ~= "modify" and action ~= "Modify the drum loop" then
         return
     end
 
@@ -52,7 +136,10 @@ function factory () return function ()
         tom_enabled = false,
         clap_enabled = false,
         tamb_enabled = false,
-        maraca_enabled = false
+        maraca_enabled = false,
+        fill_vel = 100,
+        fill_percent = 0,
+        fill_enabled = false
     }
 
     -- Don't load any saved state - always use defaults
@@ -131,6 +218,43 @@ function factory () return function ()
           end
        end
 
+       table.insert(dialog_options, { type = "separator" })
+
+       table.insert(dialog_options, {
+          type = "checkbox",
+          key = "fill_enabled",
+          title = "Add Fill",
+          default = false
+       })
+
+       table.insert(dialog_options, {
+          type = "slider",
+          key = "fill_percent",
+          title = "Add Fill by percentage",
+          min = 0,
+          max = 100,
+          step = 1,
+          digits = 0,
+          default = 0
+       })
+
+       table.insert(dialog_options, {
+          type = "slider",
+          key = "fill_vel",
+          title = "Fill On/Off Probability",
+          min = 0,
+          max = 100,
+          step = 1,
+          digits = 0,
+          default = 100
+       })
+
+       table.insert(dialog_options, {
+          type = "button",
+          key = "reset_fill",
+          title = "Reset Fill Settings"
+       })
+
        local dg = LuaDialog.Dialog("Drum Pattern Setup", dialog_options)
        local result = dg:run()
        if result then
@@ -155,12 +279,38 @@ function factory () return function ()
              instrument.placement_percent = result[percent_key]
           end
 
+          if result.reset_fill then
+             param.fill_vel = 100
+             param.fill_percent = 0
+             param.fill_enabled = false
+          end
+
+          param.fill_vel = result.fill_vel
+          param.fill_percent = result.fill_percent
+          param.fill_enabled = result.fill_enabled
+
           -- save the data for the next invocation
           meter_global_param = param
        else
           -- dialog canceled, exit
           return
        end
+    end
+
+    if drum_loop_original_notes[source_name] == nil then
+        local snapshot = {}
+        local snapshot_model = midi_region:midi_source(0):model()
+        local snapshot_notes = ARDOUR.LuaAPI.note_list(snapshot_model)
+        for n in snapshot_notes:iter() do
+            table.insert(snapshot, {
+                channel = n:channel(),
+                time = n:time(),
+                length = n:length(),
+                note = n:note(),
+                velocity = n:velocity(),
+            })
+        end
+        drum_loop_original_notes[source_name] = snapshot
     end
 
     local sel = Editor:get_selection ()
@@ -359,6 +509,35 @@ function factory () return function ()
 
                 local new_note = ARDOUR.LuaAPI.new_noteptr(0, pos, len, instrument.pitch, random_velocity)
                 midi_command:add(new_note)
+            end
+        end
+    end
+
+    -- Snare and tom fill on 16ths in the last bar
+    if param.fill_enabled and param.fill_percent > 0 then
+        local fill_pitches = {38, 41, 45, 47, 50}
+        local sixteenth_samples = samples_per_beat / 4
+        local bar_start = math.max(1, #beat_positions - beats_per_bar + 1)
+
+        for i = bar_start, #beat_positions do
+            local beat_offset = (i - 1) * samples_per_beat
+            for k = 0, 3 do
+                local slot_offset = beat_offset + k * sixteenth_samples
+                if slot_offset < region_length_samples and math.random(100) <= param.fill_percent then
+                    local pitch = fill_pitches[math.random(#fill_pitches)]
+                    local velocity = 0
+                    if math.random(100) <= param.fill_vel then
+                        velocity = 127
+                    end
+
+                    local slot_position = midi_start + Temporal.timecnt_t(math.floor(slot_offset))
+                    local len_samples = Temporal.timecnt_t(math.floor(sixteenth_samples))
+                    local pos = tm:quarters_at(slot_position, 0)
+                    local len = tm:quarters_at(slot_position + len_samples, 0) - pos
+
+                    local new_note = ARDOUR.LuaAPI.new_noteptr(0, pos, len, pitch, velocity)
+                    midi_command:add(new_note)
+                end
             end
         end
     end
