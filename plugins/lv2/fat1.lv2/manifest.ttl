@@ -1,0 +1,59 @@
+@prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
+@prefix kx:    <http://kxstudio.sf.net/ns/lv2ext/external-ui#> .
+@prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+@prefix pset:  <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui:    <http://lv2plug.in/ns/extensions/ui#> .
+
+@prefix fatpset: <http://gareus.org/oss/lv2/fat1/pset#> .
+
+<http://gareus.org/oss/lv2/fat1>
+	a lv2:Plugin ;
+	lv2:binary <fat1.so> ;
+	rdfs:seeAlso <fat1.ttl> .
+
+<http://gareus.org/oss/lv2/fat1#microtonal>
+	a lv2:Plugin ;
+	lv2:binary <fat1.so> ;
+	rdfs:seeAlso <fat1.ttl> .
+
+<http://gareus.org/oss/lv2/fat1#scales>
+	a lv2:Plugin ;
+	lv2:binary <fat1.so> ;
+	rdfs:seeAlso <fat1.ttl> .
+
+<http://gareus.org/oss/lv2/fat1#ui_gl>
+	a ui:X11UI ;
+	ui:binary <fat1UI_gl.so> ;
+	rdfs:seeAlso <fat1.ttl> .
+
+fatpset:live
+  a pset:Preset ;
+  lv2:appliesTo <http://gareus.org/oss/lv2/fat1> ;
+rdfs:seeAlso <presets.ttl> .
+
+fatpset:slightly_corrected
+  a pset:Preset ;
+  lv2:appliesTo <http://gareus.org/oss/lv2/fat1> ;
+rdfs:seeAlso <presets.ttl> .
+
+fatpset:live
+  a pset:Preset ;
+  lv2:appliesTo <http://gareus.org/oss/lv2/fat1#microtonal> ;
+rdfs:seeAlso <presets.ttl> .
+
+fatpset:slightly_corrected
+  a pset:Preset ;
+  lv2:appliesTo <http://gareus.org/oss/lv2/fat1#microtonal> ;
+rdfs:seeAlso <presets.ttl> .
+
+fatpset:live
+  a pset:Preset ;
+  lv2:appliesTo <http://gareus.org/oss/lv2/fat1#scales> ;
+rdfs:seeAlso <presets.ttl> .
+
+fatpset:slightly_corrected
+  a pset:Preset ;
+  lv2:appliesTo <http://gareus.org/oss/lv2/fat1#scales> ;
+rdfs:seeAlso <presets.ttl> .

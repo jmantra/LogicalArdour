@@ -221,24 +221,24 @@ backup_or_create_folder "$folder"
 cp MuseScore3.ini $HOME/.config/MuseScore
 cp MuseScore2.ini $HOME/.config/MuseScore
 
-wget https://jmantra.blob.core.windows.net/data/key
+#wget https://jmantra.blob.core.windows.net/data/key
 
-sudo cp key /opt/LogicalArdour
+#sudo cp key /opt/LogicalArdour
 
 sudo chmod 755 /opt/LogicalArdour/key
 
-wget https://jmantra.blob.core.windows.net/data/newchord
+#wget https://jmantra.blob.core.windows.net/data/newchord
 
-sudo cp newchord /opt/LogicalArdour
+#sudo cp newchord /opt/LogicalArdour
 
 sudo chmod 755 /opt/LogicalArdour/newchord
 
-wget https://jmantra.blob.core.windows.net/data/bassline_generator
+#wget https://jmantra.blob.core.windows.net/data/bassline_generator
 
-sudo cp bassline_generator /opt/LogicalArdour
+#sudo cp bassline_generator /opt/LogicalArdour
 sudo chmod 755 /opt/LogicalArdour/bassline_generator
 
-sudo chmod 755 /opt/LogicalArdour/bassline_generator.py
+#sudo chmod 755 /opt/LogicalArdour/bassline_generator.py
 sudo mkdir /usr/local/lib/vst3
 
 

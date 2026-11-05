@@ -1,0 +1,57 @@
+Plugins copied from the locations recorded in ardour9/plugin_metadata/scan_log.
+Each line is: type, name, unique id, source path.
+
+Copied LV2 bundles are in plugins/lv2. Several plugins share one bundle.
+Copied VST3 bundles are in plugins/vst3.
+Copied LADSPA libraries are in plugins/ladspa.
+
+lv2	ACE Compressor	urn:ardour:a-comp	/opt/Ardour-9.8.0/lib/LV2/a-comp.lv2
+lv2	ACE EQ	urn:ardour:a-eq	/opt/Ardour-9.8.0/lib/LV2/a-eq.lv2
+lv2	ACE Fluid Synth	urn:ardour:a-fluidsynth	/opt/Ardour-9.8.0/lib/LV2/a-fluidsynth.lv2
+lv2	ACE Reasonable Synth	https://community.ardour.org/node/7596	/opt/Ardour-9.8.0/lib/LV2/reasonablesynth.lv2
+lv2	ACE Reverb	urn:ardour:a-reverb	/opt/Ardour-9.8.0/lib/LV2/a-reverb.lv2
+lv2	Black Pearl Drumkit	http://gareus.org/oss/lv2/avldrums#BlackPearl	/usr/lib/lv2/avldrums.lv2
+lv2	Blonde Bop Drumkit	http://gareus.org/oss/lv2/avldrums#BlondeBop	/usr/lib/lv2/avldrums.lv2
+lv2	Blonde Bop HotRod Drumkit	http://gareus.org/oss/lv2/avldrums#BlondeBopHR	/usr/lib/lv2/avldrums.lv2
+lv2	Buskman's Holiday Percussion	http://gareus.org/oss/lv2/avldrums#BuskmansHoliday	/usr/lib/lv2/avldrums.lv2
+lv2	Red Zeppelin Drumkit	http://gareus.org/oss/lv2/avldrums#RedZeppelin	/usr/lib/lv2/avldrums.lv2
+lv2	Calf Exciter	http://calf.sourceforge.net/plugins/Exciter	/usr/lib/lv2/calf.lv2
+lv2	Comb Splitter	http://plugin.org.uk/swh-plugins/combSplitter	/usr/lib/lv2/comb_splitter-swh.lv2
+lv2	drumlabooh	https://github.com/psemiletov/drumlabooh	/home/justin/.lv2/drumlabooh5.lv2
+lv2	General MIDI Synth	http://gareus.org/oss/lv2/gmsynth	/opt/Ardour-9.8.0/lib/LV2/gmsynth.lv2
+lv2	GxChorus-Stereo	http://guitarix.sourceforge.net/plugins/gx_chorus_stereo#_chorus_stereo	/home/justin/.lv2/gx_chorus.lv2
+lv2	GxCompressor	http://guitarix.sourceforge.net/plugins/gx_compressor#_compressor	/home/justin/.lv2/gx_compressor.lv2
+lv2	GxReverb-Stereo	http://guitarix.sourceforge.net/plugins/gx_reverb_stereo#_reverb_stereo	/home/justin/.lv2/gx_reverb.lv2
+lv2	LFO Phaser	http://plugin.org.uk/swh-plugins/lfoPhaser	/usr/lib/lv2/phasers-swh.lv2
+lv2	MDA Overdrive	http://drobilla.net/plugins/mda/Overdrive	/home/justin/.lv2/mda.lv2
+lv2	MDA RingMod	http://drobilla.net/plugins/mda/RingMod	/home/justin/.lv2/mda.lv2
+lv2	MIDI Step Sequencer8x8	http://gareus.org/oss/lv2/stepseq#s8n8	/usr/lib/lv2/stepseq_s8n8.lv2
+lv2	MIDI Strum	http://gareus.org/oss/lv2/midifilter#midistrum	/usr/lib/lv2/midifilter.lv2
+lv2	Ratatouille	urn:brummer:ratatouille	/home/justin/.lv2/Ratatouille.lv2
+lv2	samplv1	http://samplv1.sourceforge.net/lv2	/home/justin/.lv2/samplv1.lv2
+lv2	Tape Delay Simulation	http://plugin.org.uk/swh-plugins/tapeDelay	/usr/lib/lv2/tape_delay-swh.lv2
+lv2	x42-Autotune (scales)	http://gareus.org/oss/lv2/fat1#scales	/usr/lib/lv2/fat1.lv2
+lv2	Yoshimi	http://yoshimi.sourceforge.net/lv2_plugin	/usr/lib/lv2/yoshimi.lv2
+lv2	ZamTube	urn:zamaudio:ZamTube	/usr/lib/lv2/ZamTube.lv2
+
+vst3	Guitarix	ABCDEF019182FAEB4D616E754C736166	/home/justin/.vst3/Guitarix.vst3
+vst3	Ripchord	ABCDEF019182FAEB546B427452704368	/home/justin/.vst3/Ripchord.vst3
+vst3	Surge XT	ABCDEF019182FAEB566D624153675854	/usr/lib/vst3/Surge XT.vst3
+
+ladspa	Rubber Band Mono Pitch Shifter	2979	/usr/lib/ladspa/ladspa-rubberband.so
+ladspa	Rubber Band category file		/usr/lib/ladspa/ladspa-rubberband.cat
+ladspa	TAP Chorus/Flanger	2159	/usr/lib/ladspa/tap_chorusflanger.so
+ladspa	TAP DeEsser	2147	/usr/lib/ladspa/tap_deesser.so
+ladspa	TAP Scaling Limiter	2145	/usr/lib/ladspa/tap_limiter.so
+
+Not copied. These are referenced by templates or scripts, but the bundle is not installed on this machine.
+
+vst3	NeuralAmpModeler	F2AEE70D00DE4F4E534441613159456F	not in the Ardour 9 scan log or under ~/.vst3 or /usr/lib/vst3
+lv2	sfizz	http://sfztools.github.io/sfizz	Ardour 8 recorded /usr/lib/lv2/sfizz.lv2, which is not installed now
+lv2	DrMr Sampler	http://github.com/nicklan/drmr	not in the Ardour 9 scan log; only preset bundles exist under ~/.lv2
+
+Also used, and not part of this copy:
+
+lxvst	Beat DRMR	1920299081	Linux VST2, binary not installed
+lxvst	MT-PowerDrumKit		referenced by bookworm/ardour7/scripts/drum.lua, binary not installed
+luaproc	Arpeggiator	d4c8a70056e870a4a42ae26ee6f1c3220d53e14a	Ardour Lua processor, already in the scripts

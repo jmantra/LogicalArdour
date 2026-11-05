@@ -1,0 +1,49 @@
+@prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
+@prefix doap:  <http://usefulinc.com/ns/doap#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pg:    <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix urid:  <http://lv2plug.in/ns/ext/urid#> .
+
+<http://ardour.org/credits.html>
+	a foaf:Person ;
+	foaf:name "Ardour Community" ;
+	foaf:homepage <http://ardour.org/> .
+
+<https://community.ardour.org/node/7596>
+	a lv2:Plugin, lv2:InstrumentPlugin, doap:Project;
+	doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+	doap:maintainer <http://ardour.org/credits.html> ;
+	doap:name "ACE Reasonable Synth";
+	lv2:optionalFeature lv2:hardRTCapable ;
+	lv2:requiredFeature urid:map ;
+	rdfs:comment """A simple synthesizer with no controls at all but a reasonable sound instead. Note that this synth does not respond to any Control or Program Messages. Its main purpose is to act as sensible default on new installations until other plugins are installed.""" ;
+	lv2:port
+	[
+		a atom:AtomPort ,
+			lv2:InputPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports <http://lv2plug.in/ns/ext/midi#MidiEvent> ;
+		lv2:index 0 ;
+		lv2:symbol "MidiIn" ;
+		lv2:name "MIDI Input" ;
+	],
+	[
+		a lv2:AudioPort ,
+			lv2:OutputPort ;
+		lv2:index 1 ;
+		lv2:symbol "outL" ;
+		lv2:name "Left output" ;
+		lv2:designation pg:left ;
+	],
+	[
+		a lv2:AudioPort ,
+			lv2:OutputPort ;
+		lv2:index 2 ;
+		lv2:symbol "outR" ;
+		lv2:name "Right Output" ;
+		lv2:designation pg:right ;
+	]
+	.

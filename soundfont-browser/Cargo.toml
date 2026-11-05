@@ -1,0 +1,16 @@
+[package]
+name = "soundfont-browser"
+version = "0.1.0"
+edition = "2021"
+description = "Search SoundFont presets and print the chosen font"
+
+[[bin]]
+name = "drum-soundfont-browser"
+path = "src/drum_main.rs"
+
+[[bin]]
+name = "guitarix-preset-browser"
+path = "src/guitarix_main.rs"
+
+[dependencies]
+eframe = "0.31"

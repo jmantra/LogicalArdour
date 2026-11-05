@@ -1,0 +1,97 @@
+@prefix lv2:    <http://lv2plug.in/ns/lv2core#> .
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pset:   <http://lv2plug.in/ns/ext/presets#> .
+
+@prefix mfltplugin: <http://gareus.org/oss/lv2/midifilter#> .
+@prefix mfltpreset: <http://gareus.org/oss/lv2/midifilter/presets#> .
+
+# Temporarily include description of lv2:MIDIPlugin for backwards compatibility
+lv2:MIDIPlugin
+	a rdfs:Class ;
+	rdfs:subClassOf lv2:Plugin ;
+	rdfs:label "MIDI" .
+
+<http://gareus.org/oss/lv2/midifilter#cctonote> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#channelfilter> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#channelmap> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#midichord> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#enforcescale> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#eventblocker> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#keyrange> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#keysplit> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#mapcc> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#mapkeychannel> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#mapkeyscale> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#chokefilter> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#mididelay> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#mididup> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#midistrum> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#miditranspose> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#monolegato> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#nodup> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#noactivesensing> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#notetocc> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#notetoggle> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#notetopgm> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#ntapdelay> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#passthru> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#quantize> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#randvelocity> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#scalecc> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#onechannelfilter> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#sostenuto> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#tonalpedal> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#velocitygamma> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#velocityrange> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+
+<http://gareus.org/oss/lv2/midifilter#velocityscale> a lv2:Plugin ; lv2:binary <midifilter.so> ; rdfs:seeAlso <midifilter.ttl> .
+mfltpreset:chord_major3
+	a pset:Preset;
+	lv2:appliesTo mfltplugin:midichord; rdfs:seeAlso <presets.ttl> .
+
+
+mfltpreset:chord_sus2
+	a pset:Preset;
+	lv2:appliesTo mfltplugin:midichord; rdfs:seeAlso <presets.ttl> .
+
+
+mfltpreset:chord_sus4
+	a pset:Preset;
+	lv2:appliesTo mfltplugin:midichord; rdfs:seeAlso <presets.ttl> .
+
+mfltpreset:invertcc
+	a pset:Preset;
+	lv2:appliesTo mfltplugin:scalecc; rdfs:seeAlso <presets.ttl> .
+

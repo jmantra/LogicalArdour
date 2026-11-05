@@ -1,0 +1,315 @@
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix idpy: <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rsz:  <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix unit: <http://lv2plug.in/ns/extensions/units#> .
+
+<http://ardour.org/credits.html>
+	a foaf:Person ;
+	foaf:name "Ardour Community" ;
+	foaf:homepage <http://ardour.org/> .
+
+unit:hz0
+	a unit:Unit ;
+	rdfs:label "hertz" ;
+	unit:prefixConversion [
+		unit:factor 0.001 ;
+		unit:to unit:khz
+	] ;
+	unit:render "%.0f Hz" ;
+	unit:symbol "Hz" .
+
+unit:db1
+	a unit:Unit ;
+	rdfs:label "decibels" ;
+	rdfs:label "dB" ;
+	unit:render "%4.1f dB" ;
+	unit:symbol "dB" .
+
+idpy:queue_draw a lv2:Feature .
+idpy:in_gui a lv2:Feature .
+idpy:interface a lv2:ExtensionData .
+
+<urn:ardour:a-eq>
+    a lv2:Plugin, doap:Project, lv2:FilterPlugin ;
+
+		lv2:extensionData idpy:interface ;
+		lv2:optionalFeature lv2:hardRTCapable, idpy:queue_draw, idpy:in_gui;
+
+    lv2:requiredFeature <http://lv2plug.in/ns/ext/options#options> ,
+                        <http://lv2plug.in/ns/ext/urid#map> ;
+
+    lv2:port [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 0 ;
+        lv2:name "Frequency L" ;
+        lv2:symbol "freql" ;
+        lv2:default 160.000000 ;
+        lv2:minimum 20.000000 ;
+        lv2:maximum 20000.000000 ;
+        unit:unit unit:hz0 ;
+        lv2:portProperty <http://lv2plug.in/ns/ext/port-props#logarithmic> ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 1 ;
+        lv2:name "Gain L" ;
+        lv2:symbol "gl" ;
+        lv2:default 0.000000 ;
+        lv2:minimum -20.000000 ;
+        lv2:maximum 20.000000 ;
+        unit:unit unit:db1 ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 2 ;
+        lv2:name "Frequency 1" ;
+        lv2:symbol "freq1" ;
+        lv2:default 300.000000 ;
+        lv2:minimum 20.000000 ;
+        lv2:maximum 20000.000000 ;
+        unit:unit unit:hz0 ;
+        lv2:portProperty <http://lv2plug.in/ns/ext/port-props#logarithmic> ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 3 ;
+        lv2:name "Gain 1" ;
+        lv2:symbol "g1" ;
+        lv2:default 0.000000 ;
+        lv2:minimum -20.000000 ;
+        lv2:maximum 20.000000 ;
+        unit:unit unit:db1 ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 4 ;
+        lv2:name "Bandwidth 1" ;
+        lv2:symbol "bw1" ;
+        lv2:default 1.000000 ;
+        lv2:minimum 0.1000000 ;
+        lv2:maximum 4.000000 ;
+        lv2:portProperty <http://lv2plug.in/ns/ext/port-props#logarithmic> ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 5 ;
+        lv2:name "Frequency 2" ;
+        lv2:symbol "freq2" ;
+        lv2:default 1000.000000 ;
+        lv2:minimum 20.000000 ;
+        lv2:maximum 20000.000000 ;
+        unit:unit unit:hz0 ;
+        lv2:portProperty <http://lv2plug.in/ns/ext/port-props#logarithmic> ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 6 ;
+        lv2:name "Gain 2" ;
+        lv2:symbol "g2" ;
+        lv2:default 0.000000 ;
+        lv2:minimum -20.000000 ;
+        lv2:maximum 20.000000 ;
+        unit:unit unit:db1 ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 7 ;
+        lv2:name "Bandwidth 2" ;
+        lv2:symbol "bw2" ;
+        lv2:default 1.000000 ;
+        lv2:minimum 0.1000000 ;
+        lv2:maximum 4.000000 ;
+        lv2:portProperty <http://lv2plug.in/ns/ext/port-props#logarithmic> ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 8 ;
+        lv2:name "Frequency 3" ;
+        lv2:symbol "freq3" ;
+        lv2:default 2500.000000 ;
+        lv2:minimum 20.000000 ;
+        lv2:maximum 20000.000000 ;
+        unit:unit unit:hz0 ;
+        lv2:portProperty <http://lv2plug.in/ns/ext/port-props#logarithmic> ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 9 ;
+        lv2:name "Gain 3" ;
+        lv2:symbol "g3" ;
+        lv2:default 0.000000 ;
+        lv2:minimum -20.000000 ;
+        lv2:maximum 20.000000 ;
+        unit:unit unit:db1 ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 10 ;
+        lv2:name "Bandwidth 3" ;
+        lv2:symbol "bw3" ;
+        lv2:default 1.000000 ;
+        lv2:minimum 0.1000000 ;
+        lv2:maximum 4.000000 ;
+        lv2:portProperty <http://lv2plug.in/ns/ext/port-props#logarithmic> ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 11 ;
+        lv2:name "Frequency 4" ;
+        lv2:symbol "freq4" ;
+        lv2:default 6000.000000 ;
+        lv2:minimum 20.000000 ;
+        lv2:maximum 20000.000000 ;
+        unit:unit unit:hz0 ;
+        lv2:portProperty <http://lv2plug.in/ns/ext/port-props#logarithmic> ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 12 ;
+        lv2:name "Gain 4" ;
+        lv2:symbol "g4" ;
+        lv2:default 0.000000 ;
+        lv2:minimum -20.000000 ;
+        lv2:maximum 20.000000 ;
+        unit:unit unit:db1 ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 13 ;
+        lv2:name "Bandwidth 4" ;
+        lv2:symbol "bw4" ;
+        lv2:default 1.000000 ;
+        lv2:minimum 0.1000000 ;
+        lv2:maximum 4.000000 ;
+        lv2:portProperty <http://lv2plug.in/ns/ext/port-props#logarithmic> ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 14 ;
+        lv2:name "Frequency H" ;
+        lv2:symbol "freqh" ;
+        lv2:default 9000.000000 ;
+        lv2:minimum 20.000000 ;
+        lv2:maximum 20000.000000 ;
+        unit:unit unit:hz0 ;
+        lv2:portProperty <http://lv2plug.in/ns/ext/port-props#logarithmic> ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 15 ;
+        lv2:name "Gain H" ;
+        lv2:symbol "gh" ;
+        lv2:default 0.000000 ;
+        lv2:minimum -20.000000 ;
+        lv2:maximum 20.000000 ;
+        unit:unit unit:db1 ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 16 ;
+        lv2:name "Master Gain" ;
+        lv2:symbol "master" ;
+        lv2:default 0.000000 ;
+        lv2:minimum -20.000000 ;
+        lv2:maximum 20.000000 ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 17 ;
+        lv2:name "Filter L" ;
+        lv2:symbol "filtogl" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 1 ;
+        lv2:portProperty lv2:integer, lv2:toggled ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 18 ;
+        lv2:name "Filter 1" ;
+        lv2:symbol "filtog1" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 1 ;
+        lv2:portProperty lv2:integer, lv2:toggled ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 19 ;
+        lv2:name "Filter 2" ;
+        lv2:symbol "filtog2" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 1 ;
+        lv2:portProperty lv2:integer, lv2:toggled ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 20 ;
+        lv2:name "Filter 3" ;
+        lv2:symbol "filtog3" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 1 ;
+        lv2:portProperty lv2:integer, lv2:toggled ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 21 ;
+        lv2:name "Filter 4" ;
+        lv2:symbol "filtog4" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 1 ;
+        lv2:portProperty lv2:integer, lv2:toggled ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 22 ;
+        lv2:name "Filter H" ;
+        lv2:symbol "filtogh" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 1 ;
+        lv2:portProperty lv2:integer, lv2:toggled ;
+    ],
+    [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 23 ;
+        lv2:name "Enable" ;
+        lv2:symbol "enable" ;
+        lv2:default 1 ;
+        lv2:minimum 0 ;
+        lv2:maximum 1 ;
+        lv2:portProperty lv2:integer, lv2:toggled ;
+        lv2:designation lv2:enabled;
+    ];
+
+    lv2:port [
+        a lv2:InputPort, lv2:AudioPort ;
+        lv2:index 24 ;
+        lv2:symbol "in_1" ;
+        lv2:name "Audio Input 1" ;
+    ] ;
+
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 25 ;
+        lv2:symbol "out_1" ;
+        lv2:name "Audio Output 1" ;
+    ] ;
+
+    rdfs:comment """
+A basic 4 band EQ.
+""" ;
+
+    doap:name "ACE EQ" ;
+    doap:license "GPL v2+" ;
+    doap:maintainer <http://ardour.org/credits.html> ;
+
+    lv2:microVersion 2 ;
+    lv2:minorVersion 2 .

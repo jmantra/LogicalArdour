@@ -1,0 +1,36 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2p:  <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+
+<http://calf.sourceforge.net/factory_presets#filter_Totallymuted> a lv2p:Preset ;
+    rdfs:label "Totally muted" ;
+    lv2:appliesTo <http://calf.sourceforge.net/plugins/Filter> ;
+    lv2:port 
+        [ lv2:symbol "freq" ; lv2p:value 10.0 ] ,
+        [ lv2:symbol "res" ; lv2p:value 0.707 ] ,
+        [ lv2:symbol "mode" ; lv2p:value 2.0 ] ,
+        [ lv2:symbol "inertia" ; lv2p:value 20.0 ] 
+.
+
+<http://calf.sourceforge.net/factory_presets#filter_Disco> a lv2p:Preset ;
+    rdfs:label "Disco" ;
+    lv2:appliesTo <http://calf.sourceforge.net/plugins/Filter> ;
+    lv2:port 
+        [ lv2:symbol "freq" ; lv2p:value 193.821 ] ,
+        [ lv2:symbol "res" ; lv2p:value 1.37956 ] ,
+        [ lv2:symbol "mode" ; lv2p:value 0.0 ] ,
+        [ lv2:symbol "inertia" ; lv2p:value 74.0 ] 
+.
+
+<http://calf.sourceforge.net/factory_presets#filter_DistantHeadphones> a lv2p:Preset ;
+    rdfs:label "Distant Headphones" ;
+    lv2:appliesTo <http://calf.sourceforge.net/plugins/Filter> ;
+    lv2:port 
+        [ lv2:symbol "freq" ; lv2p:value 305.818 ] ,
+        [ lv2:symbol "res" ; lv2p:value 0.707 ] ,
+        [ lv2:symbol "mode" ; lv2p:value 3.0 ] ,
+        [ lv2:symbol "inertia" ; lv2p:value 74.0 ] 
+.
+
+

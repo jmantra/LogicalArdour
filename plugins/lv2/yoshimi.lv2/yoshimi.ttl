@@ -1,0 +1,353 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix work: <http://lv2plug.in/ns/ext/worker#> .
+@prefix opts: <http://lv2plug.in/ns/ext/options#> .
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix time: <http://lv2plug.in/ns/ext/time#> .
+
+<http://yoshimi.sourceforge.net/lv2_plugin_multi>
+    a lv2:InstrumentPlugin, lv2:Plugin ;
+    doap:name "Yoshimi-Multi" ;
+    doap:maintainer [
+         foaf:name "Yoshimi Team" ;
+         foaf:homepage <http://yoshimi.sourceforge.net> ;
+         foaf:mbox <mailto:yoshimi@freelists.org> ;
+    ] ;
+    doap:license <http://opensource.org/licenses/GPL-2.0> ;
+    lv2:minorVersion 7;
+    lv2:microVersion 2;
+
+    lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map>,
+      <http://lv2plug.in/ns/ext/buf-size#boundedBlockLength>,
+      opts:options;
+
+    opts:requiredOption <http://lv2plug.in/ns/ext/buf-size#maxBlockLength> ;
+    opts:supportedOptions <http://lv2plug.in/ns/ext/buf-size#minBlockLength>,
+      <http://lv2plug.in/ns/ext/buf-size#nominalBlockLength> ;
+    lv2:optionalFeature lv2:hardRTCapable ;
+
+    opts:requiredOption <http://lv2plug.in/ns/ext/buf-size#maxBlockLength>;
+    opts:supportedOptions <http://lv2plug.in/ns/ext/buf-size#minBlockLength>,
+      <http://lv2plug.in/ns/ext/buf-size#nominalBlockLength>;
+
+    lv2:extensionData <http://lv2plug.in/ns/ext/state#interface>,
+                      <http://kxstudio.sf.net/ns/lv2ext/programs#Interface>;
+
+    ui:ui <http://yoshimi.sourceforge.net/lv2_plugin#ExternalUI> ;
+
+    lv2:port [
+        a lv2:InputPort, atom:AtomPort ;
+        atom:bufferType atom:Sequence ;
+        atom:supports <http://lv2plug.in/ns/ext/midi#MidiEvent>, time:Position ;
+        lv2:index 0 ;
+        lv2:symbol "events_in" ;
+        lv2:name "Events input" ;
+        lv2:designation lv2:control ;
+    ];
+
+    lv2:port [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 1 ;
+        lv2:symbol "lv2_freewheel" ;
+        lv2:name "Freewheel" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:designation <http://lv2plug.in/ns/lv2core#freeWheeling> ;
+        lv2:portProperty lv2:toggled ;
+    ];
+
+
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 2 ;
+        lv2:symbol "outl" ;
+        lv2:name "Main left" ;
+    ];
+
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 3 ;
+        lv2:symbol "outr" ;
+        lv2:name "Main right" ;
+    ];
+
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 4 ;
+        lv2:symbol "track_1_l" ;
+        lv2:name "Track 1 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 5 ;
+        lv2:symbol "track_1_r" ;
+        lv2:name "Track 1 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 6 ;
+        lv2:symbol "track_2_l" ;
+        lv2:name "Track 2 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 7 ;
+        lv2:symbol "track_2_r" ;
+        lv2:name "Track 2 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 8 ;
+        lv2:symbol "track_3_l" ;
+        lv2:name "Track 3 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 9 ;
+        lv2:symbol "track_3_r" ;
+        lv2:name "Track 3 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 10 ;
+        lv2:symbol "track_4_l" ;
+        lv2:name "Track 4 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 11 ;
+        lv2:symbol "track_4_r" ;
+        lv2:name "Track 4 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 12 ;
+        lv2:symbol "track_5_l" ;
+        lv2:name "Track 5 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 13 ;
+        lv2:symbol "track_5_r" ;
+        lv2:name "Track 5 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 14 ;
+        lv2:symbol "track_6_l" ;
+        lv2:name "Track 6 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 15 ;
+        lv2:symbol "track_6_r" ;
+        lv2:name "Track 6 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 16 ;
+        lv2:symbol "track_7_l" ;
+        lv2:name "Track 7 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 17 ;
+        lv2:symbol "track_7_r" ;
+        lv2:name "Track 7 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 18 ;
+        lv2:symbol "track_8_l" ;
+        lv2:name "Track 8 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 19 ;
+        lv2:symbol "track_8_r" ;
+        lv2:name "Track 8 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 20 ;
+        lv2:symbol "track_9_l" ;
+        lv2:name "Track 9 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 21 ;
+        lv2:symbol "track_9_r" ;
+        lv2:name "Track 9 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 22 ;
+        lv2:symbol "track_10_l" ;
+        lv2:name "Track 10 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 23 ;
+        lv2:symbol "track_10_r" ;
+        lv2:name "Track 10 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 24 ;
+        lv2:symbol "track_11_l" ;
+        lv2:name "Track 11 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 25 ;
+        lv2:symbol "track_11_r" ;
+        lv2:name "Track 11 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 26 ;
+        lv2:symbol "track_12_l" ;
+        lv2:name "Track 12 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 27 ;
+        lv2:symbol "track_12_r" ;
+        lv2:name "Track 12 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 28 ;
+        lv2:symbol "track_13_l" ;
+        lv2:name "Track 13 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 29 ;
+        lv2:symbol "track_13_r" ;
+        lv2:name "Track 13 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 30 ;
+        lv2:symbol "track_14_l" ;
+        lv2:name "Track 14 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 31 ;
+        lv2:symbol "track_14_r" ;
+        lv2:name "Track 14 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 32 ;
+        lv2:symbol "track_15_l" ;
+        lv2:name "Track 15 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 33 ;
+        lv2:symbol "track_15_r" ;
+        lv2:name "Track 15 right" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 34 ;
+        lv2:symbol "track_16_l" ;
+        lv2:name "Track 16 left" ;
+    ];
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 35 ;
+        lv2:symbol "track_16_r" ;
+        lv2:name "Track 16 right" ;
+    ];
+
+    lv2:port [
+        a lv2:OutputPort,  atom:AtomPort ;
+        atom:bufferType atom:Sequence ;
+        lv2:index 36 ;
+        lv2:symbol "notify" ;
+        lv2:name "Notify";
+    ].
+
+<http://yoshimi.sourceforge.net/lv2_plugin>
+    a lv2:InstrumentPlugin, lv2:Plugin ;
+    doap:name "Yoshimi";
+    doap:maintainer [
+         foaf:name "Yoshimi Team";
+         foaf:homepage <http://yoshimi.sourceforge.net> ;
+         foaf:mbox <mailto:yoshimi@freelists.org>;
+    ] ;
+    doap:license <http://opensource.org/licenses/GPL-2.0> ;
+    lv2:minorVersion 7;
+    lv2:microVersion 2;
+
+    lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map>,
+      <http://lv2plug.in/ns/ext/buf-size#boundedBlockLength>,
+      opts:options;
+
+    opts:requiredOption <http://lv2plug.in/ns/ext/buf-size#maxBlockLength> ;
+    opts:supportedOptions <http://lv2plug.in/ns/ext/buf-size#minBlockLength>,
+      <http://lv2plug.in/ns/ext/buf-size#nominalBlockLength> ;
+    lv2:optionalFeature lv2:hardRTCapable ;
+
+    opts:requiredOption <http://lv2plug.in/ns/ext/buf-size#maxBlockLength>;
+    opts:supportedOptions <http://lv2plug.in/ns/ext/buf-size#minBlockLength>,
+      <http://lv2plug.in/ns/ext/buf-size#nominalBlockLength>;
+
+    lv2:extensionData <http://lv2plug.in/ns/ext/state#interface>,
+                      <http://kxstudio.sf.net/ns/lv2ext/programs#Interface> ;
+
+    ui:ui <http://yoshimi.sourceforge.net/lv2_plugin#ExternalUI> ;
+
+    lv2:port [
+        a lv2:InputPort, atom:AtomPort ;
+        atom:bufferType atom:Sequence ;
+        atom:supports <http://lv2plug.in/ns/ext/midi#MidiEvent>, time:Position ;
+        lv2:index 0 ;
+        lv2:symbol "events_in" ;
+        lv2:name "Events input" ;
+        lv2:designation lv2:control ;
+    ];
+
+    lv2:port [
+        a lv2:InputPort, lv2:ControlPort ;
+        lv2:index 1 ;
+        lv2:symbol "lv2_freewheel" ;
+        lv2:name "Freewheel" ;
+        lv2:default 0.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+        lv2:designation <http://lv2plug.in/ns/lv2core#freeWheeling> ;
+        lv2:portProperty lv2:toggled ;
+    ];
+
+
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 2 ;
+        lv2:symbol "outl" ;
+        lv2:name "Main left" ;
+    ];
+
+    lv2:port [
+        a lv2:OutputPort, lv2:AudioPort ;
+        lv2:index 3 ;
+        lv2:symbol "outr" ;
+        lv2:name "Main right" ;
+    ];
+
+    lv2:port [
+        a lv2:OutputPort,  atom:AtomPort ;
+        atom:bufferType atom:Sequence ;
+        lv2:index 4 ;
+        lv2:symbol "notify" ;
+        lv2:name "Notify";
+    ].

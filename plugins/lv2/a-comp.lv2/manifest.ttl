@@ -1,0 +1,51 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+
+<urn:ardour:a-comp>
+    a lv2:Plugin ;
+    lv2:binary <a-comp.so> ;
+    rdfs:seeAlso <a-comp.ttl> .
+
+<urn:ardour:a-comp#stereo>
+    a lv2:Plugin ;
+    lv2:binary <a-comp.so> ;
+    rdfs:seeAlso <a-comp#stereo.ttl> .
+
+<urn:ardour:a-comp#preset001>
+    a pset:Preset ;
+    lv2:appliesTo <urn:ardour:a-comp> ;
+    rdfs:label "Zero" ;
+    rdfs:seeAlso <presets.ttl> .
+
+<urn:ardour:a-comp#preset002>
+    a pset:Preset ;
+    lv2:appliesTo <urn:ardour:a-comp> ;
+    rdfs:label "PoppySnare" ;
+    rdfs:seeAlso <presets.ttl> .
+
+<urn:ardour:a-comp#preset003>
+    a pset:Preset ;
+    lv2:appliesTo <urn:ardour:a-comp> ;
+    rdfs:label "VocalLeveller" ;
+    rdfs:seeAlso <presets.ttl> .
+
+
+
+<urn:ardour:a-comp#preset001>
+    a pset:Preset ;
+    lv2:appliesTo <urn:ardour:a-comp#stereo> ;
+    rdfs:label "Zero" ;
+    rdfs:seeAlso <presets.ttl> .
+
+<urn:ardour:a-comp#preset002>
+    a pset:Preset ;
+    lv2:appliesTo <urn:ardour:a-comp#stereo> ;
+    rdfs:label "PoppySnare" ;
+    rdfs:seeAlso <presets.ttl> .
+
+<urn:ardour:a-comp#preset003>
+    a pset:Preset ;
+    lv2:appliesTo <urn:ardour:a-comp#stereo> ;
+    rdfs:label "VocalLeveller" ;
+    rdfs:seeAlso <presets.ttl> .

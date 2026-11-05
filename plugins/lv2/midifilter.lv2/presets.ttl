@@ -1,0 +1,65 @@
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+
+@prefix mfltplugin: <http://gareus.org/oss/lv2/midifilter#> .
+@prefix mfltpreset: <http://gareus.org/oss/lv2/midifilter/presets#> .
+
+mfltpreset:chord_major3
+	a pset:Preset;
+	lv2:appliesTo mfltplugin:midichord ;
+
+	rdfs:label "Triad" ;
+	rdfs:comment "major or minor chord, depending on the note" ;
+	lv2:port
+	[ lv2:symbol "c1";  pset:value 1.0 ],
+	[ lv2:symbol "c2";  pset:value 0.0 ],
+	[ lv2:symbol "c3";  pset:value 1.0 ],
+	[ lv2:symbol "c4";  pset:value 0.0 ],
+	[ lv2:symbol "c5";  pset:value 1.0 ],
+	[ lv2:symbol "c6";  pset:value 0.0 ],
+	[ lv2:symbol "c7";  pset:value 0.0 ],
+	[ lv2:symbol "c8";  pset:value 0.0 ],
+	[ lv2:symbol "c9";  pset:value 0.0 ],
+	[ lv2:symbol "c11"; pset:value 0.0 ],
+	[ lv2:symbol "c14"; pset:value 0.0 ],
+	[ lv2:symbol "_8";  pset:value 0.0 ]
+	.
+
+mfltpreset:chord_sus2
+	a pset:Preset;
+	lv2:appliesTo mfltplugin:midichord ;
+
+	rdfs:label "Sus2" ;
+	rdfs:comment "replace 3rd with 2nd" ;
+	lv2:port
+	[ lv2:symbol "c3"; pset:value 0.0 ],
+	[ lv2:symbol "c2"; pset:value 1.0 ],
+	[ lv2:symbol "c4"; pset:value 0.0 ].
+
+mfltpreset:chord_sus4
+	a pset:Preset;
+	lv2:appliesTo mfltplugin:midichord ;
+
+	rdfs:label "Sus4" ;
+	rdfs:comment "replace 3rd with 4th" ;
+	lv2:port
+	[ lv2:symbol "c3"; pset:value 0.0 ],
+	[ lv2:symbol "c2"; pset:value 0.0 ],
+	[ lv2:symbol "c4"; pset:value 1.0 ].
+mfltpreset:invertcc
+	a pset:Preset;
+	lv2:appliesTo mfltplugin:scalecc ;
+
+	rdfs:label "Invert CC Value" ;
+	rdfs:comment "effecively 127 - x" ;
+	lv2:port [
+		lv2:symbol "valmul";
+		pset:value -1.0;
+	], [
+		lv2:symbol "valoff";
+		pset:value -1.0;
+	], [
+		lv2:symbol "vmode";
+		pset:value 2.0;
+	] .
