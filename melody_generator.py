@@ -244,7 +244,6 @@ def generate_melody(
 # Sixteenth, eighth, quarter, half, whole.
 DURATION_SIXTEENTHS = (1, 2, 4, 8, 16)
 MAJOR_FAMILY = {"major", "mixolydian"}
-MINOR_FAMILY = {"minor", "dorian"}
 
 
 def genres_json_path() -> str:
@@ -278,11 +277,20 @@ def load_genre(name: str) -> dict:
 
 
 def resolve_scale(key_scale: str, suggested: str) -> str:
-    """Use the genre scale only when it belongs to the key's major or minor family."""
-    key_scale = key_scale.lower()
+    """Honor the scale that came with the key.
+
+    A minor key stays natural minor. A genre may still color a major key
+    with mixolydian. Any other requested scale is kept as given.
+    """
+    key_scale = (key_scale or "").lower()
     suggested = (suggested or "").lower()
-    family = MAJOR_FAMILY if key_scale == "major" else MINOR_FAMILY
-    if suggested in family and suggested in SCALES:
+    if key_scale == "minor":
+        return "minor"
+    if key_scale == "major" and suggested in MAJOR_FAMILY and suggested in SCALES:
+        return suggested
+    if key_scale in SCALES:
+        return key_scale
+    if suggested in SCALES:
         return suggested
     return key_scale
 
@@ -614,8 +622,8 @@ Examples:
         type=str,
         default=None,
         help='Genre id or display name from genres.json. The genre shapes rhythm, '
-             'pitch choice, range, and velocity. Its scale is used only when it '
-             'matches the major or minor family of --scale.'
+             'pitch choice, range, and velocity. A minor key stays natural minor. '
+             'A major key uses mixolydian when the genre suggests it.'
     )
 
     parser.add_argument(
