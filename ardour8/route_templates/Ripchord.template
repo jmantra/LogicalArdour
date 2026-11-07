@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Route version="7003" id="708" name="Ripchord" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="786" alignment-choice="Automatic" playback-channel-mode="AllChannels" capture-channel-mode="AllChannels" playback-channel-mask="0xffff" capture-channel-mask="0xffff" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
-  <ProgramVersion created-with="Ardour 8.11" modified-with="Ardour 8.11" name="Ripchord"/>
-  <PresentationInfo order="2" flags="MidiTrack,OrderSet,TriggerTrack" color="4289374975"/>
-  <Controllable name="solo" id="749" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
-  <Controllable name="solo-iso" id="755" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
-  <Controllable name="solo-safe" id="757" flags="Toggle" value="0" solo-safe="0"/>
-  <IO name="Ripchord" id="769" direction="Input" default-type="midi">
+<Route version="7003" id="285" name="Ripchord" default-type="midi" strict-io="1" active="1" denormal-protection="0" meter-point="MeterPostFader" disk-io-point="DiskIOPreFader" meter-type="MeterPeak" midi-playlist="363" alignment-choice="Automatic" playback-channel-mode="AllChannels" capture-channel-mode="AllChannels" playback-channel-mask="0xffff" capture-channel-mask="0xffff" note-mode="Sustained" step-editing="0" input-active="1" restore-pgm="1">
+  <ProgramVersion created-with="Ardour 8.12.0~ds-1" modified-with="Ardour 8.12.0~ds-1" name="Ripchord"/>
+  <PresentationInfo order="1" flags="MidiTrack,OrderSet,TriggerTrack" color="3563743999"/>
+  <Controllable name="solo" id="326" flags="Toggle,RealTime" value="0" self-solo="0" soloed-by-upstream="0" soloed-by-downstream="0"/>
+  <Controllable name="solo-iso" id="332" flags="Toggle,RealTime" value="0" solo-isolated="0"/>
+  <Controllable name="solo-safe" id="334" flags="Toggle" value="0" solo-safe="0"/>
+  <IO name="Ripchord" id="346" direction="Input" default-type="midi">
     <Port name="Ripchord/midi_in 1" type="midi" direction="Input">
       <Connection other="x-virtual-keyboard"/>
       <ExtConnection for="JACK"/>
-      <ExtConnection for="JACK" other="Midi-Bridge:AKAI MPK mini 3 at usb-0000:00:14-0-11- full speed:(capture_0) MPK mini 3 MIDI 1"/>
+      <ExtConnection for="JACK" other="BLE MIDI 1:out"/>
     </Port>
   </IO>
-  <IO name="Ripchord" id="770" direction="Output" default-type="midi">
+  <IO name="Ripchord" id="347" direction="Output" default-type="midi">
     <Port name="Ripchord/audio_out 1" type="audio" direction="Output">
       <Connection other="Master/audio_in 1"/>
       <Connection other="Master/audio_in 1"/>
@@ -24,36 +24,36 @@
     <Port name="Ripchord/midi_out 1" type="midi" direction="Output"/>
   </IO>
   <MuteMaster mute-point="PostFader,Listen,Main,SurroundSend" muted="0"/>
-  <Controllable name="mute" id="751" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="phase" id="753" flags="Toggle" value="0" phase-invert=""/>
+  <Controllable name="mute" id="328" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="phase" id="330" flags="Toggle" value="0" phase-invert=""/>
   <Automation>
-    <AutomationList automation-id="solo" id="748" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="solo-iso" id="754" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="solo-safe" id="756" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="mute" id="750" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="rec-enable" id="780" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="rec-safe" id="782" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="phase" id="752" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="monitor" id="784" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
-    <AutomationList automation-id="midi-velocity" id="790" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo" id="325" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-iso" id="331" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="solo-safe" id="333" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="mute" id="327" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-enable" id="357" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="rec-safe" id="359" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="phase" id="329" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="monitor" id="361" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+    <AutomationList automation-id="midi-velocity" id="367" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
   </Automation>
   <Pannable>
-    <Controllable name="pan-azimuth" id="760" flags="" value="0.5"/>
-    <Controllable name="pan-width" id="764" flags="" value="0"/>
-    <Controllable name="pan-elevation" id="762" flags="" value="0"/>
-    <Controllable name="pan-frontback" id="766" flags="" value="0"/>
-    <Controllable name="pan-lfe" id="768" flags="" value="0"/>
+    <Controllable name="pan-azimuth" id="337" flags="" value="0.5"/>
+    <Controllable name="pan-width" id="341" flags="" value="0"/>
+    <Controllable name="pan-elevation" id="339" flags="" value="0"/>
+    <Controllable name="pan-frontback" id="343" flags="" value="0"/>
+    <Controllable name="pan-lfe" id="345" flags="" value="0"/>
     <Automation>
-      <AutomationList automation-id="pan-azimuth" id="759" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-elevation" id="761" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-width" id="763" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-frontback" id="765" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
-      <AutomationList automation-id="pan-lfe" id="767" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-azimuth" id="336" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-elevation" id="338" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-width" id="340" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-frontback" id="342" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="pan-lfe" id="344" interpolation-style="Linear" time-domain="BeatTime" state="Off"/>
     </Automation>
   </Pannable>
-  <Processor id="779" name="recorder:Ripchord" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
-  <Processor id="778" name="player:Ripchord" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
-  <Processor id="711" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="1">
+  <Processor id="356" name="recorder:Ripchord" active="1" user-latency="0" use-user-latency="0" type="diskwriter" record-safe="0"/>
+  <Processor id="355" name="player:Ripchord" active="1" user-latency="0" use-user-latency="0" type="diskreader"/>
+  <Processor id="288" name="TriggerBox" active="1" user-latency="0" use-user-latency="0" type="triggerbox" data-type="midi" order="0">
     <Triggers>
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="0" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="1" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
@@ -73,10 +73,11 @@
       <Trigger name="" gain="1" color="3200171775" follow-count="1" use-follow-length="0" follow-length="1|0|0" legato="0" velocity-effect="0" follow-action-probability="0" quantization="1|0|0" launch-style="OneShot" follow-action-0="Again:0" follow-action-1="Stop:0" stretchable="1" cue_isolated="0" allow_patch_changes="1" stretch_mode="Crisp" index="15" segment-tempo="0" start="b0" used-channels="0" channel-map="-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"/>
     </Triggers>
   </Processor>
-  <Processor id="772" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
-  <Processor id="816" name="Ripchord" active="1" user-latency="0" use-user-latency="0" type="vst3" unique-id="ABCDEF019182FAEB546B427452704368" count="1" custom="0">
+  <Processor id="349" name="Polarity" active="1" user-latency="0" use-user-latency="0" type="polarity"/>
+  <Processor id="387" name="Ripchord" active="1" user-latency="0" use-user-latency="0" type="lv2" unique-id="https://trackbout.com/plugins/Ripchord" count="1" custom="0">
     <Automation>
-      <AutomationList automation-id="parameter-0" id="817" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-5" id="388" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
+      <AutomationList automation-id="parameter-6" id="390" interpolation-style="Discrete" time-domain="BeatTime" state="Off"/>
     </Automation>
     <ConfiguredInput>
       <Channels type="midi" count="1"/>
@@ -98,24 +99,25 @@
       <Channelmap type="midi" from="0" to="0"/>
     </OutputMap-0>
     <ThruMap/>
-    <vst3 last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="0">
-      <Port id="1652125811" value="0"/>
-      <chunk>VlNUMwEAAABBQkNERUYwMTkxODJGQUVCNTQ2QjQyNzQ1MjcwNDM2OOgBAAAAAAAAVkMyIXMBAAA8P3htbCB2ZXJzaW9uPSIxLjAiIGVuY29kaW5nPSJVVEYtOCI/PiA8UmlwY2hvcmQgdD0iMTc0MDg5MzUwNjkzNSI+PFNlc3Npb24+PENvbnRyb2xzU3RhdGUgdHJhbnNwb3NlPSIwIiB0cmFuc3Bvc2VCYXNlPSIyMSIgYWN0aXZlVHJhbnNwb3NlTm90ZT0iLTEiIGRlbGF5RGVwdGg9IjAiIGRlbGF5VmFyaWFuY2U9IjAiIGRlbGF5RGlyZWN0aW9uPSJMVFIiIHZlbG9jaXR5RGVwdGg9IjAiIHZlbG9jaXR5VmFyaWFuY2U9IjAiIHZlbG9jaXR5RGlyZWN0aW9uPSJIVFMiLz48UHJlc2V0U3RhdGUgbmFtZT0iIiBwcmVzZXRGaWxlTmFtZT0iIiBpc1ByZXNldE1vZGlmaWVkPSIwIj48cHJlc2V0Lz48L1ByZXNldFN0YXRlPjwvU2Vzc2lvbj48L1JpcGNob3JkPgAAAAAAAAAAAEpVQ0VQcml2YXRlRGF0YQABAUJ5cGFzcwABAQMAHQAAAAAAAABKVUNFUHJpdmF0ZURhdGFMaXN0AQAAAENvbXAwAAAAAAAAALgBAAAAAAAA</chunk>
-    </vst3>
-    <Controllable name="Bypass" id="818" flags="Toggle" value="0" parameter="0"/>
+    <lv2 last-preset-uri="" last-preset-label="" parameter-changed-since-last-preset="0" template-dir="/home/justin/.config/ardour8/route_templates/Ripchord" state-dir="state1">
+      <Port symbol="freeWheeling" value="0"/>
+      <Port symbol="enabled" value="1"/>
+    </lv2>
+    <Controllable name="hidden" id="389" flags="Toggle" value="0" parameter="5" symbol="freeWheeling"/>
+    <Controllable name="hidden" id="391" flags="Toggle" value="1" parameter="6" symbol="enabled"/>
   </Processor>
-  <Processor id="771" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
+  <Processor id="348" name="Amp" active="1" user-latency="0" use-user-latency="0" type="amp">
     <Automation>
-      <AutomationList automation-id="gain" id="744" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
+      <AutomationList automation-id="gain" id="321" interpolation-style="Exponential" time-domain="AudioTime" state="Off"/>
     </Automation>
-    <Controllable name="gaincontrol" id="745" flags="GainLike" value="1"/>
+    <Controllable name="gaincontrol" id="322" flags="GainLike" value="1"/>
   </Processor>
-  <Processor id="775" name="meter-Ripchord" active="1" user-latency="0" use-user-latency="0" type="meter"/>
-  <Processor id="776" name="Ripchord" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Ripchord" type="main-outs" role="Main">
+  <Processor id="352" name="meter-Ripchord" active="1" user-latency="0" use-user-latency="0" type="meter"/>
+  <Processor id="353" name="Ripchord" active="1" user-latency="0" use-user-latency="0" own-input="1" own-output="0" output="Ripchord" type="main-outs" role="Main">
     <PannerShell bypassed="0" user-panner="" linked-to-route="1"/>
   </Processor>
   <Slavable/>
-  <Controllable name="monitor" id="785" flags="RealTime" value="0" monitoring=""/>
-  <Controllable name="rec-safe" id="783" flags="Toggle,RealTime" value="0"/>
-  <Controllable name="rec-enable" id="781" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="monitor" id="362" flags="RealTime" value="0" monitoring=""/>
+  <Controllable name="rec-safe" id="360" flags="Toggle,RealTime" value="0"/>
+  <Controllable name="rec-enable" id="358" flags="Toggle,RealTime" value="0"/>
 </Route>

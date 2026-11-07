@@ -2,7 +2,7 @@
 <SessionPorts>
   <Auditioner>
     <DirectOut>
-      <IO name="auditioner" id="7988" direction="Output" default-type="audio">
+      <IO name="auditioner" id="149" direction="Output" default-type="audio">
         <Port name="auditioner/audio_out 1" type="audio" direction="Output">
           <ExtConnection for="JACK"/>
           <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:playback_FL"/>
@@ -15,9 +15,11 @@
     </DirectOut>
   </Auditioner>
   <Click>
-    <IO name="Click" id="7915" direction="Output" default-type="audio">
+    <IO name="Click" id="76" direction="Output" default-type="audio">
       <Port name="Click/audio_out 1" type="audio" direction="Output">
         <ExtConnection for="JACK"/>
+        <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:playback_FL"/>
+        <ExtConnection for="JACK" other="Built-in Audio Analog Stereo:playback_FR"/>
         <ExtConnection for="JACK/Pipewire;ALSA;HDA Intel PCH"/>
         <ExtConnection for="JACK/Pipewire;ALSA;HDA Intel PCH" other="Built-in Audio Analog Stereo:playback_FL"/>
         <ExtConnection for="JACK/Pipewire;ALSA;HDA Intel PCH" other="Built-in Audio Analog Stereo:playback_FR"/>

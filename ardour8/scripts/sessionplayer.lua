@@ -126,13 +126,19 @@ end
 if rv["dropdown"] == 5 then
     print("Ripchord")
     plugin_name = "Ripchord"
+    ripchord = "set"
     local sel = Editor:get_selection()
+    the_name = nil
     for r in sel.tracks:routelist():iter() do
         the_name = r:name()
         print(the_name)
-        ripchord = "set"
     end
-    
+
+    if the_name == nil then
+        print("Ripchord: select an instrument track first")
+        return
+    end
+
     local user_config_directory = ARDOUR.user_config_directory(8)
     print(user_config_directory)
     local subdir = "route_templates"
@@ -141,13 +147,85 @@ if rv["dropdown"] == 5 then
     local track_name = "Ripchord "..the_name
 
     Session:new_route_from_template (1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
-    
-    for r in sel.tracks:routelist():iter() do
-        if not r:to_track():isnil() and not r:to_track():to_midi_track():isnil() then
-            local outputmidiport = r:output():midi(0)
-            outputmidiport:connect(the_name .. "/midi_in 1")
+
+    local route = Session:route_by_name(track_name)
+    if route:isnil() then
+        print("Ripchord: the new track was not created")
+        return
+    end
+
+    local function preset_label_for_session()
+        local key_file = io.open(Session:path() .. "/key.txt", "r")
+        if key_file == nil then
+            print("Ripchord: no key.txt for this session")
+            return nil
+        end
+        local content = key_file:read("*a") or ""
+        key_file:close()
+
+        local token, scale = content:match("^(%a#?b?m?)%s+(%a+)")
+        if token == nil or (scale ~= "major" and scale ~= "minor") then
+            print("Ripchord: key.txt does not contain a key and scale")
+            return nil
+        end
+        if token:sub(-1) == "m" then
+            token = token:sub(1, -2)
+        end
+        if token == "A#" then token = "Bb" end
+        if token == "D#" then token = "Eb" end
+
+        local preset_dir = os.getenv("HOME") .. "/.local/share/Trackbout/Ripchord/Presets"
+        local handle = io.popen('find "' .. preset_dir .. '" -maxdepth 1 -type f -name "*.rpc" -printf "%f\\n" 2>/dev/null')
+        if handle == nil then
+            print("Ripchord: could not list presets")
+            return nil
+        end
+
+        local pattern = "^" .. token:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1") .. " %- .*_" .. scale .. "%.rpc$"
+        local matches = {}
+        for name in handle:lines() do
+            if name:match(pattern) then
+                matches[#matches + 1] = name
+            end
+        end
+        handle:close()
+
+        if #matches == 0 then
+            print("Ripchord: no preset for " .. token .. " " .. scale)
+            return nil
+        end
+
+        math.randomseed(os.time())
+        local chosen = matches[math.random(#matches)]
+        print("Ripchord: preset " .. chosen .. " for " .. token .. " " .. scale)
+        return chosen:gsub("%.rpc$", "")
+    end
+
+    local new_plugin = ARDOUR.LuaAPI.new_plugin(Session, "Ripchord", ARDOUR.PluginType.LV2, "")
+    if new_plugin == nil or new_plugin:isnil() then
+        print("Ripchord: LV2 plugin was not found")
+    else
+        local old = route:nth_plugin(0)
+        if not old:isnil() then
+            route:replace_processor(old, new_plugin, nil)
+        end
+
+        local label = preset_label_for_session()
+        if label == nil then
+            print("Ripchord: no matching preset was loaded")
+        else
+            local proc = route:nth_plugin(0):to_insert():plugin(0)
+            local preset = proc:preset_by_label(label)
+            if preset and preset.valid then
+                proc:load_preset(preset)
+                print("Ripchord: loaded " .. label)
+            else
+                print("Ripchord: preset not found in the LV2 bundle: " .. label)
+            end
         end
     end
+
+    route:output():midi(0):connect(the_name .. "/midi_in 1")
     return
 end
 
