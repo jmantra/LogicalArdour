@@ -1,0 +1,37 @@
+// Very simple demo (from the docs) to show how
+// a melody sequence can follow a chord progression.
+
+Tempo 132
+Time 4
+Seqsize 4
+Keysig c
+
+Begin Chord
+  Voice Piano1
+  Volume p
+  Articulate 90
+  Sequence {1 2 90; 3 2 90}
+End
+
+// This could be a SOLO track, but we're using MELODY
+// so it can included in a groove.
+Begin Melody-AltoSax
+  Voice AltoSax
+  // The FollowChord=ON is absolutely necessary here!
+  Voicing FollowChord=On FollowKey=Off Root=C
+  Articulate 60
+  Harmony OpenAbove
+  Sequence { 4.c;8;4g;;} {2c;g;} {4c;;g;;} {8c;;;;d;e;4d;}
+  Octave 5
+End
+
+1 C
+2 D
+3 E
+4 F
+5 G
+6 A
+7 B
+8 C
+
+

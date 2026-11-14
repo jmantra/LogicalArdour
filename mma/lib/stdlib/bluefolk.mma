@@ -1,0 +1,183 @@
+
+// bluefolk
+
+Begin Doc
+
+ A very easy folk-type backing with an arpeggiating guitar,
+ bass and simple drums. Written for the Animals version of
+ "House of the Rising Sun" (mind you, the folkblue2 variants
+ seem to be nicer). Of course, we've skipped all the traditional
+ instrumentation and used nice things like electric guitar, bass, organ, etc.
+ Very light on the drums.
+ 
+End
+
+Author Bob van der Poel
+
+SeqClear
+Timesig 4 4
+Seqsize 4
+
+Include stdpats
+
+// Arpeggio patterns
+
+Begin Arpeggio Define
+       Arp38-16 1.33 6 90; 1.48 6 90; 1.63 3 90
+       Arp38    1 8 90; 1.33 8 90; 1.66 8 90
+       Arp34    1 4 90; 2.33 4 90; 3.66 8 90
+End
+
+////////////////////////////////////////////////////////////////
+
+// Snare on 1,2,3 & 4
+Begin Drum-Snare
+	Tone SnareDrum2
+	Sequence D1234
+	Accent 1 20  3 20
+	Volume p
+	Rtime 2
+	Rvolume 5
+End
+
+// Ocassional hits on the tambourine
+Begin Drum-Tam
+    Tone Tambourine
+	Volume pp
+	Sequence D13
+    Rskip 70
+End
+
+// For all the grooves we use a strumming guitar on 1,2,3 & 4.
+Begin Chord
+  Sequence C1234
+  Voice JazzGuitar
+  Articulate 105
+  Voicing   Mode=Optimal
+  Rskip 10
+  Rvolume 20
+  Rtime 5
+  Strum 5
+  Volume mp
+  Octave 5
+End
+
+/// Plain old walking bass
+Begin Walk
+  Voice FretlessBass
+  Sequence W13
+  Articulate 90
+  Octave 3
+  Volume m
+  Rtime 5
+  Rvolume 10
+End
+
+/// Let it rip with the gitar :)
+Begin Arpeggio
+    Voice SteelGuitar
+    Octave 5
+    Volume mf
+    Articulate 90
+    Rtime 10
+    Rvolume 20
+    Harmony None
+    Direction Both
+    Range 1
+    Sequence   {Arp38-16; Arp38 Shift 1 ; Arp38-16 Shift 2 ; Arp38 Shift 3;}
+End
+
+DefGroove BlueFolk   Standard groove
+
+Arpeggio Sequence  * {Arp38 Shift 1; Arp38 Shift 3} * {Arp34; Arp34 Shift 1 }
+DefGroove BlueFolk2  Standard with a bit less SteelGuitar 
+
+/// An attempt at a solo :)
+
+Groove BlueFolk
+
+Begin Arpeggio-Solo
+    // Simplicity ... we generate arpeggios based on 1/8 notes (A8)
+    //  the articulate converts them to 1/4 notes and rduration
+    //  randomizes that to somewhere between and 1/8 and 1/2
+    //  We skip 70% of the notes, but remember we have harmony
+    //  generating a 2nd note, so we're only skipping about 35%
+    //  And to make it more random, we use rtime to move things
+    //  around.
+    Voice FretlessBass //$_Arpeggio_Voice
+    Octave 5
+    Range 1.5  /// limit notes to an octave and a half
+    Direction Both
+    Volume m
+    Accent 1 20 2 10 3 20 4 10
+    Sequence {A8}
+    Harmony 2Below
+    Articulate  200  /// convert the 1/8th notes to 1/4
+    Rduration -50,50
+    Rskip 70
+    Rtime 20
+    RPitch Scale=Chord Rate=2 Offsets=1,-1  // occasional wrong notes :)
+End
+
+DefGroove BlueFolkPlus  Add a guitar "solo" to the mix
+Arpeggio Groove BlueFolk2
+DefGroove BlueFolk2Plus  Same solo,  with a bit less SteelGuitar 
+
+/// Sustained
+
+Groove BlueFolk
+
+Begin Chord-Sus
+  Voice      Organ3
+  Octave     6
+  Volume     mp
+  Articulate 110
+  Rvolume    10
+  Sequence   L2
+End
+
+DefGroove BlueFolkSus  Add in the sustained organ.
+Arpeggio Groove BlueFolk2
+DefGroove BlueFolk2Sus  Same sustained,  with a bit less SteelGuitar 
+
+Groove BlueFolkSus
+Arpeggio-Solo Groove BlueFolkPlus
+Defgroove BlueFolkSusPlus  Organ and guitar solo.
+Arpeggio Groove Bluefolk2
+Defgroove BlueFolk2SusPlus  Less arpeggio, organ and guitar solo.
+
+
+//////////  Intro
+
+/// A 4 bar intro. Just finalize on 4th bar
+Groove BlueFolk
+
+Chord      Sequence  *  *  *  *
+Walk       Sequence  *  *  *  W1234
+Arpeggio   Sequence  *  *  *  {Arp38; Arp38 Shift 1; Arp38 Shift 2; Arp38 }
+Drum-Snare Sequence  *  *  *  {3S; 3S Shift 1; D3; D4}
+Drum-Tam   Sequence  -
+
+DefGroove BlueFolkIntro   Simple 4 bar introduction
+
+/////// Ending
+
+/// A 2 bar ending. Walk on 1, end on 2
+Groove BlueFolk
+SeqSize 2
+
+Chord      Sequence  L2   {1 2 90 70 60 40}
+Begin Walk
+   Direction Down
+   Sequence  W1234  { 1 2 90 }
+End
+Arpeggio   Sequence  *  A1
+Drum-Snare Sequence  *  D12
+Begin Drum-Tam
+  Sequence  D1
+  Volume mp m
+  Rskip 0
+End
+
+DefGroove BlueFolkEnd  2 bar ending with walking bass on 1st bar
+

@@ -1,0 +1,76 @@
+.TH mma-libdoc 8
+.SH NAME
+mma-libdoc  \- maintain mma library files.
+.SH SYNOPSIS
+.PP
+.B mma-libdoc
+
+
+.SH DESCRIPTION
+
+.B mma-libdoc
+updates and maintains the HTML documentation
+for the MMA library. It is recommended for use
+by those adding 3rd party
+files to the lib tree.
+
+If you have already downloaded and installed 
+.B MMA,
+the HTML documentation should be installed on your system. The documentation
+for the library files is in 
+.I  /usr/local/share/mma/docs/html/lib,
+or a similar location depending on your installation and system.
+
+If you add or modify the library files you can simply run
+.B mma-libdoc
+and the library documentation will be updated.
+
+.B Note:
+To run this program 'root' privileges may be needed. This
+     depends on your installation and operating system.
+
+When  
+.B mma-libdoc 
+is run it will check the installation
+and install or update the docs in the root tree where
+.B mma
+is installed.
+
+.SH Caveats
+
+Old/unused HTML files are NOT deleted. So, if you move files around or
+delete .mma files you can end up with a number of unused files. Just
+delete the whole bunch every once in awhile if it becomes a problem.
+
+The program assumes that you already have the html documentation
+installed. So, it doesn't do a very good job of creating the complete
+directory tree. If you find that you get an error right off the top of
+program you will need to create the directories by hand. Assuming you
+have installed in /usr/local/share/mma a command like:
+
+.IP
+mkdir -p /usr/local/share/mma/docs/html/lib
+
+.P
+Depending on how your system is set up you will most likely need to be
+be the root user for any of this to work. If you get "permission" or
+"access denied" errors, run as root or fix the permissions.
+
+.SH SEE ALSO
+mma(1), mma-renum(1).
+
+.SH RESOURCES
+The latest version of this program is always distributed with
+.B MMA
+and is available at http://www.mellowood.ca/mma
+
+
+.SH AUTHOR
+Bob van der Poel <bob@mellowood.ca>
+.SH LICENSE
+mma-libdoc is Copyright 2003-2017 Bob van der Poel. Free use of this software is granted
+under the terms of the GNU General Public License.
+
+
+
+

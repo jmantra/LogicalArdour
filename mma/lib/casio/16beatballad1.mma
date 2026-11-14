@@ -1,0 +1,119 @@
+// 16beatballad1.mma
+
+Begin Doc  
+      16 Beat Ballad1 (033).
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 2
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 118; 2.8 0 118; 3 0 118; 3.5 0 118}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {2 0 126; 4 0 126}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 108; 2 0 108; 2.5 0 108; 3 0 108; 3.5 0 108; 4 0 108; 4.5 0 108} \
+             {1 0 108; 1.5 0 108; 2 0 108; 2.5 0 108; 3 0 108; 3.5 0 108; 4 0 108; 4.5 0 108}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence {1.5 0 108}     z 
+End
+
+Begin Drum-Claves
+    Tone Claves
+    Volume m
+    Sequence {1.5 0 92; 2.3 0 92}       z 
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 4 1 108; 2.8 32 5 83; 3 3 1 108; 3.5 4 1 112}
+End
+
+Begin Chord-6
+    Voice JazzGuitar  /// casio have a mellow epiano here
+    Octave 6
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {1 2 90}
+End
+
+
+Begin Bass-8
+    Voice SteelGuitar
+    Octave 5
+    Articulate 100
+    Volume mp
+    Sequence z  {1.5 2 5 82; 1.8 16 1 102; 2 16 3 99; 2.2 4 1 97}
+End
+
+
+DefGroove 16BeatBallad1   Our basic 2 bar pattern
+
+//////////////////////////////////////////////////////////////////////
+///// Intro
+
+Groove 16BeatBallad1
+SeqSize 4   // double up groove length
+
+Drum-KickDrum1   Sequence  D1234   *   *    D13
+Drum-SnareDrum1  Sequence  D1234   *   *    *
+Drum-ClosedHiHat Sequence  *       *   *    D16
+//Drum-OpenHiHat
+Drum-Claves      Sequence  *       D1234  *   D1234
+
+Bass-9           Sequence  *       *      *   B1234
+
+// jazzguitar
+Chord-6          Sequence  *       *      *   L1
+
+// SteelGuitar
+Bass-8           Sequence  -
+
+DefGroove 16BeatBallad1Intro  A 4 bar intro
+
+//////////////////////////////////////////////////////////////////////
+//////// Ending
+
+Groove 16BeatBallad1
+
+Drum-KickDrum1   Sequence  D1234      D1
+Drum-SnareDrum1  Sequence  D1234      D1
+Drum-ClosedHiHat Sequence  D16        D1
+Drum-OpenHiHat   Sequence  {1 0 40 * 32}     z
+Drum-Claves      Sequence  *         D1
+
+Bass-9           Sequence  B1234     B1
+
+// jazzguitar
+Chord-6          Sequence  *         L1
+
+// SteelGuitar
+Bass-8           Sequence  *         B1
+
+DefGroove 16BeatBallad1End    A 2 bar ending.

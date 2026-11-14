@@ -1,0 +1,254 @@
+Changes file for the 2012 series
+================================
+
+A minor change has been made to the calling program, mma.py,
+  so that installations in the /usr/lib/python directory tree
+  are supported. If you are using mma in /usr/share or some other
+  location you should not be effected by this change. Installations
+  in the /usr/lib/python tree should have the following structure:
+
+     /usr/lib/pythonX.X    # or any other python system dir
+         mma               # the root mma directory
+           lib             # these are optional, they can be elsewhere
+           includes        # and will work as links
+           docs
+           MMA             # our module dir
+
+This is incomplete and will be completed when we figure out multiple user lib
+ and include directories.
+
+Bug fix in the plectrum code. Patterns with no strum value we forcing all
+  the notes to the start of the bar.
+
+Added STRETCH to solo/melody tracks. This can be used to change notation format (ie.
+  using Stretch 200 would convert 8th notes to quarters).
+
+Added STRETCH as a MidiInc option to change the timing in an imported track.
+
+Bugfix: chshare was copying octave for shared track. Silly.
+
+Enhanced DupRoot code so that you can have more than 1 dup. Use a comma list of dups: 
+      Chord DupRoot -1,-2  -1,1
+
+Duproot was generating wrong notes, esp. with transpose enabled.
+
+The psyco code load has been deleted from mma.py.
+
+MidiInc:
+ Strip Silence was not working (this fix to make it work may cause problems
+   with files you thought were working ... sorry)
+ A "~" is now added to the end of Riff lines which are too long for the bar,
+   this eliminates a bunch of warnings.
+
+Aria tracks can select notes from a scale associated with the current keysignature
+ with the Scaletype KEY setting.
+
+Feburary 20, 2012
+Released 12.02
+
+-------------------------------
+
+Cleaned up the Aria code.
+
+Added a "-" modifier to the aria scaletype. This forces the aria code to deplete
+ the generated list of notes it picks melody notes from. So, you now have
+ Scaletype [Scale, Scale-, Key, Key-, etc]. Mostly, this avoids duplicate notes.
+
+The bass sequence flat/sharp modifier didn't permit 'b' for a flat. Fixed.
+
+
+Added to all tracks a supplimental CHORDS option to set a chord sequence
+ for that track only. You can how have an "Am" for a section and set the
+ bass to use a "C" chord. See the fine manual for details!
+
+=== Developer release 12.02a (March 5, 2012)
+
+Re-wrote most of the libpath/incpath routines. Both are now lists and can contain many
+ different locations. Handy to separate system and local data. As part of this the
+ extended groove notation has been revamped as well. See the fine manual for details.
+
+A new debug flag GROOVE will display a message when an existing groove is redefined.
+
+The -g/-G routine now checks for write-permissions. If it can't write to 
+ the directory it continues, instead of aborting.
+
+The SetAutoLib command has be removed. Shout if this is a problem for you!
+
+=== Developer release 12.02b (March 12, 2012)
+
+Modified the sequence macro and debug code to add 't' to durations. It was already
+ in ticks, but couldn't be recompiled without the 't'.
+
+Useless work was being done on groove definitions when NOT creating docs.
+ MMA is now a very little bit faster.
+
+Major change/addition to the COPY command. Best to check the manual, but the summary
+ is that it now copies the same info as groove save/restore. It no long copies
+ pending RIFF data, which might break existing scripts. Use DupRiff. Bonus: you can
+ copy directly from an existing groove in memory or on disk.
+
+== Developer release 12.02c (April 24, 2012)
+
+Added $_GROOVELIST macro. Returns list of all currently defined groove names.
+
+Added $_TRACKLIST macro. Returns list of all currently defined track names.
+
+Inserted some error code to catch diabolical commands using AllGrooves
+ (ie, you can't create a Groove using this).
+
+Added alternate comparison operators <, <=, ==, !=, >=, >.
+ Cleaned up the docs for conditionals.
+
+The code for FERMATA has been fixed. It now properly handles tempo changes
+ and forces all note on/off, program and controller events in the region
+ effected by the fermata to the start/end of the section. You should now get
+ "long" notes (or short, if you use a fermata value under 100) with no
+ other note events sounding (which is probably what you want). A warning is 
+ printed if you use fermata BEFORE the note since the tempos/notes can't be
+ fixed.
+
+== Developer release 12.02d (May 20, 2012)
+
+Added $_Offset variable. Returns current offset into song.
+
+Added MOCTAVE command and $_Track_MOctave variable. These duplicate
+ the existing OCTAVE command/macro ... but the results are an octave 
+ higher to duplicate standard MIDI notations of octaves.
+
+The SOLO/MELODY tracks now permit sequences (as opposed to only RIFFs).
+By specifing FOLLOWCHORD the sequence will follow the chord changes.
+Use it like a BASS track, but you use the same notation for the pitches
+as you would in a SOLO.
+
+TWEAKS: Added a "tweak" command for changing some defaults, etc. Right now
+ the only things are:
+
+         Tweaks  DefaultDrum=xx   DefaultVoice=xx
+
+ this will change the initial Voice setting for drum and other tracks.
+ See the "fine tuning" section of the manual for details.
+
+          Tweaks Dim=3 or Dim=7
+
+ Changes the default setting for a diminished chord between a traid and 7th.
+
+          
+MIDIINC
+  - There was an offset problem when using the start/end options.
+
+  - Imported MIDI data can be sent to a Solo/Melody track as a sequence.
+    This lets you import an existing drum (or any other) track as a sequence,
+    etc. Very Cool!
+
+  - Start/End can now use 'm' suffix for 'measures', 't' for 'ticks' as well as 
+    the default 'beats'.
+
+== Developer release 12.02f (July 23, 2012)
+
+Added a new voicing option, KEY2. This is the same as KEY but the notes for 9th, 11th
+  13th are left at the top of the chord. Makes jazz stuff a bit brighter.
+
+Solo note durations can now contain a "-". Useful in a situation where you have a grace note:
+
+   Solo Riff 32g;4-32f;...
+
+  In the above you now (easily) subtract the grace note value from the main note.
+  This change/fix also means that there's now a problem with accents ... this will
+  generate an   error:
+
+      Solo Riff 4-f;2g;
+
+  You can fix this easily enough. Just put in a space:
+
+      Solo riff 4 -f;....
+
+  Or, use the alternate tenuto marker, an underscore:
+
+    Solo riff 4_f;....
+
+Added FOLLOWKEY to solo/melody Voicing options.
+
+When specifying option pairs you can now include spaces. So, "Bass Rskip Beats = 1 , 4"
+ works. This was done to permit the use of macros in specifying options. IE:
+ "Bass Rskip Beats = $mac1 , $mac2".
+
+RSKIP accepts a BEATS=x,y,z option to specify which beats to apply skipping to.
+ The options applies to all bars in the sequence.
+
+October 20, 2012
+Released 12.10
+
+----------------------
+
+A grace note option has been added to solo notation. See the manual!
+
+A new command has been added, MIDIWHEEL, to control the pitch bend controller.
+ All in the manual.
+
+Some of the simpler MIDI* functions have been amalgamated into midifuncs.py.
+
+Added new variables: $_TickPos.
+
+Midi low level volume commands were zapping themselves out. Bob was a bit too
+ clever, and has now agreed to be dumber, write redundant data, and live easier.
+
+ChannelInit - this will queue commands to be issued when a channel is assigned to
+ a track. Useful for setting up midi to tracks.
+
+MidiVolume, Midi(De)cresc now keep track of current settings. They can also be applied in non-track settings (a master volume).
+
+December 28, 2012
+Released 12.10a
+
+----------------------
+
+Added test of groove database to alert users that the DB on disk is invalid.
+
+MidiPan now accepts mnemonic values like CENTER, LEFT10, RIGHT90, etc.
+
+Added voicing mode "Rootkey".
+
+MMA-splitrec -- the -r option was not parsed properly.
+
+Bug in groove search if no database in subdirectory. Fixed.
+
+Added the variable $_MMApath (the root directory for all things MMA).
+
+The advertised builtin variable AUTOLIBPATH was not working. It's functional now.
+
+A change has been made to the way SetLibDir functions. When called at init it
+ pushes stdlib to the front of the list; however, when the user sets his own
+ path the user's order is honored.
+
+August 16, 2013
+Released 12.10b
+
+----------------------
+
+Passing multiple command line options to the midiplayer was not working. Fixed.
+
+Added stdin for input (instead of a file). Use a single "-" on the command line.
+
+Reference to psyco removed from docs.
+
+August 24, 2013
+Released 12.10c
+
+-----------------------
+
+Minor change go get stdin (and -g option) to actually work.
+
+
+September 6, 2013
+Released 12.10d
+
+---------------------------
+
+Added RDURATION command. This is the same format as the other "R" commands. See manual.
+
+Normally groove additions aren't listed here, but the new "none.mma" file
+ is noteworthy. It's the simplist groove ever written, but is useful when
+ you want to turn off all the stuff you have.
+
+December 21, 2013
+Released 13.12

@@ -1,0 +1,550 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Triggers</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node27.html">
+<LINK REL="previous" HREF="node25.html">
+<LINK REL="next" HREF="node27.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node27.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node25.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node27.html">After</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node25.html">Patch Management</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION002600000000000000000"></A>
+<A ID="sec-triggers"></A>
+<BR>
+Triggers
+</H1>
+
+<P>
+It is possible to have 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  sequences to be automatically played
+only when certain conditions apply. This is controlled by a
+T<SMALL>RIGGER</SMALL>.
+
+<P>
+T<SMALL>RIGGER</SMALL>s are available for all tracks with the exception of
+M<SMALL>ELODY</SMALL> and S<SMALL>OLO</SMALL>. T<SMALL>RIGGER</SMALL>s are <SPAN  CLASS="textit">not</SPAN> saved in
+G<SMALL>ROOVES</SMALL>.<A ID="tex2html125"
+  HREF="#foot5077"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+
+<P>
+Once you understand the concept of a T<SMALL>RIGGER</SMALL>, we think you'll
+find them very useful. Suppose, for example, that you only want a
+chord to be played on a track when the chord changes. First of all you
+need to create a chord track:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Chord-1 
+<BR>&nbsp;&nbsp;&nbsp;Voice Piano1 
+<BR>&nbsp;&nbsp;&nbsp;Octave 5 
+<BR>&nbsp;&nbsp;&nbsp;Sequence {1 1 90 * 4} // chords on 1,2,3 and 4 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If you used this with the following data:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>1 C / D 
+<BR>
+2 C Gm  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+you will get chords sounding on each beat in the bar.
+
+<P>
+To enable a trigger to only sound when the chord changes:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-1 Trigger Auto  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, the chord will sound on beats 1 and 3 of the first bar and 1 and
+2 of the second.
+
+<P>
+With that under our belts, let's have a look at all options available:
+
+<P>
+First, commands which do not require an additional option:
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<DL>
+<DT><STRONG>Auto</STRONG></DT>
+<DD>This keyword signals that a trigger should occur
+    <SPAN  CLASS="textit">at any point</SPAN> when a chord is changed. In this case you do
+    not need (nor should you have) a B<SMALL>EATS</SMALL> option. Note: For
+    this command and R<SMALL>EST</SMALL> the actual point for the trigger is
+    the exact point of the chord/rest change (this could be at an
+    offset like 1.1415).
+
+<P>
+</DD>
+<DT><STRONG>Off</STRONG></DT>
+<DD>Turns the trigger for the specified track off. This is
+    the same as having a T<SMALL>RIGGER</SMALL> command with no arguments. No
+    other commands are permitted with an &ldquo;off&rdquo; setting.
+
+<P>
+</DD>
+<DT><STRONG>Rest</STRONG></DT>
+<DD>This keyword signals that a trigger should occur
+    <SPAN  CLASS="textit">at any point</SPAN> where a rest starts. In this way you can
+    handle a rest like a &ldquo;special&rdquo; chord.
+
+<P>
+</DD>
+</DL></td></tr></table>
+
+<P>
+The following commands are set in the OPTION=VALUE format:
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<DL>
+<DT><STRONG>Beats</STRONG></DT>
+<DD>A comma separated list of beats for your trigger. Note
+    that this is ignored if you have set one of the keywords
+    A<SMALL>UTO</SMALL> or R<SMALL>EST</SMALL>. The beats can be any legal offset into
+    the bar (in <SPAN  CLASS="textbf">4/4</SPAN> this would include 1, 2.4 and even
+    3.9).
+
+<P>
+</DD>
+<DT><STRONG>Bars</STRONG></DT>
+<DD>The bars of the sequence to apply the trigger to. For
+    example (assuming a four bar sequence):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-1 Trigger Auto Bars=1,3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+would limit the sequence to chord changes occurring in the first
+    and third (of four) bars of each sequence in the song.
+
+<P>
+</DD>
+<DT><STRONG>Cnames</STRONG></DT>
+<DD>A list of chord names which are checked against the
+    active chord at each point of the B<SMALL>EATS</SMALL> list. Example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-Test Trigger Beats=1,2,3,4 Cnames=Cm,E7,FM7   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If the chord name is not in the specified list, no trigger is
+    activated.
+
+<P>
+</DD>
+<DT><STRONG>Ctonics</STRONG></DT>
+<DD>A list of base chord names which are checked against
+    the active chord at each point of the B<SMALL>EATS</SMALL> list. Example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-Test Trigger Beats=1,2,3,4 Ctonics=C,E,F   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If the tonic of the chord is not in the specified list, no trigger
+    is activated.
+
+<P>
+</DD>
+<DT><STRONG>CTypes</STRONG></DT>
+<DD>A list of chord types (e.g., &ldquo;m&rdquo;, &ldquo;7&rdquo;, &ldquo;dim&rdquo;)
+    which are checked against the active chord at each point of
+    theB<SMALL>EATS</SMALL> list. Example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-Test Trigger Beats=1,2,3,4 Ctypes=m,m7,dim7   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If the chord-type is not in the specified list, no trigger is
+    activated.
+
+<P>
+</DD>
+<DT><STRONG>Count</STRONG></DT>
+<DD>The number of patterns to use from the sequence. If you
+    have a sequence of four events (like the example at the start of
+    this section) only the first event is used. However, by setting
+    the count to a value:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-1 Trigger Auto Count=2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+more of the patterns will be used. No pattern will start past the
+    end of the current bar. The above example doesn't really make a
+    lot of sense, but with a sequence like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-1 Sequence {1 3 90; 1.3 3 90; 1.6 3 90}  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and a C<SMALL>OUNT</SMALL> of 3 you can have a triplet play for each
+    trigger point.
+
+<P>
+</DD>
+<DT><STRONG>Measures</STRONG></DT>
+<DD>You can limit the trigger events to specific
+    measure number labels. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-1 Trigger Auto Measures=1,5,9   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will cause trigger events to be played only when a chord changes
+    in bars 1, 5 or 9.<A ID="tex2html126"
+  HREF="#foot9592"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> Please note that the bar numbers
+    are not checked against the actual bar numbers in your song (which
+    can be hard to calculate after repeats and endings), but with the
+    <SPAN  CLASS="textit">bar number label</SPAN> in the file. So a trigger command in the above
+    example will apply to all of the following bars, regardless of the
+    order of the numbering:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>5 Cm 
+<BR>
+1 G     
+<BR>
+1 D     
+<BR>
+5 E7    
+<BR>
+9 A  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Please don't number your bars like this! It's just an example.
+
+<P>
+</DD>
+<DT><STRONG>Override</STRONG></DT>
+<DD>By default, when a bar is parsed and the trigger
+    command <SPAN  CLASS="textit">does not</SPAN> create any events 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will generate an
+    empty bar for the track. However, by setting O<SMALL>VERRIDE=</SMALL>T<SMALL>RUE</SMALL>
+    the original sequence for the track will be used. Use of this
+    command (in conjunction with the S<SMALL>EQUENCE</SMALL> command) lets you
+    have different patterns for bars with and without a trigger
+    response. The only permitted options for this command are &ldquo;On&rdquo;,
+    &ldquo;1&rdquo;, or &ldquo;True&rdquo; to enable and &ldquo;Off&rdquo;, &ldquo;0&rdquo; or &ldquo;False&rdquo; to
+    disable.
+
+<P>
+</DD>
+<DT><STRONG>Sequence</STRONG></DT>
+<DD>By default, a T<SMALL>RIGGER</SMALL> will use the
+    S<SMALL>EQUENCE</SMALL> defined for the track. This command defines a
+    different sequence to use. This can be useful in toggling between
+    the track sequence and the trigger's by turning the trigger on and
+    off. Define the sequence in the normal manner:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-1 Trigger Auto Sequence = {1 3 90; 1.33 3 80; 1.66 3
+      70}   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Only one sequence is permitted in a trigger command.
+
+<P>
+</DD>
+<DT><STRONG>Sticky</STRONG></DT>
+<DD>This is a convience option to set the S<SMALL>TICKY</SMALL>
+    bit for the current track. Its effect is the same as described <A HREF="node6.html#sect-sticky">here</A>. When using the option in a
+      T<SMALL>RIGGER</SMALL> line you must include the &ldquo;=&rdquo; as in:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-Triangle Trigger Sticky=True   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can disable this command by using a &ldquo;False&rdquo; option.
+
+<P>
+</DD>
+<DT><STRONG>Truncate</STRONG></DT>
+<DD>The duration of the notes in the sequence used by a
+    trigger are, normally, left as defined. If you are using short
+    notes, this works just fine. But, if the durations are longer you
+    can end up with overlapping notes. The T<SMALL>RUNCATE</SMALL> command
+    forces 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to truncate the duration of each note to the lesser
+    of what is specifed, the start of the next pattern or the end of
+    the current bar.
+
+<P>
+</DD>
+</DL></td></tr></table>
+
+<P>
+Things to note:
+
+<UL>
+<LI>A T<SMALL>RIGGER</SMALL> will always override a S<SMALL>EQUENCE</SMALL> in a
+  track (almost: see the O<SMALL>VERRIDE</SMALL> option). So, if you have a
+  sequence set, it will never be played if a trigger is active ...
+  whether the trigger is activated or not. You should also note that
+  R<SMALL>IFF</SMALL>s override triggers ... which make riffs a convenient
+  method of disabling triggers for one or more bars.
+
+<P>
+When combining various options you should note the hierarchy of
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's decision tree:
+  
+<OL>
+<LI>If the B<SMALL>ARS</SMALL> or M<SMALL>EASURES</SMALL> options have been set
+    and the current bar is not in the list, no trigger is enabled,
+
+<P>
+</LI>
+<LI>If there is no sequence (either from the track sequence or the
+    trigger sequence option), no trigger is enabled,
+
+<P>
+</LI>
+<LI>Regardless of the current mode (Chord, Rest or Beats) a new
+    sequence is created. If this is an empty sequence ... again no
+    trigger.
+
+<P>
+</LI>
+<LI>the CN<SMALL>AME</SMALL>, CT<SMALL>ONIC</SMALL> and CT<SMALL>YPE</SMALL> commands act
+    to limit the B<SMALL>EATS</SMALL>.
+
+<P>
+</LI>
+</OL>
+
+<P>
+If any of the above conditions result in &ldquo;no trigger&rdquo;, no events
+  will be generated. You can force events with the use of the
+  O<SMALL>VERRIDE</SMALL> option (above).
+
+<P>
+An empty line:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-snare Trigger  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will reset all options to the default and disable the trigger.
+
+<P>
+</LI>
+<LI>For the CN<SMALL>AMES</SMALL>, CT<SMALL>ONICS</SMALL> and CT<SMALL>YPES</SMALL>
+  limiters:
+
+<P>
+
+<UL>
+<LI>Using R<SMALL>OMAN</SMALL> notation, the chord name will be the value
+    of the roman numeral (e.g., &ldquo;I&rdquo;, &ldquo;vii&rdquo;); however, the tonic
+    and type will be correctly derived.
+
+<P>
+</LI>
+<LI>The T<SMALL>RANSPOSE</SMALL> settings have no effect on the chord
+    names and tonics.
+
+<P>
+</LI>
+<LI>P<SMALL>OLYCHORDS</SMALL> will have only the root (left side) of the
+    name saved (the chords &ldquo;C&rdquo; and &ldquo;C&brvbar;D&rdquo; are identical
+    for the purposes of a trigger).
+
+<P>
+</LI>
+<LI>If you have more than one of these options set, only the first
+    (in order of CN<SMALL>AMES</SMALL>, CT<SMALL>ONICS</SMALL> and CT<SMALL>YPES</SMALL>) is
+    used.
+
+<P>
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>You may get better results by creating a main track and copy
+  that to a trigger track.
+
+<P>
+</LI>
+<LI>A T<SMALL>RIGGER</SMALL> command always starts with all options set to
+  default.
+
+<P>
+</LI>
+<LI>Triggers are not saved as part of a G<SMALL>ROOVE</SMALL>. However,
+  there is no reason you can't save a trigger command in a macro (in a
+  library file) and call that from your song file.
+
+<P>
+If you want a trigger to sound across different grooves you must set
+  the track for the trigger to S<SMALL>TICKY</SMALL> (details
+  <A HREF="node6.html#sect-sticky">here</A>). If you don't, all
+  the settings for the track will be reset when a G<SMALL>ROOVE</SMALL>
+  command is issued.
+
+<P>
+</LI>
+</UL>
+
+<P>
+A number of example files are included in the distribution in the
+directory <kbd><A ID="tex2html127"
+  HREF="egs/triggers">egs/triggers</A></kbd>.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot5077">...G<SMALL>ROOVES</SMALL>.</A><A
+ HREF="node26.html#tex2html125"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>If triggers were part of a groove, the
+  triggers a user creates would disappear on a groove change. Probably
+  not what is expected.
+
+</DD>
+<DT><A ID="foot9592">... 9.</A><A
+ HREF="node26.html#tex2html126"><SUP><SPAN CLASS="arabic">26</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>This is a good reason to number each
+      bar in your song, as recommended <A HREF="node8.html#sect-barnumbers">here</A>.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node27.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node25.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node27.html">After</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node25.html">Patch Management</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

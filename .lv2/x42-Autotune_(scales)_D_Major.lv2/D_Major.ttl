@@ -1,0 +1,44 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<>
+	a pset:Preset ;
+	lv2:appliesTo <http://gareus.org/oss/lv2/fat1#scales> ;
+	rdfs:label "D Major" ;
+	lv2:port [
+		lv2:symbol "bendrange" ;
+		pset:value 2.0
+	] , [
+		lv2:symbol "bias" ;
+		pset:value 0.5
+	] , [
+		lv2:symbol "channelf" ;
+		pset:value 0.0
+	] , [
+		lv2:symbol "corr" ;
+		pset:value 1.0
+	] , [
+		lv2:symbol "fastmode" ;
+		pset:value 0.0
+	] , [
+		lv2:symbol "filter" ;
+		pset:value 0.1
+	] , [
+		lv2:symbol "mode" ;
+		pset:value 0.0
+	] , [
+		lv2:symbol "offset" ;
+		pset:value 0.0
+	] , [
+		lv2:symbol "scale" ;
+		pset:value 3.0
+	] , [
+		lv2:symbol "tuning" ;
+		pset:value 440.0
+	] .
+

@@ -1,0 +1,184 @@
+
+// fastwaltz
+
+Begin Doc
+
+ A waltz in 1. Good for those real fast waltz pieces where folks 
+ are floating around the room. See ``Somewhere My Love'' for an
+ example.
+    
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 3
+TimeSig 3 4
+Include stdpats34
+
+//////////////////////////////////////////////////////
+/// Basic waltz
+
+Seqsize 4
+
+Begin Drum-Snare
+    Tone SnareDrum1
+    Sequence 	D1	/	/	D123
+	Volume p
+	Rskip 2
+	Rvolume 20
+	Rtime 2
+End
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence	  D1 
+	Volume m
+	Rvolume 10
+	Rtime 3
+End
+
+Begin Drum-Tri
+	Sequence	D1	z	z	z
+	Tone OpenTriangle
+	Volume p
+	Rvolume 10
+	Rtime 2
+End
+
+Begin Chord
+	Voice Piano1
+	Sequence  {1 2. 90} /  / {1 4 90; 2.5 8 70; 3 8 80}
+	Voicing Mode=Optimal
+	Volume m
+    DupRoot -1
+	Articulate 110 / / 90
+	Octave 4
+End
+
+Begin Bass
+    Voice AcousticBass
+	Sequence	B1   B1/5   B1   z
+	Octave  3
+	Volume mp
+	Articulate 70
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence	z    z    z   W123
+	Volume mp
+	Articulate 70
+End
+
+DefGroove FastWaltz    A basic waltz pattern in 1.
+
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence  { 1 2. 90 * 3 }
+	Voicing Mode=Optimal
+	Articulate 100
+	Unify On
+	Volume mp
+	Octave 5
+End
+
+
+DefGroove FastWaltzSus         Add strings to FastWaltz.
+
+
+//////////////////////////////////////
+/// Plus versions add in arpeggios
+
+
+// Add interest by alternating scales and apreggios.
+
+Groove FastWaltz
+
+Begin Arpeggio
+	Sequence	A3  A6
+	Voice Piano1 
+	Octave 4
+	Range 2
+	Rskip      10  20
+    Harmony OpenAbove
+    Direction Random
+	Volume mp
+	Articulate 99
+End
+
+
+DefGroove FastWaltzPlus   Piano arpeggios filler.
+
+Chord-Sus Groove FastWaltzSus
+
+DefGroove FastWaltzSusPlus     FastWaltz with arpeggios and sustained strings.
+
+/////////////////////////////////////
+/// Walking bass versions
+
+Groove FastWaltz
+
+Bass Sequence -
+Walk Sequence	{1 4 90; 3 8 80} / / W123
+DefGroove FastWaltzWalk      Walking bass version of FastWaltz.		
+
+Chord-Sus Groove FastWaltzSus
+DefGroove FastWaltzWalkSus        Walking bass and sustained strings.
+
+Groove FastWaltzPlus
+Bass Sequence -
+Walk Sequence {1 4 90; 3 8 80} / / W123
+DefGroove FastWaltzWalkPlus        Walking bass and arpeggios.
+
+Chord-Sus Groove FastWaltzSus
+DefGroove FastWaltzWalkSusPlus    Walking bass, arpeggios and sustained strings.
+
+/////////////////////////////////////////////////////////////
+/// Introduction
+
+Groove FastWaltz
+
+//Drum-Snare
+Drum-Tri  Sequence D1 z z D1
+//Drum-Kick
+
+Chord     Sequence  *  *  * {1 2. 100}
+
+DefGroove FastWaltzIntro  4 bar intro.
+
+Groove FastWaltz
+Seqsize 8
+
+Drum-Tri  Sequence D1 z z D1 z z z D1
+Chord     Sequence * * * {1 2. 80} *  *  * {1 2. 100}
+
+DefGroove FastWaltzIntro8  8 bar intro.
+
+///////////////////////////////////////////////////////////////
+/// Ending
+
+Groove FastWaltz
+
+Drum-Snare   Sequence 	D123	/	D23	 D1
+Drum-Tri     Sequence   D1	    z	D1   z
+//Drum-Kick
+Chord        Sequence	C1   /   C12  C1
+Bass         Sequence	B1   B1/5   B1   B1
+Walk         Sequence   -
+
+Begin Scale
+	Sequence	{1 4 90; 3 8 90} /  S3  S1 
+	Voice  Piano1
+    Range 3
+	Octave 4
+	Volume mp
+	Articulate 99
+End
+
+DefGroove FastWaltzEnd      Simple ending based on Waltz with piano scales. \
+                        Adjust your SEQ points or use a CUT to finish the last bar.
+                        
+

@@ -1,0 +1,148 @@
+// 60spop.mma
+
+Begin Doc  
+      60s pop (027). Pretty good pop rock set.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    RVolume 20
+    Sequence {1 0 102; 1.5 0 73; 2 0 85; 2.8 0 84; 3.3 0 80; 3.8 0 72; 4 0 87; 4.5 0 85} 
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Rvolume 10
+    Sequence {1.5 0 82; 2.5 0 90; 3.5 0 85; 4.5 0 85}
+End
+
+Begin Drum-HandClap
+    Tone HandClap
+    Volume m
+    Rvolume 5
+    Sequence {2.5 0 80; 4.5 0 77}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 5
+    Sequence {1 0 107; 1.5 0 83; 2 0 81; 2.5 0 82; 3 0 86; 3.5 0 82; 4 0 82; 4.5 0 86} 
+End
+
+Begin Drum-Tambourine
+    Tone Tambourine
+    Volume m
+    RVolume 5
+    RSkip 5
+    Sequence {1 0 56; 1.5 0 57; 2 0 46; 2.5 0 52; 3 0 50; 3.5 0 54; 4 0 61; 4.5 0 56}
+End
+
+Begin Bass-9
+    Voice PickedBass
+    Octave 3
+    Articulate 100
+    Volume m
+    RVolume 10
+    Sequence {1 16 1 120; 1.5 16 1 108; 2 3 1 111; 2.8 6 1 111; \
+               3.3 6 1 103; 3.8 64 1 105; 4 8 1 111} 
+End
+
+Begin Chord-6
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 2 90} \
+             {1 2 90; 4.3 32 90} \
+             {1 2 90; 3.8 64 90; 4.3 3 90} \
+             {1 2 90; 3.8 64 90; 4.3 8 90; 4.4 3 90}
+End
+
+
+Begin Chord-7
+    Voice CleanGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1.5 64 90; 2.5 64 90; 3.5 64 90; 4.5 64 90}
+End
+
+
+Begin Chord-8
+    Voice Vibraphone
+    Octave 6
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {1 2 90}  /   /     {1 4 90; 3 4 90}
+End
+
+DefGroove 60sPop   A decent pop/rock rhythm.
+
+/////////////////////////////////////////////////////////
+////////  Intro
+
+Groove 60sPop
+
+Drum-KickDrum1    Sequence  D1234  *   *   D13
+Drum-SnareDrum1   Sequence  D1234  *   *   D1234
+//Drum-HandClap     
+Drum-ClosedHiHat  Sequence    *    *   *   D1234
+Drum-Tambourine   Sequence    *    *   *   z
+
+Bass-9            Sequence    *    *   *   B1234
+
+// Piano1
+Chord-6           Sequence  C13    *   *   L1
+
+// cleanguitar
+Chord-7           Sequence   *     *   *   L1
+
+// Vibraphone
+Chord-8           Sequence   *     *   *   C1
+
+
+DefGroove 60sPopIntro   A 4 bar intro
+
+
+/////////////////////////////////////////////////////////
+////////  Intro
+
+Groove 60sPop
+SeqSize  2
+
+Drum-KickDrum1    Sequence  D1234     D1
+Drum-SnareDrum1   Sequence  D1234     D1
+Drum-HandClap     Sequence    *       z
+Drum-ClosedHiHat  Sequence    *       D1
+Drum-Tambourine   Sequence    *       z
+
+Bass-9            Sequence  B1234     B1
+
+// Piano1
+Chord-6           Sequence  C13       L1
+
+// cleanguitar
+Chord-7           Sequence   *        L1
+
+// Vibraphone
+Chord-8           Sequence   *        C1
+
+
+DefGroove 60sPopEnd   2 bar ending

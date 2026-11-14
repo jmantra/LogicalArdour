@@ -1,0 +1,93 @@
+/// A little demo to show how the root note in chord tracks
+/// can be delayed to give an interesting "punch" to strumming
+
+/// First, grab a chord pattern. In this example we have copy/pasted
+/// much from the stdlib/blues.mma
+
+/// first off, clear and set up
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+SeqSize 4
+
+Begin Drum		
+	Sequence D1234
+	Tone SnareDrum1 
+	Rvolume 10
+	Rskip 50
+	Rtime 4
+	Volume ppp
+End
+
+Begin Drum-Clap
+	Sequence D24 
+	Tone HandClap
+	SeqRnd On
+	Rvolume 10
+	RSkip 50
+	Rtime 4
+	Volume pp
+End
+
+Begin Drum-HH
+	Sequence D1234
+	Tone ClosedHiHat
+	RVolume 10
+	Volume mp
+End
+
+Begin Walk
+	Voice AcousticBass
+	Sequence W1234 / / z
+	Octave 3
+	Volume mp
+	Articulate 80
+End
+
+Begin Bass
+	Voice $_Walk_Voice
+	Octave $_Walk_Octave
+	Sequence z / / B11
+	Volume mp
+	Articulate 80
+End
+
+Begin Chord
+	Sequence {1 4 0 90; 3 4 0 90}   /// CHANGED, chords are now rootless
+	Strum  5              /// ADDED
+	Voicing   Mode=Optimal
+	Voice JazzGuitar
+	Octave 4
+	Volume mp
+	Articulate 110
+End	
+Begin Chord-delayed
+	Sequence {1 4 100 0; 3 4 100 0 }  // just the root note of the chord
+	Delay -20t   /// a move to the left
+	Rtime 5      /// humanize a bit
+	Voicing  Mode=Root   /// this should force root
+	Voice JazzGuitar
+	Octave 5    /// for emphasis :)
+	Volume mp
+	Articulate 120
+End
+
+////////////  Now, notice we have NOT set this as a groove.
+////////////  We are just using everything above as a bunch
+////////////  of patterns/sequences.
+
+/// Our song ... well, actually just a sequence of chords :)
+///  And, if you really must know, it's 12 bars from the song Again.
+
+Tempo 80
+
+5   G       /       Em7     
+6   Am7     /       D7b9    
+7   GM7     /       Bm      
+8   Am7     /       D9      
+9   G       /       G#dim   
+10  Am7     /       D7b9    
+11  G       /       Em      
+12  Am7     /       D7

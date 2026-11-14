@@ -1,0 +1,237 @@
+
+// slowcountry
+
+
+Begin Doc
+
+	For slow, mellow country tunes. I use this for the Patsy Cline 
+	hit ``Crazy''.	
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+
+
+///////////////////////////
+/// SlowCountry
+
+
+SeqSize 4
+
+
+// For the chord I thought I could just use patterns with
+// only the root or 5th being played (like 1 4 0 0 90 0),
+// but that doesn't work if you are using voicing ... well,
+// note quite. The notes will be the 3rd, 5th, etc. but the
+// octaves will get shifted. So, easy to use  2 patterns,
+// one with full chords and a bass with the same voice/track
+// for the single note fills.
+
+Begin Chord
+	Voice JazzGuitar
+    Define CL4 1 2 80 60 ;  4 4 80 60
+	Sequence	CL4  L2  CL4  L2
+	Articulate   90  80   90  80
+	Volume mf
+	Voicing Mode=Optimal
+	Strum        10  15  10   15
+	Accent 1 10 3 5
+	RVolume 10
+	Octave 4
+End
+
+Begin Bass-Fill
+	Voice $_Chord_Voice
+	Articulate $_Chord_Articulate
+	Octave $_Chord_Octave
+	Define  F1 3 4. 1 90; 3.5 4 5 90
+	Define  F2 4.5 8 1 90
+	Sequence  F1 F2 F1 z
+	Volume p
+End
+
+// Toggle between bass and walk for the bass line.
+
+Begin Bass
+	Voice FingeredBass
+	Sequence	B13	  / B11 z
+	Octave 3
+	Articulate 90
+	Volume mp
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence	z	z	z	W1234
+	Articulate $_Bass_Articulate
+	Volume mp
+End
+
+Begin Drum-Tom
+	Sequence   D13
+	Rtime 5
+	Rvolume 5
+	Tone LowTom1
+	Volume mp
+End	
+
+Begin Drum-PHH
+	Sequence	D24
+	Tone PedalHiHat
+	Rtime 5
+	Rvolume 10
+	Volume mp
+End
+
+DefGroove SlowCountry      Simple nylon guitar in 2.
+
+
+Begin Chord-Sus
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Volume p
+	Voice TremoloStrings
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+DefGroove SlowCountrySus    Adds a sustained strings (2 part) to SlowCountry.
+
+Groove SlowCountry
+
+Begin Arpeggio
+	Voice Piano2
+	Sequence  A4 / / A8
+	RVolume 20
+	Volume mp
+	Octave 6
+	Harmony Open
+	Direction Both Random Both Down
+	Articulate  90
+	Rskip 5
+End
+
+DefGroove SlowCountryFill  Adds guitar apreggio. Quarters on \
+                         bar 1,2,3 and eights on bar 4.
+
+///////////////////////
+// Same as above with with constant walking bass line
+
+Groove SlowCountry
+
+Begin Walk
+	Sequence W1234
+	Articulate 70
+	Volume mf
+End
+	
+Bass SeqClear
+
+DefGroove SlowCountryWalk    The SlowCountry Groove with a full walking \
+                           bass line. The bass volume has been increased \
+                           as well.
+
+Chord-Sus Groove SlowCountrySus
+
+DefGroove SlowCountryWalkSus   SlowCountry with a walking bass line and \
+                             a sustained string.
+
+
+Groove SlowCountry
+Arpeggio Groove SlowCountryFill
+DefGroove SlowCountryWalkFill   Walking bass fill.
+
+
+///////////////////////////////////////
+/////////  Plus versions add in a fiddle
+
+Groove SlowCountry
+Begin Arpeggio-Fiddle
+    Voice Violin 
+    Volume p
+    HarmonyOnly 2Above
+    Articulate 100
+    Rskip 20
+    Range 2
+    Direction Random
+    Octave 5
+    SeqRnd On
+    Define AA 1 2 90; 3 2 70;
+    Sequence   AA {AA Shift .33} {AA Shift .66} {AA Shift .33; AA Shift .66}
+End
+
+DefGroove SlowCountryPlus   Basic slow country with awful fiddling.
+
+Groove SlowCountrySus
+Arpeggio-Fiddle Groove SlowCountryPlus
+DefGroove SlowCountrySusPlus  Slow country with strings and fiddling.
+
+Groove SlowCountryWalk
+Arpeggio-Fiddle Groove SlowCountryPlus
+DefGroove SlowCountryWalkPlus  Slow country walking bass fiddling.
+
+Groove SlowCountryWalkSus
+Arpeggio-Fiddle Groove SlowCountryPlus
+DefGroove SlowCountryWalkSusPlus  Slow country with walking bass, strings and fiddling.
+
+Groove SlowCountryFill
+Arpeggio-Fiddle Groove SlowCountryPlus
+DefGroove SlowCountryFillPlus  Slow country with guitar arpeggios and fiddling.
+
+
+Groove SlowCountryWalkFill
+Arpeggio-Fiddle Groove SlowCountryPlus
+DefGroove SlowCountryWalkFillPlus  Slow country with walking bass, guitar arpeggios and fiddling.
+
+////////////////////////////////
+/// Intros
+
+Groove SlowCountry
+
+Begin Alltracks
+	SeqRnd Off
+	Rskip 0
+End
+
+Chord    Sequence	L2	/ /  L1
+Bass     Sequence	B13 / / {1 2. 1 90}
+Walk     Sequence   -
+Drum-Tom Sequence   D13 / /  D1
+Drum-PHH Sequence	D24   /  /  D1
+
+DefGroove SlowCountryIntro       4 bar intro
+
+///////////////////////////////////////////////
+// Endings
+
+
+SeqClear
+Groove SlowCountry
+SeqSize 2
+
+Begin Alltracks
+	SeqRnd Off
+	Rskip 0
+	Rtime 0
+End
+
+Drum-Tom  Sequence D1234  D1
+Drum-PHH Sequence  D1234  D1
+
+Chord Sequence 	L2 L1
+
+Walk Sequence	W1234  z
+Bass Sequence 	z	{1 1 1 90}
+
+DefGroove SlowCountryEnd     Simple ending.
+
+
+

@@ -1,0 +1,148 @@
+ //  ambient1.mma
+
+Begin Doc  
+      Ambient1 (052). Electronic dance beat.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 120; 2.5 0 120; 3.5 0 100 }
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {1 0 31; 1.1 0 31; 1.2 0 31; 1.3 0 31; 2 0 31; 3 0 32; 3.7 0 30; 4.3 0 30} \
+             {1.5 0 31; 2 0 30; 2.7 0 32; 2.8 0 31; 2.9 0 31; 3 0 46; \
+               3.3 0 46; 3.8 0 29; 4 0 29; 4.3 0 29; 4.8 0 29}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence {3 0 100; 4.5 0 105}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 69; 1.5 0 66; 2 0 116; 2.5 0 41; 3 0 69; 3.5 0 61;\
+                 4 0 93; 4.3 0 93; 4.5 0 74; 4.8 0 74}
+End
+
+Begin Drum-Claves
+    Tone Claves
+    Volume m
+    RVolume 10
+    Sequence {2 0 60; 3.5 0 53; 4.5 0 55}
+End
+
+Begin Bass-9
+    Voice SynthBass1
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 8 1 100; 2.5 8 1 96} \
+             {1 8 1 100; 2.5 8 1 92; 3.5 6 1 83; 4 3 1 100 } \
+             {1 8 1 100; 2.5 3 1 88} \
+             {1 8 1 100; 2.5 6 1 88; 3.5 6 1 89; 4 6 1 115; 4.2 6 1 88; 4.5 6 5 80; 4.8 6 1 74}
+End
+
+Begin Chord-6
+    Voice SoundTrack
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Unify  On
+    Sequence {1 1 90 * 4}
+End
+
+
+
+Begin Bass-7
+    Voice SquareWave
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {1.2 3 1 100; 1.3 8 3 65; 1.5 3 5 92; 1.7 16 1 100; \
+               2.2 3 1 74; 2.3 8 3 74; 2.4 3 5 74; 2.7 16 1 68; \
+               3 3 1 64; 3.1 8 3 64; 3.2 3 5 60; 3.4 16 1 57; \
+               4 3 1 50; 4.1 8 3 49; 4.2 3 5 47; 4.4 16 1 44} \
+             z   z \
+             {1 3 5 91; 1.3 6 3 79; 1.4 16 1 78; 1.7 6 5 72; \
+               1.7 3 5 78; 2 6 3 72; 2.2 16 1 59; 2.4 6 5 40; \
+               2.5 3 5 44; 2.8 6 3 23; 2.9 3 1 20; 3.2 6 5 17}
+End
+
+Begin Chord-8
+    Voice Goblins
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence  z   {4.8 2 90}     z      z
+End
+
+DefGroove Ambient1  Basic 4 bar pattern
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove Ambient1
+
+Drum-KickDrum1    Sequence  *    *     D1234   {D23 Shift .5 }
+Drum-SnareDrum1   Sequence  *    *     *       {1 0 50 * 8}
+Drum-SnareDrum2   Sequence  D1234  *   *       {D34}
+Drum-ClosedHiHat  Sequence  *    *     *       Droll
+Drum-Claves       Sequence  *    *     *       D1234
+
+Bass-9            Sequence  *    *     *       B1234
+
+// Soundtrack
+Chord-6           Sequence  *    *      *      {1 2 80}
+
+//  SquareWave
+Bass-7            Sequence  *    *      *       B1234
+
+//  Goblins
+Chord-8           Sequence  z   *       z       C13
+
+DefGroove Ambient1Intro  A 4 bar intro
+
+//////////////////////////////////////////////////////////////////////
+/////////  Ending
+
+Groove Ambient1
+SeqSize 2
+
+Drum-KickDrum1    Sequence  D1234     D1
+Drum-SnareDrum1   Sequence  {1 0 50 * 8}  D1
+Drum-SnareDrum2   Sequence  D1234      D1
+Drum-ClosedHiHat  Sequence  Droll      D1
+Drum-Claves       Sequence  D1234      D1
+
+Bass-9            Sequence  *          B1
+
+// Soundtrack
+Chord-6           Sequence  *          {1 4. 80}
+
+//  SquareWave
+Bass-7            Sequence  *          B1
+
+//  Goblins
+Chord-8           Sequence  z          C1
+
+DefGroove Ambient1End  A 2 bar ending

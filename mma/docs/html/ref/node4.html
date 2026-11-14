@@ -1,0 +1,1404 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Patterns</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node5.html">Sequences</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node3.html">Tracks and Channels</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html520"
+  HREF="node4.html#SECTION00410000000000000000">Defining a Pattern</A>
+<UL>
+<LI><A ID="tex2html521"
+  HREF="node4.html#SECTION00411000000000000000">Bass</A>
+<LI><A ID="tex2html522"
+  HREF="node4.html#SECTION00412000000000000000">Chord</A>
+<LI><A ID="tex2html523"
+  HREF="node4.html#SECTION00413000000000000000">Arpeggio</A>
+<LI><A ID="tex2html524"
+  HREF="node4.html#SECTION00414000000000000000">Walk</A>
+<LI><A ID="tex2html525"
+  HREF="node4.html#SECTION00415000000000000000">Scale</A>
+<LI><A ID="tex2html526"
+  HREF="node4.html#SECTION00416000000000000000">Aria</A>
+<LI><A ID="tex2html527"
+  HREF="node4.html#SECTION00417000000000000000">Plectrum</A>
+<LI><A ID="tex2html528"
+  HREF="node4.html#SECTION00418000000000000000">Drum</A>
+<LI><A ID="tex2html529"
+  HREF="node4.html#SECTION00419000000000000000">Drum Tone</A>
+</UL>
+<BR>
+<LI><A ID="tex2html530"
+  HREF="node4.html#SECTION00420000000000000000">Including Existing Patterns in New Definitions</A>
+<LI><A ID="tex2html531"
+  HREF="node4.html#SECTION00430000000000000000">Multiplying and Shifting Patterns</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION00400000000000000000"></A>
+<A ID="sec-pats"></A>
+<BR>
+Patterns
+</H1>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  builds its output based on P<SMALL>ATTERN</SMALL>s and S<SMALL>EQUENCE</SMALL>s
+supplied by you. These can be defined in the same file as the rest of
+the song data, or can be included (see
+<A HREF="node33.html#sec-paths">here</A>) from a library file.
+
+<P>
+A pattern is a definition for a voice or track which describes what
+rhythm to play during the current bar. The actual notes selected for
+the rhythm are determined by the song bar data (see
+<A HREF="node8.html#sec-music">here</A>).
+
+<P>
+
+<H1><A ID="SECTION00410000000000000000">
+Defining a Pattern</A>
+</H1>
+
+<P>
+The formats for the different tracks vary, but are similar enough to
+confuse the unwary.
+
+<P>
+Each pattern definition consists of three parts:
+
+<P>
+
+<UL>
+<LI>A unique label to identify the pattern. This is
+  case-insensitive. Note that the same label names can be used in
+  different tracks&mdash;for example, you could use the name &ldquo;MyPattern&rdquo;
+  in both a Drum and Chord pattern ... but this is probably not a
+  good idea. Names can use punctuation characters, but must not begin
+  with an underscore (&ldquo;_&rdquo;). The pattern names &ldquo;z&rdquo; or &ldquo;Z&rdquo; and
+  &ldquo;-&rdquo; are also reserved.
+
+<P>
+</LI>
+<LI>A series of note definitions. Each set in the series is
+  delimited with a &ldquo;;&rdquo;.
+
+<P>
+</LI>
+<LI>The end of the pattern definition is indicated by the
+  end-of-line. 
+</LI>
+</UL>
+
+<P>
+In the following sections definitions are shown in continuation lines;
+however, it is quite legal to mash all the information onto a single
+line.
+
+<P>
+The following concepts are used when defining a pattern:
+
+<P>
+<DL>
+<DD><A ID="beat-offset"></A></DD>
+<DT><STRONG>Start</STRONG></DT>
+<DD>When to start the note. This is expressed as a beat
+  offset. For example, to start a note at the start of a bar you use
+  &ldquo;1&rdquo;, the second beat would be &ldquo;2&rdquo;, the fourth &ldquo;4&rdquo;, etc. You
+  can easily use off-beats as well: The &ldquo;and&rdquo; of 2 is &ldquo;2.5&rdquo;, the
+  &ldquo;and ahh&rdquo; of the first beat is &ldquo;1.75&rdquo;, etc. Using a beat offset
+  greater than the number of beats in a bar or less than &ldquo;0&rdquo; is not
+  permitted.
+
+<P>
+Please note that offsets in the range &ldquo;0&rdquo; to &ldquo;.999&rdquo;
+  will actually be played in the <SPAN  CLASS="textit">previous</SPAN> bar using the chord
+  specified at beat 1 of the current bar (this can be useful in Jazz
+  charts, and it will generate a warning!).<A ID="tex2html23"
+  HREF="#foot9435"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> See
+  T<SMALL>IME</SMALL> (<A HREF="node17.html#time">here</A>) for other timing
+  issues.
+  To illustrate
+  with an example (assuming <SPAN  CLASS="textbf">4/4</SPAN> time), the following bass
+  track will play a quarter note on beats one and three and an eight
+  note on beat 4.5 using the chord from the next bar&mdash;or you can say
+  it plays the eight note one half beat before the current bar.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Sequence { .5 8 5 70;  1 4 1 90; 3 4 5 90 }   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The offset can be further modified by appending a note length (see
+  the duration chart, below). If you want to specify an offset in the
+  middle of the first beat you can use &ldquo;1.5&rdquo; or &ldquo;1+8&rdquo;. The latter
+  means the first beat plus the value of an eight note. This notation
+  is quite useful when generating &ldquo;swing&rdquo; sequences. For example,
+  two &ldquo;swing eights&rdquo; chords on beat one would be notated as: &ldquo;1 81
+  90; 1+81 82 90&rdquo;.
+
+<P>
+You can subtract note lengths as well, but this is rarely done. And,
+  to make your style files completely unreadable, you can even use
+  note length combinations. So, yes, the following pattern is
+  fine:<A ID="tex2html24"
+  HREF="#foot9436"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Define C1 2-81+4 82 90  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<A ID="notelength"></A>
+<P>
+</DD>
+<DT><STRONG>Duration (Note Lengths)</STRONG></DT>
+<DD>The length of a note is somewhat standard musical
+  notation. Since it is impractical to draw in graphical notes or to
+  use fractions (like <SPAN  CLASS="textbf">1/4</SPAN>) 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> , uses a shorthand
+  notation detailed in the following table:
+
+<P>
+<BLOCKQUOTE>
+
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       
+      <TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><SPAN  CLASS="textit">Notation</SPAN></TD>
+<TD ALIGN="LEFT"><SPAN  CLASS="textit">Description</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT">1</TD>
+<TD ALIGN="LEFT">Whole note</TD>
+</TR>
+<TR><TD ALIGN="LEFT">2</TD>
+<TD ALIGN="LEFT">Half</TD>
+</TR>
+<TR><TD ALIGN="LEFT">4</TD>
+<TD ALIGN="LEFT">Quarter</TD>
+</TR>
+<TR><TD ALIGN="LEFT">8</TD>
+<TD ALIGN="LEFT">Eighth</TD>
+</TR>
+<TR><TD ALIGN="LEFT">81</TD>
+<TD ALIGN="LEFT">The first  of a pair of swing eights</TD>
+</TR>
+<TR><TD ALIGN="LEFT">82</TD>
+<TD ALIGN="LEFT">The second of a pair of swing eights</TD>
+</TR>
+<TR><TD ALIGN="LEFT">16</TD>
+<TD ALIGN="LEFT">Sixteenth</TD>
+</TR>
+<TR><TD ALIGN="LEFT">32</TD>
+<TD ALIGN="LEFT">Thirty-second</TD>
+</TR>
+<TR><TD ALIGN="LEFT">64</TD>
+<TD ALIGN="LEFT">Sixty-fourth</TD>
+</TR>
+<TR><TD ALIGN="LEFT">3</TD>
+<TD ALIGN="LEFT">Eight note triplet</TD>
+</TR>
+<TR><TD ALIGN="LEFT">43</TD>
+<TD ALIGN="LEFT">Quarter note triplet</TD>
+</TR>
+<TR><TD ALIGN="LEFT">23</TD>
+<TD ALIGN="LEFT">Half note triplet</TD>
+</TR>
+<TR><TD ALIGN="LEFT">6</TD>
+<TD ALIGN="LEFT">Sixteenth note triplet</TD>
+</TR>
+<TR><TD ALIGN="LEFT">5</TD>
+<TD ALIGN="LEFT">Eight note quintuplet</TD>
+</TR>
+<TR><TD ALIGN="LEFT">0</TD>
+<TD ALIGN="LEFT">A single MIDI tick</TD>
+</TR>
+<TR><TD ALIGN="LEFT">ddT</TD>
+<TD ALIGN="LEFT">dd MIDI ticks.</TD>
+</TR>
+</TABLE> 
+	
+           </td></tr>
+        </Table>
+
+</BLOCKQUOTE>
+
+<P>
+The &ldquo;81&rdquo; and &ldquo;82&rdquo; notations represent the values of a pair of
+  eighth notes in a swing pair. These values vary depending on the
+  setting of S<SMALL>WING</SMALL>M<SMALL>ODE </SMALL>S<SMALL>KEW</SMALL>, see
+  <A HREF="node18.html#swingmode">here</A>.
+
+<P>
+The note length &ldquo;0&rdquo; is a special value often used in drum tracks
+  where the actual &ldquo;ringing&rdquo;length appears to be controlled by the
+  MIDI synth, not the driving program. Internally, a &ldquo;0&rdquo; note length
+  is converted to a single MIDI tick.
+
+<P>
+Lengths can have a single or double dot appended. For example,
+  &ldquo;2.&rdquo; is a dotted half note and &ldquo;4..&rdquo; adds an eight and sixteenth
+  value to a quarter note.
+
+<P>
+Note lengths can be combined using &ldquo;+&rdquo;. For example, to make a
+  dotted eight note use the notation &ldquo;8+16&rdquo;, a dotted half &ldquo;2+4&rdquo;,
+  and a quarter triplet &ldquo;3+3&rdquo;.
+
+<P>
+Note lengths can also be combined using a &ldquo;-&rdquo;. For example, to
+  make a dotted half you could use &ldquo;1-4&rdquo;. Subtraction might appear
+  silly at first, but is useful in generating a note <SPAN  CLASS="textit">just</SPAN> a bit
+  shorter than its full beat. For example, &ldquo;1-0&rdquo; will generate a
+  note 1 MIDI tick shorter than a whole note. This can be used in
+  generating breaks in sustained tones.<A ID="tex2html25"
+  HREF="#foot9438"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+
+<P>
+It is permissible to combine notes with &ldquo;dots&rdquo;, &ldquo;+&rdquo;s and &ldquo;-&rdquo;s.
+  The notation &ldquo;2.+4&rdquo; would be the same as a whole note.
+
+<P>
+A number of special tuplet values (e.g. 3, 6, 5) have been hard-coded
+  into the above table. However, it is easy to use others. Just
+  specify the note in the ratio format &ldquo;Count:Base&rdquo; where &ldquo;Count&rdquo;
+  is the number of divisions and &ldquo;Base&rdquo; is a note duration from the
+  above table (e.g. 2, 4, 8, etc.). So, an eight note triplet could be
+  set as &ldquo;3:4&rdquo; (there are 3 eight note triplets in a quarter) or a
+  whole note divided into 5 would be &ldquo;5:1&rdquo;. The &ldquo;Base&rdquo; value
+  cannot be a MIDI tick value or be dotted. It is possible to create
+  tuplet values which are not playable and/or permitted in standard
+  musical notation. Ratio tuplets can be added, subtracted and dotted.
+
+<P>
+The actual duration given to a note will be adjusted by the
+  A<SMALL>RTICULATE</SMALL> value <A HREF="node30.html#articulate">here</A>).
+
+<P>
+In special cases you might want to forget all standard duration
+  conventions and specify the length of a note or chord in MIDI ticks.
+  Just append a single &ldquo;t&rdquo; or &ldquo;T&rdquo; to end of the value. For
+  example, a quarter note duration can be set with a &ldquo;4&rdquo; or
+  &ldquo;192t&rdquo;. Using MIDI values can simplify the creation of odd-length
+  beats.
+
+<P>
+When using MIDI tick values you <SPAN  CLASS="textit">cannot</SPAN> use &ldquo;+&rdquo;, &ldquo;-&rdquo; or
+  &ldquo;.&rdquo; to combine or modify the value.
+
+<P>
+</DD>
+<DT><STRONG>Volume</STRONG></DT>
+<DD>The MIDI velocity<A ID="tex2html26"
+  HREF="#foot624"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> to use for the specified note.
+
+<P>
+For a detailed explanation of how 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  calculates the volume of a
+  note, see <A HREF="node19.html#sec-volume">here</A>. Without
+  going into a lot of detail, we recommend a moderate velocity so that
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has some room to make the note louder or softer. If you
+  create a pattern with all your velocities set to 127 it will be
+  impossible for 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to increase them when it encounters a
+  D<SMALL>YNAMIC</SMALL> command. Most of the files in the standard library
+  use velocities in the range 50 to 100.
+
+<P>
+MIDI velocities are limited to the range 0 to 127. However, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+  does not check the volumes specified in a pattern for
+  validity.<A ID="tex2html27"
+  HREF="#foot634"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+
+<P>
+</DD>
+</DL>
+
+<P>
+Patterns can be defined for B<SMALL>ASS</SMALL>, W<SMALL>ALK</SMALL>, C<SMALL>HORD</SMALL>,
+A<SMALL>RPEGGIO</SMALL> and D<SMALL>RUM</SMALL> tracks. All patterns are shared by the
+tracks of the same type&mdash;<SPAN  CLASS="textit">Chord-Sus</SPAN> and <SPAN  CLASS="textit">Chord-Piano</SPAN>
+share the patterns for <SPAN  CLASS="textit">Chord</SPAN>. As a convenience, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will
+permit you to define a pattern for a sub-track, but remember that it
+will be shared by all similar tracks. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Define S1 1 0 50   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-woof Define S1 1 0 50   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Will generate identical outcomes.<A ID="tex2html28"
+  HREF="#foot647"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
+
+<P>
+
+<H2><A ID="SECTION00411000000000000000"></A> <A ID="sec-bass"></A>
+<BR>
+Bass
+</H2>
+
+<P>
+A B<SMALL>ASS</SMALL> pattern is defined with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Position Duration Offset Volume ; ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Each group consists of an beat offset for the start point, the note
+duration, the note offset and volume.
+
+<P>
+The note offset is an integer greater than 0. In reality, only the
+values 1 though 7 are valid, but 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  accepts any positive value.
+Values greater than 7 are wrapped into the valid range and the octave
+is raised appropriately. Values 1 though 7 represent notes of the
+chord's scale. So, if you want to play the root and fifth in a
+traditional bass pattern you'd use &ldquo;1&rdquo; and &ldquo;5&rdquo; in your pattern
+definition. Using values like 9, 11 and 13 make it a bit easier to
+visualize so-called &ldquo;jazz&rdquo; chords.<A ID="tex2html29"
+  HREF="#foot652"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>
+
+<P>
+The note offset can be modified by appending or prepending a single or multiple set
+of &ldquo;+&rdquo; or &ldquo;-&rdquo; signs. Each &ldquo;+&rdquo; will force the note up an octave;
+each &ldquo;-&rdquo; forces it down. This modifier is handy in creating bass
+patterns when you wish to alternate between the root note and the root
+up an octave ... but users will find other interesting patterns.
+There is no limit to the number of &ldquo;+&rdquo;s or &ldquo;-&rdquo;s. You can even use
+both together if you're in a mood to obfuscate.
+
+<P>
+If a &ldquo;+&rdquo; or &ldquo;-&rdquo; sign is prepended it has the exact same effect as
+appending. Actually, &ldquo;+&rdquo; or &ldquo;-&rdquo; signs at the start of the note
+offset are transferred to the end ... which means that &ldquo;+5#&rdquo; and
+&ldquo;5#+&rdquo; are identical.<A ID="tex2html30"
+  HREF="#foot655"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A>
+
+<P>
+The note offset can be further modified with a single accidental
+&ldquo;#&rdquo;, &ldquo;S&rdquo;, &ldquo;s&rdquo;, &ldquo;&amp;&rdquo;, &ldquo;B&rdquo; or &ldquo;b&rdquo;. This modifier will
+raise or lower the note by a semitone.<A ID="tex2html31"
+  HREF="#foot9439"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A> In most cases it doesn't make much sense to use this
+option since the notes in the chord's scale will already reflect
+alterations inherent in the chord. However, you could use it in a
+boogie-woogie pattern where a &ldquo;6#&rdquo; is used to generate a dominant
+7th.
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Bass Definition</BIG></SPAN>  <A ID="eg:b8"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Define Broken8     1 8 1 90 ;  \
+<BR>&nbsp;&nbsp;&nbsp; 2 8 5 80 ;   \
+<BR>&nbsp;&nbsp;&nbsp; 3 8 3 90 ;  \
+<BR>&nbsp;&nbsp;&nbsp; 4 8 1+ 80   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<BR>
+<BR> <SPAN  CLASS="textbf">Sheet Music Equivalent</SPAN>
+
+<P>
+<BR>
+<BR>
+
+<P>
+  <IMG WIDTH="95%"  SRC="mupex/bassb8.png" ALT="Lost Image">
+ 
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+<A HREF="#eg:b8">This example</A> defines 4 bass notes
+(probably staccato eight notes) at beats 1, 2, 3 and 4 in a
+<SPAN  CLASS="textbf">4/4</SPAN> time bar. The first note is the root of the chord, the
+second is the fifth; the third note is the third; the last note is the
+root up an octave. The volumes of the notes are set to a MIDI velocity
+of 90 for beats 1 and 3 and 80 for beats 2 and 4.
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  refers to note tables to determine the &ldquo;scale&rdquo; to use in a
+bass pattern. Each recognized chord type has an associated scale. For
+example, the chord &ldquo;Cm&rdquo; consists of the notes &ldquo;c&rdquo;, &ldquo;e<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>
+and &ldquo;g&rdquo;; the scale for this chord is &ldquo;c, d, e<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>, f, g, a,
+b&rdquo;.
+
+<P>
+Due to the ease in which specific notes of a scale can be specified,
+B<SMALL>ASS</SMALL> tracks and patterns are useful for much more than &ldquo;bass&rdquo;
+lines! These tracks are useful for sustained string voices,
+interesting arpeggio and scale lines, and counter melodies.
+
+<P>
+
+<H2><A ID="SECTION00412000000000000000"></A> <A ID="sec-chordseq"></A>
+<BR>
+Chord
+</H2>
+
+<P>
+A C<SMALL>HORD</SMALL> pattern is defined with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Position Duration Volume1 Volume2 ...; ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Each group consists of an beat offset for the start point, the note
+duration, and the volumes for each note in the chord. If you have
+fewer volumes than notes in a chord, the last volume will apply to the
+remaining notes.
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Chord Definition</BIG></SPAN>  <A ID="eg:s4"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Define Straight4+3   1 4 100 ;  \
+<BR>&nbsp;&nbsp;&nbsp; 2 4 90 ;  \
+<BR>&nbsp;&nbsp;&nbsp; 3 4 100 ; \
+<BR>&nbsp;&nbsp;&nbsp; 4 3 90 ;  \
+<BR>&nbsp;&nbsp;&nbsp; 4.3 3 80 ;  \
+<BR>&nbsp;&nbsp;&nbsp; 4.6 3 80   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<BR>
+<BR> <SPAN  CLASS="textbf">Sheet Music Equivalent </SPAN>
+
+<P>
+<BR>
+<BR>
+    <IMG WIDTH="95%"  SRC="mupex/chord43.png" ALT="Lost Image">
+ 
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+<A HREF="#eg:s4">This example</A> defines a
+<SPAN  CLASS="textbf">4/4</SPAN> pattern in a quarter, quarter, quarter, triplet rhythm.
+The quarter notes sound on beats 1, 2 and 3; the triplet is played on
+beat 4. The example assumes that you have C major for beats 1 and 2,
+and G major for 3 and 4.
+
+<P>
+Using a volume of &ldquo;0&rdquo; will disable a note. So, you want only the
+root and fifth of a chord to sound, you could use something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Define Dups 1 8 90 0 90 0; 3 8 90 0 90 0   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION00413000000000000000">
+Arpeggio</A>
+</H2>
+
+<P>
+An A<SMALL>RPEGGIO</SMALL> pattern is defined with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Position Duration Volume ; ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The arpeggio tracks play notes from a chord one at a time. This is
+quite different from chords where the notes are played all at
+once&mdash;refer to the S<SMALL>TRUM</SMALL> directive
+(<A HREF="node30.html#strum">here</A>).
+
+<P>
+Each group consists of an beat offset, the note duration, and the note
+volume. You have no choice as to which notes of a chord are played
+(however, they are played in alternating ascending/descending
+order.<A ID="tex2html32"
+  HREF="#foot9442"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A>)
+
+<P>
+The volume is applied to the specified note in the pattern.
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Arpeggio Definition</BIG></SPAN>  <A ID="eg:arp4s"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Arpeggio Define 4s  1 4 100;  \
+<BR>&nbsp;&nbsp;&nbsp;  2 4 90;  \
+<BR>&nbsp;&nbsp;&nbsp;  3 4 100;  \
+<BR>&nbsp;&nbsp;&nbsp; 4 4 100   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<BR>
+<BR> <SPAN  CLASS="textbf">Sheet Music Equivalent </SPAN> <BR>
+<BR>
+    <IMG WIDTH="95%"  SRC="mupex/arp4s.png" ALT="Lost Image">
+ 
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+<A HREF="#eg:arp4s">This example</A> plays quarter notes
+on beats 1, 2, 3 and 4 of a bar in <SPAN  CLASS="textbf">4/4</SPAN> time.
+
+<P>
+
+<H2><A ID="SECTION00414000000000000000">
+Walk</A>
+</H2>
+
+<P>
+A W<SMALL>ALK</SMALL>ing Bass pattern is defined with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Position Duration Volume ; ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Walking bass tracks play up and down the first part of a scale, paying
+attention to the &ldquo;color&rdquo;<A ID="tex2html33"
+  HREF="#foot9444"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">11</SPAN></SUP></A> of the
+chord. Walking bass lines are very common in jazz and swing music.
+They appear quite often as an &ldquo;emphasis&rdquo; bar in marches.
+
+<P>
+Each group consists of an beat offset, the note duration, and the note
+volume. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  selects the actual note pitches to play based on the
+current chord (you cannot change this).
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Walking Bass Definition</BIG></SPAN>  <A ID="eg:walk4"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Walk Define Walk4   1 4 100 ;  \
+<BR>&nbsp;&nbsp;&nbsp; 2 4 90;  \
+<BR>&nbsp;&nbsp;&nbsp; 3 4 90   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+<A HREF="#eg:walk4">This example</A> plays a bass note
+on beats 1, 2 and 3 of a bar in <SPAN  CLASS="textbf">3/4</SPAN> time.
+
+<P>
+
+<H2><A ID="SECTION00415000000000000000">
+Scale</A>
+</H2>
+
+<P>
+A S<SMALL>CALE</SMALL> pattern is defined with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Position Duration Volume ; ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Each group consists of an beat offset for the start point, the note
+duration, and volume.
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Scale Definition</BIG></SPAN>  <A ID="eg:scale"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Scale Define S1   1 1 90  
+<BR>
+Scale Define S4   S1 * 4 
+<BR>
+Scale Define S8 S1 * 8   </B> 
+   
+	    </td></tr>
+      </Table>
+ 
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+<A HREF="#eg:scale">This example</A> defines three scale
+patterns: &ldquo;S1&rdquo; is just a single whole note, not that useful on its
+own, but it is used as a base for &ldquo;S4&rdquo; and &ldquo;S8&rdquo;.
+
+<P>
+&ldquo;S4&rdquo; is 4 quarter notes and &ldquo;S8&rdquo; is 8 eight notes. All the volumes
+are set to a MIDI velocity of 90.
+
+<P>
+Scale patterns are quite useful in endings. More options for scales
+detailed in the S<SMALL>CALE</SMALL>D<SMALL>IRECTION</SMALL>
+(<A HREF="node30.html#scale-direction">here</A>) and S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL>
+(<A HREF="node30.html#scale-type">here</A>) sections.
+
+<P>
+
+<H2><A ID="SECTION00416000000000000000">
+Aria</A>
+</H2>
+
+<P>
+An A<SMALL>RIA</SMALL> pattern is defined with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Position Duration Volume ; ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+much like a scale pattern. Please refer to the the A<SMALL>RIA</SMALL> section
+(<A HREF="node12.html#chap-aria">here</A>) for more details.
+
+<P>
+
+<H2><A ID="SECTION00417000000000000000">
+Plectrum</A>
+</H2>
+
+<P>
+An P<SMALL>LECTRUM</SMALL> pattern is defined with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Position Strum Volume1 Volume2 ...; ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note the absence of a duration setting. For details, please refer to
+the the P<SMALL>LECTRUM</SMALL> section
+(<A HREF="node11.html#chap-plectrum">here</A>) for more details.
+
+<P>
+
+<H2><A ID="SECTION00418000000000000000"></A> <A ID="sec-drum"></A>
+<BR>
+Drum
+</H2>
+
+<P>
+Drum tracks are a bit different from the other tracks discussed so
+far. Instead of having each track saved as a separate MIDI track, all
+the drum tracks are combined onto MIDI track 10.
+
+<P>
+A Drum pattern is defined with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Position Duration Volume; ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Drum Definition</BIG></SPAN>  <A ID="eg:s2"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Define S2  1 0 100;  \
+<BR>&nbsp;&nbsp;&nbsp; 2 0  80 ;   \
+<BR>&nbsp;&nbsp;&nbsp; 3 0  100 ;  \
+<BR>&nbsp;&nbsp;&nbsp; 4 0 80   </B> 
+   
+	    </td></tr>
+      </Table>
+ 
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+<A HREF="#eg:s2">This example</A> plays a drum sound on
+beats 1, 2, 3 and 4 of a bar in <SPAN  CLASS="textbf">4/4</SPAN> time. The MIDI velocity
+(volume) of the drum is 100 on beats 1 and 3; 80 on beats 2 and 4.
+
+<P>
+This example uses the special duration of &ldquo;0&rdquo;, which indicates 1
+MIDI tick.
+
+<P>
+
+<H2><A ID="SECTION00419000000000000000"></A> <A ID="drum-tone"></A>
+<BR>
+Drum Tone
+</H2> 
+
+<P>
+Essential to drum definitions is the T<SMALL>ONE</SMALL> directive.
+
+<P>
+When a drum pattern is defined it uses the default &ldquo;note&rdquo; or
+&ldquo;tone&rdquo; which is a snare drum sound. But, this can (and should) be
+changed using the T<SMALL>ONE</SMALL> directive. This is normally issued at
+the same time as a sequence is set up (see
+<A HREF="node5.html#sec-seqs">sequences</A>).
+
+<P>
+T<SMALL>ONE</SMALL> is a list of drum sounds which match the sequence length.
+Here's a short, concocted example (see the library files for many
+more):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Define S1 1 0 90  
+<BR>
+Drum Define S2 S1 * 2 
+<BR>
+Drum Define S4 S1 * 4 
+<BR>
+SeqClear 
+<BR>
+SeqSize 4 
+<BR>
+Drum Sequence S4 S2 S2 S4 
+<BR>
+Drum Tone SnareDrum1 SideKick LowTom1 Slap   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Here the drum patterns &ldquo;S2&rdquo; and &ldquo;S4&rdquo; are defined to sound a drum
+on beats 1 and 3, and 1, 2, 3 and 4 respectively (see
+<A HREF="#defmult">DefMult</A> for details on the &ldquo;*&rdquo;
+option). Next, a sequence size of 4 bars and a drum sequence are set
+to use this pattern. Finally, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is instructed to use a SnareDrum1
+sound in bar 1, a SideKick sound in bar 2, a LowTom1 in bar 3 and a
+Slap in bar 4. If the song has more than four bars, this sequence will
+be repeated.
+
+<P>
+In most cases you will probably use a single drum tone name for the
+entire sequence, but it can be useful to alternate the tone between
+bars.
+
+<P>
+To repeat the same &ldquo;tone&rdquo; in a sequence list, use a single &ldquo;/&rdquo;.
+
+<P>
+The &ldquo;tone&rdquo; can be specified with a MIDI note value or with a
+symbolic name. For example, a snare drum could be specified as &ldquo;38&rdquo;
+or &ldquo;SnareDrum1&rdquo;. <A HREF="node36.html#sec-drumnames">The Drumnames
+  appendix</A> lists all the defined symbolic
+names.
+
+<P>
+It is possible to substitute tone values. See
+<A HREF="node28.html#set-tonetr">T<SMALL>ONE</SMALL>TR</A>.
+
+<P>
+
+<H1><A ID="SECTION00420000000000000000">
+Including Existing Patterns in New Definitions</A>
+</H1>
+
+<P>
+When defining a pattern, you can use an existing pattern name in place
+of a definition grouping. For example, if you have already defined a
+chord pattern (which is played on beats 1 and 3) as:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Define M13 1 4 80; 3 4 80   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+you can create a new pattern which plays on same beats and adds a
+single push note just before the third beat:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Define M1+3 M13; 2.5 16 80 0   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+A few points to note:
+
+<P>
+
+<UL>
+<LI>the existing pattern must exist and belong to the same track,
+
+<P>
+</LI>
+<LI>the existing pattern is expanded in place,
+
+<P>
+</LI>
+<LI>it is perfectly acceptable to have several existing definitions,
+  just be sure to delimit each with a &ldquo;;&rdquo;,
+
+<P>
+</LI>
+<LI>the order of items in a definition does not matter, each will be
+  placed at the correct position in the bar.
+
+<P>
+</LI>
+</UL>
+
+<P>
+This is a powerful shortcut in creating patterns. See the included
+library files for examples.
+
+<P>
+
+<H1><A ID="SECTION00430000000000000000"></A> <A ID="defmult"></A>
+<BR>
+Multiplying and Shifting Patterns
+</H1>
+
+<P>
+Since most pattern definitions are, internally, repetitious, you can
+create complex rhythms by multiplying a copy of an existing pattern.
+For example, if you have defined a pattern to play a chord on beats 1
+though 4 (a quarter note strum), you can easily create a similar
+pattern to play eighth note chords on beats 1, 1.5, etc. though 4.5
+with a command like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Track Define NewPattern OldPattern * N  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+where &ldquo;Track&rdquo; is a valid track name (&ldquo;Chord&rdquo;, &ldquo;Walk&rdquo;, &ldquo;Bass&rdquo;,
+&ldquo;Arpeggio&rdquo; or &ldquo;Drum&rdquo;, as well as &ldquo;Chord2&rdquo; or &ldquo;DRUM3&rdquo;, etc.).
+
+<P>
+The &ldquo;*&rdquo; is absolutely required.
+
+<P>
+&ldquo;N&rdquo; can be any integer value between 2 and 100.
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Multiply Define</BIG></SPAN>  <A ID="eg:drum2"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		      
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Define S1      1  1  100  
+<BR>
+Drum Define S13   S1 * 2 
+<BR>
+Drum Define S1234   S1      * 4 
+<BR>
+Drum Define S8   S1234      * 2 
+<BR>
+Drum Define S16   S8        * 2 
+<BR>
+Drum Define S32  S16        * 2 
+<BR>
+Drum Define S64 S1 * 64   </B> 
+   
+	    </td></tr>
+      </Table>
+ 
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+In <A HREF="#eg:drum2">this example</A> a Drum pattern
+is defined which plays a drum tone on beat 1 (assuming <SPAN  CLASS="textbf">4/4</SPAN>
+time). Then a new pattern, &ldquo;S13&rdquo;, is created. This is the old &ldquo;S1&rdquo;
+multiplied by 2. This new pattern will play a tone on beats 1 and 3.
+
+<P>
+Next, &ldquo;S1234&rdquo; is created. This plays 4 notes, one the each beat.
+
+<P>
+Note the definition for &ldquo;S64&rdquo;: &ldquo;S32&rdquo; could have been multiplied by
+2, but, for illustrative purposes, &ldquo;S1&rdquo; has been multiplied by
+64&mdash;same result either way.
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  multiplies an existing pattern it will (usually) do what
+you expect. The start positions for all notes are adjusted to the new
+positions; the length of all the notes are adjusted (quarter notes
+become eighth notes, etc.). No changes are made to note offsets or
+volumes.
+
+<P>
+<A HREF="#eg:sw8">This example</A> shows how to get a
+swing pattern which might be useful on a snare drum.
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Swing Beat Drum Definition</BIG></SPAN>  <A ID="eg:sw8"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Drum Define 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;SB8 1 2+16 90 ; 3.66 4+32 80 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;SB8   SB8 * 4 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<BR>
+<BR> <SPAN  CLASS="textbf">Sheet Music Equivalent, Normal Notation</SPAN>
+
+<P>
+<BR>
+<BR>
+    <IMG WIDTH="95%"  SRC="mupex/swingdrum8.png" ALT="Lost Image">
+
+<P>
+<BR>
+<BR> <SPAN  CLASS="textbf">Sheet Music Equivalent, Actual Rhythm</SPAN>
+
+<P>
+  <IMG WIDTH="95%"  SRC="mupex/swingdrum8-3.png" ALT="Lost Image">
+ 
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+To see the effects of multiplying patterns, create a simple test file
+and process it though 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the &ldquo;-p&rdquo; option.
+
+<P>
+Even cooler<A ID="tex2html34"
+  HREF="#foot848"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">12</SPAN></SUP></A> is combining a multiplier, and
+existing pattern and a new pattern all in one statement. The following
+is quite legal (and useful):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Define D1234 1 0 90 * 4   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which creates drum hits on beats 1, 2, 3 and 4.
+
+<P>
+More contrived (but examples are needed) is:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Define Dfunny D1234 * 2; 1.5 0 70 * 2   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If you're really interested in the result, run 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the &ldquo;-p&rdquo;
+option with the above definition.
+
+<P>
+<A ID="defshift"></A>
+<P>
+An existing pattern can be modified by <SPAN  CLASS="textit">shifting</SPAN> it a beat, or
+portion of a beat. This is done in a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  definition with the
+S<SMALL>HIFT</SMALL> directive. <A HREF="#eg:shift">This
+  example</A> shows a triplet pattern created to
+play on beat 1, and then a second pattern played on beat 3.
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Shift Pattern Definition</BIG></SPAN>  <A ID="eg:shift"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Define C1-3 1 3 90;  \
+<BR>&nbsp;&nbsp;&nbsp; 1.33 3 90; 1.66 3 90   </B> 
+   
+	    </td></tr>
+      </Table>
+ <BR>
+<BR>
+
+<P>
+  <IMG WIDTH="95%"  SRC="mupex/trip1.png" ALT="Lost Image">
+
+<P>
+<BR>
+<BR>
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Define C3-3 C1-3 Shift 2   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+  <IMG WIDTH="95%"  SRC="mupex/trip3.png" ALT="Lost Image">
+ 
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+Note that the shift factor can be a negative or positive value. It can
+be fractional. Just be sure that the factor doesn't force the note
+placement to be less than 1 or greater than the T<SMALL>IME</SMALL> setting.
+
+<P>
+And, just like the multiplier discussed earlier you can shift patterns
+as they are defined. And shifts and multipliers can be combined. So,
+to define a series of quarter notes on the offbeat you could use:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Define D1234' 1 0 90 * 4 Shift .5  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which would create the same pattern as the longer:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Define D1234' 1.5 1 90; 2.5 1 90; 3.5 1 90; 4.5 1 90   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot9435">... warning!).</A><A
+ HREF="node4.html#tex2html23"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>The exception is
+    that R<SMALL>TIME</SMALL> may move the chord back into the bar.
+
+</DD>
+<DT><A ID="foot9436">... fine:</A><A
+ HREF="node4.html#tex2html24"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>The start offset is the value of the first of a pair
+    of swing eights plus a quarter <SPAN  CLASS="textit">before</SPAN> the second beat.
+
+</DD>
+<DT><A ID="foot9438">... tones.</A><A
+ HREF="node4.html#tex2html25"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>See the supplied
+    G<SMALL>ROOVE</SMALL> &ldquo;Bluegrass&rdquo; for an example.
+
+</DD>
+<DT><A ID="foot624">... velocity</A><A
+ HREF="node4.html#tex2html26"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>MIDI &ldquo;note on&rdquo; events are
+    declared with a &ldquo;velocity&rdquo; value. Think of this as the
+    &ldquo;striking pressure&rdquo; on a piano.
+
+</DD>
+<DT><A ID="foot634">... validity.</A><A
+ HREF="node4.html#tex2html27"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DD>This is a feature that you probably don't want to
+    use, but if you want to ensure that a note is always sounded use a
+    very large value (e.g., 1000) for the volume. That way, future
+    adjustments will maintain a large value and this large value will
+    be clipped to the maximum permitted MIDI velocity.
+
+</DD>
+<DT><A ID="foot647">... outcomes.</A><A
+ HREF="node4.html#tex2html28"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
+<DD>What really happens is that
+  this definition is stored in a slot named &ldquo;DRUM&rdquo;.
+
+</DD>
+<DT><A ID="foot652">... chords.</A><A
+ HREF="node4.html#tex2html29"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
+<DD>Using a value greater than 8 is the same as using one or more
+&ldquo;+&rdquo;s.
+
+</DD>
+<DT><A ID="foot655">... identical.</A><A
+ HREF="node4.html#tex2html30"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A></DT>
+<DD>Prepended  &ldquo;+&rdquo; and &ldquo;-&rdquo;s  are transferred to the end
+  of the string making  &ldquo;+5#&rdquo; and
+  &ldquo;5#+&rdquo; identical.
+
+</DD>
+<DT><A ID="foot9439">... semitone.</A><A
+ HREF="node4.html#tex2html31"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A></DT>
+<DD>Be careful using this
+  feature ... certain scales/chords may return non-musical
+  results.
+
+</DD>
+<DT><A ID="foot9442">...
+order.</A><A
+ HREF="node4.html#tex2html32"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A></DT>
+<DD>See the D<SMALL>IRECTION</SMALL> command
+  (<A HREF="node30.html#scale-direction">here</A>).
+
+</DD>
+<DT><A ID="foot9444">... &ldquo;color&rdquo;</A><A
+ HREF="node4.html#tex2html33"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">11</SPAN></SUP></A></DT>
+<DD>The color of a chord are items
+  like &ldquo;minor&rdquo;, &ldquo;major&rdquo;, etc. The current walking bass algorithm
+  generates acceptable (uninspired) lines. If you want something
+  better there is nothing stopping you from using a R<SMALL>IFF</SMALL> to
+  over-ride the computer generated pattern for important bars.
+
+</DD>
+<DT><A ID="foot848">... cooler</A><A
+ HREF="node4.html#tex2html34"><SUP><SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">12</SPAN></SUP></A></DT>
+<DD>In this case the word &ldquo;cool&rdquo; substitutes for
+  the more correct &ldquo;useful&rdquo;.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node5.html">Sequences</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node3.html">Tracks and Channels</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

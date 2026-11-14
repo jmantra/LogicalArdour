@@ -1,0 +1,728 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Library File Creation</TITLE>
+<META NAME="description" CONTENT="Library File Creation">
+<META NAME="keywords" CONTENT="mma-tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-2">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2021.2">
+
+<LINK REL="STYLESHEET" HREF="mma-tutorial.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node6.html">About this document ...</A>
+<B> Up:</B> <A
+ HREF="mma-tutorial.html">Tutorial</A>
+<B> Previous:</B> <A
+ HREF="node4.html">A More Complex Example</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html36"
+  HREF="node5.html#SECTION00510000000000000000">Let's Create Our First G<SMALL>ROOVE</SMALL></A>
+<UL>
+<LI><A ID="tex2html37"
+  HREF="node5.html#SECTION00511000000000000000">The Drummer</A>
+<LI><A ID="tex2html38"
+  HREF="node5.html#SECTION00512000000000000000">The Bass Player</A>
+<LI><A ID="tex2html39"
+  HREF="node5.html#SECTION00513000000000000000">The Piano</A>
+<LI><A ID="tex2html40"
+  HREF="node5.html#SECTION00514000000000000000">Putting It All Together</A>
+</UL>
+<BR>
+<LI><A ID="tex2html41"
+  HREF="node5.html#SECTION00520000000000000000">How To Use Our First G<SMALL>ROOVE</SMALL></A>
+<LI><A ID="tex2html42"
+  HREF="node5.html#SECTION00530000000000000000">Where Do We Go From Here</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION00500000000000000000">
+Library File Creation</A>
+</H1>
+
+<P>
+You should know that the G<SMALL>ROOVE</SMALL> definition engine is a very powerful
+tool that has almost unlimited possibilities. It is impossible to
+explain all those possibilities in a short tutorial. The flexibility
+of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  allows you to do the same things in different ways; the example
+you'll see here is just one way to create a G<SMALL>ROOVE</SMALL>. We have tried
+to keep it simple and organized it in different sections so that you
+understand how the G<SMALL>ROOVE</SMALL> was built.<A ID="tex2html2"
+  HREF="#foot257"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+<P>
+The day that you decide to create your own &ldquo;proper&rdquo; G<SMALL>ROOVE</SMALL>s you'll have
+to read the manual in detail!
+
+<P>
+
+<H1><A ID="SECTION00510000000000000000">
+Let's Create Our First G<SMALL>ROOVE</SMALL></A>
+</H1>
+
+<P>
+The G<SMALL>ROOVE</SMALL> we will create will be a simple <SPAN  CLASS="textbf">4/4</SPAN> rock G<SMALL>ROOVE</SMALL>.
+
+<P>
+The first thing we have to do set the timing for <SPAN  CLASS="textbf">4/4</SPAN>
+and initialize some variables (those are explained in detail in the
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  manual)
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqClear
+<BR>
+SeqSize 1
+<BR>
+Time 4 
+<BR>
+Timesig 4 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now let's start to create our patterns.
+
+<P>
+
+<H2><A ID="SECTION00511000000000000000">
+The Drummer</A>
+</H2>
+
+<P>
+For the drummer we will use the following pattern:
+
+<P>
+<DIV class="CENTER">
+  <IMG WIDTH="80%"  SRC="mup/drums.png" ALT="Lost Image">
+
+</DIV>
+
+<P>
+As we can see this is a pretty simple pattern.
+
+<P>
+We have:
+
+<P>
+
+<UL>
+<LI>A kick drum on beats 1, 2.5 and 4,
+</LI>
+<LI>A snare on beat 2 and 4, and
+</LI>
+<LI>A closed highhat on every eight note.
+</LI>
+</UL>
+Before we actually define the drum-instruments we will define the
+patterns that we will use:
+
+<P>
+
+<P></P>
+
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Drum Define 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;D1 1 8 90 ; 2.5 8 90 ; 4 8 90  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<P>
+<BR>
+
+
+<P>
+So what have we done?
+
+<P>
+Well, we have just translated part of what we have on the score. We have
+created a pattern D1 with an 8th note on beats 1, 2.5 and 4 and a velocity
+of 90.<A ID="tex2html3"
+  HREF="#foot259"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+<P>
+Using the same logic we can create the pattern for the snare drum.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>S1 2 8 90 ; 4 8 90  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+For the closed HiHat pattern we will use a little trick to avoid having to
+enter 8 notes
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>CH1 1 8 90
+<BR>
+C1 CH1 * 8  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+As you can see we just define one note on the first beat and multiplied
+it by 8, which will result in eight notes.
+
+<P>
+And we close the definition by adding
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now that we have the patterns for our drum, we will create the different
+instruments.<A ID="tex2html4"
+  HREF="#foot260"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Drum-Kick
+<BR>&nbsp;&nbsp;Tone KickDrum1 
+<BR>&nbsp;&nbsp;Sequence D1 
+<BR>
+End 
+<BR>&nbsp;
+<BR>
+Begin Drum-Snare 
+<BR>&nbsp;&nbsp;Tone SnareDrum1 
+<BR>&nbsp;&nbsp;Sequence S1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Drum-HH 
+<BR>&nbsp;&nbsp;Tone ClosedHiHat 
+<BR>&nbsp;&nbsp;Sequence C1 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION00512000000000000000">
+The Bass Player</A>
+</H2>
+
+<P>
+Now that we have a drummer, let's have a look at the bass player for
+our G<SMALL>ROOVE</SMALL>.
+
+<P>
+<DIV class="CENTER">
+  <IMG WIDTH="80%"  SRC="mup/bass.png" ALT="Lost Image">
+
+</DIV>
+
+<P>
+Those are the notes the bass player plays on a C chord. He
+builds a nice riff using only the root of the chord.
+
+<P>
+This is pretty simple to translate in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  syntax, using what we have
+learned to create the drum pattern.
+
+<P>
+So we go up in our text file to the point where we created the patterns
+for the drum (the line after End) and we add:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Bass Define 
+<BR>&nbsp;&nbsp;B1 1 4+8 1 90 ; 2.5 8 1 90 ; 3 8 1 90 ; 3.5 4 1 90 ; 4.5 8 1 90 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You will already recognize the timing of the riff, the duration and
+the velocity of the notes. The only item that is different for a bass
+player is that we add in the pitch definition for the note to be played.
+
+<P>
+If we look at the first note definition we see that  beat 1 is a
+note with duration 4+8 (dotted quarter),<A ID="tex2html5"
+  HREF="#foot193"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>the note to play is the first
+(root) of the chord and the volume or velocity of the note is 90.<A ID="tex2html6"
+  HREF="#foot261"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+<P>
+Now the only thing left is to add the bass player at the end of the
+file, the same way we did with the drums.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Bass-Simple 
+<BR>&nbsp;&nbsp;Voice AcousticBass<A ID="tex2html7"
+  HREF="#foot357"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> 
+<BR>&nbsp;&nbsp;Sequence B1 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION00513000000000000000">
+The Piano</A>
+</H2>
+
+<P>
+As a last example, we will add a piano player with a simple riff to
+our G<SMALL>ROOVE</SMALL>.
+
+<P>
+<DIV class="CENTER">
+  <IMG WIDTH="80%"  SRC="mup/piano.png" ALT="Lost Image">
+
+</DIV>
+
+<P>
+Creating piano patterns is a bit different from other players as they
+(most of the time) play with both hands. As we can see on the above
+score (using only a C chord), our piano player will play the second inversion
+of the chord with his right hand as a dotted halfs and a fourth note
+and with the left hand he plays the root on the start of the bar also
+as a dotted half note.
+
+<P>
+There are a couple of ways in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to define this. What we explain
+here is just one of the possibilities.
+
+<P>
+We will define both &ldquo;hands&rdquo; of the piano player separately.<A ID="tex2html8"
+  HREF="#foot263"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>
+<P>
+Let's start with the easiest, the left hand. Actually if you think
+a bit about it, there is not a big difference between a bass player
+and the left hand of a piano player. Following this logic, we will
+simply define a new pattern and attach it to a new bass player called
+Bass-LeftHandPiano.
+
+<P>
+We already know how to do this.
+
+<P>
+In the pattern section of our G<SMALL>ROOVE</SMALL> we will add:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>L1 1 2+4 1 90  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Remember: First beat, half+fourth note, root of the
+chord, velocity 90.
+
+<P>
+And we will create a new bass player
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Bass-LeftHandPiano 
+<BR>&nbsp;&nbsp;Voice Piano1 
+<BR>&nbsp;&nbsp;Sequence L1 
+<BR>&nbsp;&nbsp;Octave 3 // This a new command, but simple to understand 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now the right hand. What the right hand of the piano player does is
+more the playing of chords than playing simple notes. That's exactly what
+we will tell 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> : play chords.
+
+<P>
+On the example score we see that he plays the chord in his first inversion
+form, but for the sake of simplicity of this &ldquo;Getting started&rdquo; document
+we are just ignoring this and we will define the standard form of
+the chord.<A ID="tex2html9"
+  HREF="#foot264"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A>
+<P>
+Again, we go up in the definition section of our G<SMALL>ROOVE</SMALL> and under the
+bass patterns we will enter the chord definition
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Chord Define 
+<BR>&nbsp;&nbsp;C1 1 2+4 80 ; 4 4 80 <A ID="tex2html10"
+  HREF="#foot375"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A>
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+As you can see the chord definition structure is a bit different from
+what we have done until now.
+
+<P>
+Chord definitions are done as follows: Name (C1),  Beat (1), and the note
+volume or velocity. It is possible to specify different velocities for
+each note in a chord (see page <A HREF="#sec-chordseq"><IMG  ALT="[*]" SRC="crossref.png"></A> in the Reference Manual)
+and even disable certain notes or limit the range of chord.
+
+<P>
+Finally we need our piano right hand player
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Chord-RightHandPiano
+<BR>&nbsp;&nbsp;Voice Piano1
+<BR>&nbsp;&nbsp;Sequence C1 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION00514000000000000000">
+Putting It All Together</A>
+</H2>
+
+<P>
+We have just created a trio to  play Drums, Bass and Piano for
+us.
+
+<P>
+We have to give a name to the created G<SMALL>ROOVE</SMALL>, so that we can use it
+in a song:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefGroove  Myrock1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+is added at the end of the file.
+
+<P>
+The file that we created should look like this<A ID="tex2html11"
+  HREF="#foot266"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A>
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqClear
+<BR>&nbsp;&nbsp;SeqSize 1 
+<BR>&nbsp;&nbsp;Timesig 4 4 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Drum Define 
+<BR>&nbsp;&nbsp;D1 1 8 90 ; 2.5 8 90 ; 4 8 90 
+<BR>&nbsp;&nbsp;S1 2 8 90 ; 4 8 90 
+<BR>&nbsp;&nbsp;CH1 1 8 90 
+<BR>&nbsp;&nbsp;C1 CH1 * 8 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Bass Define 
+<BR>&nbsp;&nbsp;B1 1 4+8 1 90 ; 2.5 8 1 90 ; 3 8 1 90 ; 3.5 4 1 90 ; 4.5 8 1 90 
+<BR>&nbsp;&nbsp;L1 1 2+4 1 90 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Chord Define 
+<BR>&nbsp;&nbsp;C1 1 2+4 80; 4 4 80  
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Drum-Kick 
+<BR>&nbsp;&nbsp;Tone KickDrum1 
+<BR>&nbsp;&nbsp;Sequence D1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Drum-Snare 
+<BR>&nbsp;&nbsp;Tone SnareDrum1 
+<BR>&nbsp;&nbsp;Sequence S1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Drum-HH 
+<BR>&nbsp;&nbsp;Tone ClosedHiHat 
+<BR>&nbsp;&nbsp;Sequence C1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Bass-Simple 
+<BR>&nbsp;&nbsp;Voice AcousticBass  
+<BR>&nbsp;&nbsp;Sequence B1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Bass-LeftHandPiano 
+<BR>&nbsp;&nbsp;Voice Piano1 
+<BR>&nbsp;&nbsp;Sequence L1 
+<BR>&nbsp;&nbsp;Octave 3 // This a new command, but simple to understand 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Chord-RightHandPiano 
+<BR>&nbsp;&nbsp;Voice Piano1 
+<BR>&nbsp;&nbsp;Sequence C1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+DefGroove Myrock1   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H1><A ID="SECTION00520000000000000000">
+How To Use Our First G<SMALL>ROOVE</SMALL></A>
+</H1>
+
+<P>
+Save the text file we just created in the lib-directory of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  under
+the name <kbd><A ID="tex2html13"
+  HREF="myrock.mma">myrock.mma</A></kbd>.
+
+<P>
+First thing we have to do is tell 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to  update its database
+so that our new  G<SMALL>ROOVE</SMALL> can be found.
+
+<P>
+Go to a command prompt and enter: $ mma -g
+
+<P>
+Now start a new textfile to create a song and start the file with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Myrock1 
+<BR>
+Tempo 120
+<BR>&nbsp;
+<BR>// Enter chords here  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Save the file as Mysong.mma and compile it as explained in the first
+part of this tutorial.
+
+<P>
+
+<H1><A ID="SECTION00530000000000000000">
+Where Do We Go From Here</A>
+</H1>
+
+<P>
+As you probably noticed, the style that we have created here sounds
+very simple and  lacks variation ...an intro, a break and an ending ....
+Don't panic, all those things are possible but beyond the scope of
+this small &ldquo;Getting Started&rdquo;.
+
+<P>
+Now before you do anything else: <SPAN  CLASS="textbf">READ THE MANUAL!</SPAN>
+
+<P>
+This is the best advice you can get. The author of this program has
+put a lot of effort in the development process so that the software can be as powerful
+and flexible as possible. Years of development went into this product,
+so don't think you will learn it in a day.
+
+<P>
+Also read the README files that are delivered with the distribution.
+You can find valuable information in these.<A ID="tex2html14"
+  HREF="#foot232"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">11</SPAN></SUP></A>
+<P>
+<SPAN  CLASS="textbf">Have fun with 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> !</SPAN>
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot257">... built.</A><A
+ HREF="node5.html#tex2html2"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>This chapter was written
+by the late Rony Steelandt of Kara Music Production (yes, Rony, you are missed!) with minor spelling and grammar fixes by Bob van der Poel.
+
+</DD>
+<DT><A ID="foot259">...</A><A
+ HREF="node5.html#tex2html3"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>See 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Reference Manual section <A HREF="#sec-drum"><IMG  ALT="[*]" SRC="crossref.png"></A>
+for more details.
+
+</DD>
+<DT><A ID="foot260">...</A><A
+ HREF="node5.html#tex2html4"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>See 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Reference Manual section <A HREF="#drum-tone"><IMG  ALT="[*]" SRC="crossref.png"></A> for more details.
+
+</DD>
+<DT><A ID="foot193">... quarter),</A><A
+ HREF="node5.html#tex2html5"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>When specifying the
+duration of a note the following are equal: &ldquo;4+8&rdquo;, &ldquo;4.&rdquo; or &ldquo;8+8+8&rdquo;.
+
+</DD>
+<DT><A ID="foot261">...</A><A
+ HREF="node5.html#tex2html6"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DD>See 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Reference Manual section <A HREF="#sec-bass"><IMG  ALT="[*]" SRC="crossref.png"></A> for more detail.
+
+</DD>
+<DT><A ID="foot357">... AcousticBass</A><A
+ HREF="node5.html#tex2html7"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
+<DD>For drums we use T<SMALL>ONE</SMALL> for other instruments we use V<SMALL>OICE</SMALL>.
+
+</DD>
+<DT><A ID="foot263">...</A><A
+ HREF="node5.html#tex2html8"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
+<DD>As many things in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  there are different ways to define that kind
+of pattern. If you're curious, look at the Reference Manual section <A HREF="#duproot"><IMG  ALT="[*]" SRC="crossref.png"></A>, page
+<A HREF="#duproot"><IMG  ALT="[*]" SRC="crossref.png"></A>.
+
+</DD>
+<DT><A ID="foot264">...</A><A
+ HREF="node5.html#tex2html9"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A></DT>
+<DD>If you are curious about how to define inverted chords, see the Reference Manual
+section <A HREF="#chord-invert"><IMG  ALT="[*]" SRC="crossref.png"></A>, page <A HREF="#chord-invert"><IMG  ALT="[*]" SRC="crossref.png"></A>.
+
+</DD>
+<DT><A ID="foot375">...</A><A
+ HREF="node5.html#tex2html10"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A></DT>
+<DD>This is not exactly right, it will play the 7th on a C7 chord too,
+  but this is beyond the scope of this tutorial.
+
+</DD>
+<DT><A ID="foot266">... this</A><A
+ HREF="node5.html#tex2html11"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A></DT>
+<DD>If you are really lazy and don't want to type the text, you download
+the file here: <kbd><A ID="tex2html12"
+  HREF="http://www.kara-moon.com/MMA/tut1.mma">http://www.kara-moon.com/MMA/tut1.mma</A></kbd>.
+
+</DD>
+<DT><A ID="foot232">...</A><A
+ HREF="node5.html#tex2html14"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">11</SPAN></SUP></A></DT>
+<DD>Amongst others, some very good information about fake books.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node6.html">About this document ...</A>
+<B> Up:</B> <A
+ HREF="mma-tutorial.html">Tutorial</A>
+<B> Previous:</B> <A
+ HREF="node4.html">A More Complex Example</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

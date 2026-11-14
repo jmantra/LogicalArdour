@@ -1,0 +1,215 @@
+/* LULLABY
+ 
+ This is the guitar part of the accompaniment for the song "Slaap
+ Zacht" from the singer-songwriter duo "September".
+
+ https://www.hetgeluidvanseptember.nl
+
+*/
+
+SeqClear
+SeqSize 1
+
+// For randomizing.
+Set RVolume 15
+
+Time 6/8
+
+
+// Each 6/8 measure has two chord strums, consisting of a bass note
+// (chord root) and strings 4 3 2 3 4.
+// Some chords have the root note on string 5 (the A-string), other
+// chords have the root on the 6th string (the E-string).
+
+// We will define a series of grooves, for full (6/8) measures and for
+// half (3/8) measures, with root on A and E strings.
+
+//// Full measure, root on A.
+
+Begin Plectrum
+    Voice       NylonGuitar
+    Sequence {
+            1.0    0   5:90;
+            1.5    0   4:70;
+            2.0    0   3:70;
+            2.5    0   2:70;
+            3.0    0   3:70;
+            3.5    0   4:70;
+            4.0    0   5:90;
+            4.5    0   4:70;
+            5.0    0   3:70;
+            5.5    0   2:70;
+            6.0    0   3:70;
+            6.5    0   4:70;
+    }
+    RVolume	$RVolume
+End
+
+DefGroove G6A
+
+//// Full measure, root on E.
+
+Begin Plectrum
+    Voice       NylonGuitar
+    Sequence {
+            1.0    0   6:90;
+            1.5    0   4:70;
+            2.0    0   3:70;
+            2.5    0   2:70;
+            3.0    0   3:70;
+            3.5    0   4:70;
+            4.0    0   6:90;
+            4.5    0   4:70;
+            5.0    0   3:70;
+            5.5    0   2:70;
+            6.0    0   3:70;
+            6.5    0   4:70;
+    }
+    RVolume	$RVolume
+End
+
+DefGroove G6E
+
+//////// Half measure (3/8) strums.
+
+Time 3
+
+//// Half measure, root on A.
+
+Begin Plectrum
+    Voice       NylonGuitar
+    Sequence {
+            1.0    0   5:90;
+            1.5    0   4:70;
+            2.0    0   3:70;
+            2.5    0   2:70;
+            3.0    0   3:70;
+            3.5    0   4:70;
+    }
+    RVolume	$RVolume
+End
+
+DefGroove G3A
+
+//// Half measure, root on E.
+
+Begin Plectrum
+    Voice       NylonGuitar
+    Sequence {
+            1.0    0   6:90;
+            1.5    0   4:70;
+            2.0    0   3:70;
+            2.5    0   2:70;
+            3.0    0   3:70;
+            3.5    0   4:70;
+    }
+    RVolume	$RVolume
+End
+
+DefGroove G3E
+
+//// Final strum, full measure, root on A.
+
+Time 6
+
+Begin Plectrum
+    Voice       NylonGuitar
+    Sequence {
+            1.0    0   1-5:50;
+    }
+    RVolume	$RVolume
+End
+
+DefGroove GzA
+
+////////////////
+
+Time		6/8
+KeySig		C
+Tempo		86
+
+// The Bb chord as Plectrum creates it, has a 1 1 0 3 3 1 fingering,
+// which is both unnatural and impossible to play.
+// Override the chord shape.
+Plectrum Shape Bb 1 1 3 3 3 1
+
+// Intro
+Groove G6A
+01         C
+Groove G6E
+02         G
+Groove G3A
+03         Bb
+Groove G3E
+04         F
+Groove G6A
+05	   C
+
+// A
+Repeat
+Groove G6A
+06         C
+Groove G6E
+07         G
+Groove G3A
+08         Bb
+Groove G3E
+09         F
+Groove G6A
+10	   C
+Groove G6A
+11	   Am
+Groove G3E
+12         F
+13         G
+14	   G
+Groove G3A
+15	   C
+Groove G6E
+16         G
+RepeatEnd 3
+
+// B
+Groove G6A
+17         Am
+Groove G3E
+18         F
+19         G
+Groove G3A
+20         C
+21         Bb
+Groove G3E
+22         F
+23         G
+Groove G6E
+24         G
+Groove G3A
+25         C
+Groove G6E
+26         G
+
+// C
+Groove G6A
+27         C
+Groove G6E
+28         G
+Groove G3A
+29         Bb
+Groove G3E
+30         F
+Groove G6A
+31	   C
+Groove G6A
+32	   Am
+Groove G3E
+33         F
+34         G
+38         G
+Groove G3A
+39         C
+Groove G3E
+Tempo *.8
+40         G
+Groove GzA
+41         C
+42	   z!

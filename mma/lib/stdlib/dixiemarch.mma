@@ -1,0 +1,156 @@
+
+// march
+
+
+Begin Doc
+
+	A Dixieland March done for "Muskrat Ramble". Uses traditional 
+	instrumentation ... a single snare drum, tuba and banjo. See the
+    sample song "Just A Little While To Stay Here" to see how easy it
+    is to modify this to a more modern sound.
+  	
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+////////////////////////////////////
+// Additional pattern defs
+
+
+Begin Bass Define
+
+	B1'3  B13; 2.5 8 3 90
+	
+		
+End		
+
+
+/////////////////////////////////////
+// Basic Pattern
+
+SeqClear
+SeqSize 4
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Sequence D1234 {D1234; D13 Shift .5}
+	Rtime 5
+	Rvolume 10
+	Rskip 1
+	Volume p
+End
+
+Begin Bass
+	Voice Tuba
+	Octave 3
+	Sequence B13   B1'3 B13 z
+	Articulate  80
+	Volume mf
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Articulate $_Bass_Articulate
+	Sequence z z z W1234
+	Volume f
+End
+
+Begin Chord
+	Voice Piano1
+	Sequence C14  C13  /  C134
+	Articulate 80
+	Octave 5
+	Voicing Mode=Optimal
+	Volume mf
+End
+
+Begin Chord-Banjo
+	Voice Banjo
+	Sequence  C1234 / / C13
+	Articulate 70
+	Volume p
+	Strum 10
+	Direction Both
+	Rtime 10
+	RVolume 20
+	Octave 6
+	Voicing Mode=Optimal
+End
+
+
+DefGroove DixieMarch     A basic Dixieland March.
+
+
+////////////  
+
+Groove DixieMarch
+
+Begin Arpeggio
+	Voice Clarinet
+	Sequence A8 A8 A8 A4
+	Rskip 20
+	Articulate 90
+	Octave 5
+	Range 3
+	Volume mp
+	RVolume 20
+	Rtime 10
+End
+
+DefGroove DixieMarchPlus     Add in a wild clarinet.
+
+//////////////
+
+Groove DixieMarch
+
+Begin Chord-Sus
+	Voice Clarinet
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 5
+	Volume pp
+End
+
+DefGroove DixieMarchSus   A little change with the arpeggios gone.
+
+Arpeggio Groove DixieMarchPlus
+
+DefGroove DixieMarchSusPlus  Apreggios and sustain.
+
+//////  Intro
+
+Groove DixieMarch
+
+Drum-Snare Sequence   D8 D1234 / D12
+Begin Walk
+	Sequence z z z W1234
+	Octave 2
+	Direction Down
+End
+Bass Sequence B13 / / z
+Chord Sequence C12  / / L1
+
+DefGroove DixieMarchIntro   A 4 bar introduction.
+
+
+////// Ending
+
+Groove DixieMarch
+SeqSize 2
+
+Drum-Snare Sequence D8 D1
+Chord      Sequence C1234 L1
+Walk       Sequence W1234 z
+Bass       Sequence z {1 2. 1 100}
+
+DefGroove DixieMarchEnd  Finis!

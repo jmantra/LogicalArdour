@@ -1,0 +1,208 @@
+
+// ==============================================
+// Grooves
+// ==============================================
+
+// Metal1
+
+Begin Doc
+
+  Heavy Metal Style
+
+End
+
+Author Peter Falk
+
+SeqClear
+Time 4
+Timesig 4 4
+Include pfpats01
+
+
+// Metal 1, Section A ===========================
+
+SeqSize 4
+
+Begin Drum-Cymbal
+     Sequence D1234 / / /
+     Volume mp
+     Tone OpenHiHat
+     Rtime 2
+     RVolume 10
+     Accent 1 20 2 20 3 20 4 20
+End
+
+Begin Drum-Snare
+     Sequence D24 / / /
+     Volume m
+     Tone SnareDrum1
+     Rtime 2
+     RVolume 10
+     Accent 2 20 4 20
+End
+
+Begin Drum-Kick
+     Sequence D1234-4 / / D1234
+     Volume m
+     Tone KickDrum1
+     Rtime 2
+     RVolume 5
+     Accent 1 20 3 20
+End
+
+Begin Drum-HH
+     Sequence -
+     Volume mp
+     Tone PedalHiHat
+     Rtime 2
+     RVolume 10
+     Accent 2 20 4 20
+End
+
+Begin Bass
+     Sequence B1234 B1234 B1234 B13
+     Voice FingeredBass
+     Octave 3
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Accent 1 20 3 20
+End
+
+Begin Chord-Piano
+     Sequence C1234-2 // C1234
+     Voice Piano1
+     Voicing Mode=Optimal 
+     Octave 5
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Accent 1 20 3 20
+End
+
+Begin Chord-Guitar
+     Sequence G1234-4 / / /
+     Voice DistortonGuitar
+     Octave 4
+     Volume mp
+     Rtime 2
+     RVolume 5
+     Accent 2 20 4 20
+End
+
+DefGroove metal1A            Metal 1, Section A
+
+
+// Metal 1, Section B ===========================
+
+Drum-Cymbal Tone RideCymbal1
+
+Bass Sequence B1234-4B / / B1234-2
+
+
+DefGroove metal1B            Metal 1, Section B
+
+
+// Metal 1, Section A, Fill-in ==================
+
+Groove metal1A
+SeqSize 1
+
+Drum-Cymbal Sequence -
+Drum-Snare Sequence DFill04A
+Drum-Kick Sequence D1234
+Drum-HH Sequence -
+Bass Sequence -
+Chord-Piano Sequence C13
+Plectrum-Guitar Sequence PD24
+
+Begin Drum-HiTom
+     Sequence DFill04B
+     Volume m
+     Tone HighTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Drum-MediumTom
+     Sequence DFill04C
+     Volume m
+     Tone MidTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Drum-FloorTom
+     Sequence DFill04D
+     Volume m
+     Tone LowTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Scale-Bass
+     Sequence Scale16
+     Voice FingeredBass
+     Octave 3
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Direction UP
+End
+
+DefGroove metal1FA           Metal 1, Section A Fill-in
+
+
+// Metal 1, Section B, Fill-in ==================
+
+Drum-Snare Sequence DFill06A
+Drum-Hi-Tom Sequence DFill06B
+Drum-Medium-Tom Sequence DFill06C
+Drum-Floor-Tom Sequence DFill06D
+Bass Sequence B1234-2
+
+DefGroove metal1FB           Metal 1, Section B Fill-in
+
+
+// Metal 1, Ending ==============================
+
+Groove metal1B
+SeqSize 2
+
+Drum-Cymbal Sequence -
+Drum-Snare Sequence D1234-4 z
+Drum-Kick Sequence D1234 D1
+Drum-HH Sequence -
+Bass Sequence -
+Chord-Piano Sequence C1234-2 C1
+Chord-Guitar Sequence G1234-4 z
+
+Begin Drum-FloorTom
+     Sequence D1234-4 z 
+     Volume m
+     Tone LowTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Drum-Crash
+     Sequence z D1
+     Volume m
+     Tone CrashCymbal1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Scale-Bass
+     Sequence Scale16 z
+     Voice FingeredBass
+     Octave 3
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Direction UP
+End
+
+DefGroove metal1E            Metal 1, Ending
+
+

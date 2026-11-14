@@ -1,0 +1,143 @@
+@prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pset:  <http://lv2plug.in/ns/ext/presets#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix ui:    <http://lv2plug.in/ns/extensions/ui#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+<https://github.com/tiagolr/ripplerx>
+	a lv2:Plugin ;
+	lv2:binary <libRipplerX.so> ;
+	rdfs:seeAlso <dsp.ttl> .
+
+<https://github.com/tiagolr/ripplerx:UI>
+	a ui:X11UI ;
+	lv2:binary <libRipplerX.so> ;
+	rdfs:seeAlso <ui.ttl> .
+
+<https://github.com/tiagolr/ripplerx:preset1>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Init" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "0"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset2>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Harpsi" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "1"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset3>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Harp" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "2"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset4>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Sankyo" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "3"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset5>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Tubes" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "4"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset6>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Stars" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "5"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset7>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "DoorBell" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "6"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset8>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Bells" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "7"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset9>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Bells2" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "8"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset10>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "KeyRing" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "9"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset11>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Sink" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "10"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset12>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Cans" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "11"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset13>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Gong" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "12"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset14>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Bong" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "13"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset15>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Marimba" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "14"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset16>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Fight" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "15"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset17>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Tabla" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "16"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset18>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Tabla2" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "17"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset19>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Strings" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "18"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset20>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "OldClock" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "19"^^xsd:int ; ] .
+
+<https://github.com/tiagolr/ripplerx:preset21>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tiagolr/ripplerx> ;
+	rdfs:label "Crystal" ;
+	state:state [ <https://github.com/tiagolr/ripplerx:Program> "20"^^xsd:int ; ] .
+

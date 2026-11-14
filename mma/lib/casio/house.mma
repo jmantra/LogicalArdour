@@ -1,0 +1,115 @@
+ // house.mma
+
+Begin Doc  
+      House (058). A dance beat for folks younger than me.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 2
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 100; 2 0 100; 3 0 100; 4 0 100}
+End
+
+Begin Drum-HandClap
+    Tone HandClap
+    Volume m
+    Sequence {2 0 100; 4 0 100}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 90; 1.5 0 70; 2 0 90; 2.5 0 70; 3 0 90; 3.5 0 70; 4 0 90; 4.5 0 70} \
+             {1 0 90; 1.5 0 70; 2 0 90; 2.5 0 70; 3 0 90; 3.5 0 70; 4 0 90}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence z   {4.5 0 90} 
+End
+
+Begin Bass-9
+    Voice SynthBass1
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1.5 8 1 100; 2.5 8 1 100; 3.5 8 1 100; 4.5 8 1 100} \
+             {1.5 8 1 100; 2.5 8 1 100; 3.5 8 1 100; 4.5 3 5 100}
+End
+
+Begin Bass-6
+    Voice Bass&Lead
+    Octave 4
+    Articulate 100
+    Volume mp
+    Sequence {1 8 5 108; 1.5 32 1 120; 2.5 32 1 112; 3 3 5 108; 3.5 32 1 112; 4.5 32 1 112} \
+             {1 3 5 112; 1.5 32 1 116; 2.5 32 1 116; 3 3 3 112; 3.5 32 1 116; \
+                  4 8 3 112; 4.5 32 1 116} 
+End
+
+Begin Chord-7
+    Voice EPiano
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1.75 32 90; 3.75 32 90} \
+             {1.75 32 90; 3.75 32 90; 4.5 32 90}
+End
+
+
+DefGroove House   Main beat
+
+//////////////////////////////////////////////////////////////////////////////////////////
+///////  Intro
+
+Groove House
+Seqsize 4
+
+Drum-KickDrum1   Sequence  D13   *    *   D13
+Drum-HandClap    Sequence  *     *    *   D1234
+Drum-ClosedHiHat Sequence  *     *    D8  D8
+Drum-OpenHiHat   Sequence  z     *    D4  *
+
+Bass-9           Sequence  *     *    *   {B11 shift .5}
+
+//  Bass&Lead
+Bass-6           Sequence  z     *    *   B1234
+
+//  EPiano
+Chord-7          Sequence  *     *    *   L1
+
+DefGroove HouseIntro  4 bar introduction
+
+//////////////////////////////////////////////////////////////////////////////////////////
+///////  Intro
+
+Groove House
+Seqsize 2
+
+Drum-KickDrum1   Sequence  D13    D1
+Drum-HandClap    Sequence  D1234  D1
+Drum-ClosedHiHat Sequence  D8     D1
+Drum-OpenHiHat   Sequence  z      D1
+
+Bass-9           Sequence  {B11 shift .5}  B1
+
+//  Bass&Lead
+Bass-6           Sequence  B1234   B1
+
+//  EPiano
+Chord-7          Sequence  *       L1
+
+DefGroove HouseEnd  2 bar ending

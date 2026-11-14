@@ -1,0 +1,242 @@
+
+// fastjazzwaltz
+
+Doc A fast 3/4 time for jazz pieces like "I'm Gonna Go Fishin'". Based on the \
+    jazzwaltz groove, but modified to be 1-per-bar. A lot of the syncopation \
+    and other "fill" hits have been removed to make it singable.
+
+Author Bob van der Poel
+
+SeqClear
+Time 3
+Timesig 3 4
+Include stdpats34
+
+//////////////////////////////////////////////
+/// Patterns
+
+
+//////////////////////////////////////////////
+/////   FastJazzwaltz
+
+
+SeqSize 4
+
+Begin Drum-Snare
+	Sequence	D1
+	Tone SnareDrum1
+	Volume mp
+	Rvolume 10
+	Rtime 10
+End
+
+Begin Drum-HH
+	Tone ClosedHiHat
+	Sequence  D1
+	Volume mp
+	Rvolume 10
+	Rtime 10
+End
+
+Begin Drum-Cym
+	Sequence	D3
+	Tone  RideCymbal1
+	RSkip 30
+	Volume mp
+	Rvolume 10
+	Rtime 10
+End
+
+Begin Chord
+	Sequence 	C1  /  / C123
+	Voicing  Mode=Key
+	Accent  1 30
+	Volume mp
+	Voice Piano1
+	Octave 5
+	Rvolume 10
+	Articulate 120
+End
+
+Begin Chord-Guitar
+	Sequence	C1  C13
+	Voice JazzGuitar
+	SeqRnd On
+	Strum 5
+	Rvolume 8
+	Volume mp
+	Voicing Mode=Key
+	Articulate     85     /      60   60	
+	Octave 4
+End
+
+Begin Walk
+	Voice  AcousticBass
+	Octave 3
+	Sequence  W123
+    Accent 1 100  // make the 1st beat 2x volume
+	Articulate 60
+	Volume mp	 
+	Rvolume 5
+End
+
+DefGroove FastJazzWaltz     Basic fast jazz waltz.
+
+
+////////// Sustain
+
+Begin Chord-Sus
+	Sequence	{ 1 2. 90 0 90 0 * 3 }
+	Voice TremoloStrings
+	Octave 5
+	Voicing Mode=Optimal
+	Volume  p
+	Rvolume 5
+	Rskip 5		
+	Articulate 100
+	Unify On
+End
+
+DefGroove FastJazzWaltzSus     Strings added to our waltz.
+
+
+////////////  Arpeggios
+
+Groove FastJazzWaltz
+
+Begin Arpeggio
+	Voice Vibraphone
+	Sequence  {1 4 90; 2 3+3 70; 2.667 3 80; 3 3+3 70; 3.667 3 80 }
+	Harmony Open
+	Octave 6
+	Volume mp
+	Range 2
+	Articulate 70
+	Rskip 75    // we need skip quite a few notes
+	Rvolume 20
+	Rtime 10
+	End
+
+DefGroove FastJazzWaltz1    Add arpeggio runs.
+
+Chord-Sus Groove FastJazzWaltzSus
+
+DefGroove FastJazzWaltz1Sus   Sustained strings and arpeggios.
+
+////////
+
+//Groove FastJazzWaltz
+Groove fastjazzwaltz
+
+Begin Arpeggio
+	Voice VoiceOohs
+	Sequence  {1 2 90; 3.66 8 100}  A3  A1  {A3 Shift .66}
+	Harmony OpenBelow
+	Octave 5
+	Volume m
+	Range .9
+	Direction Down
+	Articulate 70
+	Rskip 40
+	Rvolume 20
+	Rtime 10
+End
+
+DefGroove FastJazzWaltz2    Add VoiceOohs.
+
+Chord-Sus Groove FastJazzWaltzSus
+
+DefGroove FastJazzWaltz2Sus   Sustained strings and DUH voices.
+
+////////////////////////////
+// Intros
+
+Groove FastJazzWaltz
+
+
+Drum-Snare     Sequence    D1
+Drum-HH        Sequence    {D123 shift .5} / /     z
+Begin Drum-Cym
+               Sequence    D123     /      /       {D1 * 24}
+               RSkip       20
+End
+Chord          Sequence    C1       /      C123    C1
+Chord-Guitar   Sequence    C3       /      C1      C1
+Walk           Sequence    W1       /       /      W123
+
+
+DefGroove FastJazzWaltzIntro   4 bar intro.
+
+SeqSize 8
+
+Drum-HH        Sequence    {D123 shift .5} / /     /       /    /      /      z
+
+Begin Drum-Cym  
+               Sequence    D123     /      /       /       /    /      /      {D1 * 24}
+               RSkip       20 
+End
+Chord          Sequence    C1     /      C123    C1   /    C123   C1   C1
+Chord-Guitar   Sequence    C3       /      C1      C12     C3   /      C12    C1
+Walk           Sequence    W1     /    /   W12   W1   /    /     W123
+
+DefGroove FastJazzWaltzIntro8  8 bar intro.
+
+//////////////////////////
+/// Fill
+
+Groove FastJazzWaltz
+
+SeqSize 1
+
+Alltracks SeqRnd Off
+
+Drum-HH       Sequence 	D6 
+Begin Drum-Snare
+    Sequence	D123
+	Volume m
+End
+Drum-HH       Sequence  {D123 shift .5}
+Begin Drum-Cym 
+     Sequence	D123
+     Volume m
+End
+Chord         Sequence 	{C123 * 2}
+Chord-Guitar  Sequence	C123
+Bass          Sequence  {1 4 5 100; 3 8 3 110; 3 4 1 100}
+Walk          Sequence   -
+
+DefGroove FastJazzWaltzFill  Single bar fill, can be used in endings.
+
+
+
+//////////////////////////
+/// Endings
+
+Groove FastJazzWaltz
+
+SeqSize 2
+
+Alltracks SeqRnd Off
+
+Drum-HH       Sequence 	D6   D1
+Drum-Snare    Sequence	D1
+Drum-HH       Sequence  {D123 shift .5}  z
+Drum-Cym      Sequence	D123 D1
+
+Chord         Sequence 	C123   {1 1 90}
+Chord-Guitar  Sequence	C3     {1 1 90} 
+Bass          Sequence  B1   
+Walk          Sequence   -
+
+DefGroove FastJazzWaltzEnd   Simple ending.
+
+
+Begin Arpeggio
+	Groove FastJazzWaltz1
+    Sequence  A6     A3
+    Rskip 0
+    Range 3
+End
+
+DefGroove FastJazzWaltz1End    Ending with arpeggio eights and quarters.
+

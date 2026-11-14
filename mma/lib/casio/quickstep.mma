@@ -1,0 +1,134 @@
+ // quickstep.mma
+
+Begin Doc  
+      QuickStep (078). Works well for tempos in the 175-200 range.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    RTime 10
+    Sequence {1 0 53; 3 0 53}   /   /   {1 0 53; 3 0 53; 4.75 0 34}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RTime 10
+    Sequence {2 0 90; 4 0 111}  /   /      {2 0 101}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    RTime 10
+    Sequence {1 0 67; 2.75 0 80; 3 0 70; 4.75 0 69}  /  /  {1 0 57; 2.75 0 59; 3 0 54; 4 0 74}
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 4 1 92; 3 4 5 93} \
+             {1 4 1 93; 3 4 5 86; 4.75 6 1 95} 
+End
+
+
+Begin Bass-6
+    Voice TenorSax
+    Octave 5
+    Articulate 100
+    Volume f
+    Sequence {1 3 3 94} \
+             z \
+             {1 4 3 69; 2.75 16 3 79} \
+             {3.75 32 3 117; 4 16 5 84}
+End
+
+
+Begin Bass-7
+    Voice BrassSection
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {1 4 1 73; 3 8 3 63; 3 3 1 65; 4 8 1 55; 4 3 5 61; \
+                 4.75 16 3 84; 4.75 16 1 82} \
+             {4 16 5 107} \
+             {1 4 1 75; 3 8 3 59; 3 8 1 59; 3.75 64 4 32; 3.75 6 2 51; \
+                 3.75 6 3 32; 3.75 6 1 68; 4 3 1 58; 4 3 5 50; 4.75 16 3 79; 4.75 16 1 102} \
+             {3.75 64 3 117; 4 16 5 95}
+End
+
+Begin Chord-8
+    Voice JazzGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 8 90; 2 6 90; 3 8 90; 4 6 90} \
+             {1 8 90; 2 6 90; 3 8 90; 4 16 90} \
+             {1 8 90; 2 16 90; 3 8 90; 4 6 90}
+End
+
+
+
+DefGroove QuickStep Basic 4 bar pattern
+
+/////////////////////////////////////////////////////////
+///////  Intro
+
+Groove QuickStep
+
+Drum-KickDrum1   Sequence  *  *   *  {1 0 53;}
+Drum-ClosedHiHat Sequence  *  *   *  D1
+Drum-OpenHiHat   Sequence  *  *   D1234  D12
+
+// Acousticbass
+Bass-9  Sequence *  *  {1 3 5 90; 2 3 4 80; 3 3 3 80; 4 3 2 80}  {1 2 1 80}
+
+//  TenorSax
+Bass-6 Sequence  *  z   *  {1 4. 5 80}
+
+// BrassSection
+Bass-7 Sequence *  *  *  B1
+
+// JazzGuitar
+Chord-8  Sequence  *  *  C13  C1
+
+DefGroove QuickStepIntro
+
+/////////////////////////////////////////////////////////
+///////  Intro
+
+Groove QuickStep
+Seqsize 2
+
+Drum-KickDrum1   Sequence  *  D1
+Drum-ClosedHiHat Sequence  *  D1
+Drum-OpenHiHat   Sequence  D1234  D1
+
+// Acousticbass
+Bass-9  Sequence *  {1 2 1 80}
+
+//  TenorSax
+Bass-6 Sequence  *  z  
+
+// BrassSection
+Bass-7 Sequence *    B1
+
+// JazzGuitar
+Chord-8  Sequence  C13    C1
+
+DefGroove QuickStepEnd

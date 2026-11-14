@@ -1,0 +1,451 @@
+//// Created Oct 2010
+
+
+//Begin Doc
+ //  Piano only style, advised tempo 110 - 130
+//	The main A variation is the basic right-left hand comping, other groove more.
+//End
+Author Rony Steelandt
+
+Time 4
+TimeSig 4 4
+
+
+//////////////////////
+/////// 2beatpA
+SeqClear
+SeqSize 2
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 7
+ Volume P
+ Articulate 100
+ Octave 3
+ Sequence  {1 8 1 100; 3 8 5 100 } {1 8 1 100; 3 8 5 100 }
+End
+
+Begin Chord-1
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 10
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 4
+ Sequence  {2 16 92; 4 16 95 } {2 16 94; 4 16 95 }
+End
+
+
+DefGroove 2beatpA    Main A. 2 bars, left & right hand comping
+
+
+//////////////////////
+/////// 2beatpB
+SeqClear
+SeqSize 2
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 7
+ Volume P
+ Articulate 100
+ Octave 3
+ Sequence  {1 8 1 100; 3 8 5 100 } {1 8 1 100; 3 8 5 100 }
+End
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 10
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1.66 16 94; 2 4 97; 3.66 16 103; 4 4 102 } \
+       {1.66 16 114; 2 4 100; 3.66 16 111; 4 8. 95; 4.66 16 111 }
+End
+
+DefGroove 2beatpB    Main B. 2 bars, more rythm in the right hand 
+
+
+//////////////////////
+/////// 2beatpC
+SeqClear
+SeqSize 2
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 7
+ Volume P
+ Articulate 100
+ Octave 3
+ Sequence  {1 8 1 100; 3 8 5 100 } {1 8 1 100; 3 8 5 100 }
+End
+
+Begin Chord-1
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 10
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 4
+ Sequence  {2 16 99 0 99 0 ; 4 16 98 0 98 0; 4.02 16 99 0 99 0 } \
+       {2 16 93 0 93 0; 2.02 16 99 0 93 0; 4 16 99 0 93 0; 4.02 16 99 0 99 0 }
+End
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 10
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1 16 87; 1.02 8. 94; 1.68 16 94; 2 16 96; 2.68 16 91; 3.02 8 91; 3.68 16 93; 4 8 93; 4.68 16 91 } \
+       {1 8. 87; 1.68 16 94; 2 16 96; 2.68 16 91; 3.02 8 91; 3.68 16 93; 4 8 91; 4.68 16 91 }
+End
+
+
+DefGroove 2beatpC    Main C. 2bars, more busy & upper octave
+
+
+//////////////////////
+/////// 2beatpD
+SeqClear
+SeqSize 2
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 7
+ Volume P
+ Articulate 100
+ Octave 3
+ Sequence  {1 8 1 101; 2.97 8 5 101 } \
+       {1 8 1 103; 3 8 1 101 }
+End
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 10
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1 16 87; 1.02 8. 94; 1.68 16 94; 2 16 96; 2.68 16 91; 3.02 8 91; 3.68 16 93; 4 8 93; 4.68 16 91 } \
+       {1.02 8 93; 1.68 16 97; 2.68 16 96; 2.97 4. 97; 3 8 93; 3.64 8. 93; 4.68 16 96 }
+End
+
+
+
+DefGroove 2beatpD    Main D. 2 bars variation on Main C
+
+
+//////////////////////
+/////// 2beatpFillA
+SeqClear
+SeqSize 1
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 7
+ Volume MP
+ Articulate 100
+ Octave 4
+ Sequence  {1 4 1 93; 3 4 5 94; 4 4 1 94  } 
+End
+
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {2 1 1 94}
+End
+
+DefGroove 2beatpFillA    Fill In A. One bar Fill
+
+
+//////////////////////
+/////// 2beatpFillB
+SeqClear
+SeqSize 1
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Articulate 100
+ Octave 3
+ Sequence  {1 8 1 99; 2 16 5 93 ; 3 8 1 95 ; 4 8 5 92 }
+End
+
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1 16 92; 1.68 16 89; 2 16 90; 3 8. 97; 3.68 16 95; 4 4 92}
+End
+
+DefGroove 2beatpFillB    Fill In B. One bar fill
+
+
+//////////////////////
+/////// 2beatpFillC
+SeqClear
+SeqSize 1
+
+Begin Chord-1
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 3
+ Sequence  {1 5 101 }
+End
+
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1 16 93; 1.37 16 90; 1.68 16 89; 2 8. 95; 2.68 16 97; 3 16 93; 3.68 16 90; 3.97 8. 93; 4.68 16 91 }
+End
+
+
+
+DefGroove 2beatpFillC    Fill In C. One bar
+
+
+//////////////////////
+/////// 2beatpFillD
+SeqClear
+SeqSize 1
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Articulate 100
+ Octave 3
+ Sequence  {1 4 1 107; 2 4 5 106; 3 4 1 107; 4 4 5 104 }
+End
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1 16 93; 1.37 16 90; 1.68 16 89; 2 8. 95; 2.68 16 97; 3 16 93; 3.68 16 90; 3.97 8. 93; 4.68 16 91 }
+End
+
+
+
+DefGroove 2beatpFillD    Fill In D. One bar
+
+
+//////////////////////
+/////// 2beatpIntroA
+SeqClear
+SeqSize 1
+
+Begin Bass-1
+ Voice Piano1
+ MidiTname Piano1
+ Volume P
+ Octave 4
+ Sequence  {1 1 1 48;2 2. 1+ 94; 3 4. 5+ 94; 4 4 1+ 92}
+End
+
+
+
+DefGroove 2beatpIntroA   'Intro A. One bar; simple
+
+
+//////////////////////
+/////// 2beatpIntroB
+SeqClear
+SeqSize 4
+
+Begin Chord-1
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 4
+ Sequence  {1 8 94; 3 8 94 } \
+       {1 8 94; 3 8 95 } \
+       {1 8 95; 3 8 97 } \
+       {1 8 94; 3.95 4 99 }
+End
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1 16 94; 1.7 16 91; 2.02 16 92; 3 8 96; 4 8. 93; 4.68 16 92 } \
+       {1 8 95; 1.68 16 90; 2 16 99; 2.02 16 90; 3 8. 96; 3.68 16 93; 4 4 95; 4.66 16 94 } \
+       {1 16 94; 1.7 16 91; 2.02 16 92; 3 8 96; 4 8. 93; 4.68 16 92 } \
+       {1 8 95; 1.68 16 98; 2 8 97; 2.66 16 104; 2.97 0 99; 3 4. 102; 4 4 90; 4.02 4 92 }
+End
+
+
+
+
+DefGroove 2beatpIntroB    Intro B. 4 bar intro, 2 octaves
+
+
+//////////////////////
+/////// 2beatpIntroC
+SeqClear
+SeqSize 6
+
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Articulate 100
+ Octave 3
+ Sequence  {1 16 1 105; 3 8 5 94 } \
+       {1 4. 1 94; 3 4. 5 94 } \
+       {1 4 1 99; 3 8 5 94 } \
+       {1 8 1 96; 3 4. 5 92 } \
+       {1 8. 1 93; 3 8. 5 99 } \
+       {1 8. 5 99; 2.97 8 1 93 }
+End
+
+Begin Chord-1
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 10
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 4
+ Sequence  {1.97 16 93; 2 16 93; 2.97 8 95; 3.02 8 96 } \
+       {2 16 97; 2.97 4. 93; 3.02 4. 94; 3.04 4. 91 } \
+       {2 16 92; 3.97 8 99; 4.02 16 94 } \
+       {2 16 99; 4.02 16 96 } \
+       {2 16 93; 4 16 94; 4.02 16 93 } \
+       {1 8. 87; 1.68 16 94; 2 16 96; 2.68 16 91; 3.02 8 91; 3.68 16 93; 4 8 91; 4.68 16 91 }
+End
+
+DefGroove 2beatpIntroC    Intro C. 6 bars intro 
+
+
+//////////////////////
+/////// 2beatpEndingA
+SeqClear
+SeqSize 1
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Articulate 100
+ Octave 3
+ Sequence  {1 1 1 93 }  
+End
+
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1 1 92 }  
+End
+
+DefGroove 2beatpEndingA     Ending A.  1 bars
+
+
+//////////////////////
+/////// 2beatpEndingB
+SeqClear
+SeqSize 3
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 7
+ Volume P
+ Articulate 100
+ Octave 3
+ Sequence  {1 8 1 94; 2 16 5 93; 3 8 1 94; 4 16 5 91 } \
+       {1 8 1 94; 3 4. 5 95 } \
+       {1 1 1 91 }  
+End
+
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Rvolume 10
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1 16 94; 1.7 8 91; 2.02 16 92; 3 8 98; 4 4 98; 4.66 16 101; 4.68 16 84 } \
+       {1 8 99; 1.02 16 91; 1.68 16 89; 2 16 97; 2.02 16 91; 3 8 96; 3.5 8 104; 4 4 92; 4.02 8 101; 4.58 8. 97 } \
+       {1.29 1 94 0 94 0}  
+End
+
+
+DefGroove 2beatpEndingB    Ending B. 3 bar ending 
+
+
+//////////////////////
+/////// 2beatpEndingC
+SeqClear
+SeqSize 2
+
+Begin Bass-1
+ Voice Piano1
+ MidiTName Piano1
+ Volume P
+ Articulate 100
+ Octave 4
+ Sequence  {1 1 1 101 } z
+End
+
+Begin Chord-2
+ Voice Piano1
+ MidiTName Piano1
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1 16 107 0 107 0; 1.33 8 104 0 104 0; 1.64 16 104 0 104 0 ; 1.97 8 105 0 105 0 ; 2.64 16 100 0 100 0 ; 3 8 100 0 100 0 ; 3.66 16 107 0 107 0 ; 3.97 8 97 0 97 0 ; 4.64 16 100 0 100 0 ; 4.97 8 96 0 96 0 } \ 
+       {1.02 8 107 0 107 0 ;  3.02 1 94 ; }  
+End
+
+DefGroove 2beatpEndingC    Ending C. 2 bar ending 
+
+

@@ -1,0 +1,20 @@
+// A attempt to get MMA to generate a random
+// song progression based on simple chords.
+
+// The chords we'll use are C, F and G7. The following
+// loop will generate about 4 Cs for every 1 F and G7:
+
+Groove BossaNova
+Tempo 140
+
+Debug RunTime=On
+
+  C   // start with a tonic
+Repeat
+	RndSet ch C C C C F G7
+	$ch
+RepeatEnd Nowarn 13
+
+ G7 // end with V7/I
+ C
+

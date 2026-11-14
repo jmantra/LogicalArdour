@@ -1,0 +1,179 @@
+
+// guitarballad
+
+Begin Doc
+
+ Guitar based ballad with a bit of a rock feel. Written for
+ Beatles classic "Yesterday".
+
+ This is a conversion of the pianoballad groove.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////
+/// Basic Pattern
+
+SeqSize 4
+
+Begin Drum-Kick
+    Tone KickDrum1
+    Sequence D123
+    Volume mp
+    Rtime 3
+    RVolume 10
+End
+
+Begin Drum-Side
+    Tone SideKick
+    Sequence D13
+    Volume ppp
+    Rtime 3
+    Rvolume 10
+End
+
+Begin Drum-CHiHat
+    Tone ClosedHiHat
+    Sequence D8
+    Volume p
+    Rtime 2
+    Rvolume 10
+End
+
+Begin Bass
+    Voice FingeredBass
+    Volume mp
+    Octave 3
+    Articulate 80 70
+    Sequence  {1 4. 1 90; 2.5 8 1 90; 3 4. 1 90; 4.5 4 5 90} \
+              {1 4. 1 90; 2.5 8 1 90; 3 4  1 90; 4   4 3 90}
+End
+
+Begin Arpeggio-4
+    Voice NylonGuitar
+    Volume mp
+    Articulate 80
+    Octave 5
+    Range 1
+    Direction Random / Up Down
+    SeqRnd On
+    Sequence A4
+    Rskip 5
+    Rvolume 10
+End
+
+Begin Arpeggio-8
+    Voice $_Arpeggio-4_Voice
+    Volume pp
+    Articulate 70
+    Octave 5
+    Direction Random / Up Down
+    SeqRnd On
+    Range 2
+    Sequence A8
+    Rskip 20
+    Rvolume 10
+End
+
+DefGroove GuitarBallad   Simple ballad with drums and guitar.
+
+Begin Chord
+    Voice JazzGuitar
+    Volume p
+    Articulate 120
+    Octave 5
+    Rvolume 5
+    Rtime 5
+    Sequence  C1 C13 C3 C1
+End
+
+DefGroove GuitarBallad1  Add additional guitar chords.
+
+////////////////////////
+/// Sustained version
+
+Groove GuitarBallad
+
+Begin Chord-Sus
+    Voice  SynthStrings1
+    Sequence { 1 1 90 0 90 0 * 4 }
+    Voicing Mode=Optimal
+    Octave 5
+    Articulate 100
+    Unify On
+    Rvolume 10
+    Volume p
+End
+
+DefGroove GuitarBalladSus  Guitar arpeggios with a bit of strings.
+
+Groove GuitarBallad1
+Begin Chord-Sus
+    Groove GuitarBalladSus
+    Volume -20%
+End
+
+DefGroove GuitarBallad1Sus   Guitar arpeggios with chords and strings.
+
+//////////////////////
+//// Intro
+
+Groove GuitarBallad
+
+Drum-Kick      Sequence  D12
+Drum-Side      Sequence  D13
+Drum-CHiHat    Sequence  D8
+
+Bass           Sequence  *  *  *  { 1 2 1 90 }
+Begin Arpeggio-4
+   SeqRnd Off
+   Sequence  A4 / / A2
+End
+Begin Arpeggio-8
+   SeqRnd Off
+   Sequence  A8 / / A4
+End
+
+DefGroove GuitarBalladIntro   A 4 bar introduction.
+
+Begin Chord-Sus
+   Groove GuitarBalladSus
+   Sequence  {1 1 90 0 90 0 * 4} {1 1 70 0 60 0 * 4} {1 1 60 0 40 0 * 4}  { 1 1 50 0 30 0 * 4 }
+End
+
+DefGroove GuitarBalladSusIntro  The same 4 bar intro with strings.
+
+////////////////////////
+//// Ending
+
+Groove GuitarBallad
+
+SeqSize 2
+Alltracks Rskip 0
+
+Drum-Kick      Sequence  D1234 D1
+Drum-Side     Sequence  D1234 D12
+Drum-CHiHat    Sequence  D8 { D12 ; D12 Shift .5}
+
+Bass           Sequence  *  { 1 2 1 90 }
+Begin Arpeggio-4
+   SeqRnd Off
+   Sequence  A4 A2
+End
+Arpeggio-8     Sequence -
+
+Begin Chord
+    Sequence    C13  C123
+    Octave      6     5
+    Volume      mp    p
+    Articulate  150
+End
+
+DefGroove GuitarBalladEnd    A 2 bar ending.

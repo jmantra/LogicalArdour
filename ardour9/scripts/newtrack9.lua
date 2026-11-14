@@ -218,6 +218,55 @@ local function select_route(route)
 	return route:is_selected() and sel_size == 1
 end
 
+local function is_midi_route(route)
+	if not route or route:isnil() then
+		return false
+	end
+	local tr = route:to_track()
+	if not tr or tr:isnil() then
+		return false
+	end
+	local midi = tr:to_midi_track()
+	return midi and not midi:isnil()
+end
+
+local function find_newest_midi_route(track_name)
+	local escaped_name = track_name:gsub("(%W)", "%%%1")
+	local best = nil
+	local best_suffix = -1
+	for route in Session:get_routes():iter() do
+		local route_name = route:name()
+		local suffix = nil
+		if route_name == track_name then
+			suffix = 0
+		else
+			local digits = route_name:match("^" .. escaped_name .. "%.(%d+)$")
+			if digits then
+				suffix = tonumber(digits)
+			end
+		end
+		if suffix and suffix >= best_suffix and is_midi_route(route) then
+			best = route
+			best_suffix = suffix
+		end
+	end
+	return best
+end
+
+local function select_route_when_ready(route)
+	for _ = 1, 5 do
+		if select_route(route) then
+			return true
+		end
+		if ARDOUR.LuaAPI and ARDOUR.LuaAPI.usleep then
+			pcall(function()
+				ARDOUR.LuaAPI.usleep(200000)
+			end)
+		end
+	end
+	return false
+end
+
 local function add_track_from_template(template_path, track_name)
 	Session:new_route_from_template(1, ARDOUR.PresentationInfo.max_order, template_path, track_name, ARDOUR.PlaylistDisposition.NewPlaylist)
 	local route = find_newest_route(track_name)
@@ -341,10 +390,25 @@ local function create_seq(stemplate_path, strack_name, template_path, track_name
   end
 end
 
+local function melody_generator_program()
+	return "/opt/LogicalArdour/melody_generator"
+end
+
 local function generate_melody(template_path, track_name, open_soundfont)
 	print("You picked Melody Generator: " .. track_name)
 
+	local template_file = io.open(template_path, "r")
+	if not template_file then
+		LuaDialog.Message("Melody Generator", "Track template was not found:\n" .. template_path, LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+		return
+	end
+	template_file:close()
+
 	local route = add_track_from_template(template_path, track_name)
+	if not is_midi_route(route) then
+		LuaDialog.Message("Melody Generator", "Could not create a MIDI track from:\n" .. template_path, LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+		return
+	end
 
 	local function open_font()
 		if not open_soundfont or not route or route:isnil() then
@@ -501,7 +565,7 @@ local function generate_melody(template_path, track_name, open_soundfont)
 	local filepath = "/tmp/melody" .. desired_key .. scale .. ".mid"
 	local quotedfilepath = '"' .. filepath .. '"'
 
-	local command = "/opt/LogicalArdour/melody_generator --key \""
+	local command = melody_generator_program() .. " --key \""
 		.. desired_key .. "\" --scale " .. scale .. " --genre \"" .. genre_id
 		.. "\" --bars " .. bar_count .. " --tempo " .. bpm
 		.. " --output " .. quotedfilepath
@@ -519,6 +583,13 @@ local function generate_melody(template_path, track_name, open_soundfont)
 	end
 	local resolved_scale = output:match("Resolved scale: (%S+)") or scale
 	local region_name = genre_name .. " " .. desired_key .. " " .. resolved_scale
+
+	route = find_newest_midi_route(track_name) or route
+	if not select_route_when_ready(route) then
+		LuaDialog.Message("Melody Generator", "Could not select " .. route:name() .. " to import the melody.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+		os.execute("rm -rf " .. quotedfilepath)
+		return
+	end
 
 	import_midi_into_route(filepath, route)
 	rename_melody_region(route, region_name)

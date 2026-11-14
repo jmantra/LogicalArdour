@@ -1,0 +1,130 @@
+ // oldieballad.mma
+
+Begin Doc  
+      Oldie ballad (038). Pretty repetitive, but that's how things were?
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 2
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 90; 2.7 0 63; 3 0 80} \
+             {1 0 85; 2.7 0 71; 3 0 80}
+End
+
+Begin Drum-SideKick
+    Tone SideKick
+    Volume m
+    Sequence {2 0 72; 4 0 76}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Rvolume 10
+    Sequence {1 0 95; 1.3 0 64; 1.7 0 70; 2 0 82; 2.3 0 67; 3 0 86;\
+                 3.3 0 43; 3.7 0 70; 4 0 86; 4.3 0 64; 4.7 0 45} \
+             {1 0 86; 1.3 0 81; 1.5 0 80; 1.7 0 78; 2 0 86; 2.3 0 67; \
+                 2.7 0 55; 3 0 86; 3.3 0 43; 3.7 0 70; 4 0 86; 4.7 0 86}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence {2.7 0 60} \
+             {4.3 0 85}
+End
+
+Begin Drum-Tambourine
+    Tone Tambourine
+    Volume m
+    RVolume 6
+    Sequence {2 0 46} \
+             {2 0 59}
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 4 1 86; 2.7 16 1 74; 3 4 1 74; 4.7 16 1 86} \
+             {1 4 1 82; 2.7 6 1 82; 3 4 1 82} 
+End
+
+Begin Chord-6
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    RVolume 5
+    Sequence {1 16 90; 1.3 0 90; 1.7 8 90; 2.3 64 90; 2.7 0 90; 3 4 90} 
+End
+
+
+Begin Chord-7
+    Voice JazzGuitar
+    Octave 6
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {4 32 90 0 90 0}
+End
+
+DefGroove OldieBallad  Main pattern, a 2 bar sequence.
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove OldieBallad
+SeqSize 4
+
+Drum-KickDrum1   Sequence   *     *     D13   D1
+Drum-SideKick    Sequence   *     *      *    D1234
+Drum-ClosedHiHat Sequence   *     *     D13   D1234
+Drum-OpenHiHat   Sequence   {D13 shift .7}   *    *  z
+Drum-Tambourine  Sequence   *     *     D24    *
+
+Bass-9           Sequence   B1234  *    *    B13
+
+// piano1
+Chord-6          Sequence   C13     *     *   L1
+
+// Jazzguitar
+Chord-7          Sequence    z      *     *   {1  32 80 0 70 0}
+
+DefGroove OldieBalladIntro  A 4 bar introduction
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove OldieBallad
+
+Drum-KickDrum1   Sequence   *       D1
+Drum-SideKick    Sequence   D1234   D1
+Drum-ClosedHiHat Sequence   *       D1
+Drum-OpenHiHat   Sequence   *       z
+Drum-Tambourine  Sequence   D24     D1
+
+Bass-9           Sequence   B1234   B1
+
+// piano1
+Chord-6          Sequence   C13      L1
+
+// Jazzguitar
+Chord-7          Sequence    *        z
+
+DefGroove OldieBalladEnd   A 2 bar ending.
+
+

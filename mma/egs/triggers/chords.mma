@@ -1,0 +1,35 @@
+// chords.mma
+
+include stdpats
+
+/* Trigger examples for the Cnames, CTypes and CTonics 
+   options. Note that you MUST have a BEATS=... list, 
+   otherwise there is nothing to limit these options.
+*/
+
+// This is the chord sequence we'll use for each eg.
+Mset Chords
+   C / Cm
+   G / D7
+   F / Fm Gm
+   C Cm7 CM 
+Endmset
+
+// A basic sequence with a chord on each beat.
+Begin Chord-banger
+   Voice Piano1
+   Octave 6
+   Sequence C1234
+End
+
+// Trigger on matching chord names
+chord-banger Trigger Beats=1,2,3,4 CNames=C,G
+$Chords
+
+// Trigger on matching types 
+chord-banger Trigger CTypes=m,m7 Beats=1,2,3,4
+$Chords
+
+// Trigger on matching root names
+chord-banger Trigger CTonics=C,G Beats=1,2,3,4
+$Chords

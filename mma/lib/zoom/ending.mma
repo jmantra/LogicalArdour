@@ -1,0 +1,188 @@
+// Pattern: ENDING01
+
+SeqClear
+SeqSize 1
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |2|
+  Sequence { 1.0 0 60 } 
+End
+
+Begin Drum-Crash
+  Tone     CrashCymbal1
+           // |3|
+  Sequence { 1.0 0 90 } 
+End
+
+DefGroove ENDING01 Time = 4/4, SeqLen = 1; Kick, Crash.
+
+// Pattern: ENDING02
+
+SeqClear
+SeqSize 1
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |2|
+  Sequence { 1.0 0 60 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |3|
+  Sequence { 1.0 0 90 } 
+End
+
+Begin Drum-Crash
+  Tone     CrashCymbal1
+           // |3|
+  Sequence { 1.0 0 90 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |2|
+  Sequence { 1.0 0 60 } 
+End
+
+DefGroove ENDING02 Time = 4/4, SeqLen = 1; Kick, Snare, Crash, Maracas.
+
+// Pattern: ENDING03
+
+SeqClear
+SeqSize 1
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-----3-----------------------------------------|
+  Sequence { 1.0 0 90; 1.5 0 90 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |-----------23----23-----------------------------|
+  Sequence { 1.9 0 60; 2.0 0 90; 2.4 0 60; 2.5 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2-----2-----------------------------------------|
+  Sequence { 1.0 0 60; 1.5 0 60 } 
+End
+
+DefGroove ENDING03 Time = 4/4, SeqLen = 1; Kick, Snare, ClosedHat.
+
+// Pattern: ENDING04
+
+SeqClear
+SeqSize 1
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3|
+  Sequence { 1.0 0 90 } 
+End
+
+Begin Drum-Crash
+  Tone     CrashCymbal1
+           // |3|
+  Sequence { 1.0 0 90 } 
+End
+
+DefGroove ENDING04 Time = 4/4, SeqLen = 1; Kick, Crash.
+
+// Pattern: ENDING05
+
+SeqClear
+SeqSize 1
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3|
+  Sequence { 1.0 0 90 } 
+End
+
+Begin Drum-Crash
+  Tone     CrashCymbal1
+           // |0|
+  Sequence { 1.0 0 0 } 
+End
+
+DefGroove ENDING05 Time = 4/4, SeqLen = 1; Kick, Crash.
+
+// Pattern: ENDING06
+
+SeqClear
+SeqSize 1
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-----------------3-----------------------------|
+  Sequence { 1.0 0 90; 2.5 0 90 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |------------3-----------------------------------|
+  Sequence { 2.0 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |------------2-----------------------------------|
+  Sequence { 2.0 0 60 } 
+End
+
+Begin Drum-Crash
+  Tone     CrashCymbal1
+           // |2-----------------2-----------------------------|
+  Sequence { 1.0 0 60; 2.5 0 60 } 
+End
+
+Begin Drum-Tom2
+  Tone     LowTom1
+           // |-----12-----------------------------------------|
+  Sequence { 1.4 0 30; 1.5 0 60 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |------------2-----------------------------------|
+  Sequence { 2.0 0 60 } 
+End
+
+DefGroove ENDING06 Time = 4/4, SeqLen = 1; Kick, Snare, ClosedHat, Crash, Tom2, Maracas.
+
+// Pattern: ENDING07
+
+SeqClear
+SeqSize 1
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3--3--3---3-3---|
+  Sequence { 1.0 0 90; 1.8 0 90; 2.5 0 90; 3.5 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |3--3--3---3-3---|
+  Sequence { 1.0 0 90; 1.8 0 90; 2.5 0 90; 3.5 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |3--3--3---3-3---|
+  Sequence { 1.0 0 90; 1.8 0 90; 2.5 0 90; 3.5 0 90; 4.0 0 90 } 
+End
+
+DefGroove ENDING07 Time = 4/4, SeqLen = 1; Kick, Snare, ClosedHat.
+

@@ -1,0 +1,71 @@
+// cresc.mma
+
+// This is example file to show how AFTER can work with DefCall.
+// It's a dumb example. MMA has much better internal mechanisms to
+// do a simple cresendo. But, it's a neat demo :)
+
+Groove Rhumba
+
+// Here's a silly rewrite of the internal MMA CRESC function.
+// It works by setting up a AFTER to repeat after every
+// processed bar. The AFTER calls the function MaxVol
+// which does a volume increment of 10%. When the volume
+// reaches 100 (around 'mf') the AFTER event is deleted.
+
+DefCall cresc
+   print At bar $_BarNum the Volume is $_Volume
+   if >= $_Volume 100
+      Volume 100
+      print but we've changed it back to $_Volume
+      Print ... removing the AFTER event.
+      AFTER Remove=Volumecheck
+   else 
+      Volume +10%
+   endif
+EndDefCall
+
+After Repeat=1 id=Volumecheck Call Cresc
+
+// Save typing with a macro
+Mset lns
+  A
+  B
+  C
+  E Em G
+  A
+  Bm
+  BM
+  Am
+  AM
+Endmset
+
+Volume p
+
+// Call our 9 line macro 3x for a 27 bar "song"
+$lns
+$lns
+$lns
+
+
+//////////////////////////////////////////////////////////////////
+
+// Same as the above, but this time wWhen the volume
+// reaches 100 (around 'mf') it starts over at 'p'.
+
+DefCall CRESC
+   print At bar $_BarNum the Volume is $_Volume
+   if >= $_Volume 100
+      Volume p
+   else 
+      Volume +10%
+   endif
+EndDefCall
+
+// In this case the ID is never used, but no harm in setting it.
+After Repeat=1 id=Volumecheck Call cresc
+
+Volume p
+
+$lns
+$lns
+$lns

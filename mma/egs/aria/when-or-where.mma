@@ -1,0 +1,133 @@
+/// A quick test for KEY scales in an Aria.
+
+/// All I have done is to take the entire file from the songs distro
+/// for "When or Where" and added in an Aria. Less than a minute's work.
+
+/// For fun try using "Scale" or "Chromatic" instead of "Key" for scaletype!
+
+/// This isn't the greatest composition in the world ... but, it
+/// doesn't sound all that bad either!
+
+Keysig Eb  /// Gotta have this for the aria key and the solo riffs
+Tempo 175  /// this moves pretty damn fast.
+
+Groove QuickstepIntro
+
+Begin Solo
+  Voice Organ2
+  Volume f
+  Articulate 90
+  Harmony 3+OpenAbove
+  Octave 6
+  Begin Riff
+    4e;;;;
+    4e;;;;
+    2g;4f;e;
+    1d;
+  End
+End
+
+1    Eb   
+2    Cm   
+3    Gm   
+4    Bb7  
+
+Swingmode On /// effects the Sequence below (only!)
+Begin Aria
+   Voice Piano1
+   Harmony OpenBelow+8Below
+   Rskip 60           // the harmony gives lots of extra notes
+   Octave 5           // start of the piano range
+   Range 1.5          // limit to 1 1/2 octaves
+   volume ff          // bang on the keys!
+   Articulate 120     // and let'em ring
+   SeqRnd On          // keep everything a surprise
+   Scaletype Key      // change to Auto (or even chromatic)
+   /// I have no idea why I picked the following 2 lines....
+   Direction rrr r r r -1 r rrr -2 4 
+   Sequence {1 1 90 * 8} {1 2. 90 * 4} {1 1 80 * 4} {1 1 90 * 2; 1 4 80 * 4 shift .5}
+End
+
+Repeat 
+Groove QuickStep
+Swell mp f 7
+
+5    Eb   
+6    Eb6  
+7    EbM  
+8    /    
+9    Fm7  
+10   /    
+11   /   
+
+Groove QuickStepDuh
+Volume f
+
+12   /    /    /    Fm7  
+13   EbM7 /    Cm7  
+14   Fm7  /    Bb7 
+ 
+Groove QuickStep
+Cresc mp f 7
+
+15   Eb   
+16   Eb6  
+17   EbM7 
+18   /    
+19   Fm7  
+20   /    
+21   /    
+
+Groove QuickStepDuhSus
+Volume m
+
+22   /    /    /    Fm7  
+23   EbM7 
+24   Dm7b5 /    /    G7   
+
+Groove QuickStepSus
+Swell f 7
+
+25   Cm   
+26   Fm7  
+27   Dm7  /    G7   
+28   Dm7  /    G7   
+29   Cm   
+30   Fm7  
+31   Cm7  /    F7   
+
+Groove QuickStepHitSus
+Volume f
+
+32   Fm7  /    Bb7  
+
+RepeatEnd 3
+
+Groove QuickStepSus
+Cresc mp f 6
+
+33   Eb   
+34   Eb6  
+35   EbM7 
+36   Eb7#5 
+37   Ab6  
+38   Gm7  
+
+Groove QuickStepDuhSus
+
+39   Fm7  
+40   Gm7  /    C7   
+41   Fm7  
+42   Bb7  /    Bb7b9 
+
+Groove QuickStepEnd
+Decresc p 2
+Tempo *.8 2
+
+43   Eb6  /    Abm  
+44   Eb   
+
+
+
+
+

@@ -1,0 +1,138 @@
+
+// hymn.mma
+
+Begin Doc
+   If you are doing a hymn in church, you might appreciate this.
+   We use a organ and bring in some strings
+   in the "plus" versions.
+End
+
+Author Bob van der Poel
+
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////////////
+/////// Instrument patterns
+
+
+/////////////////////////////////
+// Main pattern
+
+SeqSize 4
+
+Begin Chord
+   Voice ChurchOrgan
+   Octave 5
+   Articulate 100
+   Voicing Mode=Key
+   Unify On
+   Volume m
+   RVolume 5   
+   Sequence  { 1 1 90 * 4 }
+End
+
+Begin Bass
+   Voice ChurchOrgan
+   Octave 3
+   Articulate 120
+   Volume m
+   RVolume 5
+   Sequence  {1 2 1 90; 3 2 5 80 }
+End
+
+DefGroove Hymn   A simple hymn accompaniment.
+
+Groove Hymn
+DefGroove HymnRoot  The same hymn with chords in root position.
+
+//////////////////////////////////////////////////
+/// And in a walking bass.
+
+Groove Hymn
+
+Bass Sequence -
+
+Begin Walk
+   Voice $_Bass_Voice
+   Octave $_Bass_Octave
+   Articulate 90
+   Volume m
+   Sequence W1234
+End
+
+DefGroove HymnWalk  Basic hymn with walking bass.
+
+Groove HymnWalk
+Chord Groove HymnRoot
+
+DefGroove HymnRootWalk  Hymn in root position with walking bass.
+
+
+/////////////////////////////////////////////////
+/// Add in random arpeggios
+
+Groove Hymn
+
+Begin Arpeggio
+    Voice ChoirAahs
+    Range 1
+    Octave 6
+    Articulate 120
+    Volume f
+    Harmony 3Below
+    Direction Random
+    Sequence A4 \
+             {1 4 90; 2 4 90; 3 8 90; 3.5 8 90; 4 8 90; 4.5 8 90} \ 
+             {1 4 90; 2 8 90; 2.5 8 90; 3 8 90; 3.5 8 90; 4 4 90} \
+             A8
+End
+
+DefGroove HymnPlus   Some heavenly voices added in.
+
+Groove HymnWalk
+Arpeggio Groove HymnPlus
+DefGroove  HymnWalkPlus   Walking bass with voices.
+
+Groove HymnRoot
+Arpeggio Groove HymnPlus
+DefGroove  HymnRootPlus   Root chords with voices.
+
+Groove HymnRootWalk
+Arpeggio Groove HymnPlus
+DefGroove HymnRootWalkPlus Root chords with walk and voices.
+
+
+//////////////////////////////////////////////////////////
+///// Intro
+
+Groove Hymn
+Begin Bass
+  Sequence {1 1 1 90 * 4}
+  Unify On
+End
+
+DefGroove HymnIntro  A simple sustained intro.
+
+
+/////////////////////////////////////////////////////////////
+//// Ending
+
+Groove Hymn
+
+SeqSize 2
+Begin Chord
+   Articulate 80  /// this disables unify as well as shorting notes
+   Sequence {1 4. 90; 2.5 8 90; 3 2 70 } {1 2. 70}
+End
+Begin Bass
+  Sequence {1 1 1 90 * 4} { 1 2 1 80}
+  Unify Off
+End
+
+DefGroove HymnEnd  A 2 bar ending.
+

@@ -1,0 +1,149 @@
+
+// spiritual.mma
+
+
+Begin Doc
+    A standard spiritual beat. Written to work in the 120 to 180 bpm range.
+  
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////
+/// Pattern definitions
+
+
+
+///////////////////////////
+/// Groove definitons
+
+
+SeqSize 4
+
+Begin Drum		
+	Sequence D1234
+	Tone SnareDrum1 
+	Rvolume 10
+	Rskip 50
+	Rtime 4
+	Volume ppp
+End
+
+Begin Drum-Clap
+	Sequence D24   D2  
+	Tone HandClap
+	SeqRnd On
+	Rvolume 10
+	RSkip 50
+	Rtime 4
+	Volume p
+End
+
+Begin Drum-HH
+	Sequence D1234
+	Tone ClosedHiHat
+	RVolume 10
+	Volume mp
+End
+
+Begin Walk
+	Voice AcousticBass
+	Sequence W1234  /   / {1 4. 100; 3 4 100}
+	Octave 3
+	Volume m
+	Articulate 80
+End
+
+
+Begin Chord
+	Voice Piano1
+	Sequence C13 / /  C1234
+	Voicing   Mode=Key2
+	Octave 5
+    Articulate 120
+	Volume m
+End	
+	
+DefGroove Spiritual    A basic spiritual beat in 4.
+
+//// Plus  ... these add organ riffs
+
+Groove Spiritual
+
+Begin Arpeggio
+    Voice Organ1
+    Volume p
+    Articulate 90
+    Rskip 50
+    Harmony OpenBelow
+    Range .9
+    Octave 6
+    SeqRnd On
+    Direction Random
+    Sequence {1 2 80; 3 4 90; 4 8 50} {1 4 50; 2 8 70; 3 4. 80}
+End
+
+DefGroove SpiritualPlus  Add in a jazz guitar plucking notes.
+
+//// Sustained
+
+Groove Spiritual
+
+Begin Chord-Sus
+    Voice Organ1
+    Volume pp
+    Voicing Mode=Root
+    Octave 5
+    Articulate 100
+    Unify On
+    Sequence {1.5 4. 90 0 80 0; 3 2 90 0 80 0} {1 1 90 0 80 0 * 4}
+End
+
+DefGroove SpiritualSus   Our basic beat with added organ.
+
+Groove SpiritualPlus
+Chord-Sus Groove SpiritualSus
+DefGroove SpiritualSusPlus  Organ and crazy guitar.
+
+
+////// Intro
+
+Groove Spiritual
+
+Drum       Sequence   *    D13   *     D1
+Drum-Clap  Sequence   *    *     D1    z
+Drum-HH    Sequence   *    *     *     D1
+
+Walk       Sequence   *    *      *    {1 4 90}
+
+Chord      Sequence   *    *      *    L1
+
+DefGroove SpiritualIntro   Our basic 4 bar introduction.	
+
+Begin Chord-Sus
+  Groove SpiritualSus
+  Sequence  *   *   *  {1 4. 80 0 70 }
+End
+DefGroove SpiritualSusIntro   A 4 bar intro with organ.
+
+
+/////////  Ending
+
+Groove Spiritual
+Seqsize 2
+
+Drum       Sequence   *     D1
+Drum-Clap  Sequence   D1    D1
+Drum-HH    Sequence   D4    D1
+
+Walk       Sequence   *    {1 4 90}
+
+Chord      Sequence   C1234  C1
+
+
+Defgroove SpiritualEnd   A 2 bar ending.

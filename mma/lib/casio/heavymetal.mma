@@ -1,0 +1,129 @@
+ // heavymetal.mma
+
+Begin Doc  
+      Heavy Metal (045). Turn up the volume.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    Sequence {1 0 127; 2.5 0 102; 3.5 0 66; 4.5 0 70} \
+             {1 0 112; 2.5 0 114; 3.5 0 110; 4.5 0 108} \
+             {1 0 102; 1.7 0 102; 2.5 0 122; 3.5 0 98; 4.5 0 104} \
+             {1 0 123; 2.5 0 121; 3.5 0 91; 4.5 0 112}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    RVolume 10
+    Sequence {2 0 127; 4 0 127}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 10
+    Sequence {1 0 116; 1.5 0 116; 2 0 110; 2.5 0 116; 3 0 119; 3.5 0 116; 4 0 116; 4.5 0 116}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    RVolume 10
+    Sequence  z   z   {2 0 119}   {4.5 0 100}
+End
+
+Begin Bass-9
+    Voice PickedBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 3 1 118; 2.5 8 1 119} \
+             {1 3 1 119; 2.5 8 1 119; 4.5 3 1 121} \
+             {1 3 1 117; 2.5 8 1 120; 4.5 32 1 106; 4.7 6 1 97} \
+             {1 3 1 117; 2.5 8 1 120; 4 3 1 112; 4.5 3 1 113}
+End
+
+Begin Chord-6
+    Voice DistortonGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 3 90; 1.5 0 90; 2.5 3 90; 3 0 90; 3.5 0 90; 4 0 90; 4.5 0 90} \
+             {1 3 90; 1.5 0 90; 2.5 3 90; 3 0 90; 3.5 0 90; 4 0 90; 4.5 3 90} \
+             {1 3 90; 1.5 0 90; 2.5 3 90; 3 0 90; 3.5 3 90; 4 0 90; 4.5 0 90; \
+                     4.7 0 90} \
+             {1 3 90; 1.5 0 90; 2.5 3 90; 3 0 90; 3.5 32 90; 4 0 90; 4.2 64 90; \
+                     4.5 0 90; 4.7 64 90}
+End
+
+
+Begin Chord-7
+    Voice DistortonGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 3 90; 1.5 0 90; 2.5 3 90; 3 0 90; 4 0 90; 4.5 0 90} \
+             {1 3 90; 1.5 0 90; 2.5 3 90; 3 0 90; 3.5 0 90; 4 0 90; 4.5 3 90} \
+             {1 3 90; 1.5 0 90; 2.5 3 90; 3 0 90; 3.5 3 90; 4 0 90; 4.5 0 90; 4.7 64 90} \
+             {1 3 90; 1.5 0 90; 2.5 3 90; 3 0 90; 3.5 32 90; 4 0 90; 4.2 64 90; 4.5 0 90; 4.7 64 90}
+End
+
+
+DefGroove HeavyMetal   Basic pattern in 4.
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove HeavyMetal
+
+Drum-KickDrum2    Sequence  *     *    *    D1234
+Drum-SnareDrum2   Sequence  *     *   D8    D8
+Drum-ClosedHiHat  Sequence  *     *    *     z
+Drum-OpenHiHat    Sequence  D8   D8    *     *
+
+Bass-9            Sequence  *     *    B11   B11
+
+// DistortonGuitar
+Chord-6           Sequence  *     *     *    C13
+
+// DistortonGuitar
+Chord-7           Sequence  *     *     C13  C1234
+
+
+DefGroove HeavyMetalIntro   A 4 bar intro. 
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove HeavyMetal
+SeqSize 2
+
+Drum-KickDrum2    Sequence    D1234   D1
+Drum-SnareDrum2   Sequence     *      D1
+Drum-ClosedHiHat  Sequence    DRoll   D1
+Drum-OpenHiHat    Sequence    D8      D1
+
+Bass-9            Sequence    B11     B1
+
+// DistortonGuitar
+Chord-6           Sequence    C13     C1
+
+// DistortonGuitar
+Chord-7           Sequence    *       C1
+
+DefGroove HeavyMetalEnd 2 bar ending.

@@ -1,0 +1,357 @@
+
+// bolero
+
+Begin Doc
+
+  A try at a Bolero. Written for "Tonight".
+ 
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+/////////////////////////////////////////
+/////// Instrument patterns
+
+// These are triplet patterns for Bolero1
+
+Begin Chord Define
+  TR3   1 16. 90; 1.33 16 85; 1.66 16 80
+  C1T3  C13; TR3 Shift 1
+  C1T34 C134; TR3 Shift 1
+End
+
+
+Drum  Define Dtriple 1 0 90; 1.333 0 90; 1.666 0 90
+	        
+/////////////////////////////////
+
+
+
+SeqSize 4
+
+Begin Drum-Kick
+	Sequence        {D1; D2 Shift .5}
+	Tone  KickDrum1
+	Rvolume 10
+	Rtime 2
+	Volume p
+End
+
+Begin Drum-Hbongo
+	Sequence       {D3 Shift .5}
+	Tone HighBongo
+	Rvolume 5
+	Volume mp
+	Rtime 2
+End
+	
+Begin Drum-Lbongo
+	Sequence     {D4; D4 Shift .5}
+	Tone LowBongo
+	Rvolume 5
+	Rtime 2
+	Volume mp
+End
+
+Begin Drum-Maraca
+	Sequence     {D1234; D1234 Shift .5; D1 Shift .5}
+	Tone         Maracas
+	Rskip 10
+	Volume mp
+	Rvolume 5
+	Rtime 2
+End
+
+Begin Drum-Claves
+	Sequence     {D2; D3 Shift .5}
+	Tone         Claves
+	Volume mp
+	Rvolume 5
+	Rtime 2
+End
+
+Begin Plectrum
+    Voice    SteelGuitar
+    Octave   5
+    Rskip    20
+    Rvolume  20
+    Rtime    10
+    Volume   mp
+    Sequence { 1.0   0      80   90    90   90   90   80; 
+               2.0   0      80   80    80   80   80   80; 
+               2.5   0       -    -    70   70   70   70; 
+               3.0   0      80   80    80   80   80   80; 
+               3.5   0       -    -    70   70   70   70; 
+               4.0   0      80   80    80   80   80   80; 
+               4.5   0       -    -    70   70   70   70;  }
+End
+
+Begin Bass
+	Voice  FingeredBass
+	Octave 3
+	Articulate  80
+	Accent 1 20
+	Volume mf
+	Rtime 10
+	Rvolume 20
+	Sequence  {1 4. 1 90; 2.5 8 3 90; 4 4 1 90}
+End
+
+Begin Bass-Guitar
+	Voice NylonGuitar
+	Volume f
+	Octave 4
+	Sequence   {1 2. 1 90 } {4.5 8 1 90 }
+	Articulate 90
+End
+
+DefGroove Bolero    Latin-style Bolero rhythm.
+
+
+Begin Arpeggio
+	Voice Flute
+	Volume mp
+	Octave 5
+	Range 2
+	Sequence  A8
+	Articulate 60
+	Rskip 20
+	Rtime 10
+	Rvolume 20
+End
+
+DefGroove BoleroFill   Add arpeggiating flute.
+
+Groove Bolero
+
+Begin Chord-Sus
+	Voice Strings
+	Voicing   Mode=Optimal
+	Octave 6
+	Volume pp
+	Articulate 100
+	Unify On
+	Sequence L2
+End
+
+DefGroove BoleroSus   Bolero with sustained strings.
+Arpeggio Groove BoleroFill
+DefGroove BoleroSusFill  Sustained Bolero with flute fill.
+
+///// Add arpeggiated guitars
+
+Groove Bolero
+
+Begin Arpeggio-Guitar
+	Voice NylonGuitar 
+	Articulate 150
+	Volume  mp    m   mf   f
+	Harmony OpenBelow
+	Sequence A8 
+	Octave 5
+	Rskip   10   25   34   50
+	Rvolume 20
+	Rtime 10
+End
+
+Begin Plectrum
+	Volume -40%
+	Rskip 30
+End
+
+DefGroove BoleroAlt   Arpeggiated guitars.
+
+Groove BoleroSus
+Arpeggio-Guitar Groove BoleroAlt
+Plectrum    Groove BoleroAlt
+DefGroove BoleroAltSus    Sustain with Arpeggiated guitars.
+
+Groove BoleroFill
+Arpeggio-Guitar Groove BoleroAlt
+Plectrum Groove BoleroAlt
+DefGroove BoleroAltFill   Arpeggiated flutes and guitars.
+
+Groove BoleroSusFill
+Arpeggio-Guitar Groove BoleroAlt
+Plectrum Groove BoleroAlt
+DefGroove BoleroAltSusFill   Sustain with arpeggiated flutes and guitars.
+
+
+/////////  Intro
+
+Groove Bolero
+
+Drum-Kick     Sequence  {D1; D2 Shift .5} / / D1
+Drum-Hbongo   Sequence  {D3 Shift .5} / /  D1
+Drum-Lbongo   Sequence  {D4; D4 Shift .5} / / D1
+Drum-Maraca   Sequence  {D1234; D1234 Shift .5; D1 Shift .5} / /  D1
+Drum-Claves   Sequence  {D2; D3 Shift .5} / / D1
+
+Plectrum      Sequence  {1 0 1-6:100; 3 0 1-6:90; 4 0 1-3:80} / {1 0 1-6:90 * 4 } {1 0 1-6:100}
+
+Bass          Sequence  {1 4. 1 90; 2.5 8 3 90; 4 4 1 90} / /  {1 1 1 90}
+Bass-Guitar   Sequence  {1 2. 1 90 } {4.5 8 1 90 } / {1 1 3 90}
+
+
+DefGroove BoleroIntro   4 bar intro.
+
+
+
+///////// Ending
+
+Groove Bolero
+
+Begin Scale
+	Sequence  Scale8 Scale4 Scale2 Scale
+	Voice Strings
+	Range 3
+	Articulate 99
+	Volume mf   m  mp  p
+	Octave 4
+	Direction Both
+End
+
+DefGroove BoleroEnd     Ending with string scales. Uses 8ths \
+                         on 1st bar 4th on 2nd, halves 3rd and a \
+                         whole note on 4th.
+
+
+
+///////////////////////////////////////////////
+///////////////// More Spanish sounding
+
+SeqClear
+SeqSize 4
+
+Begin Drum-Snare
+	Sequence        D13  
+	Tone  SnareDrum2
+	Rvolume 10
+	Rtime 2
+	Volume p
+End
+
+Begin Drum-Hbongo
+	Sequence       D13
+	Tone HighBongo
+	Rvolume 5
+	Volume mp
+	Rtime 2
+End
+	
+Begin Drum-Lbongo
+	Sequence     {Dtriple shift 1; Dtriple Shift 3} {Dtriple Shift 1; D4}
+	Tone LowBongo
+	Rvolume 5
+	Rtime 2
+	Volume mp
+End
+
+Begin Drum-Claves
+	Sequence     {Dtriple shift 1; D14}
+	Tone         Claves
+	Volume mp
+	Rvolume 5
+	Rtime 2
+End
+
+Begin Chord
+    Voice    NylonGuitar
+    Articulate 70
+    Volume   mp
+    Octave   5
+    Strum    6
+    RSkip    20
+    Voicing  Mode=Optimal
+    Rvolume  20
+    Rtime    10
+    Sequence C1T3  C1T34
+End
+
+
+Begin Bass
+	Voice  FingeredBass
+	Octave 3
+	Articulate  80
+	Accent 1 20
+	Volume mf
+	Rtime 10
+	Rvolume 20
+	Sequence  {1 4 1 90; 2.5 8 1 90; 3 8 5 90; 4 4 1 90} B11
+End
+
+DefGroove Bolero1    Spanish-style Bolero rhythm.
+
+Begin Arpeggio
+	Voice $_Chord_Voice
+	Sequence A2 A4
+	SeqRnd On
+	RSkip 10
+	Octave 5
+	Range 1
+	Harmony Open
+	Articulate 120
+	Unify On
+	Volume mf
+End
+
+DefGroove Bolero1Fill    Add guitar arpeggios to Bolero1.
+
+Groove Bolero1
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing Mode=Optimal
+	Volume p
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+
+DefGroove Bolero1Sus    Spanish Bolero with sustained strings.
+
+Arpeggio Groove Bolero1Fill
+DefGroove Bolero1SusFill  Sustained Bolero1 with guitar fill.
+
+
+//////////////////
+//// Intro
+
+Groove Bolero1
+
+Drum-Snare   Sequence  D13  / / D1
+Drum-Hbongo  Sequence  D13  / / D1
+Drum-Lbongo  Sequence  { Dtriple shift 1; Dtriple Shift 3} \
+                       { Dtriple Shift 1; D4 }  /  D1
+Drum-Claves  Sequence  { Dtriple shift 1; D14 } /  /  D1
+
+Chord        Sequence  C1T34  /   C1234 {1 1 110}
+
+Bass	Sequence  {1 4 1 90; 2.5 8 1 90; 3 8 5 90; 4 4 1 90} B11 B13 {1 1 1 90}
+
+
+DefGroove Bolero1Intro    4 bar intro.
+
+///////////////////////
+///// Ending
+
+Groove Bolero1
+SeqSize 1
+
+Drum-Lbongo  Sequence     {Dtriple ; Dtriple shift 1 ; D3}
+Drum-Claves  Sequence     {Dtriple ; Dtriple shift 1 ; D3}
+Chord        Sequence     C12
+Bass         Sequence     B11
+
+DefGroove Bolero1End    Single bar ending for Bolero1.
+
+
+
+

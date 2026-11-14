@@ -1,0 +1,107 @@
+
+Using MMA files with the Timidity MIDI player.
+
+The program timidity is pretty neat. It lets people who don't have a
+real, external sequencer (or a sequencer built in to a sound card) play
+MIDI files though the computer sound system. Most distributions already
+have this program installed. This file attempts to show a few tricks
+I've learned. It is not a timidity how-to or primer.
+
+Begin by making sure that you have timidity installed. Typing something like
+
+	  timidity <enter>
+
+from the command line should bring up a copyright message like:
+
+  TiMidity++ version 2.13.2 -- MIDI to WAVE converter and player
+  Copyright (C) 1999-2004 Masanao Izumo <iz@onicos.co.jp>
+  Copyright (C) 1995 Tuukka Toivonen <tt@cgs.fi>
+ ..............
+
+
+If you get a message with "command not found" ... then you'll have
+to find and install timidity first. Check the docs and repositories
+for your distribution.
+
+Now, try it with a real file:
+
+	 timidity somefile.mid
+
+should play the MIDI file specified though your computer sound system.
+If it doesn't, stop and figure it out. Read the manual, etc.
+
+Timidity works by using something called a soundfont. Using this it
+converts each MIDI sound instruction into an audio signal. Don't worry
+about how it does that ... but, remember that quality of the generated
+sound relies on the quality of the soundfont. The default distributions
+I've seen have some pretty crappy sounds.
+
+So, upgrade the sounds by installing a better font. I've installed something
+called Airfont 340.sf2 and it sounds good. I'll not give a link here (since
+they do move around), but if you Google for "airfont + 340 + sf2" you should
+find it. The file is about 80 MEG, so be patient.
+
+To get timidity to use an sf2 file you have to do 2 things:
+
+   1. Put the file somewhere that timidity can find it. In most cases
+      moving the file to /usr/share/timidity should do the trick.
+
+   2. Update the timidity config file. In my case I had to change 2 files:
+
+      i. In /usr/share/timidity create the file timidity.cfg. It
+         has a single line:
+
+               soundfont "Airfont 340.sf2" order=0
+
+         the quotes are there since the file name has a space in it.
+
+      ii. In /etc/timidity create the link:
+
+             cd /etc/timidity; ln -s /usr/share/timidity/timidity.cfg
+
+
+A simpler method I'm now using is to store the sound fonts in my personal
+directory. I'm doing this mainly to make backups simpler (my backup
+procedures don't know about files in /usr). So, I have a directory
+"/home/bob/sounds/sfx-lib" into which my various soundfonts go. And
+a one line /etc/timidity/timidity.cfg file with a line like
+"soundfont /home/bob/....".
+
+Of course, you'll have to do the above as root.
+
+
+You can use timidity to create a wav file directly from a MMA midi. This
+file can be used in a program like audacity. Simple:
+
+	 timidity -Ow -ooutfile.wav somefile.mid
+
+It is fun to split the MIDI tracks into separate audio tracks. That
+way you can change, for example, the volume for the bass part only
+in a program like audacity. Again, timidity is your friend.
+
+For this to work, you need to have a dummy sequence point in each
+MMA MIDI track. When you generate the file, use the -0 option:
+
+	mma -0 somefile.mma
+
+will generate somefile.mid with a "tick" at the start of all the tracks.
+Now, check to see what tracks were created:
+
+	 mma -c somefile.mma
+
+Assuming that you have MIDI data on tracks 10, 15 and 16:
+
+     for a in 10 15 16;do timidity -Ow -Q0 -Q-$a -o$a.wav;done
+
+A little program, timsplit.py, which does all the above for you
+in a slightly different manner has been included in the the MMA
+distribution in the util directory. Read the file README.timsplit
+for details.
+
+Have fun,
+
+Bvdp, March/2008
+
+  
+
+

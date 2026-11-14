@@ -1,0 +1,46 @@
+
+// metronome6
+
+Begin Doc
+
+ Simple beats to put at the start of a piece. This file 
+  is for 6/8 ballads. You might want to use only the 2nd
+  bar by using "Seq 2".
+
+End
+
+Author Bob van der Poel
+
+Begin DocVar
+  NoMetronome If this variable is set the clicks will still sound, but \
+              their volume will be at a zero level. This gives a bit of silence \
+              at the start of playing a track. Quite useful for performance.
+End
+
+
+SeqClear
+Time 4
+Timesig 6 8
+
+// Set metronome velocity
+If Ndef NOMETRONOME
+   Set Vel 90
+Else
+   Set Vel 0
+Endif
+
+SeqSize 2
+
+Begin Drum-Low
+	Sequence {1 0 $Vel * 2 } 
+	Tone LowWoodBlock
+	Volume mp
+End
+
+Begin Drum-Hi
+	Sequence  z {1.66 0 $Vel ; 2.33 0 $Vel ; 3.66 0 $Vel ; 4.33 0 $Vel }
+	Tone HighWoodBlock
+	Volume mp
+End
+
+DefGroove Metronome6      A two bar 6/8 ballad  introduction.

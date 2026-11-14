@@ -1,0 +1,58 @@
+// Here's a neat demo showing how to use a solo arpeggiate
+// in an intro. This has been lifted from the song
+//    Come Live Your Life With Me (The Godfather, 1972)
+
+// Using some violins and an intro style from stdlib we
+// get a cool tremolo string section effect.
+
+
+Tempo 110
+Keysig C minor
+
+Groove LatinWaltzIntro
+
+// The notes in the solo lines match the notes
+// in the chords. We set up a multi-line macro
+// to make it easier to duplicate the sequence
+
+Mset Notes
+    2.ceg;
+    2.dgb;
+    2.dfan;
+    2.dgb;
+EndMset
+
+Begin Solo
+    Voice Violin
+    Articulate 140
+    Volume ff
+    Octave 6
+    Harmony None
+    // Play with the following line for effects
+    Arpeggiate Direction=Both Rate=32 Decay=-8
+    Begin Riff
+        $Notes       
+    End
+End
+
+Cresc pp mp 4  // fade in
+
+1        Cm
+2        Gm
+3        Dm
+4        Gm
+
+// Let's do it again without the auto-generated chords from the intro
+
+Decresc pp 4  // fade out this time
+
+Begin Solo
+    Begin Riff
+        $Notes
+    End
+End
+
+5  z
+6  z
+7  z
+8  z

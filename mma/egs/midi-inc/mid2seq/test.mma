@@ -1,0 +1,52 @@
+// test for multiple includes
+
+Tempo 180
+
+Groove 50sRockIntro
+
+// Import the melody intro and play it against mma libary drums
+MidiInc file=countme.mid  start=1m end=2.5m Solo=3,riff Volume=90 verbose=on
+
+// create 7 bars of drum. The seq stuff is to ignore the 4th bar until bar 7
+1          z    * 3
+Seq
+2          z    * 4
+
+Groove 50sRock   // library file
+Solo-Drum DrumType   /// somewhere for the imported drum stuff
+
+// play 2 bars lib drums
+
+3          C
+4          G
+
+// turn off library drums
+
+Drum-kick Off
+Drum-Clap Off
+Drum-Snare off
+Drum-HH off
+
+// Add in a drum track. Note we're using 'stretch' this time to 1/2 the drums
+MidiInc file=countme.mid verbose=1 Solo-Drum=10,sequence start=8m end=10m Volume=60 stretch=200
+
+5          C    * 4
+6          G    * 4
+
+// turn off imported drum ... 2 bars with no drum
+
+Solo-Drum Sequence -
+
+7          C
+8          G
+
+// import a different section of the drum track (2 bars this time)
+// change volumes, etc as well
+
+MidiInc file=countme.mid StripSilence=Off Solo-Drum=10,sequence start=12 end=16  Volume=40
+
+9          C    * 2
+10         G    * 2
+
+
+

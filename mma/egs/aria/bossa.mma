@@ -1,0 +1,84 @@
+
+// A very simple 16 bar bossanova created to demo aria tracks.
+// No melody in mind, but it doesn't sound half bad!
+
+Tempo 110
+KeySig C     // no effect
+
+SeqSize 4    // important since we're setting up 4 bars for the aria
+
+Begin Aria
+ Voice JazzGuitar              // For the melody
+ Volume fff f                  // alternate bars are loud/not quite so loud
+ Articulate 95                 // Nearly full time for each note
+ Harmony Open+8Below           // Add harmony notes above and below
+ Octave 5
+ Range 1.5                     // Limit melody to one and a half octave
+ Direction rrr 1 rr -1 2 4 r   // Set our change pattern. Not related to seqsize!!!
+ ScaleType Chord               // change to Chromatic or Scale for other effects
+    // This is the sequence. Note that there are sets, one for each 'seqsize'
+ Sequence {1 4. 90; 2.5 8 60; 3 2 70} {1 1 90 * 8} {1 2 100;2 2 90; 3 4 88} {1 1 80 * 2}
+ SeqRnd  On                    // Select sequence to use randomly
+ Rskip  10                     // Skip 10% of all melody notes (including harmony)
+ Rvolume 20                    // Make the volume a bit varied
+ Rtime 10                      // Don't start notes right on the beat
+End
+
+
+Repeat
+Groove BossaNova
+Cresc mp m 4
+
+1        Cm7      /     F7
+2        Cm7      /     F7
+3        Bb6      /   BbM7
+4        Cm7      /     F7
+
+Groove BossaNovaSus
+Aria Mallet Rate=8 Decay=-2  // just for fun
+Swell m mf 4
+
+5        Dm7      /     G7
+6        Dm7      /     G7
+7         C6      /    CM7
+8        Dm7      /     G7
+
+Aria Mallet Rate=None       // turn off repeating notes
+
+Groove BossaNova
+Aria ScaleType Scale        // use scales for next 2 bars
+Decresc mp 4
+
+9          G
+10        Gm
+
+Aria ScaleType Chord       // back to chords for 1 bar
+Groove BossaNova1Sus
+Aria Riff 1 1 100 * 6          // change pattern to quarter note triplets
+11      Gdim
+
+Aria ScaleType Chromatic   // now try a chromatic scaletype
+
+12         F
+
+Aria ScaleType Chord       // and back to chords
+Groove BossaNova
+
+13         G
+14        G7
+15       Cm7      /     F7
+
+Groove BossaNovaFill
+
+16       Cm7      /      C
+
+RepeatEnd
+
+Groove BossaNovaEnd
+Decresc ppp 2
+Tempo *.8 2
+
+Aria Riff 1 1 80 * 6
+17         C      /      F
+Aria Riff 1 1 70 * 2
+18         C      /     z!

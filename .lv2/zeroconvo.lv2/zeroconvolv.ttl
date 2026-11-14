@@ -1,0 +1,450 @@
+@prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
+@prefix bufsz: <http://lv2plug.in/ns/ext/buf-size#> .
+@prefix doap:  <http://usefulinc.com/ns/doap#>.
+@prefix foaf:  <http://xmlns.com/foaf/0.1/>.
+@prefix log:   <http://lv2plug.in/ns/ext/log#> .
+@prefix lv2:   <http://lv2plug.in/ns/lv2core#>.
+@prefix opts:  <http://lv2plug.in/ns/ext/options#> .
+@prefix patch: <http://lv2plug.in/ns/ext/patch#> .
+@prefix pg:    <http://lv2plug.in/ns/ext/port-groups#>.
+@prefix pp:    <http://lv2plug.in/ns/ext/port-props#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix state: <http://lv2plug.in/ns/ext/state#>.
+@prefix units: <http://lv2plug.in/ns/extensions/units#>.
+@prefix urid:  <http://lv2plug.in/ns/ext/urid#>.
+@prefix work:  <http://lv2plug.in/ns/ext/worker#>.
+
+@prefix conv:  <http://gareus.org/oss/lv2/zeroconvolv#>.
+
+# https://github.com/drobilla/lilv/issues/14
+state:freePath a lv2:Feature .
+
+<http://gareus.org/rgareus#me>
+	a foaf:Person;
+	foaf:name "Robin Gareus";
+	foaf:mbox <mailto:robin@gareus.org>;
+	foaf:homepage <http://gareus.org/>.
+
+<http://gareus.org/oss/lv2/zeroconvolv>
+	a doap:Project;
+	doap:maintainer <http://gareus.org/rgareus#me>;
+	doap:name "x42 - LV2 Convolution".
+
+conv:Mono
+	a lv2:Plugin, lv2:ReverbPlugin;
+	doap:name "x42 - Preset Convolver Mono";
+	lv2:project <http://gareus.org/oss/lv2/zeroconvolv> ;
+	doap:license <http://usefulinc.com/doap/licenses/gpl>;
+	lv2:microVersion 0; lv2:minorVersion 1794;
+	lv2:requiredFeature bufsz:boundedBlockLength, urid:map, opts:options, work:schedule;
+	lv2:extensionData work:interface, state:interface, opts:interface;
+	lv2:optionalFeature lv2:hardRTCapable, state:threadSafeRestore, log:log, state:mapPath, state:freePath;
+	opts:supportedOption bufsz:maxBlockLength, bufsz:nominalBlockLength ;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPolicy>;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPriority>;
+	lv2:port [
+		a lv2:ControlPort, lv2:OutputPort;
+		lv2:index 0;
+		lv2:symbol "latency";
+		lv2:name "Signal Latency";
+		lv2:minimum 0;
+		lv2:maximum 8192;
+		lv2:portProperty lv2:reportsLatency, lv2:integer;
+		units:unit units:frame;
+	] , [
+		a lv2:AudioPort, lv2:OutputPort;
+		lv2:index 1;
+		lv2:symbol "out";
+		lv2:name "Out"
+	] , [
+		a lv2:AudioPort, lv2:InputPort;
+		lv2:index 2;
+		lv2:symbol "in";
+		lv2:name "In"
+	];
+	.
+
+conv:Stereo
+	a lv2:Plugin, lv2:ReverbPlugin;
+	doap:name "x42 - Preset Convolver Stereo";
+	doap:license <http://usefulinc.com/doap/licenses/gpl>;
+	lv2:project <http://gareus.org/oss/lv2/zeroconvolv> ;
+	lv2:microVersion 0; lv2:minorVersion 1794;
+	lv2:requiredFeature bufsz:boundedBlockLength, urid:map, opts:options, work:schedule;
+	lv2:extensionData work:interface, state:interface, opts:interface;
+	lv2:optionalFeature lv2:hardRTCapable, state:threadSafeRestore, log:log, state:mapPath, state:freePath;
+	opts:supportedOption bufsz:maxBlockLength, bufsz:nominalBlockLength ;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPolicy>;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPriority>;
+	lv2:port [
+		a lv2:ControlPort, lv2:OutputPort;
+		lv2:index 0;
+		lv2:symbol "latency";
+		lv2:name "Signal Latency";
+		lv2:minimum 0;
+		lv2:maximum 8192;
+		lv2:portProperty lv2:reportsLatency, lv2:integer;
+		units:unit units:frame;
+	] , [
+		a lv2:AudioPort, lv2:OutputPort;
+		lv2:index 1;
+		lv2:symbol "out_1";
+		lv2:name "OutL";
+		lv2:designation pg:left
+	] , [
+		a lv2:AudioPort, lv2:InputPort;
+		lv2:index 2;
+		lv2:symbol "in_1";
+		lv2:name "InL";
+		lv2:designation pg:left
+	] , [
+		a lv2:AudioPort, lv2:OutputPort;
+		lv2:index 3;
+		lv2:symbol "out_2";
+		lv2:name "OutR";
+		lv2:designation pg:right
+	] , [
+		a lv2:AudioPort, lv2:InputPort;
+		lv2:index 4;
+		lv2:symbol "in_2";
+		lv2:name "InR";
+		lv2:designation pg:right
+	];
+	.
+
+conv:MonoToStereo
+	a lv2:Plugin, lv2:ReverbPlugin;
+	doap:name "x42 - Preset Convolver Mono => Stereo";
+	doap:license <http://usefulinc.com/doap/licenses/gpl>;
+	lv2:project <http://gareus.org/oss/lv2/zeroconvolv> ;
+	lv2:microVersion 0; lv2:minorVersion 1794;
+	lv2:requiredFeature bufsz:boundedBlockLength, urid:map, opts:options, work:schedule;
+	lv2:extensionData work:interface, state:interface, opts:interface;
+	lv2:optionalFeature lv2:hardRTCapable, state:threadSafeRestore, log:log, state:mapPath, state:freePath;
+	lv2:optionalFeature <http://harrisonconsoles.com/lv2/routing#connectAllOutputs> ;
+	opts:supportedOption bufsz:maxBlockLength, bufsz:nominalBlockLength ;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPolicy>;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPriority>;
+	lv2:port [
+		a lv2:ControlPort, lv2:OutputPort;
+		lv2:index 0;
+		lv2:symbol "latency";
+		lv2:name "Signal Latency";
+		lv2:minimum 0;
+		lv2:maximum 8192;
+		lv2:portProperty lv2:reportsLatency, lv2:integer;
+		units:unit units:frame;
+	] , [
+		a lv2:AudioPort, lv2:OutputPort;
+		lv2:index 1;
+		lv2:symbol "out_1";
+		lv2:name "OutL";
+		lv2:designation pg:left
+	] , [
+		a lv2:AudioPort, lv2:InputPort;
+		lv2:index 2;
+		lv2:symbol "in";
+		lv2:name "In"
+	] , [
+		a lv2:AudioPort, lv2:OutputPort;
+		lv2:index 3;
+		lv2:symbol "out_2";
+		lv2:name "OutR";
+		lv2:designation pg:right
+	];
+	.
+
+conv:CfgMono
+	a lv2:Plugin, lv2:ReverbPlugin;
+	doap:name "x42 - IR Convolver Mono";
+	lv2:project <http://gareus.org/oss/lv2/zeroconvolv> ;
+	doap:license <http://usefulinc.com/doap/licenses/gpl>;
+	lv2:microVersion 0; lv2:minorVersion 1794;
+	lv2:requiredFeature bufsz:boundedBlockLength, urid:map, opts:options, work:schedule;
+	lv2:extensionData work:interface, state:interface, opts:interface;
+	lv2:optionalFeature lv2:hardRTCapable, state:threadSafeRestore, log:log, state:mapPath, state:freePath;
+	opts:supportedOption bufsz:maxBlockLength, bufsz:nominalBlockLength ;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPolicy>;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPriority>;
+	patch:writable conv:ir;
+	lv2:port [
+		a atom:AtomPort, lv2:InputPort;
+		atom:bufferType atom:Sequence;
+		atom:supports patch:Message;
+		lv2:designation lv2:control;
+		lv2:index 0;
+		lv2:symbol "control";
+		lv2:name "Control"
+	] , [
+		a atom:AtomPort, lv2:OutputPort;
+		atom:bufferType atom:Sequence;
+		atom:supports patch:Message;
+		lv2:designation lv2:control;
+		lv2:index 1;
+		lv2:symbol "notify";
+		lv2:name "Notify"
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 2 ;
+		lv2:symbol "buffered" ;
+		lv2:name "Buffered/Latent Convolution";
+		lv2:default 1 ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:portProperty lv2:integer, lv2:toggled;
+		lv2:portProperty pp:causesArtifacts, pp:notAutomatic;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:index 3 ;
+		lv2:symbol "dry" ;
+		lv2:name "Dry Signal Level" ;
+		lv2:default -60.0 ;
+		lv2:minimum -60.0 ;
+		lv2:maximum   6.0;
+		units:unit units:db ;
+		lv2:scalePoint [ rdfs:label "off";  rdf:value -60.0 ] ;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "wet" ;
+		lv2:name "Wet Signal Level" ;
+		lv2:default   0.0 ;
+		lv2:minimum -60.0 ;
+		lv2:maximum   6.0;
+		units:unit units:db ;
+		lv2:scalePoint [ rdfs:label "off";  rdf:value -60.0 ] ;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "enable" ;
+		lv2:name "Enable";
+		lv2:default 1 ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:portProperty lv2:integer, lv2:toggled;
+		lv2:designation lv2:enabled;
+	] , [
+		a lv2:ControlPort, lv2:OutputPort;
+		lv2:index 6;
+		lv2:symbol "latency";
+		lv2:name "Signal Latency";
+		lv2:minimum 0;
+		lv2:maximum 8192;
+		lv2:portProperty lv2:reportsLatency, lv2:integer;
+		units:unit units:frame;
+	] , [
+		a lv2:AudioPort, lv2:OutputPort;
+		lv2:index 7;
+		lv2:symbol "out";
+		lv2:name "Out"
+	] , [
+		a lv2:AudioPort, lv2:InputPort;
+		lv2:index 8;
+		lv2:symbol "in";
+		lv2:name "In"
+	];
+	.
+
+conv:CfgStereo
+	a lv2:Plugin, lv2:ReverbPlugin;
+	doap:name "x42 - IR Convolver Stereo";
+	lv2:project <http://gareus.org/oss/lv2/zeroconvolv> ;
+	doap:license <http://usefulinc.com/doap/licenses/gpl>;
+	lv2:microVersion 0; lv2:minorVersion 1794;
+	lv2:requiredFeature bufsz:boundedBlockLength, urid:map, opts:options, work:schedule;
+	lv2:extensionData work:interface, state:interface, opts:interface;
+	lv2:optionalFeature lv2:hardRTCapable, state:threadSafeRestore, log:log, state:mapPath, state:freePath;
+	opts:supportedOption bufsz:maxBlockLength, bufsz:nominalBlockLength ;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPolicy>;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPriority>;
+	patch:writable conv:ir;
+	lv2:port [
+		a atom:AtomPort, lv2:InputPort;
+		atom:bufferType atom:Sequence;
+		atom:supports patch:Message;
+		lv2:designation lv2:control;
+		lv2:index 0;
+		lv2:symbol "control";
+		lv2:name "Control"
+	] , [
+		a atom:AtomPort, lv2:OutputPort;
+		atom:bufferType atom:Sequence;
+		atom:supports patch:Message;
+		lv2:designation lv2:control;
+		lv2:index 1;
+		lv2:symbol "notify";
+		lv2:name "Notify"
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 2 ;
+		lv2:symbol "buffered" ;
+		lv2:name "Buffered/Latent Convolution";
+		lv2:default 1 ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:portProperty lv2:integer, lv2:toggled;
+		lv2:portProperty pp:causesArtifacts, pp:notAutomatic;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:index 3 ;
+		lv2:symbol "dry" ;
+		lv2:name "Dry Signal Level" ;
+		lv2:default -60.0 ;
+		lv2:minimum -60.0 ;
+		lv2:maximum   6.0;
+		units:unit units:db ;
+		lv2:scalePoint [ rdfs:label "off";  rdf:value -60.0 ] ;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "wet" ;
+		lv2:name "Wet Signal Level" ;
+		lv2:default   0.0 ;
+		lv2:minimum -60.0 ;
+		lv2:maximum   6.0;
+		units:unit units:db ;
+		lv2:scalePoint [ rdfs:label "off";  rdf:value -60.0 ] ;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "enable" ;
+		lv2:name "Enable";
+		lv2:default 1 ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:portProperty lv2:integer, lv2:toggled;
+		lv2:designation lv2:enabled;
+	] , [
+		a lv2:ControlPort, lv2:OutputPort;
+		lv2:index 6;
+		lv2:symbol "latency";
+		lv2:name "Signal Latency";
+		lv2:minimum 0;
+		lv2:maximum 8192;
+		lv2:portProperty lv2:reportsLatency, lv2:integer;
+		units:unit units:frame;
+	] , [
+		a lv2:AudioPort, lv2:OutputPort;
+		lv2:index 7;
+		lv2:symbol "out_1";
+		lv2:name "OutL";
+		lv2:designation pg:left
+	] , [
+		a lv2:AudioPort, lv2:InputPort;
+		lv2:index 8;
+		lv2:symbol "in_1";
+		lv2:name "InL";
+		lv2:designation pg:left
+	] , [
+		a lv2:AudioPort, lv2:OutputPort;
+		lv2:index 9;
+		lv2:symbol "out_2";
+		lv2:name "OutR";
+		lv2:designation pg:right
+	] , [
+		a lv2:AudioPort, lv2:InputPort;
+		lv2:index 10;
+		lv2:symbol "in_2";
+		lv2:name "InR";
+		lv2:designation pg:right
+	];
+	.
+
+conv:CfgMonoToStereo
+	a lv2:Plugin, lv2:ReverbPlugin;
+	doap:name "x42 - IR Convolver Mono => Stereo";
+	lv2:project <http://gareus.org/oss/lv2/zeroconvolv> ;
+	doap:license <http://usefulinc.com/doap/licenses/gpl>;
+	lv2:microVersion 0; lv2:minorVersion 1794;
+	lv2:requiredFeature bufsz:boundedBlockLength, urid:map, opts:options, work:schedule;
+	lv2:extensionData work:interface, state:interface, opts:interface;
+	lv2:optionalFeature lv2:hardRTCapable, state:threadSafeRestore, log:log, state:mapPath, state:freePath;
+	opts:supportedOption bufsz:maxBlockLength, bufsz:nominalBlockLength ;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPolicy>;
+	opts:supportedOption <http://ardour.org/lv2/threads/#schedPriority>;
+	patch:writable conv:ir;
+	lv2:port [
+		a atom:AtomPort, lv2:InputPort;
+		atom:bufferType atom:Sequence;
+		atom:supports patch:Message;
+		lv2:designation lv2:control;
+		lv2:index 0;
+		lv2:symbol "control";
+		lv2:name "Control"
+	] , [
+		a atom:AtomPort, lv2:OutputPort;
+		atom:bufferType atom:Sequence;
+		atom:supports patch:Message;
+		lv2:designation lv2:control;
+		lv2:index 1;
+		lv2:symbol "notify";
+		lv2:name "Notify"
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 2 ;
+		lv2:symbol "buffered" ;
+		lv2:name "Buffered/Latent Convolution";
+		lv2:default 1 ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:portProperty lv2:integer, lv2:toggled;
+		lv2:portProperty pp:causesArtifacts, pp:notAutomatic;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:index 3 ;
+		lv2:symbol "dry" ;
+		lv2:name "Dry Signal Level" ;
+		lv2:default -60.0 ;
+		lv2:minimum -60.0 ;
+		lv2:maximum   6.0;
+		units:unit units:db ;
+		lv2:scalePoint [ rdfs:label "off";  rdf:value -60.0 ] ;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "wet" ;
+		lv2:name "Wet Signal Level" ;
+		lv2:default   0.0 ;
+		lv2:minimum -60.0 ;
+		lv2:maximum   6.0;
+		units:unit units:db ;
+		lv2:scalePoint [ rdfs:label "off";  rdf:value -60.0 ] ;
+	] , [
+		a lv2:InputPort , lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "enable" ;
+		lv2:name "Enable";
+		lv2:default 1 ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:portProperty lv2:integer, lv2:toggled;
+		lv2:designation lv2:enabled;
+	] , [
+		a lv2:ControlPort, lv2:OutputPort;
+		lv2:index 6;
+		lv2:symbol "latency";
+		lv2:name "Signal Latency";
+		lv2:minimum 0;
+		lv2:maximum 8192;
+		lv2:portProperty lv2:reportsLatency, lv2:integer;
+		units:unit units:frame;
+	] , [
+		a lv2:AudioPort, lv2:OutputPort;
+		lv2:index 7;
+		lv2:symbol "out_1";
+		lv2:name "OutL";
+		lv2:designation pg:left
+	] , [
+		a lv2:AudioPort, lv2:InputPort;
+		lv2:index 8;
+		lv2:symbol "in";
+		lv2:name "In"
+	] , [
+		a lv2:AudioPort, lv2:OutputPort;
+		lv2:index 9;
+		lv2:symbol "out_2";
+		lv2:name "OutR";
+		lv2:designation pg:right
+	];
+	.

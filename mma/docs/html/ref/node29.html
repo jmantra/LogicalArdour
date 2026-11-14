@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Enviroment Variables</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node30.html">
+<LINK REL="previous" HREF="node28.html">
+<LINK REL="next" HREF="node30.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node30.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node28.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node30.html">Other Commands and Directives</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node28.html">Fine Tuning and Tweaks</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION002900000000000000000"></A> <A ID="sec-envvar"></A>
+<BR>
+Enviroment Variables
+</H1> 
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  checks for enviroment variables when starting so it can modify
+seldom changed settings. The list is short, but will probably expand
+in the future to support arcane and unusual requests.
+
+<P>
+A variable can be set on the command line,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>MMA_ENCODING=cp1252 mma mymmafile  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+or in a file (most likely .profile or .bashrc) which is read before
+you start your shell session.
+
+<P>
+All 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  environment variables start with the text MMA_ and
+a name. All the characters must be in uppercase only.
+
+<P>
+<DL>
+<DT><STRONG>MMA_ENCODING</STRONG></DT>
+<DD>By default 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses cp1252 to encode input and
+  output files. You can change this via the MMA_ENCODING environment
+  variable. If it doesn't work, you are on your own.
+
+<P>
+</DD>
+<DT><STRONG>MMA_LOGFILE=filename</STRONG></DT>
+<DD>Rather than printing errors and other
+  runtime information to standard output (the terminal screen) this
+  option sets a filename for saving the output. Note that if the file
+  already exists it will be appended to (useful when you have multiple
+  files to debug). F<SMALL>ILENAME</SMALL> should be a normal file name
+  understood by your operating system.
+
+<P>
+The file will only be created if there is output other than 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+  P<SMALL>RINT</SMALL> statements. A header showing the date will be inserted
+  at the top of the file.
+
+<P>
+The easy way to use this is with a command line like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ MMA_LOGFILE=abc mma test.mma  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</DD>
+<DT><STRONG>MMA_HOME=path</STRONG></DT>
+<DD>This variable will change the normal search
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses to set its home directory <A HREF="node33.html#sec-rc">(here)</A>. Setting this environment variable inserts the
+  path into the start of the normal search list.
+
+<P>
+
+<UL>
+<LI>The specified path must contain the necessary 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  python
+    modules to function.
+</LI>
+<LI>The variable is evaluated to process any &ldquo;~&rdquo;
+    settings.
+  
+</LI>
+</UL>
+
+<P>
+</DD>
+<DT><STRONG>MMA_LIBPATH=paths</STRONG></DT>
+<DD>A os-dependent list of separated list of
+  paths or directories to prepend to the start of default library path
+  list. Each item in the list is evaluated to process any
+  &ldquo;~&rdquo; settings. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ MMA_LIBPATH=~/my/mma/dir:anotherDir mma
+    test.mma  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set the $_P<SMALL>ATH</SMALL>L<SMALL>IB</SMALL> to the list:
+  ['/home/bob/my/mma/dir', 'anotherDir', '/home/bob/src/bv/mma/lib'].
+
+<P>
+When setting the added paths a quick check is done and any
+  non-existent or non-directory names will be reported as warnings.
+
+<P>
+Note: The separator is a single character depending on your
+  operating system. In Linux and Mac it is a &ldquo;:&rdquo; and in Windows it
+  is a &ldquo;;&rdquo;. To verify, open a python session and type:
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>import os 
+<BR>
+print(os.pathsep)
+<BR>    </B> 
+   
+	    </td></tr>
+      </Table>
+ The correct character will be printed.
+
+<P>
+In most cases you'll probably only have one path so you'll not need
+  to worry about the separator.
+
+<P>
+</DD>
+<DT><STRONG>MMA_INCPATH=paths</STRONG></DT>
+<DD>A list of paths or directories to prepend to
+  the default include path list. See MMA_LIBPATH, above, for
+  details.
+
+<P>
+</DD>
+<DT><STRONG>MMA_PLUGPATH=paths</STRONG></DT>
+<DD>A list of paths or directories to prepend
+  to the default plugin path list. See MMA_LIBPATH, above, for
+  details.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node30.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node28.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node30.html">Other Commands and Directives</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node28.html">Fine Tuning and Tweaks</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

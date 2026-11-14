@@ -1,0 +1,478 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>A Simple Example</TITLE>
+<META NAME="description" CONTENT="A Simple Example">
+<META NAME="keywords" CONTENT="mma-tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-2">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2021.2">
+
+<LINK REL="STYLESHEET" HREF="mma-tutorial.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node4.html">A More Complex Example</A>
+<B> Up:</B> <A
+ HREF="mma-tutorial.html">Tutorial</A>
+<B> Previous:</B> <A
+ HREF="node2.html">Installation</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html32"
+  HREF="node3.html#SECTION00310000000000000000">Fella Bird, Basic Edition</A>
+<LI><A ID="tex2html33"
+  HREF="node3.html#SECTION00320000000000000000">Fella Bird, Improved Edition</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION00300000000000000000">
+A Simple Example</A>
+</H1>
+
+<P>
+
+<H1><A ID="SECTION00310000000000000000">
+Fella Bird, Basic Edition</A>
+</H1>
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Sheet Music for a Popular Song</BIG></SPAN>  <A ID="eg:birthday"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+    <IMG WIDTH="95%"  SRC="mup/fella.png" ALT="Lost Image">
+
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+This example piece of music is shown in a &ldquo;fake book&rdquo; or &ldquo;lead sheet&rdquo;
+style. It shows the melody notes, lyrics and chords.
+
+<P>
+If you are following along and want to try the examples please not
+that you create them by using a <SPAN  CLASS="textit">text editor of your choice</SPAN>
+which does not do formatting. Don't use a word processing package; use
+something like emacs, vim or notepad.
+
+<P>
+As a first try at making a MIDI accompaniment file, we have created the
+following file:
+
+<P>
+<SPAN  CLASS="textbf">//&nbsp;Sample&nbsp;tutorial&nbsp;file
+<BR>//&nbsp;Fella&nbsp;Bird,&nbsp;try&nbsp;1
+<BR>&nbsp;
+<BR>
+Tempo&nbsp;120
+<BR>
+Groove&nbsp;Rhumba
+<BR>&nbsp;
+<BR>
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gm
+<BR>
+10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gm
+<BR>
+14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F&nbsp;&nbsp;/&nbsp;&nbsp;/&nbsp;z!
+<BR>&nbsp;
+<BR></SPAN>
+
+<P>
+After the comments in the file, the first line to note is:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tempo 120  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This sets the tempo, or speed, of the piece to 120 beats per minute. You may
+have to guess the tempo&mdash;very few pieces (especially in &ldquo;fake book&rdquo; style)
+will include a metronome setting. For slow pieces you might want to start with a
+tempo setting of &ldquo;80&rdquo;; for faster pieces, like swings, try around &ldquo;150&rdquo;; polkas
+and marches, which are really in <SPAN  CLASS="textbf">2/2</SPAN> time, may require fast
+sounding tempos like &ldquo;250&rdquo;. Feel free to modify the tempo setting in
+the example files&mdash;you're not going to break anything.
+
+<P>
+Since we are using the standard library which was shipped with 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> ,
+we can select one of the predefined grooves:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Rhumba  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that this command also sets up the &ldquo;time signature&rdquo; to <SPAN  CLASS="textbf">4/4</SPAN>.
+Not quite the same as the &ldquo;cut&rdquo; time indicated, but close enough. And speaking
+of &ldquo;close enough&rdquo;, we're using a rhumba rhythm instead of the merengue indicated
+in the score.
+
+<P>
+Finally, we have the chord information. The first bar (in the sheet music)
+indicates an &ldquo;F&rdquo; chord. So that's what we tell 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to use:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>1 F  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+We continue in a similar manner for the rest of the song.
+
+<P>
+We've simplifed the song a bit and show only one chord per bar.
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> automatically fills out the bars so that each has four chords.
+We could have entered the first bar as:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>2 F F F F  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+or, more simply:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>2 F / / /  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and had the same result. But, who wants to do all that typing?
+
+<P>
+In the final bar, the last beat is a rest.
+
+<P>
+The line:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>16  F / / z!  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+causes an &ldquo;F&rdquo; chord to be used on the first three beats, the fourth
+beat is  completely silent due the to the &ldquo;z!&rdquo;. Note the difference
+between a &ldquo;z&rdquo; and &ldquo;z!&rdquo;&mdash;the first silences all but the drum track,
+the second silences everything. See the reference manual for more details
+on &ldquo;z&rdquo;.
+
+<P>
+Now, let's create our first MIDI file! If you are using the standard 
+distribution, you should find a file &ldquo;fella1.mma&rdquo; in the tutorial directory.
+Change to this directory and type the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>mma fella1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Your computer should run the python script called &ldquo;mma&rdquo; and process the
+file &ldquo;fella1.mma&rdquo;. The MIDI file &ldquo;fella1.mid&rdquo; should be created. If this doesn't
+happen, please check your python installation, and make sure that you
+have installed &ldquo;mma&rdquo; where your shell can find it. On Windows
+systems which do not have case sensitive filenames you may need to use
+the command &ldquo;mma.py fella1&rdquo;. If you are completely stuck,
+drop me an email.
+
+<P>
+Now, use your favorite MIDI file player to play the song.
+
+<P>
+How'd that sound? A piano doing some chords, a jazzy bass line,
+and a bit of drumming? Wonderful!
+
+<P>
+
+<H1><A ID="SECTION00320000000000000000">
+Fella Bird, Improved Edition</A>
+</H1>
+
+<P>
+If you play the MIDI created in the previous section you'll find a number
+of things lacking. Certainly:
+
+<P>
+
+<UL>
+<LI>It is hard to sing to because there is no aural indication of
+  when to start,
+
+<P>
+</LI>
+<LI>The whole piece is the same volume,
+
+<P>
+</LI>
+<LI>It's a pretty short song, so let's play it twice.
+
+<P>
+</LI>
+</UL>
+
+<P>
+The following example has a number of improvements:
+
+<P>
+<SPAN  CLASS="textbf"> //&nbsp;Sample&nbsp;tutorial&nbsp;file
+<BR>//&nbsp;Fella&nbsp;Bird,&nbsp;try&nbsp;2
+<BR>&nbsp;
+<BR>
+Tempo&nbsp;120
+<BR>
+Groove&nbsp;Metronome2-4
+<BR>&nbsp;
+<BR>
+z&nbsp;*&nbsp;2
+<BR>&nbsp;
+<BR>
+Groove&nbsp;Rhumba
+<BR>
+Repeat
+<BR>
+Volume&nbsp;mp
+<BR>
+Cresc&nbsp;mf&nbsp;4
+<BR>&nbsp;
+<BR>
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gm
+<BR>
+10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>&nbsp;
+<BR>
+Decresc&nbsp;p&nbsp;4
+<BR>&nbsp;
+<BR>
+12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gm
+<BR>
+14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>&nbsp;
+<BR>
+RepeatEnding
+<BR>&nbsp;
+<BR>
+16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F&nbsp;&nbsp;/&nbsp;&nbsp;/&nbsp;z
+<BR>&nbsp;
+<BR>
+RepeatEnd
+<BR>&nbsp;
+<BR>
+17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F&nbsp;&nbsp;/&nbsp;&nbsp;/&nbsp;z!
+<BR>
+cut&nbsp;-1
+<BR>&nbsp;
+<BR>&nbsp;
+<BR></SPAN>
+Try running 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  on this file and listen to it. Oh my, much better.
+
+<P>
+So, let's look at the changes.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Metronome2-4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This sets the current &ldquo;groove&rdquo; to a metronome. To find this groove
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will automatically process the library file &ldquo;metronome&rdquo;.
+
+<P>
+The metronome groove consists of wood-blocks being struck in a
+<SPAN  CLASS="textbf">4/4</SPAN> pattern. In order to &ldquo;sound&rdquo; the metronome, we need
+to create an empty bar:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>&nbsp;&nbsp;&nbsp;z * 2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Mind you, we could have specified a chord here and gotten the same
+result (the groove has no definitions for any instruments other than
+the wood-block, so nothing else will sound). But, it seems to be more
+clear to use a &ldquo;z&rdquo;.
+
+<P>
+Okay, we lied. We didn't create an empty bar for the metronome. If
+you're sharp you'll notice that the &ldquo;z&rdquo; is followed by &ldquo;* 2&rdquo;. This
+means to play this bar two times. So, you get 2 bars of metronome.
+Cool.
+
+<P>
+We've not made any changes to the chords, but a few little changes do
+help this simple piece. Remember the dull, single volume? Well, have a
+look at the &ldquo;volume&rdquo; directives we've included in this version. We
+start the song off at a moderate volume, and increase it in several
+steps. And, at the end we use a &ldquo;decresc&rdquo; to reduce the volume to
+&ldquo;quiet&rdquo; over the final 4 bars.
+
+<P>
+Please refer to the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Reference Manual for salient details on the
+volume commands.
+
+<P>
+One minor change we did make in the chords is in bar 16. Note the
+change between this and bar 17. In the first we have a &ldquo;z&rdquo;, the
+second a &ldquo;z!&rdquo;.  The difference between the two is that we want the
+precussion tracks to continue though the ending, but not on the final
+beat.
+
+<P>
+Finally, to ensure a complete cutoff in the final bar we have added a
+&ldquo;cut&rdquo; command. We're sure you'll find these minor changes a great
+improvement.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node4.html">A More Complex Example</A>
+<B> Up:</B> <A
+ HREF="mma-tutorial.html">Tutorial</A>
+<B> Previous:</B> <A
+ HREF="node2.html">Installation</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

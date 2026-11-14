@@ -1,0 +1,241 @@
+
+// lightttango
+
+Begin Doc
+
+ A light version of our tango.
+ 
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+/////////////////////////////////////////
+//// Additional patterns
+
+Begin Bass Define
+	Btang 1 4 1 90; 2.5 8 1 90; 3 8 5 90; 4 8 3 90;
+	Bp1   3.5 8 3 90; 4 8 5 90; 4.5 8 1 90;
+	Bp2   1 2 1 90
+	Bp3   2 2 1 90
+	Bp4   2.5 2 5 90
+
+End
+
+/////////
+
+SeqSize 4
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence D1234
+	Accent 1 30
+	Volume mp
+	Rtime 5
+	Rvolume 5
+End
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Sequence D1234  {D1234; D4 Shift .75}
+	Accent 1 30
+	Volume mp
+	Rtime 5
+	Rvolume 5
+End
+
+Begin Drum-PHH
+	Tone PedalHiHat
+	Sequence D1234
+	Volume mp
+	Rtime 5
+	Rvolume 5
+End
+
+Begin Drum-Tam
+	Tone Tambourine
+	Sequence   {D14; D3 shift .5}
+	Rskip 10
+	Volume mp
+	Rtime 5
+	Rvolume 5
+End
+
+Begin Drum-Clave
+	Tone Claves
+	Sequence     {D3 Shift .5; D4}  z
+	Volume mp
+	Rtime 5
+	Rvolume 5
+End
+
+Begin Chord-Accordion
+	Voice Accordion
+	Voicing   Mode=Optimal
+	Sequence          C1234   { C1234; C3 Shift .5 } \
+	                  C1234   { C1234; C13 Shift .5 }
+	Articulate 30
+	Accent 1 20 3 10
+	Volume ppp
+	Octave 6
+End
+
+Begin Chord-Guitar
+	Voice NylonGuitar
+	Voicing   Mode=Optimal
+	Sequence          C1234  { C1234; C4 Shift .5 } \
+                      C1234  { C1234; C24 Shift .5 } 
+	Articulate 50
+	Accent 1 20 3 10
+	Volume mp
+	Octave 6
+End
+
+Begin Bass-Piano
+	Voice Piano1
+	Sequence  Bp1  Bp2  Bp3  Bp4
+	Volume    mp   
+	Harmony   -    -    3Above /
+	Articulate 100
+	Octave 5
+End
+
+Begin Bass
+	Voice AcousticBass
+	Sequence Btang
+	Volume mf
+	Articulate 80
+	Accent 1 20
+	Octave 3
+End
+
+DefGroove LightTango        A light Tango, more Spanish.
+
+Begin Chord-Sus
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Volume p
+	Voice TremoloStrings
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+DefGroove LightTangoSus       Add a sustained tone to the tango.
+
+// change out accordion for piano
+
+Groove LightTango
+
+Chord-Accordion Sequence -
+
+Begin Chord-Piano
+	Voice Piano1
+	Voicing   Mode=Optimal
+	Sequence          C1234   { C1234; C3 Shift .5 } \
+	                  C1234   { C1234; C13 Shift .5 }
+	Articulate 70
+	Accent 1 20 3 10
+	Volume pp
+	Octave 6
+End
+
+DefGroove LightTango1          Change out the accordion for a piano.
+
+Chord-Sus Groove LightTangoSus 
+DefGroove LightTango1Sus       Add a sustained tone to the piano variant.
+
+////////////////////////
+//// Fill
+
+Groove LightTango
+Seqsize 1
+
+// Drum-Kick
+Drum-Snare       Sequence D1234
+// Drum-PHH
+Drum-Tam         Sequence -
+Drum-Clave       Sequence D1234
+Chord-Accordion  Sequence L2
+Chord-Guitar     Sequence C8
+Bass-Piano       Sequence B13
+Bass             Sequence B13
+
+DefGroove LightTangoFill     A one bar fill pattern.
+
+
+/////////////////////
+/// Introduction
+
+Groove LightTango
+
+AllTracks SeqRnd Off
+
+Drum-Kick  	     Sequence   *     *     *    D1
+Drum-Snare       Sequence   *     *     D8   D12
+Drum-PHH         Sequence   *     *     *    D13
+Drum-Tam         Sequence   *     *     *    D13
+Drum-Clave       Sequence   *     *     *    D1
+
+Chord-Accordion  Sequence   *     *     *    L1
+Chord-Guitar     Sequence   *     *     *    C1
+Bass-Piano       Sequence   Bp1   Bp2   Bp3  B1
+Bass             Sequence   *     *     *    B1
+
+
+DefGroove LightTangoIntro   Simple introduction.
+
+Groove LightTangoIntro
+
+
+Begin Chord-Sus
+  Groove LightTangoSus 
+  Sequence *  *  *  L2
+End
+
+Drum-Snare       Sequence   *     *     D1  D12
+Bass-Piano       Sequence   -
+Chord-Accordion  Sequence   -
+
+DefGroove LightTangoIntro1  Smoother version of basic introduction.
+
+
+////////////// Ending
+
+Groove LightTango
+
+SeqSize 1
+
+Bass             Sequence     B11
+Bass-Piano       Sequence     -
+Chord-Accordion  Sequence     C13
+Chord-Guitar     Sequence     C13
+Drum-Clave       Sequence     -
+Drum-Kick        Sequence     D13
+Drum-PHH         Sequence     {D123; D12 Shift .5}
+Drum-Snare       Sequence     D1
+Drum-Tam         Sequence     -
+
+DefGroove LightTangoEnd     A fast single bar ending.
+                           
+Groove LightTangoSus
+
+Bass             Sequence     Btang     B13     Btang    B11
+Bass-Piano       Sequence     -
+Chord-Accordion  Sequence     *         *       C13      /
+Chord-Guitar     Sequence     *         *       C13      /
+
+Drum-Clave       Sequence     *         *       D13      -
+Drum-Kick        Sequence     *         D13     *        D1
+Drum-PHH         Sequence     *         *     {D123; D12 Shift .5}   /
+Drum-Snare       Sequence     *         D13     D1       /
+Drum-Tam         Sequence     *         *       -        /
+
+Chord-Sus        Volume       p     pp    ppp   pppp
+
+DefGroove LightTango4End    Smoother 4 bar ending.
+

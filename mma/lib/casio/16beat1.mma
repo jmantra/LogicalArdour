@@ -1,0 +1,120 @@
+// 16beat1
+
+Begin Doc  
+      16 Beat 1 (010). A nice dance beat.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel & Casio
+
+Include stdpats
+
+SeqClear
+SeqSize 2
+Time 4
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 112; 3.5 0 112; 4.2 0 112} \
+             {1 0 112; 3.5 0 112} 
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {2 0 90; 2.2 0 57; 2.5 0 36; 2.8 0 16; 4 0 90} \
+             {1.5 0 57; 2 0 90; 2.2 0 57; 2.5 0 36; 2.8 0 16; 4 0 90}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    Sequence {1.5 0 79; 2.5 0 79; 2.8 0 79; 3 0 79; 3.2 0 79;\
+               3.5 0 79; 3.8 0 79; 4 0 79; 4.3 0 79; 4.5 0 79; 4.8 0 79} \
+             {1 0 79; 1.2 0 79; 1.5 0 79; 2 0 79; 2.3 0 79; \
+                2.5 0 79; 2.8 0 79; 3 0 79; 3.2 0 79; 3.5 0 79; 3.8 0 79} 
+End
+
+Begin Drum-SnareDrum2
+    Tone 110
+    Volume m
+    Sequence {2 0 90; 4 0 90} \
+             {1.5 0 57; 2 0 90; 4 0 90}
+End
+
+Begin Bass-9
+    Voice FretlessBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 6 1 96; 1.5 6 5 96; 1.8 6 1 96; 2.3 6 5 96; 2.8 6 1 96} \
+             {1 6 1 96; 1.5 6 5 96; 1.8 6 1 96; 2.3 6 5 96; 2.8 6 1 96; 4.5 3 5 96}
+End
+
+Begin Bass-6
+    Voice MutedGuitar
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {1.5 64 1 70; 2.5 64 1 70; 2.8 64 1 70; 4 64 1 70; 4.5 64 1 70} \
+             {1.5 64 1 70; 2.3 64 1 70; 2.8 64 1 70; 3.5 64 1 70; 4 64 1 70; 4.8 64 1 70}
+End
+
+Begin Chord-7
+    Voice Piano3
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {1 2 90}
+End
+
+DefGroove  16Beat1  Simple dance beat.
+
+/////////////////////////////////////////////////////////
+///////  Ending
+
+Groove 16Beat1
+Seqsize 2
+
+Drum-KickDrum1   Sequence  *       D1
+Drum-SnareDrum1  Sequence  D1234   D1
+Drum-PedalHiHat  Sequence  D8      D12
+Drum-SnareDrum2  Sequence  D134    {D1 Shift .5}
+
+// fretless
+Bass-9           Sequence  B1234   B1
+
+// muted guitar
+Bass-6           Sequence  *       B1
+
+// Piano3
+Chord-7          Sequence L1       L1
+
+DefGroove 16beat1End  A 2 bar ending.
+
+
+/////////////////////////////////////////////////////////
+///////  Intro
+
+Groove 16Beat1
+SeqSize 4
+
+Drum-KickDrum1   Sequence  D1      D13    *      D1
+Drum-SnareDrum1  Sequence  D1234   *      *      D13
+Drum-PedalHiHat  Sequence  D8      *      *      D13
+Drum-SnareDrum2  Sequence  D1234   *      *      D1234  
+
+// fretless
+Bass-9           Sequence  B1234   *      *      B1
+
+// muted guitar
+Bass-6           Sequence  *       *      *      B13
+
+// Piano3
+Chord-7          Sequence C13      *      *      L2
+
+DefGroove 16beat1Intro  A 4 bar intro.

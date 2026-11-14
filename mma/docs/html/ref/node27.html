@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>After</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node28.html">
+<LINK REL="previous" HREF="node26.html">
+<LINK REL="next" HREF="node28.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node28.html">Fine Tuning and Tweaks</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node26.html">Triggers</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION002700000000000000000"></A>
+<A ID="sec-after"></A>
+<BR>
+After
+</H1>
+
+<P>
+In the previous chapter on T<SMALL>RIGGERS</SMALL> we discussed how you can
+set an event to occur when a certain chord change occurred. This
+chapter, A<SMALL>FTER</SMALL>, discusses a similar concept: setting an event
+to occur after a certain number of bars have been processed.
+
+<P>
+The A<SMALL>FTER</SMALL> command is used to set a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command at some point
+in the future. This can be handy when you have set a portion of your
+song up in a macro and wish to make changes to volume, tempo, etc.
+during the expansion of the macro.
+
+<P>
+For example, let's assume you have a short piece of music set up in
+the macro $LNS:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Mset Lns 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Am 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;C  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Dm 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;E  
+<BR>
+EndMset   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and we incorporate this into a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  script in a number of places.
+However, at some point we want the T<SMALL>EMPO</SMALL> to slow for the final
+two bars. Using A<SMALL>FTER</SMALL> we can do:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>After Count=2  Tempo *.9 
+<BR>$LNS   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+And have the command T<SMALL>EMPO *.9</SMALL> inserted between the second and
+third bars.
+
+<P>
+A<SMALL>FTER</SMALL> has a number of options, all of which are set in
+option=value pairs:
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<DL>
+<DT><STRONG>Bar</STRONG></DT>
+<DD>Specifies the bar number for the event to trigger. Note,
+  this is the value of the bar as it is created; it is not the
+  &ldquo;comment&rdquo; bar number which optionally starts a chord line. Unless
+  you know, exactly, how the bars are being generated it is best to
+  not use this option.
+
+<P>
+However, the special case option using EOF as a pseudo line
+  number can be quite useful and robust. In this case the command is
+  appended to the end of the <SPAN  CLASS="textbf">current</SPAN> file. You can not delete
+  an event set with B<SMALL>AR=</SMALL>E<SMALL>OF</SMALL>. You might think of this as a
+  dynamic <SMALL>MMAEND</SMALL> <A HREF="node33.html#sec-mmaend">(here)</A>. For a &ldquo;real life&rdquo; example of this option,
+  see the qriff plugin supplied with this version of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
+
+<P>
+</DD>
+<DT><STRONG>Count</STRONG></DT>
+<DD>This is the easist and most used option. It sets the number of bars to
+  process before executing the command. 
+
+<P>
+</DD>
+<DT><STRONG>ID</STRONG></DT>
+<DD>Set a string to use as an identifier for the A<SMALL>FTER</SMALL> event.
+
+<P>
+</DD>
+<DT><STRONG>Remove</STRONG></DT>
+<DD>A active event line can be removed using this option.
+  For example, if you have an event named &ldquo;Happy&rdquo; you can delete it
+  using the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>After Remove=Happy   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Any other commands will be ignored. A warning will be printed.
+
+<P>
+</DD>
+<DT><STRONG>Repeat</STRONG></DT>
+<DD>Using this option you can set an event to reoccur at a
+  regular interval. Very simply:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>After Repeat=4 Print another four bars  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will display a silly message after every four bars are processed.
+
+<P>
+</DD>
+</DL></td></tr></table>
+
+<P>
+Anything left on the command line after processing the options is
+assumed to be a valid 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command. <SPAN  CLASS="textit">Important: all options must
+be on the command line before the actual command to execute.</SPAN> So, this
+will work:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>After Repeat=1 Print Testing  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+but this will not:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>After  Print Testing Repeat=1  <em><Font color=Red>
+	¡¡Wrong!!
+    <Font color=Black > </em>   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+since the &ldquo;Repeat=1&rdquo; is considered to be part of the command.
+
+<P>
+A number of short examples of are contained in the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">egs/after</SPAN></SPAN> directory.
+
+<P>
+You can have any number of A<SMALL>FTER</SMALL> event lines. Each is checked
+in the order found before every line of your 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  file is processed. 
+
+<P>
+Events using the C<SMALL>OUNT</SMALL> and B<SMALL>AR</SMALL> options are automatically
+deleted once they have been used. Events created with the
+R<SMALL>EPEAT</SMALL> option will continue to be active until they are removed
+with a R<SMALL>EMOVE</SMALL> command.
+
+<P>
+Using the command line options <SPAN  CLASS="textit">-e</SPAN> and <SPAN  CLASS="textit">-r</SPAN> and copious
+P<SMALL>RINT</SMALL> statements (yes, you can use A<SMALL>FTER</SMALL> for this!) will
+help you determine the exact event locations.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node28.html">Fine Tuning and Tweaks</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node26.html">Triggers</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

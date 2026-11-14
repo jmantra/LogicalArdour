@@ -1,0 +1,425 @@
+// Pattern: POP01
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3------23-3----2|3------22-2----2|
+  Sequence { 1.0 0 90; 2.8 0 60; 3.0 0 90; 3.5 0 90; 4.8 0 60 } \
+           { 1.0 0 90; 2.8 0 60; 3.0 0 60; 3.5 0 60; 4.8 0 60 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |----3-------3---|----3-------3---|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |3222322232222-22|3222322232223-22|
+  Sequence { 1.0 0 90; 1.2 0 60; 1.5 0 60; 1.8 0 60; 2.0 0 90; 2.2 0 60; 2.5 0 60; 2.8 0 60; 3.0 0 90; 3.2 0 60; 3.5 0 60; 3.8 0 60; 4.0 0 60; 4.5 0 60; 4.8 0 60 } \
+           { 1.0 0 90; 1.2 0 60; 1.5 0 60; 1.8 0 60; 2.0 0 90; 2.2 0 60; 2.5 0 60; 2.8 0 60; 3.0 0 90; 3.2 0 60; 3.5 0 60; 3.8 0 60; 4.0 0 90; 4.5 0 60; 4.8 0 60 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |-------------2--|-------------2--|
+  Sequence { 4.2 0 60 } / 
+End
+
+DefGroove POP01 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, OpenHat.
+
+// Pattern: POP02
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-------------------3---------------3----------3|-------------------3----------------3-----------|
+  Sequence { 1.0 0 90; 2.7 0 90; 4.0 0 90; 4.9 0 90 } \
+           { 2.6 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |--------3---------------3-----------------------|-------3---------------3-------3----------------|
+  Sequence { 1.7 0 90; 3.0 0 90 } \
+           { 1.6 0 90; 2.9 0 90; 3.6 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2-----------2-----------3-----------3----------2|------------2-----------3-----------3-----------|
+  Sequence { 1.0 0 60; 2.0 0 60; 3.0 0 90; 4.0 0 90; 4.9 0 60 } \
+           { 2.0 0 60; 3.0 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |-------2-----------------------------------2----|--------------------------------2---------------|
+  Sequence { 1.6 0 60; 4.6 0 60 } \
+           { 3.7 0 60 } 
+End
+
+DefGroove POP02 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, OpenHat.
+
+// Pattern: POP03
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-----------------------3-----2-----------------|3-----------------------3-----2-----------------|
+  Sequence { 1.0 0 90; 3.0 0 90; 3.5 0 60 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |------------3-----------------------3-----------|------------3-----------------------3-----------|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2-----1-----2-----1-----2-----1-----2-----------|2-----1----2------1-----2-----1----2------------|
+  Sequence { 1.0 0 60; 1.5 0 30; 2.0 0 60; 2.5 0 30; 3.0 0 60; 3.5 0 30; 4.0 0 60 } \
+           { 1.0 0 60; 1.5 0 30; 1.9 0 60; 2.5 0 30; 3.0 0 60; 3.5 0 30; 3.9 0 60 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |------------------------------------------1-----|------------------------------------------1-----|
+  Sequence { 4.5 0 30 } / 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |------2--1--------1--1--------2--2--------------|------1--1--------1--1--------2--2--------------|
+  Sequence { 1.5 0 60; 1.8 0 30; 2.5 0 30; 2.8 0 30; 3.5 0 60; 3.8 0 60 } \
+           { 1.5 0 30; 1.8 0 30; 2.5 0 30; 2.8 0 30; 3.5 0 60; 3.8 0 60 } 
+End
+
+Begin Drum-OpenHiConga
+  Tone     OpenHighConga
+           // |------------3-----------------------3-----------|------------3-----------------------3-----------|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+DefGroove POP03 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, OpenHat, LowConga, OpenHiConga.
+
+// Pattern: POP04
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-2--2--2-------|3-2--2--31------|
+  Sequence { 1.0 0 90; 1.5 0 60; 2.2 0 60; 3.0 0 60 } \
+           { 1.0 0 90; 1.5 0 60; 2.2 0 60; 3.0 0 90; 3.2 0 30 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |------3-----3---|------3-----3---|
+  Sequence { 2.5 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2---2---2---2---|2---2---2---2---|
+  Sequence { 1.0 0 60; 2.0 0 60; 3.0 0 60; 4.0 0 60 } / 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |--2---2---2---2-|--2---2---2---2-|
+  Sequence { 1.5 0 60; 2.5 0 60; 3.5 0 60; 4.5 0 60 } / 
+End
+
+DefGroove POP04 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, OpenHat.
+
+// Pattern: POP05
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-----2-3-------|3-----3-3-------|
+  Sequence { 1.0 0 90; 2.5 0 60; 3.0 0 90 } \
+           { 1.0 0 90; 2.5 0 90; 3.0 0 90 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |----3-------3---|----3-------3---|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |3-2-3-2-3-2-3-2-|3-1-3-3-3-2-3---|
+  Sequence { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 60; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 60 } \
+           { 1.0 0 90; 1.5 0 30; 2.0 0 90; 2.5 0 90; 3.0 0 90; 3.5 0 60; 4.0 0 90 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |----------------|--------------2-|
+  Sequence Z \
+           { 4.5 0 60 } 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |1111111111111111|2111111121112111|
+  Sequence { 1.0 0 30; 1.2 0 30; 1.5 0 30; 1.8 0 30; 2.0 0 30; 2.2 0 30; 2.5 0 30; 2.8 0 30; 3.0 0 30; 3.2 0 30; 3.5 0 30; 3.8 0 30; 4.0 0 30; 4.2 0 30; 4.5 0 30; 4.8 0 30 } \
+           { 1.0 0 60; 1.2 0 30; 1.5 0 30; 1.8 0 30; 2.0 0 30; 2.2 0 30; 2.5 0 30; 2.8 0 30; 3.0 0 60; 3.2 0 30; 3.5 0 30; 3.8 0 30; 4.0 0 60; 4.2 0 30; 4.5 0 30; 4.8 0 30 } 
+End
+
+DefGroove POP05 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, OpenHat, Tambourine.
+
+// Pattern: POP06
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3--3-3------|3--3-3------|
+  Sequence { 1.0 0 90; 2.0 0 90; 2.7 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |211211211111|2121212122--|
+  Sequence { 1.0 0 60; 1.3 0 30; 1.7 0 30; 2.0 0 60; 2.3 0 30; 2.7 0 30; 3.0 0 60; 3.3 0 30; 3.7 0 30; 4.0 0 30; 4.3 0 30; 4.7 0 30 } \
+           { 1.0 0 60; 1.3 0 30; 1.7 0 60; 2.0 0 30; 2.3 0 60; 2.7 0 30; 3.0 0 60; 3.3 0 30; 3.7 0 60; 4.0 0 60 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |------------|----------2-|
+  Sequence Z \
+           { 4.3 0 60 } 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |--3---3---3-|--3---3---3-|
+  Sequence { 1.7 0 90; 3.0 0 90; 4.3 0 90 } / 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |112-112-112-|112-112-112-|
+  Sequence { 1.0 0 30; 1.3 0 30; 1.7 0 60; 2.3 0 30; 2.7 0 30; 3.0 0 60; 3.7 0 30; 4.0 0 30; 4.3 0 60 } / 
+End
+
+DefGroove POP06 Time = 4/4, SeqLen = 2; Kick, ClosedHat, OpenHat, Stick, Maracas.
+
+// Pattern: POP07
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-3----3--3-----|3-3----3--3-----|
+  Sequence { 1.0 0 90; 1.5 0 90; 2.8 0 90; 3.5 0 90 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |----3-3--3--3---|----3-3--3--3-33|
+  Sequence { 2.0 0 90; 2.5 0 90; 3.2 0 90; 4.0 0 90 } \
+           { 2.0 0 90; 2.5 0 90; 3.2 0 90; 4.0 0 90; 4.5 0 90; 4.8 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |3232212312312122|3232112321321121|
+  Sequence { 1.0 0 90; 1.2 0 60; 1.5 0 90; 1.8 0 60; 2.0 0 60; 2.2 0 30; 2.5 0 60; 2.8 0 90; 3.0 0 30; 3.2 0 60; 3.5 0 90; 3.8 0 30; 4.0 0 60; 4.2 0 30; 4.5 0 60; 4.8 0 60 } \
+           { 1.0 0 90; 1.2 0 60; 1.5 0 90; 1.8 0 60; 2.0 0 30; 2.2 0 30; 2.5 0 60; 2.8 0 90; 3.0 0 60; 3.2 0 30; 3.5 0 90; 3.8 0 60; 4.0 0 30; 4.2 0 30; 4.5 0 60; 4.8 0 30 } 
+End
+
+DefGroove POP07 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat.
+
+// Pattern: POP08
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-------------------3---------------------------|3-------------------3-------3-------------------|
+  Sequence { 1.0 0 90; 2.7 0 90 } \
+           { 1.0 0 90; 2.7 0 90; 3.3 0 90 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |------------3-------2---------------3------2----|------------3-----------------------3-----------|
+  Sequence { 2.0 0 90; 2.7 0 60; 4.0 0 90; 4.6 0 60 } \
+           { 2.0 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |3-------1-----------2---1-------3-----------1---|3-------1-----------2---1-------2-----------2---|
+  Sequence { 1.0 0 90; 1.7 0 30; 2.7 0 60; 3.0 0 30; 3.7 0 90; 4.7 0 30 } \
+           { 1.0 0 90; 1.7 0 30; 2.7 0 60; 3.0 0 30; 3.7 0 60; 4.7 0 60 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |------------------------------------------------|--------------------------------------------2---|
+  Sequence Z \
+           { 4.7 0 60 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |1---1-------2---1-------2---2-------1-------1---|2---2-------2---2-------2---2-------2-------2---|
+  Sequence { 1.0 0 30; 1.3 0 30; 2.0 0 60; 2.3 0 30; 3.0 0 60; 3.3 0 60; 4.0 0 30; 4.7 0 30 } \
+           { 1.0 0 60; 1.3 0 60; 2.0 0 60; 2.3 0 60; 3.0 0 60; 3.3 0 60; 4.0 0 60; 4.7 0 60 } 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |--------3-----------3-----------3-------3-------|--------3-----------3-----------3-------3-------|
+  Sequence { 1.7 0 90; 2.7 0 90; 3.7 0 90; 4.3 0 90 } / 
+End
+
+DefGroove POP08 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, OpenHat, Maracas, Tambourine.
+
+// Pattern: POP09
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-----3-----|3-----3-2---|
+  Sequence { 1.0 0 90; 3.0 0 90 } \
+           { 1.0 0 90; 3.0 0 90; 3.7 0 60 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |---3-----3--|---3-----3--|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |3-23-22-23-2|2-13-12-23-1|
+  Sequence { 1.0 0 90; 1.7 0 60; 2.0 0 90; 2.7 0 60; 3.0 0 60; 3.7 0 60; 4.0 0 90; 4.7 0 60 } \
+           { 1.0 0 60; 1.7 0 30; 2.0 0 90; 2.7 0 30; 3.0 0 60; 3.7 0 60; 4.0 0 90; 4.7 0 30 } 
+End
+
+DefGroove POP09 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat.
+
+// Pattern: POP10
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |2---2--2|2---3--2|
+  Sequence { 1.0 0 60; 3.0 0 60; 4.5 0 60 } \
+           { 1.0 0 60; 3.0 0 90; 4.5 0 60 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |--33--3-|--33--3-|
+  Sequence { 2.0 0 90; 2.5 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |32333233|32333233|
+  Sequence { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 90; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 90 } / 
+End
+
+DefGroove POP10 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat.
+
+// Pattern: POP11
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |2--23---|3--33---|
+  Sequence { 1.0 0 60; 2.5 0 60; 3.0 0 90 } \
+           { 1.0 0 90; 2.5 0 90; 3.0 0 90 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |--3---3-|--3---3-|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |32323232|32323232|
+  Sequence { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 60; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 60 } / 
+End
+
+DefGroove POP11 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat.
+
+// Pattern: POP12
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3------------------------------3----------------|-------------------------------------------2----|
+  Sequence { 1.0 0 90; 3.6 0 90 } \
+           { 4.6 0 60 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |------------------------------------------------|3-----------------------------------------------|
+  Sequence Z \
+           { 1.0 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |1---------------1-------------------------------|1---------------1---------------1---------------|
+  Sequence { 1.0 0 30; 2.3 0 30 } \
+           { 1.0 0 30; 2.3 0 30; 3.7 0 30 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |--------------------------------1---------------|------------------------------------------------|
+  Sequence { 3.7 0 30 } Z 
+End
+
+DefGroove POP12 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, OpenHat.
+

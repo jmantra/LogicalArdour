@@ -1,0 +1,25 @@
+// Some simple subroutine calls
+
+// This sets a copyright message. See how we use the
+// default option to set the Name value
+
+Defcall Copyright Date, Name=Bob van der Poel
+  print Adding copyright to song: $Name 
+  MidiCopyright $Name 
+  Print $Date
+EndDefCall
+
+Call Copyright Nov 2015
+
+
+// Same, but use DEFAULT keyword
+
+Defcall Copyright Date, Name
+  Default Name Bob van der Poel
+  Default Date June 22, 1999
+  print Adding copyright to song: $Name 
+  MidiCopyright $Name 
+  Print $Date
+EndDefCall
+
+Call Copyright Today

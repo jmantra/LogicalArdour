@@ -1,0 +1,41 @@
+// An ornamented bass line
+
+Begin Chord
+    Voice Piano1
+    Octave 5
+    Sequence {1 1 90 * 4 }  // simple 4 per bar
+    Voicing mode=optimal
+    Articulate 90
+End
+
+Begin Bass
+    Voice AcousticBass
+    Octave 3
+    Volume ff
+    Sequence {1 4 1 90; 3 4 5 90; 4 4 5 90}
+    Ornament Type=Grace Volume=60 Place=Below Duration=24 Beats=1,3
+End
+
+1  C
+2  Am
+3  Dm
+4  G7
+
+// Change to use chromatic grace note instead of the default "scale"
+// Note the use of a macro here. Just doing "Bass Ornament Chromatic=On" would
+// reset ALL the options.
+
+print Adding in a single option requires the use of a setting macro.
+print See the source for the correct method.
+// the use of [1] below assumes that we know that the chromatic option
+// is the second in the reported list. Probably best not to do this since
+// it's not guaranteed not to change!
+print Initial setting of the chromatic option: $_Bass_Ornament[1]
+Bass Ornament $_Bass_Ornament Chromatic=On
+print New setting of the chromatic option:     $_Bass_Ornament[1]
+print
+
+5  C
+6  Am
+7  Dm
+8  G7

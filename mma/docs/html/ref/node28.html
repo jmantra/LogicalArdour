@@ -1,0 +1,1214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Fine Tuning and Tweaks</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node29.html">
+<LINK REL="previous" HREF="node27.html">
+<LINK REL="next" HREF="node29.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node29.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node27.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node29.html">Enviroment Variables</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node27.html">After</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html693"
+  HREF="node28.html#SECTION002810000000000000000">Translations</A>
+<UL>
+<LI><A ID="tex2html694"
+  HREF="node28.html#SECTION002811000000000000000">VoiceTr</A>
+<LI><A ID="tex2html695"
+  HREF="node28.html#SECTION002812000000000000000">ToneTr</A>
+<LI><A ID="tex2html696"
+  HREF="node28.html#SECTION002813000000000000000">VoiceVolTr</A>
+<LI><A ID="tex2html697"
+  HREF="node28.html#SECTION002814000000000000000">DrumVolTr</A>
+</UL>
+<BR>
+<LI><A ID="tex2html698"
+  HREF="node28.html#SECTION002820000000000000000">Tweaks</A>
+<UL>
+<LI><A ID="tex2html699"
+  HREF="node28.html#SECTION002821000000000000000">Default Voices</A>
+<LI><A ID="tex2html700"
+  HREF="node28.html#SECTION002822000000000000000">DrumKit</A>
+<LI><A ID="tex2html701"
+  HREF="node28.html#SECTION002823000000000000000">Diminished Chord Type</A>
+<LI><A ID="tex2html702"
+  HREF="node28.html#SECTION002824000000000000000">Plectrum Reset On Groove Change</A>
+</UL>
+<BR>
+<LI><A ID="tex2html703"
+  HREF="node28.html#SECTION002830000000000000000">Xtra Options</A>
+<UL>
+<LI><A ID="tex2html704"
+  HREF="node28.html#SECTION002831000000000000000">NoCredit</A>
+<LI><A ID="tex2html705"
+  HREF="node28.html#SECTION002832000000000000000">Chords</A>
+<LI><A ID="tex2html706"
+  HREF="node28.html#SECTION002833000000000000000">CheckFile</A>
+<LI><A ID="tex2html707"
+  HREF="node28.html#SECTION002834000000000000000">Grooves</A>
+<LI><A ID="tex2html708"
+  HREF="node28.html#SECTION002835000000000000000">Print</A>
+<LI><A ID="tex2html709"
+  HREF="node28.html#SECTION002836000000000000000">Splitting Output</A>
+<UL>
+<LI><A ID="tex2html710"
+  HREF="node28.html#SECTION002836100000000000000">Channel Split</A>
+<LI><A ID="tex2html711"
+  HREF="node28.html#SECTION002836200000000000000">Track Split</A>
+</UL>
+</UL>
+<BR>
+<LI><A ID="tex2html712"
+  HREF="node28.html#SECTION002840000000000000000">Debug</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION002800000000000000000"></A>
+<A ID="Tweaks"></A>
+<BR>
+Fine Tuning and Tweaks
+</H1>
+
+<P>
+
+<H1><A ID="SECTION002810000000000000000">
+Translations</A>
+</H1> 
+
+<P>
+A program such as 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  which is intended to be run on various
+computers and synthesizers (both hardware keyboards and software
+versions) suffers from a minor deficiency of the MIDI standards:
+mainly that the standard says nothing about what a certain instrument
+should sound like, or the relative volumes between instruments. The GM
+extension helps a bit, but only a bit, by saying that certain
+instruments should be assigned certain program change values. This
+means that all GM synths will play a &ldquo;Piano&rdquo; if instrument 000 is
+selected.
+
+<P>
+But, if one plays a GM file on a Casio keyboard, then on a PC
+soft-synth, and then on a Yahama keyboard you will get three quite
+different sounds. The files supplied in this distribution have been
+created to sound good on the author's setup: A Casio WK-3000 keyboard.
+
+<P>
+But, what if your hardware is different? Well, there are solutions!
+Later in this chapter commands are shown which will change the
+preselected voice and tone commands and the default volumes. At this
+time there are no example files supplied with 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> , but your
+contributions are welcome.
+
+<P>
+The general suggestion is that:
+
+<P>
+
+<OL>
+<LI>You create a file with the various translations you need. For
+  example, the file might be called <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">yamaha.mma</SPAN></SPAN> and contain
+  lines like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>VoiceTR Piano1=Piano2 
+<BR>
+ToneTr SnareDrum2=SnareDrum1 
+<BR>
+VoiceVolTr Piano2=120 BottleBlow=80 
+<BR>
+DrumVolTr RideBell=90 Tambourine=120   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Place this file in the directory
+  <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/usr/local/share/mma/includes</SPAN></SPAN>.
+
+<P>
+</LI>
+<LI>Include this file in your ~<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/.mmarc</SPAN></SPAN> file.
+  Following the above example, you would have a line:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Include yamaha  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</LI>
+</OL>
+
+<P>
+That's it! Now, whenever you compile a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  file the translations
+will be done.
+
+<P>
+All of the following translation settings follow a similar logic as to
+&ldquo;when&rdquo; they take effect, and that is at the time the V<SMALL>OICE</SMALL>,
+V<SMALL>OLUME</SMALL>, etc. command is issued. This may confuse the unwary if
+G<SMALL>ROOVES</SMALL> are being used. But, the following sequence:
+
+<P>
+
+<OL>
+<LI>You set a voice with the V<SMALL>OICE</SMALL> command,
+</LI>
+<LI>You save that voice into a G<SMALL>ROOVE</SMALL> with D<SMALL>EF</SMALL>G<SMALL>ROOVE</SMALL>,
+</LI>
+<LI>You create a voice translation with V<SMALL>OICE</SMALL>TR,
+</LI>
+<LI>You activate the previously defined G<SMALL>ROOVE</SMALL>.
+</LI>
+</OL>
+
+<P>
+<SPAN  CLASS="textit"><SPAN  CLASS="textbf">&nbsp;&nbsp; Wrong! This does not have the desired effect.</SPAN></SPAN>
+
+<P>
+In the above sequence the V<SMALL>OICE</SMALL>TR will have <SPAN  CLASS="textit">no</SPAN> effect.
+For the desired translations to work the V<SMALL>OICE</SMALL> (or whatever)
+command must come <SPAN  CLASS="textit">after</SPAN> the translation command.
+
+<P>
+
+<H2><A ID="SECTION002811000000000000000"></A> <A ID="set-voicetr"></A>
+<BR>
+VoiceTr
+</H2> 
+
+<P>
+In previous section you saw how to set a voice for a track by using
+its standard MIDI name. The V<SMALL>OICE</SMALL>T<SMALL>R</SMALL> command sets up a
+translation table that can be used in two different situations:
+
+<P>
+
+<UL>
+<LI>It permits creation of your own names for voices (perhaps for a
+  foreign language),
+
+<P>
+</LI>
+<LI>It lets you override or change voices used in standard library
+  files.
+
+<P>
+</LI>
+</UL>
+
+<P>
+V<SMALL>OICE</SMALL>T<SMALL>R</SMALL> works by setting up a simple translation table of
+&ldquo;name&rdquo; and &ldquo;alias&rdquo; pairs. Whenever 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  encounters a voice name
+in a track command it first attempts to translate this name though the
+alias table.
+
+<P>
+To set a translation (or series of translations):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>VoiceTr Piano1=Clavinet Hmmm=18   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that you can additional V<SMALL>OICE</SMALL>T<SMALL>R</SMALL> commands will add entries
+to the existing table. To clear the table use the command with no
+arguments:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>VoiceTr // Empty table  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Assuming the first command, the following will occur:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-Main Voice Hmmm  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The V<SMALL>OICE</SMALL> for the <SPAN  CLASS="textit">Chord-Main</SPAN> track will be set to &ldquo;18&rdquo;
+or &ldquo;Organ3&rdquo;.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-2 Voice Piano1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The V<SMALL>OICE</SMALL> for the <SPAN  CLASS="textit">Chord-2</SPAN> track will be set to
+&ldquo;Clavinet&rdquo;.
+
+<P>
+If your synth does not follow standard GM-MIDI voice naming
+conventions you can create a translation table which can be included
+in all your 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  song files via an RC file. But, do note that the
+resulting files will not play properly on a synth conforming to the
+GM-MIDI specification.
+
+<P>
+Following is an abbreviated and untested example for using an obsolete
+and unnamed synth:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>VoiceTr  Piano1=3   \
+<BR>
+Piano2=4  \
+<BR>
+Piano3=5  \
+<BR>    ... \
+<BR>
+Strings=55  \
+<BR>    ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Notes: the translation is only done one time and no verification is
+done when the table is created. The table contains one-to-one
+substitutions, much like macros.
+
+<P>
+For translating drum tone values, see <A HREF="#set-tonetr">T<SMALL>ONE</SMALL>TR</A>.
+
+<P>
+
+<H2><A ID="SECTION002812000000000000000"></A> <A ID="set-tonetr"></A>
+<BR>
+ToneTr
+</H2> 
+
+<P>
+It is possible to create a translation table which will substitute one
+Drum Tone for another. This can be useful in a variety of situations,
+but consider:
+
+<P>
+
+<UL>
+<LI>Your synth lacks certain drum tones&mdash;in this case you may want
+  to set certain T<SMALL>ONE</SMALL>TR commands in a <SMALL>MMA</SMALL>RC file.
+
+<P>
+</LI>
+<LI>You are using an existing G<SMALL>ROOVE</SMALL> in a song, but don't
+  like one or more of the Drum Tones selected. Rather than editing the
+  library file you can set a translation right in the song. Note, do
+  this <SPAN  CLASS="textit">before any</SPAN> G<SMALL>ROOVE</SMALL> commands.
+</LI>
+</UL>
+
+<P>
+To set a translation (or set of translations) just use a list of
+drumtone values or symbolic names with each pair separated by white
+space. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>ToneTR SnareDrum2=SnareDrum1 HandClap=44   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will use a &ldquo;SnareDrum1&rdquo; instead of a &ldquo;SnareDrum2&rdquo; and the value
+&ldquo;44&rdquo; (actually a &ldquo;PedalHiHat&rdquo;) instead of a &ldquo;HandClap&rdquo;.
+
+<P>
+You can turn off all drum tone translations with an empty line:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>ToneTR  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The syntax and usage of T<SMALL>ONE</SMALL>TR is quite similar to
+<A HREF="#set-voicetr">V<SMALL>OICE</SMALL>TR</A>.
+
+<P>
+
+<H2><A ID="SECTION002813000000000000000"></A> <A ID="set-voicevoltr"></A>
+<BR>
+VoiceVolTr
+</H2> 
+
+<P>
+If you find that a particular voice, i.e., Piano2, is too loud or soft
+you can create an entry in the &ldquo;Voice Volume Translation Table&rdquo;. The
+concept is quite simple: 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  checks the table whenever a
+track-specific V<SMALL>OLUME</SMALL> command is processed. The table is
+created in a similar manner to the V<SMALL>OICE</SMALL>T<SMALL>R</SMALL> command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>VoiceVolTr Piano2=120 105=75  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Each voice pair must contain a valid MIDI voice (or numeric value), an
+&ldquo;=&rdquo; and a volume adjustment factor. The factor is a percentage value
+which is applied to the normal volume. In the above example two
+adjustments are created:
+
+<P>
+
+<OL>
+<LI>Piano2 will be played at 120% of the normal value,
+
+<P>
+</LI>
+<LI>Banjo (voice 105) will be played at 75% of the normal value.
+</LI>
+</OL>
+
+<P>
+The adjustments are made when a track V<SMALL>OLUME</SMALL> command is
+encountered. For example, if the above translation has be set and
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  encounters the following commands:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Chord
+<BR>&nbsp;&nbsp;&nbsp;Voice Piano2
+<BR>&nbsp;&nbsp;&nbsp;Volume mp
+<BR>&nbsp;&nbsp;&nbsp;Sequence 1 4 90
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+the following adjustments are made:
+
+<P>
+
+<OL>
+<LI>A look up is done in the global volume table. The volume &ldquo;mf&rdquo;
+  is determined to be 85% for the set MIDI velocity,
+
+<P>
+</LI>
+<LI>the adjustment of 120% is applied to the 85%, changing that to
+  102%.
+
+<P>
+</LI>
+<LI>Assuming that no other volume adjustments are being made
+  (probably there will be a global volume and, perhaps, a
+  R<SMALL>VOLUME</SMALL>) the MIDI velocity in the sequence will be changed
+  from 90 to 91. Without the translation the 90 would have been
+  changed to 76.
+
+<P>
+</LI>
+</OL>
+
+<P>
+This is best illustrated by a short example. Assume the following in
+an input file:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Solo Voice TenorSax 
+<BR>
+Solo Volume f 
+<BR>
+Print Solo Volume set to $_Solo_Volume 
+<BR>
+VoiceVolTr TenorSax=90 
+<BR>
+Solo Volume f 
+<BR>
+Print Solo Volume set to $_Solo_Volume   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which will print out:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Solo Volume set to 130 
+<BR>
+Solo Volume set to 117   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The second line reflects that 90% of 130 is 117.
+
+<P>
+To disable all volume translations:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>VoiceVolTr // Empty table  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION002814000000000000000"></A> <A ID="set-drumvoltr"></A>
+<BR>
+DrumVolTr
+</H2> 
+
+<P>
+You can change the volumes of individual drum tones with the
+D<SMALL>RUM</SMALL>V<SMALL>OL</SMALL>T<SMALL>R</SMALL> translation. This command works just like the
+V<SMALL>OICE</SMALL>V<SMALL>OL</SMALL>T<SMALL>R</SMALL> command described above. It just uses drum tones
+instead of instrument voices.
+
+<P>
+For example, if you wish to make the drum tones &ldquo;SnareDrum1&rdquo; and
+&ldquo;HandClap&rdquo; a bit louder:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DrumVolTr SnareDrum1=120 HandClap=110  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The drum tone names can be symbolic constants, or MIDI values as in
+the next example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DrumVolTr 44=90 31=55  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+All drum tone translations can be disabled with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DrumVolTr // Empty table  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H1><A ID="SECTION002820000000000000000"></A> <A ID="tweaks"></A>
+<BR>
+Tweaks
+</H1> 
+
+<P>
+Some minor values can be adjusted via the T<SMALL>WEAKS</SMALL> command. Each
+item is set as an OPTION=VALUE pair. Currently the following are
+valid:
+
+<P>
+
+<H2><A ID="SECTION002821000000000000000">
+Default Voices</A>
+</H2>
+<DL>
+<DT><STRONG>D<SMALL>EFAULT</SMALL>D<SMALL>RUM</SMALL> or D<SMALL>EFAULT</SMALL>T<SMALL>ONE</SMALL></STRONG></DT>
+<DD>Set the default
+  (initial) voice to use in D<SMALL>RUM</SMALL>, S<SMALL>OLO</SMALL> and M<SMALL>ELODY</SMALL>
+  tracks. You can use a numeric value, a mnemonic name, or even an
+  extended voice name (see
+  <A HREF="node25.html#extended-patch">here</A>). Examples:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks DefaultDrum=22  </B> 
+   
+	    </td></tr>
+      </Table>
+ or 
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks DefaultDrum=8.9.22  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and, assuming you have set up a P<SMALL>ATCH </SMALL>S<SMALL>ET</SMALL> (see
+  <A HREF="node25.html#patch-set">here</A>):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks DefaultDrum=MyDrumKit  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<SPAN  CLASS="textbf">Be careful</SPAN> when using this option with Solo/Melody tracks
+  set to D<SMALL>RUM</SMALL>T<SMALL>YPE</SMALL>. If you set a V<SMALL>OICE</SMALL> (to use a
+  different drum set) before setting a S<SMALL>OLO</SMALL> or M<SMALL>ELODY</SMALL>
+  track as D<SMALL>RUM</SMALL>T<SMALL>YPE</SMALL> this option will overwrite your changes.
+
+<P>
+</DD>
+<DT><STRONG>DefaultVoice</STRONG></DT>
+<DD>Sets the default (initial) voice to use in tracks
+  other than drum. The same extended voicing options as detailed for
+  D<SMALL>EFAULT</SMALL>D<SMALL>RUM</SMALL> apply. Examples:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks DefaultVoice=99  </B> 
+   
+	    </td></tr>
+      </Table>
+ or 
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks
+    DefaultVoice=MyFunkyPiano  </B> 
+   
+	    </td></tr>
+      </Table>
+
+</DD>
+</DL>
+
+<P>
+
+<H2><A ID="SECTION002822000000000000000"></A>
+<A ID="setdrumkit"></A>
+<BR>
+DrumKit
+</H2>
+This option sets the default D<SMALL>RUM</SMALL>K<SMALL>IT</SMALL> to use for this 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+file. For a list of the known mnemonic names, please refer
+<A HREF="node36.html#sec-drumkitnames">to the appendix</A>. For
+consistency with the V<SMALL>OICE</SMALL> command (see
+<A HREF="node25.html#set-voice">here</A>) you can append &ldquo;Kit&rdquo; to a
+name.
+
+<P>
+You can also use an integer value from 0 to 127.
+
+<P>
+Valid examples, all resulting in the same setting, include:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks DrumKit=Jazz  </B> 
+   
+	    </td></tr>
+      </Table>
+ 
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks DrumKit=JazzKit  </B> 
+   
+	    </td></tr>
+      </Table>
+ 
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks
+  DrumKit=32  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION002823000000000000000"></A>
+<A ID="tweak-dim"></A>
+<BR>
+Diminished Chord Type
+</H2>
+<DL>
+<DT><STRONG>Dim</STRONG></DT>
+<DD>Set the type of chord produced with the &ldquo;dim&rdquo; chordtype.
+  By default a diminished chord is a &ldquo;dim7&rdquo;. However you can toggle
+  this behaviour with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks Dim=3  </B> 
+   
+	    </td></tr>
+      </Table>
+ or 
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks Dim=7  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<H2><A ID="SECTION002824000000000000000">
+Plectrum Reset On Groove Change</A>
+</H2>
+<DL>
+<DT><STRONG>PlectrumDoRest</STRONG></DT>
+<DD>By default a P<SMALL>LECTRUM</SMALL> track will not turn
+  off its sounding strings when a G<SMALL>ROOVE</SMALL> is changed. This can
+  be toggled with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tweaks PlectrumReSet=True  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Use <SPAN  CLASS="textit">False</SPAN> to restore the default.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<UL>
+<LI>You can place several T<SMALL>WEAK</SMALL> commands on a single line;
+  they are processed in order.
+
+<P>
+</LI>
+<LI>In most cases the best place to apply these tweaks, if needed, is in
+  your <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> file.
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION002830000000000000000"></A> <A ID="sec-xtras"></A>
+<BR>
+Xtra Options
+</H1> 
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has a number of options designed to help you in discovering the
+chords in your file, aid in debugging files, and massaging the form of
+the final MIDI file. These options are all accessed from the command
+line in the format -<SMALL>X</SMALL>C<SMALL>OMMAND OPTIONS</SMALL>.
+
+<P>
+
+<H2><A ID="SECTION002831000000000000000"></A>
+
+<A ID="xtra-nocredit"></A>
+<BR>
+NoCredit
+</H2>
+
+<P>
+By default, each MIDI file created by 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has the text &ldquo;Generated
+my MMA. Input filename: ...&rdquo; in the MIDI Meta data. Not only does
+this information give credit to our favorite little program, it can
+also help you in the future to see where the file came from! However,
+there are times when it may be appropriate to suppress this (for
+example, you may be combining a series of separate tracks into one).
+
+<P>
+We request that you not use this option and give credit where credit
+is due. Thanks.
+
+<P>
+
+<H2><A ID="SECTION002832000000000000000"></A>
+
+<A ID="sect-xtra-chords"></A>
+<BR>
+Chords
+</H2>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has a large internal vocabulary of chord names, and it is quite
+easy to extend using the D<SMALL>EF</SMALL>C<SMALL>HORD</SMALL> command,
+<A HREF="node14.html#defchord">details here</A>. But, it's
+sometimes nice to check before entering chord names into a file. This
+command takes each chord name listed and checks to see if 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+recognizes it. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -x chords C B A q   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will generate:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Error:   Illegal/Unknown chord name: 'q' 
+<BR>
+VALID: A, B, C   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You could easily incorporate this into a program which automatically
+generates 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  files.
+
+<P>
+
+<H2><A ID="SECTION002833000000000000000"></A>
+
+<A ID="sect-xtra-file"></A>
+<BR>
+CheckFile
+</H2>
+
+<P>
+This command will open the input filename and attempt to find all the
+chord names it contains and check each found to see if it is
+recognized by 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . As it progresses any chord names not found are
+displayed in the format:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -x checkfile test 
+<BR>
+Error: &lt;Line 143&gt;  Illegal/Unknown chord name: 'q' 
+<BR>
+Valid chords: Ab, Ab6, Abm6, Abm7  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+At the end of run, valid chords are listed in alphabetical order. This
+can be a great aid in seeing what chords are in the file (and seeing
+if any look &ldquo;odd&rdquo;). <SPAN  CLASS="textbf">This command does not verify other
+  commands and syntax in the file.</SPAN>
+
+<P>
+
+<H2><A ID="SECTION002834000000000000000"></A>
+
+<A ID="sect-xtra-grooves"></A>
+<BR>
+Grooves
+</H2>
+
+<P>
+This command will display all the G<SMALL>ROOVES</SMALL> known to 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . For
+this to work, the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  library database must be up-to-date via the
+-g (or -G) command line option. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -x Grooves 
+<BR>
+alexis/hiphop:HIPHOP 
+<BR>
+alexis/hiphop:HIPHOPEND 
+<BR>
+alexis/hiphop:HIPHOPINTRO 
+<BR>   .... many, many more! 
+<BR>
+zoom/trip:TRIP02 
+<BR>
+zoom/trip:TRIP03 
+<BR>
+zoom/trip:TRIP04   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+-<SMALL>X </SMALL>G<SMALL>ROOVES</SMALL> (from a terminal) will display each groove name
+found in alphabetical order. This list can be quite long, you you
+might want to spool it to a scratch file or use a pager like &ldquo;grep&rdquo;.
+
+<P>
+If an optional <SPAN  CLASS="textit">name</SPAN> is included, only those G<SMALL>ROOVES</SMALL>
+matching that name will be displayed.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -x Grooves trip
+<BR>
+casio/triphop:TRIPHOP
+<BR>
+casio/triphop:TRIPHOPEND
+<BR>   .... lots more 
+<BR>
+zoom/trip:TRIP03 
+<BR>
+zoom/trip:TRIP04   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The names are listed in extended groove notation
+(<A HREF="node6.html#extended-groove">here</A>). These names can
+be easily cut/pasted into the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  -V option.
+
+<P>
+
+<H2><A ID="SECTION002835000000000000000"></A>
+
+<A ID="sect-xtra-print"></A>
+<BR>
+Print
+</H2>
+
+<P>
+This command will display all the value of any system variable at
+initialization. Please note that this is processed <SPAN  CLASS="textit">before</SPAN>
+reading any RC files (ie. <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">.mmarc</SPAN></SPAN>). The use of a leading $ is
+optional (but if you use it you will need to escape it to protect it
+from the underlying shell). Example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>mma -xPrint _libpath \$_Volume  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will display something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$_LIBPATH = /home/bob/src/bv/mma/lib 
+<BR>  $_VOLUME = 100   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION002836000000000000000">
+Splitting Output</A>
+</H2>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  can split the generated MIDI into separate files for later
+processing using other user supplied programs. This can be useful if,
+for example, you wish to set volume levels for specific tracks or use
+different synth engines for channels ... the choices are
+limitless.
+
+<P>
+
+<UL>
+<LI>Please note that when using either channel or track splitting, no
+options other than the filename and the actual option are permitted.
+</LI>
+</UL>
+
+<P>
+
+<H3><A ID="SECTION002836100000000000000"></A>
+
+<A ID="sect-xtra-csplit"></A>
+<BR>
+Channel Split
+</H3>
+
+<P>
+Using the -<SMALL>X</SMALL>C<SMALL>SPLIT</SMALL> command causes 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to generate a
+different MIDI file for each generated channel. Assuming your file
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">wonders.mma</SPAN></SPAN> generates data in channels 9, 10 and 16 the files
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">wonders09.mid</SPAN></SPAN>, <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">wonders10.mid</SPAN></SPAN> and <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">wonders16.mid</SPAN></SPAN>
+will be created.
+
+<P>
+
+<H3><A ID="SECTION002836200000000000000"></A>
+
+<A ID="sect-xtra-tsplit"></A>
+<BR>
+Track Split
+</H3>
+
+<P>
+Using the -<SMALL>X</SMALL>T<SMALL>SPLIT</SMALL> command causes 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to generate a
+different MIDI file for each internal track. So, for your file
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">wonders.mma</SPAN></SPAN> you may end up with files such as
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">wonders-DRUM-SNARE.mid</SPAN></SPAN>, <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">wonders-DRUM-KICK.mid</SPAN></SPAN>,
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">wonders-BASS.mid</SPAN></SPAN>, etc.
+
+<P>
+
+<UL>
+<LI>Note that the splitting is done by repeatedly calling 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  for each
+track. The program name given on the command line (sys.argv[0]) is used as
+the executable name. Since the file is processed multiple times, we
+recommend that you include a command to make all randomizations
+predictive. The command &ldquo;R<SMALL>ND</SMALL>S<SMALL>EED 1</SMALL>&rdquo;<A HREF="node13.html#sec-rndseed">, here,</A> works nicely.
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION002840000000000000000"></A> <A ID="debug"></A> 
+<A ID="debugging"></A>
+<BR>
+Debug
+</H1>
+
+<P>
+To enable you to find problems in your song files (and, perhaps, even
+find problems with 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  itself) various debugging messages can be
+displayed. These are normally set from the command line
+<A HREF="node2.html#sec-running">command line</A>.
+
+<P>
+However, it is possible to enable various debugging messages
+dynamically in a song file using the D<SMALL>EBUG</SMALL> directive. In a
+debug statement you can enable or disable any of a variety of
+messages. A typical directive is:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Debug Debug=On Expand=Off Patterns=On  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Each section of the debug directive consists of a <SPAN  CLASS="textit">mode</SPAN> and the
+command word ON or O<SMALL>FF</SMALL>. The two parts must be joined by
+a single &ldquo;<SPAN  CLASS="textit"><SPAN CLASS="MATH">=</SPAN></SPAN>&rdquo;. You may use the values &ldquo;0&rdquo; for &ldquo;Off&rdquo; and
+&ldquo;1&rdquo; for &ldquo;On&rdquo; if desired.
+
+<P>
+The available modes with the equivalent command line switches are:
+
+<P>
+<BLOCKQUOTE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><SPAN  CLASS="textit">Mode</SPAN></TD>
+<TD ALIGN="LEFT" COLSPAN=2><SPAN><SPAN  CLASS="textit">Command Line Equivalent</SPAN></SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT">Debug</TD>
+<TD ALIGN="LEFT">-d</TD>
+<TD ALIGN="LEFT">debugging messages</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Filenames</TD>
+<TD ALIGN="LEFT">-o</TD>
+<TD ALIGN="LEFT">display file names</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Patterns</TD>
+<TD ALIGN="LEFT">-p</TD>
+<TD ALIGN="LEFT">pattern creation</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Sequence</TD>
+<TD ALIGN="LEFT">-s</TD>
+<TD ALIGN="LEFT">sequence creation</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Runtime</TD>
+<TD ALIGN="LEFT">-r</TD>
+<TD ALIGN="LEFT">running progress</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Warnings</TD>
+<TD ALIGN="LEFT">-w</TD>
+<TD ALIGN="LEFT">warning messages</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Expand</TD>
+<TD ALIGN="LEFT">-e</TD>
+<TD ALIGN="LEFT">display expanded lines</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Plectrum</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">display Plectrum chord shapes</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Roman</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">display Roman numeral chord conversions</TD>
+</TR>
+<TR><TD ALIGN="LEFT">Groove</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">issue a warning when a Groove is redefined</TD>
+</TR>
+</TABLE>
+</BLOCKQUOTE>
+
+<P>
+The modes and command are case-insensitive (although the command line
+switches are not). The options for P<SMALL>LECTRUM</SMALL>, G<SMALL>ROOVE</SMALL> and
+R<SMALL>OMAN</SMALL> are not accessible from the command line.
+
+<P>
+The current state of the debug flags is saved in the variable
+$_Debug and the state prior to a change is saved in $_LastDebug.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node29.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node27.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node29.html">Enviroment Variables</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node27.html">After</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

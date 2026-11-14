@@ -1,0 +1,299 @@
+
+// 8beat
+
+Begin Doc
+
+	Most older rock tunes accept these. Try it with songs like 
+    "There's a Kind Of Hush".
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+	
+///////////////////////////
+// Define patterns
+
+Begin Drum Define
+	D1234+   D1234 ; D34 Shift .5
+End
+
+Begin Chord Define
+	P1	  C1; C234 Shift .5
+	P2	  C1; C3 Shift .5
+	P3	  C1; C34 Shift .5
+	P4	  C34 Shift .5
+
+	// Guitar chords only play root/5th -- don't invert!
+
+	G1	1    4  90  0  90  0 ; \
+		2.5  8  90  0  90  0;  \
+		3    4  90  0  90  0;  \
+		4    4  90  0  90  0  
+		
+	G2	1    1  90  0  90  0  * 4
+End
+
+Begin Bass Define
+	Bmain   1   4  1  110 ; 2   8  1  60 ; \
+            2.5 8  1  60  ; 3   8  1  60 ; \
+            3.5 8  1  60  ; 4.5 8  1  60
+	Bplus   1   4  1  90  ; 2.5 8  1  80 ; \
+            3   8  1  90  ; 4   8  5  90 
+End
+
+Begin Walk Define
+	Wskip	1   8  90 ; \
+            1.5 8  90 ; \
+            2.5 8  80 ; \
+            3   8  90 ; \
+            4   8  90 
+End
+
+/////////////////
+// 8beat
+
+
+SeqSize 4
+
+// Straight ahead drum stuff
+
+Begin Drum-OHH
+	Sequence  { D1234; 1.5 0 90; 2.5 0 90}
+	Rskip 30
+	Volume mp
+	Tone OpenHiHat
+	RVolume 20
+End
+
+Begin Drum-CHH
+	Sequence    D8
+	Tone ClosedHiHat
+	Rskip 20
+	Volume mp
+	Rtime 2
+	RVolume 20
+End
+
+Begin Drum-Snare
+	Sequence    D24 / /  { D24; 3.5 0 90; 4.5 0 90 }
+	Tone    SnareDrum1 
+	Volume mp
+	Rtime 2
+	RVolume 20
+End
+
+Begin Drum-Kick
+	Sequence    {D1; 3.5 0 90; 4.5 0 90} {D1; D1 Shift .5; 3.5 0 90; 4.5 0 90}
+	Tone KickDrum1
+	Volume mp
+	Rtime 3
+	RVolume 10
+End
+
+// Bass. A heavy beat on 1 with softer on offbeats
+
+Begin Bass
+	Sequence	Bmain
+	Voice	FingeredBass
+	Octave 3
+	Volume mf
+	RVolume 5
+	Articulate 76
+End
+
+// Randomized chords on 1, 2, 2.5, 3, 3.5, 4
+
+Begin Chord
+	Voice Honky-TonkPiano
+	Sequence   P1   P2   P3   P4
+	SeqRnd On
+	Voicing  Mode=Optimal  Rmove=10
+	Volume mf
+	Articulate 90
+	Octave 5
+End
+
+// Open harmony guitar chords
+
+Begin Chord-Guitar
+	Sequence	G1	G1	G1	G2
+	Voicing   Mode=Invert
+	Articulate 90
+	Volume mp
+	Voice CleanGuitar
+	Octave 4
+End
+
+DefGroove 8Beat    Good for oldish rock stuff. 
+
+
+
+////////////////////////////////////////////////////////////
+// Enhance the 8beat rhythms by adding a sustained string
+////////////////////////////////////////////////////////////
+
+// The SlowStrings groove is used as a track setting to
+// be added to 8Beat and 8Beat1 grooves. Not meant to be
+// used alone.
+
+Groove 8Beat
+
+Begin Chord-Sus
+	Voice SlowStrings
+	Sequence  {1 1 90 0 90 0 * 4}
+	Voicing Mode=Optimal
+	Volume mp
+	Unify On
+	Octave 5
+	Articulate 100
+End
+	
+DefGroove 8BeatSus   Adds sustained string to 8Beat.
+
+///////////////////////////////////////
+// 8Beat1
+// Adds a better bass line to 8beat.
+
+Groove 8Beat
+
+Bass   Sequence	Bplus	z	Bplus	z
+Begin Walk
+  	Sequence	z	W1234    z    Wskip
+	Voice	FingeredBass
+	Octave 3
+	RVolume 5
+	Articulate 60
+End
+
+DefGroove 8Beat1     Adds interest to bass line with alternate walking bars.
+
+Chord-Sus Groove 8BeatSus
+DefGroove 8Beat1Sus  Adds sustained string to 8Beat1.
+
+/// a straight walking bass line
+Groove 8Beat
+Bass Sequence -
+Begin Walk
+   Sequence W1234  Wskip 
+Voice	FingeredBass
+	Octave 3
+	RVolume 5
+	Articulate 60
+End
+DefGroove 8BeatWalk   A complete walking bass line alternative
+Chord-Sus Groove 8BeatSus
+DefGroove 8BeatWalkSus  Sustained strings with walking bass
+
+/////////////////////////////
+/// Plus versions add in piano
+
+Groove 8Beat
+
+Begin Arpeggio
+	Voice Piano1
+	Sequence  {A4; 1.5 8 90; 3.5 8 90} \
+              {A2; 1.5 4 90; 3.5 4 90} \
+              {A4 Shift .5} \
+              {A2; A4 Shift .5}
+    Harmony OpenBelow+OpenAbove
+	Articulate 130
+	Rvolume 0,20
+	Rskip 40
+    Range 2
+    SeqRnd ON
+    Direction Random
+	Volume mf
+	Octave 5
+End
+
+DefGroove 8BeatPlus   Adds a bit of random piano.
+
+Groove 8BeatSus
+Arpeggio Groove 8BeatPlus
+DefGroove 8BeatSusPlus  Strings and random piano.
+
+Groove 8Beat1
+Arpeggio Groove 8BeatPlus
+DefGroove 8Beat1Plus  Interesting bass line and piano.
+
+Groove 8BeatWalk
+Arpeggio Groove 8BeatPlus
+DefGroove 8BeatWalkPlus  Walking bass line and piano.
+
+Groove 8Beat1Sus
+Arpeggio Groove 8BeatPlus
+DefGroove 8Beat1SusPlus  Interesting bass, piano and strings.
+
+Groove 8BeatWalkSus
+Arpeggio Groove 8BeatPlus
+DefGroove 8BeatWalkSusPlus  Walking  bass, piano and strings.
+
+///////////////////////
+/// Intro
+
+Groove 8Beat
+
+Alltracks SeqRnd Off
+
+Drum-OHH     Sequence   *    *    *    D1234
+Drum-CHH     Sequence   *    *    *    D13
+Drum-Snare   Sequence   D24  /    /    /
+Drum-Kick    Sequence   *    *    *    D1
+
+Bass         Sequence	Bmain  /  /    B1
+
+Chord        Sequence   P1    P2  P3   C123
+
+Chord-Guitar Sequence	G1    G1  G1   L1
+
+
+DefGroove 8BeatIntro   Straight-ahead four bar introduction.
+
+///////////////////////////////////////////
+/// Fill
+
+Groove 8Beat
+
+SeqSize 1
+
+Drum-OHH     Sequence   D8
+Drum-CHH     Sequence   D1234
+Drum-Snare   Sequence   D8
+Drum-Kick    Sequence   D13
+
+Bass         Sequence	B13
+
+Chord        Sequence   C1234
+
+Chord-Guitar Sequence	G1
+
+DefGroove 8BeatFill  A single bar fill, mostly drums.
+
+
+
+///////////////////////////////////////
+// 8BeatEnd	
+
+
+Groove 8Beat
+
+Seqsize 2
+
+Drum-OHH       Sequence	D1234
+Drum-CHH       Sequence	D1234   D1
+Drum-Snare     Sequence	D1234
+Drum-Kick      Sequence	D1234+  D13
+
+Chord          Sequence	C1234	C13
+Chord-Guitar   Sequence	C1234	C13
+
+Bass           Sequence B1
+
+DefGroove 8BeatEnd   Simple ending.
+
+

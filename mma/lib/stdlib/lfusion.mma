@@ -1,0 +1,291 @@
+// lfusion
+
+Begin Doc
+
+	Latin Fusion ... whatever that might mean to you. I figure it's
+	a combination of swing, jazz and latin. I created this for the
+	Hank Williams tune "Jambalaya" which I've heard done in too many
+	genres to list here. 
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+//////// Additional patterns
+
+Begin Chord Define
+	Acc1 1 8 90; 1.5 8 90; 2 8 90; 2.5 8 90; C34
+	Acc2 C134; 2 8 90; 2.5 8 90
+End
+
+
+/////////////
+
+SeqSize 4
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence          {D13; d2 Shift .5}
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Rcym
+	Tone RideCymbal1
+	Sequence         {D12; D34 Shift .5} {D12 Shift .5; D34}
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Bongo
+	Tone HighBongo
+	Sequence         D4
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Mconga
+	Tone MuteHighConga
+	Sequence        D2
+	Volume mp
+	Rvolume 5
+	Rtime 5
+	Volume         mf        p
+End
+
+Begin Drum-Oconga
+	Tone OpenHighConga
+	Sequence         {D1; D24 Shift .5}  {D12 Shift .5}
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Lconga
+	Tone LowConga
+	Sequence         D3
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Cabasa
+	Tone Cabasa
+	Sequence         {D13 ; D1234 Shift .5}
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Claves
+	Tone Claves     
+	Sequence        {D2; D3 Shift .5} {D24; D3 Shift .5}
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Block
+	Tone HighWoodBlock
+	Sequence         {D14; D2 Shift .5} {D2; D3 Shift .5}
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+
+Begin Drum-Cuica
+	Tone MuteCuica
+	Sequence         z    D4
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-MTri
+	Tone MuteTriangle
+	Sequence         {D234; D24 Shift .5} {D1234; D24 Shift .5}
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+
+Begin Drum-OTir
+	Tone OpenTriangle
+	Sequence         { D13 Shift .5 }
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Shaker
+	Tone Shaker
+	Sequence         D13
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Bass
+	Voice FretlessBass
+	Volume ff
+	Octave 3
+	Sequence   {1 4 1 90; 2.5 8 1 80; 3 4 5 90; 4.5 8 5 80} / / z 
+	Articulate 80
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Volume ff
+	Sequence   z z z  W1234
+	Articulate 80
+End
+
+Begin Chord
+	Voice Piano2
+	Volume mf
+	Octave 5
+	Sequence   {C123; C34 Shift .5} {C12 Shift .5; C34}
+	Articulate 80
+	Accent 1 20 3 20
+End
+
+Begin Arpeggio
+	Voice Atmosphere
+	Articulate 90
+	Volume mf
+	Harmony Open
+	Octave 4
+	Sequence   {1 4 90; 2 4 90; 2.5 8 90; 3.5 8 90; 4.5 8 90} \
+	           {1 8 90; 1.5 4 90; 2.5 4 90; 3.5 8 90; 4 4 90}
+End
+	         
+DefGroove LFusion     Basic Latin Fusion.
+
+Arpeggio Sequence -
+
+Begin Chord-Sus
+	Voice Strings
+	Octave 4
+	Voicing Mode=Optimal
+	Sequence  { 1 1 90 0 90 0 * 4 }
+	Articulate 100
+	Unify On
+	Volume f
+End
+
+DefGroove LFusionSus  Add sustained atmosphere.
+
+// Give a more cajan/zydeco feel with an accordion
+
+Groove LFusion
+
+Arpeggio Sequence -
+
+Begin Chord
+	Voice Bandoneon
+	Octave 5
+	Articulate 70
+	Accent 1 40 3 20 
+	Volume p
+	Sequence   Acc1  Acc2  Acc1  C124
+End
+
+DefGroove LFusion1  Same rhythm but with an accordion for that zydeco feeling.
+
+
+Chord-Sus Groove LfusionSus
+
+DefGroove LFusion1Sus  The zydeco with strings.
+
+//////////////////////////
+/// Intro
+/////////////////////////
+
+Groove Lfusion
+
+Drum-Kick   Sequence      D13 
+Drum-Rcym   Sequence      D123
+Drum-Bongo  Sequence      -
+Drum-Mconga Sequence      D1
+Drum-Oconga Sequence      D1
+Drum-Lconga Sequence      D3
+Drum-Cabasa Sequence      -
+Drum-Claves Sequence      {D13; D1 Shift .5}
+Drum-Block  Sequence      D123
+Drum-Cuica  Sequence      -
+Drum-MTri   Sequence      D13
+Drum-OTir   Sequence      -
+Drum-Shaker Sequence      D13
+
+Walk        Sequence      -
+Bass        Sequence      B1234  B11 / B1
+
+Arpeggio    Sequence      -
+
+Begin Chord
+   Voice Piano1
+   Sequence      C13
+   Accent  /// no accent for intro
+   Articulate 110
+End
+
+DefGroove LFusionIntro  Smooth intro with strings
+
+Groove LFusionIntro
+ Begin Chord-Sus
+    Groove LfusionSus
+    Octave 5
+    Volume m mp pp  ppp
+ End
+ 
+DefGroove LFusionIntroSus  Intro with strings
+
+//////////////////////////
+/// Endings
+
+Groove Lfusion
+
+Drum-Kick   Sequence      D13 
+Drum-Rcym   Sequence      D123
+Drum-Bongo  Sequence      -
+Drum-Mconga Sequence      D1
+Drum-Oconga Sequence      D1
+Drum-Lconga Sequence      D3
+Drum-Cabasa Sequence      -
+Drum-Claves Sequence      {D13; D1 Shift .5}
+Drum-Block  Sequence      D123
+Drum-Cuica  Sequence      -
+Drum-MTri   Sequence      D13
+Drum-OTir   Sequence      -
+Drum-Shaker Sequence      D13
+
+Walk        Sequence      -
+Bass        Sequence      B11
+
+Arpeggio    Sequence      -
+
+Chord       Sequence      C13
+
+DefGroove  LFusionEnd        A one bar ending.
+
+
+
+Begin Chord
+	Groove LFusion1
+	Sequence  C13
+End
+
+DefGroove Lfusion1End       Same as LFusionEnd, but uses accordion instead \
+                            of piano.
+

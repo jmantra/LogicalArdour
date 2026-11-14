@@ -1,0 +1,89 @@
+
+A quick note on synths, instruments, volumes and the MIDI
+standard.
+
+First, the MIDI standard says nothing about what a certain
+instrument should sound like, or the relative volumes
+between instruments. The GM extension helps a bit, but only
+a bit, by saying that certain instruments should be
+assigned certain program change values. This means that all
+GM synths will play a "Piano" if instrument 000 is selected.
+
+But, if I play a GM file on synths A and B it will sound
+quite different.
+
+The files supplied in this distribution have been created
+to sound good on the author's setup: A Casio WK-3000
+keyboard.
+
+The author is aware of the fact that the files don't sound
+very good using different setups, including the Linux
+softsynth Timidity.
+
+Frankly, we're not sure how to handle this problem, but
+giving it a minimal thought we suggest that changes be made
+to volume settings in the groove files wrapped in
+conditionals. So, if you are using Timidity, we'd suggest
+the following:
+
+1. Set a variable in your ~/.mmarc file:
+
+	Set Timidity-Volumes
+	
+2. In the groove files modify the volume settings like this:
+
+	Begin Drum-Snare
+		Tone SnareDrum1
+		...other settings
+		Volume mf
+		If Def Timidity-Volumes
+			Volume p
+		Endif
+	End
+
+
+or ..............
+
+You might want to create a parallel set of groove
+definitions. In your set, which would be included by
+redefining the libpath variable in an init file, read the
+supplied groove file and then modify the volumes (or even
+instrument settings). The advantage of this method is that
+original files are left unmodified. The disadvantage is
+that it gets quite complicated to make sure that all the
+tracks are properly modified.
+
+
+or .....
+
+MMA could develop some output routines which produce the
+parallel files mentioned above with only volume and instrument
+settings, and the appropriate include/defgroove commands.
+
+or ....
+
+Options could be built into MMA to automatically adjust volumes
+based on a table. Maybe in an RC file you would have:
+
+	Include Timidity
+	
+and have a Timidity.mma file in your includes directory:
+
+ VolumeAdjust SnareDrum1 -10       lower volume by 10%
+ VolumeAdjust AcousticGuitar +20   inc volume by 20%
+ ....
+
+ ... the following are implemented at this point.
+
+ ToneTR  KickDrum1=KickDrum2   use KickDrum2 instead of 1
+ VoiceTR Trumpet=Piano2        use piano2 when trumpet is called
+
+
+This might be the best solution, and probably would be easy
+to implement. 
+
+If you have other suggestions, please shout.
+
+
+bvdp, July/04
+

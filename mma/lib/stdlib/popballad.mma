@@ -1,0 +1,321 @@
+
+// popballad
+
+Begin Doc
+
+ A rock ballad in 4.
+	
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////////
+/////  Additional patterns
+
+
+Begin Bass Define
+	B12'3  B13; 2.75 32 1 50
+	B12'34' B12'3; 4.5 4 5 90
+End
+
+Begin Chord Define
+	
+	// A fairly complicated piano chord. On beats 1,2,3,4 we have
+	// quarter note ROOT tones, on the off-beats (1.5, etc) we
+	// have the 3rd and 5th of the chord.
+		
+	Cpiano 1 1 90 0 * 4; 1 1 0 80 80 0 * 4 Shift .5
+End
+
+///////////////////////////////////////////////////////
+		
+SeqSize 4
+
+Begin Drum-HH
+	Tone ClosedHiHat
+	Sequence D8
+	Rtime 5
+	Rskip 5
+	Rvolume 5
+End
+
+Begin Drum-Cym
+	Tone CrashCymbal1
+	Sequence D1 z
+	Volume p
+End
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence { D13; D23 Shift .5 }
+	Volume mf
+	Rskip 20
+	Rtime 5
+	Rvolume 10
+End
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Sequence D24
+End
+
+Begin Drum-Cabasa
+	Tone Cabasa
+	Sequence D1234
+	Rskip 40
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Drum-Shake
+	Tone Shaker
+	Sequence D1234
+	Rskip 40
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Bass
+	Sequence  B12'3   B12'34'
+	SeqRnd On
+	Voice AcousticBass
+	Articulate 80
+	Rtime 4
+	Rvolume 10
+	Octave 3
+End
+
+Begin Chord
+	Sequence Cpiano
+	Accent  1 10 3 10
+	Voice Piano2
+	Octave 4
+	Articulate 90
+	Rskip 5
+	Volume p
+End
+
+Begin Arpeggio
+	Voice Atmosphere
+	Sequence A8
+	Octave 5
+	Articulate 90
+	Rtime 5 
+	Rvolume 10
+	Rskip 10
+	Volume p
+	Harmony Open
+	Direction Down
+End
+
+DefGroove PopBallad      Plain old Pop Ballad. 
+
+/////////// PopBallad1
+/// Change the drums a bit and change the atmosphere to synthstring
+
+Groove PopBallad
+
+Begin Drum-HH 
+  Sequence -
+End
+
+Begin Drum-Ride
+	Tone RideCymbal1
+	Sequence D8
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Drum-Conga
+	Tone MuteHighConga
+	Sequence D24
+	Rtime 5
+	Rvolume 20
+	Volume p
+End
+
+Begin Drum-OConga
+	Tone OpenHighConga
+	Sequence { D34 Shift .5 }
+	Rtime 5
+	Rvolume 20
+	Volume p
+End
+
+Begin Drum-LConga
+	Tone LowConga
+	Sequence D13
+	Rtime 10
+	Rvolume 20
+	Volume p
+End
+
+Begin Chord-Sus
+	Voice  SynthStrings1
+	Sequence { 1 1 90 0 90 0 * 4 }
+	Voicing Mode=Optimal
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 10
+	Volume p
+End
+
+Arpeggio Sequence -
+
+DefGroove PopBallad1      The PopBallad with a bit more drum beat and \
+                          some sustained strings. 
+
+///  PopBallad without the arpeggios and a stronger piano
+
+Groove PopBallad
+
+Arpeggio Sequence -		// No arps
+
+Begin Chord				// Bump piano volume
+	Volume mf
+	Articulate 76
+End
+
+Drum-Kick Sequence D1234	// Kill kickdrum offbeats
+
+Defgroove PopBallad2       A straighter version of the ballad.
+
+///// Plus versions
+
+Groove PopBallad
+
+Begin Arpeggio-plus
+	Voice JazzGuitar
+	Sequence  A2  A4 {A4 Shift .5} A8
+	Range 1
+	Octave 6
+	Harmony Open
+	Volume m
+	Articulate 120
+	RTime 10
+	RVolume 10
+    SeqRnd On
+	Rskip 40
+End
+
+DefGroove PopBalladPlus  Adds nice guitar riffs. 
+
+Groove PopBallad1
+ Arpeggio-Plus Groove PopBalladPlus
+ DefGroove PopBallad1Plus Alternative with riffs.
+Groove PopBallad2
+  Arpeggio-Plus Groove PopBalladPlus
+ DefGroove PopBallad2Plus Straigther, with riffs.
+ 
+/////////////
+/// Sustained versions
+///   not for version1 since that already has sus in it
+
+Groove PopBallad
+
+Begin Drum-HH
+ Volume mp
+ sequence D13
+End
+
+Begin Drum-Cym
+	  Sequence D1 z z z
+	  Volume p
+End
+
+Begin Drum-Kick
+	Volume mp
+End
+
+Begin Drum-Snare
+	Sequence  D24
+	Volume mp
+End
+
+Begin Drum-Cabasa
+	Volume m
+End
+
+Begin Drum-Shake
+	Volume m
+End
+
+// Bass -- no change
+
+Begin Chord
+	Octave 5
+End
+
+// Arpeggio - no change
+
+
+Begin Chord-Sus
+	Voice  TremoloStrings
+	Sequence { 1 1 90 70 80 0 * 4 }
+	Voicing Mode=Optimal
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 10
+	Volume p
+End
+
+DefGroove PopBalladSus    A slightly lighter version, with strings.
+
+Groove PopBallad2
+ Chord-Sus Groove PopBalladSus
+DefGroove PopBallad2Sus   Add strings to straight version.
+
+Groove PopBalladSus
+  Arpeggio-Plus Groove PopBalladPlus
+ DefGroove PopBalladSusPlus Ballad with strings and guitar riffs.
+ 
+Groove PopBallad2Sus
+ Arpeggio-Plus Groove PopBalladPlus
+ DefGroove PopBallad2SusPlus Alternative with strings and guitar riffs.
+Groove PopBallad2
+  Arpeggio-Plus Groove PopBalladPlus
+ DefGroove PopBallad2Plus Straighter, with riffs.
+ 
+/////////////////////
+///////////// Intro
+
+Groove PopBallad
+
+Drum-HH    Sequence * * * D123
+Drum-Cym   Sequence D1 / / z
+Drum-Kick  Sequence *  *  * D1
+Drum-Snare  Sequence *  *  * D123
+Drum-Cabasa Sequence  *  *  * z
+Drum-Shake  Sequence  *  *  *  z
+
+Bass        Sequence  *  *  *  B1
+
+Chord       Sequence  *  *  * L1
+
+Arpeggio    Sequence  *  *  A4  A1
+
+DefGroove  PopBalladIntro   A simple introduction.
+
+/////// Ending
+
+
+Groove PopBallad
+SeqSize 1
+
+Drum-Kick Sequence D1234
+
+Bass Sequence B1234
+
+Chord Sequence C4
+
+Arpeggio Sequence -
+
+DefGroove PopBalladEnd   This is a finalizing, 1 bar ending.
+

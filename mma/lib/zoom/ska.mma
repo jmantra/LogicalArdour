@@ -1,0 +1,147 @@
+// Pattern: SKA01
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-3-3-3-|3-3-3-3-|
+  Sequence { 1.0 0 90; 2.0 0 90; 3.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |----3---|----3---|
+  Sequence { 3.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |32323232|32323232|
+  Sequence { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 60; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 60 } / 
+End
+
+DefGroove SKA01 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat.
+
+// Pattern: SKA02
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3---3---3---3---|3---3---3---3---|
+  Sequence { 1.0 0 90; 2.0 0 90; 3.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2---3-222-2-3---|3-2-3-322-2-3---|
+  Sequence { 1.0 0 60; 2.0 0 90; 2.5 0 60; 2.8 0 60; 3.0 0 60; 3.5 0 60; 4.0 0 90 } \
+           { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 90; 2.8 0 60; 3.0 0 60; 3.5 0 60; 4.0 0 90 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |--------------2-|--------------2-|
+  Sequence { 4.5 0 60 } / 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |----3---1-3-----|3-----3-1---3---|
+  Sequence { 2.0 0 90; 3.0 0 30; 3.5 0 90 } \
+           { 1.0 0 90; 2.5 0 90; 3.0 0 30; 4.0 0 90 } 
+End
+
+DefGroove SKA02 Time = 4/4, SeqLen = 2; Kick, ClosedHat, OpenHat, Stick.
+
+// Pattern: SKA03
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |2---2---2---2---|2---2---2---2---|
+  Sequence { 1.0 0 60; 2.0 0 60; 3.0 0 60; 4.0 0 60 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2-1-1---2-1-1-1-|1-1-2---2-1-1-2-|
+  Sequence { 1.0 0 60; 1.5 0 30; 2.0 0 30; 3.0 0 60; 3.5 0 30; 4.0 0 30; 4.5 0 30 } \
+           { 1.0 0 30; 1.5 0 30; 2.0 0 60; 3.0 0 60; 3.5 0 30; 4.0 0 30; 4.5 0 60 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |------2---------|------2---------|
+  Sequence { 2.5 0 60 } / 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |--------3-----3-|--------3-233---|
+  Sequence { 3.0 0 90; 4.5 0 90 } \
+           { 3.0 0 90; 3.5 0 60; 3.8 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |--2---2---2---2-|--2---2---2---2-|
+  Sequence { 1.5 0 60; 2.5 0 60; 3.5 0 60; 4.5 0 60 } / 
+End
+
+DefGroove SKA03 Time = 4/4, SeqLen = 2; Kick, ClosedHat, OpenHat, Stick, Maracas.
+
+// Pattern: SKA04
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-------3-3-----|3-------3-3-----|
+  Sequence { 1.0 0 90; 3.0 0 90; 3.5 0 90 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |----3-------3---|----3-------3-3-|
+  Sequence { 2.0 0 90; 4.0 0 90 } \
+           { 2.0 0 90; 4.0 0 90; 4.5 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |--3---3---3---3-|--3---3---3-----|
+  Sequence { 1.5 0 90; 2.5 0 90; 3.5 0 90; 4.5 0 90 } \
+           { 1.5 0 90; 2.5 0 90; 3.5 0 90 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |2-------2-------|2-------2-------|
+  Sequence { 1.0 0 60; 3.0 0 60 } / 
+End
+
+Begin Drum-Crash
+  Tone     CrashCymbal1
+           // |----------------|--------------2-|
+  Sequence Z \
+           { 4.5 0 60 } 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |----2--2--2--2--|----2--2--2--2--|
+  Sequence { 2.0 0 60; 2.8 0 60; 3.5 0 60; 4.2 0 60 } / 
+End
+
+DefGroove SKA04 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, OpenHat, Crash, Stick.
+

@@ -1,0 +1,146 @@
+ // swing.mma
+
+Begin Doc  
+      Swing (074) Our basic swing rhythm.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-HighBongo
+    Tone HighBongo
+    Volume m
+    Sequence z \
+             {2.00 0 52} \
+             {1.70 0 38}
+End
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1.00 0 93; 3.00 0 72} \
+             {1.00 0 93; 4.70 0 73} \
+             {1.00 0 80; 4.00 0 91} \
+             {1.71 0 79; 3.70 0 59}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence z \
+             {3.70 0 59} \
+             {3.70 0 85} \
+             {3.00 0 84; 4.70 0 94}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    Sequence {2.00 0 79; 4.00 0 95} \
+             {2.00 0 79; 4.00 0 96} \
+             {2.00 0 89} \
+             {2.00 0 90}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence {1.00 0 96; 2.70 0 61; 3.01 0 89; 4.71 0 79} \
+             {1.01 0 96; 2.70 0 61; 3.00 0 96; 4.71 0 79} \
+             {1.01 0 95; 2.75 0 79; 3.00 0 89; 4.01 0 71} \
+             {1.00 0 95; 2.75 0 80; 3.01 0 90; 4.00 0 93}
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1.00 4 1 90; 3.01 4 1 95; 4.66 32 5 49} \
+             {1.01 4 1 90; 2.66 6 5 61; 3.00 4 1 95; 4.00 8 5 57} \
+             {1.01 8 1 71; 2.00 4 1 64; 3.66 0 1 76; 4.01 8 5 64} \
+             {1.00 8 1 71; 1.66 0 5 106; 2.00 8 3 64; 2.66 0 5 96; 3.01 8 5 74; 4.00 8 5 64}
+End
+
+Begin Chord-6
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1.01 4 90; 2.66 3 90; 2.67 16 90} \
+             {1.66 4 90; 1.67 8 90; 3.01 16 90} \
+             {1.66 6 90; 1.67 6 90; 4.01 8 90} \
+             {1.66 6 90; 1.67 6 90; 2.66 6 90; 3.01 8 90; 4.01 8 90}
+End
+
+
+
+Begin Chord-7
+    Voice JazzGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1.66 6 90; 1.67 6 90; 4.00 16 90; 4.01 16 90} \
+             {1.67 6 90; 3.66 16 90; 4.66 16 90; 4.67 16 90} \
+             {1.01 3 90; 2.66 6 90; 2.67 6 90; 4.01 6 90; 4.02 6 90} \
+             {1.01 3 90; 1.67 32 90; 2.67 32 90; 4.66 16 90; 4.67 16 90}
+End
+
+DefGroove Swing  Basic 4 bar pattern
+
+/////////////////////////////////////////////////////////
+///////  Intro
+
+Groove Swing
+
+Drum-HighBongo   Sequence  z   *   *      z
+Drum-KickDrum1   Sequence  *   *   D1234  D13 
+Drum-SnareDrum1  Sequence  z   *   *      D1
+Drum-PedalHiHat  Sequence  *   *   D4     D1
+Drum-OpenHiHat   Sequence  *   *   D8     D1
+
+//  AcousticBass
+Bass-9   Sequence  B13   *    *   B1
+
+// Piano1
+Chord-6 Sequence  *  *   C1234  L1
+
+// JazzGuitar
+Chord-7 Sequence  *   C13  *   C13
+
+DefGroove SwingIntro
+
+
+/////////////////////////////////////////////////////////
+///////  Ending
+
+Groove Swing
+SeqSize 2
+
+Drum-HighBongo   Sequence  z   
+Drum-KickDrum1   Sequence  *     D1 
+Drum-SnareDrum1  Sequence  z     D1
+Drum-PedalHiHat  Sequence  *     D1
+Drum-OpenHiHat   Sequence  *     D1
+
+//  AcousticBass
+Bass-9   Sequence  B13      B1
+
+// Piano1
+Chord-6 Sequence  C1234  C1
+
+// JazzGuitar
+Chord-7 Sequence  *     C1
+
+
+DefGroove SwingEnd

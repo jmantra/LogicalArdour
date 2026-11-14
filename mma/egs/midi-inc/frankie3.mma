@@ -1,0 +1,49 @@
+
+// Demo to show how to use MidiInc to create solo riffs.
+
+// We import both our recorded tracks and:
+//   rec1 is played by the tenor as a solo AND by alto as harmony
+//   rec2 is played (with harmony) by a arpeggiating banjo
+
+// Honestly, this is silly and SOUNDS AWFUL :)
+
+Tempo 125   // again, a different tempo from the included file
+
+Groove BigBand 
+
+Begin Solo
+ Voice TenorSax
+ Articulate 120                // stretch the note durations
+ Volume mf                     // medium volume
+End
+
+Begin Solo-1
+  Voice AltoSax
+  Articulate 160
+  Volume mp
+  HarmonyOnly OpenBelow
+End
+
+Begin Solo-2
+  Voice Banjo
+  Volume m
+  Articulate 200
+  Arpeggiate Rate=32 Decay=-4 Direction=Down
+  Harmony 8Above+OpenAbove
+End
+
+// Include the recorded MIDI. Note the RIFF option ...
+// The first line imports (as riff) the file 'rec1.mid' into Solo and Solo-1
+// The second line imports (also as riff) the file 'rec2.mid' into Solo-2
+
+Midiinc File=rec1.mid Solo=1,Riff Solo-1=1,Riff Volume=90
+MidiInc File=rec2.mid Solo-2=1,Riff Volume=100
+
+// And play it
+
+	C * 4
+	F * 3
+	C
+	G7 * 2
+	C
+   z!

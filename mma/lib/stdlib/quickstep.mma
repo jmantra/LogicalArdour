@@ -1,0 +1,254 @@
+
+// quickstep
+
+Begin Doc
+
+ A quickstep beat. You might want to double up on the tempo when
+ using this. Written for ``Hooray For Hollywood''.
+ 
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+///////////////////////////////
+// Pattern definitions
+
+
+
+
+//////////////////////////////////////////////////////////
+// Quickstep
+
+
+SeqSize 2
+	
+Begin Drum-OpenHH
+	Tone OpenHiHat
+	Volume mp
+	Rvolume 10
+	Rskip 2
+	Sequence {D13; D24 Shift .5}
+End
+
+Begin Drum-ClosedHH
+	Tone ClosedHiHat
+	Volume mp
+	Rvolume 10
+	Rskip 5
+	Sequence D24
+End
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Volume mp
+	Rvolume 10
+	Sequence D13
+End
+
+Begin Bass
+	Voice AcousticBass
+	Volume mf
+	Articulate 94
+	Octave 3
+	Rvolume 10
+	Rtime 2
+	Sequence  B13
+End
+
+Begin Chord-Piano
+	Voice Piano2
+	Volume mp
+	Voicing Mode=Optimal
+	Articulate 70
+	Octave 5
+	Rtime 2
+	Rvolume 10
+	Sequence  {1 4 90; 2 8 90; 3 4 90; 4 8 90}
+End
+
+Begin Chord-Guitar
+	Voice JazzGuitar
+	Volume mf
+	Voicing Mode=Optimal
+	Articulate 90
+	Octave 5
+	Sequence {1 4 90 0; 3.5 8 90 0 90 0; 4 3 90 0 90 0; 4.66 3 90 0 90 0} \ 
+             {4 4 90 0 }
+End
+
+DefGroove QuickStep  Snappy quickstep, good for showtunes.
+
+Groove QuickStep
+
+Begin Chord-Hit
+	Voice BrassSection
+	Volume mp
+	Voicing Mode=Optimal
+	Octave 6
+	Articulate 60
+	Rskip 20
+	Sequence {1 4. 90; 4 8 90; 4.5 8 90}
+End
+
+DefGroove QuickStepHit   Brass hits on 1, 4 and 4.5.
+	
+
+//////////////////////////////////
+/// Sustained Versions
+
+Groove QuickStep
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing Mode=Optimal
+	Volume mp
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+DefGroove QuickStepSus   Sustained version with strings.
+
+Groove QuickStepHit
+Chord-Sus Groove QuickStepSus
+DefGroove QuickStepHitSus   Sustains with hits.
+
+////////////////////////////////
+/// Vocal version
+
+
+Groove QuickStep
+SeqSize 4         // for the randomized vocal patterns
+
+Begin Chord-Duh
+	Voice VoiceOohs 
+	Octave 5
+	Voicing Mode=Optimal
+	Volume m
+	Sequence {1 4 90 0 90 0} {3 4 90 0 90 0; 4 4 90 0 90 0} \
+             {2 2 90 0 90 0} {2 4 90 0 90 0; 3 4 90 0 90 0}
+	SeqRnd On
+	Articulate 60
+End
+
+
+DefGroove QuickStepDuh           Some vocalization over the basic beat.
+
+Groove QuickStepSus
+Chord-Duh Groove QuickStepDuh
+DefGroove QuickStepDuhSus        Sustains with vocalization.
+
+
+////////////////////////////////
+//// Walking bass versions
+
+Groove QuickStep
+Bass Sequence -
+
+/// Use 2 patterns. The main walk skips beats 3 or 2 on alternate bars.
+/// The 2nd pattern fills in these beats (and 4.5) at random times.
+/// We don't just do a rskip on the 1st pattern since we really do
+/// want beats on 1 and 4 (and 2/3?).
+
+Begin Walk
+	Voice $_Bass_Voice
+	Volume $_Bass_Volume
+	Articulate 60
+	Octave $_Bass_Octave
+	Rvolume $_Bass_Rvolume
+	Rtime   $_Bass_Rtime
+	Sequence  {1 4 100; 2 4 70; 4 4 90}  {1 4 90; 3 4 90; 4 4 60}
+End
+
+Begin Walk-Random
+   Copy Walk
+   Sequence {3 8. 70; 4.5 16 100} {2 8. 70; 4.5 16 100}
+   Rskip 50
+End
+
+DefGroove QuickStepWalk    Basic pattern with walking bass.
+
+Groove QuickStepHit
+Walk Groove QuickStepWalk
+Bass Sequence -
+Defgroove  QuickStepHitWalk  Brass hits with walking bass.
+
+Groove QuickStepSus
+Walk Groove QuickStepWalk
+Bass Sequence -
+Defgroove  QuickStepSusWalk  Sustained strings with walking bass.
+
+Groove QuickStepHitSus
+Walk Groove QuickStepWalk
+Bass Sequence -
+Defgroove  QuickStepHitSusWalk  Sustained strings, brass hits and walking bass.
+
+Groove QuickStepDuh 
+Walk Groove QuickStepWalk
+Bass Sequence -
+Defgroove  QuickStepDuhWalk Vocalization and walking bass.
+
+Groove QuickStepDuhSus
+Walk Groove QuickStepWalk
+Bass Sequence -
+Defgroove  QuickStepDuhSusWalk Strings, vocalization and walking bass.
+
+
+//////////////////////////////////////////////////////////
+// Intro
+
+Groove QuickStep
+
+SeqSize 4
+
+Alltracks Rskip 0
+
+Drum-OpenHH     Sequence   *    D8    D16    D12
+Drum-ClosedHH   Sequence   *    D8    D16    D12
+Drum-Kick       Sequence   *    *    *      D1
+Bass            Sequence   B13  /    /      {1 1 1 90}
+Chord-Piano     Sequence   *    *   C1234   L1
+Chord-Guitar    Sequence   C1   /   /       L1
+
+
+Defgroove QuickStepIntro  Four bar intro.
+
+Groove QuickStep
+SeqSize 8
+
+Alltracks Rskip 0
+
+Drum-OpenHH     Sequence   *    *   *   *    *   D8    D16    D12
+Drum-ClosedHH   Sequence   *    *   *   *    *   D8    D16    D12
+Drum-Kick       Sequence   *    *   *   *    *   *     *      D1
+Bass            Sequence   B13  /   /   B11  /   /     /     {1 1 1 90}
+Chord-Piano     Sequence   *    *   *   *    *   *    C1234   L1
+Chord-Guitar    Sequence   C1   /   /   C13  C1  /    /       L1
+
+
+DefGroove QuickStepIntro8  The 4 bar intro stretched to 8.
+
+
+
+//////////////////////////////////////////////////////////
+// Ending
+
+Groove QuickStep
+
+AllTracks Rskip 0
+
+
+Drum-OpenHH     Sequence   D16    D1
+Drum-ClosedHH   Sequence   D16    D1
+Drum-Kick       Sequence   *      D1
+Bass            Sequence   B13    B1
+Chord-Piano     Sequence   C1234  L1
+Chord-Guitar    Sequence   L1     C1
+
+DefGroove QuickStepEnd  Two bar ending.

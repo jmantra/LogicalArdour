@@ -1,0 +1,302 @@
+// beguine
+
+Begin Doc
+
+  This started life as a copy of the rumba patterns. I've changed
+  the drum sounds from snares to toms, and deleted hits on final 8th
+  beat. I really don't know the difference between a rhumba and a
+  beguine, so help would be welcome!
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////
+///////// Beguine
+
+
+SeqSize 4
+
+//////// Lots of drum stuff going on, but on my synth it doesn't sound too busy.
+
+Begin Drum
+	Tone  Claves
+	Sequence  {D14 ; 2.5 0 90;} {D1 ; 3.5 0 90} {D13 shift .5} {D123 Shift .5}
+	SeqRnd On
+	Rvolume 10
+	Rtime 2
+	RSkip 5
+	Volume ff
+End
+
+Begin Drum-Maraca
+	Tone Maracas
+	Sequence     D8   /   /   D1234
+	SeqRnd On
+	Rvolume 5
+	Rtime 2
+	RSkip 5
+End
+
+Begin Drum-Lconga
+	Tone LowConga
+	Sequence     D4   { D4; D3 shift .5 }
+	Rvolume 5
+	Rtime 2
+	Volume ff
+	RSkip 5
+End
+
+Begin Drum-Toms1
+	Tone          MidTom1	HighTom1
+	Sequence      D3    { D3 shift .5 }     /  z
+	SeqRnd On
+	Rvolume 5
+	Rtime 2
+	RSkip 5
+End
+
+Begin Drum-Toms2
+	Tone         MidTom2 HighTom2
+	Sequence     D3      { D2 shift .5 ; D4}
+	Rvolume 5
+	Rtime 2
+	RSkip 5
+End
+
+
+Begin Drum-Hconga
+	Tone MuteHighConga
+	Sequence     D2 { D1 shift .5 }
+	Rvolume 5
+	Rtime 2
+	RSkip 5
+End
+
+
+Begin Drum-HH
+	Tone  ClosedHiHat
+	Sequence     D8
+	Rvolume 5
+	Rtime 2
+End
+
+/////// Main chording is the piano
+
+
+Begin Chord
+	Voice Piano2
+	Sequence	C14  { C124; C34 Shift .5 } { C2; C34 Shift .5 }  C124
+	Accent 1 20  3  10
+	SeqRnd On
+	Voicing   Mode=Optimal
+	Octave 5
+	Articulate 90
+	Volume mf
+End
+
+
+///  Alternate bars with walk/bass. Gives a nice feeling.
+
+Begin Walk
+	Voice FretLessBass
+	Begin Define
+		Wa   1 4 85 ; 2.5 4 88 ; 4 4 80
+		Wb   Wa ; 4.5 8 77
+	End
+	Sequence	Wa	z	Wb	z
+	Accent 1 20
+	Articulate 60
+	Volume mp
+	Octave 3
+End
+
+Begin Bass
+	Sequence    z	{B13 ; 2.5 4 5 70 }
+	Accent      $_Walk_Accent
+	Voice       $_Walk_Voice
+	Articulate  $_Walk_Articulate
+	Volume      $_Walk_Volume
+	Octave      $_Walk_Octave
+End
+
+DefGroove Beguine    Nice, smooth easy listening.
+
+//////// Sustained strings in the background.
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing Mode=Optimal
+	Volume mp
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+DefGroove BeguineSus   Adds in a sustained string.
+
+
+////////////////////////////
+//  Beguine1
+// This builds on the Beguine, adds in pizzicato arpeggios.
+
+Groove Beguine
+
+Begin Arpeggio
+	Sequence    A4
+	Invert      0   0   1   2
+	SeqRnd On
+	Voice PizzicatoString
+	Articulate 80
+	Octave 5
+	Direction Random
+	Volume fff
+	Rvolume 10
+	Rskip  30
+End
+
+DefGroove Beguine1     Adds a pizzicato string to standard Beguine.
+
+Chord-Sus Groove BeguineSus
+
+DefGroove Beguine1Sus	This has the pizzicatos strings and a sustained string.
+
+/////////////////////////////
+/// Fill
+
+Groove Beguine
+SeqSize 1
+
+Alltracks SeqRnd Off
+
+Begin Drum-Wis         /// added tone
+	Tone ShortHiWhistle
+	Sequence {D1; D23 Shift .5}
+	Volume mp
+	Rvolume 5
+	Rtime 2
+End
+
+Drum-Maraca  Sequence   D8
+Drum-Lconga  Sequence   D24
+Drum-Toms1   Sequence   D3
+Drum-Toms2   Sequence   D14
+Drum-Hconga  Sequence   D2
+Drum-HH      Sequence   D8
+
+Chord  Sequence { C134; C123 Shift .5 }
+Walk   Sequence -
+Bass   Sequence B1234
+
+DefGroove BeguineFill  Single bar fill, good for endings.
+
+///////////////////////////
+// Introduction
+
+Groove Beguine
+
+Alltracks SeqRnd Off
+Alltracks RSkip 0
+
+Drum            Sequence  *    *   *   D12
+Drum-Maraca     Sequence  *    *   *   D12
+Drum-Lconga     Sequence  D4   /   /   z
+Drum-Toms2      Sequence  *    *   *   D12
+//Drum-Hconga
+Drum-HH         Sequence  *
+
+Chord           Sequence  *    *   *   {1 1 90}
+Walk            Sequence  *    *   *   z         // on for bars 1/3
+Bass            Sequence  *    *   *   B1        // on for bars 2/4
+
+
+DefGroove BeguineIntro    Simple enough 4 bar introduction.
+
+
+Groove Beguine
+
+SeqSize 8
+
+Alltracks SeqRnd Off
+Alltracks RSkip 0
+
+Drum            Sequence  *   *   *   *     *   *   *  D12
+Drum-Maraca     Sequence  *   *   *   *     *   *   *  D12
+Drum-Lconga     Sequence  D4  /   /  D1234  D4  /   /  z
+Drum-Toms2      Sequence  *   *   *   *     *   *   *  D12
+//Drum-Hconga
+Drum-HH         Sequence  *  /  /  /     /   /   /  D1
+
+Chord           Sequence  *  C13  *  C1234 *   C13   * {1 1 90}
+Walk            Sequence  *  *  *  *     *   *   *  *
+Bass            Sequence  *  *  *  *     *   *   *  B1
+
+
+DefGroove BeguineIntro8    Expanded, 8 bar, version of our 4 bar introduction.
+
+
+// Add some sustained string intros
+Groove BeguineIntro
+Begin Chord-Sus
+  Groove    BeguineSus
+  Sequence  *  *  *  { 1 2+8 80 0 60 0}
+End
+
+DefGroove BeguineSusIntro   4 bar intro with sustained strings
+
+///////////////////////////
+// Ending
+
+// Just add a string run to the basic beguine
+
+Groove Beguine
+
+Alltracks SeqRnd Off
+
+Begin Scale
+	Sequence   Scale8 Scale4 Scale2 Scale
+	Voice      SlowStrings
+	Articulate 99
+	Volume     m
+	Octave     4
+	Harmony    Open / / 3
+	Direction  Down
+	Range      3
+End
+
+
+DefGroove BeguineEnd     Ending with string scales. Uses 8ths \
+            on 1st bar 4th on 2nd, halves 3rd and a fullish chord \
+            on the 4th. Use a CUT if the final chord sounds too long.
+
+
+Groove Beguine
+Seqsize 2
+
+Alltracks SeqRnd Off
+
+Drum          Sequence   *       D13  // claves
+Drum-Maraca   Sequence   *       D12
+Drum-Lconga   Sequence   D1234   z
+Drum-Toms1    Sequence   D13     /
+Drum-Toms2    Sequence   D1234   D12
+Drum-Hconga   Sequence   *
+Drum-HH       Sequence   *
+
+Chord         Sequence	 C1234   {1 2 90}
+Walk          Sequence   z
+Bass          Sequence   B13      B1
+
+DefGroove Beguine2End    A more abrupt 2 bar ending.
+
+
+
+
+

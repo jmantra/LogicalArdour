@@ -1,0 +1,82 @@
+
+Print A demo which shows most of the builtin macros.
+Print
+Print NOTE: This should be updated as new system macros are added.
+Print NOTE: Bob--don't forget! (And, he does forget!)
+Print
+Groove Rhumba
+
+// Push a nice little string onto the Stack for later
+StackValue This message was pushed onto the stack.
+
+Print This is being printed on $_DateDate at $_DateTime 
+
+Print We've loaded in the Rhumba Groove so we have stuff to display.
+Print
+Print First, the global (non-track) settings:
+
+Print Keysig:        $_Keysig
+Print Time:          $_TIME
+Print Tempo:         $_Tempo
+Print Volume:        $_Volume
+Print VolumeRatio:   $_VolumeRatio
+Print LastVolume:    $_LastVolume
+Print Groove:        $_Groove
+Print LastGroove:    $_LastGroove
+Print SeqRnd:        $_SeqRnd
+Print SeqSize:       $_SeqSize
+Print SwingMode:     $_SwingMode
+Print Transpose:     $_Transpose
+Print Debug:         $_Debug
+Print LastDebug:     $_LastDebug
+Print VExpand:       $_Vexpand
+Print MIDISplit:     $_MIDISplit
+Print SeqRndWeight:  $_SeqRndWeight
+Print LibPath:       $_LibPath
+Print IncPath:       $_IncPath
+Print VoiceTr:       $_VoiceTr
+Print ToneTr:        $_ToneTr
+Print OutPath:       $_OutPath
+Print BarNum:        $_BarNum
+Print LineNum:       $_LineNum
+Print Lyric:         $_Lyric
+
+Print
+Print Now the setting for the Chord Track:
+print Accent:        $_Chord_Accent
+print Articulate:    $_Chord_Articulate
+print Compress:      $_Chord_Compress
+Print Direction:     $_Chord_direction
+Print DupRoot:       $_Chord_DupRoot
+Print Harmony:       $_Chord_Harmony
+Print HarmonyVolume: $_Chord_HarmonyVolume
+Print Invert:        $_CHord_Invert
+Print Limit:         $_Chord_Limit
+Print Octave:        $_Chord_Octave
+Print Range:         $_Chord_Range
+Print RSkip:         $_Chord_Rskip
+Print RTime:         $_Chord_Rtime
+Print RVolume:       $_Chord_RVolume
+Print SeqRnd:        $_Chord_SeqRnd
+Print SeqRndWeight:  $_Chord_SeqRndWeight
+Print Span:          $_Chord_Span
+Print Strum:         $_Chord_Strum
+Print Unify:         $_Chord_Unify
+Print Voice:         $_Chord_Voice
+Print Voicing:       $_Chord_Voicing
+Print Volume:        $_CHord_Volume
+
+Print
+Print TONE only applies in Drum tracks:
+Print Drum-HH-TONE:  $_Drum-HH_Tone
+
+Print
+Print Mallet only applies to Solo Tracks:
+Begin Solo
+	Mallet Rate=8 Decay=-15
+End
+Print Mallet:        $_Solo_Mallet
+Print
+
+Print We pushed a message onto the stack earlier... $_StackValue
+print

@@ -1,0 +1,114 @@
+// A test of aria. This uses the melodic pattern and chords
+// for the rock piece Barbara Ann
+
+Groove Softrock
+Tempo 180
+KeySig F
+
+/// Define some patterns for the flute solo. This makes it easier to
+/// change between different patterns thoughout the piece. It might be
+/// easier to have all this stuff in "standard patterns" of some kind 
+/// which get loaded from a file. Comments?
+
+mset pat1
+ Begin Aria
+    Sequence  {1 4 90; 2 4 90; 3 4. 90; 4 4 90}   {1.5 4 90; 2.5 8 90; 3 3 90} 
+    Direction 0 0 0 1
+ End
+endmset
+
+mset pat2
+ Begin Aria
+   Sequence { 1 8 90; 1.5 8 90; 2 8 90; 2.5 8 90; 3 8 90; 3.5 8 90; 4.4 4 90} \
+            { 1 1 90 * 4}
+   Direction 0
+ End
+Endmset
+
+mset pat3
+   	Begin Aria
+	  Sequence {1 4 90; 2 8 90 ; 2.5 8 90; 3 2 90} \
+               {1 8 90; 1.5 8 90; 2 8 90; 2.5 8 90}
+      Direction 1 
+	End  
+endmset
+
+/// This is the Aria setup. Nothing much, just set the voicing, etc.
+/// Note: no sequence.
+
+Begin Aria
+	  Voice Flute
+	  Volume FF
+	  Articulate 90
+	  Octave 6
+	  Harmony Open  
+End
+
+/// A 2nd aria for the counter melody. This time there is a sequence
+/// (just half notes on 1/3. But, the track is turned off.
+
+Begin Aria-Counter
+	  Voice JazzGuitar
+	  Volume FF
+	  Articulate 100
+	  Octave 5
+	  Sequence {1 1 90 * 2}
+	  Direction r 
+
+	  Off
+End
+
+	
+//////////////////////////////
+//// Start out piece
+
+Repeat
+
+$pat1      /// set the 1st pattern for the flute solo
+
+1 F
+2 /
+3 /
+4 /
+5 /
+6 /
+7 Bb
+8 /
+9 F
+10 F
+
+$pat2  /// change to pattern 2
+
+
+11 C7
+12 Bb
+13 F
+14 /
+
+RepeatEnding 2
+
+$pat3                 /// change to pattern 3
+Aria-Counter On       /// and turn on the counter melody
+Aria Volume m
+
+15 F
+16 /
+17 F6
+18 F7
+19 Bb
+20 /
+21 F
+22 /
+
+Aria-Counter Off    /// counter melody off
+$pat2               /// flute pattern 2
+
+23 C7
+24 Bb
+25 F
+26 /
+
+
+RepeatEnd 
+
+

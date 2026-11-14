@@ -1,0 +1,146 @@
+
+// cubanguitar
+
+Begin Doc
+
+    A gentle background for slow Cuban and other latin songs.
+    It could be played on one guitar, if one is very good!
+    Has only a guitar and
+    bass (well, plus some strings for the sustained sections).
+    Written for the tune ``Duele''.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+SeqSize 4
+
+Begin Bass
+	Voice FingeredBass
+	Volume m
+	Octave 3
+	Articulate 110   // fat bass notes
+    Accent 1 20
+    Rtime 5
+    RVolume 5
+	Sequence {1 1 1 90 * 2} {1 2 1 90; 3 4 1+ 9; 4 4 5 90}
+End
+
+Begin Arpeggio
+	Voice JazzGuitar 
+	Articulate 140
+	Octave 5
+    RTime 5
+    RVolume 5
+	Volume m
+    Direction Up Down Down Up
+    Accent 1 30 3 20
+    Range 1.2
+	Sequence A8 / / A4
+End
+
+Begin Arpeggio-Harmony
+    Copy Arpeggio
+    HarmonyOnly OpenBelow
+    Sequence A4 / / A2
+    RSkip 10
+    Range .9
+    Volume mp
+End
+
+DefGroove CubanGuitar  Basic 4 bar pattern with apreggiating guitar.
+
+/////////////////////
+/// Sustained
+
+Groove CubanGuitar
+
+Arpeggio Volume mp
+Arpeggio-Harmony Volume p
+
+Begin Chord-Sus
+	Sequence   C1234
+	Limit      3
+	Octave     5
+	Voice      Strings
+	Voicing    Mode=Optimal
+	Articulate 100
+	Unify      On
+	Volume     pp
+End
+
+DefGroove CubanGuitarSus  Add in sustained strings.
+
+///////////////////////////
+/// Plus
+
+/// Add in yet another guitar. 
+
+Groove CubanGuitar
+
+Begin Arpeggio-Plus
+    Copy Arpeggio
+    Octave 5
+    Volume m
+    RTime 10
+    RVolume 5
+    Articulate 110
+    Harmony OpenAbove
+    Rskip 40
+    Range 1
+    Sequence  A4  A8
+End
+
+DefGroove CubanGuitarPlus  Basic pattern with some additional harmony notes.
+
+Groove CubanGuitarSus
+Arpeggio-Plus Groove CubanGuitarPlus
+DefGroove CubanGuitarSusPlus  Additional harmony and sustain strings.
+
+//////////////////////////
+//////  Intro
+
+Groove CubanGuitar
+
+Bass          Sequence * * * {1 4 1 90; 2 4 5 90; 3 4 3 90; 4 4 1 90}
+Arpeggio      Sequence  A8
+Arpeggio-Harmony Sequence -
+
+DefGroove CubanGuitarIntro   A simple introduction.
+
+Groove CubanGuitarIntro
+Chord-Sus Groove CubanGuitarSus
+DefGroove CubanGuitarIntroSus  Basic intro with strings.
+
+//////  Ending
+
+Groove CubanGuitar
+Seqsize 2
+
+Bass          Sequence  * {1 1 1 90}
+Begin Arpeggio
+    Direction Down
+    Sequence  A4  {1 4 80; 2 2 70}
+End
+Begin Arpeggio-Harmony 
+   Direction Down
+   Sequence A4 {1 4 70; 2 2 60}
+End
+
+DefGroove CubanGuitarEnd    2 bar ending.
+
+Groove CubanGuitarEnd
+
+Begin Chord-Sus
+    Groove CubanGuitarSus
+    Sequence C1234  C123
+    Volume ppp
+End
+
+DefGroove CubanGuitarEndSus  2 bar ending with strings.
+

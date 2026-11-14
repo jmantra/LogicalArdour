@@ -1,0 +1,27 @@
+
+Changes file for the 2025 series
+
+This reflects changes to MMA since the release of version 21.09 (November/2021).
+
+    Fixed the docs for the COPY and COPYTO commands. There never was a COPYTO command! TO and FROM are extensions to the COPY command. Opps.
+    
+    Added system variable $_PWD. This returns the current working directory just like the unix pwd command.
+    
+    An empty argument for DRUM TONE resulted in a infinite loop. Fixed.
+    
+    Added a bit of verbosity to the error message generated when defining a TONE or VOICE by a message if you have confused constants for the two.
+    
+    Added a ERROR command. Text after the error is displayed and compilation stops.
+    
+    Changed the parser so that when setting the scale offset to use with bass patterns - and/or + can be placed before the digit(s) as well as after.
+    
+    The options chord voicing options drop23 and drop23key had been commented out in 21.09 and 21.09.1.
+    
+    Fixed errors in the documentation build.
+    
+    RPITCH: Fixed some minor coding errors; added the BEATS option (very useful!).
+
+    An error in common.py caused random crashes due to an undefined escape sequence.
+
+    Several minor documentation tweaks and fixes.
+    

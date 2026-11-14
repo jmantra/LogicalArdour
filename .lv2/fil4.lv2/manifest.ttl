@@ -1,0 +1,23 @@
+@prefix kx:     <http://kxstudio.sf.net/ns/lv2ext/external-ui#> .
+@prefix lv2:    <http://lv2plug.in/ns/lv2core#> .
+@prefix modgui: <http://moddevices.com/ns/modgui#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui:    <http://lv2plug.in/ns/extensions/ui#> .
+
+@prefix fil4: <http://gareus.org/oss/lv2/fil4#> .
+
+fil4:mono
+	a lv2:Plugin ;
+	lv2:binary <fil4.so>  ;
+	rdfs:seeAlso <fil4.ttl> .
+
+fil4:stereo
+	a lv2:Plugin ;
+	lv2:binary <fil4.so>  ;
+	rdfs:seeAlso <fil4.ttl> .
+
+fil4:ui_gl
+	a ui:X11UI ;
+	ui:binary <fil4UI_gl.so> ;
+	rdfs:seeAlso <fil4.ttl> .
+

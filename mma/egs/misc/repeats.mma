@@ -1,0 +1,94 @@
+// Demo file to show repeats/goto. Process with mma. No output
+// will be generated. 
+
+Debug Warnings=Off   // You should NOT do this.
+
+Print
+Print This file generates no output. It just demonstrates 
+Print various ways to use Repeat, RepeatEnding and Goto.
+Print The output lines prefaced with *s indicate lines of
+Print musical data which mma would produce.
+Print
+
+Print This first section shows a simple repeat.
+Print
+
+Set Count 1
+Print * Introduction
+Repeat
+	Print ** Repeated Section $Count
+	Inc Count
+RepeatEnd 3
+Print * After repeated section ....
+
+Print
+Print Next, we have a repeat section with 2 endings. The
+Print first ending is done twice, the second only once.
+Print Note that we end up with a total of 4 sections.
+Print
+
+Set Count 1
+Print * Introduction
+Repeat
+	Print ** Main Section $Count
+	Inc Count
+RepeatEnding 2
+	Print  **** 1st ending
+RepeatEnding 
+	Print **** 2nd ending
+RepeatEnd 
+Print * After repeated section ....
+
+Print
+Print This example shows a combination of Repeat and RepeatEnding with a count
+Print In this case there are a total of 4 sections. The 1st 2 use the ending,
+Print the 2nd 2 don't. Note we use a count of 3 in the RepeatEnd, not 2!!
+Print
+
+Set Count 1
+Print * Introduction
+Repeat
+	Print ** Main Section $Count
+	Inc Count
+RepeatEnding 2
+	Print  **** 1st ending
+RepeatEnd 3
+Print *  After repeated section ....
+
+
+Print
+Print Finally, a complicated example using a DS/Coda. In most cases when 
+Print we play a coda section one ignores the repeats. This is done with
+Print some handy macros.
+Print	
+
+Set Count 1
+Set EndingCount 1
+
+Print * Introduction (before repeat and SIGN)
+Label Sign
+Repeat
+	Print ** Main Section $Count
+	Inc Count
+RepeatEnding $EndingCount
+	Print **** RepeatEnding
+RepeatEnd
+Print * This is after the Repeat
+If Def Coda
+	Goto Coda
+Endif
+
+Print * Song between the ending and coda
+
+// Now we jump back to the sign
+
+Set EndingCount 0
+Set Coda
+Goto Sign
+
+Label Coda
+Print * This is the Coda section
+
+Print
+Print Hope all this helps!
+Print

@@ -1,0 +1,317 @@
+
+// jazzguitar
+
+// Converted to use PLECTRUM instead of CHORD Jan/2010, bvdp
+
+Begin Doc
+ For jazz ballads. This has ONLY a guitar (well, expect for the sustained
+ versions). Mostly chords, but some
+ bass and arpeggio is included. The song "Django" is a bit of a demo. <p>
+ This Groove uses a Plectrum track optimized for songs in the key of C. If the
+ guitar strums sound too high try a command like "AllGrooves Plectrum Capo -2" right
+ after the first "Groove JazzGuitar*" command to lower the pitch.
+
+End
+
+Author Bob van der Poel
+
+NewSet SustainVoice TremoloStrings
+
+Begin DocVar
+	  SustainVoice  Voice for the sustained versions (default=TremoloStrings).
+End
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////// Additional defines
+
+
+////////////////////////
+// Basic
+
+
+SeqSize 4
+
+Begin Plectrum
+	Voice JazzGuitar
+	Volume m
+    Articulate 5
+    Octave 5
+    Sequence {1 3 90; 2 -3  5-6:0 1-4:80; 3 3 90; 4 -3  6:0 1-5:80}
+End
+
+Begin Bass
+	Voice $_Plectrum_Voice
+	Articulate 105
+	Octave 3
+	Volume mf
+	Sequence B13 / / {1 2 1 90; 2 8 3 80; 3 2 5 90}
+End
+
+
+DefGroove JazzGuitar     A very basic 4 to the bar accompaniment.
+
+////////// Same, but with walking bass
+
+Groove JazzGuitar
+
+Bass Sequence -
+
+Begin Walk
+	Voice $_Bass_Voice
+	Articulate $_Bass_Articulate
+	Octave $_Bass_Octave
+	Volume $_Bass_Volume
+	Sequence W1234  /   /   W13
+	Direction Down
+End
+
+DefGroove JazzGuitarWalk     Changes the bass pattern to walking.
+
+/// Add in arpeggios every 4th bar
+
+Groove JazzGuitar
+
+Plectrum Volume +0% / / -30%   /// cut volume for guitar on 4th bar
+
+Begin Arpeggio
+	Voice $_Plectrum_Voice
+	Articulate 140
+	Rskip 10
+	Octave 5
+	Volume mf
+	Direction Down
+	Range .9
+	Sequence z / / A8
+End
+
+DefGroove JazzGuitar1       Our basic pattern with arpeggios every 4th bar.
+
+Groove JazzGuitarWalk
+	Plectrum Groove  JazzGuitar1
+	Arpeggio Groove  JazzGuitar1
+DefGroove JazzGuitar1Walk   Walking bass with arpeggios every 4th bar.
+
+/// A bit of syncopation in the chords
+
+Groove JazzGuitar
+
+Begin Plectrum
+	Sequence  {1 5 80 * 4; 2.66 -5 1-5:80; 4.66 -5 1-5:80}
+End
+
+DefGroove JazzGuitar2   Basic pattern with more strum and syncopation.
+
+Groove JazzGuitar2
+	Bass Sequence -
+	Walk Groove JazzGuitarWalk
+
+DefGroove JazzGuitar2Walk  The strum pattern with walking bass
+
+/////////
+
+Groove JazzGuitar2
+
+Plectrum Volume +0% / / -30%
+Begin Arpeggio
+	Groove JazzGuitar1
+	Octave 5
+	Sequence z / / {A4; A2 Shift 1.66}
+End
+
+DefGroove JazzGuitar3     Add arpeggios every 4 bars to the syncopated strumming.
+
+Groove JazzGuitar3
+	Bass Sequence -
+	Walk Groove JazzGuitarWalk
+DefGroove JazzGuitar3Walk  Aprpeggios and walking bass.
+
+////////////////////////////
+//// Sustained versions
+
+Groove JazzGuitar
+Begin Chord-Sus
+	Voice      $SustainVoice
+	Sequence   {1 1 96 0 90 0 * 4}
+	Voicing Mode=Optimal
+	Octave     5
+	Articulate 100
+	Unify On
+	Volume     p   
+End
+
+DefGroove JazzGuitarSus    Sustained strings added to basic pattern.
+
+Groove JazzGuitar1
+Chord-Sus Groove JazzGuitarSus
+DefGroove JazzGuitar1Sus       Sustained strings added to JazzGuitar1.
+
+Groove JazzGuitar2
+Chord-Sus Groove  JazzGuitarSus
+DefGroove JazzGuitar2Sus      Sustained strings added to JazzGuitar2.
+
+Groove JazzGuitar3  
+Chord-Sus Groove  JazzGuitarSus
+DefGroove JazzGuitar3Sus      Sustained strings added to JazzGuitar3
+
+Groove JazzGuitarWalk
+Chord-Sus Groove  JazzGuitarSus
+DefGroove JazzGuitarWalkSus   Sustained strings added to JazzGuitarWalk.
+
+Groove JazzGuitar1Walk
+Chord-Sus Groove  JazzGuitarSus
+DefGroove JazzGuitar1WalkSus   Sustained strings added to JazzGuitarWalk1.
+
+Groove JazzGuitar2Walk
+Chord-Sus Groove  JazzGuitarSus
+DefGroove JazzGuitar2WalkSus    Sustained strings added to JazzGuitarWalk2.
+
+Groove JazzGuitar3Walk
+Chord-Sus Groove  JazzGuitarSus
+DefGroove JazzGuitar3WalkSus    Sustained strings added to JazzGuitarWalk3.
+
+
+///////////////////////////////////////
+//// Plus versions
+
+Groove JazzGuitar
+Begin Arpeggio-Plus
+	Voice $_Plectrum_Voice
+	Articulate 140
+    Harmony 3Below+8Below
+	Rskip 30
+	Octave 5
+	Volume mf
+	Direction Random
+	Range 1.2
+    SeqRnd On
+	Sequence A2 A4 A4 A8
+End
+
+DefGroove JazzGuitarPlus   Basic pattern with some random notes.
+
+Groove JazzGuitarWalk
+Arpeggio-Plus Groove JazzGuitarPlus
+DefGroove JazzGuitarWalkPlus   Basic walking version with random notes.
+
+Groove JazzGuitar2
+Arpeggio-Plus Groove JazzGuitarPlus
+DefGroove JazzGuitar2Plus   Syncopated with random notes.
+
+Groove JazzGuitar2Walk
+Arpeggio-Plus Groove JazzGuitarPlus
+DefGroove JazzGuitar2WalkPlus   Syncopated walking with random notes.
+
+Groove JazzGuitarSus
+Arpeggio-Plus Groove JazzGuitarPlus
+DefGroove JazzGuitarSusPlus   Basic with strings and random notes.
+
+Groove JazzGuitarWalkSus
+Arpeggio-Plus Groove JazzGuitarPlus
+DefGroove JazzGuitarWalkSusPlus   Walking version with strings and random notes.
+
+Groove JazzGuitar2WalkSus
+Arpeggio-Plus Groove JazzGuitarPlus
+DefGroove JazzGuitar2WalkSusPlus   Syncopated walking version with strings and random notes.
+
+
+///////////////////////////////////
+//// Fills
+
+
+Groove JazzGuitarWalk
+SeqSize 1
+Plectrum Sequence { 1 1 80 * 6}
+
+Begin Walk
+   Sequence {1 1 90 * 6}
+   Direction Up
+   Octave -1
+   Accent 1 30 3 20
+   // This next line slices the walk_articulate
+   // settings and takes 80% of the the first bar
+   // and applies that to all of the new ones ... which
+   // here is only 1 since we have a seqsize of 1
+   Articulate $( int( $_Walk_Articulate[0] * .8 ))
+End
+
+DefGroove JazzGuitarFill  Changes the guitar strum and walk to 2 \
+                          sets of quarter note triplets.
+
+
+Groove JazzGuitar
+Seqsize 1
+
+Plectrum Sequence { 1 3 80; 1.33 3 77; 1.66 3 75; 2 3 80; 2.33 3 77; 2.66 3 70; 3 2 70}
+DefGroove JazzGuitarFill1   Guitar stums eight note tripets on 1 and 2.
+
+//////////////////////////////
+//////  Intro
+
+Groove JazzGuitar
+
+Begin Plectrum
+	Sequence z z z {1 15 1-5:90}
+	Volume mp
+End
+
+Begin Arpeggio
+	Voice $_Plectrum_Voice
+	Volume m
+	Octave 5
+	Direction Up
+	Range 1.9
+	Articulate 120
+	Harmony Open
+	Sequence A8 / / z
+End
+
+Bass Sequence B13 / / {1 1 1 90}
+
+DefGroove JazzGuitarIntro  A 4 bar, arpeggiating introduction.
+
+/// a 2nd intro. We use the basic pattern, but add a little bass run
+/// in the 4th bar.
+
+Groove JazzGuitar
+
+Plectrum  Sequence * * * {1 5 90; 2 -5 1-5:90}
+Bass      Sequence * * * {1 4 1+ 90;2 8 5 90; 2.5 4. 3 90; 3 1 1 90 }
+
+
+DefGroove JazzGuitar1Intro   A 4 bar intro with a bass run on bar 4.
+
+	  
+///////////////
+//// Endings
+
+Groove JazzGuitar
+SeqSize 2
+
+Begin Plectrum
+    Sequence {1 0 90; 1.5 0 1-5:80; 2 0 85; 2.5 0 1-5:80; 4 0 80} \
+             {1 30 80 70 60 50 50 40; 3 30 60 50 40 35 32 30}
+End
+
+Begin Bass
+	Sequence B13 B1
+End
+
+DefGroove JazzGuitarEnd  Soft, 2 bar ending.
+
+
+Groove JazzGuitar
+SeqSize 1
+
+Begin Plectrum
+    Sequence {1 2 90; 1.5 2 1-5:80; 2 2 75; 2.5 2 1-5:70; 3 2 60}
+End
+
+Begin Bass
+	Sequence {1 2. 1 90}
+End
+
+DefGroove JazzGuitarEnd1  Soft, 1 bar ending.

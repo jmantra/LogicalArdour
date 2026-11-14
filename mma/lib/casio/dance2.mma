@@ -1,0 +1,124 @@
+ // dance2.mma
+
+Begin Doc  
+      Dance2 (061). A harder hitting dance beat.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 2
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 100; 2 0 100; 3 0 100; 4 0 100}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence {2 0 100; 4 0 100}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 100; 1.5 0 100; 2 0 100; 2.5 0 100; 3 0 100; 3.5 0 100; 4 0 100; 4.5 0 100} \
+             {1 0 100; 1.5 0 100; 2 0 100; 2.5 0 100; 3 0 100; 3.5 0 100; 4 0 100}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence z    {4.5 0 80} 
+End
+
+Begin Drum-Shaker
+    Tone Shaker
+    Volume m
+    Sequence {1.5 0 90; 2.5 0 90; 3.5 0 90; 4.5 0 90}
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 16 1 69; 1.75 16 5 56; 2.5 3 1 77} \
+             {1 16 1 56; 1.75 16 5 67; 2.5 8 1 77; 3.5 3 5 69; 4 8 1 58; 4.5 3 5 74}
+End
+
+Begin Chord-6
+    Voice CleanGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 64 90; 2 2 90; 4.5 32 90} \
+             {2 2 90; 4.5 3 90}
+End
+
+
+Begin Chord-7
+    Voice Piano2
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {2.5 2 90}
+End
+
+DefGroove Dance2     Main pattern
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove Dance2  
+SeqSize 4
+
+Drum-KickDrum1   Sequence   *   *    *   D13
+Drum-SnareDrum2  Sequence   *   *    *   D1234
+Drum-ClosedHiHat Sequence  D16  *    *   D16
+Drum-OpenHiHat   Sequence   z   z    z   {D34 shift .5}
+Drum-Shaker      Sequence   *   *    *   D8
+
+Bass-9           Sequence  B11  *    *   B1234
+
+//  CleanGuitar
+Chord-6          Sequence   *   *    *    C1234
+
+// Piano2
+Chord-7          Sequence   *   *    *    {C1; C2 shift .5}
+
+
+DefGroove Dance2Intro  4 bar intro
+
+//////////////////////////////////////////////////////////////////////
+/////////  Ending
+
+Groove Dance2  
+
+Drum-KickDrum1   Sequence   D13    D1
+Drum-SnareDrum2  Sequence   D1234  D1
+Drum-ClosedHiHat Sequence   D8     D1
+Drum-OpenHiHat   Sequence   z      D1
+Drum-Shaker      Sequence   D8     D1
+
+Bass-9           Sequence  B11     B1
+
+//  CleanGuitar
+Chord-6          Sequence   C1234   C1
+
+// Piano2
+Chord-7          Sequence   *       C1
+
+
+DefGroove Dance2End  2 bar ending
+

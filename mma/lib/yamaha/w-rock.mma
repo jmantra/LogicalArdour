@@ -1,0 +1,572 @@
+///// Yamaha sty to MMA conversion by ys2mma.py
+///// This file is a machine translation of a binary style file and
+///// should be usable by MMA. However, it does not use all of the
+///// features of MMA ... or those of a Yamaha synth. It should be hand
+///// optimized for best results.
+
+///// Created: Mon Feb 19 16:38:48 2007
+
+Begin Doc
+  A very basic rock style. Original file: w-rock.sty. Library
+   filename: yamaha/w-rock.mma.
+End
+
+Author Bob van der Poel
+
+Time 4
+TimeSig 4 4
+
+
+//////////////////////
+/////// Intro-A
+SeqClear
+SeqSize 1
+
+Begin Drum-SnareDrum1
+ Tone SnareDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {3.59 0 127; 3.79 0 127; 4 0 127; 4.57 0 127; 4.76 0 127 }
+End
+
+Begin Drum-ClosedHiHat
+ Tone ClosedHiHat
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 2 0 107 }
+End
+
+DefGroove W-RockIntroA    A drum-only intro. Probably not that useful?
+
+
+//////////////////////
+/////// Main-A
+SeqClear
+SeqSize 2
+
+Begin Drum-KickDrum1
+ Tone KickDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 3 0 127 } \
+       {1 0 127; 3 0 127 }
+End
+
+Begin Drum-SnareDrum1
+ Tone SnareDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {2 0 127; 4 0 127 } \
+       {2 0 127; 4 0 127 }
+End
+
+Begin Drum-PedalHiHat
+ Tone PedalHiHat
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 2 0 127; 3 0 127; 4 0 127 } \
+       {1 0 127; 2 0 127; 3 0 127; 4 0 127 }
+End
+
+Begin Bass-11
+ Voice FingeredBass
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Octave 3
+ Sequence  {1 16 1 127; 1.67 32 1 127; 2 16 1 127; 2.67 16 1 127; 3 16 1 127; 3.67 32 1 127; 4 16 1 127; 4.67 32 1 127 } \
+       {1 16 1 127; 1.67 16 1 127; 2 16 1 127; 2.67 16 1 127; 3 16 1 127; 3.67 32 1 127; 4 16 1 127; 4.67 16 1 127 }
+End
+
+Begin Chord-12
+ Voice Piano1
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1.01 16 84; 1.67 32 118; 2 8 7; 2.01 16 65; 2.67 32 117; 2.67 16 116; 3.01 16 121; 3.67 32 117; 3.67 32 116; 4.01 8 84; 4.67 32 118; 4.67 32 119 } \
+       {1.01 16 117; 1.67 32 116; 1.67 32 118; 2.01 8 123; 2.67 32 118; 2.67 32 118; 3.01 16 119; 3.67 16 113; 3.67 32 111; 4.01 8 83; 4.67 32 116 }
+End
+
+Begin Chord-13
+ Voice OverDriveGuitar
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 4
+ Sequence  {1.67 8 108; 3.02 4 113 } \
+       {1.67 8 117; 3.02 4. 114 }
+End
+
+Begin Bass-14
+ Voice MutedGuitar
+ Rvolume 0
+ Rtime 0
+ Volume P
+ Octave 4
+ Sequence  {1 16 1 120; 1 16 5 127; 1.67 16 1 120; 1.67 32 5 6; 2 8 6 6; 2 16 1 118; 2.67 32 1 113; 2.67 32 5 115; 3 16 1 112; 3.01 16 5 122; 3.67 16 1 122; 3.67 16 5 6; 4 8 6 6; 4 16 1 118; 4.67 16 1 108; 4.67 32 5 117 } \
+       {1 16 1 115; 1.01 16 5 122; 1.67 16 1 120; 1.67 32 5 125; 2 8 6 10; 2 16 1 118; 2.67 32 1 108; 2.67 32 5 120; 3 16 1 117; 3.01 16 5 2; 3.67 16 1 120; 3.67 32 5 122; 4 8 6 10; 4 16 1 115; 4.67 32 1 113; 4.67 32 5 115 }
+End
+
+DefGroove W-RockMainA    Good rhythm with drums and guitar.
+
+
+//////////////////////
+/////// Fill-AB
+SeqClear
+SeqSize 1
+
+Begin Drum-KickDrum1
+ Tone KickDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 3 0 127 }
+End
+
+Begin Drum-SnareDrum1
+ Tone SnareDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {2 0 127; 3.67 0 127; 4 0 127; 4.67 0 127 }
+End
+
+Begin Drum-PedalHiHat
+ Tone PedalHiHat
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 2 0 127; 3 0 127 }
+End
+
+Begin Bass-11
+ Voice FingeredBass
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Octave 3
+ Sequence  {1 16 1 127; 1.67 16 1 127; 2 16 1 127; 2.67 16 1 127; 3 16 1 127; 3.67 16 1 127; 4 16 1 127; 4.67 16 1 127 }
+End
+
+Begin Chord-12
+ Voice Piano1
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 6
+ Sequence  {1.01 16 83; 1.67 16 119; 1.67 32 115; 2.01 16 116; 2.67 8 83; 2.67 16 89; 3.01 32 101; 3.33 32 108; 3.67 32 113; 3.67 32 117; 4 32 126; 4.01 32 8; 4.33 32 66; 4.67 16 6; 4.67 32 3 }
+End
+
+Begin Chord-13
+ Voice OverDriveGuitar
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 4
+ Sequence  {1.67 8 108; 3.02 4 103 }
+End
+
+Begin Bass-14
+ Voice MutedGuitar
+ Rvolume 0
+ Rtime 0
+ Volume P
+ Octave 4
+ Sequence  {1 16 1 120; 1.01 16 5 2; 1.67 16 1 117; 1.67 32 5 117; 2 16 6 6; 2 16 1 118; 2.67 32 5 115; 2.67 32 1 113; 3 16 1 113; 3.01 16 5 122; 3.67 32 1 118; 3.67 16 5 125; 4 8 6 10; 4 16 1 118; 4.67 16 5 120; 4.67 32 1 113 }
+End
+
+DefGroove W-RockFillAB   Fill sounds pretty much like MAIN-A pattern.
+
+
+//////////////////////
+/////// Main-B
+SeqClear
+SeqSize 4
+
+Begin Drum-KickDrum1
+ Tone KickDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 3 0 127 } \
+       {1 0 127; 3 0 127 } \
+       {1 0 127; 3 0 127 } \
+       {1 0 127; 3 0 127 }
+End
+
+Begin Drum-SnareDrum1
+ Tone SnareDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {2 0 127; 4 0 127 } \
+       {2 0 127; 4 0 127 } \
+       {2 0 127; 4 0 127 } \
+       {2 0 127; 4 0 127 }
+End
+
+Begin Drum-PedalHiHat
+ Tone PedalHiHat
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 2 0 127; 3 0 127; 4 0 127 } \
+       {1 0 127; 2 0 127; 3 0 127; 4 0 127 } \
+       {1 0 127; 2 0 127; 3 0 127; 4 0 127 } \
+       {1 0 127; 2 0 127; 3 0 127; 4 0 127 }
+End
+
+Begin Bass-11
+ Voice FingeredBass
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Octave 3
+ Sequence  {1 16 1 127; 1.67 16 1 127; 2 8 1 127; 2.67 32 1 127; 3 8 1 127; 3.67 16 1 127; 4 16 1 127; 4.67 32 1 127 } \
+       {1 16 1 127; 1.67 16 1 127; 2 16 1 127; 2.67 16 1 127; 3 16 1 127; 3.67 32 1 127; 4 16 1 127; 4.67 16 1 127 } \
+       {1 16 1 127; 1.67 16 1 127; 2 16 1 127; 2.67 16 1 127; 3 16 1 127; 3.67 16 1 127; 4 16 1 127; 4.67 32 1 127 } \
+       {1 16 1 127; 1.67 16 1 127; 2 16 1 127; 2.67 16 1 127; 3 16 1 127; 3.67 16 1 127; 4 16 1 127; 4.67 16 1 127 }
+End
+
+Begin Chord-12
+ Voice Piano1
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1.01 16 4; 1.02 16 122; 1.67 32 119; 1.67 32 113; 2.01 8 86; 2.02 32 118; 2.67 32 116; 3.01 16 119; 3.02 32 115; 3.67 32 115; 4.01 16 122; 4.67 32 113; 4.67 32 117 } \
+       {1.01 16 120; 1.67 32 112; 1.67 32 116; 2.01 16 41; 2.67 32 113; 2.67 32 116; 3.01 16 116; 3.02 16 121; 3.67 32 116; 3.67 32 115; 4.01 8 83; 4.67 32 115; 4.67 32 115 } \
+       {1.01 16 118; 1.02 16 116; 1.67 32 116; 1.67 32 115; 2.01 16 83; 2.67 32 116; 3.01 16 117; 3.02 16 116; 3.67 32 117; 3.67 32 116; 4.01 8 120; 4.67 32 116; 4.67 32 117 } \
+       {1.01 16 117; 1.02 16 116; 1.67 32 112; 1.67 32 113; 2.01 16 122; 2.67 32 114; 3.01 16 118; 3.67 16 111; 3.67 32 106; 4.01 16 117; 4.67 32 110; 4.67 32 111 }
+End
+
+Begin Chord-13
+ Voice OverDriveGuitar
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 4
+ Sequence  {1.67 8 105; 3.02 4 103 } \
+       {1.67 8 103; 3.02 4. 103 } \
+       {1.67 8 100; 3.02 4 105 } \
+       {1.67 8 104; 3.02 4 104 }
+End
+
+Begin Bass-14
+ Voice MutedGuitar
+ Rvolume 0
+ Rtime 0
+ Volume P
+ Octave 4
+ Sequence  {1.01 16 1 117; 1.01 16 5 127; 1.67 32 1 108; 1.67 16 5 117; 2 8 6 23; 2 16 1 115; 2.67 32 1 108; 2.67 32 5 117; 3 16 1 115; 3 16 5 127; 3.67 16 1 111; 3.67 32 5 120; 4 16 1 112; 4 8 6 10; 4.67 32 5 117; 4.67 32 1 105 } \
+       {1 16 1 115; 1.01 16 5 127; 1.67 16 1 115; 1.67 32 5 118; 2 8 6 10; 2 16 1 118; 2.67 32 1 110; 2.67 32 5 117; 3 16 1 115; 3 16 5 125; 3.67 32 5 117; 3.67 32 1 113; 4 16 1 115; 4 8 6 10; 4.67 32 1 106; 4.67 32 5 108 } \
+       {1 16 5 120; 1.01 16 1 117; 1.67 32 1 111; 1.67 16 5 111; 2 8 6 6; 2 16 1 115; 2.67 32 1 108; 2.67 32 5 110; 3 16 1 112; 3.01 16 5 118; 3.67 32 1 112; 3.67 32 5 117; 4 8 6 10; 4 16 1 113; 4.67 32 5 111; 4.67 32 1 108 } \
+       {1 16 1 115; 1 16 5 122; 1.67 16 5 115; 1.67 32 1 117; 2 16 1 117; 2 8 6 16; 2.67 32 1 111; 2.67 32 5 113; 3 16 1 117; 3.01 16 5 120; 3.67 32 1 115; 3.67 32 5 118; 4 8. 6 6; 4 16 1 118; 4.67 16 1 127; 4.67 16 5 120 }
+End
+
+Begin Bass-15
+ Voice BrassSection
+ Rvolume 0
+ Rtime 0
+ Volume M
+ Octave 6
+ Sequence  {1.04 16 1 108; 1.7 32 1 105; 2.03 16 1 105; 2.69 16 1 108; 3.03 4 3 108; 3.98 16 5 112 } z {1.04 16 1 108; 1.7 32 1 105; 2.03 16 1 105; 2.69 16 1 108; 3.03 4 3 108; 3.98 16 5 112 } z 
+End
+
+Begin Bass-16
+ Voice AltoSax
+ Rvolume 0
+ Rtime 0
+ Volume M
+ Octave 5
+ Sequence  {1.05 16 1 99; 1.69 32 1 112; 1.99 16 1 112; 2.71 16 1 108; 3.05 4 3 119; 3.97 8 5 124 } z {1.05 16 1 99; 1.69 32 1 112; 1.99 16 1 112; 2.71 16 1 108; 3.05 4 3 119; 3.97 8 5 124 } z 
+End
+
+DefGroove W-RockMainB   Much like "A" with an added horn section.
+
+
+//////////////////////
+/////// Ending-A
+SeqClear
+SeqSize 1
+
+Begin Drum-KickDrum1
+ Tone KickDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 3 0 127 }
+End
+
+Begin Drum-SnareDrum1
+ Tone SnareDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {2 0 127; 4 0 127 }
+End
+
+Begin Drum-PedalHiHat
+ Tone PedalHiHat
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 2 0 127; 3 0 127; 4 0 127 }
+End
+
+Begin Chord-13
+ Voice OverDriveGuitar
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 4
+ Sequence  {1.67 8 100; 3.02 4 103 }
+End
+
+Begin Bass-14
+ Voice MutedGuitar
+ Rvolume 0
+ Rtime 0
+ Volume P
+ Octave 4
+ Sequence  {1 0 4 111; 1 16 1 107; 1.01 16 5 2; 1.67 16 1 111; 1.67 16 5 118; 2 16 1 115; 2 8 6 6; 2.67 32 1 118; 2.67 32 5 117; 3 16 1 118; 3.01 16 5 125; 3.67 32 1 115; 3.67 16 5 113; 4 8 6 2; 4 16 1 112; 4.67 32 1 108; 4.67 32 5 111 }
+End
+
+DefGroove W-RockEndingA    Single bar ending. Not too final sounding.
+
+
+//////////////////////
+/////// Ending-B
+SeqClear
+SeqSize 1
+
+Begin Drum-KickDrum1
+ Tone KickDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 3 0 127 }
+End
+
+Begin Drum-SnareDrum1
+ Tone SnareDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {2 0 127; 4 0 127 }
+End
+
+Begin Drum-PedalHiHat
+ Tone PedalHiHat
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 2 0 127; 3 0 127; 4 0 127 }
+End
+
+DefGroove W-RockEndingB    A drum-only ending. 
+
+
+//////////////////////
+/////// Fill-AA
+SeqClear
+SeqSize 1
+
+Begin Drum-KickDrum1
+ Tone KickDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 3 0 127 }
+End
+
+Begin Drum-SnareDrum1
+ Tone SnareDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1.67 0 127; 2 0 127; 2.67 0 127; 3 0 127; 3.67 0 127; 4 0 127; 4.33 0 127; 4.67 0 127 }
+End
+
+Begin Drum-PedalHiHat
+ Tone PedalHiHat
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 2 0 127; 3 0 127 }
+End
+
+Begin Bass-11
+ Voice FingeredBass
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Octave 3
+ Sequence  {1 16 1 127; 1.67 16 1 127; 2 16 1 127; 2.67 32 1 127; 3 16 1 127; 3.67 16 1 127; 4 16 1 127; 4.67 16 1 127 }
+End
+
+Begin Chord-12
+ Voice Piano1
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1.01 32 44; 1.67 32 11; 1.67 32 1; 2.01 16 18; 2.67 32 64; 3.01 32 10; 3.33 32 7; 3.67 32 19; 3.67 32 1; 4 32 25; 4.01 32 11; 4.33 32 15; 4.34 32 8; 4.67 32 15; 4.67 16 8 }
+End
+
+Begin Chord-13
+ Voice OverDriveGuitar
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 4
+ Sequence  {1.67 2. 113 }
+End
+
+Begin Bass-14
+ Voice MutedGuitar
+ Rvolume 0
+ Rtime 0
+ Volume P
+ Octave 4
+ Sequence  {1 16 1 117; 1.01 16 5 127; 1.67 32 2 116; 1.67 32 5 120; 2 16 2 123; 2 16 5 120; 2.67 32 5 112; 2.67 32 2 121; 3.01 8 5 2; 3.01 8 2 2; 3.67 32 5 115; 3.67 32 2 119; 4 16 5 2; 4 16 2 2; 4.67 16 5 120; 4.67 16 2 119 }
+End
+
+DefGroove W-RockFillAA    Okay fill or change bar.
+
+
+//////////////////////
+/////// Fill-BA
+SeqClear
+SeqSize 1
+
+Begin Drum-KickDrum1
+ Tone KickDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 3 0 127 }
+End
+
+Begin Drum-SnareDrum1
+ Tone SnareDrum1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {2 0 127; 4 0 127 }
+End
+
+Begin Drum-PedalHiHat
+ Tone PedalHiHat
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1 0 127; 2 0 127; 3 0 127; 4 0 127 }
+End
+
+Begin Drum-CrashCymbal1
+ Tone CrashCymbal1
+ Rvolume 0
+ Rtime 0
+ Articulate 100
+ Volume M
+ Sequence  {1.02 0 127 }
+End
+
+Begin Bass-11
+ Voice FingeredBass
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Octave 3
+ Sequence  {1 16 1 127; 1.67 16 1 127; 2 16 1 127; 2.67 16 1 127; 3 16 1 127; 3.67 32 1 127; 4 16 1 127; 4.67 32 1 127 }
+End
+
+Begin Chord-12
+ Voice Piano1
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1.01 32 44; 1.67 32 11; 1.67 32 1; 2.01 16 18; 2.67 32 64; 3.01 32 10; 3.33 32 7; 3.67 32 19; 3.67 32 1; 4 32 25; 4.01 32 11; 4.33 32 15; 4.34 32 8; 4.67 32 15; 4.67 16 8 }
+End
+
+DefGroove W-RockFillBA    A cymbal crash on beat 1 creates a fill.
+
+
+//////////////////////
+/////// Fill-BB
+SeqClear
+SeqSize 1
+
+Begin Bass-11
+ Voice FingeredBass
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Octave 3
+ Sequence  {1 16 1 127; 1.67 16 1 127; 2 16 1 127; 2.67 16 1 127; 3 16 1 127; 3.67 32 1 127; 4 16 1 127; 4.67 32 1 127 }
+End
+
+Begin Chord-12
+ Voice Piano1
+ Rvolume 0
+ Rtime 0
+ Volume MP
+ Voicing Mode=Optimal
+ Articulate 100
+ Octave 5
+ Sequence  {1.01 16 6; 1.67 32 122; 1.67 16 114; 2.01 16 44; 2.67 32 115; 3.01 16 120; 3.67 32 118; 3.67 32 122; 4.01 8 83; 4.67 32 117; 4.67 32 112 }
+End
+
+DefGroove W-RockFillBB   No drums, just bass and piano.
+

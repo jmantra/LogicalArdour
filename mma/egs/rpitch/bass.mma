@@ -1,0 +1,49 @@
+/// A very simple RPitch demo for making an otherwise
+/// boring 1/5 bass pattern a bit more exciting
+
+/// This is the pattern we'll be using for all the examples
+
+Mset Pattern
+    G
+    D
+    G
+    D7
+    z   /// this is here to signal the end of the pattern
+EndMset
+
+Include stdpats
+
+Tempo  100
+Keysig C
+
+Begin Bass
+  Voice FretlessBass
+  Sequence B1234     /// a 1,5,1,5 pattern
+  Octave 3
+  RPitch Scale=Scale Offsets=-2,-2,3 Rate=50 Beats=2,4  /// adjust bars 2 and 4
+End
+
+/// Important values in the RPITCH setting:
+///   Scale ... we are using the SCALE associated with the given CHORD
+///   Offsets ... offsets apply to the "distance" between the "normal"
+///     note and permitted random values. So, in this example the 5th
+///     of a C (major) chord is G. The "-2" is an E and "3" is another
+///     C in the next octave.
+///   Rate ... 50% of the time we do this, 50% we leave things alone
+///   Beats ... ONLY do this if on beat 2 or 4.
+
+Print Simple example, Bass Rpitch is: $_Bass_Rpitch
+
+//$Pattern
+
+/// Now, to modify an existing groove. Let's use
+
+Groove Bossanova
+Bass Rpitch Scale=Scale Offsets=-2,-2,-2,-1,-4 Rate=80 Beats=2,4
+
+Print Bossanova try, Bass Rpitch is: $_Bass_Rpitch
+
+$Pattern
+
+
+

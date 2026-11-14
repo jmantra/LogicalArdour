@@ -1,0 +1,198 @@
+ // popballad.mma
+
+Begin Doc  
+      Pop Ballad (037)
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Rvolume 5
+    Sequence {1 0 76; 3.5 0 58} \
+             {1 0 76; 1.5 0 54; 3.5 0 58}
+End
+
+Begin Drum-SideKick
+    Tone SideKick
+    Volume m
+    Rvolume 5
+    Sequence {2 0 99}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Rvolume 5
+    Sequence z    z    z    {4 0 105}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    Rvolume 5
+    Sequence {1 0 62; 2 0 62; 3 0 62; 4 0 62}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Rvolume 5
+    Sequence z    z     z    {4.5 0 64}
+End
+
+Begin Drum-Tambourine
+    Tone Tambourine
+    Volume m
+    Rvolume 5
+    Sequence {4 0 74}
+End
+
+Begin Drum-Cabasa
+    Tone Cabasa
+    Volume m
+    Rvolume 5
+    Sequence {4.5 0 35; 4.8 0 35} \
+             {3.8 0 35; 4.5 0 35; 4.8 0 35} 
+End
+
+Begin Drum-MuteTriangle
+    Tone MuteTriangle
+    Volume m
+    Rvolume 5
+    Sequence {1.2 0 50}     z 
+End
+
+Begin Drum-OpenTriangle
+    Tone OpenTriangle
+    Volume m
+    Rvolume 5
+    Sequence {1.5 0 50}      z 
+End
+
+Begin Drum-Shaker
+    Tone Shaker
+    Volume m
+    Rvolume 5
+    Sequence {2.5 0 30; 2.8 0 30}
+End
+
+Begin Bass-9
+    Voice FretlessBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Rvolume 5
+    Sequence {1 2 1 100; 4.8 64 1 100} \
+             {1 2 1 100; 4.3 64 1 100; 4.5 6 5 100; 4.8 6 6 100} \
+             {1 4 1 100; 2.8 64 1 100; 3 4 1 100} \
+             {1 4 1 100; 2.8 6 5 100; 3 64 1 100; 3.5 8 1 100; \
+                4.3 64 1 100; 4.5 6 5 100; 4.8 6 6 100}
+End
+
+Begin Chord-6
+    Voice EPiano
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Rvolume 5
+    Sequence {1 2 90} \
+             {1 2 90; 3.3 4 90; 3.5 4 90; 3.8 4 90; 4.3 8 90} \
+             {1 4 90; 2.5 6 90; 2.8 2 90} \
+             {1 2 90; 3.5 4 90; 4 8 90}
+End
+
+
+Begin Bass-7
+    Voice SteelGuitar
+    Octave 5
+    Articulate 100
+    Volume m
+    Rvolume 10
+    Sequence {1.3 2 1 80; 1.5 2 5 77; 1.8 2 3 89; 2.3 2 1 75} \
+             {1.3 2 1 72; 1.5 8 5 80; 1.8 2 3 95; 2.3 3 1 71; \
+                  2.5 4 5 80; 2.8 4 1 71; 4.3 8 5 69; 4.5 3 1 80}
+End
+
+Begin Chord-8
+    Voice WarmPad
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume p
+    Unify On
+    Sequence {1 1 90 * 4} 
+End
+
+DefGroove PopBallad  A basic rhythm
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove PopBallad
+
+Drum-KickDrum1    Sequence    *    *   D1234  D13
+Drum-SideKick     Sequence    *    *   D24    D2
+Drum-SnareDrum2   Sequence    z    z    z    {4 0 105}
+//Drum-PedalHiHat
+//Drum-OpenHiHat
+Drum-Tambourine   Sequence    *    *    *     D13
+Drum-Cabasa       Sequence    *    *    *      z
+Drum-MuteTriangle Sequence    *    *    *     D13
+Drum-OpenTriangle Sequence    *    *    *     {D13 Shift .5}
+Drum-Shaker       Sequence    D16  *    *     D13
+
+Bass-9            Sequence    B1234  *   *    B13
+
+// epiano
+Chord-6           Sequence  *    *   C1234   L2
+
+// steel guitar
+Bass-7            Sequence    *    *    *     B13
+
+// warmpad
+//Chord-8 
+
+DefGroove PopBalladIntro  A 4 bar introduction.
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove PopBallad
+Seqsize 2
+
+Drum-KickDrum1    Sequence    *          D1
+Drum-SideKick     Sequence    *          D1
+Drum-SnareDrum2   Sequence    {4 0 105}  z
+Drum-PedalHiHat   Sequence    *          D1
+Drum-OpenHiHat    Sequence    {4.5 0 64} z
+Drum-Tambourine   Sequence    *          D1
+Drum-Cabasa       Sequence    *          z
+Drum-MuteTriangle Sequence    D4         D1
+Drum-OpenTriangle Sequence    *          z
+Drum-Shaker       Sequence    D16        D1
+
+Bass-9            Sequence    B1234      B1
+
+// epiano
+Chord-6           Sequence    *          L1
+
+// steel guitar
+Bass-7            Sequence    *          B1
+
+// warmpad
+Chord-8           Sequence    *          {1 2 90}
+
+DefGroove PopBalladEnd   A 2 bar ending
+

@@ -1,0 +1,52 @@
+// round.mma
+
+// Silly example shows how to use "delay" to create
+// a round version of "row your boat"
+
+Time 3        // it's in 3/4 or 6/8
+Tempo 150     // not too slow
+
+// This is the main melody. Note how we put the entire 8 bar melody
+// into a macro using RIFFs.
+
+MSet Melody
+  Begin Riff
+      4.c;;
+      4c;8d;4.e;
+      4e;8d;4e;8f;
+      2.g;
+      8c+;;; g;;;
+      8e;;; c;;;
+      4g;8f;4e;8d;
+      2.c;      
+  End
+MsetEnd
+
+Begin Solo
+  Voice Piano1
+  Volume f
+  Harmony OpenBelow+8Below   // big group singing
+  Articulate 90
+  Octave 5
+  $Melody    /// Our 8 bars of melody
+End
+
+// This is for the 2nd part. We just delay it by 2 bars (2. + 2.)
+// The harmony is turned around a bit ... guess it's girls and boys singing :)
+
+Begin Solo-1
+  Delay 2.+2.   /// 2. is 3 beats 
+  Voice Piano2
+  Octave 6
+  Harmony OpenAbove+8Above
+  $Melody   /// same melody
+End
+
+// To have any harmony we need chords. 
+// If you don't need the harmony, you could just 
+// use "z * 10"
+
+C * 6
+G
+C * 2
+z

@@ -1,0 +1,174 @@
+
+// bebop
+
+Begin Doc
+
+ An attempt at a fast bebop style. Try it with a song like
+ "Lemon Drop". Good tempos are 120 to 150 bpm.
+
+End
+
+Author Bob van der Poel
+
+Include stdpats
+SeqClear
+
+//////////////////////////////////
+// Main loop -- pretty simple: some drums, upright bass and piano
+
+Seqsize 4
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    MidiTName ClosedHiHat
+    Rvolume 5
+    Rtime 5
+    Volume f
+    Sequence  {D13 Shift .75}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Rvolume 5
+    Rtime 5
+    Volume mp
+    Sequence D13
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Rvolume 5
+    Rtime 5
+    Volume m
+    Sequence  {D24 Shift .5 }
+End 
+
+Begin Bass
+    Voice AcousticBass
+    Rvolume 10
+    Rtime 5
+    Volume m
+    Octave 3
+    Articulate 60
+    Sequence  { B1234; 1.75 8 1 80; 2.5 8 5 80} { B1234 }
+End
+
+Begin Chord-Piano
+    Voice Piano1
+    Rvolume 10
+    Rtime 5
+    Volume m
+    Voicing Mode=Optimal
+    Articulate 60
+    Octave 5
+    Sequence   {C13;  C3 Shift .75  }  \
+               {C123; C12 Shift .75 }  \
+               {C13;  C2  Shift .75 }  \
+               {C134; C13 Shift .75 }
+End
+
+DefGroove Bebop   A fast BeBop rhythm.
+
+/// Plus ... add in a walking left-hand piano
+
+Groove Bebop
+
+Begin Arpeggio
+     Voice Piano1
+     Harmony OpenAbove
+     Articulate 90
+     Octave 4
+     Volume f
+     SeqRnd On
+     Rskip    60    30     70                  40
+     Direction Random
+     Range 1.5
+     Sequence A4    A2     {A4; A2 Shift .75}  {A2; A2 Shift .75}
+End
+
+DefGroove BebopPlus   Add a walking piano line.
+
+/// Sustained -- add in a hamond-like organ
+
+Groove Bebop
+
+Begin Chord-Sus
+    Voice Organ3
+    Articulate 100
+    Unify On
+    Octave 6
+    Rskip 40
+    Volume p
+    Voicing Mode=Optimal
+    Sequence L2
+End
+
+DefGroove BebopSus   Add some sustained organ chords.
+
+Arpeggio Groove BebopPlus
+
+DefGroove BebopSusPlus  Organ chords and walking piano.
+
+///////////////////////////////////////////////////////
+/// Intro
+
+Groove Bebop
+
+Drum-ClosedHiHat  Sequence  *  *  * { D13 Shift .75}
+Drum-OpenHiHat    Sequence  *  *  * { D12 }
+Drum-PedalHiHat   Sequence  *  *  * { D12 Shift .5 }
+Bass              Sequence  *  *  * { B13 }
+Chord-Piano       Sequence  C1234 / / L1
+
+// Additional drums
+
+Begin Drum-RideBell
+    Tone RideBell
+    Rvolume 5
+    Rtime 5
+    Volume mp
+    Sequence  {D1234 Shift .75}  /  / {D12 Shift .75 }
+End
+
+Begin Drum-SplashCymbal
+    Tone SplashCymbal
+    Rvolume 5
+    Rtime 5
+    Volume mp
+    Sequence   z {D4 Shift .75 } z  z 
+End
+
+DefGroove BebopIntro   Our normalized 4 bar intro.
+
+
+////////////////////////////////////////////////////
+/// Ending
+
+Groove Bebop
+
+Seqsize 2
+
+
+Drum-ClosedHiHat  Sequence  {D13 Shift .75}  { D1 Shift .75}
+Drum-OpenHiHat    Sequence  {D8}  { D1 }
+Drum-PedalHiHat   Sequence  {D13 Shift .5}  { D1 Shift .5 }
+Bass              Sequence  {1 2. 1 90 * 4; B13 Shift .75}  { 1 2 1 90 }
+Chord-Piano       Sequence  *  { C1 }
+
+Begin Drum-SplashCymbal
+    Tone SplashCymbal
+    Rvolume 5
+    Rtime 5
+    Volume p
+    Sequence  D13  D1
+End
+
+Begin Drum-RideBell
+    Tone RideBell
+    Rvolume 5
+    Rtime 5
+    Volume p
+    Sequence  {D13 Shift .75}  { D1 }
+End
+
+DefGroove BebopEnd   A quick 2 bar ending.

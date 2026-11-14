@@ -1,0 +1,231 @@
+
+// broadway
+
+Begin Doc
+
+ A real ripoff of the Casio rhythm. Note that this is really
+ a 2/4 pattern, so you'll probably want to double the tempo.
+ I'm using this in "Everything's Coming Up Roses" at a tempo of 280.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////////
+//// Basic Pattern
+
+Seqsize 8
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Volume mp
+	Rvolume 10
+	Rtime 2
+	Sequence D13
+End
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Volume mp
+	Sequence  D1  z  z  z
+End
+
+Begin Drum-HiH1
+	Tone ClosedHiHat
+	Volume f
+	Sequence  D13
+End
+
+Begin Drum-HiH2
+	Tone ClosedHiHat
+	Volume mp
+	Sequence D24
+	Rtime 2
+	Rskip 5
+End
+
+Begin Drum-Tri
+	Tone OpenTriangle
+	Volume mp
+	Sequence {D1 shift .2} z z z
+End
+
+Begin Bass
+	Voice AcousticBass
+	Volume mf
+	Articulate 60
+	Rtime 4
+	Rvolume 10
+	Accent 1 10 3 10
+	Sequence B13  / {1 4 1 90; 3 8 3 90; 4 8 4 90} { 1 4  5 90; 3 4 3 90}
+	Octave 3
+End
+
+Begin Chord-Piz
+	Voice    PizzicatoString
+	Volume   mp
+	Rskip    10
+	Rvolume  10
+	Rtime    5
+	Voicing  Mode=Optimal
+	Sequence C24
+	Octave   5
+End
+
+
+Begin Chord-Gloc
+	Voice    Glockenspiel
+	Sequence C2 C1 C2 C13 C2 C1 C24 C1
+	Voicing  Mode=Optimal
+	Rskip    50
+	Articulate 50
+	Volume   p
+	Octave   7
+End
+
+DefGroove Broadway    A very corny Broadway tune rhythm.
+
+Begin Arpeggio-Flute
+	Voice Piccolo
+	Sequence A4
+	Articulate 40
+	Rskip 60
+	Octave 7
+	Volume m
+End
+
+DefGroove Broadway1   Add in arpegiating flute.
+
+
+////////////////////////////////////
+/// Sustained versions
+
+Groove Broadway
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 5
+	Volume p
+End
+
+Chord-Piz  Volume -30%
+
+DefGroove BroadwaySus   Add sustained strings.
+
+Begin Arpeggio-Flute
+	Groove Broadway1
+	Volume -40%
+End
+
+DefGroove Broadway1Sus   Sustained strings and apregiating flute.
+
+
+/////////////////////////////
+/// An alternate fill version
+
+Groove Broadway
+
+Begin Arpeggio-Piano
+   Voice Piano1
+   Octave 5
+   Articulate 120
+   Volume mf
+   Rtime 10
+   Rskip 40
+   Harmony OpenBelow
+   Rvolume 10
+   Range 2
+   Rtime 5
+   SeqRnd On
+   Direction Up
+   Ornament Type=3After Place=Above Bars=1,5 Beats=1,3 Duration=60 Pad=40 Rskip=30
+   Sequence  A2 {A2; 4 8 80} {A2; 3 8 70} {A2; 2 8 80}
+End
+
+DefGroove Broadway2   Basic rhythm with some piano fills.
+
+Groove BroadwaySus
+Arpeggio-Piano  Groove Broadway2
+DefGroove Broadway2Sus   Add in strings and piano fills.
+
+//////////////////////////////////////////
+/// Fills (for endings)
+
+Groove Broadway
+SeqSize 2
+
+//Drum-Kick	Sequence D13
+Drum-Snare	Sequence  D13
+//Drum-HiH1	Sequence  D13
+//Drum-HiH2	Sequence D24
+Drum-Tri 	Sequence *    // force triangle to all bars
+
+// 2 bar bass run
+Bass	Sequence {1 4 1 90; 3 4 3 90} {1 4 5 90; 2 4 4 100; 3 4 3 110; 4 4 2 120}
+
+// change the strings to single note on 2, chord on 4
+Chord-Piz  Sequence {2 4 90 0; 4 4 90}
+
+// Gloc, one long tone on 1
+Chord-Gloc	Sequence L1
+
+DefGroove BroadwayFill   A 2 bar fill for endings.
+
+
+
+
+/////////////////////////////////////////////
+/// Introduction
+
+Groove Broadway
+
+SeqSize 4
+
+Drum-Kick    Sequence  *  *     *                      D13
+Bass         Sequence  *  *    {1 2 5 90; 3 2 4 90} {1 4. 3 90; 3 4. 2 90}
+Chord-Piz    Sequence  *  *    C13                     C1
+Chord-Gloc   Sequence  *  *    C13                     C1
+
+DefGroove BroadwayIntro   Simple 4 bar intro.
+Groove Broadway
+
+/// Expand to 8 bars
+
+SeqSize 8
+
+Drum-Kick    Sequence  *  *  * * * *   *                      D13
+Bass         Sequence  *  *  * * * *  {1 2 5 90; 3 2 4 90} {1 4. 3 90; 3 4. 2 90}
+Chord-Piz    Sequence  *  *  * * * *  C13                     C1
+Chord-Gloc   Sequence  *  *  * * * *  C13                     C1
+
+DefGroove BroadwayIntro8   Simple 8 bar intro.
+
+////////////////////////////////////////////
+/// Ending
+
+
+Groove Broadway
+SeqSize 2
+
+Drum-Kick	Sequence   D1234    D12
+Drum-Snare  Sequence   D1        /
+Drum-HiH1   Sequence   D1234    D12
+Drum-HiH2   Sequence   *      {D1 Shift .5}
+Drum-Tri    Sequence   D1       /
+Bass        Sequence  {1 4 5 90; 2 4 4 90; 3 4 3 90; 4 4 2 90} {1 2 1 90}
+Chord-Piz   Sequence   *       {C12;C1 Shift .5}
+Chord-Gloc  Sequence   *       C12
+
+
+Defgroove BroadwayEnd   A 2 bar ending reminiscent of a cha-cha.

@@ -1,0 +1,61 @@
+// Sometimes you might want to sounds like a real band,
+// complete with all those unpredictable tempo changes :)
+
+// Yet another stupid example of how you might not want to use rndset.
+
+// You might want to study this a bit. It shows how to use VExpand
+
+Tempo 120            // Our base tempo
+Set Tp $_Tempo       // Save the base tempo in $TP
+
+
+VExpand Off         // needed!
+Mset RTempo
+ RndSet Change  .96 .97 .98 .99 1 1.01 1.02 1.03 1.04    // Select multiplier
+ Set T * + $Change                                       // Create string in form *.98
+ RndSet Beats 1 2 3 4 5 6 7 8                            // Select change duration
+ Tempo $Tp                                               // Reset to original tempo
+ Tempo $T $Beats                                         // New tempo
+ Print Changing Tempo by $Change to $_Tempo over $Beats beats.
+EndMSet
+VExpand On
+
+Groove Ballad
+
+1      G6    /    D9
+2      G     GM7   G6
+
+$RTempo
+
+3      B9    /    F#m6
+4	/
+
+$RTempo
+
+5      Em
+6      Em7
+
+$RTempo
+
+7      Dm7   /    G7
+8	/
+
+$RTempo
+
+9      C6
+17     Cm
+
+$RTempo
+
+18     G
+19     E7    /    B7    E7
+
+$RTempo
+
+20     A7
+21     D7
+
+$RTempo
+
+22     G     /    F9
+23     GM7   / z!

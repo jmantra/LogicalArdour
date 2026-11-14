@@ -1,0 +1,476 @@
+
+// frenchwaltz
+
+Begin Doc
+  These try to do the "French Cafe" sound. The song "Pigalle" works quite well
+  with this. Note the setting of the BassRegister variable which tries to
+  emulate the "switches" on a real accordion. In this case we have an accordion
+  with three reed banks labeled "L", "M" and "H"--this will make large changes
+  to the accordion um-pa-pa stuff
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 3
+Timesig 3 4
+Include stdpats34
+
+Begin DocVar
+  BassRegister  Sets the bass register, 1=L 2=LM 3=LH 4=LMH 5=M 6=MH 7=H (Default=4).
+  CSeq          Internal, Chord sequence list,
+  BSeq          Internal, Bass sequence list.
+End
+
+NewSet BassRegister 4
+
+Begin Chord Define
+		A1 2 3  90 ; 3 3 90         // chords on 2,3
+  		A2 2 8. 90 ; 3 3 80         // same, but with 2 a bit draggy
+		A3 2 8. 70 ; 3 8. 60        // same, but a bit softer to use with bass walk
+End
+
+//////////////////////////////////////////////
+/////   FrenchWaltz	Cheezy 3/4 with accordion
+
+
+SeqSize 8
+
+// For the left hand chord (the basic accomp. on an accordion)
+// we use a combination of a chord and bass patterns. The BASS
+// track is a single note on beat 1, the CHORD track has full
+// chords on 2, 3. Accordion basses are quite limited ... in most
+// cases a single octave. So, to duplicate this sound we use the
+// NOTESPAN directive for Chord and Bass to limit the notes used.
+// To get a fuller sound we duplicate the chord and bass tracks 
+// with a higher pitched register (a musette accordion would have
+// the 2nd register slightly de-tuned).
+
+// Use macros for the sequences so they are easy to dup
+
+Set Cseq    A1   /     /   A2    A1  /     /     A3
+Set Bseq    B1   B1/5  B1  B1/5  B1  B1/5  B1/5  B123
+
+// Create 3 tracks for chord and bass. Each track has same voice, etc. but
+// has a different notespan. The notespan range corresponds to the register
+// settings on an accordion. Ranges are F# to F (which matches what MMA uses).
+
+
+Begin Chord-L
+	Sequence     $Cseq
+	Articulate   70
+	Octave       4              // This has no effect! 
+    NoteSpan     42 53
+	Volume       m
+End
+
+Begin Bass-L
+	Sequence     $Bseq
+	Articulate   70
+	Octave       $_Chord-L_Octave
+	Volume       $_Chord-L_Volume
+    NoteSpan     $_Chord-L_Span
+End
+
+// Set the voice for Chord-L. We copy this voicing to the other tracks
+// so it has be set at least once. Wrap in case this is read a 2nd time.
+
+StackValue $_Debug
+  Debug Warnings=Off
+  Chord-L  Voice Accordion
+  Bass-L   Voice Accordion 
+Debug $_StackValue
+
+
+Begin Chord-M
+	Copy         Chord-L
+	NoteSpan     54 65
+ 	Sequence     $Cseq
+End
+
+Begin Chord-H
+	Copy         Chord-L
+	NoteSpan     66 77
+ 	Sequence     $Cseq
+End
+
+Begin Bass-M
+    Copy        Bass-L
+    NoteSpan    $_Chord-M_Span
+	Sequence    $Bseq
+End
+
+Begin Bass-H
+    Copy        Bass-L
+    NoteSpan    $_Chord-H_Span
+	Sequence    $Bseq
+End
+
+// Setting of chshare and voice is done here in a no-warning
+// wrapper. The problem is that if you re-read this file a
+// bunch of warnings pop up.
+
+StackValue $_Debug
+ Debug Warnings=Off
+  Chord-M  ChShare  Chord-L
+  Chord-H  ChShare  Chord-L
+  Bass-L   ChShare  Chord-L
+  Bass-M   ChShare  Chord-L
+  Bass-H   ChShare  Chord-L
+Debug $_StackValue
+
+// Now we look at the value in BassRegister and turn off the voices
+// we're not using. You might think that you can do with by setting
+// empty sequences (nope, we change the sequence for other grooves and
+// you'd have to do this stuff again); deleting the track (same nope)
+// or doing a 'OFF' (nope, on a re-read after a GrooveClear it stays OFF).
+// All of these complications come with ChShare :) But turning the
+// volume down to nothing does work.
+
+If Eq $BassRegister 1
+  Chord-M Volume Off 
+  Chord-H Volume Off 
+  Chord-L Volume +30
+  Bass-M  Volume Off 
+  Bass-H  Volume Off 
+  Bass-L  Volume +30
+Endif
+
+If Eq $BassRegister 2
+  Chord-H  Volume Off
+  Bass-H   Volume Off
+Endif
+
+If Eq $BassRegister 3
+  Chord-M  Volume Off 
+  Bass-M   Volume Off 
+Endif
+
+If Eq $BassRegister 4
+  Chord-L Volume -10%
+  Chord-M Volume -10%
+  Chord-H Volume -10%
+  Bass-L  Volume -10%
+  Bass-M  Volume -10%
+  Bass-H  Volume -10%
+Endif
+
+If Eq $BassRegister 5
+  Chord-L  Volume Off 
+  Chord-H  Volume Off
+  Bass-L   Volume Off
+  Bass-H   Volume Off
+Endif
+
+If Eq $BassRegister 6
+  Chord-L  Volume Off
+  Bass-L   Volume Off
+Endif
+
+If Eq $BassRegister 7
+  Chord-L  Volume Off
+  Chord-M  Volume Off
+  Chord-H  Volume +20
+  Bass-L   Volume Off
+  Bass-M   Volume Off
+  Bass-H   Volume +20
+Endif
+
+
+// To add a bit of life to this we get Django in to do
+// a very straight strum/strum/strum on his guitar.
+
+Begin Chord-Guitar
+	Sequence    C123
+	Voicing     Mode=Optimal
+	Strum       5
+	Voice       NylonGuitar
+	Accent      1 10
+	Octave      5
+	Volume      mp
+	Articulate  90
+End
+
+// And some nice people do simple drums.
+
+Begin Drum-Tam
+	Sequence	D23
+	Tone        Tambourine
+	Volume      p
+	Rvolume     10
+	Rskip       5
+	Rtime       10
+End
+
+Begin Drum-Tri
+	Sequence    D1
+	Tone        OpenTriangle
+	Volume      p
+	Rskip       50
+	Rvolume     30
+	Rtime       10
+End
+
+DefGroove FrenchWaltz        Accordion umm-pa-pa. Ya either love it or hate it!
+
+
+/////////////////////////////////////////////////
+//////// Sustained strings in the background. 
+
+Begin Chord-Sus
+	Voice      Strings
+	Sequence   { 1 2. 90 0 80 0 * 3}  // Root and fifth notes only.
+	Voicing    Mode=Optimal
+	Volume     mp
+	Octave     5
+	Articulate 100
+	Unify      On
+End
+
+DefGroove  FrenchWaltzSus   Add sustained strings to basic pattern.
+
+
+////////////////////////////////////////////////////
+// Alternates
+
+/////// Accordion fills
+
+
+Groove FrenchWaltz
+
+Begin Arpeggio
+	Sequence   A6   /   /   A3
+	SeqRnd     On
+	Accent     1 10
+	Range      3
+	Articulate 80
+	Voice      Accordion
+	Octave     5
+	Volume     p
+	Rvolume    10
+	Rskip      10   10   50    10
+	Rtime      2
+End
+
+DefGroove FrenchWaltz1           FrenchWaltz with with accordion apreggios.
+
+Begin Scale
+    Voice       $_Arpeggio_Voice
+ 	Sequence    {1 1 80 * 12 }
+	Octave      5
+	Articulate  66
+	Range       2
+	Direction   Up
+	Volume      m
+End
+
+Begin Chord-L
+       Sequence L1
+	   Volume -30%
+End
+Begin Chord-M 
+      Sequence L1
+	  Volume -30%
+End
+Begin Chord-H
+       Sequence L1
+	   Volume -30%
+End
+Bass-L        Sequence -
+Bass-M	      Sequence -
+Bass-H        Sequence -
+Chord-Guitar  Sequence -
+
+
+DefGroove FrenchWaltz1Fill       Adds an accending run.
+
+Groove FrenchWaltz1
+Chord-Sus Groove FrenchWaltzSus
+DefGroove FrenchWaltz1Sus        Arpeggios and sustained strings.
+
+Groove FrenchWaltz1Fill
+Chord-Sus Groove FrenchWaltzSus
+DefGroove FrenchWaltz1FillSus    Arpeggios, run and sustained strings.
+
+
+//////////// Piano Fills
+
+
+Groove FrenchWaltz
+
+Begin Arpeggio
+	SeqClear
+    Sequence  {1 4 90; 3 4 90}  {1 2.  90}
+	SeqRnd    On
+	Harmony   Open
+    Voice     Piano1
+	Range     2
+    Octave    5
+    Direction Down
+	Volume    mp
+	Rtime     2
+End
+
+DefGroove FrenchWaltz2         A simple, little counter melody on a piano.
+
+Begin Scale
+    Voice      $_Arpeggio_Voice
+ 	Sequence   {1 1 80 * 12 }
+	Octave     6
+	Articulate 60
+	Range      2
+	Direction  Up
+	Volume     mp
+End
+
+Begin Chord-L
+       Sequence L1
+	   Volume -30%
+End
+Begin Chord-M
+       Sequence L1
+	   Volume -30%
+End
+Begin Chord-H 
+      Sequence L1
+	  Volume -30%
+End
+Bass-L        Sequence -
+Bass-M	      Sequence -
+Bass-H        Sequence -
+Chord-Guitar  Sequence -
+
+DefGroove FrenchWaltz2Fill       Add a piano run to the counter melody.
+
+Groove FrenchWaltz2
+Chord-Sus Groove FrenchWaltzSus
+DefGroove FrenchWaltz2Sus        Piano counter melody and sustained strings.
+
+Groove FrenchWaltz2Fill
+Chord-Sus Groove FrenchWaltzSus
+DefGroove FrenchWaltz2FillSus    Piano counter melody and run with sustained strings.
+
+
+/////////////// Violin Fills
+
+
+Groove FrenchWaltz
+
+Begin Arpeggio
+	SeqClear
+    Sequence  A1  A3 
+	Rskip     0   20
+	SeqRnd    On
+    Voice     Viola
+	Range     2
+    Octave    5
+    Direction Up
+	Volume    mp
+	Rtime     2
+	Rvolume   10
+End
+
+DefGroove FrenchWaltz3         A simple, little counter melody on a viola.
+
+Begin Scale
+    Voice     $_Arpeggio_Voice
+ 	Sequence  {1 1 80 * 12 }
+	Octave    5
+	Range     2
+	Direction Up
+	Volume    mp
+End
+
+Begin Chord-L
+       Sequence L1
+	   Volume -30%
+End
+Begin Chord-M
+       Sequence L1
+	   Volume -30%
+End
+Begin Chord-H
+       Sequence L1
+	   Volume -30%
+End
+Bass-L        Sequence -
+Bass-M	      Sequence -
+Bass-H        Sequence - 
+Chord-Guitar  Sequence -
+
+DefGroove FrenchWaltz3Fill       Add a string run to the counter melody.
+
+Groove FrenchWaltz3
+Chord-Sus Groove FrenchWaltzSus
+DefGroove FrenchWaltz3Sus        Viola counter melody and sustained strings.
+
+Groove FrenchWaltz3Fill
+Chord-Sus Groove FrenchWaltzSus
+DefGroove FrenchWaltz3FillSus    Viola counter melody and run with sustained strings.
+
+////////////////////////////////////////
+/// Introduction
+
+Groove FrenchWaltz
+
+Set Cseq   * * * L1
+Set Bseq   * * * {1 2 1 50}
+
+Chord-L       Sequence  $Cseq
+Chord-M       Sequence  $Cseq
+Chord-H       Sequence  $Cseq
+Bass-L        Sequence  $Bseq
+Bass-M        Sequence  $Bseq
+Bass-H        Sequence  $Bseq
+Chord-Guitar  Sequence   L1
+Drum-Tam      Sequence   *    D1   *    D1
+Drum-Tri      Sequence   D1   /    /    D123 
+
+DefGroove  FrenchWaltzIntro   A 4 bar intro.
+
+/////////////////////////////////
+//// Endings
+
+Groove FrenchWaltz
+Seqsize 4
+
+Set Cseq   A1    /       /  {1 2 40}
+Set Bseq   B1    B1/5   B1  {1 2 1 40}
+
+Chord-Guitar  Sequence   -
+Chord-L       Sequence   $Cseq
+Chord-M       Sequence   $Cseq
+Chord-H       Sequence   $Cseq
+Bass-L        Sequence   $Bseq
+Bass-M        Sequence   $Bseq
+Bass-H        Sequence   $Bseq
+Drum-Tam      Sequence   D23   /     /    D1
+
+Begin Scale
+	SeqClear
+	Sequence   S6   S3  S3 {1 2 80}
+	Direction  Up
+	Range      3
+	Voice      Strings
+	Octave     5
+	Articulate 80 80 80 100
+End
+
+DefGroove FrenchWaltzEnd         A scale with the strings to end \
+                                 the FrenchWaltz. The scales run from \
+                                 16, 8, 4 and whole notes.
+
+// Variation
+
+Begin Scale
+	Voice     Accordion
+	Direction Down
+	Range     3
+	Octave    4
+End
+
+DefGroove FrenchWaltz1End    Same ending as FrenchWaltzEnd but with \
+                             an accordion instead of strings.
+
+
+

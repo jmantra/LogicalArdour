@@ -1,0 +1,153 @@
+
+// BVfunk.mma
+
+Begin Doc
+	Bob's Funk. Written for "Watermelon Man".
+End
+ 
+  
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////////////
+
+SeqSize 2
+
+Begin Drum-Kick
+    Tone KickDrum1
+    Volume m
+    RTime 10
+    RVolume 20
+    Sequence {D12; D4 Shift .5} {D1 Shift .5}
+End
+
+Begin Drum-Snare
+    Tone SnareDrum1
+    Volume mf
+    RTime 5
+    RVolume 10
+    Sequence { D3 }
+End
+
+
+Begin Drum-Clave  /// This is a counter beat
+    Tone Claves
+    Volume mf
+    RTime 5
+    RVolume 10
+    Sequence {D23} {D14; D1 Shift .5}
+End
+
+Begin Bass
+    Voice FretlessBass
+    Octave 3
+    Articulate 90
+    Volume m
+    RTime 5
+    Accent 1 30
+    RVolume 5
+    Sequence  {1 4 1 100; 2.5 8 2 80; 3 8 4 70; 4 8 5 80}
+End
+
+Begin Chord-Guitar
+    Voice CleanGuitar
+    Volume m
+    Octave 5
+    Articulate 90
+    RTime 10
+    RDuration 10
+    RVolume 10
+    DupRoot -1 -2
+    Sequence {1 4 90; 2.5 8 60; 3 8 70; 4 8 80}
+End
+
+DefGroove BVFunk	A basic Funk groove.
+
+//////////////////////////////////////////////
+/// Sustained. Add in the organ!
+
+Groove BVFunk
+
+Begin Chord-Sus
+    Voice Strings
+	Voicing Mode=Key
+	Volume mp
+	Articulate 100
+	Unify On
+	Octave 5
+	Sequence  {1 1 90 0 90 0 * 4 }
+End
+
+DefGroove BVFunkSus  The funk groove with strings
+
+/// Sustained version for horn section
+
+Groove BVFunk
+
+Begin Bass-Sus
+    Voice BrassSection
+    Octave 5
+    Volume m
+    Harmony OpenBelow+OpenAbove+16Above
+    Articulate 90
+    Sequence { 1 2. 1 90; 4 4 4 80} {1 2. 5 90; 4 4 4 80}
+End
+
+DefGroove BVFunkHorns   Horns added in with 1/4 5/4 pattern
+
+
+////////////////////////////////////////////////////
+////  Intro
+////  For the intro we do:
+////     1 -- bass
+////     2 -- bass & drums
+////     3,4 -- bass, guitar & drums.
+////
+////   for the 8 bar version just double up the counts
+
+Groove BVFunk
+Seqsize 4
+
+// leave bass alone
+
+Drum-Clave  Sequence  z  z  *  *
+Drum-Kick   Sequence  z  D12  *  *
+Drum-Snare  Sequence  z  *   *   *
+
+Chord-Guitar Sequence  z  z  *  *
+
+DefGroove BVFunkIntro  4 bar introduction
+
+Groove BVFunk
+Seqsize 8
+
+// leave bass alone
+
+Drum-Clave  Sequence  z  /  /  /  *  *  *  *
+Drum-Kick   Sequence  z  /  /  /  D12 *  *  *
+Drum-Snare  Sequence  z  /  /  /  *   *   *   *
+
+Chord-Guitar Sequence  z  /  /  /  C1  /  *  *
+
+DefGroove BVFunkIntro8  8 bar introduction
+
+//////////////////////////////////////////////////
+/// Ending
+
+Groove BVFunk
+
+
+Drum-Clave Sequence * D1
+Drum-Kick  Sequence * z
+Drum-Snare Sequence *  D1
+
+Bass Sequence  *  B1
+
+Chord-Guitar Sequence *  C1
+
+DefGroove BVFunkEnd  2 bar ending
+

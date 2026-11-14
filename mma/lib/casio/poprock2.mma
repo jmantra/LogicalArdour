@@ -1,0 +1,158 @@
+
+// poprock2
+
+Begin Doc  
+      Poprock2  (009)
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    Sequence {1 0 99; 1.5 0 83; 2.8 0 95} \
+             {1 0 95; 1.5 0 83; 2.8 0 92} \
+             {1 0 104; 1.5 0 89; 2.8 0 101} \
+             {1 0 101; 1.5 0 89; 2.8 0 97; 3.5 0 89}
+End
+
+Begin Drum-SideKick
+    Tone SideKick
+    Volume m
+    Rvolume 10
+    Sequence {4 0 88}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Rvolume 10
+    Sequence {1 0 104; 1.5 0 69; 2 0 104; 2.5 0 77; 3 0 104; 3.5 0 67; 4 0 104; 4.5 0 67}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence z   z  z   {4.5 0 60}
+End
+
+Begin Drum-Tambourine
+    Tone Tambourine
+    Volume m
+    Rvolume 10
+    Sequence {2 0 47} 
+End
+
+Begin Bass-9
+    Voice FretlessBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 3 1 90; 1.5 4 1 90; 2.8 4 1 90} \
+             {1 16 1 90; 1.5 8 1 90; 2.8 4 1 90; 4.5 64 5 75; 4.8 64 6 75} \
+             {1 16 1 95; 1.5 4 1 95; 2.8 4 1 95} \
+             {1 16 1 95; 1.5 8 1 95; 2.8 4 1 95; 4.5 3 5 95}
+End
+
+Begin Chord-6
+    Voice SteelGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 90
+    Volume mp
+    Strum 10
+    Rvolume 5
+    Sequence {1 3 90; 1.5 3 90; 2 3 90; 2.5 6 90; 2.8 3 90; 3.2 6 90; \
+               3.3 6 90; 3.5 6 90; 3.8 6 90; 4 3 90; 4.5 6 90; 4.8 6 90} 
+End
+
+
+Begin Bass-7
+    Voice CleanGuitar
+    Octave 5
+    Articulate 120
+    Volume m
+    Rvolume 10
+    Rskip 5
+    Sequence {1.5 8 3 93; 2 8 5 100; 2.5 4 1 90; 4.5 6 3 66; 4.5 6 5 61; \
+                4.5 6 1 75; 4.8 4 3 71; 4.8 4 5 84; 4.8 4 1 90} \
+             {3.5 8 3 66; 4 16 1 81; 4.2 16 5 73; 4.5 3 3 48} \
+             {1.5 4 3 79; 2 4 5 90; 2.5 4 1 87} \
+             {1.5 8 3 66; 1.5 8 5 73; 1.5 8 1 84; 2.2 8 3 69;\
+                2.3 8 5 77; 2.3 8 1 90; 4 3 3 87; 4.3 8 1 65; 4.5 3 5 56}
+End
+
+Begin Chord-8
+    Voice Synthstrings2
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {1 1 90}     z      {1 1 90}      {4 8 90}
+End
+
+DefGroove PopRock2  A cheery version.
+
+/////////////////////////////////////////////////////////
+///// Intro
+
+Groove PopRock2
+
+Drum-KickDrum2   Sequence  *  *  *  D13
+Drum-SideKick    Sequence  *  *  *  z
+Drum-ClosedHiHat Sequence  *  *  *  D1234
+Drum-OpenHiHat   Sequence  z  z  z  D1
+Drum-Tambourine  Sequence  *  *  *  D1234
+
+// FretlessBass
+Bass-9           Sequence  *  *  B11  B1
+
+//  SteelGuitar
+Chord-6          Sequence  *  *  C1234 L1
+
+// CleanGuitar
+Bass-7           Sequence  *  B1234  *  B13
+
+//  Synthstrings2
+Chord-8          Sequence   L1   /   /  {1 2 80}
+
+
+DefGroove PopRock2Intro   A 4 bar intro.
+
+/////////////////////////////////////////////////////////
+///// Ending
+
+Groove PopRock2
+SeqSize 2
+
+Drum-KickDrum2   Sequence  *    D1
+Drum-SideKick    Sequence  *    z
+Drum-ClosedHiHat Sequence  D1234  D1
+Drum-OpenHiHat   Sequence  D1   /
+Drum-Tambourine  Sequence  D1234  D1
+
+// FretlessBass
+Bass-9           Sequence  B11  B1
+
+//  SteelGuitar
+Chord-6          Sequence  C1234 L1
+
+// CleanGuitar
+Bass-7           Sequence  B1234  B1
+
+//  Synthstrings2
+Chord-8          Sequence   L1  {1 2 80}
+
+
+DefGroove PopRock2End   A 2 bar ending.
+
+

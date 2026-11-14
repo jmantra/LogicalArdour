@@ -1,0 +1,6063 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2ext:     <http://lv2plug.in/ns/ext/> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/beat_breather_stereo/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:v_sadovnikov
+	a foaf:Person ;
+	foaf:name "Vladimir Sadovnikov" ;
+	foaf:nick "SadKo" ;
+	foaf:mbox <mailto:sadko4u@gmail.com> ;
+	foaf:homepage <http://lsp-plug.in/#v_sadovnikov>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:stereo_in
+	a pg:StereoGroup, pg:InputGroup ;
+	lv2:symbol "stereo_in" ;
+	rdfs:label "Stereo Input" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:stereo_out
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "stereo_out" ;
+	rdfs:label "Stereo Output" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug:beat_breather_stereo
+	a lv2:DynamicsPlugin, doap:Project ;
+	doap:name "LSP Beat Breather Stereo" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 12 ;
+	doap:developer plug_dev:v_sadovnikov ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:beat_breather_stereo ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:stereo_in ;
+	pg:mainOutput plug_pg:stereo_out ;
+	dc:replaces <urn:ladspa:5002265> ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in_l" ;
+		lv2:name "Input L" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "in_r" ;
+		lv2:name "Input R" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "out_l" ;
+		lv2:name "Output L" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 3 ;
+		lv2:symbol "out_r" ;
+		lv2:name "Output R" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:designation lv2:enabled ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "g_in" ;
+		lv2:name "Input gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "g_dry" ;
+		lv2:name "Dry gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "g_wet" ;
+		lv2:name "Wet gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "drywet" ;
+		lv2:name "Dry/Wet balance" ;
+		units:unit units:pc ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "g_out" ;
+		lv2:name "Output gain" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "ts" ;
+		lv2:name "Tab selector" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Band Filter"; rdf:value 0 ] ,
+			[ rdfs:label "Punch Detector"; rdf:value 1 ] ,
+			[ rdfs:label "Punch Filter"; rdf:value 2 ] ,
+			[ rdfs:label "Beat Processor"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "react" ;
+		lv2:name "FFT reactivity" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.200000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "shift" ;
+		lv2:name "FFT shift gain" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -40.000000 ;
+		lv2:maximum 60.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "zoom" ;
+		lv2:name "Graph zoom" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.125890 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14 ;
+		lv2:symbol "flt" ;
+		lv2:name "Show filters" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "ssplit" ;
+		lv2:name "Stereo split" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "ilm_l" ;
+		lv2:name "Input level meter Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "olm_l" ;
+		lv2:name "Output level meter Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "ife_l" ;
+		lv2:name "Input FFT graph enable Left" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "ofe_l" ;
+		lv2:name "Output FFT graph enable Left" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "ilm_r" ;
+		lv2:name "Input level meter Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "olm_r" ;
+		lv2:name "Output level meter Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "ife_r" ;
+		lv2:name "Input FFT graph enable Right" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "ofe_r" ;
+		lv2:name "Output FFT graph enable Right" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "se_1" ;
+		lv2:name "Frequency split enable 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "sf_1" ;
+		lv2:name "Split frequency 1" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 40.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "se_2" ;
+		lv2:name "Frequency split enable 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "sf_2" ;
+		lv2:name "Split frequency 2" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 100.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "se_3" ;
+		lv2:name "Frequency split enable 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "sf_3" ;
+		lv2:name "Split frequency 3" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 252.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "se_4" ;
+		lv2:name "Frequency split enable 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 31 ;
+		lv2:symbol "sf_4" ;
+		lv2:name "Split frequency 4" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 632.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 32 ;
+		lv2:symbol "se_5" ;
+		lv2:name "Frequency split enable 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 33 ;
+		lv2:symbol "sf_5" ;
+		lv2:name "Split frequency 5" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 1587.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "se_6" ;
+		lv2:name "Frequency split enable 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 35 ;
+		lv2:symbol "sf_6" ;
+		lv2:name "Split frequency 6" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 3984.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 36 ;
+		lv2:symbol "se_7" ;
+		lv2:name "Frequency split enable 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 37 ;
+		lv2:symbol "sf_7" ;
+		lv2:name "Split frequency 7" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 20000.000000 ;
+		lv2:default 10000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 38 ;
+		lv2:symbol "bs_1" ;
+		lv2:name "Solo band 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 39 ;
+		lv2:symbol "bm_1" ;
+		lv2:name "Mute band 1" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 40 ;
+		lv2:symbol "bls_1" ;
+		lv2:name "Band listen stage 1" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Band Filter"; rdf:value 0 ] ,
+			[ rdfs:label "Punch Detector"; rdf:value 1 ] ,
+			[ rdfs:label "Punch Filter"; rdf:value 2 ] ,
+			[ rdfs:label "Beat Processor"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 3 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 41 ;
+		lv2:symbol "lps_1" ;
+		lv2:name "Lo-pass slope 1" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 42 ;
+		lv2:symbol "hps_1" ;
+		lv2:name "Hi-pass slope 1" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 43 ;
+		lv2:symbol "flat_1" ;
+		lv2:name "Filter cap flatten 1" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 44 ;
+		lv2:symbol "bg_1" ;
+		lv2:name "Band output gain 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 45 ;
+		lv2:symbol "fre_1" ;
+		lv2:name "Frequency range end 1" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 384000.000000 ;
+		lv2:default 20000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 46 ;
+		lv2:symbol "pdlt_1" ;
+		lv2:name "Punch detector long-time RMS estimation 1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 100.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 400.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 47 ;
+		lv2:symbol "pdst_1" ;
+		lv2:name "Punch detector short-time RMS estimation 1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.100000 ;
+		lv2:maximum 20.000000 ;
+		lv2:default 19.840000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 48 ;
+		lv2:symbol "pdbs_1" ;
+		lv2:name "Punch detector short RMS bias 1" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -6.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default -0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 49 ;
+		lv2:symbol "pdmk_1" ;
+		lv2:name "Punch detector makeup 1" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -12.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 50 ;
+		lv2:symbol "pflk_1" ;
+		lv2:name "Punch filter lookahead 1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 51 ;
+		lv2:symbol "pfat_1" ;
+		lv2:name "Punch filter attack time 1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 3.360000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 52 ;
+		lv2:symbol "pfrt_1" ;
+		lv2:name "Punch filter release time 1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 8.180000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 53 ;
+		lv2:symbol "pfth_1" ;
+		lv2:name "Punch filter threshold 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.354813 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 54 ;
+		lv2:symbol "pfrl_1" ;
+		lv2:name "Punch filter reduction level 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.003981 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 55 ;
+		lv2:symbol "pfrz_1" ;
+		lv2:name "Punch filter reduction zone 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.707946 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 56 ;
+		lv2:symbol "bpat_1" ;
+		lv2:name "Beat processor attack time 1" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 10.010000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 57 ;
+		lv2:symbol "bprt_1" ;
+		lv2:name "Beat processor release time 1" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 200.000000 ;
+		lv2:default 61.080002 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 58 ;
+		lv2:symbol "bpts_1" ;
+		lv2:name "Beat processor time shift 1" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -10.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 59 ;
+		lv2:symbol "bpth_1" ;
+		lv2:name "Beat processor threshold 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 60 ;
+		lv2:symbol "bper_1" ;
+		lv2:name "Beat processor expand ratio 1" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 61 ;
+		lv2:symbol "bpmg_1" ;
+		lv2:name "Beat processor maximum gain 1" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.995260 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 62 ;
+		lv2:symbol "bs_2" ;
+		lv2:name "Solo band 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 63 ;
+		lv2:symbol "bm_2" ;
+		lv2:name "Mute band 2" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 64 ;
+		lv2:symbol "bls_2" ;
+		lv2:name "Band listen stage 2" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Band Filter"; rdf:value 0 ] ,
+			[ rdfs:label "Punch Detector"; rdf:value 1 ] ,
+			[ rdfs:label "Punch Filter"; rdf:value 2 ] ,
+			[ rdfs:label "Beat Processor"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 3 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 65 ;
+		lv2:symbol "lps_2" ;
+		lv2:name "Lo-pass slope 2" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 66 ;
+		lv2:symbol "hps_2" ;
+		lv2:name "Hi-pass slope 2" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 67 ;
+		lv2:symbol "flat_2" ;
+		lv2:name "Filter cap flatten 2" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 68 ;
+		lv2:symbol "bg_2" ;
+		lv2:name "Band output gain 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 69 ;
+		lv2:symbol "fre_2" ;
+		lv2:name "Frequency range end 2" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 384000.000000 ;
+		lv2:default 20000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 70 ;
+		lv2:symbol "pdlt_2" ;
+		lv2:name "Punch detector long-time RMS estimation 2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 100.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 400.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 71 ;
+		lv2:symbol "pdst_2" ;
+		lv2:name "Punch detector short-time RMS estimation 2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.100000 ;
+		lv2:maximum 20.000000 ;
+		lv2:default 14.790000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 72 ;
+		lv2:symbol "pdbs_2" ;
+		lv2:name "Punch detector short RMS bias 2" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -6.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default -0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 73 ;
+		lv2:symbol "pdmk_2" ;
+		lv2:name "Punch detector makeup 2" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -12.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 74 ;
+		lv2:symbol "pflk_2" ;
+		lv2:name "Punch filter lookahead 2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 75 ;
+		lv2:symbol "pfat_2" ;
+		lv2:name "Punch filter attack time 2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.320000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 76 ;
+		lv2:symbol "pfrt_2" ;
+		lv2:name "Punch filter release time 2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 6.720000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 77 ;
+		lv2:symbol "pfth_2" ;
+		lv2:name "Punch filter threshold 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.354813 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 78 ;
+		lv2:symbol "pfrl_2" ;
+		lv2:name "Punch filter reduction level 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.003981 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 79 ;
+		lv2:symbol "pfrz_2" ;
+		lv2:name "Punch filter reduction zone 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.707946 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 80 ;
+		lv2:symbol "bpat_2" ;
+		lv2:name "Beat processor attack time 2" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 6.390000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 81 ;
+		lv2:symbol "bprt_2" ;
+		lv2:name "Beat processor release time 2" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 200.000000 ;
+		lv2:default 35.880001 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 82 ;
+		lv2:symbol "bpts_2" ;
+		lv2:name "Beat processor time shift 2" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -10.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 83 ;
+		lv2:symbol "bpth_2" ;
+		lv2:name "Beat processor threshold 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 84 ;
+		lv2:symbol "bper_2" ;
+		lv2:name "Beat processor expand ratio 2" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 85 ;
+		lv2:symbol "bpmg_2" ;
+		lv2:name "Beat processor maximum gain 2" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.995260 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 86 ;
+		lv2:symbol "bs_3" ;
+		lv2:name "Solo band 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 87 ;
+		lv2:symbol "bm_3" ;
+		lv2:name "Mute band 3" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 88 ;
+		lv2:symbol "bls_3" ;
+		lv2:name "Band listen stage 3" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Band Filter"; rdf:value 0 ] ,
+			[ rdfs:label "Punch Detector"; rdf:value 1 ] ,
+			[ rdfs:label "Punch Filter"; rdf:value 2 ] ,
+			[ rdfs:label "Beat Processor"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 3 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 89 ;
+		lv2:symbol "lps_3" ;
+		lv2:name "Lo-pass slope 3" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 90 ;
+		lv2:symbol "hps_3" ;
+		lv2:name "Hi-pass slope 3" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 91 ;
+		lv2:symbol "flat_3" ;
+		lv2:name "Filter cap flatten 3" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 92 ;
+		lv2:symbol "bg_3" ;
+		lv2:name "Band output gain 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 93 ;
+		lv2:symbol "fre_3" ;
+		lv2:name "Frequency range end 3" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 384000.000000 ;
+		lv2:default 20000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 94 ;
+		lv2:symbol "pdlt_3" ;
+		lv2:name "Punch detector long-time RMS estimation 3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 100.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 400.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 95 ;
+		lv2:symbol "pdst_3" ;
+		lv2:name "Punch detector short-time RMS estimation 3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.100000 ;
+		lv2:maximum 20.000000 ;
+		lv2:default 11.690000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 96 ;
+		lv2:symbol "pdbs_3" ;
+		lv2:name "Punch detector short RMS bias 3" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -6.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default -0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 97 ;
+		lv2:symbol "pdmk_3" ;
+		lv2:name "Punch detector makeup 3" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -12.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 98 ;
+		lv2:symbol "pflk_3" ;
+		lv2:name "Punch filter lookahead 3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 99 ;
+		lv2:symbol "pfat_3" ;
+		lv2:name "Punch filter attack time 3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.720000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 100 ;
+		lv2:symbol "pfrt_3" ;
+		lv2:name "Punch filter release time 3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 5.750000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 101 ;
+		lv2:symbol "pfth_3" ;
+		lv2:name "Punch filter threshold 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.354813 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 102 ;
+		lv2:symbol "pfrl_3" ;
+		lv2:name "Punch filter reduction level 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.003981 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 103 ;
+		lv2:symbol "pfrz_3" ;
+		lv2:name "Punch filter reduction zone 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.707946 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 104 ;
+		lv2:symbol "bpat_3" ;
+		lv2:name "Beat processor attack time 3" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 4.460000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 105 ;
+		lv2:symbol "bprt_3" ;
+		lv2:name "Beat processor release time 3" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 200.000000 ;
+		lv2:default 23.459999 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 106 ;
+		lv2:symbol "bpts_3" ;
+		lv2:name "Beat processor time shift 3" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -10.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 107 ;
+		lv2:symbol "bpth_3" ;
+		lv2:name "Beat processor threshold 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 108 ;
+		lv2:symbol "bper_3" ;
+		lv2:name "Beat processor expand ratio 3" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 109 ;
+		lv2:symbol "bpmg_3" ;
+		lv2:name "Beat processor maximum gain 3" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.995260 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 110 ;
+		lv2:symbol "bs_4" ;
+		lv2:name "Solo band 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 111 ;
+		lv2:symbol "bm_4" ;
+		lv2:name "Mute band 4" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 112 ;
+		lv2:symbol "bls_4" ;
+		lv2:name "Band listen stage 4" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Band Filter"; rdf:value 0 ] ,
+			[ rdfs:label "Punch Detector"; rdf:value 1 ] ,
+			[ rdfs:label "Punch Filter"; rdf:value 2 ] ,
+			[ rdfs:label "Beat Processor"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 3 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 113 ;
+		lv2:symbol "lps_4" ;
+		lv2:name "Lo-pass slope 4" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 114 ;
+		lv2:symbol "hps_4" ;
+		lv2:name "Hi-pass slope 4" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 115 ;
+		lv2:symbol "flat_4" ;
+		lv2:name "Filter cap flatten 4" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 116 ;
+		lv2:symbol "bg_4" ;
+		lv2:name "Band output gain 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 117 ;
+		lv2:symbol "fre_4" ;
+		lv2:name "Frequency range end 4" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 384000.000000 ;
+		lv2:default 20000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 118 ;
+		lv2:symbol "pdlt_4" ;
+		lv2:name "Punch detector long-time RMS estimation 4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 100.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 400.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 119 ;
+		lv2:symbol "pdst_4" ;
+		lv2:name "Punch detector short-time RMS estimation 4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.100000 ;
+		lv2:maximum 20.000000 ;
+		lv2:default 9.240000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 120 ;
+		lv2:symbol "pdbs_4" ;
+		lv2:name "Punch detector short RMS bias 4" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -6.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default -0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 121 ;
+		lv2:symbol "pdmk_4" ;
+		lv2:name "Punch detector makeup 4" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -12.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 122 ;
+		lv2:symbol "pflk_4" ;
+		lv2:name "Punch filter lookahead 4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 123 ;
+		lv2:symbol "pfat_4" ;
+		lv2:name "Punch filter attack time 4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 1.270000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 124 ;
+		lv2:symbol "pfrt_4" ;
+		lv2:name "Punch filter release time 4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 4.910000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 125 ;
+		lv2:symbol "pfth_4" ;
+		lv2:name "Punch filter threshold 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.354813 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 126 ;
+		lv2:symbol "pfrl_4" ;
+		lv2:name "Punch filter reduction level 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.003981 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 127 ;
+		lv2:symbol "pfrz_4" ;
+		lv2:name "Punch filter reduction zone 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.707946 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 128 ;
+		lv2:symbol "bpat_4" ;
+		lv2:name "Beat processor attack time 4" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 3.110000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 129 ;
+		lv2:symbol "bprt_4" ;
+		lv2:name "Beat processor release time 4" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 200.000000 ;
+		lv2:default 15.320000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 130 ;
+		lv2:symbol "bpts_4" ;
+		lv2:name "Beat processor time shift 4" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -10.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 131 ;
+		lv2:symbol "bpth_4" ;
+		lv2:name "Beat processor threshold 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 132 ;
+		lv2:symbol "bper_4" ;
+		lv2:name "Beat processor expand ratio 4" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 133 ;
+		lv2:symbol "bpmg_4" ;
+		lv2:name "Beat processor maximum gain 4" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.995260 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 134 ;
+		lv2:symbol "bs_5" ;
+		lv2:name "Solo band 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 135 ;
+		lv2:symbol "bm_5" ;
+		lv2:name "Mute band 5" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 136 ;
+		lv2:symbol "bls_5" ;
+		lv2:name "Band listen stage 5" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Band Filter"; rdf:value 0 ] ,
+			[ rdfs:label "Punch Detector"; rdf:value 1 ] ,
+			[ rdfs:label "Punch Filter"; rdf:value 2 ] ,
+			[ rdfs:label "Beat Processor"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 3 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 137 ;
+		lv2:symbol "lps_5" ;
+		lv2:name "Lo-pass slope 5" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 138 ;
+		lv2:symbol "hps_5" ;
+		lv2:name "Hi-pass slope 5" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 139 ;
+		lv2:symbol "flat_5" ;
+		lv2:name "Filter cap flatten 5" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 140 ;
+		lv2:symbol "bg_5" ;
+		lv2:name "Band output gain 5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 141 ;
+		lv2:symbol "fre_5" ;
+		lv2:name "Frequency range end 5" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 384000.000000 ;
+		lv2:default 20000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 142 ;
+		lv2:symbol "pdlt_5" ;
+		lv2:name "Punch detector long-time RMS estimation 5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 100.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 400.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 143 ;
+		lv2:symbol "pdst_5" ;
+		lv2:name "Punch detector short-time RMS estimation 5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.100000 ;
+		lv2:maximum 20.000000 ;
+		lv2:default 7.310000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 144 ;
+		lv2:symbol "pdbs_5" ;
+		lv2:name "Punch detector short RMS bias 5" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -6.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default -0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 145 ;
+		lv2:symbol "pdmk_5" ;
+		lv2:name "Punch detector makeup 5" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -12.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 146 ;
+		lv2:symbol "pflk_5" ;
+		lv2:name "Punch filter lookahead 5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 147 ;
+		lv2:symbol "pfat_5" ;
+		lv2:name "Punch filter attack time 5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.950000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 148 ;
+		lv2:symbol "pfrt_5" ;
+		lv2:name "Punch filter release time 5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 4.210000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 149 ;
+		lv2:symbol "pfth_5" ;
+		lv2:name "Punch filter threshold 5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.354813 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 150 ;
+		lv2:symbol "pfrl_5" ;
+		lv2:name "Punch filter reduction level 5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.003981 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 151 ;
+		lv2:symbol "pfrz_5" ;
+		lv2:name "Punch filter reduction zone 5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.707946 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 152 ;
+		lv2:symbol "bpat_5" ;
+		lv2:name "Beat processor attack time 5" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 2.170000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 153 ;
+		lv2:symbol "bprt_5" ;
+		lv2:name "Beat processor release time 5" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 200.000000 ;
+		lv2:default 10.010000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 154 ;
+		lv2:symbol "bpts_5" ;
+		lv2:name "Beat processor time shift 5" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -10.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 155 ;
+		lv2:symbol "bpth_5" ;
+		lv2:name "Beat processor threshold 5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 156 ;
+		lv2:symbol "bper_5" ;
+		lv2:name "Beat processor expand ratio 5" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 157 ;
+		lv2:symbol "bpmg_5" ;
+		lv2:name "Beat processor maximum gain 5" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.995260 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 158 ;
+		lv2:symbol "bs_6" ;
+		lv2:name "Solo band 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 159 ;
+		lv2:symbol "bm_6" ;
+		lv2:name "Mute band 6" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 160 ;
+		lv2:symbol "bls_6" ;
+		lv2:name "Band listen stage 6" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Band Filter"; rdf:value 0 ] ,
+			[ rdfs:label "Punch Detector"; rdf:value 1 ] ,
+			[ rdfs:label "Punch Filter"; rdf:value 2 ] ,
+			[ rdfs:label "Beat Processor"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 3 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 161 ;
+		lv2:symbol "lps_6" ;
+		lv2:name "Lo-pass slope 6" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 162 ;
+		lv2:symbol "hps_6" ;
+		lv2:name "Hi-pass slope 6" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 163 ;
+		lv2:symbol "flat_6" ;
+		lv2:name "Filter cap flatten 6" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 164 ;
+		lv2:symbol "bg_6" ;
+		lv2:name "Band output gain 6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 165 ;
+		lv2:symbol "fre_6" ;
+		lv2:name "Frequency range end 6" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 384000.000000 ;
+		lv2:default 20000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 166 ;
+		lv2:symbol "pdlt_6" ;
+		lv2:name "Punch detector long-time RMS estimation 6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 100.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 400.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 167 ;
+		lv2:symbol "pdst_6" ;
+		lv2:name "Punch detector short-time RMS estimation 6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.100000 ;
+		lv2:maximum 20.000000 ;
+		lv2:default 5.780000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 168 ;
+		lv2:symbol "pdbs_6" ;
+		lv2:name "Punch detector short RMS bias 6" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -6.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default -0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 169 ;
+		lv2:symbol "pdmk_6" ;
+		lv2:name "Punch detector makeup 6" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -12.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 170 ;
+		lv2:symbol "pflk_6" ;
+		lv2:name "Punch filter lookahead 6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 171 ;
+		lv2:symbol "pfat_6" ;
+		lv2:name "Punch filter attack time 6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.710000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 172 ;
+		lv2:symbol "pfrt_6" ;
+		lv2:name "Punch filter release time 6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 3.600000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 173 ;
+		lv2:symbol "pfth_6" ;
+		lv2:name "Punch filter threshold 6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.354813 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 174 ;
+		lv2:symbol "pfrl_6" ;
+		lv2:name "Punch filter reduction level 6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.003981 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 175 ;
+		lv2:symbol "pfrz_6" ;
+		lv2:name "Punch filter reduction zone 6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.707946 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 176 ;
+		lv2:symbol "bpat_6" ;
+		lv2:name "Beat processor attack time 6" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.520000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 177 ;
+		lv2:symbol "bprt_6" ;
+		lv2:name "Beat processor release time 6" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 200.000000 ;
+		lv2:default 6.550000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 178 ;
+		lv2:symbol "bpts_6" ;
+		lv2:name "Beat processor time shift 6" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -10.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 179 ;
+		lv2:symbol "bpth_6" ;
+		lv2:name "Beat processor threshold 6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 180 ;
+		lv2:symbol "bper_6" ;
+		lv2:name "Beat processor expand ratio 6" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 181 ;
+		lv2:symbol "bpmg_6" ;
+		lv2:name "Beat processor maximum gain 6" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.995260 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 182 ;
+		lv2:symbol "bs_7" ;
+		lv2:name "Solo band 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 183 ;
+		lv2:symbol "bm_7" ;
+		lv2:name "Mute band 7" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 184 ;
+		lv2:symbol "bls_7" ;
+		lv2:name "Band listen stage 7" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Band Filter"; rdf:value 0 ] ,
+			[ rdfs:label "Punch Detector"; rdf:value 1 ] ,
+			[ rdfs:label "Punch Filter"; rdf:value 2 ] ,
+			[ rdfs:label "Beat Processor"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 3 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 185 ;
+		lv2:symbol "lps_7" ;
+		lv2:name "Lo-pass slope 7" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 186 ;
+		lv2:symbol "hps_7" ;
+		lv2:name "Hi-pass slope 7" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 187 ;
+		lv2:symbol "flat_7" ;
+		lv2:name "Filter cap flatten 7" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 188 ;
+		lv2:symbol "bg_7" ;
+		lv2:name "Band output gain 7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 189 ;
+		lv2:symbol "fre_7" ;
+		lv2:name "Frequency range end 7" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 384000.000000 ;
+		lv2:default 20000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 190 ;
+		lv2:symbol "pdlt_7" ;
+		lv2:name "Punch detector long-time RMS estimation 7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 100.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 400.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 191 ;
+		lv2:symbol "pdst_7" ;
+		lv2:name "Punch detector short-time RMS estimation 7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.100000 ;
+		lv2:maximum 20.000000 ;
+		lv2:default 4.570000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 192 ;
+		lv2:symbol "pdbs_7" ;
+		lv2:name "Punch detector short RMS bias 7" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -6.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default -0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 193 ;
+		lv2:symbol "pdmk_7" ;
+		lv2:name "Punch detector makeup 7" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -12.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 194 ;
+		lv2:symbol "pflk_7" ;
+		lv2:name "Punch filter lookahead 7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 195 ;
+		lv2:symbol "pfat_7" ;
+		lv2:name "Punch filter attack time 7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.520000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 196 ;
+		lv2:symbol "pfrt_7" ;
+		lv2:name "Punch filter release time 7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 3.080000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 197 ;
+		lv2:symbol "pfth_7" ;
+		lv2:name "Punch filter threshold 7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.354813 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 198 ;
+		lv2:symbol "pfrl_7" ;
+		lv2:name "Punch filter reduction level 7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.003981 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 199 ;
+		lv2:symbol "pfrz_7" ;
+		lv2:name "Punch filter reduction zone 7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.707946 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 200 ;
+		lv2:symbol "bpat_7" ;
+		lv2:name "Beat processor attack time 7" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 1.060000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 201 ;
+		lv2:symbol "bprt_7" ;
+		lv2:name "Beat processor release time 7" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 200.000000 ;
+		lv2:default 4.270000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 202 ;
+		lv2:symbol "bpts_7" ;
+		lv2:name "Beat processor time shift 7" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -10.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 203 ;
+		lv2:symbol "bpth_7" ;
+		lv2:name "Beat processor threshold 7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 204 ;
+		lv2:symbol "bper_7" ;
+		lv2:name "Beat processor expand ratio 7" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 205 ;
+		lv2:symbol "bpmg_7" ;
+		lv2:name "Beat processor maximum gain 7" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.995260 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 206 ;
+		lv2:symbol "bs_8" ;
+		lv2:name "Solo band 8" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 207 ;
+		lv2:symbol "bm_8" ;
+		lv2:name "Mute band 8" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 208 ;
+		lv2:symbol "bls_8" ;
+		lv2:name "Band listen stage 8" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Band Filter"; rdf:value 0 ] ,
+			[ rdfs:label "Punch Detector"; rdf:value 1 ] ,
+			[ rdfs:label "Punch Filter"; rdf:value 2 ] ,
+			[ rdfs:label "Beat Processor"; rdf:value 3 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 3 ;
+		lv2:default 3 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 209 ;
+		lv2:symbol "lps_8" ;
+		lv2:name "Lo-pass slope 8" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 210 ;
+		lv2:symbol "hps_8" ;
+		lv2:name "Hi-pass slope 8" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 72.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 211 ;
+		lv2:symbol "flat_8" ;
+		lv2:name "Filter cap flatten 8" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 212 ;
+		lv2:symbol "bg_8" ;
+		lv2:name "Band output gain 8" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 1.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 213 ;
+		lv2:symbol "fre_8" ;
+		lv2:name "Frequency range end 8" ;
+		units:unit units:hz ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 384000.000000 ;
+		lv2:default 20000.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 214 ;
+		lv2:symbol "pdlt_8" ;
+		lv2:name "Punch detector long-time RMS estimation 8" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 100.000000 ;
+		lv2:maximum 1000.000000 ;
+		lv2:default 400.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 215 ;
+		lv2:symbol "pdst_8" ;
+		lv2:name "Punch detector short-time RMS estimation 8" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.100000 ;
+		lv2:maximum 20.000000 ;
+		lv2:default 3.630000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 216 ;
+		lv2:symbol "pdbs_8" ;
+		lv2:name "Punch detector short RMS bias 8" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -6.000000 ;
+		lv2:maximum 6.000000 ;
+		lv2:default -0.500000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 217 ;
+		lv2:symbol "pdmk_8" ;
+		lv2:name "Punch detector makeup 8" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -12.000000 ;
+		lv2:maximum 12.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 218 ;
+		lv2:symbol "pflk_8" ;
+		lv2:name "Punch filter lookahead 8" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 5.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 219 ;
+		lv2:symbol "pfat_8" ;
+		lv2:name "Punch filter attack time 8" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.320000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 220 ;
+		lv2:symbol "pfrt_8" ;
+		lv2:name "Punch filter release time 8" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 2.640000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 221 ;
+		lv2:symbol "pfth_8" ;
+		lv2:name "Punch filter threshold 8" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.354813 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 222 ;
+		lv2:symbol "pfrl_8" ;
+		lv2:name "Punch filter reduction level 8" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.003981 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 223 ;
+		lv2:symbol "pfrz_8" ;
+		lv2:name "Punch filter reduction zone 8" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 1.000000 ;
+		lv2:default 0.707946 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 224 ;
+		lv2:symbol "bpat_8" ;
+		lv2:name "Beat processor attack time 8" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 0.750000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 225 ;
+		lv2:symbol "bprt_8" ;
+		lv2:name "Beat processor release time 8" ;
+		units:unit units:db ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 200.000000 ;
+		lv2:default 2.830000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 226 ;
+		lv2:symbol "bpts_8" ;
+		lv2:name "Beat processor time shift 8" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -10.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 227 ;
+		lv2:symbol "bpth_8" ;
+		lv2:name "Beat processor threshold 8" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.063100 ;
+		lv2:maximum 3.981070 ;
+		lv2:default 0.251190 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 228 ;
+		lv2:symbol "bper_8" ;
+		lv2:name "Beat processor expand ratio 8" ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 10.000000 ;
+		lv2:default 2.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 229 ;
+		lv2:symbol "bpmg_8" ;
+		lv2:name "Beat processor maximum gain 8" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 15.848930 ;
+		lv2:default 1.995260 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 230 ;
+		lv2:symbol "ilm_1l" ;
+		lv2:name "Band input level meter 1 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 231 ;
+		lv2:symbol "olm_1l" ;
+		lv2:name "Band output level meter 1 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 232 ;
+		lv2:symbol "pfem_1l" ;
+		lv2:name "Punch filter envelope level meter 1 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 233 ;
+		lv2:symbol "pfcm_1l" ;
+		lv2:name "Punch filter curve level meter 1 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 234 ;
+		lv2:symbol "pfgm_1l" ;
+		lv2:name "Punch filter gain level meter 1 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 235 ;
+		lv2:symbol "bpem_1l" ;
+		lv2:name "Beat processor envelope level meter 1 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 236 ;
+		lv2:symbol "bpcm_1l" ;
+		lv2:name "Beat processor curve level meter 1 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 237 ;
+		lv2:symbol "bpgm_1l" ;
+		lv2:name "Beat processor gain level meter 1 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 238 ;
+		lv2:symbol "ilm_2l" ;
+		lv2:name "Band input level meter 2 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 239 ;
+		lv2:symbol "olm_2l" ;
+		lv2:name "Band output level meter 2 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 240 ;
+		lv2:symbol "pfem_2l" ;
+		lv2:name "Punch filter envelope level meter 2 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 241 ;
+		lv2:symbol "pfcm_2l" ;
+		lv2:name "Punch filter curve level meter 2 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 242 ;
+		lv2:symbol "pfgm_2l" ;
+		lv2:name "Punch filter gain level meter 2 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 243 ;
+		lv2:symbol "bpem_2l" ;
+		lv2:name "Beat processor envelope level meter 2 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 244 ;
+		lv2:symbol "bpcm_2l" ;
+		lv2:name "Beat processor curve level meter 2 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 245 ;
+		lv2:symbol "bpgm_2l" ;
+		lv2:name "Beat processor gain level meter 2 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 246 ;
+		lv2:symbol "ilm_3l" ;
+		lv2:name "Band input level meter 3 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 247 ;
+		lv2:symbol "olm_3l" ;
+		lv2:name "Band output level meter 3 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 248 ;
+		lv2:symbol "pfem_3l" ;
+		lv2:name "Punch filter envelope level meter 3 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 249 ;
+		lv2:symbol "pfcm_3l" ;
+		lv2:name "Punch filter curve level meter 3 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 250 ;
+		lv2:symbol "pfgm_3l" ;
+		lv2:name "Punch filter gain level meter 3 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 251 ;
+		lv2:symbol "bpem_3l" ;
+		lv2:name "Beat processor envelope level meter 3 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 252 ;
+		lv2:symbol "bpcm_3l" ;
+		lv2:name "Beat processor curve level meter 3 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 253 ;
+		lv2:symbol "bpgm_3l" ;
+		lv2:name "Beat processor gain level meter 3 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 254 ;
+		lv2:symbol "ilm_4l" ;
+		lv2:name "Band input level meter 4 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 255 ;
+		lv2:symbol "olm_4l" ;
+		lv2:name "Band output level meter 4 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 256 ;
+		lv2:symbol "pfem_4l" ;
+		lv2:name "Punch filter envelope level meter 4 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 257 ;
+		lv2:symbol "pfcm_4l" ;
+		lv2:name "Punch filter curve level meter 4 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 258 ;
+		lv2:symbol "pfgm_4l" ;
+		lv2:name "Punch filter gain level meter 4 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 259 ;
+		lv2:symbol "bpem_4l" ;
+		lv2:name "Beat processor envelope level meter 4 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 260 ;
+		lv2:symbol "bpcm_4l" ;
+		lv2:name "Beat processor curve level meter 4 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 261 ;
+		lv2:symbol "bpgm_4l" ;
+		lv2:name "Beat processor gain level meter 4 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 262 ;
+		lv2:symbol "ilm_5l" ;
+		lv2:name "Band input level meter 5 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 263 ;
+		lv2:symbol "olm_5l" ;
+		lv2:name "Band output level meter 5 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 264 ;
+		lv2:symbol "pfem_5l" ;
+		lv2:name "Punch filter envelope level meter 5 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 265 ;
+		lv2:symbol "pfcm_5l" ;
+		lv2:name "Punch filter curve level meter 5 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 266 ;
+		lv2:symbol "pfgm_5l" ;
+		lv2:name "Punch filter gain level meter 5 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 267 ;
+		lv2:symbol "bpem_5l" ;
+		lv2:name "Beat processor envelope level meter 5 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 268 ;
+		lv2:symbol "bpcm_5l" ;
+		lv2:name "Beat processor curve level meter 5 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 269 ;
+		lv2:symbol "bpgm_5l" ;
+		lv2:name "Beat processor gain level meter 5 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 270 ;
+		lv2:symbol "ilm_6l" ;
+		lv2:name "Band input level meter 6 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 271 ;
+		lv2:symbol "olm_6l" ;
+		lv2:name "Band output level meter 6 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 272 ;
+		lv2:symbol "pfem_6l" ;
+		lv2:name "Punch filter envelope level meter 6 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 273 ;
+		lv2:symbol "pfcm_6l" ;
+		lv2:name "Punch filter curve level meter 6 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 274 ;
+		lv2:symbol "pfgm_6l" ;
+		lv2:name "Punch filter gain level meter 6 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 275 ;
+		lv2:symbol "bpem_6l" ;
+		lv2:name "Beat processor envelope level meter 6 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 276 ;
+		lv2:symbol "bpcm_6l" ;
+		lv2:name "Beat processor curve level meter 6 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 277 ;
+		lv2:symbol "bpgm_6l" ;
+		lv2:name "Beat processor gain level meter 6 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 278 ;
+		lv2:symbol "ilm_7l" ;
+		lv2:name "Band input level meter 7 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 279 ;
+		lv2:symbol "olm_7l" ;
+		lv2:name "Band output level meter 7 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 280 ;
+		lv2:symbol "pfem_7l" ;
+		lv2:name "Punch filter envelope level meter 7 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 281 ;
+		lv2:symbol "pfcm_7l" ;
+		lv2:name "Punch filter curve level meter 7 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 282 ;
+		lv2:symbol "pfgm_7l" ;
+		lv2:name "Punch filter gain level meter 7 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 283 ;
+		lv2:symbol "bpem_7l" ;
+		lv2:name "Beat processor envelope level meter 7 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 284 ;
+		lv2:symbol "bpcm_7l" ;
+		lv2:name "Beat processor curve level meter 7 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 285 ;
+		lv2:symbol "bpgm_7l" ;
+		lv2:name "Beat processor gain level meter 7 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 286 ;
+		lv2:symbol "ilm_8l" ;
+		lv2:name "Band input level meter 8 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 287 ;
+		lv2:symbol "olm_8l" ;
+		lv2:name "Band output level meter 8 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 288 ;
+		lv2:symbol "pfem_8l" ;
+		lv2:name "Punch filter envelope level meter 8 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 289 ;
+		lv2:symbol "pfcm_8l" ;
+		lv2:name "Punch filter curve level meter 8 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 290 ;
+		lv2:symbol "pfgm_8l" ;
+		lv2:name "Punch filter gain level meter 8 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 291 ;
+		lv2:symbol "bpem_8l" ;
+		lv2:name "Beat processor envelope level meter 8 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 292 ;
+		lv2:symbol "bpcm_8l" ;
+		lv2:name "Beat processor curve level meter 8 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 293 ;
+		lv2:symbol "bpgm_8l" ;
+		lv2:name "Beat processor gain level meter 8 Left" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 294 ;
+		lv2:symbol "ilm_1r" ;
+		lv2:name "Band input level meter 1 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 295 ;
+		lv2:symbol "olm_1r" ;
+		lv2:name "Band output level meter 1 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 296 ;
+		lv2:symbol "pfem_1r" ;
+		lv2:name "Punch filter envelope level meter 1 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 297 ;
+		lv2:symbol "pfcm_1r" ;
+		lv2:name "Punch filter curve level meter 1 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 298 ;
+		lv2:symbol "pfgm_1r" ;
+		lv2:name "Punch filter gain level meter 1 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 299 ;
+		lv2:symbol "bpem_1r" ;
+		lv2:name "Beat processor envelope level meter 1 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 300 ;
+		lv2:symbol "bpcm_1r" ;
+		lv2:name "Beat processor curve level meter 1 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 301 ;
+		lv2:symbol "bpgm_1r" ;
+		lv2:name "Beat processor gain level meter 1 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 302 ;
+		lv2:symbol "ilm_2r" ;
+		lv2:name "Band input level meter 2 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 303 ;
+		lv2:symbol "olm_2r" ;
+		lv2:name "Band output level meter 2 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 304 ;
+		lv2:symbol "pfem_2r" ;
+		lv2:name "Punch filter envelope level meter 2 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 305 ;
+		lv2:symbol "pfcm_2r" ;
+		lv2:name "Punch filter curve level meter 2 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 306 ;
+		lv2:symbol "pfgm_2r" ;
+		lv2:name "Punch filter gain level meter 2 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 307 ;
+		lv2:symbol "bpem_2r" ;
+		lv2:name "Beat processor envelope level meter 2 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 308 ;
+		lv2:symbol "bpcm_2r" ;
+		lv2:name "Beat processor curve level meter 2 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 309 ;
+		lv2:symbol "bpgm_2r" ;
+		lv2:name "Beat processor gain level meter 2 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 310 ;
+		lv2:symbol "ilm_3r" ;
+		lv2:name "Band input level meter 3 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 311 ;
+		lv2:symbol "olm_3r" ;
+		lv2:name "Band output level meter 3 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 312 ;
+		lv2:symbol "pfem_3r" ;
+		lv2:name "Punch filter envelope level meter 3 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 313 ;
+		lv2:symbol "pfcm_3r" ;
+		lv2:name "Punch filter curve level meter 3 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 314 ;
+		lv2:symbol "pfgm_3r" ;
+		lv2:name "Punch filter gain level meter 3 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 315 ;
+		lv2:symbol "bpem_3r" ;
+		lv2:name "Beat processor envelope level meter 3 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 316 ;
+		lv2:symbol "bpcm_3r" ;
+		lv2:name "Beat processor curve level meter 3 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 317 ;
+		lv2:symbol "bpgm_3r" ;
+		lv2:name "Beat processor gain level meter 3 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 318 ;
+		lv2:symbol "ilm_4r" ;
+		lv2:name "Band input level meter 4 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 319 ;
+		lv2:symbol "olm_4r" ;
+		lv2:name "Band output level meter 4 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 320 ;
+		lv2:symbol "pfem_4r" ;
+		lv2:name "Punch filter envelope level meter 4 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 321 ;
+		lv2:symbol "pfcm_4r" ;
+		lv2:name "Punch filter curve level meter 4 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 322 ;
+		lv2:symbol "pfgm_4r" ;
+		lv2:name "Punch filter gain level meter 4 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 323 ;
+		lv2:symbol "bpem_4r" ;
+		lv2:name "Beat processor envelope level meter 4 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 324 ;
+		lv2:symbol "bpcm_4r" ;
+		lv2:name "Beat processor curve level meter 4 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 325 ;
+		lv2:symbol "bpgm_4r" ;
+		lv2:name "Beat processor gain level meter 4 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 326 ;
+		lv2:symbol "ilm_5r" ;
+		lv2:name "Band input level meter 5 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 327 ;
+		lv2:symbol "olm_5r" ;
+		lv2:name "Band output level meter 5 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 328 ;
+		lv2:symbol "pfem_5r" ;
+		lv2:name "Punch filter envelope level meter 5 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 329 ;
+		lv2:symbol "pfcm_5r" ;
+		lv2:name "Punch filter curve level meter 5 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 330 ;
+		lv2:symbol "pfgm_5r" ;
+		lv2:name "Punch filter gain level meter 5 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 331 ;
+		lv2:symbol "bpem_5r" ;
+		lv2:name "Beat processor envelope level meter 5 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 332 ;
+		lv2:symbol "bpcm_5r" ;
+		lv2:name "Beat processor curve level meter 5 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 333 ;
+		lv2:symbol "bpgm_5r" ;
+		lv2:name "Beat processor gain level meter 5 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 334 ;
+		lv2:symbol "ilm_6r" ;
+		lv2:name "Band input level meter 6 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 335 ;
+		lv2:symbol "olm_6r" ;
+		lv2:name "Band output level meter 6 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 336 ;
+		lv2:symbol "pfem_6r" ;
+		lv2:name "Punch filter envelope level meter 6 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 337 ;
+		lv2:symbol "pfcm_6r" ;
+		lv2:name "Punch filter curve level meter 6 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 338 ;
+		lv2:symbol "pfgm_6r" ;
+		lv2:name "Punch filter gain level meter 6 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 339 ;
+		lv2:symbol "bpem_6r" ;
+		lv2:name "Beat processor envelope level meter 6 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 340 ;
+		lv2:symbol "bpcm_6r" ;
+		lv2:name "Beat processor curve level meter 6 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 341 ;
+		lv2:symbol "bpgm_6r" ;
+		lv2:name "Beat processor gain level meter 6 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 342 ;
+		lv2:symbol "ilm_7r" ;
+		lv2:name "Band input level meter 7 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 343 ;
+		lv2:symbol "olm_7r" ;
+		lv2:name "Band output level meter 7 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 344 ;
+		lv2:symbol "pfem_7r" ;
+		lv2:name "Punch filter envelope level meter 7 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 345 ;
+		lv2:symbol "pfcm_7r" ;
+		lv2:name "Punch filter curve level meter 7 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 346 ;
+		lv2:symbol "pfgm_7r" ;
+		lv2:name "Punch filter gain level meter 7 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 347 ;
+		lv2:symbol "bpem_7r" ;
+		lv2:name "Beat processor envelope level meter 7 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 348 ;
+		lv2:symbol "bpcm_7r" ;
+		lv2:name "Beat processor curve level meter 7 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 349 ;
+		lv2:symbol "bpgm_7r" ;
+		lv2:name "Beat processor gain level meter 7 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 350 ;
+		lv2:symbol "ilm_8r" ;
+		lv2:name "Band input level meter 8 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 351 ;
+		lv2:symbol "olm_8r" ;
+		lv2:name "Band output level meter 8 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 352 ;
+		lv2:symbol "pfem_8r" ;
+		lv2:name "Punch filter envelope level meter 8 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 353 ;
+		lv2:symbol "pfcm_8r" ;
+		lv2:name "Punch filter curve level meter 8 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 354 ;
+		lv2:symbol "pfgm_8r" ;
+		lv2:name "Punch filter gain level meter 8 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 355 ;
+		lv2:symbol "bpem_8r" ;
+		lv2:name "Beat processor envelope level meter 8 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 356 ;
+		lv2:symbol "bpcm_8r" ;
+		lv2:name "Beat processor curve level meter 8 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 357 ;
+		lv2:symbol "bpgm_8r" ;
+		lv2:name "Beat processor gain level meter 8 Right" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 63.095749 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 358 ;
+		lv2:symbol "in_ui" ;
+		lv2:name "UI Input" ;
+		rdfs:comment "UI -> DSP communication" ;
+		rsz:minimumSize 63488 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 359 ;
+		lv2:symbol "out_ui" ;
+		lv2:name "UI Output" ;
+		rdfs:comment "DSP -> UI communication" ;
+		rsz:minimumSize 448512 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 360 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:beat_breather_stereo
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 12 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface, lv2ext:instance-access ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 4 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 6 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 7 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 8 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 10 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 11 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 13 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 14 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 16 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 17 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 19 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 20 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 21 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 23 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 24 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 25 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 26 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 27 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 28 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 30 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 31 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 32 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 33 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 34 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 35 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 36 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 37 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 38 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 39 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 40 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 41 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 42 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 43 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 44 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 45 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 46 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 47 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 48 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 49 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 50 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 51 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 52 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 53 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 54 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 55 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 56 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 57 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 58 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 59 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 60 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 61 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 62 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 63 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 64 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 65 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 66 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 67 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 68 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 69 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 70 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 71 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 72 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 73 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 74 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 75 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 76 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 77 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 78 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 79 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 80 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 81 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 82 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 83 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 84 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 85 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 86 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 87 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 88 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 89 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 90 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 91 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 92 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 93 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 94 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 95 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 96 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 97 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 98 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 99 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 100 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 101 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 102 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 103 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 104 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 105 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 106 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 107 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 108 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 109 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 110 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 111 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 112 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 113 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 114 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 115 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 116 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 117 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 118 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 119 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 120 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 121 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 122 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 123 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 124 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 125 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 126 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 127 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 128 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 129 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 130 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 131 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 132 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 133 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 134 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 135 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 136 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 137 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 138 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 139 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 140 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 141 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 142 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 143 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 144 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 145 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 146 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 147 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 148 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 149 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 150 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 151 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 152 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 153 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 154 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 155 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 156 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 157 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 158 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 159 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 160 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 161 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 162 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 163 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 164 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 165 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 166 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 167 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 168 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 169 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 170 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 171 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 172 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 173 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 174 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 175 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 176 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 177 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 178 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 179 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 180 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 181 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 182 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 183 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 184 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 185 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 186 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 187 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 188 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 189 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 190 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 191 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 192 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 193 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 194 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 195 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 196 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 197 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 198 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 199 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 200 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 201 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 202 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 203 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 204 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 205 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 206 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 207 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 208 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 209 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 210 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 211 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 212 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 213 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 214 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 215 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 216 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 217 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 218 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 219 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 220 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 221 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 222 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 223 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 224 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 225 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 226 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 227 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 228 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 229 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 230 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 231 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 232 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 233 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 234 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 235 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 236 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 237 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 238 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 239 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 240 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 241 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 242 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 243 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 244 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 245 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 246 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 247 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 248 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 249 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 250 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 251 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 252 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 253 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 254 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 255 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 256 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 257 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 258 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 259 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 260 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 261 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 262 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 263 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 264 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 265 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 266 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 267 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 268 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 269 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 270 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 271 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 272 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 273 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 274 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 275 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 276 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 277 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 278 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 279 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 280 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 281 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 282 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 283 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 284 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 285 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 286 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 287 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 288 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 289 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 290 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 291 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 292 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 293 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 294 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 295 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 296 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 297 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 298 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 299 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 300 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 301 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 302 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 303 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 304 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 305 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 306 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 307 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 308 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 309 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 310 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 311 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 312 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 313 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 314 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 315 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 316 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 317 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 318 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 319 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 320 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 321 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 322 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 323 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 324 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 325 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 326 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 327 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 328 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 329 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 330 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 331 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 332 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 333 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 334 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 335 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 336 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 337 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 338 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 339 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 340 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 341 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 342 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 343 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 344 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 345 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 346 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 347 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 348 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 349 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 350 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 351 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 352 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 353 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 354 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 355 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 356 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 357 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 358 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 359 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:beat_breather_stereo ;
+		ui:portIndex 360 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+

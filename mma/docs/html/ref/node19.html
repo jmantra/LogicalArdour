@@ -1,0 +1,1299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Volume and Dynamics</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node20.html">
+<LINK REL="previous" HREF="node18.html">
+<LINK REL="next" HREF="node20.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node20.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node18.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node20.html">Repeats</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node18.html">Swing</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html623"
+  HREF="node19.html#SECTION001910000000000000000">Accent</A>
+<LI><A ID="tex2html624"
+  HREF="node19.html#SECTION001920000000000000000">AdjustVolume</A>
+<UL>
+<LI><A ID="tex2html625"
+  HREF="node19.html#SECTION001921000000000000000">Mnemonic Volume Ratios</A>
+<LI><A ID="tex2html626"
+  HREF="node19.html#SECTION001922000000000000000">Master Volume Ratio</A>
+</UL>
+<BR>
+<LI><A ID="tex2html627"
+  HREF="node19.html#SECTION001930000000000000000">Volume</A>
+<LI><A ID="tex2html628"
+  HREF="node19.html#SECTION001940000000000000000">Cresc and Decresc</A>
+<LI><A ID="tex2html629"
+  HREF="node19.html#SECTION001950000000000000000">Swell</A>
+<LI><A ID="tex2html630"
+  HREF="node19.html#SECTION001960000000000000000">RVolume</A>
+<LI><A ID="tex2html631"
+  HREF="node19.html#SECTION001970000000000000000">Saving and Restoring Volumes</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION001900000000000000000"></A>
+<A ID="sec-volume"></A>
+<BR>
+Volume and Dynamics
+</H1>
+
+<P>
+Before getting into 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  volume specifics, we'll present a short
+primer on volume as it relates to MIDI devices.
+
+<P>
+A MIDI device (a keyboard, software synth, etc.) has several methods
+to control how loud a sound is:
+
+<P>
+
+<UL>
+<LI>Whenever a &ldquo;note on&rdquo; event is sent to the device it has a
+  &ldquo;velocity&rdquo; byte. The velocity can be a value from 1 to 127 (in
+  most cases the value 0 will turn off a note). You can think of these
+  velocity values in the same way as you think of the difference in
+  loudness of a piano key depending on the strength with which you
+  strike a key. The harder you hit the key, the greater the velocity
+  value and the louder the tone.
+
+<P>
+</LI>
+<LI>MIDI devices have &ldquo;controllers&rdquo; which set the volume for a
+  given channel. For example, Controller 7 is the &ldquo;Channel Volume
+  MSB&rdquo; and Controller 39 is the &ldquo;Channel Volume LSB&rdquo;. By sending
+  different values to these controllers the volume for the specified
+  channel will be modified. These changes are relative to the
+  velocities of notes.
+
+<P>
+</LI>
+<LI>MIDI devices have &ldquo;Master Volume&rdquo; setting. This is controlled
+  by a SysEx setting. This setting is not present in all devices. It
+  will effect all channels equally.
+
+<P>
+</LI>
+<LI>Finally, there are various &ldquo;external&rdquo; settings such as volume
+  knobs, foot pedals and amplifier settings. We'll ignore these
+  completely.
+
+<P>
+</LI>
+</UL>
+
+<P>
+An important difference between the &ldquo;velocity&rdquo; and &ldquo;controller&rdquo;
+methods is that you cannot change the volume of a note once it has
+started using the &ldquo;velocity&rdquo; method. However, relying on the
+&ldquo;controller&rdquo; method doesn't always overcome this limitation: some
+synths or playback devices don't support channel volume controllers
+and having multiple notes with different volumes is impossible. So,
+you might need a combination of the two methods to achive your desired
+results.
+
+<P>
+In a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  program there are a number ways to control the velocity of
+each note created.<A ID="tex2html84"
+  HREF="#foot9540"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+
+<P>
+The basic method used by 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to affect volume is to change the
+velocity of a &ldquo;note on&rdquo; event. However, you might also be interested
+in accessing your MIDI device more directly to set better mixes
+between channels. In that case you should read the discussion for
+MIDIV<SMALL>OLUME</SMALL> (<A HREF="node24.html#channelvol">here</A>).
+
+<P>
+The rest of this chapter deals with MIDI velocity. Each note created
+by in a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  program receives an initial velocity set in the pattern
+definition. It then goes though several adjustments. Here's the
+overview of the creation and changes each note's velocity setting goes
+though.
+
+<P>
+
+<OL>
+<LI>The initial velocity is set in the pattern definition, see
+  <A HREF="node4.html#sec-pats">patterns</A>,<A ID="tex2html85"
+  HREF="#foot3426"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+
+<P>
+</LI>
+<LI>the velocity is then adjusted by the master and track volume
+  settings<A ID="tex2html86"
+  HREF="#foot9541"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A> (see
+  <A HREF="#volume-ratio">here</A> for the discussion
+  of A<SMALL>DJUST</SMALL>V<SMALL>OLUME </SMALL>RATIO),
+
+<P>
+</LI>
+<LI>if certain notes are to be accented, yet another adjustment is
+  made,
+
+<P>
+</LI>
+<LI>and, finally, if the random volume is set, more adjustment.
+
+<P>
+</LI>
+</OL>
+
+<P>
+For the most part 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses conventional musical score notation for
+volumes. Internally, the dynamic name is converted to a percentage
+value. The note velocity is adjusted by the percentage.
+
+<P>
+The following table shows the available volume settings and the
+adjustment values.
+
+<P>
+<A ID="volume-table"></A>
+<DIV class="CENTER">
+
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       <TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><SPAN  CLASS="textit">Symbolic Name</SPAN></TD>
+<TD ALIGN="CENTER"><SPAN  CLASS="textit">Ratio (Percentage) Adjustment</SPAN></TD>
+</TR>
+<TR><TD ALIGN="LEFT">off</TD>
+<TD ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">pppp</TD>
+<TD ALIGN="CENTER">5</TD>
+</TR>
+<TR><TD ALIGN="LEFT">ppp</TD>
+<TD ALIGN="CENTER">10</TD>
+</TR>
+<TR><TD ALIGN="LEFT">pp</TD>
+<TD ALIGN="CENTER">25</TD>
+</TR>
+<TR><TD ALIGN="LEFT">p</TD>
+<TD ALIGN="CENTER">40</TD>
+</TR>
+<TR><TD ALIGN="LEFT">mp</TD>
+<TD ALIGN="CENTER">70</TD>
+</TR>
+<TR><TD ALIGN="LEFT">m</TD>
+<TD ALIGN="CENTER">100</TD>
+</TR>
+<TR><TD ALIGN="LEFT">mf</TD>
+<TD ALIGN="CENTER">110</TD>
+</TR>
+<TR><TD ALIGN="LEFT">f</TD>
+<TD ALIGN="CENTER">130</TD>
+</TR>
+<TR><TD ALIGN="LEFT">ff</TD>
+<TD ALIGN="CENTER">160</TD>
+</TR>
+<TR><TD ALIGN="LEFT">fff</TD>
+<TD ALIGN="CENTER">180</TD>
+</TR>
+<TR><TD ALIGN="LEFT">ffff</TD>
+<TD ALIGN="CENTER">200</TD>
+</TR>
+</TABLE>
+  
+	
+           </td></tr>
+        </Table>
+
+</DIV>
+
+<P>
+The setting O<SMALL>FF</SMALL> is useful for generating fades at the end of a
+piece.  For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Volume ff  
+<BR>
+Decresc Off 5 
+<BR>
+G / Gm / * 5   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will cause the last 5 bars of your music to fade from a <SPAN  CLASS="textit">ff</SPAN> to
+silence.
+
+<P>
+As stated before, the initial velocity of a note is set in the pattern
+definition (see <A HREF="node4.html#sec-pats">patterns</A>). The
+following commands set the master volume, track volume and random
+volume adjustments. And, again, please note that even though this
+manual calls the adjustments &ldquo;volume&rdquo;, they all do the same thing:
+manipulate the initial note velocity.
+
+<P>
+
+<H1><A ID="SECTION001910000000000000000"></A> <A ID="accent"></A>
+<BR>
+Accent
+</H1> 
+
+<P>
+&ldquo;Real musicians&rdquo;,<A ID="tex2html87"
+  HREF="#foot3454"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> in an almost
+automatic manner, emphasize notes on certain beats. In popular Western
+music written in <SPAN  CLASS="textbf">4/4</SPAN> time this is usually beats one and
+three. This emphasis sets the pulse or beat in a piece.
+
+<P>
+In 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  you can set the velocities in a pattern so that this emphasis
+is automatically adjusted. For example, when setting a walking bass
+line pattern you could use a pattern definition like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Define Walk W1234 1 4 100; 2 4 70; 3 4 80; 4 4 70  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+However, it is much easier to use a definition which has all the
+velocities the same:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Define Walk W1234 1 1 90 * 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and use the A<SMALL>CCENT</SMALL> command to increase or decrease the volume
+of notes on certain beats:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Walk Accent 1 20 2 -10 4 -10  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The above command will increase the volume for walking bass notes on
+beat 1 by 20%, and decrease the volumes of notes on beats 2 and 4 by
+10%.
+
+<P>
+You can use this command in all tracks.
+
+<P>
+When specifying the accents, you must have matching pairs of data. The
+first item in the pair is the beat (which can be fractional), the
+second is the volume adjustment. This is a percentage of the current
+note volume that is added (or subtracted) to the volume. Adjustment
+factors must be integers in the range -100 to 100.
+
+<P>
+The A<SMALL>CCENT</SMALL>s can apply to all bars in a track; as well, you can
+set different accents for different bars. Just use a &ldquo;{}&rdquo; pair to
+delimit each bar. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Accent {1 20} / / {1 30 3 30}   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The above line will set an accent on beat 1 of bars 1, 2 and 3; in bar
+4 beats 1 and 3 will be accented.
+
+<P>
+You can use a &ldquo;/&rdquo; to repeat a setting. The &ldquo;/&rdquo; can be enclosed in
+a &ldquo;{}&rdquo; delimiter if you want.
+
+<P>
+To reset to the &ldquo;no accenting&rdquo; default, just use an empty command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Accent  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H1><A ID="SECTION001920000000000000000">
+AdjustVolume</A>
+</H1>
+
+<P>
+
+<H2><A ID="SECTION001921000000000000000">
+Mnemonic Volume Ratios</A>
+</H2>
+
+<P>
+The ratios used to adjust the volume can be changed from the table at
+the start of this chapter. For example, to change the percentage used
+for the <SMALL>MF</SMALL> setting:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AdjustVolume MF=95 f=120   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that you can have multiple setting on the same line.
+
+<P>
+The values used have the same format as those used for the
+V<SMALL>OLUME</SMALL> command, below. For now, a few examples:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AdjustVolume Mf=mp+200  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set the adjustment factor for <SPAN  CLASS="textit">mf</SPAN> to that of <SPAN  CLASS="textit">mp</SPAN>
+plus 200%.
+
+<P>
+And,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AdjustVolume mf=+20  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will increase the current <SPAN  CLASS="textit">mf</SPAN> setting by 20%.
+
+<P>
+You might want to do these adjustment in your MMArc file(s).
+
+<P>
+
+<H2><A ID="SECTION001922000000000000000"></A>
+<A ID="volume-ratio"></A>
+<BR>
+Master Volume Ratio
+</H2>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses its master and track volumes to determine the final
+velocity of a note. By default, the track volume setting accounts for
+60% of the adjustment and the master volume for the remaining
+40%. The simple-minded logic behind this is that if the user goes to
+the effort of setting a volume for a track, then that is probably more
+important than a volume set for the entire piece.
+
+<P>
+You can change the ratio used at anytime with the A<SMALL>DJUST</SMALL>V<SMALL>OLUME
+  </SMALL>R<SMALL>ATIO=</SMALL>&lt;<SMALL>VALUE</SMALL>&gt;
+directive. &lt;Value&gt; is the percentage to use for
+the <SPAN  CLASS="textit">Track</SPAN> volume. A few examples:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AdjustVolume Ratio=60  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This duplicates the default setting.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AdjustVolume Ratio=40  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Volume adjustments use 40% of the track volume and 60% of the master
+volume.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AdjustVolume Ratio=100  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Volume adjustments use only the track volume (and ignore the master
+volume completely).
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AdjustVolume Ratio=0  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Volume adjustments use only the master volume (and ignore the track
+volumes completely).
+
+<P>
+Any value in the range 0 to 100 can be used as an argument for this
+command. This setting is saved in G<SMALL>ROOVE</SMALL>s.
+
+<P>
+C<SMALL>RESC</SMALL> and D<SMALL>E</SMALL>C<SMALL>RESC</SMALL> commands can give unexpected results,
+depending on the value of the current ratio. For example, you might
+think that you can fade to silence with a command like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Decresc m pppp 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+However, since the ratio, by default, is set to 60 you are only
+changing the master volume. Two ways you can fix this are:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AdjustVolume Ratio=0 
+<BR>
+Decresc m pppp 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which changes the ratio. If you are also changing G<SMALL>ROOVE</SMALL>s you
+might want to use:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AllGrooves AdjustVolume Ratio=0  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+or, change the volumes for the master and tracks:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Alltracks Decresc m pppp 4 
+<BR>
+Decresc m pppp 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Feel free to experiment with different ratios.
+
+<P>
+
+<H1><A ID="SECTION001930000000000000000"></A> <A ID="volume"></A>
+<BR>
+Volume
+</H1> 
+
+<P>
+The volume for both tracks and the master volume are set with the
+V<SMALL>OLUME</SMALL> command. Volumes can be specified much like standard
+sheet music with the conventional dynamic names. These volumes can be
+applied to a track or to the entire song. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Arpeggio-Piano Volume p  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+sets the volume for the Arpeggio-Piano track to something
+approximating <SPAN  CLASS="textit">piano</SPAN>.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Volume f  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+sets the master volume to <SPAN  CLASS="textit">forte</SPAN>.
+
+<P>
+In most cases the volume for a specific track will be set within the
+G<SMALL>ROOVE</SMALL> definition; the master volume is used in the music file
+to adjust the overall feel of the piece.
+
+<P>
+When using V<SMALL>OLUME</SMALL> for a specific track, you can use a different
+value for each bar in a sequence:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Volume mp ff / ppp  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+A &ldquo;/&rdquo; can be used to repeat values.
+
+<P>
+In addition to the &ldquo;musical symbols&rdquo; like <SPAN  CLASS="textit">ff</SPAN> and
+<SPAN  CLASS="textit">mp</SPAN> you can also use numeric values to indicate a
+percentage. In this case you can use intermediate values to those
+specified in the table above. For example, to set the volume between
+<SPAN  CLASS="textit">mf</SPAN> and <SPAN  CLASS="textit">f</SPAN>, you could do something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Volume 87  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+But, we don't recommend that you use this!
+
+<P>
+A better option is to increment or decrement an existing volume by a
+percentage. A numeric value prefaced by a &ldquo;+&rdquo; or &ldquo;-&rdquo; followed by a
+&ldquo;%&rdquo; is interpreted as a change. So:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-Snare Volume -20%   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+would decrement the existing volume of the D<SMALL>RUM-</SMALL>S<SMALL>NARE</SMALL> track by
+20%. If an adjustment creates a negative volume, the volume will be
+set to 0 and a warning message will be displayed.
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  volume adjustments are velocity adjustments. If a note has an
+initial velocity of 127 you really can't make it louder. So, we
+recommend that you start off notes with a middle-of-the-road velocity
+setting (we use 90) which leaves room for 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's volume commands to
+make adjustments.
+
+<P>
+
+<H1><A ID="SECTION001940000000000000000"></A> <A ID="track-cresc"></A>
+<BR>
+Cresc and Decresc
+</H1>
+
+<P>
+If you wish to adjust the volume over one or more bars use the
+C<SMALL>RESC</SMALL> or D<SMALL>ECRESC</SMALL><A ID="tex2html88"
+  HREF="#foot3520"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A> commands. These
+commands work in both the master context and individual tracks.
+
+<P>
+For all practical purposes, the two commands are equivalent, except
+for a possible warning message. If the new volume in less than the
+current volume in a C<SMALL>RESC</SMALL> a warning will be displayed; the
+converse applies to a D<SMALL>ECRESC</SMALL>. In addition, a warning will be
+displayed if the effect of either command results in no volume change.
+
+<P>
+The command requires two or three arguments. The first argument is an
+optional initial volume followed by the new (destination) volume and
+the number of bars the adjustment will take.
+
+<P>
+For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Cresc fff 5  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will gradually vary the master volume from its current setting to a
+&ldquo;triple forte&rdquo; over the next 5 bars. Note that the very next bar
+will be played at the current volume and the fifth bar at <SPAN  CLASS="textit">fff</SPAN>
+with the other three bars at increasing volumes.
+
+<P>
+Similarly:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum-Snare Decresc mp 2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will decrease the &ldquo;drum-snare&rdquo; volume to &ldquo;mezzo piano&rdquo; over the
+next 2 bars.
+
+<P>
+Finally, consider:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Cresc pp mf 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which will set the current volume to <SPAN  CLASS="textit">pp</SPAN> and then increase it
+to <SPAN  CLASS="textit">mf</SPAN> over the next 4 bars. Again, note that the very next
+bar will be played at <SPAN  CLASS="textit">pp</SPAN> and the fourth at <SPAN  CLASS="textit">mf</SPAN>.
+
+<P>
+You can use numeric values (not recommended!) in these directives:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Cresc 20 100 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+As well as increment/decrement:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Volume ff
+<BR>  ...
+<BR>
+Decresc -10% 40% 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The above example will first set the volume to 10% less than the
+current <SPAN  CLASS="textit">ff</SPAN> setting. Then it will decrease the volume over the
+next 4 bars to a volume 40% less than the new setting for the first
+bar.
+
+<P>
+A S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL> command will reset all track volumes to the default
+<SMALL>M</SMALL>.
+
+<P>
+When applying C<SMALL>RESC</SMALL> or D<SMALL>E</SMALL>C<SMALL>RESC</SMALL> at the track level the
+volumes for each bar in the sequence will end up being the same. For
+example, assuming a two bar sequence length, you might have:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Volume MP F  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which alternates the volume between successive bars in the
+C<SMALL>HORD</SMALL> track. Now, if you were to:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Cresc M FF 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The following actions take effect:
+
+<OL>
+<LI>A warning message will be displayed,
+</LI>
+<LI>The volume for the chord track will be set to <SPAN  CLASS="textit">m</SPAN>,
+</LI>
+<LI>The volume for the chord track will increment to <SPAN  CLASS="textit">ff</SPAN>
+  over the next four bars,
+</LI>
+<LI>The volume for the sequence will end up being <SPAN  CLASS="textit">ff</SPAN> for
+  all the bars in the remaining sequence. You may need to reissue the
+  initial chord volume command.
+</LI>
+</OL>
+
+<P>
+You may find that certain volume adjustments don't create the volumes
+you are expecting. In most cases this will be due to the fact that
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses a master and track volume to determine the final
+result. So, if you want a fade at the end of a piece you might do:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Decresc m pppp 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and find that the volume on the last bar is still too loud. There are
+two simple solutions:
+
+<P>
+
+<UL>
+<LI>Add a command to decrease the track volumes. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Alltracks Decresc m pppp 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+in addition to to the master setting.
+
+<P>
+</LI>
+<LI>Change the ratio between track and master settings:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>AdjustVolume Ratio=0  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+or some other small value.
+
+<P>
+</LI>
+</UL>
+
+<P>
+These methods will produce similar, but different results.
+
+<P>
+The adjustments made for C<SMALL>RESC</SMALL> and D<SMALL>ECRESC</SMALL> are applied
+over each bar effected. This means that the first note or notes in a
+bar will be louder (or softer) than the last. You can use this effect
+for interesting changes by using a single bar for the range. Assuming
+a current volume of <SPAN  CLASS="textit">mp</SPAN>:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Cresc fff 1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set the final notes in the following bar to be <SPAN  CLASS="textit">fff</SPAN>, etc.
+
+<P>
+If you have a number of bars with the same chord and the track you are
+modifying has U<SMALL>NIFY</SMALL> enabled the volume will not
+change. U<SMALL>NIFY</SMALL> creates long notes sustained over a number of
+bars for which the volume is only set once.
+
+<P>
+Sometimes a C<SMALL>RESC</SMALL><A ID="tex2html89"
+  HREF="#foot9544"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> command will span a groove change. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+handles this in two different ways:
+
+<P>
+
+<UL>
+<LI>Master C<SMALL>RESC</SMALL> commands can continue over a new
+  G<SMALL>ROOVE</SMALL>. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove One
+<BR>
+Cresc mp ff 8 
+<BR>
+C * 4 
+<BR>
+Groove Two 
+<BR>
+Dm * 4   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will work just fine. This makes sense since library files and groove
+  definitions normally do not have master volume settings.
+
+<P>
+</LI>
+<LI>However, volume changes at a track level cannot span
+  G<SMALL>ROOVE</SMALL> changes (except S<SMALL>OLO</SMALL> and A<SMALL>RIA</SMALL> tracks
+  which don't get saved in the G<SMALL>ROOVE</SMALL>). Using a similar example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove One
+<BR>
+Chord Cresc mp ff 8 
+<BR>
+C * 4 
+<BR>
+Groove Two 
+<BR>
+Dm * 4   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this case 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will truncate the C<SMALL>RESC</SMALL> after 4 bars and
+  issue a warning message. The C<SMALL>HORD</SMALL> volume will never reach
+  <SPAN  CLASS="textit">ff</SPAN>. Since groove definitions and library files normally do
+  set individual volumes for each track it would be counter intuitive
+  to permit a previous C<SMALL>RESC</SMALL> to continue its effect.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION001950000000000000000">
+Swell</A>
+</H1>
+
+<P>
+Often you want a crescendo to be followed by a decrescendo (or, less
+commonly, a decrescendo followed by a crescendo). Technically, this is
+a <SPAN  CLASS="textit">messa di voce</SPAN>.<A ID="tex2html90"
+  HREF="#foot9545"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A> You'll see the notation in sheet music with
+opposed &ldquo;hairpins&rdquo;.
+
+<P>
+A S<SMALL>WELL</SMALL> is set with a command like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Swell pp ff 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+or
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Swell ff 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In the first case the master volume will be increased over 2 bars from
+<SPAN  CLASS="textit">pp</SPAN> to <SPAN  CLASS="textit">ff</SPAN> and then back to <SPAN  CLASS="textit">pp</SPAN>. In the second
+case the C<SMALL>HORD</SMALL> volume will be increased to <SPAN  CLASS="textit">ff</SPAN> over 2
+bars, then back to the original volume.
+
+<P>
+You can achieve the same results with a pair of C<SMALL>RESC</SMALL> and
+D<SMALL>ECRESC</SMALL> commands (and you might be safer to do just this since
+S<SMALL>WELL</SMALL> doesn't issue as many warnings).
+
+<P>
+Note that, just like in C<SMALL>RESC</SMALL>, you can skip the first argument
+(the initial volume setting). Also, note that the final argument is
+the total number of bars to effect (and it must be 2 or more).
+
+<P>
+
+<H1><A ID="SECTION001960000000000000000"></A>
+<A ID="rvolume"></A>
+<BR>
+RVolume
+</H1>
+
+<P>
+Not even the best musician can play each note at the same volume. Nor
+would he or she want to&mdash;the result would be quite unmusical ...
+so 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tries to be a bit human by randomly adjusting note volume
+with the R<SMALL>VOLUME</SMALL> command.
+
+<P>
+The command can be applied to any specific track. Examples:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord RVolume 10 
+<BR>
+Drum-Snare RVolume 5  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The RV<SMALL>OLUME</SMALL> argument is a percentage value by which a volume is
+adjusted. A setting of 0 disables the adjustment for a track (this is
+the default).
+
+<P>
+When set, the note velocity (after the track and master volume
+adjustments) is randomized up or down by the value. Again, using the
+above example, let us assume that a note in the current pattern gets a
+MIDI velocity of 88. The random factor of 10 will adjust this by 10%
+up or down&mdash;the new value can be from 78 to 98.
+
+<P>
+The idea behind this is to give the track a more human sounding
+effect. You can use large values, but it's not recommended. Usually,
+values in the 5 to 10 range work well. You might want slightly larger
+values for drum tracks.
+
+<P>
+You can further fine-tune the RV<SMALL>OLUME</SMALL> settings by using a minimum and
+maximum value in the form M<SMALL>INIMUM,</SMALL>M<SMALL>AXIMUM</SMALL>. Note the
+<SMALL>COMMA</SMALL>! For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord RVolume 0,10 -10,0 -10,20  8  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Would set different minimum and maximum adjustment values for different sequence
+points. In the above example the adjustments would be in the range 0 to
+10, -10 to 0, -10 to 20 and -8 to 8.
+
+<P>
+Notes:
+
+<P>
+
+<UL>
+<LI>No generated value will be out of the valid MIDI velocity range
+  of 1 to 127.
+
+<P>
+</LI>
+<LI>A different value can be used for each bar in a sequence:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Scale RVolume 5,10 0 / 20  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</LI>
+<LI>A &ldquo;/&rdquo; can be used to repeat values.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION001970000000000000000">
+Saving and Restoring Volumes</A>
+</H1>
+
+<P>
+Dynamics can get quite complicated, especially when you are adjusting
+the volumes of a track inside a repeat or other complicated sections
+of music. In this section attempts to give some general guidelines and
+hints.
+
+<P>
+For the most part, the supplied groove files will have balanced
+volumes between the different instruments. If you find that some
+instruments or drum tones are consistently too loud or soft, spend
+some time with the chapter on <A HREF="#finetuning">Fine Tuning</A>.
+
+<P>
+Remember that G<SMALL>ROOVE</SMALL>s save all the current volume settings.
+This includes the master setting as well as individual track settings.
+So, if you are using the mythical groove &ldquo;Wonderful&rdquo; and think that
+the <SPAN  CLASS="textit">Chord-Piano</SPAN> volume should be louder in a particular song
+it's easy to do something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Wonderful
+<BR>
+Chord-Piano Volume ff
+<BR>
+DefGroove Wonderful   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, when you call this groove the new volume will be used. Note that
+you'll have to do this for each variation of the groove that you use
+in the song.
+
+<P>
+In most songs you will not need to do major changes. But, it is nice
+to use the same volume each time though a section. In most cases
+you'll want to do a explicit setting at the start of a section. For
+example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Repeat 
+<BR>
+Volume mf 
+<BR>  ...
+<BR>
+Cresc ff 5 
+<BR>  ...
+<BR>
+EndRepeat   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Another useful technique is the use of the $_L<SMALL>AST</SMALL>V<SMALL>OLUME</SMALL>
+macro. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Volume pp 
+<BR>  ...
+<BR>
+Cresc f 5 
+<BR>  ...
+<BR>  $_LastVolume // restores to pp  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot9540">... created.</A><A
+ HREF="node19.html#tex2html84"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>We'll try to be consistent and refer to a
+  MIDI &ldquo;volume&rdquo; as a &ldquo;velocity&rdquo; and internal 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  adjustments to
+  velocity as volumes.
+
+</DD>
+<DT><A ID="foot3426">...sec-pats,</A><A
+ HREF="node19.html#tex2html85"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>Solo and
+    Melody track notes use an initial velocity of 90.
+
+</DD>
+<DT><A ID="foot9541">... settings</A><A
+ HREF="node19.html#tex2html86"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>Please don't confuse the concept of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  master
+    and track volumes with MIDI channel volumes.
+
+</DD>
+<DT><A ID="foot3454">... musicians&rdquo;,</A><A
+ HREF="node19.html#tex2html87"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>as opposed to mechanical.
+
+</DD>
+<DT><A ID="foot3520">...D<SMALL>ECRESC</SMALL></A><A
+ HREF="node19.html#tex2html88"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DD>We use the term
+  &ldquo;decrescendo&rdquo;, others prefer &ldquo;diminuendo&rdquo;.
+
+</DD>
+<DT><A ID="foot9544">...C<SMALL>RESC</SMALL></A><A
+ HREF="node19.html#tex2html89"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
+<DD>This applies to D<SMALL>ECRESC</SMALL> and
+  S<SMALL>WELL</SMALL> as well.
+
+</DD>
+<DT><A ID="foot9545">... voce.</A><A
+ HREF="node19.html#tex2html90"><SUP><SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
+<DD>Some references indicate that
+  <SPAN  CLASS="textit">messa di voce</SPAN> applies to a single tone, and 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is not
+  capable of doing this.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node20.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node18.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node20.html">Repeats</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node18.html">Swing</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

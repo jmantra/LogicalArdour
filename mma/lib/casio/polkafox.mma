@@ -1,0 +1,136 @@
+// polkafox 
+
+Begin Doc  
+      PolkaFox (81). A standard, European Polka.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel & Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    Rvolume 10
+    Rtime 10
+    Sequence D1234
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence D24
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence D8
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence   z     z     z   {4.5 0 82}
+End
+
+Begin Drum-Tambourine
+    Tone Tambourine
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence D4 
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 40  /// Snappy
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence B1234
+End
+
+Begin Chord-6
+    Voice NylonGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 60
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence {C1234 Shift .5 }
+End
+
+Begin Chord-7
+    Voice Accordion
+    Octave 6
+    Voicing Mode=Key
+    Articulate 20   // make them 8ths
+    Volume mp
+    Rtime 10
+    RVolume 10
+    // this sequence is 1.5 1.75 2 2.5 3.5 4.5
+    Sequence  {C1234 Shift .5; C1 Shift .75; C2; }
+End
+
+DefGroove PolkaFox  Happy polka with guitar and accordion.
+
+////////////////////////
+//  Intro
+
+Groove PolkaFox
+
+Drum-KickDrum2    Sequence   *    *   D13   D1
+Drum-SnareDrum1   Sequence   *    *   D1    D1 
+Drum-ClosedHiHat  Sequence   D4   *   D4    D1
+Drum-OpenHiHat    Sequence   D1     
+Drum-Tambourine   Sequence   D4   /   /     D1
+
+// FingeredBass
+Bass-9            Sequence *   *   {1 4 5 90; 2 4 4 90; 3 4 3 90; 4 4 2 90} {1 4 1 90}
+
+// NylonGuitar
+Chord-6           Sequence *   *   C13   C1
+
+// Accordion
+Chord-7           Sequence  *   *   C1234  C1
+
+DefGroove PolkaFoxIntro   4 bar introduction.
+
+////////////////////////////////
+// Ending
+
+Groove PolkaFox
+SeqSize 2
+
+Drum-KickDrum2    Sequence   D13   D1
+Drum-SnareDrum1   Sequence   *     D1
+Drum-ClosedHiHat  Sequence   D8    D1
+Drum-OpenHiHat    Sequence   z   
+Drum-Tambourine   Sequence   *      z 
+
+// FingeredBass
+Bass-9   Sequence B13    B1
+
+// NylonGuitar
+Chord-6  Sequence C1234   C1
+
+// Accordion
+Chord-7    Sequence  *   C1
+
+DefGroove PolkaFoxEnd   2 bar ending.

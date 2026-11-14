@@ -1,0 +1,179 @@
+
+// folk
+
+Begin Doc
+
+ Generally folk music doesn't have complicated rhythms. 
+ You can use other libaries like "EasySwing", but if 
+ you are into finger picking guitar, give this a try. 
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+////////////////////////////////////////////////////////////////
+
+
+SeqSize 8
+
+Begin Drum-Tamb
+	Sequence D13
+	RVolume 20
+	Rskip 60
+	Tone Tambourine
+	Rtime 3
+End
+
+Begin Bass
+	Sequence B13
+	Voice AcousticBass
+	Octave 3
+	Volume mp
+	Articulate 80
+End
+
+Begin Chord
+	Sequence {L1 * 4}  / / / / / / L1
+	Invert   0  1  0 1 0 1 0 -1
+	Strum 10
+	Rtime 2
+	Rvolume 9
+	Articulate 90
+	Octave 5
+	Volume mp
+	Voice NylonGuitar
+End
+
+DefGroove Folk  A very simple pattern to set against old songs. Uses a \
+                random Tambourine to liven things up a bit. Wear something \
+                tie-dyed when you use this.
+
+/////////////////////////////
+/// Walking bass
+
+Groove Folk
+
+Bass Sequence -
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Articulate 70
+	Volume mp
+	Sequence W13 / / / / /  / W1234
+End
+ 
+DefGroove FolkWalk   Plain folk rhythm with walking bass.
+
+////////////////////////////////////////////////////////////////
+//////// Add in the Doc Watson effect. I use this version for 
+///////  Deep River Blues.
+
+Begin Arpeggio
+	Sequence	A8 / / / / / / A4
+	Voice NylonGuitar
+	Octave 5
+	Articulate 70
+	RTime 4
+	RVolume 6
+	Rskip 10	// This makes it sound much more human!
+End
+
+Bass Sequence B13 / /  z
+
+Begin Walk
+	Sequence z / / W1234
+	Voice AcousticBass
+	Octave 3
+	Articulate 80
+	Direction Down
+	Volume mp
+End
+
+
+DefGroove FolkArticulated  Fingered picked guitar and a bit of bass.
+
+
+///////////////////
+/// Sustained versions
+
+Groove Folk
+
+Begin Chord-Sus
+	Sequence { 1 2 90 0 90 0; 3 2-0 90 0 90 0}
+	Octave     6
+	DupRoot   -1
+	Voice     Harmonica 
+	Voicing   Mode=Optimal
+	Articulate 100
+	Unify      On
+	Volume     ppp
+End
+
+DefGroove FolkSus  Some nice harmonica chords with the guitar.
+
+Groove FolkArticulated
+Chord-Sus Groove FolkSus
+DefGroove FolkArticulatedSus  Articulated version with harmonica.
+
+
+///////////////////////////
+//// Introduction
+
+SeqClear
+SeqSize 4
+
+Begin Drum-Tamb
+	Sequence D13 / / D1
+	RVolume 20
+	Tone Tambourine
+End
+
+Begin Bass
+	Sequence B13 / / {1 1 1 100}
+	Voice AcousticBass
+	Octave 3
+	Volume mp
+	Articulate 80
+End
+
+Begin Chord
+	Sequence {L1 * 4}  / {L1 * 2} L1
+	Strum 10
+	Articulate 90
+	Octave 5
+	Volume mp
+	Voice NylonGuitar
+End
+
+DefGroove FolkIntro   Pretty boring 4 bar intro.
+
+
+//////////////////////////////
+///// Ending
+
+Groove Folk
+SeqSize 2
+
+Begin Drum-Tamb
+	Sequence D13 D1
+	Rskip 0
+End
+
+Bass Sequence B11
+
+Begin Chord
+	Sequence C1234 C13
+	Invert   0 
+End
+
+DefGroove FolkEnd  Easy, 2 bar ending. First bar has 4 strums, second \
+                   bar has 2 strums.
+
+

@@ -1,0 +1,114 @@
+
+// blues68
+
+Begin Doc
+ A 6/8 blues. Written for "When A Man Loves A Woman". It is in 6/8 time.
+ This Groove relies on an underlying organ with full chords and some 6 beat
+ percussive sounds.
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 6
+Timesig 6/8
+Include stdpats68
+
+
+/// Basic
+
+SeqSize 4
+
+Begin Drum-Snare
+	Tone SnareDrum2
+	Sequence { 1 0 90 * 6}
+	Accent 1 100  4 100
+	Volume p
+	Rtime 2
+	Rvolume 5
+End
+
+Begin Drum-Kick
+	Tone SideKick
+	Volume pp
+	Sequence D14
+    Accent  1 100  
+End
+
+Begin Bass
+	Voice AcousticBass
+	Octave 3
+	Articulate 90
+	Volume f
+	Sequence  B15   /    /   {B15; 3 4 3 60 }
+End
+
+Begin Chord
+	Voice  Organ1
+	Volume mp
+	Articulate 100
+	Octave 5
+	Voicing Mode=Key
+	Sequence  {1 1. 90 0 80 0 * 2}  // play root and 5th of chords
+End
+
+DefGroove Blues68       A very simple, plusing 6/8 beat.
+
+// Add a bit of a solo guitar.
+
+Groove Blues68
+
+Begin Arpeggio
+	Voice JazzGuitar
+	Volume mf
+	Octave 5
+	Direction Random
+    Harmony 3Below+OpenAbove
+	Range 1.5
+	Sequence { 1 1. 90 * 6}   // 6 8th notes
+	Rskip      50     60    70   80
+    Articulate 80     90    100  140
+    SeqRnd On
+End
+
+DefGroove Blues68Plus   Add a guitar "Solo" to our groove.
+
+//////////////////////////////////////////////////////////////
+// Redo all the above with walking bass varients. Just remove
+// the bass and add in a walk.
+
+Groove Blues68
+Bass Sequence -
+Begin Walk
+    Voice $_Bass_Voice
+    Octave $_Bass_Octave
+	Articulate  $_Bass_Articulate
+	Volume f   // A tad less than the bass volume
+    Sequence W14
+End
+
+DefGroove  Blues68Walk   Same 6/8 blues, but with a walking bass
+
+Groove  Blues68Walk
+Arpeggio Groove Blues68Plus
+DefGroove Blues68WalkPlus   Our 6/8 blues with a walking bass and solo.
+
+/////////////////////////////
+// Intro
+Groove Blues68
+
+Drum-Kick   Sequence   -   // no kick in intro
+Drum-Snare  Sequence  *    *   *    D14   // same but only 1/4 on final
+
+DefGroove Blues68Intro  A four bar introduction.
+
+// Ending
+Groove Blues68
+
+Seqsize  2    // turnacte to 2 bar
+
+Chord Articulate 80  60
+Drum-Kick   Sequence  D1   z
+Drum-Snare  Sequence  D14  D1
+
+DefGroove Blues68End    A two bar ending.

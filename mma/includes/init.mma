@@ -1,0 +1,26 @@
+// Synth initialize. This is my personal file
+
+
+// GM Reset. May or may not be a good idea. See reset.mma for comments.
+
+MIDI 0xF0 0x05 0x7E 0x7F 0x09 0x01 0xF7
+
+// Loop to set channel volume to 80 (not channel 1)
+
+//Set Channel 0xb1
+//10
+//	MIDI $Channel 0x07 0x50      // channel volume == 80 
+//	Inc Channel
+//	If LE $Channel 0xbf 
+//		goto 10
+//	Endif 
+
+ChannelInit channels=2-16 MidiVolume m
+
+//MIDI 0xb0 0x07 0x7f   // set track 0 volume to max
+
+// Give a moment of rest to make sure everything takes.
+// Probably not needed for most syths, but doesn't hurt.
+
+beatadjust 1
+

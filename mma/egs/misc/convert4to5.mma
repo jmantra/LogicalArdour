@@ -1,0 +1,69 @@
+// Simple example to play a 4/4
+// groove in 5/4 time ... silly
+// 'cause it's easy enough to create
+// the 5/4 to start :)
+
+Tempo 100
+Groove NiteJazz
+
+// All we do is create 1/4 bars followed by 4/4
+Truncate 1
+C
+C
+Truncate 1
+G
+G
+Truncate 1
+Dm
+Dm
+Truncate 1
+C
+C
+
+// That works, but it is a bit ugly. How about using a subroutine. This
+// produces the same sequences.
+
+DefCall To54 chord
+  Truncate 1
+  $Chord
+  $Chord
+EndDefCall
+
+Call To54 C
+Call To54 G
+Call To54 Dm
+Call To54 C
+
+/// Now, the ultimate solution :) The problem with the
+/// about function is that it doesn't handle chord lines
+/// with more that one chord (at beat 1). Not the greatest.
+/// So, this time we'll do it right!
+
+DefCall To54 chord
+  /// First off we truncate a bar to one beat
+  /// and we play the first chord passed to
+  /// our lovely function.
+  Truncate 1 
+  $Chord[:1]
+  
+  /// We are now back to 4 beats/bar. We cut of the
+  /// the first chord we just played and whatever
+  /// is left is what we use for the next bar.
+  /// Complication: We might end up with an empty
+  /// string. So, we check the length and if it is
+  /// an empty string we set it to a single '/'
+  /// Finally, we process a normal chord line
+  
+  Set Chord $Chord[1:]
+  Set Length $Chord[]
+  If Eq $Length 0 
+     Set Chord /
+  Endif
+  $Chord
+EndDefCall
+
+
+Call To54  Bm Cm F G   /// 4 chords
+Call To54 G            /// 1 chord
+Call To54 A  / / B F   /// 5 chords
+Call To54 /            /// 1 chord (F from the last bar)

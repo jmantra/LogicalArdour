@@ -1,0 +1,229 @@
+
+// countryblues
+
+
+Doc    I use this on some country tunes like "I Fall To Pieces".
+
+Author Bob van der Poel
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////
+/// Pattern definitions
+
+
+Begin Bass Define
+	B134	1 4 1 90; 3 8+16 3 80; 4 4 5 85 
+End
+
+
+////////////////////////////////////////////////////
+
+
+SeqSize 4
+
+Begin Drum-Snare
+	Sequence D8 
+	Tone SnareDrum1
+	Rskip 10
+	Rtime 2
+	Volume pp
+End
+
+Begin Drum-HH
+	Sequence { D8 Shift .5  }
+	Tone OpenHiHat
+	Rskip 40
+	Rtime 2
+	Volume ppp
+End
+
+Begin Drum-Clap
+	Sequence D24 
+	Tone HandClap
+	Volume mp
+	Rvolume 10
+	RSkip 50
+End
+
+
+// Piano chords on beats 1, 2, 3 and 4
+
+Begin Chord
+	Voice Piano3
+	Sequence   C1234  
+	Voicing   Mode=Optimal
+	RVolume 5
+	Octave 5
+	Volume mf
+	Articulate 99
+End
+
+// Push notes just before beats 2 and 4. Same piano as CHORD, but
+// different volume, articulation, and octave.
+
+Begin Chord-1
+	Voice $_Chord_Voice
+	Octave 6
+	RVolume 5
+	Sequence   {C13 Shift .666}
+	Articulate 80
+	Volume mp
+End
+
+// Simple enough bass pattern:
+//   bar 1 & 3 - root on 1, 3rd on 3 and 5th on 4
+//   bar 2     - root on 1, 5th on 3
+//   bar 4     - 1/4 note walk
+
+Begin Bass 
+	Voice FretlessBass
+	Sequence    B134    B13    B134  z
+	Octave 3
+	Volume mp
+	Articulate 80
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence     z       z     z    W1234
+	Volume $_Bass_Volume
+	Articulate $_Bass_Articulate
+End
+
+
+DefGroove CountryBlues   Somewhat lamentive blues.
+
+
+
+Begin Chord-Sus
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Volume mp
+	Voice SlowStrings
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+DefGroove CountryBluesSus   Adds  sustained strings.
+
+/// Full walking bass
+
+Groove CountryBlues
+
+Bass Sequence    -
+Walk Sequence    W1234
+
+DefGroove CountryBluesWalk   Walking bass version.
+
+Chord-Sus Groove CountryBluesSus 
+
+DefGroove CountryBluesWalkSus Walking bass and sustained strings.
+
+
+//////////////////////////////////////////////
+// CountryBlues1
+// Change chord for a  Chord/Triplet/Chord/Triplet
+
+Groove CountryBlues
+
+Begin Chord
+	Sequence  C1234  { C1234 * 3 }
+	Volume    mp      p
+End
+
+Chord-1  Sequence  {C13 Shift .66} C13
+
+DefGroove CountryBlues1  Add piano triplets every 2 bars.
+
+Chord-Sus Groove CountryBluesSus
+
+DefGroove CountryBlues1Sus  Sustained version.
+
+Groove CountryBlues1
+Bass Sequence -
+Walk Sequence W1234
+
+DefGroove CountryBlues1Walk   Triplet version with walking bass.
+
+Chord-Sus Groove CountryBluesSus
+
+DefGroove CountryBlues1WalkSus Triplet version with walking bass and strings.
+
+
+//////////////////
+/// Fiddle fill versions
+
+
+Groove CountryBlues
+
+Begin Arpeggio
+	Voice Violin
+	Sequence  A4  /  A8 A6
+	RSkip        10
+	Articulate  99
+	Unify on
+	Direction Random
+	SeqRnd On
+	Range 2
+	Volume p
+	Octave 5
+End
+
+DefGroove CountryBluesFill          Adds a bad fiddler (use sparingly!).
+
+Groove CountryBluesWalk
+Arpeggio Groove CountryBluesFill
+DefGroove CountryBluesWalkFill      Walking bass with fiddler.
+
+Groove CountryBlues1
+Arpeggio Groove CountryBluesFill
+DefGroove CountryBlues1Fill         Piano triplets and fiddle.
+
+Groove CountryBlues1Walk
+Arpeggio Groove CountryBluesFill
+DefGroove CountryBlues1WalkFill     Piano triplets, walking bass and fiddle.
+
+//////////////////////////////////////
+/// Intro
+
+Groove CountryBlues
+
+Drum-Snare  Sequence  -//*  *  *     D13
+Drum-HH     Sequence  -//*  *  *     {D12; D12 Shift .5}
+Begin Drum-Clap
+    Sequence  *  *  D1234 D1
+    Rskip 0
+End
+Chord 	    Sequence  *  *  * L1
+Chord-1     Sequence  *  *  * z
+Bass        Sequence    B134    B13    B134  B1
+Walk        Sequence -
+
+DefGroove CountryBluesIntro  A 4 bar introduction.
+
+//////////////////////////////////////
+/// Endings
+
+Groove CountryBlues
+
+Drum-Snare  Sequence D13
+Drum-HH     Sequence D13
+Begin Drum-Clap 
+            Sequence D24 
+			RSkip 0
+End
+
+Chord Sequence C1234
+CHord-1 Sequence -
+Bass  Sequence B11
+Walk  Sequence -
+
+Defgroove CountryBluesEnd  Simple ending.
+
+

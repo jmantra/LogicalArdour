@@ -1,0 +1,210 @@
+
+// ==============================================
+// Grooves
+// ==============================================
+
+// 8beat1
+
+Begin Doc
+
+  8 Beat Classic Rock Style
+
+End
+
+Author Peter Falk
+
+SeqClear
+Time 4
+Timesig 4 4
+Include pfpats01
+
+
+// 8 Beat 1, Section A ==========================
+
+SeqSize 4
+
+Begin Drum-Cymbal
+     Sequence D1234-2 / / /
+     Volume mp
+     Tone ClosedHiHat
+     Rtime 2
+     RVolume 10
+     Accent 1 20 2 20 3 20 4 20
+End
+
+Begin Drum-Snare
+     Sequence D24 / / /
+     Volume m
+     Tone SnareDrum1
+     Rtime 2
+     RVolume 10
+     Accent 2 20 4 20
+End
+
+Begin Drum-Kick
+     Sequence D12+3 / / D13
+     Volume m
+     Tone KickDrum1
+     Rtime 2
+     RVolume 5
+     Accent 1 20 3 20
+End
+
+Begin Drum-HH
+     Sequence -
+     Volume mp
+     Tone PedalHiHat
+     Rtime 2
+     RVolume 10
+     Accent 2 20 4 20
+End
+
+Begin Bass
+     Sequence B12+3 B12+34+ B12+3 B12+34+
+     Voice FingeredBass
+     Octave 3
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Accent 1 20 3 20
+End
+
+Begin Chord-Piano
+     Sequence C12+3 C13 C12+3 C13
+     Voice Piano1
+     Voicing Mode=Optimal 
+     Octave 5
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Accent 1 20 3 20
+End
+
+Begin Plectrum-Guitar
+     Sequence PD24 / / /
+     Voice CleanGuitar
+     Octave 4
+     Volume mp
+     Rtime 2
+     RVolume 5
+     Accent 2 20 4 20
+End
+
+DefGroove 8beat1A            8 Beat 1, Section A
+
+
+// 8 Beat 1, Section B ==========================
+
+Drum-Cymbal Tone RideCymbal1
+Drum-HH Sequence D24 / / /
+
+Chord-Piano Sequence C12+34 C1234 C12+34 C1234
+
+
+DefGroove 8beat1B            8 Beat 1, Section B
+
+
+// 8 Beat 1, Section A, Fill-in =================
+
+Groove 8beat1A
+SeqSize 1
+
+Drum-Cymbal Sequence -
+Drum-Snare Sequence DFill02A
+Drum-Kick Sequence D1234
+Drum-HH Sequence -
+Bass Sequence -
+Chord-Piano Sequence C13
+Plectrum-Guitar Sequence PD24
+
+Begin Drum-HiTom
+     Sequence DFill02B
+     Volume m
+     Tone HighTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Drum-MediumTom
+     Sequence DFill02C
+     Volume m
+     Tone MidTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Drum-FloorTom
+     Sequence DFill02D
+     Volume m
+     Tone LowTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Scale-Bass
+     Sequence Scale4
+     Voice FingeredBass
+     Octave 3
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Direction UP
+End
+
+DefGroove 8beat1FA           8 Beat 1, Section A Fill-in
+
+
+// 8 Beat 1, Section B, Fill-in =================
+
+Drum-HH Sequence D1234
+Drum-Snare Sequence DFill05A
+Drum-Hi-Tom Sequence DFill05B
+Drum-Medium-Tom Sequence DFill05C
+Drum-Floor-Tom Sequence DFill05D
+Chord-Piano Sequence C1234
+
+DefGroove 8beat1FB           8 Beat 1, Section B Fill-in
+
+
+// 8 Beat 1, Ending =============================
+
+Groove 8beat1B
+SeqSize 2
+
+Drum-Cymbal Sequence -
+Drum-Snare Sequence D1234-2 z
+Drum-Kick Sequence D1234 D1
+Drum-HH Sequence -
+Bass Sequence -
+Chord-Piano Sequence C1234 C1
+Plectrum-Guitar Sequence PD24 PD1
+
+Begin Drum-FloorTom
+     Sequence D1234-2 z 
+     Volume m
+     Tone LowTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Drum-Crash
+     Sequence z D1
+     Volume m
+     Tone CrashCymbal1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Scale-Bass
+     Sequence Scale4 z
+     Voice FingeredBass
+     Octave 3
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Direction UP
+End
+
+DefGroove 8beat1E            8 Beat 1, Ending
+
+

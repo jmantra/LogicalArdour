@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Entry Points</TITLE>
+<META NAME="description" CONTENT="Entry Points">
+<META NAME="keywords" CONTENT="mma-plugins">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-2">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2021.2">
+
+<LINK REL="STYLESHEET" HREF="mma-plugins.css">
+
+<LINK REL="next" HREF="node3.html">
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node3.html">Preset Values</A>
+<B> Up:</B> <A
+ HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A
+ HREF="node1.html">Easy Guide</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html15"
+  HREF="node2.html#SECTION00210000000000000000">run(param-list):</A>
+<LI><A ID="tex2html16"
+  HREF="node2.html#SECTION00220000000000000000">trackRun():</A>
+<LI><A ID="tex2html17"
+  HREF="node2.html#SECTION00230000000000000000">dataRun(param-list):</A>
+<LI><A ID="tex2html18"
+  HREF="node2.html#SECTION00240000000000000000">printUsage():</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION00200000000000000000">
+Entry Points</A>
+</H1>
+
+<P>
+Following are simple examples for each entry point recognized by
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
+
+<P>
+
+<H1><A ID="SECTION00210000000000000000">
+run(param-list):</A>
+</H1>
+
+<P>
+The <SMALL>RUN()</SMALL> function is executed when a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  script encounters
+the plugin's keyword in a non-track context. Following is a simple bit
+of Python code we used in the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">hello</SPAN></SPAN> example shipped with
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
+def run(l):
+    print("Hello. This is the run() function in the MMA plugin.")
+    print("We are at line %s in the MMA file %s." % (gbl.lineno, gbl.infile))
+
+    if l:
+        print("Args passed are:")
+        for i in l:
+            print(i)
+</PRE></td></tr></table>
+
+<P>
+In the first line we pass the parameter &ldquo;l&rdquo;. This is set by the
+main 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  parser and contains a list of any parameters passed to the
+@H<SMALL>ELLO</SMALL> function. 
+
+<P>
+We leave the rest of the program as an exercise.
+
+<P>
+
+<H1><A ID="SECTION00220000000000000000">
+trackRun():</A>
+</H1>
+
+<P>
+The next entry point is the <SMALL>TRACK</SMALL>R<SMALL>UN()</SMALL> function. This is
+executed when the parser finds the plugin's keyword in a track
+context. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Plectrum-Main  @Hello My command params  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The difference between the simple and track versions is that
+trackRun() is also passed the &ldquo;name&rdquo; of the track. For example,
+the above example will have the first parameter set to the string
+&ldquo;PLECTRUM-MAIN&rdquo;. Using the following code you can set a variable
+(in this case &ldquo;self&rdquo;) to point to the Plectrum-Main class.
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
+    self = gbl.tnames[name]
+</PRE></td></tr></table>
+
+<P>
+For this to work, you will need to import 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's global module into
+the namespace. We suggest you do that at the top of your plugin.py
+module:
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
+    import MMA.gbl as gbl
+</PRE></td></tr></table>
+
+<P>
+Using the &ldquo;self&rdquo; variable you now have access to all of the
+variables associated with the track. You'll have to dig though the
+code a bit, but a few examples (most of the settings are in the form
+of a list with a value for every sequence point in your song):
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
+  self.volume  -- track specific volume 
+  self.articulate -- track specifc articulations
+  self.sticky -- a True/False setting
+</PRE></td></tr></table>
+
+<P>
+For more variables we suggest you examine the pat.py module.
+
+<P>
+Yes, you can change these values from your plugin. Is that a good
+idea? Probably not! For an alternate method to change settings read
+the &ldquo;returning values&rdquo; chapter, below.
+
+<P>
+
+<H1><A ID="SECTION00230000000000000000">
+dataRun(param-list):</A>
+</H1>
+
+<P>
+The <SMALL>DATA</SMALL>R<SMALL>UN()</SMALL> function is executed when a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  script
+encounters the plugin's keyword in a data line context. If you examine
+the very simple code for addgm/plugin.py you'll see a one line python
+function defined in the example file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugins/addgm</SPAN></SPAN> shipped with
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<PRE>
+def dataRun(ln):
+     return ['Gm'] + ln
+</PRE></td></tr></table>
+
+<P>
+All it does is to add "Gm" to the start of data line. However, there
+is nothing saying you can't do much, much more with this. The function
+is passed the entire data line (as a Python list). You could parse it
+and change chord names or types, etc.
+
+<P>
+
+<UL>
+<LI>If no leading comment line number is present in your data line
+  <SPAN  CLASS="textit">and</SPAN> the run() function <SPAN  CLASS="textbf">is</SPAN> defined, the run()
+  function (from the plugin) will be called.
+
+<P>
+</LI>
+<LI>If there is not a leading comment line number and run()
+  <SPAN  CLASS="textbf">has not</SPAN> been defined, a comment line number based on
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's internal tables is inserted into the start of the line and
+  the dataRun() function (from the plugin) is called.
+
+<P>
+</LI>
+<LI>In most cases you'll find it easiest to create a plugin which
+  has a trackRun() and/or a run() function <SPAN  CLASS="textbf">or</SPAN> a dataRun()
+  function. Combining them will lead to your confusion!
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION00240000000000000000">
+printUsage():</A>
+</H1>
+
+<P>
+The final entry point is the <SMALL>PRINT</SMALL>U<SMALL>SAGE()</SMALL> command. It receives
+no parameters and is only called when 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  finds a <SPAN  CLASS="textbf">-I
+  plugin-name</SPAN> command line argument. This code is then interpreted
+and the program ends.
+
+<P>
+<SMALL>PRINT</SMALL>U<SMALL>SAGE()</SMALL> should print a simple usage message. 
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node3.html">Preset Values</A>
+<B> Up:</B> <A
+ HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A
+ HREF="node1.html">Easy Guide</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

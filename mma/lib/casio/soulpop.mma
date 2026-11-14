@@ -1,0 +1,125 @@
+// soulpop.mma
+
+Begin Doc  
+      Soul Pop (024). A soulful pop rock.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Rvolume 10
+    Sequence {1 0 115; 3.3 0 62; 3.5 0 115; 4.8 0 73} \
+             {1 0 115; 3.3 0 37; 3.5 0 115; 4.3 0 115} 
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Rvolume 10
+    Sequence {2 0 121; 4 0 122}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 10
+    Sequence {1 0 123; 1.3 0 120; 1.5 0 123; 2 0 123; 2.3 0 90; \
+               2.5 0 123; 3 0 123; 3.3 0 107; 3.5 0 123; 4 0 123; 4.3 0 123; 4.5 0 123}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence z    {4.5 0 123} 
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 100
+    Volume mp
+    RVolume 10
+    RTime 5
+    Sequence {1.3 32 1 122; 1.5 32 1 104; 2 6 5 127; 2.5 6 1 122; \
+                2.8 64 5 89; 3 6 1 122; 3.5 32 5 122; 4 3 1 112; \
+                4.5 32 1 122; 4.8 6 5 127}
+End
+
+Begin Chord-6
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    RVolume 10
+    Sequence {1 4 90; 2.3 64 90; 2.5 64 90; 3 32 90}
+End
+
+Begin Chord-7
+    Voice Clavinet
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    RTime 5
+    RVolume 10
+    Sequence {1.3 32 90; 1.5 6 90; 2 6 90; 2.5 32 90; 3 6 90; 3.5 32 90; \
+               3.8 32 90; 4 6 90; 4.3 0 90; 4.5 6 90}
+End
+
+DefGroove SoulPop   A basic pop, not too soulfull.
+
+/////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove SoulPop
+
+Drum-KickDrum1    Sequence  D1234    *    *   D13
+Drum-SnareDrum1   Sequence  *        *    D1234  D24
+Drum-ClosedHiHat  Sequence  *        *    D8     D1234
+Drum-OpenHiHat    Sequence  D1       {D4 Shift .5}   {D24 Shift .5}  /
+
+Bass-9            Sequence  *        *    B1234    B13
+
+// Piano1
+Chord-6           Sequence  *      *     *      C13
+
+// Calvinet
+Chord-7           Sequence  *     *      *  {C8 ; C1234 Shift .25}
+
+
+DefGroove SoulPopIntro  4 bar intro
+
+/////////////////////////////////////////////////////////////////
+/////////  Ending
+
+Groove SoulPop
+SeqSize 2
+
+Drum-KickDrum1    Sequence  D1234    D1
+Drum-SnareDrum1   Sequence  *        D1
+Drum-ClosedHiHat  Sequence  D8       D1
+Drum-OpenHiHat    Sequence  *        D1
+
+Bass-9            Sequence  *       B1
+
+// Piano1
+Chord-6           Sequence  *        L1
+
+// Calvinet
+Chord-7           Sequence  *        C1
+
+
+DefGroove SoulPopEnd  2 bar ending
+

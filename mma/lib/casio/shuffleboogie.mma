@@ -1,0 +1,146 @@
+ // shuffleboogie.mma
+
+Begin Doc  
+      Shuffle Boogie (047). This is pretty good, better with more variations.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 103; 2 0 103; 3 0 103; 4 0 103}
+End
+
+Begin Drum-HandClap
+    Tone HandClap
+    Volume m
+    RVolume 10
+    Sequence {2 0 56; 4 0 52}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence {2 0 91; 4 0 91} \
+             {2 0 98; 3.66 0 104; 4 0 69} \
+             {2 0 95; 4 0 97; 4.66 0 102} \
+             {2 0 104; 3.66 0 100; 4 0 104}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 100; 2 0 100; 2.66 0 100; 3 0 100; 4 0 100; 4.66 0 100}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence z    z   z    {1.66 0 80}
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 8 1 119; 2 8 3 119; 3 8 5 111; 4 8 3 104} \
+             {1 8 1 96; 2 8 3 111; 3 8 5 118; 4 8 3 121; 4.66 32 5 123}
+End
+
+Begin Chord-6
+    Voice Piano2
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    RVolume 10
+    Sequence {1 3 90; 1.66 6 90; 2 3 90; 2.66 6 90; 3 3 90; 3.66 6 90; 4 3 90; 4.66 6 90}
+End
+
+
+Begin Chord-7
+    Voice MutedGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 16 90; 1.66 32 90; 2 16 90; 2.66 64 90; 3 16 90;\
+                 3.66 32 90; 4 16 90; 4.66 64 90} 
+End
+
+
+Begin Chord-8
+    Voice TenorSax
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 16 90 0 80 0; 1.66 16 90 0 80 0; 3 16 90 0 80 0}
+End
+
+
+DefGroove ShuffleBoogie  Main pattern
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove ShuffleBoogie
+
+Drum-KickDrum1    Sequence   *   *    *   D13
+Drum-HandClap     Sequence   *   *    *   D1234
+Drum-SnareDrum2   Sequence   *   *    D1234  D24
+Drum-ClosedHiHat  Sequence   *   *    *    D8
+Drum-OpenHiHat    Sequence   z   z    D8   {D13 Shift .66}
+
+Bass-9            Sequence   *   *    *    B11
+
+//  Piano2
+Chord-6           Sequence   *   *     *   C13
+
+//  MutedGuitar
+Chord-7           Sequence   *   *     *   C24
+
+// TenorSax
+Chord-8           Sequence   C1  *     C1   {1 8 90 0 80 0;  3 8 90 0 80 0}
+
+DefGroove ShuffleBoogieIntro  4 bar intro
+
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove ShuffleBoogie
+SeqSize 2
+
+Drum-KickDrum1    Sequence    D13    D1
+Drum-HandClap     Sequence    D1234  D1
+Drum-SnareDrum2   Sequence    D1234  z
+Drum-ClosedHiHat  Sequence    D8     D1
+Drum-OpenHiHat    Sequence    z      D1
+
+Bass-9            Sequence    *      B1
+
+//  Piano2
+Chord-6           Sequence   *       C1
+
+//  MutedGuitar
+Chord-7           Sequence   *        z
+
+// TenorSax
+Chord-8           Sequence   *        {1 8 90 0 80 0}
+
+DefGroove ShuffleBoogieEnd  2 bar ending
+
+
+

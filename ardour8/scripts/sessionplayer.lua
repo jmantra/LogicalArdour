@@ -139,7 +139,7 @@ if rv["dropdown"] == 5 then
         return
     end
 
-    local user_config_directory = ARDOUR.user_config_directory(8)
+    local user_config_directory = ARDOUR.user_config_directory(-1)
     print(user_config_directory)
     local subdir = "route_templates"
     local full_path = user_config_directory .. "/" .. subdir

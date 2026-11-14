@@ -1,0 +1,349 @@
+// ballad
+
+Doc A rock ballad in 4.
+  
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+///////// Additional Patterns
+
+
+////////// Ballad
+
+SeqSize 4
+
+// We just set some timings/volumes for the DRUM track, but no
+// sequence. This is then used to as a master to copy into
+// the real tracks.
+
+Begin Drum
+	Rvolume 20
+	Rtime 4
+	Rskip 5
+	Volume p
+End
+
+Begin Drum-Kick
+	Copy Drum
+	Sequence {D13; D2 shift .5}
+	Tone KickDrum1
+	Volume f
+End
+
+Begin Drum-HH
+	Copy Drum
+	Sequence D2
+	Tone PedalHiHat
+End
+
+Begin Drum-Cym
+	Copy Drum
+	Sequence D1 D1 z z
+	Tone RideCymbal1
+End
+
+Begin Drum-Tamb
+	Copy Drum
+	Sequence D4
+	Tone Tambourine
+End
+
+Begin Drum-Bongo
+	Copy Drum
+	Sequence {D2 shift .5}
+	Tone LowBongo
+End
+
+Begin Drum-HiConga
+	Copy Drum
+	Sequence D4
+	Tone MuteHighConga
+End
+
+Begin Drum-LoConga
+	Copy Drum
+	Sequence D13
+	Tone LowConga
+End
+
+Begin Drum-Cabasa
+	Copy Drum
+	Sequence D1234
+	Tone Cabasa
+End
+
+Begin Drum-MuteTri
+	Copy Drum
+	Sequence {D24; D24 Shift .5}
+	Tone MuteTriangle
+End
+
+Begin Drum-OpenTri
+	Copy Drum
+	Sequence D124 {D1234 Shift .5}
+	SeqRnd On
+	Tone OpenTriangle
+	Volume pp
+End
+
+Begin Drum-Shake
+	Copy Drum
+	Sequence {D1234 Shift .5}
+	Tone Shaker
+End
+
+// Chord is a 4 bar pattern. In bar 3 the
+// 1st beat is skipped.
+
+Begin Chord
+	Voice Atmosphere
+	Sequence   C1234   /   C234   C1234
+	Voicing   Mode=Optimal  Rmove=20
+	Octave 5
+	Articulate 99
+	Volume mp
+End
+
+// Bass beat is a 2 bar sequence. The first bar
+// uses the root on beats 1 and 4; the 2nd uses 
+// the root and the 5th.
+
+Begin Bass
+	Voice FretLessBass
+	Sequence   { 1 4 1 90 ; 4 4 1 80 }   { 1 4 1 90 ; 4 4 5 80 }
+	Articulate 60
+	Rtime 5
+	Rvolume 10
+	Octave 3
+End
+
+// Arpeggiate in 8ths. A fair bit of randomizing for the
+// volume and timing. We also skip about 10% of the hits.
+
+Begin Arpeggio
+	Voice OrchestralHarp	
+	Sequence   A8
+	Articulate 80
+	Range 2
+	Rtime 20
+	Rskip 10
+	Rvolume 30
+	Octave 4 
+	SeqRnd On
+	Volume p	
+End
+
+DefGroove Ballad     Simple Rock ballad in 4.
+
+
+/////// Add sustained strings 
+
+Groove Ballad
+
+Begin Chord-Sus
+	Voice      TremoloStrings
+	Sequence   {1 1 90 0 90 0 * 4}
+	Voicing Mode=Optimal
+	Octave     5
+	Articulate 100
+	Unify On
+	Volume     p   
+End
+
+
+DefGroove BalladSus    Our simple ballad with sustained strings.
+
+
+////////// Ballad1 - replace the arpeggio with block chords
+
+Groove Ballad
+
+Arpeggio Sequence -
+
+Begin Chord-Harp
+	Voice OrchestralHarp	
+	Sequence   { C134; 2.5 8 90 }
+	Articulate 80
+	Rtime 20
+	Rskip 10
+	Rvolume 30 
+	Octave 4 5
+	SeqRnd On
+	Volume mp	
+End
+
+DefGroove Ballad1      Arpeggios replaced with block chords.
+
+Chord-Sus Groove BalladSus
+
+DefGroove Ballad1Sus  Add sustained strings to Ballad1.
+
+
+////////////////////
+/// Fills
+
+Groove Ballad
+SeqSize 1
+
+// Drum-Kick
+// Drum-HH
+// Drum-Cym
+Drum-Tamb  Sequence D1234
+// Drum-Bongo
+Drum-HiConga Sequence D24
+// Drum-LoConga
+// Drum-Cabasa
+// Drum-MuteTri
+// Drum-OpenTri
+// Drum-Shake
+Begin Chord
+    Volume m
+	Articulate 80
+End
+Bass Sequence {1 4 5 90; 2 4 5 90; 3 4 1 90; 4 4 1 90	}
+
+Arpeggio Sequence -
+
+DefGroove BalladFill    1 bar fill, good for endings.
+
+/////////////
+/// Plus versions, sort of a guitar solo thingie
+
+Groove Ballad
+
+Begin Arpeggio-Plus
+   Voice CleanGuitar
+   Octave 5
+   Articulate 120
+   Volume mf
+   Rtime 10
+   Rskip 40
+   Harmony 3Below
+   Rvolume 10
+   Range 2
+   Direction Random
+   Ornament Type=Grace Place=Below Bars=1,3 Beats=1,3 Duration=40 Pad=40 Rskip=40
+   Sequence  {1 4 90; 2 4 90; 3 4 90; 3.5 8 90; 4. 8 90 } {1.5 8 90; 2.5 8 90; 3 4 90; 4 4 90}
+End
+
+DefGroove BalladPlus   Ballad with a bit of solo guitar.
+
+Groove BalladSus
+Arpeggio-Plus Groove BalladPlus
+DefGroove BalladSusPlus   Ballad with strings and guitar solo.
+
+Groove Ballad1
+Arpeggio-Plus Groove BalladPlus
+DefGroove Ballad1Plus   Block chord ballad with guitar solo.
+
+Groove Ballad1Sus 
+Arpeggio-Plus Groove BalladPlus
+DefGroove Ballad1SusPlus   Block chord ballad with strings and guitar.
+
+///////////////////
+/// 4 bar Intro
+
+Groove Ballad
+
+Begin Alltracks
+	SeqRnd Off
+	Rskip 0
+End
+
+Drum-Kick    Sequence - 
+Drum-HH      Sequence - 
+Drum-Cym     Sequence D1
+Drum-Tamb    Sequence -
+Drum-Bongo   Sequence -
+Drum-HiConga Sequence D24
+Drum-LoConga Sequence D13
+Drum-Cabasa  Sequence D1234 / / D13
+Drum-MuteTri Sequence D1234
+Begin Drum-OpenTri
+	Sequence D8 / / D12
+	Volume ppp
+End
+Drum-Shake   Sequence D1234
+
+Chord        Sequence   {1 1 90 * 2}  / / {1 2. 90}
+Bass         Sequence   B11   /  B13  {1 4 1 90; 2 4 5 90; 3 2 3 90}
+Begin Arpeggio 
+	Sequence   A4  / / A1
+	Rtime 0
+	Volume f
+	Octave 5
+End
+
+DefGroove BalladIntro        4 bar introduction.
+
+Arpeggio Sequence   -
+Chord    Sequence   C1234   {C1234; C1 Shift .5} {C1234; C2 Shift .5} {1 2. 90}
+
+Bass     Sequence   B11    /     B13     {1 4 5 90; 2 2. 1 90}
+
+DefGroove BalladIntro1     Intro without arpeggios and straight chords.
+
+Begin Chord-Sus
+	Groove BalladSus
+	Sequence   * * * {1 2. 90 0 90 0}
+End
+
+DefGroove BalladIntro2     Add in some sustained strings to BalladIntro1.
+
+
+//////////////////////////////////
+///////// BalladEnd
+
+Groove Ballad
+
+Begin Alltracks
+	SeqRnd Off
+	Rskip 0
+End
+
+Drum-Kick     Sequence D13
+Drum-Cym      Sequence D1234 
+Drum-MuteTri  Sequence D24
+Drum-OpenTri  Sequence D124
+Chord         Sequence C1234 / C13 C1
+Bass          Sequence B13 / / B1
+Arpeggio      Sequence -
+Begin Scale
+	Voice OrchestralHarp	
+	Articulate 80
+	Sequence  Scale16  Scale8  Scale4  Scale2
+	Range 3
+	Direction Up
+	Volume mf
+End
+
+DefGroove BalladEnd  A 4 bar ending with a scale played on a harp. \
+	The scale goes from 16ths, 8ths, quarters and half notes on \
+	bars 1 to 4.
+
+
+Groove BalladEnd
+
+Scale Sequence -
+
+Begin Arpeggio
+	  SeqClear
+	  Voice OrchestralHarp
+	  Articulate 110
+	  Sequence A4
+	  Range 1.7
+	  Direction Up
+	  Volume mf
+	  Octave 5
+	  Harmony Open+8Below
+End
+
+DefGroove Ballad1End  A simpler 4 bar ending. We still have a harp, but it's \
+                      doing quarter note arpeggios.
+
+
+

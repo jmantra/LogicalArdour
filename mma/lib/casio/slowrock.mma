@@ -1,0 +1,142 @@
+ // slowrock.mma
+
+Begin Doc  
+      Slowrock (044). Pretty boring as well as slow. You could
+         use this as a base for something better.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Rvolume 5
+    Sequence {1 0 107; 4.33 0 47}
+End
+
+Begin Drum-SideKick
+    Tone SideKick
+    Volume m
+    Rvolume 5
+    Sequence {3 0 73}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 5
+    Sequence {1.67 0 67; 2.33 0 95; 3 0 77; 3.67 0 79; 4.34 0 82} \
+             {1 0 107; 1.67 0 83; 2.33 0 83; 3 0 96; 3.67 0 80; 4.34 0 85} /  /
+End
+
+Begin Drum-RideCymbal1
+    Tone RideCymbal1
+    Volume m
+    Sequence {1 0 107}    z     z    z
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    RVolume 6
+    RTime 5
+    Sequence {1 4 1 91; 3 4 1 91}
+End
+
+Begin Chord-6
+    Voice Strings
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Unify On
+    Sequence {1 1 90 * 4}
+End
+
+Begin Chord-7
+    Voice NylonGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Rvolume 5
+    Sequence {1 8 90; 1.67 8 90; 2.34 8 90; 3  8 90; 3.67 8 90; 3.68 8 90; 4.34 8 90} \
+             {1 8 90; 1.67 8 90; 1.68 8 90; 2.34 8 90; 3 8 90; 3.67 8 90; 3.68 8 90; 4.34 8 90}
+End
+
+
+Begin Bass-8
+    Voice Piano1
+    Octave 6
+    Articulate 100
+    Volume mp
+    Sequence {1.68 8 5 88; 2.34 8 1 96; 3 8 3 79; 3.68 8 1 72; 4.34 8 5 96} \
+             {1.68 8 5 93; 2.34 8 1 82; 3 8 3 81; 3.68 8 1 83; 4.34 8 5 93} \
+             {1.68 8 5 96; 2.34 8 1 82; 3 8 3 89; 3.68 8 1 91; 4.34 8 5 93} \
+             {1.68 8 5 81; 2.34 8 1 95; 3 8 3 93; 3.68 8 1 82; 4.40 3 5 97}
+End
+
+DefGroove SlowRock  A boring 4 bar sequence
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove SlowRock
+
+Drum-KickDrum1    Sequence  *   *    *  D13
+Drum-SideKick     Sequence  *   *    *  D13
+Drum-ClosedHiHat  Sequence  *   *    *  D8
+Drum-RideCymbal1  Sequence  *   *    *  D13
+
+
+Bass-9            Sequence  B13  *   *   B1
+
+//  Strings
+Chord-6           Sequence  *     *    *   {1 2 90}
+
+//  NylonGuitar
+Chord-7           Sequence  *     *    *   C1234
+
+//  Piano1
+Bass-8            Sequence  *     *    B1234  B13
+
+DefGroove SlowRockIntro   A 4 bar introduction
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove SlowRock
+Seqsize 2
+
+Drum-KickDrum1    Sequence   D13   D1
+Drum-SideKick     Sequence   *     D1
+Drum-ClosedHiHat  Sequence   D8    D1
+Drum-RideCymbal1  Sequence   *     D1
+
+
+Bass-9            Sequence  B13    B1
+
+//  Strings
+Chord-6           Sequence  *      C1
+
+//  NylonGuitar
+Chord-7           Sequence   C1234  C1
+
+//  Piano1
+Bass-8            Sequence  *       B1
+
+DefGroove SlowRockEnd A 2 bar ending.
+
+
+

@@ -1,0 +1,158 @@
+
+// desert
+
+Begin Doc
+
+	This is somewhat ``mysterious'' and  mildly ``Eastern''
+	sounding. Written for  the Duke Ellington hit ``Caravan''. 
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+/////////////////////////////////////////
+/////// Instrument patterns
+
+Begin Drum Define
+	Sync D13; D24 Shift .5
+End
+	        
+/////////////////////////////////
+
+
+SeqSize 4
+
+// Our main drum is the Tom. The pattern is trying to be hypnotic.
+
+Begin Drum
+	Tone LowTom2 
+	Sequence Sync  D1234  Sync  D124
+	Volume mp
+	Rvolume 10
+	Rtime 5
+	Accent 1 10 3 10
+End
+
+// Play a triangle on beat 1 of the first of every 4 bars.
+// Helps us focus a bit on the placement.
+
+Begin Drum-T
+	Tone OpenTriangle
+	Volume mp
+	Rvolume 10
+	Sequence D1 z z z
+End
+
+// Alternate bass/walking
+
+Begin Bass
+	Voice AcousticBass
+	Octave 3
+	Sequence B13 z B11 z
+	Articulate 100
+	Rvolume 10
+	Rtime 5
+	Accent 3 40
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Volume $_Bass_Volume
+	Octave $_Bass_Octave
+	Rvolume 10
+	Rtime 5
+	Accent $_Bass_Accent
+	Articulate $_Bass_Articulate
+	Sequence z W1234 
+	Direction Up /  Down /
+End
+
+
+// Some piano chording.
+
+Begin Chord
+	Voice Piano2
+	Volume mf
+	Octave 5
+	Articulate 80
+	Sequence  C1 C3 C1234 C13
+End
+
+// And a mystic feel with the sitar
+
+Begin Chord-String
+	Voice Sitar
+	Octave 5
+	Articulate 90
+	Strum 10
+	Sequence C13 / / C134
+	Volume mf
+End
+
+DefGroove Desert  Pretty funky beat for the desert.
+
+
+Begin Chord-Sus
+	Voice TremoloStrings
+
+	// The sustained chord has Root and fifth notes only.
+	// Note that we just have a whole note pattern, which means
+	// that chord changes on beats 2,3,4 are ignored.
+
+	Sequence  { 1 1 90 0 80 0 }  
+
+	DupRoot -2
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 5
+	Volume mf
+End
+
+DefGroove DesertSus  Add sustained strings.
+
+///////////////////////////////
+// Fill, this just puts the chords in 1.2.3.4 and
+// adds extra, random, drum beats.
+
+Groove Desert
+
+Chord           Sequence  C1234  C13
+Chord-String	Sequence  C13    C134
+
+Begin Drum-Fill
+	Tone $_Drum_Tone
+	Sequence { D1234 * 2}
+	Volume mf
+	Rvolume 10
+	Rtime 5
+	RSkip 50
+End
+
+DefGroove DesertFill  A bit of a drum torrent over the basic beat.
+
+/////////////////////////////////
+// Ending
+
+Groove Desert
+
+Drum Sequence D1234 / D13 D1
+Begin Drum-T
+	Sequence D1 / /  /
+	Volume   mp p pp ppp
+End
+
+Walk Sequence -
+
+Bass Sequence B13 / B11 {1 2 1 90}
+
+Chord Sequence C1 C3 C1234 L1
+
+Chord-String Sequence C13 / / L1
+
+DefGroove DesertEnd   Desert Ending.

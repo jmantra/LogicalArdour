@@ -1,0 +1,139 @@
+// boggiewoogie
+
+Begin Doc
+
+	A standard boogie-woogie blues beat. Great if you like this
+	style; I find it gets old on my ears fairly fast.
+	NOTE: This style uses dominate 7ths in the bass patterns. It'll
+	probably not sound good in songs with Major 7th or Diminished chords.
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+//////// Additional patterns
+
+Begin Bass Define
+   B4-1   1 4 1  90; 2 4 3 90; 3 4 5 90; 4 4 6 90
+   B4-2   1 4 6# 90; 2 4 6 90; 3 4 5 90; 4 4 3 90
+
+   B8s-1  1 81 1 90;  1+81 82 1 90; 2 81 3 90; 2+81 82 3 90; \
+          3 81 5  90; 3+81 82 5 90; 4 81 6 90; 4+81 82 6 90
+   B8s-2  1 81 6# 90; 1+81 82 6# 90; 2 81 6 90; 2+81 82 6 90; \
+          3 81 5  90; 3+81 82 5  90; 4 81 3 90; 4+81 82 3 90
+
+End
+
+Begin Chord Define
+	BChord-1  1 81  90;  2+81 82 90
+	
+	Bchord-2  1+81 82 90; 3 82 90; 3+81 82 90
+
+	Bchord-3  1+81 82 90; C2; C3; C4
+	
+	Bchord-4  1 81 90; 1+81 82 90; 2 81 90; 2+81 82 90; 3+81 82 90; 3 4 90
+
+End
+
+/////////////
+
+// The standard bass line for a boogie-woogie is
+// 1,3,5,6
+
+SeqSize 4
+
+Begin Bass
+  Voice Piano2
+  Octave 3
+  Articulate 70
+  Rtime 10
+  RVolume 10
+  Accent 1 3
+  Sequence B4-1 B4-2
+End
+
+Begin Chord
+  Voice Piano2
+  Octave 5
+  Articulate 90
+  Sequence Bchord-1 Bchord-2 Bchord-1 Bchord-4
+End
+
+DefGroove BoggieWoggie  Basic BG with four-to-the-bar bass line.
+
+SeqSize 2
+Chord Sequence C13 Bchord-3
+
+DefGroove BoggieWoggie1   Basic BG with stronger chord line.
+
+
+Groove BoggieWoggie
+
+Begin Bass
+  Articulate 94
+  Sequence B8s-1 B8s-2
+End
+
+DefGroove BoggieWoggie2  BG with 8/16s bass line.
+
+SeqSize 2
+Chord Sequence C13 Bchord-3
+
+DefGroove BoggieWoggie3  BG with 8/16s bass line and strong chords.
+
+////////////////////////////////////////////
+/// Sustained
+
+Groove BoggieWoggie
+
+Begin Chord-Sus
+	Voice Clarinet
+	Voicing Mode=Optimal
+	Sequence { 1 1 90 0 70 0 * 2 }
+	Volume mp
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+DefGroove BoggieWoggieSus   Basic pattern with sustained Clarinet.
+
+Groove BoggieWoggie1
+Chord-Sus Groove BoggieWoggieSus
+DefGroove BoggieWoggie1Sus   Alternate 1 with Clarinet
+
+Groove BoggieWoggie2
+Chord-Sus Groove BoggieWoggieSus
+DefGroove BoggieWoggie2Sus   Alternate 2 with Clarinet
+
+Groove BoggieWoggie3
+Chord-Sus Groove BoggieWoggieSus
+DefGroove BoggieWoggie3Sus   Alternate 3 with Clarinet
+
+/////////////////////
+// Ending
+
+Groove BoggieWoggie
+SeqSize 2
+
+Chord Sequence C13 C123
+
+DefGroove BoggieWoggieEnd Same bass line but bar 1 has chords on 1/3 and \
+                          bar 2 has 1/2/3. Use a ``z!'' to turn off the \
+                          bass on the last beat(s).
+
+
+
+////////////////////////
+/// Intro
+
+Groove BoggieWoggie
+
+Bass   Sequence B4-1 B4-2 B1234  B1
+Chord  Sequence *    *    *      C13
+
+DefGroove BoggieWoggieIntro  Simple 4 bar introduction.

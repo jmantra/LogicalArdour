@@ -1,263 +1,43 @@
 #!/usr/bin/env python3
 """
-Melody Generator - Creates random melodies based on key, scale, and tempo.
-Exports quantized MIDI files compatible with Ardour.
+Melody Generator - Writes an MMA groove for a key, scale, and genre.
+Exports one MIDI file for an Ardour synth track.
 """
 
 import argparse
 import json
-import math
 import random
-import re
 import os
+import subprocess
 import sys
-from typing import List, Dict, Tuple
-
-try:
-    import mido
-    from mido import Message, MidiFile, MidiTrack
-except ImportError:
-    print("Error: mido library is required. Install it with: pip install mido")
-    exit(1)
+import tempfile
+from typing import List, Tuple
 
 
-# Scale intervals (semitones from root)
-SCALES: Dict[str, List[int]] = {
-    'major': [0, 2, 4, 5, 7, 9, 11],
-    'minor': [0, 2, 3, 5, 7, 8, 10],
-    'dorian': [0, 2, 3, 5, 7, 9, 10],
-    'mixolydian': [0, 2, 4, 5, 7, 9, 10],
-    'lydian': [0, 2, 4, 6, 7, 9, 11],
-    'phrygian': [0, 1, 3, 5, 7, 8, 10],
-    'locrian': [0, 1, 3, 5, 6, 8, 10],
-    'pentatonic': [0, 2, 4, 7, 9],
-    'pentatonic_minor': [0, 3, 5, 7, 10],
-    'blues': [0, 3, 5, 6, 7, 10],
-    'harmonic_minor': [0, 2, 3, 5, 7, 8, 11],
-    'melodic_minor': [0, 2, 3, 5, 7, 9, 11],
-}
-
-# Note mapping: flats to sharps
-NOTE_MAPPING: Dict[str, str] = {
-    'Cb': 'B',
-    'Db': 'C#',
-    'Eb': 'D#',
-    'Fb': 'E',
-    'Gb': 'F#',
-    'Ab': 'G#',
-    'Bb': 'A#',
-    'C': 'C',
-    'D': 'D',
-    'E': 'E',
-    'F': 'F',
-    'G': 'G',
-    'A': 'A',
-    'B': 'B',
-}
-
-# MIDI note numbers for C0-B0 (all sharps, no flats)
-MIDI_NOTES: Dict[str, int] = {
-    'C': 0, 'C#': 1, 'D': 2, 'D#': 3, 'E': 4, 'F': 5,
-    'F#': 6, 'G': 7, 'G#': 8, 'A': 9, 'A#': 10, 'B': 11,
-}
-
-
-def normalize_note(note: str) -> str:
-    """
-    Convert flat notes to their sharp equivalents.
-    Examples: Bb -> A#, Eb -> D#, Ab -> G#
-    """
-    note = note.capitalize()
-    if note in NOTE_MAPPING:
-        return NOTE_MAPPING[note]
-    return note
-
-
-def parse_note_with_octave(note_str: str) -> int:
-    """
-    Parse a note string with octave (e.g., "C3", "A#2", "Bb4") and convert to MIDI note number.
-    
-    Args:
-        note_str: Note string in format like "C3", "A#2", "Bb4", etc.
-    
-    Returns:
-        MIDI note number (0-127)
-    
-    Raises:
-        ValueError: If note format is invalid
-    """
-    note_str = note_str.strip()
-    if not note_str:
-        raise ValueError(f"Empty note string")
-    
-    # Match note name (with optional sharp/flat) and octave number
-    # Pattern: (note name)(optional # or b)(octave number)
-    match = re.match(r'^([A-G])([#b]?)(-?\d+)$', note_str, re.IGNORECASE)
-    if not match:
-        raise ValueError(f"Invalid note format: {note_str}. Expected format: C3, A#2, Bb4, etc.")
-    
-    note_name = match.group(1).upper()
-    accidental = match.group(2)
-    octave = int(match.group(3))
-    
-    # Combine note name and accidental
-    if accidental:
-        full_note = note_name + accidental.upper()
-    else:
-        full_note = note_name
-    
-    # Normalize to sharps
-    normalized = normalize_note(full_note)
-    
-    if normalized not in MIDI_NOTES:
-        raise ValueError(f"Invalid note: {full_note} (normalized to {normalized})")
-    
-    # Calculate MIDI note number
-    # MIDI note = (octave + 1) * 12 + note_offset
-    # C0 = 12, C1 = 24, C2 = 36, C3 = 48, C4 = 60, etc.
-    note_offset = MIDI_NOTES[normalized]
-    midi_note = (octave + 1) * 12 + note_offset
-    
-    if not (0 <= midi_note <= 127):
-        raise ValueError(f"MIDI note {midi_note} out of range (0-127) for {note_str}")
-    
-    return midi_note
-
-
-def load_notes_from_file(filepath: str) -> List[int]:
-    """
-    Load MIDI note numbers from a text file.
-    Each line should contain a note in format like "C3", "A#2", "Bb4", etc.
-    Empty lines are ignored.
-    
-    Args:
-        filepath: Path to the notes file
-    
-    Returns:
-        List of MIDI note numbers
-    
-    Raises:
-        FileNotFoundError: If file doesn't exist
-        ValueError: If any note format is invalid
-    """
-    if not os.path.exists(filepath):
-        raise FileNotFoundError(f"Notes file not found: {filepath}")
-    
-    notes = []
-    with open(filepath, 'r') as f:
-        for line_num, line in enumerate(f, 1):
-            line = line.strip()
-            if not line:  # Skip empty lines
-                continue
-            
-            try:
-                midi_note = parse_note_with_octave(line)
-                notes.append(midi_note)
-            except ValueError as e:
-                raise ValueError(f"Error on line {line_num} of {filepath}: {e}")
-    
-    if not notes:
-        raise ValueError(f"No valid notes found in {filepath}")
-    
-    return notes
-
-
-def get_scale_notes(key: str, scale_name: str) -> List[int]:
-    """
-    Get MIDI note numbers for all notes in the specified key and scale.
-    Returns notes in a 2-octave range (C4 to C6 typically).
-    """
-    # Normalize key (flats to sharps)
-    normalized_key = normalize_note(key)
-    
-    if normalized_key not in MIDI_NOTES:
-        raise ValueError(f"Invalid key: {key} (normalized to {normalized_key})")
-    
-    if scale_name.lower() not in SCALES:
-        raise ValueError(f"Invalid scale: {scale_name}. Available scales: {', '.join(SCALES.keys())}")
-    
-    # Get root MIDI note (C4 = 60)
-    root_midi = MIDI_NOTES[normalized_key] + 60
-    
-    # Get scale intervals
-    intervals = SCALES[scale_name.lower()]
-    
-    # Generate notes for 2 octaves
-    scale_notes = []
-    for octave in range(2):  # 2 octaves
-        for interval in intervals:
-            note_midi = root_midi + interval + (octave * 12)
-            if 0 <= note_midi <= 127:  # Valid MIDI range
-                scale_notes.append(note_midi)
-    
-    return sorted(scale_notes)
-
-
-def generate_melody(
-    scale_notes: List[int],
-    num_notes: int = 16,
-    note_lengths: List[int] = None,
-    rhythm_pattern: str = 'mixed',
-    ticks_per_beat: int = 480
-) -> List[Tuple[int, int]]:
-    """
-    Generate a random melody from scale notes.
-    Returns list of (note, duration_in_ticks) tuples.
-    
-    Args:
-        scale_notes: List of MIDI note numbers in the scale
-        num_notes: Number of notes in the melody
-        note_lengths: List of durations in ticks
-        rhythm_pattern: 'even', 'mixed', or 'varied'
-        ticks_per_beat: Ticks per beat for quantization (default: 480)
-    """
-    if note_lengths is None:
-        # Calculate note lengths based on ticks_per_beat
-        # 16th note = ticks_per_beat / 4
-        # 8th note = ticks_per_beat / 2
-        # Quarter note = ticks_per_beat
-        # Dotted quarter = ticks_per_beat * 1.5
-        # Half note = ticks_per_beat * 2
-        sixteenth = ticks_per_beat // 4
-        eighth = ticks_per_beat // 2
-        quarter = ticks_per_beat
-        dotted_quarter = int(ticks_per_beat * 1.5)
-        half = ticks_per_beat * 2
-        dotted_eighth = int(ticks_per_beat * 0.75)
-        
-        if rhythm_pattern == 'even':
-            note_lengths = [quarter]  # Quarter notes only
-        elif rhythm_pattern == 'mixed':
-            note_lengths = [eighth, quarter, dotted_quarter]  # 8th, quarter, dotted quarter
-        else:  # varied
-            note_lengths = [sixteenth, eighth, dotted_eighth, quarter, dotted_quarter, half]
-    
-    melody = []
-    for _ in range(num_notes):
-        note = random.choice(scale_notes)
-        duration = random.choice(note_lengths)
-        melody.append((note, duration))
-    
-    return melody
-
-
-# Sixteenth, eighth, quarter, half, whole.
-DURATION_SIXTEENTHS = (1, 2, 4, 8, 16)
-MAJOR_FAMILY = {"major", "mixolydian"}
-
-
-def genres_json_path() -> str:
-    """genres.json sits beside the installed binary, or beside this script."""
-    directories = []
+def resource_directories() -> List[str]:
+    """resources/ next to this script, then the script directory, then a frozen binary."""
+    root = os.path.dirname(os.path.abspath(__file__))
+    directories = [os.path.join(root, "resources"), root]
     if getattr(sys, "frozen", False):
-        directories.append(os.path.dirname(os.path.abspath(sys.executable)))
-    directories.append(os.path.dirname(os.path.abspath(__file__)))
+        exe_dir = os.path.dirname(os.path.abspath(sys.executable))
+        directories.extend([os.path.join(exe_dir, "resources"), exe_dir])
+    return directories
+
+
+def resource_file(filename: str) -> str:
+    """Find a data file shipped beside this script or the installed binary."""
+    directories = resource_directories()
     for directory in directories:
-        path = os.path.join(directory, "genres.json")
+        path = os.path.join(directory, filename)
         if os.path.isfile(path):
             return path
     looked = ", ".join(directories) if directories else "(none)"
-    raise FileNotFoundError(f"Could not find genres.json. Looked in: {looked}")
+    raise FileNotFoundError(f"Could not find {filename}. Looked in: {looked}")
+
+
+def genres_json_path() -> str:
+    """genres.json sits in resources/, beside the script, or beside the installed binary."""
+    return resource_file("genres.json")
 
 
 def load_genre(name: str) -> dict:
@@ -276,475 +56,513 @@ def load_genre(name: str) -> dict:
     raise ValueError(f"Unknown genre: {name}. Known ids: {known}")
 
 
-def resolve_scale(key_scale: str, suggested: str) -> str:
-    """Honor the scale that came with the key.
-
-    A minor key stays natural minor. A genre may still color a major key
-    with mixolydian. Any other requested scale is kept as given.
-    """
-    key_scale = (key_scale or "").lower()
-    suggested = (suggested or "").lower()
-    if key_scale == "minor":
-        return "minor"
-    if key_scale == "major" and suggested in MAJOR_FAMILY and suggested in SCALES:
-        return suggested
-    if key_scale in SCALES:
-        return key_scale
-    if suggested in SCALES:
-        return suggested
-    return key_scale
-
-
-def scale_notes_for_range(key: str, scale_name: str, octave_spread: int) -> List[int]:
-    """Scale tones spanning octave_spread octaves, centered on octave 4."""
-    normalized_key = normalize_note(key)
-    if normalized_key not in MIDI_NOTES:
-        raise ValueError(f"Invalid key: {key} (normalized to {normalized_key})")
-    if scale_name.lower() not in SCALES:
-        raise ValueError(f"Invalid scale: {scale_name}. Available scales: {', '.join(SCALES.keys())}")
-
-    root_midi = MIDI_NOTES[normalized_key] + 60
-    spread = max(1, int(octave_spread))
-    start = -int((spread - 1) / 2)
-    intervals = SCALES[scale_name.lower()]
-    notes = []
-    for octave in range(start, start + spread):
-        for interval in intervals:
-            note_midi = root_midi + interval + (octave * 12)
-            if 0 <= note_midi <= 127:
-                notes.append(note_midi)
-    return sorted(set(notes))
-
-
-def weighted_index(weights: List[float]) -> int:
-    total = sum(max(weight, 0.0) for weight in weights)
-    if total <= 0:
-        return random.randrange(len(weights))
-    pick = random.random() * total
-    running = 0.0
-    for index, weight in enumerate(weights):
-        running += max(weight, 0.0)
-        if pick <= running:
-            return index
-    return len(weights) - 1
+# MMA KeySig names. A few menu spellings are not in MMA's tables, so those
+# point at the enharmonic name MMA accepts. The integer is the signature
+# (positive sharps, negative flats) and chooses chord spelling.
+MAJOR_KEYSIG = {
+    "C": ("C", 0), "C#": ("C#", 7), "Db": ("Db", -5), "D": ("D", 2),
+    "D#": ("Eb", -3), "Eb": ("Eb", -3), "E": ("E", 4), "F": ("F", -1),
+    "F#": ("F#", 6), "Gb": ("Gb", -6), "G": ("G", 1), "G#": ("Ab", -4),
+    "Ab": ("Ab", -4), "A": ("A", 3), "A#": ("Bb", -2), "Bb": ("Bb", -2),
+    "B": ("B", 5),
+}
+MINOR_KEYSIG = {
+    "A": ("A", 0), "A#": ("A#", 7), "Bb": ("Bb", -5), "B": ("B", 2),
+    "C": ("C", -3), "C#": ("C#", 4), "Db": ("C#", 4), "D": ("D", -1),
+    "D#": ("D#", 6), "Eb": ("Eb", -6), "E": ("E", 1), "F": ("F", -4),
+    "F#": ("F#", 3), "Gb": ("F#", 3), "G": ("G", -2), "G#": ("G#", 5),
+    "Ab": ("Ab", -7),
+}
+PITCH_CLASS = {
+    "C": 0, "C#": 1, "Db": 1, "D": 2, "D#": 3, "Eb": 3, "E": 4, "F": 5,
+    "F#": 6, "Gb": 6, "G": 7, "G#": 8, "Ab": 8, "A": 9, "A#": 10, "Bb": 10,
+    "B": 11,
+}
+SHARP_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+FLAT_NAMES = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
+# Triad intervals from newchord.py. Each run picks one loop.
+MAJOR_PROGRESSIONS = (
+    ([0, 4, 7], [7, 11, 14], [9, 12, 16], [5, 9, 12]),  # I V vi IV
+    ([0, 4, 7], [9, 12, 16], [5, 9, 12], [7, 11, 14]),  # I vi IV V
+    ([0, 4, 7], [5, 9, 12], [7, 11, 14], [0, 4, 7]),  # I IV V I
+    ([9, 12, 16], [5, 9, 12], [0, 4, 7], [7, 11, 14]),  # vi IV I V
+)
+MINOR_PROGRESSIONS = (
+    ([0, 3, 7], [8, 12, 15], [3, 7, 10], [10, 14, 17]),  # i VI III VII
+    ([0, 3, 7], [5, 8, 12], [7, 10, 14], [0, 3, 7]),  # i iv v i
+    ([0, 3, 7], [8, 12, 15], [5, 8, 12], [7, 10, 14]),  # i VI iv v
+    ([0, 3, 7], [10, 14, 17], [8, 12, 15], [10, 14, 17]),  # i VII VI VII
+)
+MELODY_CENTER = 72
+MELODY_LOW = 60
+MELODY_HIGH = 84
 
 
-def generate_genre_melody(
-    key: str,
-    key_scale: str,
-    profile: dict,
-    num_notes: int = 16,
-    num_bars: int = None,
-    ticks_per_beat: int = 480,
-) -> Tuple[str, List[Tuple[int, int, int, int]]]:
-    """
-    Build a melody from a genre profile.
+def load_mma_genre(name: str) -> Tuple[dict, dict]:
+    """Profile from genres.json plus its MMA groove entry."""
+    profile = load_genre(name)
+    path = resource_file("mma_genres.json")
+    with open(path, "r", encoding="utf-8") as handle:
+        mapping = json.load(handle)
+    entry = mapping.get(profile.get("id"))
+    if not isinstance(entry, dict) or not entry.get("groove"):
+        raise ValueError(f"No MMA groove for genre: {profile.get('id')}")
+    return profile, entry
 
-    With num_bars, the melody fills that many 4/4 bars and notes are clipped
-    to the final bar line. Otherwise it stops after num_notes notes.
 
-    Returns the resolved scale name and events of
-    (start_tick, note, duration_ticks, velocity).
-    """
-    scale_name = resolve_scale(key_scale, str(profile.get("suggestedScaleId", key_scale)))
-    spread = int(profile.get("defaultOctaveSpread") or 2)
-    scale_notes = scale_notes_for_range(key, scale_name, spread)
-    if not scale_notes:
-        raise ValueError(f"No MIDI notes for {key} {scale_name}")
+def mma_script_path() -> str:
+    """mma.py next to this repo, or under MMA_HOME, or beside a frozen binary."""
+    root = os.path.dirname(os.path.abspath(__file__))
+    candidates = [os.path.join(root, "mma", "mma.py")]
+    home = os.environ.get("MMA_HOME")
+    if home:
+        candidates.append(os.path.join(home, "mma.py"))
+    if getattr(sys, "frozen", False):
+        exe_dir = os.path.dirname(os.path.abspath(sys.executable))
+        candidates.append(os.path.join(exe_dir, "mma", "mma.py"))
+    for path in candidates:
+        if os.path.isfile(path):
+            return path
+    looked = ", ".join(candidates)
+    raise FileNotFoundError(f"Could not find mma.py. Looked in: {looked}")
 
-    pitch_dist = list(profile.get("pitchClassDistribution") or [])
-    onset = list(profile.get("onsetProb") or [])
-    durations = list(profile.get("durationDist") or [])
-    accents = list(profile.get("beatAccent") or [])
-    if len(pitch_dist) != 12:
-        raise ValueError("pitchClassDistribution must have 12 values")
-    if len(onset) != 16:
-        raise ValueError("onsetProb must have 16 values")
-    if len(durations) != 5:
-        raise ValueError("durationDist must have 5 values")
-    if len(accents) != 4:
-        raise ValueError("beatAccent must have 4 values")
 
-    stepwise = float(profile.get("stepwiseBias") or 0.0)
-    contour_amp = float(profile.get("contourAmp") or 0.0)
-    contour_rate = float(profile.get("contourRate") or 0.0)
-    rest_prob = min(1.0, max(0.0, float(profile.get("restProb") or 0.0)))
-    swing = float(profile.get("swing") or 0.0)
-    velocity_base = float(profile.get("velocityBase") or 0.7)
-    accent_mean = sum(accents) / len(accents) or 1.0
+def mma_key_signature(key: str, scale: str) -> Tuple[str, str, int]:
+    """Return the KeySig line, the spelled tonic, and the signature count."""
+    scale_name = (scale or "").lower()
+    table = MINOR_KEYSIG if scale_name == "minor" else MAJOR_KEYSIG
+    chosen = table.get(key.strip())
+    if not chosen:
+        kind = "minor" if scale_name == "minor" else "major"
+        raise ValueError(f"Invalid {kind} key for MMA: {key}")
+    tonic, signature = chosen
+    if scale_name == "minor":
+        return f"KeySig {tonic} minor", tonic, signature
+    return f"KeySig {tonic}", tonic, signature
 
-    sixteenth = ticks_per_beat // 4
-    eighth = ticks_per_beat // 2
-    root = MIDI_NOTES[normalize_note(key)] + 60
-    center = root + ((spread - 1) / 2.0) * 12
-    events: List[Tuple[int, int, int, int]] = []
-    previous_index = None
-    pos = 0
-    limit = max(num_notes * 64, 64)
-    note_index = 0
-    total_slots = num_bars * 16 if num_bars else None
 
-    def place(at_pos: int, room: int = None) -> int:
-        nonlocal previous_index, note_index
-        preferred = center + contour_amp * 12.0 * math.sin(
-            2.0 * math.pi * contour_rate * note_index
-        )
-        if previous_index is not None and random.random() < stepwise:
-            choices = []
-            if previous_index > 0:
-                choices.append(previous_index - 1)
-            if previous_index + 1 < len(scale_notes):
-                choices.append(previous_index + 1)
-            if not choices:
-                choices = [previous_index]
-            nearest = min(abs(scale_notes[index] - preferred) for index in choices)
-            chosen = random.choice([
-                index for index in choices
-                if abs(scale_notes[index] - preferred) == nearest
-            ])
-        else:
-            weights = []
-            for note in scale_notes:
-                distance = abs(note - preferred)
-                weights.append(max(pitch_dist[note % 12], 0.0) * math.exp(-distance / 6.0))
-            chosen = weighted_index(weights)
-        previous_index = chosen
-        note = scale_notes[chosen]
-        beat = (at_pos // 4) % 4
-        velocity = int(round(127.0 * velocity_base * (accents[beat] / accent_mean)))
-        velocity = max(1, min(127, velocity))
-        dur_steps = DURATION_SIXTEENTHS[weighted_index(durations)]
-        if room is not None:
-            dur_steps = min(dur_steps, room)
-        if dur_steps < 1:
-            return 0
-        delay = int(round(swing * eighth)) if at_pos % 4 == 2 else 0
-        start = at_pos * sixteenth + delay
-        duration_ticks = dur_steps * sixteenth
-        if room is not None:
-            bar_end = (at_pos + room) * sixteenth
-            if start >= bar_end:
-                return 0
-            duration_ticks = min(duration_ticks, bar_end - start)
-        if duration_ticks < 1:
-            return 0
-        events.append((start, note, duration_ticks, velocity))
-        note_index += 1
-        return dur_steps
-
-    if total_slots is not None:
-        while pos < total_slots:
-            if random.random() < float(onset[pos % 16]):
-                if random.random() < rest_prob:
-                    pos += 1
-                    continue
-                placed = place(pos, total_slots - pos)
-                pos += placed if placed > 0 else 1
-            else:
-                pos += 1
+def chord_symbol(tonic_pc: int, intervals: List[int], use_flats: bool) -> str:
+    """Spell one triad. A minor third becomes an MMA 'm' suffix."""
+    root = (tonic_pc + intervals[0]) % 12
+    third = (tonic_pc + intervals[1]) % 12
+    if use_flats and root == 11:
+        name = "Cb"
     else:
-        while note_index < num_notes and pos < limit:
-            if random.random() < float(onset[pos % 16]):
-                if random.random() < rest_prob:
-                    pos += 1
-                    continue
-                pos += place(pos)
-            else:
+        name = (FLAT_NAMES if use_flats else SHARP_NAMES)[root]
+    if (third - root) % 12 == 3:
+        name += "m"
+    return name
+
+
+def chord_loop(key: str, scale: str, bars: int) -> Tuple[str, List[str]]:
+    """One chord per bar, tiled from a diatonic loop chosen for this run."""
+    keysig, tonic, signature = mma_key_signature(key, scale)
+    progressions = MINOR_PROGRESSIONS if (scale or "").lower() == "minor" else MAJOR_PROGRESSIONS
+    progression = random.choice(progressions)
+    tonic_pc = PITCH_CLASS[tonic]
+    use_flats = signature < 0
+    chords = [
+        chord_symbol(tonic_pc, progression[index % len(progression)], use_flats)
+        for index in range(bars)
+    ]
+    return keysig, chords
+
+
+def write_mma_chart(path: str, tempo: int, key: str, scale: str, groove: str, bars: int) -> str:
+    """Write a groove-and-chords chart. Returns the KeySig line."""
+    keysig, chords = chord_loop(key, scale, bars)
+    lines = [f"Tempo {int(tempo)}", keysig, f"Groove {groove}", ""]
+    lines.extend(f"{index} {chord}" for index, chord in enumerate(chords, start=1))
+    lines.append("")
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write("\n".join(lines))
+    return keysig
+
+
+def mma_python() -> str:
+    """The interpreter that runs mma.py. A frozen binary is not a Python interpreter."""
+    if getattr(sys, "frozen", False):
+        return "python3"
+    return sys.executable
+
+
+def run_mma(chart_path: str, output_path: str) -> None:
+    """One MMA process per chart. The program keeps global state, so it is not re-entered."""
+    completed = subprocess.run(
+        [mma_python(), mma_script_path(), "-f", output_path, chart_path],
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode != 0 or not os.path.isfile(output_path):
+        detail = (completed.stderr or completed.stdout or "").strip()
+        raise OSError(detail or f"MMA exited {completed.returncode}")
+
+
+def _read_varlen(data: bytes, pos: int) -> Tuple[int, int]:
+    value = 0
+    while True:
+        byte = data[pos]
+        pos += 1
+        value = (value << 7) | (byte & 0x7F)
+        if not byte & 0x80:
+            return value, pos
+
+
+def _write_varlen(value: int) -> bytes:
+    chunks = [value & 0x7F]
+    value >>= 7
+    while value:
+        chunks.append((value & 0x7F) | 0x80)
+        value >>= 7
+    return bytes(reversed(chunks))
+
+
+def _fold_into_melody_range(pitch: int) -> int:
+    """Move a pitch by octaves until it sits between C4 and C6."""
+    while pitch > MELODY_HIGH:
+        pitch -= 12
+    while pitch < MELODY_LOW:
+        pitch += 12
+    return pitch
+
+
+def _octave_shift_toward_center(pitches: List[int]) -> int:
+    """Whole octaves that bring the median pitch closest to C5."""
+    if not pitches:
+        return 0
+    ordered = sorted(pitches)
+    median = ordered[len(ordered) // 2]
+    return int(round((MELODY_CENTER - median) / 12.0))
+
+
+def _parse_imported_tracks(data: bytes, path: str):
+    """Read MMA's file, dropping key signatures, program changes, and bank selects."""
+    if data[:4] != b"MThd" or len(data) < 14:
+        raise OSError(f"MMA did not write a MIDI header: {path}")
+    header_len = int.from_bytes(data[4:8], "big")
+    track_count = int.from_bytes(data[10:12], "big")
+    pos = 8 + header_len
+    tracks = []
+    for _ in range(track_count):
+        if data[pos:pos + 4] != b"MTrk":
+            raise OSError(f"Missing MIDI track in {path}")
+        length = int.from_bytes(data[pos + 4:pos + 8], "big")
+        pos += 8
+        end = pos + length
+        running = None
+        pending = 0
+        name = ""
+        events = []
+        while pos < end:
+            delta, pos = _read_varlen(data, pos)
+            pending += delta
+            status = data[pos]
+            if status & 0x80:
+                running = status
                 pos += 1
+            else:
+                status = running
+            if status == 0xFF:
+                meta_type = data[pos]
+                pos += 1
+                size, pos = _read_varlen(data, pos)
+                payload = data[pos:pos + size]
+                pos += size
+                if meta_type == 0x03:
+                    name = payload.decode("latin1", errors="replace")
+                if meta_type == 0x59:
+                    continue
+                events.append(("meta", pending, meta_type, payload))
+            elif status in (0xF0, 0xF7):
+                size, pos = _read_varlen(data, pos)
+                payload = data[pos:pos + size]
+                pos += size
+                events.append(("sysex", pending, status, payload))
+            elif (status & 0xF0) in (0xC0, 0xD0):
+                data1 = data[pos]
+                pos += 1
+                if (status & 0xF0) == 0xC0:
+                    continue
+                events.append(("short", pending, status & 0xF0, data1))
+            else:
+                data1 = data[pos]
+                data2 = data[pos + 1]
+                pos += 2
+                kind = status & 0xF0
+                if kind == 0xB0 and data1 in (0, 32):
+                    continue
+                events.append(("voice", pending, kind if kind in (0x80, 0x90) else status, data1, data2))
+            pending = 0
+        tracks.append((name, events))
+    return header_len, tracks
 
-        while note_index < num_notes:
-            pos += place(pos)
 
-    return scale_name, events
+def _place_note(pitch: int, shift: int, open_notes: dict, sounding: bool) -> int:
+    """Pair a note-off with the pitch chosen for its note-on, then stay inside C4-C6."""
+    stack = open_notes.get(pitch)
+    if not sounding and stack:
+        return stack.pop(0)
+    placed = _fold_into_melody_range(pitch + shift * 12 + random.choice((-12, 0, 12)))
+    if sounding:
+        open_notes.setdefault(pitch, []).append(placed)
+    return placed
 
 
-def write_timed_midi(
-    events: List[Tuple[int, int, int, int]],
-    tempo: int,
-    output_file: str,
-    time_signature: Tuple[int, int] = (4, 4),
-    end_tick: int = None,
-) -> None:
-    """Write notes placed on an absolute tick grid, including rests and swing."""
-    ticks_per_beat = 480
-    mid = MidiFile(ticks_per_beat=ticks_per_beat)
-    track = MidiTrack()
-    mid.tracks.append(track)
+def _note_stats(events):
+    """Note count, median pitch, and how often the track stacks notes into a chord."""
+    tick = 0
+    pitches = []
+    onset_counts = {}
+    for event in events:
+        tick += event[1]
+        if event[0] != "voice" or event[2] != 0x90 or event[4] == 0:
+            continue
+        pitches.append(event[3])
+        onset_counts[tick] = onset_counts.get(tick, 0) + 1
+    if not pitches:
+        return None
+    ordered = sorted(pitches)
+    chord_onsets = sum(1 for count in onset_counts.values() if count >= 3)
+    return {
+        "notes": len(pitches),
+        "median": ordered[len(ordered) // 2],
+        "max_simultaneous": max(onset_counts.values()),
+        "chord_ratio": chord_onsets / len(onset_counts),
+    }
 
-    track.append(mido.MetaMessage("set_tempo", tempo=mido.bpm2tempo(tempo), time=0))
-    track.append(mido.MetaMessage(
-        "time_signature",
-        numerator=time_signature[0],
-        denominator=time_signature[1],
-        clocks_per_click=24,
-        notated_32nd_notes_per_beat=8,
-        time=0,
-    ))
-    track.append(mido.MetaMessage("key_signature", key="C", time=0))
 
-    timed = []
-    for start, note, duration, velocity in events:
-        timed.append((start, 1, Message("note_on", channel=0, note=note, velocity=velocity, time=0)))
-        timed.append((start + duration, 0, Message("note_off", channel=0, note=note, velocity=0, time=0)))
-    timed.sort(key=lambda item: (item[0], item[1]))
+def _is_drum_track(name: str) -> bool:
+    label = name.strip().lower()
+    return label == "drum" or label.startswith("drum")
 
+
+def _is_low_bass(name: str, stats: dict) -> bool:
+    """A bass line sitting below the melody register."""
+    return name.strip().lower().startswith("bass") and stats["median"] < 50
+
+
+def _is_chord_bed(stats: dict) -> bool:
+    """Block chords, as opposed to a single-note riff that MMA named Chord."""
+    return stats["max_simultaneous"] >= 3 and stats["chord_ratio"] >= 0.5
+
+
+def _select_melody_tracks(tracks):
+    """The line Ardour should import. Chord beds and low bass stay out of this file."""
+    musical = []
+    for name, events in tracks:
+        if _is_drum_track(name):
+            continue
+        stats = _note_stats(events)
+        if not stats:
+            continue
+        musical.append((name, events, stats))
+    melody = [
+        (name, events)
+        for name, events, stats in musical
+        if not _is_low_bass(name, stats) and not _is_chord_bed(stats)
+    ]
+    if melody:
+        return melody
+    lines = [
+        item for item in musical
+        if item[2]["max_simultaneous"] == 1 and not _is_low_bass(item[0], item[2])
+    ]
+    if len(lines) > 1:
+        lowest = min(item[2]["median"] for item in lines)
+        lines = [item for item in lines if item[2]["median"] != lowest]
+    if lines:
+        return [(name, events) for name, events, _ in lines]
+    riffs = [item for item in musical if not _is_low_bass(item[0], item[2])]
+    pool = riffs or musical
+    if not pool:
+        return []
+    name, events, _ = max(pool, key=lambda item: item[2]["notes"])
+    return [(name, events)]
+
+
+def _timed_meta(events, meta_types):
+    tick = 0
+    found = []
+    for event in events:
+        tick += event[1]
+        if event[0] == "meta" and event[2] in meta_types:
+            found.append((tick, event[2], event[3]))
+    return found
+
+
+def _placed_melody_notes(events, shift: int):
+    """Absolute-time notes, with each note-off following the pitch chosen for its note-on."""
+    tick = 0
+    open_notes = {}
+    placed = []
+    for event in events:
+        tick += event[1]
+        if event[0] != "voice":
+            continue
+        kind = event[2] & 0xF0
+        if kind not in (0x80, 0x90):
+            continue
+        sounding = kind == 0x90 and event[4] > 0
+        pitch = _place_note(event[3], shift, open_notes, sounding)
+        placed.append((tick, 1 if sounding else 0, kind, pitch, event[4] if sounding else 0))
+    return placed
+
+
+def _write_single_track(header: bytearray, messages) -> bytes:
+    """One MIDI track. A one-track file cannot be split into chord and bass tracks."""
+    if len(header) >= 14:
+        header[10:12] = (1).to_bytes(2, "big")
+    body = bytearray()
     last = 0
-    for tick, _, message in timed:
-        message.time = max(0, tick - last)
+    for tick, message in messages:
+        body.extend(_write_varlen(max(0, tick - last)))
         last = tick
-        track.append(message)
-
-    if end_tick is not None and end_tick > last:
-        track.append(mido.MetaMessage("end_of_track", time=end_tick - last))
-
-    mid.save(output_file)
-    print(f"Melody saved to {output_file}")
+        body.extend(message)
+    return bytes(header) + b"MTrk" + len(body).to_bytes(4, "big") + bytes(body)
 
 
-def create_quantized_midi(
-    melody: List[Tuple[int, int]],
+def normalize_imported_midi(path: str) -> None:
+    """Keep the melody line, lift it into C4-C6, and write it as one channel-1 track.
+
+    MMA's groove is a drum part, a chord bed, and one or more bass lines, each
+    in its own MIDI track. Ardour keeps those tracks inside the imported
+    region and creates a new track for the next one when the region is dragged.
+    The chord bed and the low bass are left out, so this import is only the melody.
+    """
+    with open(path, "rb") as handle:
+        data = handle.read()
+    header_len, tracks = _parse_imported_tracks(data, path)
+    melody_tracks = _select_melody_tracks(tracks)
+    pitches = [
+        event[3]
+        for _, events in melody_tracks
+        for event in events
+        if event[0] == "voice" and event[2] == 0x90 and event[4] > 0
+    ]
+    shift = _octave_shift_toward_center(pitches)
+    messages = [(0, b"\xFF\x03" + _write_varlen(6) + b"Melody")]
+    for _, events in tracks:
+        for tick, meta_type, payload in _timed_meta(events, (0x51, 0x58)):
+            messages.append((tick, b"\xFF" + bytes([meta_type]) + _write_varlen(len(payload)) + payload))
+    for _, events in melody_tracks:
+        for tick, order, kind, pitch, velocity in _placed_melody_notes(events, shift):
+            messages.append((tick, bytes([kind, pitch, velocity]), order))
+    # Note-offs share a tick with the next note-on and must be written first.
+    timed = []
+    for item in messages:
+        if len(item) == 3:
+            tick, message, order = item
+        else:
+            tick, message = item
+            order = -1
+        timed.append((tick, order, message))
+    timed.sort(key=lambda item: (item[0], item[1]))
+    end_tick = timed[-1][0] if timed else 0
+    timed.append((end_tick, 2, b"\xFF\x2F\x00"))
+    header = bytearray(data[:8 + header_len])
+    with open(path, "wb") as handle:
+        handle.write(_write_single_track(header, [(tick, message) for tick, _, message in timed]))
+
+
+def generate_mma_accompaniment(
+    key: str,
+    scale: str,
+    groove: str,
+    bars: int,
     tempo: int,
     output_file: str,
-    time_signature: Tuple[int, int] = (4, 4)
-) -> None:
-    """
-    Create a quantized MIDI file from the melody.
-    All notes are aligned to a grid for perfect quantization.
-    
-    Args:
-        melody: List of (note, duration_in_ticks) tuples
-        tempo: Tempo in BPM
-        output_file: Output MIDI filename
-        time_signature: (numerator, denominator)
-    """
-    # Calculate ticks per beat (quantization grid)
-    # Using 480 ticks per quarter note for standard quantization
-    ticks_per_beat = 480
-    
-    # Create MIDI file
-    mid = MidiFile(ticks_per_beat=ticks_per_beat)
-    track = MidiTrack()
-    mid.tracks.append(track)
-    
-    # Set tempo
-    tempo_msg = mido.bpm2tempo(tempo)
-    track.append(mido.MetaMessage('set_tempo', tempo=tempo_msg))
-    
-    # Set time signature
-    track.append(mido.MetaMessage('time_signature', 
-                                   numerator=time_signature[0],
-                                   denominator=time_signature[1],
-                                   clocks_per_click=24,
-                                   notated_32nd_notes_per_beat=8))
-    
-    # Set key signature (will be overridden per key in melody)
-    track.append(mido.MetaMessage('key_signature', key='C'))
-    
-    # Quantization grid: smallest division is 16th note
-    sixteenth_note = ticks_per_beat // 4
-    
-    for note, duration in melody:
-        # Quantize duration to nearest 16th note grid
-        # Ensure duration is a multiple of the smallest grid
-        quantized_duration = round(duration / sixteenth_note) * sixteenth_note
-        
-        # Ensure minimum duration of 16th note
-        if quantized_duration < sixteenth_note:
-            quantized_duration = sixteenth_note
-        
-        # Note on (quantized to grid)
-        # For first note: time=0 (start immediately)
-        # For subsequent notes: time=0 (start immediately after previous note_off)
-        track.append(Message('note_on', channel=0, note=note, velocity=80, time=0))
-        
-        # Note off after quantized duration
-        # Time is ticks since the last message (note_on)
-        track.append(Message('note_off', channel=0, note=note, velocity=0, time=quantized_duration))
-    
-    # Save MIDI file
-    mid.save(output_file)
-    print(f"Melody saved to {output_file}")
+) -> str:
+    """Write a chart, run MMA, and return the major or minor scale name."""
+    chart_scale = "minor" if (scale or "").lower() == "minor" else "major"
+    handle = tempfile.NamedTemporaryFile(prefix="la-mma-", suffix=".mma", delete=False)
+    chart_path = handle.name
+    handle.close()
+    try:
+        write_mma_chart(chart_path, tempo, key, chart_scale, groove, bars)
+        run_mma(chart_path, output_file)
+        normalize_imported_midi(output_file)
+    finally:
+        try:
+            os.remove(chart_path)
+        except OSError:
+            pass
+    return chart_scale
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Generate random melodies from a key/scale or from a notes file. '
-                    'Outputs quantized MIDI files compatible with Ardour.',
+        description="Write an MMA groove for a key, major or minor scale, and genre.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Using key and scale:
-  python melody_generator.py --key C --scale major --tempo 120
-  python melody_generator.py --key Bb --scale minor --tempo 90 --notes 32
-  python melody_generator.py --key Eb --scale pentatonic --tempo 140 --output my_melody.mid
-  
-  # Using notes file:
-  python melody_generator.py --notes-file midi_notes.txt --tempo 120
-  python melody_generator.py --file midi_notes.txt --tempo 90 --notes 32
-        """
+  python melody_generator.py --key E --scale minor --genre pop --bars 4 --tempo 140
+  python melody_generator.py --key Bb --scale major --genre jazz --bars 8 --tempo 120 --seed 7
+        """,
     )
-    
-    # Create mutually exclusive group for key/scale vs notes file
-    note_source_group = parser.add_mutually_exclusive_group(required=True)
-    
-    note_source_group.add_argument(
-        '--key', '-k',
-        type=str,
-        help='Key signature (e.g., C, D, Eb, F#, Bb). Flats will be converted to sharps. '
-             'Required if not using --notes-file.'
-    )
-    
-    note_source_group.add_argument(
-        '--notes-file', '--file', '-f',
-        type=str,
-        dest='notes_file',
-        help='Path to a text file containing notes (one per line, e.g., "C3", "A#2", "Bb4"). '
-             'Required if not using --key and --scale.'
-    )
-    
     parser.add_argument(
-        '--scale', '-s',
-        type=str,
-        help='Scale type (major, minor, dorian, mixolydian, lydian, phrygian, '
-             'locrian, pentatonic, pentatonic_minor, blues, harmonic_minor, melodic_minor). '
-             'Required if using --key.'
+        "--key", "-k",
+        required=True,
+        help="Key signature (C, C#, Db, D, Eb, F#, Bb, and the other menu spellings).",
     )
-    
     parser.add_argument(
-        '--tempo', '-t',
+        "--scale", "-s",
+        required=True,
+        choices=["major", "minor"],
+        help="major or minor.",
+    )
+    parser.add_argument(
+        "--genre", "-g",
+        required=True,
+        help="Genre id or display name from genres.json.",
+    )
+    parser.add_argument(
+        "--tempo", "-t",
         type=int,
         required=True,
-        help='Tempo in BPM (beats per minute)'
+        help="Tempo in BPM.",
     )
-    
     parser.add_argument(
-        '--genre', '-g',
-        type=str,
-        default=None,
-        help='Genre id or display name from genres.json. The genre shapes rhythm, '
-             'pitch choice, range, and velocity. A minor key stays natural minor. '
-             'A major key uses mixolydian when the genre suggests it.'
+        "--bars", "-b",
+        type=int,
+        default=4,
+        help="Number of bars (default: 4).",
     )
-
     parser.add_argument(
-        '--bars', '-b',
+        "--output", "-o",
+        default="melody.mid",
+        help="Output MIDI filename (default: melody.mid).",
+    )
+    parser.add_argument(
+        "--seed",
         type=int,
         default=None,
-        help='Length of a genre melody in 4/4 bars. Notes are placed on the '
-             '16th-note grid and clipped to the final bar line.'
+        help="Random seed for a repeatable chord loop and octave scatter.",
     )
-
-    parser.add_argument(
-        '--notes', '-n',
-        type=int,
-        default=16,
-        help='Number of notes in the melody (default: 16). Ignored for a genre '
-             'melody when --bars is set.'
-    )
-    
-    parser.add_argument(
-        '--output', '-o',
-        type=str,
-        default='melody.mid',
-        help='Output MIDI filename (default: melody.mid)'
-    )
-    
-    parser.add_argument(
-        '--rhythm',
-        type=str,
-        choices=['even', 'mixed', 'varied'],
-        default='mixed',
-        help='Rhythm pattern: even (only quarter notes), mixed (8th/quarter/dotted), '
-             'varied (more rhythmic variety) (default: mixed)'
-    )
-    
-    parser.add_argument(
-        '--seed',
-        type=int,
-        default=None,
-        help='Random seed for reproducible melodies'
-    )
-    
     args = parser.parse_args()
-    
-    # Validate arguments: if key is provided, scale must also be provided
-    if args.key and not args.scale:
-        parser.error("--scale is required when using --key")
-    if args.scale and not args.key:
-        parser.error("--key is required when using --scale")
-    if args.genre and args.notes_file:
-        parser.error("--genre is used with --key and --scale, not --notes-file")
-    if args.bars is not None and args.bars < 1:
+    if args.bars < 1:
         parser.error("--bars must be at least 1")
-    if args.notes < 1:
-        parser.error("--notes must be at least 1")
-    
-    # Set random seed if provided
     if args.seed is not None:
         random.seed(args.seed)
         print(f"Using random seed: {args.seed}")
-    
-    # Get notes from either key/scale or notes file
+    print(f"Generating melody for {args.bars} bars...")
     try:
-        if args.notes_file:
-            # Load notes from file
-            scale_notes = load_notes_from_file(args.notes_file)
-            print(f"Loaded {len(scale_notes)} notes from {args.notes_file}")
-        else:
-            # Get notes from key and scale
-            normalized_key = normalize_note(args.key)
-            if normalized_key != args.key:
-                print(f"Note: Key {args.key} normalized to {normalized_key} (flats converted to sharps)")
-
-            if not args.genre:
-                scale_notes = get_scale_notes(args.key, args.scale)
-                print(f"Generated scale: {normalized_key} {args.scale}")
-                print(f"Scale contains {len(scale_notes)} notes")
-    except (ValueError, FileNotFoundError) as e:
-        print(f"Error: {e}")
-        return 1
-    
-    # Generate melody (using 480 ticks per beat for quantization)
-    ticks_per_beat = 480
-    if args.genre:
-        if args.bars:
-            print(f"Generating melody for {args.bars} bars...")
-        else:
-            print(f"Generating melody with {args.notes} notes...")
-        try:
-            profile = load_genre(args.genre)
-            scale_name, timed = generate_genre_melody(
-                args.key,
-                args.scale,
-                profile,
-                num_notes=args.notes,
-                num_bars=args.bars,
-                ticks_per_beat=ticks_per_beat,
-            )
-        except (ValueError, FileNotFoundError, OSError) as exc:
-            print(f"Error: {exc}")
-            return 1
-        print(f"Genre: {profile.get('displayName')} ({profile.get('id')})")
-        print(f"Resolved scale: {scale_name}")
-        end_tick = args.bars * 4 * ticks_per_beat if args.bars else None
-        write_timed_midi(timed, args.tempo, args.output, end_tick=end_tick)
-    else:
-        print(f"Generating melody with {args.notes} notes...")
-        melody = generate_melody(
-            scale_notes,
-            num_notes=args.notes,
-            rhythm_pattern=args.rhythm,
-            ticks_per_beat=ticks_per_beat
+        profile, groove_entry = load_mma_genre(args.genre)
+        scale_name = generate_mma_accompaniment(
+            args.key,
+            args.scale,
+            groove_entry["groove"],
+            args.bars,
+            args.tempo,
+            args.output,
         )
-        create_quantized_midi(melody, args.tempo, args.output)
-    
-    #print("\nMelody generation complete!")
-    #print(f"You can now import '{args.output}' into Ardour.")
-    #print("All notes are quantized to a 16th note grid.")
-    
+    except (ValueError, FileNotFoundError, OSError) as exc:
+        print(f"Error: {exc}")
+        return 1
+    print(f"Genre: {profile.get('displayName')} ({profile.get('id')})")
+    print(f"Resolved scale: {scale_name}")
+    print(f"Melody saved to {args.output}")
     return 0
 
-if __name__ == '__main__':
-    main()
 
-
+if __name__ == "__main__":
+    raise SystemExit(main())

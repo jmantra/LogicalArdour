@@ -1,0 +1,106 @@
+// ======================================
+// = Setup
+
+Plugin @StrumPattern
+
+Begin Plectrum-Strum 
+    Tuning e- a- d g b e+
+    Octave 4
+    Capo   0        
+    
+    Voice     NylonGuitar 
+    Volume    m
+
+    RVolume   -10,0
+    RTime     5
+    RDuration 5
+    RSkip     0
+End
+
+Begin Bass-FretNoise
+    Volume pp
+    
+    RVolume 20
+    RTime -50,0
+    Delay -16
+    RSkip 30
+    Voice GuitarFretNoise
+End
+Plectrum-Strum FretNoise Track=Bass-FretNoise Octave=-2 Duration=16    
+
+
+Tempo 120
+
+Drum-Metronome Tone Sticks
+Drum-Metronome Sequence {1 0 30 * 4}
+
+MSet GiroDiDo
+    C
+    Am
+    F
+    G - G7 -
+EndMSet
+
+
+
+// ======================================
+// = Simple down-up
+
+Plectrum-Strum @StrumPattern dudududu
+$GiroDiDo
+
+
+// ======================================
+// = Down-up with pause
+
+Plectrum-Strum @StrumPattern d-du-udu
+$GiroDiDo
+
+
+// ======================================
+// = Muting strings
+
+Plectrum-Strum @StrumPattern duxuduxu
+$GiroDiDo
+
+
+// ======================================
+// = Multi bar sequence
+
+SeqSize 2
+Plectrum-Strum @StrumPattern d---d--u;-ud-dudu
+$GiroDiDo
+
+
+// ======================================
+// = Muted end emphatized strums
+
+Plectrum-Strum @StrumPattern dm.um.d.u.de.ue.d.u
+$GiroDiDo
+
+
+// ======================================
+// = Muted strums
+
+Plectrum-Strum @StrumPattern dm.um.dm.um.dm.um.dm.um
+$GiroDiDo
+
+
+// ======================================
+// = Arpeggio
+
+Plectrum-Strum @StrumPattern 12345654
+$GiroDiDo
+
+
+// ======================================
+// = Multi string arpeggio
+
+Plectrum-Strum @StrumPattern 64.53.42.31.42.31.42.35
+$GiroDiDo
+
+
+Plectrum-Strum @StrumPattern d
+C
+z
+

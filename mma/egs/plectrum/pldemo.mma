@@ -1,0 +1,173 @@
+SeqClear
+SeqSize 1
+
+// For randomizing.
+Set RVolume 15
+
+Time 6/8
+
+// Each 6/8 measure has two chord strums, consisting of a bass note
+// (chord root) and strings 4 3 2 3 4.
+// Some chords have the root note on string 5 (the A-string), other
+// chords have the root on the 6th string (the E-string).
+
+// We will define a series of grooves, for full (6/8) measures and for
+// half (3/8) measures, with root on A and E strings.
+
+//// Full measure, root on A.
+
+Begin Plectrum
+    Voice       NylonGuitar
+    Sequence {
+            1.0    0   6:90;
+            2.0    0   3:70;
+            3.0    0   2:70;
+            4.0    0   1:90;
+            5.0    0   2:70;
+            6.0    0   3:70;
+    }
+    RVolume	$RVolume
+End
+
+DefGroove G3E
+
+Begin Plectrum
+    Voice       NylonGuitar
+    Sequence {
+            1.0    0   6:90;
+            2.0    0   3:70;
+            3.0    0   2:70;
+            4.0    0   - 100 - - - 60;
+            5.0    0   2:70;
+            6.0    0   3:70;
+    }
+    RVolume	$RVolume
+End
+
+DefGroove G3EA
+
+// Final groove.
+
+Begin Plectrum
+    Voice       NylonGuitar
+    Sequence {
+            1.0    0   1-5:50;
+    }
+    RVolume	$RVolume
+End
+
+DefGroove GzA
+
+////////////////
+
+Time		6/8
+KeySig		C
+If Def Tempo
+  Tempo         $Tempo
+Else
+  Tempo		160
+EndIf
+
+Groove G3E
+
+Plectrum Shape C 8 3 2 0 1 0
+
+01	 C
+
+Plectrum Shape C/B 7 3 2 0 1 0
+
+02	 C/B
+
+Plectrum Shape Am 5 0 2 2 1 0
+
+03	 Am
+
+Plectrum Shape Am/G 3 0 2 2 1 0
+
+04	 Am/G
+
+05	 F
+
+06	 D7/F#
+
+07	 G
+
+Plectrum Shape G7/F 1 -2 0 0 0 1
+
+08	 G7/F
+
+Plectrum Shape Gm6/E 0 5 5 3 3 3
+
+ 09	 Gm6/E
+
+Plectrum Shape Gm/D 10 5 5 3 3 3
+
+10	 Gm/D
+
+Plectrum Shape A/C# 9 0 2 2 2 0
+
+11	 A/C#
+
+Plectrum Shape A 5 0 2 2 2 0 
+
+12	 A
+
+Plectrum Shape Dm 10 0 3 2 3 1
+
+13	 Dm
+
+Plectrum Shape Dm7/C 8 0 3 2 3 1
+
+14	 Dm7/C
+
+Groove G3EA
+
+Plectrum Shape G/B 7 -2 0 0 0 1
+
+15	 G/B
+
+Plectrum Shape G7/F 1 -2 0 0 0 1
+
+16	 G7/F
+
+Groove G3E
+
+Plectrum Shape C 8 3 2 0 1 0
+
+17	 C
+
+Plectrum Shape C/B 7 3 2 0 1 0
+
+18	 C/B
+
+Plectrum Shape Am 5 0 2 2 1 0
+
+19	 Am
+
+Plectrum Shape D7 10 0 0 2 1 2
+
+20	 D7
+
+Groove G3EA
+
+Plectrum Shape G7/G 3 0 0 0 0 1
+
+21	 G7/G
+
+Plectrum Shape G7/B 7 3 0 0 0 1
+
+22	 G7/B
+
+Plectrum Shape G7/D 10 7 0 0 0 1
+
+23	 G7/D
+
+Groove G3E
+
+Plectrum Shape G7 13 3 0 0 0 1
+
+24	 G7
+
+Groove GzA
+
+25	 C

@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Begin/End Blocks</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node32.html">
+<LINK REL="previous" HREF="node30.html">
+<LINK REL="next" HREF="node32.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node32.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node30.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node32.html">Documentation Strings</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node30.html">Other Commands and Directives</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html739"
+  HREF="node31.html#SECTION003110000000000000000">Begin</A>
+<LI><A ID="tex2html740"
+  HREF="node31.html#SECTION003120000000000000000">End</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION003100000000000000000"></A>
+<A ID="sec-blocks"></A>
+<BR>
+Begin/End Blocks
+</H1>
+
+<P>
+Entering a series of directives for a specific track can get quite
+tedious.  To make the creation of library files a bit easier, you can
+create a block. For example, the following:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Define X 0 2 100; 50 2  90  
+<BR>
+Drum Define Y 0 2 100  
+<BR>
+Drum Sequence X Y   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Can be replaced with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Begin 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Define X 0 2 100; 50 2 90  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Define Y 0 2 100 
+<BR>
+End 
+<BR>
+Drum Sequence X Y   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Or, even more simply, with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Drum Define
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;X 0 2 100; 50 2 90  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Y 0 2 100 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If you examine some of the library files you will see that  this
+shortcut is used a lot.
+
+<P>
+
+<H1><A ID="SECTION003110000000000000000">
+Begin</A>
+</H1>
+
+<P>
+The B<SMALL>EGIN</SMALL> command requires any number of arguments. Valid
+examples include:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Drum 
+<BR>
+Begin Chord2 
+<BR>
+Begin Walk Define   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Once a B<SMALL>EGIN</SMALL> block has been entered, all subsequent lines have
+the words from the B<SMALL>EGIN</SMALL> command prepended to each line of
+data. There is not much magic here&mdash;B<SMALL>EGIN</SMALL>/E<SMALL>ND</SMALL> is really
+just some syntactic sugar.
+
+<P>
+
+<H1><A ID="SECTION003120000000000000000">
+End</A>
+</H1>
+
+<P>
+To finish off a B<SMALL>EGIN</SMALL> block, use a single E<SMALL>ND</SMALL> on a line
+by itself.
+
+<P>
+Defining musical data or repeats inside a block
+(other than COMMENT blocks) will not work.
+
+<P>
+Nesting is permitted, e.g.,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Scale Begin  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Begin Define 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</B><SPAN  CLASS="textit">stuff</SPAN><B>  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;End  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Sequence </B><SPAN  CLASS="textit">stuff</SPAN><B> 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+A B<SMALL>EGIN</SMALL> must be competed with a E<SMALL>ND</SMALL> before the end of a
+file, otherwise an error will be generated. The U<SMALL>SE</SMALL> and
+I<SMALL>NCLUDE</SMALL> commands are not permitted inside a block.
+
+<P>
+Caution:
+
+<UL>
+<LI>Be careful when using user defined plugins inside a
+block. If you were to do something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin @myplugin 
+<BR>&nbsp;&nbsp;&nbsp;some args 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and the plugin returns strings back into your source file, you will
+end up forever loop. The plugin is returning a data line back and
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will insert &ldquo;@myplugin&rdquo; to the new line. However, the block:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin 
+<BR>&nbsp;&nbsp;&nbsp;@myplugin ... 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+should work fine.
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node32.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node30.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node32.html">Documentation Strings</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node30.html">Other Commands and Directives</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

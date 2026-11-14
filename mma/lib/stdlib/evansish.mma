@@ -1,0 +1,292 @@
+// evanish
+
+Doc This is based on "mellowjazz.mma" and tries to be a bit like Bill Evans \
+    (although no one could ever be that great!). The style knocks the roots out of \
+    all the piano chords and relies on the bass player for roots. I use this for \
+    the example songs "But Beautiful" and "Some Other Time".
+  
+Author Bob van der Poel
+
+Begin DocVar
+  PUSH0 The swing feeling for this groove is controlled by the PUSH0 value. \
+         By default it is set to 0.666 which gives a regular ``swing'' feel. \
+         You might want to change it to 0.75 for a more ``square'' feel.
+         
+End
+
+SeqClear
+
+Time 4
+Timesig 4 4
+Include stdpats
+Seqsize 4
+
+// These are used in the arpeggio-accent grooves and others to set
+// an offset for the "push" notes.
+If Ndef Push0
+  Set Push0 0.666
+Endif
+Set PUSH1 $( 1 + $PUSH0 )
+Set Push2 $( 2 + $PUSH0 )
+Set Push3 $( 3 + $PUSH0 )
+Set Push4 $( 4 + $PUSH0 )
+
+
+/// Redefine the chord patterns (from stdpats) to knock out the root
+/// Not all are used/needed, but it's a simple cut/paste.
+
+Begin Chord Define
+    C1     1 4 0 90			// quarter on 1
+    C2     C1 Shift 1       // quarter on 2
+    C3     C1 Shift 2       // quarter on 3
+    C4     C1 Shift 3       // quarter on 4
+    C12    C1; C2           // quarters on 1 and 2
+    C13    C1 ; C3          // quarters on 1 and 3
+    C14    C1 ; C4          // quarters on 1 and 4
+    C23    C12 Shift 1      // quarters on 2 and 3
+    C24    C13 Shift 1      // quarters on 2 and 4
+    C34    C23 Shift 1      // quarters on 3 and 4
+    C123   C12; C3          // quarters on 1, 2 and 3
+    C124   C12; C4          // quarters on 1, 2 and 4
+    C134   C1; C34          // quarters on 1, 3 and 4
+    C234   C23; C4          // quarters on 2, 3 and 4
+    C1234  1 1 0 90 * 4       // quarters on 1, 2, 3 and 4
+    C8     C1234 * 2        // 8 eights
+
+    L1     1 1 0 90           // Whole note
+    L2     L1 * 2           // 2 half notes
+
+	Triple3  L1 * 3         // 3 1/4 triplets
+	Triple6  L1 * 6         // 6 8th triplets
+End
+
+////////////////////////////////////////////////
+/// Basic Groove
+
+
+/// Set the drum set to brushes. If you have a different patch set,
+/// change the "If Def" and Voice.
+/// Note "Brushset" is pulled from the casio-wk3000 include file.
+
+If Def Wk3000
+    StackValue $_Debug
+    Debug Warnings=Off
+    Drum-Kick1  Voice BrushSet
+    Drum-Snare1 Voice BrushSet
+    Drum-Snare2 Voice BrushSet
+    Drum-Ride1  Voice BrushSet
+    Debug $_Stackvalue
+Endif
+
+
+Begin Drum-Kick1
+    Tone KickDrum1
+    Rvolume 5 
+    Rtime 5
+    Volume p
+    Sequence  { D1 } { $PUSH4 1 70 }
+End
+
+Begin Drum-Snare1
+    Tone SnareDrum1
+    Rvolume 5 
+    Rtime 5
+    Volume   p
+    Sequence { D1234 ; D24 Shift $PUSH0 }
+End
+
+
+BEGIN DRUM-SNARE2
+    Tone SnareDrum2
+    Rvolume 5 
+    Rtime 5
+    Volume mp
+    Sequence  { D1 } z  z  z
+End
+
+Begin Drum-OHH
+    Tone OpenHiHat
+    Rvolume 5 
+    Rtime 5
+    Volume m
+    Sequence  {1 0 50} z z z
+End
+
+Begin Drum-Ride1
+    Tone RideCymbal1
+    Rvolume 5 
+    Rtime 5
+    Volume p
+    Sequence  { D13; $PUSH2 0 70; $PUSH4 0 60 }
+End 
+
+
+Begin Walk-Main         /// Our main bass line on 1,3,4
+     Voice AcousticBass
+     Volume mp
+     Articulate 80  90 70 80
+     Octave 3
+     RVolume 10
+     Sequence {1 4 90 ; 3 4 90; 4 4 90; $PUSH2 8 90; $PUSH4 8 90}
+     // note that the spaces in the next line are needed to recognize the macros.
+     Rskip 20 Beats=4, $PUSH2 , $PUSH4
+     MidiPan 108
+End
+
+Begin Chord-Piano   /// right hand
+    Voice Piano1
+    Volume mp
+    Rskip 20
+    Rtime 10
+    Rvolume 0,10
+    Articulate 150
+    Octave 5
+    Voicing Mode=Key2
+    Sequence { C13; $PUSH4 8 0 80 }  { C13; $PUSH2 8 0 70 } 
+    MidiPan 20
+End
+
+Begin Chord-Piano2   /// left hand
+    Voice $_Chord-Piano_Voice
+    Volume p
+    Rskip 20
+    Rtime 5
+    Rvolume 5
+    Articulate 90
+    Octave 4
+    Voicing Mode=None
+    Sequence {L1; $PUSH4 4 0 80 } {C13}
+    MidiPan 20
+End
+
+DefGroove Evansish    A slow, steady beat.
+
+//////////////////////////////////////////////////////
+//// Plus, add in some piano melody
+
+Groove Evansish
+
+Begin Arpeggio-Piano
+    Voice Piano1
+    Rskip   40   50  30  40
+    SeqRnd  On
+    Direction Random
+    Articulate 110
+    Harmony OpenAbove+2Below   // 2 part harmony
+    Volume  m    mp   m   mp
+    Rvolume 10
+    Octave  5
+    Range  .9
+    Sequence  { A4; $PUSH1 8 80; $PUSH4 8 60 }  \
+              { A4; $PUSH1 8 70; $PUSH2 8 50; $PUSH3 8 70; $PUSH4 8 60} \
+              { A2; $PUSH2 8 70; $PUSH4 8 60 } \
+              { A4; $PUSH2 8 80; $PUSH3 8 90 }
+End
+
+DefGroove EvansishPlus   Add in some random piano notes.
+
+//////////////////////////////////////////////////////////
+/////  Sustained
+
+Groove Evansish
+
+Begin Chord-Strings
+    Voice Strings
+    Volume pp
+    Articulate 100
+    Unify On
+    Octave 5
+    DupRoot -1  // Add in some cellos
+    Sequence {1 2 90 0 80 0; 3 2 90 0 80 0}
+End
+
+DefGroove EvansishSus   Add strings to the mix.
+
+Groove EvansishSus
+Arpeggio-Piano Groove EvansishPlus
+DefGroove EvansishSusPlus   Solo piano and strings.
+
+////////////////////////////////////////////////
+/// Fill, good for an ending
+
+Groove Evansish
+SeqSize 1
+
+Drum-Kick1   Sequence  D13
+Drum-Snare1  Sequence  D1234
+Drum-Snare2  Sequence  D1
+Drum-OHH     Sequence  D13
+Drum-Ride1   Sequence  D1
+
+Begin Walk-Main
+    Sequence   W1234
+    Direction Down
+End
+
+Chord-Guitar Sequence -
+Begin Chord-Piano
+      SeqRnd off
+      Sequence { C1234; C1234 Shift $Push0 }
+End
+DefGroove EvansishFill  A one bar fill.
+
+///////////////////////////////////
+// Recast to use less push piano in the right hand
+
+Groove Evansish
+Chord-Piano Sequence  C13    /    /    C134
+DefGroove Evansish1  Same basic without push chords.
+
+Groove EvansishPlus
+Chord-Piano Groove Evansish1
+DefGroove Evansish1Plus Random notes added, pushy chords out.
+
+Groove EvansishSus
+Chord-Piano Groove Evansish1
+DefGroove Evansish1Sus  Basic sustained without push.
+
+Groove EvansishSusPlus
+Chord-Piano Groove Evansish1
+DefGroove Evansish1SusPlus  Random notes, strings and no push.
+
+/////////////////////////////////////////////
+/// Intro
+
+Groove Evansish
+
+Drum-Kick1   Sequence  *      *      /    D1
+Drum-Snare1  Sequence  *      *      *    {D1234}
+Drum-Snare2  Sequence  D1     z      D1    z
+Drum-OHH     Sequence  *      z    {1 0 50} z
+Drum-Ride1   Sequence  D1     z     D1      z
+
+Walk-Main   Sequence   { W1234; $PUSH2 8 75; $PUSH4 8 80} /    /   {1 2 90}
+
+Chord-Guitar Sequence  -
+Begin Chord-Piano
+      Seqrnd Off
+      Sequence  *      *     *   L1
+End
+DefGroove EvansishIntro   Simple 4 bar intro.
+
+
+/////////////////////////////////////////////
+/// Ending
+
+Groove Evansish
+Seqsize 2
+
+Drum-Kick1   Sequence  D1     /
+Drum-Snare1  Sequence  *      D1
+Drum-Snare2  Sequence  D1     z 
+Drum-OHH     Sequence  *      z 
+Drum-Ride1   Sequence  D1     z 
+
+Walk-Main   Sequence   {W1234; $PUSH2 8 80; $PUSH4 8 80;}  {1 2 90}
+Chord-Guitar Sequence {1 2 90 }    z
+Begin Chord-Piano
+    SeqRnd Off
+    Sequence C1234        L1
+End
+
+DefGroove EvansishEnd  Simple 2 bar ending.

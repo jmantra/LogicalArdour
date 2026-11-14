@@ -1,0 +1,40 @@
+
+Fixed bug in lyrics chord name generation. When transposition was on
+ the wrong chord names were sometimes being generated.
+
+Fixed bug in -G command line code. Aliases we not being deleted
+ between passes.
+
+Released bug fix version 1.3.a March 8, 2008.
+
+New command line option -T <track1,track2,etc>. This will permit the
+ generation of MIDI data for ONLY the listed tracks. Useful in
+ extracting data for multitrack stuff.
+
+Added error trap for illegal PATCH options.
+
+Added AllGrooves command. This makes it easy to change setting in
+ multiple grooves. Documented in the GROOVES chapter of the manual.
+
+Release 1.3b, April/2008 as devl trial.
+
+Added begin/end to list of keywords for -Dk.
+
+The auxiliary program mklibdoc.py has been renamed "mma-libdoc".
+It is now installed in the same bin directory as MMA.
+
+The auxiliary program mma-renum is now installed in the binary directory. A
+man page for the program has been created.
+
+Man pages have been created for mma, mma-renum and mma-libdoc. In the debian package
+they are installed in /usr/share/man/man1; in standard distros they are
+left in docs/man and installation is left as an exercise for the user.
+
+A simple math parser has been added. You can use this anywhere a macro
+is valid. Anything in $( )$ delimiters is evaluated (safely) using
+Python. See details in the "variables" section of the manual.
+
+Sanity check on tempo will no longer permit negative or zero values.
+
+October 1, 2006 -- released version 1.4
+

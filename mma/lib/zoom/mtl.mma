@@ -1,0 +1,153 @@
+// Pattern: MTL01
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3---------------------2-3-----3-----------------|3---------------------3-3-----3---3-----3-3-----|
+  Sequence { 1.0 0 90; 2.8 0 60; 3.0 0 90; 3.5 0 90 } \
+           { 1.0 0 90; 2.8 0 90; 3.0 0 90; 3.5 0 90; 3.8 0 90; 4.3 0 90; 4.5 0 90 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |------------3-----------------------3-----------|------------3-----------------------3-----------|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |3-----3-----3-----3-----------2--3-----3--------|3-----3----2------3-----3-----2-----2-----3-----|
+  Sequence { 1.0 0 90; 1.5 0 90; 2.0 0 90; 2.5 0 90; 3.5 0 60; 3.8 0 90; 4.2 0 90 } \
+           { 1.0 0 90; 1.5 0 90; 1.9 0 60; 2.5 0 90; 3.0 0 90; 3.5 0 60; 4.0 0 60; 4.5 0 90 } 
+End
+
+Begin Drum-Bell
+  Tone     RideBell
+           // |----------------2-------2-----------2-----3-----|---2------------------------------3----3--------|
+  Sequence { 2.3 0 60; 3.0 0 60; 4.0 0 60; 4.5 0 90 } \
+           { 1.2 0 60; 3.8 0 90; 4.2 0 90 } 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |2-----2-----3-----1-----2-----2-----3-----1-----|2-----2-----3-----1-----2-----2-----3-----1-----|
+  Sequence { 1.0 0 60; 1.5 0 60; 2.0 0 90; 2.5 0 30; 3.0 0 60; 3.5 0 60; 4.0 0 90; 4.5 0 30 } / 
+End
+
+DefGroove MTL01 Time = 4/4, SeqLen = 2; Kick, Snare, Ride, Bell, Tambourine.
+
+// Pattern: MTL02
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3--3--3---3-----|3--3--3---3-----|
+  Sequence { 1.0 0 90; 1.8 0 90; 2.5 0 90; 3.5 0 90 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |----3-------3---|----3-------3---|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2---2---2-1-2---|2---2---2-1-2---|
+  Sequence { 1.0 0 60; 2.0 0 60; 3.0 0 60; 3.5 0 30; 4.0 0 60 } / 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |----------------|--------------1-|
+  Sequence Z \
+           { 4.5 0 30 } 
+End
+
+DefGroove MTL02 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, OpenHat.
+
+// Pattern: MTL03
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3---33-3|3---33-3|
+  Sequence { 1.0 0 90; 3.0 0 90; 3.5 0 90; 4.5 0 90 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |--3---3-|--3---3-|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2-2-2-2-|3-3-3-2-|
+  Sequence { 1.0 0 60; 2.0 0 60; 3.0 0 60; 4.0 0 60 } \
+           { 1.0 0 90; 2.0 0 90; 3.0 0 90; 4.0 0 60 } 
+End
+
+Begin Drum-Crash
+  Tone     CrashCymbal1
+           // |2-2-2-2-|2-2-2-2-|
+  Sequence { 1.0 0 60; 2.0 0 60; 3.0 0 60; 4.0 0 60 } / 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |-1-1-1-1|-1-1-1-1|
+  Sequence { 1.5 0 30; 2.5 0 30; 3.5 0 30; 4.5 0 30 } / 
+End
+
+DefGroove MTL03 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, Crash, Ride.
+
+// Pattern: MTL04
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-----3-----------------------------------------|3-----3-----------3-----------------3-----------|
+  Sequence { 1.0 0 90; 1.5 0 90 } \
+           { 1.0 0 90; 1.5 0 90; 2.5 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |------------------------3-----------------------|------------------------3-----------------------|
+  Sequence { 3.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |3-----------3-----------3-----------3-----------|3-----------3-----------3-----------3-----------|
+  Sequence { 1.0 0 90; 2.0 0 90; 3.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-Crash
+  Tone     CrashCymbal1
+           // |------------------------3-----------------------|------------------------3-----------------------|
+  Sequence { 3.0 0 90 } / 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |2-----------2------------2----------2-----------|2----------2------------2-----------2-----------|
+  Sequence { 1.0 0 60; 2.0 0 60; 3.1 0 60; 4.0 0 60 } \
+           { 1.0 0 60; 1.9 0 60; 3.0 0 60; 4.0 0 60 } 
+End
+
+DefGroove MTL04 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, Crash, Ride.
+

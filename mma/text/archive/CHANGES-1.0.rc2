@@ -1,0 +1,24 @@
+
+Both ln-install and cp-install have been updated a bit. They now check
+  for the proper version of Python being installed and attempt to
+  verify that the user has root permissions. I'm not sure if the
+  check will always work (ie, on non-Unix systems) so it is wrapped
+  in try/except ... hopefully this will end one set of "can't install"
+  emails I get.
+
+In an effort to get the command line options back to reality, I have deleted
+  the following: -Ddm, -Dda, -Dim, -Dia, -Dcm, -Dca, -Dn. These options just
+  did some intermediate doc prep and should not be a part of MMA proper.
+  The program util/mmatabs.py creates the same data and is part of the
+  distribution.
+
+Changed mklibdoc.py to generate entries in alphabetic order.
+
+Fixed error reporting bug in parser. Constructs like "z*" would crash the
+ compiler.
+
+Changed TABs in source code to spaces. Please, if you decide to make
+ changes the proper-indent-for-python-according-to-bob is 4 spaces.
+
+November 13, 2006
+Released Version 1.0 --- bring out the funny hats and champagne!

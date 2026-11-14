@@ -1,0 +1,18 @@
+// A first test for addgm plugin 
+
+// This module will prepend the chord "Gm" to a line.
+//   as is, it's outright stupid. But, there are times
+//   when the ability to add constant things to a line
+//   can be useful.
+
+Plugin addgm     // load the plugin
+
+// This tells use what plugins are loaded. It should
+// just display "@ADDGM"
+
+print Registered Plugins: $_DataPlugins
+
+// In order to see what is created use the command "mma -r test"
+
+ @Addgm  A
+10 @Addgm  G

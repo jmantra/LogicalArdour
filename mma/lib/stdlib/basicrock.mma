@@ -1,0 +1,195 @@
+// basicrock
+
+Begin Doc
+
+	Basic Rock beat for things a bit to hard for softrock and
+	ballad beats. I wrote this for "Love Potion No. 9".
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+//////// Additional patterns
+
+Begin Bass Define
+	Ba   1 4 1 90; 2.5 8 1 90; 3 4 1 90; 4.5 8 1 90
+	Bb   1 4 1 90; 2.5 8 1 90; 3 4 1 90; 4.5 8 5 90
+End
+
+/////////////
+
+SeqSize 2
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence  {D1; D2 Shift .5}
+	Volume mp
+	Rtime 10
+	Rvolume 10
+	Accent 1 20
+End
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Sequence  D24
+	Volume mp
+	Rtime 10
+	Rvolume 10
+End
+
+Begin Drum-OHH
+	Tone OpenHiHat
+	Sequence  D1234
+	Volume mp
+	Rtime 10
+	Rvolume 10
+	Accent 1 20 3 10
+End
+
+Begin Drum-Tam
+	Tone Tambourine
+	Sequence  D8
+	Volume mp
+	Rtime 10
+	Rvolume 10
+	Accent 1 20 3 10
+	Rskip 10
+End
+
+Begin Bass
+	Voice FingeredBass
+	Sequence  Ba Bb
+	Volume f
+	Octave 3
+	Articulate 80
+End
+
+Begin Chord-Clean
+	Voice CleanGuitar
+	Sequence  {1 8 90; 1.5 8 90; 2.5 8 90; 3 8 90; 4 8 90}
+	Octave 5
+	Volume m
+	Articulate 80
+	Rtime 5
+	Rvolume 10
+End
+
+Begin Chord-Clean2
+	Copy Chord-Clean
+	Sequence  {2 8 90; 3.5 8 90; 4.5 8 90}
+	Invert 1
+End
+
+Begin Chord-Dist
+	Copy Chord-Clean
+	Voice DistortonGuitar
+	Sequence {1 8 90 0; 1.5 8 90 0; 2 8 70; 3 8 70 0; 3.5 8 70; 4.5 8 70}
+	Octave 4
+	Volume p
+	Articulate 70
+	Rvolume 10
+	RTime 5
+	RSkip 5
+End
+	
+
+DefGroove BasicRock       A very basic rock beat in 4.
+
+Begin Chord-Sus
+	Voice Strings
+	Voicing Mode=Optimal
+	Volume mp
+	Articulate 100
+	Unify On
+	Octave 5
+	Sequence  {1 1 90 0 90 0 * 4 }
+End
+
+DefGroove  BasicRockSus   Even rockers like strings!
+
+
+///////  Take out some of the off-beat stuff in the guitar chords.
+
+Groove BasicRock
+
+Begin Chord-Clean
+	Sequence  C1234
+	Articulate 90
+	Volume mf
+End
+
+Chord-Clean2   Sequence -
+
+Begin Bass
+	Sequence { B13; 3.5 8 5 90}  {B13; 4.5 8 5 90}
+	SeqRnd On
+End
+
+DefGroove BasicRock4   Same rock with more of a 4/4 emphasis. Good for \
+                       alternate sections.
+                       
+
+             
+Chord-Sus Groove BasicRockSus
+
+DefGroove BasicRock4Sus   Our 4/4 version with strings.                    
+
+///////////////////////////////////////////
+/// 4 bar intro
+
+Groove BasicRock
+Seqsize 4
+AllTracks SeqRnd Off
+
+Drum-Kick    Sequence  *    *    *   D13
+Drum-Snare   Sequence  *    *    *   D123
+// Drum-OHH
+Drum-Tam     Sequence  *    *    *   {D12; D12 shift .25; D12 shift .5; D12 shift .75}
+Begin Bass
+      SeqRnd Off
+      Sequence  *    *    *   B13
+End
+Chord-Clean  Sequence  *    *    *   C13
+Chord-Clean2 Sequence  *    *    *   L1
+Chord-Dist   Sequence  *    *    *   L1
+
+DefGroove    BasicRockIntro   4 bar intro.
+
+Groove BasicRock4
+Seqsize 4
+AllTracks SeqRnd Off
+
+Drum-Kick    Sequence  *    *    *   D1
+Drum-Snare   Sequence  *    *    *   D1
+// Drum-OHH
+Drum-Tam     Sequence  *    *    *   {D12; D12 shift .25; D12 shift .5; D12 shift .75}
+Bass         Sequence  *    *    *   {1 4 1 90; 2 4 2 90; 3 4 3 90; 4 4 5 90}
+Chord-Clean  Sequence  *    *    *   C1
+Chord-Clean2 Sequence  *    *    *   L1
+Chord-Dist   Sequence  *    *    *   L1
+
+DefGroove    BasicRock4Intro   4 bar intro with 4-feel.
+
+
+////////////////////////////////
+/// Ending
+
+Groove BasicRock
+
+Drum-Kickb    Sequence  D13
+Drum-Snare    Sequence  D24  D13
+Drum-OHH      Sequence  D1234  D13
+Drum-Tam      Sequence  D8   D13
+Bass          Sequence  B13  B11
+Chord-Clean   Sequence  C1234  C13
+Chord-Clean2  Sequence  -
+Chord-Dist    Sequence  {1 8 90 0; 3 8 70 }
+	
+DefGroove BasicRockEnd   A 2 bar ending.
+
+

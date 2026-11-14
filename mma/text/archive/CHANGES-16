@@ -1,0 +1,94 @@
+
+Changes file for the 2016 series
+
+This reflects changes to MMA since the release of version 16.06.
+
+Minor change to pluginUtils.py so that 16.06 is recognized. 
+
+June 12, 2016: Reposted 16.06 packages. Silent fix.
+---------------------------------------------------
+
+There was an import error in regpluy.py which showed only when using python 3.x. Fixed
+
+June 14, 2016: Reposted 16.06 packages. Silent fix (but posted message).
+------------------------------------------------------------------------
+
+Fixed AFTER option parser. You can now have option pairs in the command to execute.
+
+At some point I added a '5' option as a chord for so-called "power chords".
+ This chordtype dropped the 3rd and duplicated in a 2nd 5th. Worked just fine.
+ Then I added in '#5' as an alternate spelling for '+' or 'alt'. Now we have problems!
+ I actually needed a '#5' (to accomodate a decending bass line) and used 'F#5'. Opps,
+ it used a power-chord F# (and left the 5 alone). So, it's now changed ... for a
+ explicit '#5' use the notation '(#5)'. Or, easier, just use 'alt' or '+'.
+
+DefaultDrum now also works with Solo/Melody tracks when the drumtype option is
+ set. Please read the cautions in the manual when you play with the
+ "Tweaks DefaultDrum" option.
+
+September 10, 2016: Released 11.06.a
+------------------------------------
+
+Added Min:Sec to report string (in addition to Min.ddd). Hope it's useful to someone.
+
+Fixed bug in HTML doc generator. It was crashing with plectrum mute patterns.
+
+The descriptions of a defined groove (for the docs) will always end in a '.'.
+
+Fixed docs for the 'r' Direction setting in Aria. 'r*' was confusing.
+
+Fixed error in the COPY command. Using extended groove/track notation was not working.
+
+Enhanced the COPY command to support copying from to to a different track.
+
+Added interval harmonies: Sxxx. See the fine manual.
+
+Fixed bug in solo/melody tracks: the note middle C was never being
+ harmonized (note: there really is a difference between the value 0 and None!)
+
+Fixed bug in MidiInc which caused a crash when importing files using a START
+ offset (stupid me didn't have enough ()s in my code).
+
+Modifed the NOWARN flag in repeatend(ing) so that it can appear before or after the count.
+
+Fixed truncate to properly do Side=value. Left/Right were working, the validity test
+ for an int. arg. was wrong.
+
+Changed the -L option report to display line ranges instead of every bar number. This
+ makes it much easier to view the effects of REPEATs and other jump commands. A single
+ '?' is still displayed for all unnumbered lines.
+
+Moved a number of the debug options to their own file.
+
+Moved the sync options to their own file.
+
+Added a nowarn option to the AllGrooves command. This flag currently only effects the
+ reporting of a global sequence change.
+
+Added macros for time/date: $_DATEYEAR, $_DATEDATE, and $_DATETIME. You might want
+ to use these if copyright strings.
+
+The plugin registry has been modified so that you can have a plugin directory in
+ your current directory. So, you can now have plugins/mycreation as well as mycreation.
+
+Added the option to change the encoding used from cp1262 via an env varible MMA_ENCODING.
+
+December 30, 2018 -- Released Version 16.06c  (last of the 16.06!!!!)
+---------------------------------------------------------------------
+
+Revisited the parsing of the VOICING line. Added error traps.
+
+Added new code to permit random setting in INVERT.
+
+Fixed bug in lyric CHORDS=On which crashed if the TIME value had been changed.
+
+Added environment variable MMA_ENCODING for global encoding value. By default
+ it remains as cp1252.
+
+The plectrum tracks have been treated to some enhancements, especially the
+ addition of the SHAPE command. Thanks to Johan <jvromans@squirrel.nl>.
+
+Added environment variable MMA_LOGFILE. If enabled this forces a logfile.
+
+July 10, 2019 -- Released Version 19.07
+----------------------------------------

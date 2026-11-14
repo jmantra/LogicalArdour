@@ -1,0 +1,171 @@
+// folkrock
+
+Begin Doc
+	A simple, folky (1960s) rock, reminicent of the Mama's and Papa's".
+    Basic strumming guitar and and touch of latin drums. Exemplar: "Monday, Monday".
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+/// Our basic pattern
+
+SeqSize 4
+
+Begin Drum-HH
+    Tone ClosedHiHat
+    Volume p
+    Sequence D8
+End
+
+Begin Drum-Snare
+    Tone SnareDrum1
+    Volume p
+    Sequence D23  D234  D23  {D24; D24 Shift .5}
+End
+
+Begin Drum-Bass
+    Tone LowTom1
+    Volume mp
+    Sequence {D123; D14 Shift .5}
+End
+
+// For now the Clave really sets this up as "latin"ish.
+Begin Drum-Clave
+	Tone Claves
+	Sequence  Clave2
+	Rskip 10
+	Volume f
+End
+
+Begin Plectrum
+    Voice NylonGuitar
+    Volume p
+    Octave 5    
+    Sequence  {1 4 90; 1.5 4 90; 2 4 90; 2.5 4 90; 3 4 90; 3.5 4 90; 4 4 90; 4.5 4 90} \
+              {1 4 90; 2 4 90; 3 4 90; 4 4 90;} \
+              {1 4 90; 1.5 4 90; 2 4 90; 2.5 4 90; 3 4 90; 3.5 4 90; 4 4 90; 4.5 4 90} \
+              {1 4 90; 3 4 90;}
+    End
+
+/// Bass pattern is 13 13 13 1234.
+Begin Bass
+    Voice       AcousticBass
+    Volume      mp
+    Octave      3
+    Articulate  90
+    Rvolume     5
+    Rtime       5
+    Sequence    B13  /  /  z
+End
+
+Begin Walk
+    Voice       $_Bass_Voice
+    Volume      $_Bass_Volume
+    Octave      $_Bass_Octave
+    Articulate  $_Bass_Articulate
+    Rvolume     $_Bass_RVolume
+    RTime       $_Bass_Rtime
+    Sequence    z   z   z    W1234
+End
+
+DefGroove FolkRock     Basic Mama/Papa rock style.
+
+//////////////////////
+/// Plus
+
+Groove FolkRock
+
+Begin Arpeggio
+    Voice      Piano1
+    Volume     mp
+    Articulate 90 100 110 120
+    Rtime      10
+    Rvolume    10
+    Range      1.5
+    Harmony    3Below
+    Rskip      40
+    Octave     5
+    Sequence   A4  A8 
+    SeqRnd     On
+End
+
+DefGroove FolkRockPlus   Our basic style with added piano stuff
+
+
+////////////////////////
+/// Sustained
+
+Groove FolkRock
+
+Begin Chord-Sus
+    Voice VoiceOohs
+    Volume m
+    Octave 5
+    Articulate 110
+    Rtime 10
+    Rvolume 10
+    Unify On
+    Sequence {1 2. 90 0 90 0; 4 4 0 100 0 }
+End
+
+DefGroove FolkRockSus   Add in some synthesized voices.
+
+Groove FolkRockPlus
+Chord-Sus Groove FolkRockSus 
+DefGroove FolkRockSusPlus   Piano fills and voices.
+
+/////////////////////////////////////
+/// Fill
+
+Groove FolkRock
+SeqSize 1
+
+Drum-HH      Sequence D1234
+Drum-Snare   Sequence D1234
+Drum-Bass    Sequence D8
+// Drum-Clave
+
+Plectrum     Sequence {1 2 90 * 8 }
+Bass         Sequence -
+Walk         Sequence W1234
+
+DefGroove FolkRockFill   A noisy, one bar fill.
+
+////////////////////////////////
+/// Intro
+
+
+Groove FolkRock
+
+Drum-HH      Sequence * * * {D12; D12 Shift .5}
+Drum-Snare   Sequence * * * D1234
+Drum-Bass    Sequence * * * D1
+// Drum-Clave
+
+Plectrum     Sequence * * * {1 2 90 }
+Bass         Sequence B11 / / z
+Walk         Sequence W1234
+
+DefGroove FolkRockIntro  Simple four bar intro.
+
+////////////////////////////////
+/// Ending
+
+Groove FolkRock
+SeqSize 2
+
+Drum-HH      Sequence * z
+Drum-Snare   Sequence * D12
+Drum-Bass    Sequence * D1
+Drum-Clave   Sequence D13 D1
+
+Plectrum     Sequence {1 2 90 * 2} {1 2 90 }
+Bass         Sequence B13 B1
+Walk         Sequence -
+
+DefGroove FolkRockEnd  A 2 bar ending

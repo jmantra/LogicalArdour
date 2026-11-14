@@ -1,0 +1,36 @@
+// Some examples of mma math
+//
+
+
+// These just print some calculations. 
+
+print (44 * 3.2) is $(44 * 3.2)
+print Use INT() to round it out: $( int(44 * 3.2))
+print The current tempo of $_Tempo times .3 is $( $_Tempo * .3)
+print
+print Here is a loop to set Articulate shorter in a series
+
+Bass Articulate 100   // initial setting for articulate
+Set A 5               // value just to use 2 variables below
+Repeat
+  Bass Articulate $( $_Bass_Articulate - $a )
+  print Bass_Articulate is $_Bass_Articulate
+RepeatEnd 10
+
+// do some cool stuff :)
+
+print
+print A complex example to change a list of values:
+
+SeqSize 4
+Chord Articulate  40 50 80 90
+print Our initial setting for Chord Articulate: $_Chord_Articulate
+
+Chord Articulate $(' '.join([str(int(x)+10)for x in' $_Chord_Articulate '.split()]))
+
+print New setting:  $_Chord_Articulate
+print
+
+print Using list notation you can even extract individual values.
+print For example, the articulate value for the 3nd bar is: $( ' $_Chord_Articulate '.split()[2] )
+print

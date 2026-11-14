@@ -1,0 +1,102 @@
+
+If we had a real FAQ this information would certainly be there. But,
+for now we just have a nice little text file.
+
+More than one user has asked about a "real time" or "filter" mode for
+MMA. The sort answer is "sorry, this isn't going to happen."
+
+The longer answer follows.
+
+Before you think about "real time" and "filters", let's talk about
+what MMA is designed to do. And that is pretty simple: MMA creates
+standard MIDI files, also known as SMFs. You can think of a SMF as a
+collection of MIDI information (like note-on, note-off and controller
+events) packaged with timing information. MIDI itself just has
+commands to do simple things like "turn on a note", "turn off a note",
+"enable a voice/tone", "turn on vibrato", etc. It doesn't have commands
+for musical issues like timing and tempo. Yes, MIDI doesn't understand
+anything like "this is a quarter note" or "play at a tempo of 120 bpm".
+
+So, in a SMF each MIDI event is wrapped with a time code. These time
+codes are offsets from the start of the file. To play a SMF a program
+loads the file, and sends out the MIDI information at intervals
+dictated by the time codes. In addition, variables like tempo can be
+added to speed up (down) the timing. Remember: timing is not part of
+MIDI. Timing is something a sequencer does.
+
+Now, back to MMA. MMA reads a text file, or series of files,
+containing information about tempo, volume, patterns, and chords. It
+then converts this into a SMF.
+
+When processing the input file(s) MMA doesn't necessarily create the
+MIDI data in the same order that it will be played. This is huge
+real-time problem.
+
+Not in order? Sure, think about what is going on. MMA reads the input
+file and figures out stuff about tempo, patterns, etc. Now, it has to
+handle each bar of the song. It does this by looping though each
+active track bar by bar. So, our first real-time problem is that the
+data for a bar is not complete until all the tracks for a bar are
+processed.
+
+To add complexities to this, MMA also backtracks into previous
+bars. Consider the Unify command which joins notes between parts of a
+sequence. A note sounding in bar 1 could easily extend into bar
+5. And, to figure this MMA needs to adjust previously generated event
+data. Consider BeatAdjust which can move the song pointer backwards in
+the generated data.
+
+Other commands in MMA can effect future parts of the MIDI. If you
+define a Tempo change over several bars MMA immediately creates
+entries in a table describing future timing events to incorporate into
+the final SMF. And there are many more commands doing nasty things
+to complicate life.
+
+Once the entire input file has been read and processed MMA gathers all
+the timing and event data it created and processes that into a
+SMF. And, really, it can't create the SMF until it knows everything
+you wanted to tell it.
+
+So, am I telling you to forget it? Nope. I've certainly given this
+issue some thought and do have some ideas which may (or may not) be
+implemented in the future. But before I do anything with the following
+I need to get some serious ideas from users. So, think/work with me on
+this.
+
+INPUT: it is certainly possible to get MMA to read from stdin. But,
+it's not as simple as reading a line and generating output. The
+biggest problem is the Repeat command. As implemented the
+repeat/end/ending code reads all the information in the loop area and
+creates copies; then the entire chunk is processed. Acting as an input
+filter the reasonable thing would be to disable some commands like
+this. Probably a reasonable thing to do. Same goes for Labels and Gotos.
+
+Next, we'd need to rewrite the main parsing loop to handle input on a
+line-by-line, rather than file, basis. This is probably less work than
+you might imagine.
+
+OUTPUT: To properly do this we'd need to generate output as it's
+generated. Certainly doing this as notes or events are generated is not
+workable. However, it might be possible to "flush" the buffer
+containing the MIDI information after each bar is generated. To do
+this one would need to disable a number of commands. Cut, BeatAdjust,
+Tempo (future) are just a few which come to mind.
+
+Finally, if we do get the above issues working ... what do we end up
+with? Something useful? I'm not convinced that any of the MIDI tools
+we normally use can take chunks of MIDI information and do anything
+useful with them. Most (all?) players read an entire SMF file, do some
+processing and then play the data. Due to the structure of a SMF there
+really isn't any other way to handle it.
+
+I think that what people are asking is "can you rewrite MMA from being
+a SMF creator into a pattern based MIDI sequencer?" And the answer to
+that is "probably not".
+
+So, if you know more about MIDI than I do ... jump in and we'll talk.
+
+
+------------------
+
+bvdp, June 2009.
+

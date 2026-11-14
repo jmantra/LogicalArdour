@@ -1,0 +1,157 @@
+ // funk2.mma
+
+Begin Doc  
+      Funk2 (017). A funky funk for funky tempos.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 127; 2.8 0 60; 3 0 127; 3.8 0 123} \
+             {1.3 0 75; 1.5 0 118; 3.5 0 127; 4.3 0 74}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {2 0 127; 4.5 0 127} \
+             {2 0 127; 4 0 127} 
+End
+
+Begin Drum-HandClap
+    Tone HandClap
+    Volume m
+    Sequence {2 0 127; 4 0 127}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Rskip 5
+    Rvolume 5
+    Sequence {1 0 127; 1.5 0 60; 2 0 127; 2.5 0 40; 2.6 0 40; \
+                2.8 0 40; 3 0 127; 3.5 0 40; 4 0 55; 4.9 0 67}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence {4.5 0 127} z  {3.3 0 127; 3.8 0 127} z
+End
+
+Begin Drum-Cabasa
+    Tone Cabasa
+    Volume m
+    Sequence {2.5 0 127; 2.8 0 127}   z    z     z
+End
+
+Begin Bass-9
+    Voice PickedBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 8 1 127; 2 3 3 127; 3 8 4 127; 3.8 16 5 127; 4.5 16 1 127} \
+             {1 8 1 127} \
+             {2 3 3 127; 3.3 6 4 127; 3.8 6 5 127; 4.5 8 3 127} \
+             {1.5 16 1 127}
+
+
+End
+
+Begin Chord-6
+    Voice MutedGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {3 6 90; 3.8 6 90; 4.5 64 90}      z 
+End
+
+
+Begin Chord-7
+    Voice EPiano
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 32 90; 2 6 90}      z 
+End
+
+
+
+Begin Bass-8
+    Voice CleanGuitar
+    Octave 4
+    Articulate 100
+    Volume m
+    Sequence {1.8 16 1 127} \
+             z \
+             {1.8 16 1 127} \
+             {3 16 6# 80; 3.8 6 6# 127}
+End
+
+DefGroove Funk2   Our basic rhythm.
+
+/////////////////////////////////////////////////////////
+//////  Intro
+
+Groove Funk2
+
+Drum-KickDrum1    Sequence   *    *    {D1234 Shift .3} {D24 Shift .5}
+//Drum-SnareDrum1 Sequence
+Drum-HandClap     Sequence   *    *    D4         D1
+Drum-ClosedHiHat  Sequence   *    *    D8         *
+Drum-OpenHiHat    Sequence   {D4 Shift .5}  /   /  {D3 Shift .5}
+//Drum-Cabasa       Sequence 
+
+Bass-9            Sequence   *     B13    *    B1234
+
+// Muted guitar
+Chord-6           Sequence   *     C24   *   L1
+
+// epiano
+Chord-7           Sequence   *     C13   *   C1
+
+// Clean guitar
+Bass-8            Sequence -
+
+DefGroove Funk2Intro   A funky 4 bar introdution
+
+
+/////////////////////////////////////////////////////////
+//////  Ending
+
+Groove Funk2
+Seqsize 2
+
+Drum-KickDrum1    Sequence   *    D1
+Drum-SnareDrum1   Sequence   *    D1
+Drum-HandClap     Sequence   D8   z
+Drum-ClosedHiHat  Sequence   D4   D1
+Drum-OpenHiHat    Sequence   {D4 Shift .5} {D1 Shift .5}
+Drum-Cabasa       Sequence   *    z
+
+Bass-9            Sequence   B13  B1
+
+// Muted guitar
+Chord-6           Sequence   C24   L1
+
+// epiano
+Chord-7           Sequence   *     C1
+
+// Clean guitar
+Bass-8            Sequence   *     B1
+
+DefGroove Funk2End   A funky 4 bar introdution
+

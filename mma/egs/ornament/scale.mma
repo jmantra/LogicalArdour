@@ -1,0 +1,41 @@
+// Ivory tinkles ... extra notes on decending scale
+
+Tempo 130
+Keysig C
+
+Begin Chord
+    Voice JazzGuitar
+    Octave 5
+    Voicing Mode=key
+    Articulate 90
+    Sequence {1 1 90 * 4}
+End
+
+Begin Scale
+    Voice Piano1
+    Harmony Openbelow
+    Articulate 110
+    Volume mf
+    range 4
+    Octave 3
+    Sequence {1 1 90 * 4 }   // eight notes
+    direction Down
+    Ornament Type=3After Duration=75 Volume=90 Place=Above Beats=1,2
+End
+
+
+1 C
+2 /
+3 G
+4 C
+
+/// Repeat and enable  harmony on the scale
+
+Scale Harmony 3Above
+Scale Direction Up
+
+
+5 C
+6 /
+7 G
+8 C

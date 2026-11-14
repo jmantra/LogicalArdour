@@ -1,0 +1,30 @@
+// Create a drum sequence using Melody. This can be
+// included in a Groove
+
+SeqSize 4
+
+Begin Melody-LeftDrum
+  DrumType
+  Volume ff
+  Sequence {4 SnareDrum1; ; r ; OpenTriangle;  } \
+           {4 SnareDrum1; ; 8r ; MuteTriangle; OpenTriangle;} \
+           {4 HandClap ;  ; HighTom1 ; OpenTriangle; } \
+           {4 HighTom1 ;  HighTom2; JingleBell; SnareDrum2; }
+  SeqRnd True
+End
+
+// Simple chord accomp, just for demo
+Begin Chord
+   Volume mp
+   Voice JazzGuitar
+   Sequence {1 1 90 * 4}
+End
+
+1 C
+2 D
+3 E
+4 F
+5 G
+6 A
+7 B
+8 C

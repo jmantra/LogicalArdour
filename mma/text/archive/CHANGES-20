@@ -1,0 +1,204 @@
+
+Changes file for the 2020 series
+
+This reflects changes to MMA since the release of version 20.02 (February 2020).
+
+Fixed several spelling errors in the man pages. Thanks to Dennis Braun.
+
+Fixed major problem with plugins crashing with Python3. Easy fix :)
+
+Changed the default behaviour of Plectrum tracks: they no longer turn off
+  all sounding strings when a groove is changed. This can be restored via
+  the Tweaks PlectrumDoRest=True or Off setting.
+
+Fixed minor problem with keysigs always being "#" in a MIDI file.
+  Thanks to Jason Crane.
+	
+Released 20.02b - April 6/2020
+------------------------------
+
+The recursion levels for include/use files are now checked to stop
+ a possible runaway overload.
+
+Fixed bug that prevented the use of a predefined sequence in Trigger. Also
+ fixed some debug info in Trigger.
+
+Fixed AFTER so that it behaves as expected in * bar sequences.
+
+Enhanced Tempo to accept the Restore=Measures and Offset=Measures options.
+
+Fixed $_Tempo macro to reflect current setting, not future ones.
+
+Added $_MidiAssigns system macro. Reports the current MIDI channel assignments
+ with their channels. Useful in debugging MIDI overflows.
+
+A number of functions creating temporary files have been changed to use the
+ library function tempfile.mkstemp() instead of my open (dumb) version using
+ the pid of mma.
+
+Released 20.02c - May 5/2020
+----------------------------
+
+Fixed mispelling in drum tones. OpenSudro should read OpenSurdo. Changed refs in
+ the casio lib files as well.
+
+Fixed a bunch of stuff in the AFTER code. Mainly, it now works in a
+ repeat (*) loop. Thanks for the pushes on this, Johan.
+
+Added: You can now set a default drum kit for use with a drum track.
+ See the manual tweaks section. And, you can also use the drumkit
+ names in the VOICE command.
+
+String slicing: The empty operator ( [] ) now returns the length of argument.
+
+Added: -xGrooves. This will list all grooves in the database. You can use an
+  argument and all grooves matching that name will be listed. The names are
+  all presented in extended groove notation so you can cut/paste these into
+  the -V option.
+
+Released 20.02d - June 1/2020
+-----------------------------
+
+Fixed yet another mispelling in drum tones. MuteSudro should read MuteSurdo.
+
+Fixed a number of minor "oversights" in the stdlib: Some grooves did not show in
+  the docs dues to missing documentation strings and JazzGuitar3 definition
+  was clobbered.
+
+Added a -Djs command line option. This gathers all the groove information parsed
+  by MMA and prints it to stdout as a json string.
+
+Harmony: Added TOP, ROOT (and variants); randomized selection of harmonies;
+  cleaned up docs; optimized code.
+
+
+Released 20.02e - June 1/2020
+-----------------------------
+
+The main caller, mma.py, has been modified so that the standard python library
+  locations are checked for the mma modules.
+
+The mmarc search path now includes $HOME/.config/mma/mmarc.
+
+Added env variables MMA_PLUGPATH and MMA_LIBPATH. These are comma separated lists of
+ additional directories. The are inserted into the default paths.
+
+Added: -xPRINT var1 var2 ... Print out the values of various system variables
+  at initialization.
+
+
+Released 20.02f - November 16/2020
+----------------------------------
+
+Added env variable MMA_INCPATH (see MMA_LIBPATH above).
+
+Changed location of call to process MMA_LIBPATH, MMA_PLUGPATH and
+ MMA_INCPATH so that directives like -I and -V on the command
+ line now work with the additional paths. NOTE: if you want multiple
+ paths you MUST use the OS dependent separator, this is a ':' in
+ Linux/Mac and a ';' in Windows. To verify open a python session and type:
+    import os
+    print(os.pathsep)
+ It will print the correct character.
+
+Added the env variable MMA_HOME. Read more about this is the
+ Enviroment Variables section of the fine manual ... but this
+ makes it "easy" to have non-standard installations.
+
+Released 20.12 - December 8/2020
+----------------------------------
+
+The ARPEGGIATE command now accepts the single word "Off" argument as a disabler.
+
+Fixed docs for the DefAlias command. Arguments were reversed.
+
+Added FROM option to SeqRndWeight. See docs.
+
+Updated cp-install so that the plugin directory is copied.
+
+JSON output for -Djs has been expanded a bit. Also fixed
+ the help screen: filename is needed.
+
+The docs for TWEAKS had a number of errors.
+
+Fixed Tweaks DefaultDrum command.
+
+Documented: Some time ago the duration of the generated file was added to the MIDI.
+ To document this and some other MIDI details a section "MIDI File Format" has been
+ added to the manual.
+
+RPITCH: Added "doen't work for Plectrum tracks" to the docs.
+
+SLICE NOTATION: When using a empty slice notation on a user variable (IE. $_Foo[])
+ a -1 will be returned if the variable does not exist.
+
+Released  20.12.1  January 23, 2021
+------------------------------------
+
+Documented change in subroutines with UNDEFINED value.
+
+Bank 0.0 (controllers 0 and 32) were not being initialized properly.
+ Thanks Thomas for the patch.
+
+Changed Truncate to accept values <1 and >0.
+
+Added code to MMAmidi.addNoteOnToTrack() to check for NoteOff following a
+ new NoteOn event. This only applies to Plectrum tracks when Rtime is set.
+
+Checked and edited code for None conditionals .. they should always use
+ "is" or "is not", never equality operands.
+
+MidiInc:
+ - added an OFFSET option. Saves using BeatAdjust to move import.
+ - changed the math for calculating "end" and "start" values which
+   were one-off depending on measure or beat values.
+ - added optional 'b' specifier for "start" and "end".
+ - fixed some of the reporting to show tick values with a 'T' appended.
+ 
+BeatAdjust: adjustment can be given in beats (default), measures or ticks by
+ appending a 'T', 'B' or 'M'.
+
+Settings for TEMPO Offset, Restore and the number of beats to do the
+ change can now be specified in beats (default), measures (append 'M')
+ or MIDI ticks (append 'T').
+
+Released  20.12.2  April 4, 2021
+------------------------------------
+
+Voicing: Added chord voicing Drop2, Drop3, Drop23, Drop2Key,
+ Drop3Key and Drop23Key.
+
+AllGrooves: Changed the "Nowarn" option to require an "=true/false".
+ Added "Verbose, "Skip" and "Only" options.
+
+Bass patterns: added 'S' to '#'(sharp) option. Added offset values 8 to 14 to
+ make visualization of 'jazz' chords a bit easier.
+
+DOCS: expanded section in "Defining Patterns" to make the use of an offset
+ in the range 0..1 a bit more useful and clear.
+
+Released  20.12.3  May 23, 2021
+------------------------------------
+
+Fixed bug in AGAIN. Note to programmers: don't use
+ the wrong variable when checking validity!
+
+Fixed a couple of debug outputs to properly print drum tone values
+ instead of instrument names.
+
+Added EXISTS, ISDIR and ISFILE tests to see if a file exist, etc.
+
+Added the -xCSplit and -xTSplit to split midi output to channels or
+ tracks. PLEASE read the docs in the "Xtra Options" section for details.
+
+
+Released  20.12.4  July 17, 2021
+------------------------------------
+
+The Harmony option "TOP" was borked, completely. Fixed.
+
+
+Released 21.09 September 29, 2021
+---------------------------------
+
+Further changes will be in the CHANGES-21 file.

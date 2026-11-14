@@ -1,0 +1,110 @@
+// 8beatdance
+
+Begin Doc  
+      8 Beat Dance (007).
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 116; 2 0 116; 3 0 116; 4 0 116}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {2 0 109; 4 0 109}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence z    z    {4.2 0 89}  {4.2 0 91}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    Sequence {1.5 0 98; 2.5 0 102; 3.5 0 95; 4.5 0 102}
+End
+
+Begin Bass-9
+    Voice SynthBass1
+    Octave 3
+    Articulate 100
+    Volume m
+    Rvolume 10
+    Sequence {1 8 1 96; 1.7 64 1 92; 2.5 8 5 97; 3.5 8 5 96; 4 32 3 92; 4.5 3 5 96}
+End
+
+Begin Chord-6
+    Voice Organ3
+    Octave 6
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Rvolume 10
+    Sequence {1 1 30} 
+End
+
+
+Begin Chord-7
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {1 8 90; 1.8 64 90; 3.5 64 90} \
+             {1 8 90; 1.8 64 90; 3.5 64 90; 4.2 64 90} \
+             {1 8 90; 1.8 64 90; 2.5 64 90; 3.5 64 90; 4.2 64 90; 4.3 64 90} \
+             {1 8 90; 1.8 64 90; 2.5 0 90; 3.5 64 90; 4.2 64 90; 4.3 64 90}
+End
+
+DefGroove 8BeatDance   Good if you are young.
+
+///////////////////////////////////////////////////
+//// Intro
+
+Groove 8BeatDance
+
+Drum-KickDrum1    Sequence *  *  *  D13
+Drum-SnareDrum1   Sequence *  *  *  D2
+Drum-ClosedHiHat  Sequence *  *  *  z
+Drum-PedalHiHat   Sequence *  *  *  {D13 Shift .5}
+
+Bass-9            Sequence *  *  {B13 shift .5} /
+
+Chord-6           Sequence *  *  *  {1 2 30} 
+Chord-7           Sequence *  *  *  L1
+
+DefGroove 8BeatDanceIntro   A 4 bar intro to the dance.
+
+///////////////////////////////////////////////////
+//// Ending
+
+Groove 8BeatDance
+SeqSize 2
+
+Drum-KickDrum1    Sequence D13  D1
+Drum-SnareDrum1   Sequence D2   D1
+Drum-ClosedHiHat  Sequence *  z
+Drum-PedalHiHat   Sequence *  {D1 Shift .5}
+
+Bass-9            Sequence {B13 shift .5} B1
+
+Chord-6           Sequence *  {1 2 30} 
+Chord-7           Sequence *   L1
+
+DefGroove 8BeatDanceEnd   A 2 bar end of dancing.
+

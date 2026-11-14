@@ -1,0 +1,169 @@
+
+// ballad128
+
+Begin Doc
+ A 12/8 Ballad. Written for "Memory" This is written in 4/4, so, when figuring
+ tempo use a dotted quarter for the beat count.
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+///////// Additional Patterns
+
+Begin Chord Define
+	C3232 1 3 80; 1.33 3 80 ; 1.66 3 80; 2 4 90
+	C3232 C3232; C3232 Shift 2
+End
+
+////////// Ballad
+
+SeqSize 4
+
+Begin Drum-Snare
+	Tone SnareDrum2
+	Sequence { 1 0 30 * 12}
+	Accent 1 100 2 100 3 100 4 100
+	Volume p
+	Rtime 2
+	Rvolume 5
+End
+
+Begin Drum-Kick
+	Tone SideKick
+	Volume pp
+	Sequence { 1 0 70 * 2}
+End
+
+Begin Bass
+	Voice AcousticBass
+	Octave 3
+	Articulate 120
+	Volume m
+	Sequence {B13; 2.66 8 3 70; 4.66 8 3 70} / / z
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Articulate $_Bass_Articulate
+	Volume $_Bass_Volume
+	Direction Down
+	Sequence z z z W1234
+End
+
+Begin Chord
+	Voice  OrchestralHarp
+	Volume p
+	Articulate 110
+	Octave 6
+	Voicing Mode=Optimal
+	Sequence C3232
+End
+
+DefGroove Ballad128       A very simple, relaxed 12/8 ballad pattern.
+
+////////////////////
+// Arpeggios
+
+Groove Ballad128
+
+Begin Arpeggio
+	Voice Piano1
+	Volume m
+	Octave 5
+	Direction Up
+	Range 1
+	Sequence { 1 1+1 80 * 12}
+	Rskip 30
+	Articulate 120
+End
+
+DefGroove Ballad128Plus  Adds arpeggiated piano.
+
+/////////////////////////////////
+// Add in sustained strings
+
+Groove Ballad128
+
+Begin Chord-Sus
+	Voice  TremoloStrings
+	Sequence { 1 1 90 0 90 0 * 4 }
+	Voicing Mode=Optimal
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 10
+	Volume pp
+End
+
+DefGroove Ballad128Sus    Add in sustained TremoloStrings
+
+Groove Ballad128Plus
+Chord-Sus Groove Ballad128Sus
+DefGroove Ballad128SusPlus  Sustained strings and apreggiating piano.
+
+///////////////////////////////////////////////////
+/// Intro ... just an arpeggio and bass, no drums
+
+Groove Ballad128
+
+Drum-Snare 	Sequence -
+Drum-Kick   Sequence -
+Chord Sequence -
+
+Begin Arpeggio
+	Voice $_Chord_Voice
+	Volume m
+	Octave 5
+	Direction Both
+	Harmony Open+8Below
+	Range .9  / / 1
+	Sequence { 1 1+1 80 * 12} / / z
+	Articulate 120
+End
+
+Begin Bass-Intro
+	Voice $_Arpeggio_Voice
+	Volume $_Arpeggio_Volume
+	Octave $_Arpeggio_Octave
+	Harmony $_Arpeggio_Harmony
+	Articulate $_Arpeggio_Articulate
+	Sequence z z z {1 8 6# 90; 1.33 8 6# 80; 1.66 8 6# 70; 
+                    2 8 5 90; 2.33 8 5 80; 2.66 8 5 70; 
+                    3 8 3 90; 3.33 8 3 80; 3.66 8 3 70; 
+					4 4 1 80 }
+End
+
+DefGroove Ballad128Intro  This 4 bar intro plays bass notes and harp arpeggios. \
+                          It pretty much assumes a 7th chord on the 4th bar.
+
+
+Groove Ballad128
+
+Drum-Snare Volume    p    pp  ppp pppp
+Drum-Kick  Volume    pp   /   /   ppp
+
+Bass       Sequence  *    *   *   B13
+Walk       Sequence  -
+Chord      Sequence  *    *   *   L2
+
+DefGroove Ballad128Intro1  Alternative, straighter, intro.
+
+/////////////////////////////////
+/// Ending
+
+Groove Ballad128
+SeqSize 2
+
+Drum-Snare  Sequence  * {1 0 40 * 4}
+Drum-Kick   Sequence  *
+Bass        Sequence  * B11
+Walk        Sequence  -
+Chord       Sequence  *  C1234
+
+DefGroove Ballad128End    A 2 bar ending.

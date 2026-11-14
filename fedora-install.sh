@@ -121,11 +121,26 @@ cp -rf ladspa/* "$HOME/.ladspa"
 
 sudo mkdir -p /opt/LogicalArdour
 
+sudo cp LogicalArdour.sh /opt/LogicalArdour/LogicalArdour.sh
+sudo chmod 755 /opt/LogicalArdour/LogicalArdour.sh
+
+mkdir -p "$HOME/.local/share/applications"
+cp LogicalArdour.desktop "$HOME/.local/share/applications/LogicalArdour.desktop"
+if command -v update-desktop-database >/dev/null 2>&1; then
+  update-desktop-database "$HOME/.local/share/applications"
+fi
+
+sudo cp resources/melody_generator /opt/LogicalArdour/melody_generator
+sudo chmod 755 /opt/LogicalArdour/melody_generator
+sudo cp resources/genres.json /opt/LogicalArdour/genres.json
+sudo cp resources/mma_genres.json /opt/LogicalArdour/mma_genres.json
+sudo rm -rf /opt/LogicalArdour/mma
+sudo cp -a mma /opt/LogicalArdour/mma
+
 sudo cp -rf samples/* /opt/LogicalArdour
 
-#sudo cp -rf logicalardour /opt/LogicalArdour/LogicalArdour.sh
-#sudo chmod 755 /opt/LogicalArdour/LogicalArdour.sh
-#sudo cp -rf gb.png /opt/LogicalArdour
+sudo mkdir -p /opt/LogicalArdour/soundfonts/soundfonts
+sudo cp -a resources/soundfonts/soundfonts/. /opt/LogicalArdour/soundfonts/soundfonts/
 
 wget https://jmantra.blob.core.windows.net/data/key
 
@@ -155,19 +170,22 @@ sudo cp -rf mda.lv2/ /usr/lib/lv2
 
 sudo cp -rf gx/* /usr/lib/lv2
 
-folder="$HOME/.config/ardour8"
+sudo dnf install -y webkit2gtk4.1-devel cargo rustc pkgconf-pkg-config
+if [ -f score-editor/Cargo.toml ]; then
+  cargo build --release --no-default-features --manifest-path score-editor/Cargo.toml
+  sudo cp score-editor/target/release/score-editor /opt/LogicalArdour/score-editor
+  sudo chmod 755 /opt/LogicalArdour/score-editor
+fi
+
+folder="$HOME/.config/LogicalArdour/ardour8"
 backup_or_create_folder "$folder"
 
 cp -rf ardour8/*  $folder
-
-#$config_folder ="$HOME/.config/LogicalArdour/ardour8"
 
 folder="$HOME/.config/guitarix"
 backup_or_create_folder "$folder"
 
 cp -rf guitarix/*  $folder
-
-#cp -rf ardour8/*  $folder
 
 folder="$HOME/.config/MuseScore"
 backup_or_create_folder "$folder"
@@ -175,7 +193,7 @@ backup_or_create_folder "$folder"
 cp MuseScore3.ini $HOME/.config/MuseScore
 cp MuseScore2.ini $HOME/.config/MuseScore
 
-for file in $HOME/.config//LogicalArdour/ardour8/*; do
+for file in $HOME/.config/LogicalArdour/ardour8/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi

@@ -1,0 +1,79 @@
+// Example file showing some different scales
+
+// This file doesn't use grooves! 
+
+Tempo 100		// Set a moderate tempo 
+
+Seqsize 4		// 4 bar sequence
+
+// Set up a straight 4 to the bar chording
+
+Begin Chord
+	Begin Define
+		C1 1 1 90
+		C4 C1 * 4
+	End
+	Voice Piano1
+	Sequence C4
+End
+
+// Bass on 1 and 3
+
+Begin Bass
+	Begin Define
+		B13 1 4 1 90; 3 4 5 90
+	End
+	Voice FretlessBass
+	Sequence B13
+End
+
+Begin Scale
+	Begin Define
+		S1 1 1 90
+		S4 S1 * 4
+		S8 S1 * 8
+		S16 S1 * 16
+	End
+
+	Voice Piano1
+	Sequence S4 S8 S8 S16
+End
+
+// 4 bars of scales over a C major chord
+
+	C * 4
+	
+	
+// Add in Harmony to the scale. The harmony uses 
+// 2, 3, Open and OpenAbove
+
+Scale Harmony 2 3 Open OpenAbove
+
+	C * 4
+	
+// Use both the piano and the trumpet for the scale.
+// The first eg plays the piano and trp in unison.
+
+Scale Harmony -		// turn off the harmony for the piano
+
+Begin Scale-Trp
+	Sequence S4 S8 S8 S16
+	Octave 5
+	Voice Trumpet
+End
+
+	C * 4
+
+// Enable a harmony for the trumpet and have only the
+// harmony play. In addition to the piano. For fun
+// we change the scale direction from AUTO to UP
+	
+Scale Direction Up
+Begin Scale-Trp
+	Direction Up
+	HarmonyOnly 2
+End
+
+	C * 4
+	
+

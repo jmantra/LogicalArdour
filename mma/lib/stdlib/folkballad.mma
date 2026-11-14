@@ -1,0 +1,147 @@
+
+// folkballad
+
+Begin Doc
+
+ A very simple folk variation for slow songs. I wrote
+ this for a slow version of the Burns poem "A Red, Red Rose".
+ Uses only a nylon guitar, much like a self-accompanied singer.
+ The harmonica can add some variety with a simple sustain.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+////////////////////////////////////////////////////////////////
+
+
+SeqSize 4
+
+Begin Bass   // all the bass is done on a nylon guitar like a single player
+  Voice       NylonGuitar
+  Octave      4
+  Volume      m
+  Articulate  100    90                110                     80
+  Rtime       5
+  Rvolume     5
+  Sequence    B11   {B11; 4.5 8 5 80}  {B13; B13 Shift 1.5}    B13
+End
+
+Begin Arpeggio
+  Voice       NylonGuitar
+  Octave      5
+  Volume      m
+  Harmony     Open
+  Articulate  100
+  Sequence   {1 4 90; 2 4 90; 3 8 70; 3.5 8 80; 4 4 90}   /   /   A8
+  Direction  Both
+  Strum      3,5
+  Rtime      4
+  Rvolume    5
+  Range      1.5
+End
+
+
+DefGroove FolkBallad     A soothing guitar
+
+
+// Alt chord/arp
+
+Groove FolkBallad
+
+Arpeggio Sequence * z * z
+
+Begin Chord
+  Voice       $_Arpeggio_Voice
+  Octave      $_Arpeggio_Octave
+  Volume      m
+  Articulate  110
+  Sequence    z    {C1;C2 Shift .5; C34} z  {L2; C2 Shift .5}
+  Strum       10     /                   /   8
+  Direction   Both   /                   /   Down
+  Rtime       5
+  Rvolume     5
+End
+
+DefGroove FolkBallad1   Alternating chord and arpeggio work.
+
+// Plus versions
+
+Groove FolkBallad
+
+Begin Arpeggio-Plus
+	Voice Piano1
+	Sequence  {A4; 1.5 8 90; 3.5 8 90} \
+              {A2; 1.5 4 90; 3.5 4 90} \
+              {A4 Shift .5} \
+              {A2; A4 Shift .5}
+    Harmony OpenBelow+OpenAbove
+	Articulate 130
+	Rvolume 0,20
+	Rskip 50
+    Range 1
+    SeqRnd ON
+    Direction Random
+	Volume m
+	Octave 5
+End
+
+DefGroove FolkBalladPlus  Basic arpeggio ballad with counter melody
+
+Groove FolkBallad1
+Arpeggio-Plus Groove FolkBalladPlus
+DefGroove FolkBallad1Plus  Alternating chord/arpeggio ballad with counter melody
+
+// Add sustained voice
+
+Groove FolkBallad
+
+Begin Chord-Sus
+  Voice      Harmonica
+  Octave     6
+  Volume     pp
+  Articulate 110
+  DupRoot    -1
+  Rvolume    10
+  Sequence   {1 1 70 0 60 * 2} / / {1 1 70 0 * 4}
+End
+
+DefGroove FolkBalladSus     Arpeggios with harmonica
+Arpeggio-Plus Groove FolkBalladPlus
+DefGroove FolkBalladSusPlus Arpeggios, counter melody and harmonica
+
+Groove FolkBallad1
+
+Chord-Sus Groove FolkBalladSus
+
+DefGroove FolkBallad1Sus   Chord/Arpeggios with harmonica
+
+Arpeggio-Plus Groove FolkBalladPlus
+DefGroove FolkBallad1SusPlus Chord/Arpeggios, counter melody and harmonica
+
+
+// Introduction
+
+Groove FolkBallad
+
+Arpeggio Sequence  * * {A4; A2 Shift 1.5} A1
+Bass     Sequence  * *  *                 B1
+
+DefGroove FolkBalladIntro  Simple introduction.
+
+// Ending
+
+Groove FolkBallad1
+Seqsize 2
+
+Arpeggio Sequence -
+Chord    Sequence {C134; C2 Shift .5}  L1
+
+DefGroove FolkBalladEnd    Simple ending.
+

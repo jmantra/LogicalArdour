@@ -1,0 +1,177 @@
+// 8beatpop2
+
+Begin Doc  
+      8Beat Pop 2 (004). A bit of a latin touch with a pop-rock 8 beat. (004)
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 2
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 108; 2.7 0 84; 3 0 100} \
+             {1 0 100; 2.7 0 76; 3 0 104; 4.2 0 104} 
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {2 0 100; 4 0 100} \
+             {2 0 104; 4 0 100; 4.7 0 65}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 92; 1.5 0 64; 2 0 120; 2.5 0 78; 3 0 92; 3.5 0 64; 4 0 116; 4.5 0 78} \
+             {1 0 92; 1.5 0 64; 2 0 116; 2.5 0 78; 3 0 92; 3.5 0 64; 4 0 120; 4.5 0 78}
+End
+
+Begin Drum-LowBongo
+    Tone LowBongo
+    Volume m
+    Sequence {4.5 0 72}
+End
+
+Begin Drum-MuteHighConga
+    Tone MuteHighConga
+    Volume m
+    Sequence {2.5 0 69}
+End
+
+Begin Drum-OpenHighConga
+    Tone OpenHighConga
+    Volume m
+    Sequence {2.8 0 76} \
+             {2.8 0 70}
+End
+
+Begin Drum-LowConga
+    Tone LowConga
+    Volume m
+    Sequence {4.7 0 63} \
+             {1 0 63; 4.8 0 63} 
+End
+
+Begin Drum-Cabasa
+    Tone Cabasa
+    Volume m
+    Sequence {1.2 0 70; 1.7 0 70}
+End
+
+Begin Bass-9
+    Voice SynthBass1
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 16 1 84; 2.7 16 5 80; 3 6 1 92} \
+             {1 16 1 88; 2.8 6 5 92; 3 6 1 88; 3.7 32 5 92; 4.5 8 1 80}
+End
+
+
+Begin Arpeggio-6
+    Voice NylonGuitar
+    Octave 5
+    Articulate 110
+    Volume m
+    Sequence   {1 8 100; 1.2 8 77; 1.5 8 90; 1.8 8 118; 2 8 80; 2.2 8 70; 2.5 8 90; 2.8 16 99} \
+               {1.2 8 91; 1.5 8 73; 1.8 1 115; 2 3 73; 2.2 8 63; \
+                  2.5 3 91; 2.8 6 103; 3.5 4 103; } 
+End
+
+Begin Bass-7
+   Voice Organ1
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {1 1 1 50} \
+             {1 2 1 50}
+End
+
+
+Begin Bass-8
+    Voice DistortonGuitar
+    Octave 5
+    Articulate 90
+    Volume m
+    Sequence {3.5 1 1 68}         z 
+End
+
+DefGroove 8BeatPop2   A latin-ish sounding pop rock.
+
+//////////////////////////////////////////////////////
+///// Ending
+
+Groove 8BeatPop2
+
+Drum-KickDrum1       Sequence  *  D1
+Drum-SnareDrum1      Sequence  D1234  D1
+Drum-ClosedHiHat     Sequence  D8     D1
+Drum-LowBongo        Sequence  *      z
+Drum-MuteHighConga   Sequence  *      z
+Drum-OpenHighConga   Sequence  *      z
+Drum-LowConga        Sequence  *      D1
+Drum-Cabasa          Sequence  *      D1
+
+Bass-9               Sequence  {1 8. 1 90; 3 8. 3 80; 4 8. 5 70} {1 4 1+ 90}
+
+Arpeggio-6           Sequence  *      z
+Begin Chord-6 
+   Voice $_Arpeggio-6_Voice
+   Articulate 90
+   Strum 20
+   Octave $_Arpeggio-6_Octave
+   Volume $_Arpeggio-6_Volume
+   Sequence z  L1
+End
+
+Bass-7               Sequence  *     B1
+
+Bass-8               Sequence {3.5 4. 1 68}      z 
+
+DefGroove  8BeatPop2End  A 2 bar ending.
+
+
+//////////////////////////////////////////////////////
+///// Intro
+
+Groove 8BeatPop2
+SeqSize 4
+
+Drum-KickDrum1       Sequence  *  *  *  D1
+Drum-SnareDrum1      Sequence  D1234 * D13  D1
+Drum-ClosedHiHat     Sequence  D8 /  /    D1
+Drum-LowBongo        Sequence  * *  *     z
+Drum-MuteHighConga   Sequence  * *  z     z
+Drum-OpenHighConga   Sequence  * *  *     z
+Drum-LowConga        Sequence  * *  D13    D1
+Drum-Cabasa          Sequence  * *  *    D1
+
+Bass-9               Sequence  *  *  * B1
+
+Arpeggio-6           Sequence  *  *  *    z
+Begin Chord-6 
+   Voice $_Arpeggio-6_Voice
+   Articulate 90
+   Strum 20
+   Octave $_Arpeggio-6_Octave
+   Volume $_Arpeggio-6_Volume
+   Sequence z z z L1
+End
+
+Bass-7               Sequence  *  *  *   B1
+
+Bass-8               Sequence *  *  {3.5 4. 1 68}      z 
+
+DefGroove  8BeatPop2Intro   It's a 4 bar intro, but not too great.
+
+

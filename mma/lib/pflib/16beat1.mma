@@ -1,0 +1,209 @@
+
+// ==============================================
+// Grooves
+// ==============================================
+
+// 16beat1
+
+Begin Doc
+
+  16 Beat Style
+
+End
+
+Author Peter Falk
+
+SeqClear
+Time 4
+Timesig 4 4
+Include pfpats01
+
+
+// 16 Beat 1, Section A =========================
+
+SeqSize 4
+
+Begin Drum-Cymbal
+     Sequence D1234-4A / / /
+     Volume mp
+     Tone ClosedHiHat
+     Rtime 2
+     RVolume 10
+     Accent 1.5 20 2.5 20 3.5 20 4.5 20
+End
+
+Begin Drum-Snare
+     Sequence D24 D234++ D24 D234++
+     Volume m
+     Tone SnareDrum1
+     Rtime 2
+     RVolume 10
+     Accent 2 20 4 20
+End
+
+Begin Drum-Kick
+     Sequence D12++3 / / D13
+     Volume m
+     Tone KickDrum1
+     Rtime 2
+     RVolume 5
+     Accent 1 20 3 20
+End
+
+Begin Drum-HH
+     Sequence -
+     Volume mp
+     Tone PedalHiHat
+     Rtime 2
+     RVolume 10
+     Accent 2 20 4 20
+End
+
+Begin Bass
+     Sequence B1234-4A / / /
+     Voice FingeredBass
+     Octave 3
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Accent 1 20 3 20
+End
+
+Begin Chord-Piano
+     Sequence C12++3 C13 C12++3 C13
+     Voice Piano2
+     Voicing Mode=Optimal 
+     Octave 5
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Accent 1 20 3 20
+End
+
+Begin Plectrum-Guitar
+     Sequence PD24 / / /
+     Voice CleanGuitar
+     Octave 4
+     Volume mp
+     Rtime 2
+     RVolume 5
+     Accent 2 20 4 20
+End
+
+DefGroove 16beat1A           16 Beat 1, Section A
+
+
+// 16 Beat 1, Section B =========================
+
+Drum-Cymbal Tone RideCymbal1
+Drum-HH Sequence D24 / / /
+
+Chord-Piano Sequence C12++34 C1234 C12++34 C1234
+
+
+DefGroove 16beat1B           16 Beat 1, Section B
+
+
+// 16 Beat 1, Section A, Fill-in ================
+
+Groove 16beat1A
+SeqSize 1
+
+Drum-Cymbal Sequence -
+Drum-Snare Sequence DFill04A
+Drum-Kick Sequence D1234
+Drum-HH Sequence -
+Bass Sequence -
+Chord-Piano Sequence C13
+Plectrum-Guitar Sequence PD24
+
+Begin Drum-HiTom
+     Sequence DFill04B
+     Volume m
+     Tone HighTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Drum-MediumTom
+     Sequence DFill04C
+     Volume m
+     Tone MidTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Drum-FloorTom
+     Sequence DFill04D
+     Volume m
+     Tone LowTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Scale-Bass
+     Sequence Scale8
+     Voice FingeredBass
+     Octave 3
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Direction UP
+End
+
+DefGroove 16beat1FA          16 Beat 1, Section A Fill-in
+
+
+// 16 Beat 1, Section B, Fill-in ================
+
+Drum-HH Sequence D1234
+Drum-Snare Sequence DFill06A
+Drum-Hi-Tom Sequence DFill06B
+Drum-Medium-Tom Sequence DFill06C
+Drum-Floor-Tom Sequence DFill06D
+Chord-Piano Sequence C1234
+
+DefGroove 16beat1FB          16 Beat 1, Section B Fill-in
+
+
+// 16 Beat 1, Ending ============================
+
+Groove 16beat1B
+SeqSize 2
+
+Drum-Cymbal Sequence -
+Drum-Snare Sequence D1234-4 z
+Drum-Kick Sequence D1234 D1
+Drum-HH Sequence -
+Bass Sequence -
+Chord-Piano Sequence C1234 C1
+Plectrum-Guitar Sequence PD24 PD1
+
+Begin Drum-FloorTom
+     Sequence D1234-4 z 
+     Volume m
+     Tone LowTom1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Drum-Crash
+     Sequence z D1
+     Volume m
+     Tone CrashCymbal1
+     Rtime 2
+     RVolume 10
+End
+
+Begin Scale-Bass
+     Sequence Scale8 z
+     Voice FingeredBass
+     Octave 3
+     Volume mf
+     Rtime 2
+     RVolume 5
+     Direction UP
+End
+
+DefGroove 16beat1E           16 Beat 1, Ending
+

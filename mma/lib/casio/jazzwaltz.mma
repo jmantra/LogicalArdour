@@ -1,0 +1,148 @@
+ // jazzwaltz
+
+Begin Doc  
+      Jazz Waltz  (079). Your standard little jazz waltz. Use around 150 bpm.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 3
+
+Include stdpats34
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 100; 2.75 0 43; 3.75 0 52} \
+             {1 0 98; 2.75 0 35; 3.75 0 40} \
+             {1 0 94; 2.75 0 51; 3.75 0 50} \
+             {1 0 100; 3 0 67 }
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {1.75 0 56; 3 0 88} \
+             {1.75 0 43; 3 0 74} \
+             {1.75 0 76; 3 0 72} \
+             {1.75 0 80; 2.75 0 24; 3.75 0 42}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 10
+    Sequence {2 0 86; 3 0 104}
+End
+
+Begin Drum-RideCymbal1
+    Tone RideCymbal1
+    Volume m
+    Sequence {1 0 119; 2 0 94; 2.75 0 92; 3 0 96; 3.75 0 75} \
+             {1 0 108; 2 0 60; 2.75 0 80; 3 0 104} \
+             {1 0 108; 2 0 111; 2.75 0 76; 3 0 86; 3.75 0 98} \
+             {1 0 90; 2 0 90; 2.75 0 84; 3 0 98 }
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 4 1 102; 3.75 32 1 64 } \
+             {1 2 1 98; 3.66 16 5 63 } \
+             {1 4 1 96; 3.75 64 1 111 } \
+             {1 4 1 98; 2.75 16 5 84; 3 64 3 56; 3.33 32 1 56; 3.75 16 5 103}
+End
+
+Begin Chord-6
+    Voice JazzGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 8 90; 1.75 16 90; 2.75 32 90; 3 8 90} \
+             {1 32 90; 1.75 32 90; 3 8 90} \
+             {1 16 90; 1.75 32 90; 2.75 32 90; 3 16 90; 3.75 16 90} \
+             {1 32 90; 1.75 6 90; 3 64 90; 3.75 16 90}
+End
+
+Begin Bass-7
+    Voice Vibraphone
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {1 1 5 64; 1 1 1 68; 1 1 5 56} \
+             z \
+             {1 1 5 52; 1 1 1 51} \
+             z
+End
+
+Begin Chord-8
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 8 90; 1.75 16 90; 3 8 90; 3.75 32 90} \
+             {1 8 90; 1.75 32 90; 2.75 16 90; 3 16 90; 3.66 6 90; 3.75 32 90} \
+             {1 8 90; 1.75 32 90; 3 8 90} \
+             {1 8 90; 1.75 6 90; 2.75 32 90; 3 16 90; 3.75 32 90}
+End
+
+
+DefGroove JazzWaltz Basic 4 bar pattern
+
+/////////////////////////////////////////////////////////
+///////  Intro
+
+Groove JazzWaltz
+
+Drum-KickDrum1   Sequence  *   *  D123  D1
+Drum-SnareDrum1  Sequence  *   *  D3    D1
+Drum-ClosedHiHat Sequence  *   *  D123  D1
+Drum-RideCymbal1 Sequence  *   *  D123  D1
+
+//  AcousticBass
+Bass-9 Sequence *  *  B123  B1
+
+// JazzGuitar
+Chord-6 Sequence *  *  C123 L1
+
+// Vibraphone
+Bass-7  Sequence *  z  B1  /
+
+// Piano1 
+Chord-8 Sequence *  *  *  C1
+
+DefGroove JazzWaltzIntro  4 bar introduction
+
+/////////////////////////////////////////////////////////
+///////  Ending
+
+Groove JazzWaltz
+Seqsize 2
+
+Drum-KickDrum1   Sequence  D123  D1
+Drum-SnareDrum1  Sequence  *     D1
+Drum-ClosedHiHat Sequence  D123  D1
+Drum-RideCymbal1 Sequence  *     D1
+
+//  AcousticBass
+Bass-9 Sequence B123  B1
+
+// JazzGuitar
+Chord-6 Sequence  * L1
+
+// Vibraphone
+Bass-7  Sequence   z  B1
+
+// Piano1 
+Chord-8 Sequence  *    C1
+
+DefGroove JazzWaltzEnd  2 bar ending

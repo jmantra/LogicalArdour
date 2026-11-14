@@ -1,0 +1,266 @@
+
+// march
+
+
+Begin Doc
+
+   Sousa would love this file. These all need a bit of work---they 
+   tend too sound a bit to ponderous and/or heavy. The sequences assume 
+   4 chords per bar, but most marches are in 2/4 time. So, double the 
+   tempo for "proper" results.
+  	
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+////////////////////////////////////
+// Additional pattern defs
+
+Begin Chord Define
+	C13+     C13; C24 Shift .5
+	C+1234   C1234 Shift .5
+	
+	Long1    1 1 90 
+	Long2    Long1 * 2
+	Long4    Long1 * 4
+End
+
+Begin Arpeggio Define
+	A4+    A4 ; 1.5 4 90; 3.5 4 90 
+End
+		
+
+//////////////////////////////
+// Some military-style drum intros
+// MilIntro4
+
+
+SeqSize 4
+
+Begin Drum-Snare
+	Sequence Droll  D12 {Droll * 2}  D1234
+	Tone SnareDrum1
+	Rtime 2
+	Rvolume 5
+End
+
+Begin Drum-Tom
+	Sequence  D1 D12 D1 D13
+	Tone LowTom1
+End
+
+DefGroove MilIntro4     A 4 bar military-style intro. Easy to use \
+                        if you include a line like "z * 4" at the  \
+                        start of the piece.
+
+
+// MilIntor2
+
+SeqSize 2
+
+DefGroove MilIntro2    A 2 bar military-style intro. This is \
+                       identical to the MilIntro4, but only uses \
+                       the first 2 bars of the sequence.
+
+
+/////////////////////////////////////
+// Standard march
+
+SeqClear
+SeqSize 4
+
+Begin Drum
+	Sequence D13 / / D1234
+	SeqRnd On
+	Tone SnareDrum1
+	Volume mp
+End
+
+Begin Drum-Tom
+	Sequence D1  / D13 /
+	Tone LowTom1
+	Volume f
+End
+
+Begin Drum-Tri
+	Sequence D1  D13 
+	SeqRnd On
+	Tone OpenTriangle
+	Rvolume 5
+	RSkip 20
+	Volume mf
+End
+
+Begin Chord
+	Voice Trumpet
+	Sequence C13 / / C13+
+	Accent 1 10
+	Octave 6
+	Articulate 90
+	Volume mp
+End
+
+Begin Chord-TBone
+	Voice Trombone
+	Sequence C13
+	Octave 5
+	Articulate 60
+	Volume mp
+	RVolume 5
+	Rskip 10
+End
+
+Begin Bass
+	Voice Tuba
+	Sequence B13 / /  B11
+	Articulate 60
+	Octave 3
+	Volume ff
+End
+
+DefGroove March   Standard march pattern. Boring, but it works.
+
+
+// March1
+// This adds some walking bass to March and changes 'bones to piano
+
+
+Chord-Tbone Sequence -
+
+Begin Chord-Piano
+	Voice Piano1
+	SeqClear
+	Sequence C13 
+	Accent 1 10
+	Octave 4
+	Articulate 80
+	Volume mf
+	RVolume 5
+End
+
+Bass Sequence    B13   z 
+
+Begin Walk
+	Voice  Tuba
+	Sequence     z   W1234 
+	Articulate 60
+	Octave 3
+	Rvolume 10
+	Rtime 5
+	Volume f
+End
+
+DefGroove March1    Adds alterating bars of walking bass to the \
+                    standard march. Also, \
+                    changes the trombones to a piano.
+
+
+Walk Sequence   W13
+Bass Sequence   - 
+
+DefGroove March1Slow   This is just March1 with the walking bass \
+                       set to beats 1 and 3 instead of 1,2,3 and 4.
+
+
+////////////////////////////////////////////
+// March2
+// Add sus strings to March2, no trumpets
+
+
+Groove March1
+
+Begin Chord           // in March1 this is the trumpet track
+	SeqClear
+	Sequence Long2
+	Rskip 30
+	Octave 5
+	Voice TremoloStrings
+	Articulate 100
+	Unify On
+	Invert 0 1 2 0
+	Volume mp
+End
+
+DefGroove March2       Adds sustained strings to March1. The strings \
+                       replace the trumpets. A major sound difference. 
+
+
+// Add piccolo to March1
+
+Groove March1
+
+Begin Arpeggio
+	SeqClear
+	Sequence A8 / A4+ z
+	SeqRnd On
+	Voice Flute
+	Octave 8
+	Invert 0 1 2
+	Articulate 70
+	Volume mp
+	Rskip 40
+End
+
+DefGroove March3     Adds an apreggiating  piccolo to March1. \
+                     Great for trios.
+
+
+// Add sus strings to March2, kill trumpets, add piccolo
+
+Groove March2
+
+Begin Arpeggio
+	SeqClear
+	Sequence A8 A4+ A4 z
+	SeqRnd On
+	Voice Flute
+	Octave 8
+	Articulate 90
+	Invert 0 2 1
+	Volume mp
+	Rskip 50
+End
+
+Begin Bass
+	Sequence B13 / / z
+	Articulate 60
+	Voice Tuba
+	Octave 3
+	Volume f
+End
+
+Begin Walk
+	Sequence z z z W1234 
+	Voice  Tuba
+	Articulate 50
+	Octave 3
+	Rvolume 10
+	Rtime 5
+	Volume f
+End
+
+
+DefGroove March4  Add sustained  strings and apreggiating piccolo to March2.
+
+
+/// Ending
+
+Groove March
+
+Alltracks SeqRnd Off
+
+Drum         Sequence D8  /  D1234  D1
+Drum-Tom     Sequence D1  / D13 D1
+Drum-Tri     Sequence D1  D13 D1 /
+Chord        Sequence C13 / / C1
+Chord-TBone  Sequence C13 / / C1
+Bass         Sequence B13 / B1 /
+
+
+DefGroove  MarchEnd     Four bar ending.

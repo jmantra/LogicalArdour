@@ -1,0 +1,41 @@
+
+Changes file for the 2021 series
+
+This reflects changes to MMA since the release of version 21.09 (November/2021).
+
+Fixed the docs for the COPY and COPYTO commands. There never was a COPYTO
+ command! TO and FROM are extensions to the COPY command. Opps.
+
+Added system variable $_PWD. This returns the current working directory just like
+ the unix pwd command.
+
+An empty argument for DRUM TONE resulted in a infinite loop. Fixed.
+
+Added a bit of verbosity to the error message generated when defining a TONE
+ or VOICE by a message if you have confused constants for the two.
+
+Added a ERROR command. Text after the error is displayed and compilation stops.
+
+
+Released 21.09.1 - August 29/2022
+------------------------------
+
+Changed the parser so that when setting the scale offset to use with bass
+ patterns '-' and/or '+' can be placed before the digit(s) as well as after.
+ For some people, I guess, it makes more sense to put the octave modifier first.
+
+The options chord voicing options drop23 and drop23key had been commented out
+ in 21.09 and 21.09.1. No idea why or how ... but they are back.
+
+Released 12.09.2 - September 7/2022
+------------------------------------
+
+CHORDADJUST now accepts lower or upper case letters for the chord names.
+
+The 'z' notation for chord muting has been enhanced. You can now use the notation
+ "CHORDNAMEz+CBAWDSP" to specify which chords NOT to mute. To make things pretty
+ you can use a leading '-' to indicate "mute these tracks".
+
+Fixed crash when using an unknown option in RPitch.
+
+Added BEAT option to RPitch. This lets you specify which beats to apply the rnd to.

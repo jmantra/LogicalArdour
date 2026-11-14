@@ -1,0 +1,134 @@
+ // shufflerock.mma
+
+Begin Doc  
+      A 60s style shuffle (043).
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 86; 2.66 0 88; 3 0 81}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Rvolume 5
+    Sequence {2 0 98; 4 0 96}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Rvolume 10
+    Sequence {1 0 34; 1.66 0 34; 2 0 34; 2.66 0 59; 3 0 48; 3.66 0 48; 4 0 36; 4.66 0 53}
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 8 1 96; 2 8 5 91; 3 8 1 91; 4 3 5 86; 4.66 8 1 82} \
+             {1.66 6 1 82; 2 8 5 86; 3 8 1 86; 4 3 6 82; 4.66 6 5 91} \
+             {1 8 1 82; 2 8 5 82; 3 8 1 101; 4 3 6 86; 4.66 8 1 91} \
+             {1.66 6 1 82; 2 8 5 91; 3 8 1 86; 4 8 5 96}
+End
+
+Begin Chord-6
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 8 90; 1.66 6 90; 2 6 90; 2.66 2 90} \
+             {1 4 90; 3 16 90; 4 3 90; 4.66 1 90} \
+             z \
+             {2.66 6 90; 3.66 6 90}
+End
+
+
+Begin Chord-7
+    Voice OverdriveGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {1.66 6 90; 3 3 90;   3.66 16 90} \
+             {1.66 6 90; 2.9 3 90; 3 3 90} \
+             {1.66 6 90; 3 3 90;   3.66 16 90} \
+             {1.66 6 90; 4 3 90;   4.66 16 90}
+End
+
+
+Begin Chord-8
+    Voice Organ2
+    Octave 6
+    Voicing Mode=Key
+    Articulate 100
+    Volume p
+    Sequence {1 2 90} /  /   \
+             {1 2 90; 3.66 16 90; 4.66 16 90}
+End
+
+DefGroove ShuffleRock   A 60s shuffle
+
+//////////////////////////////////////////////////////////////////////
+///////// Introduction
+
+Groove ShuffleRock
+
+Drum-KickDrum1    Sequence  *    *     *   D13
+Drum-SnareDrum1   Sequence  *    *     *   {D1234 Shift .66}
+Drum-ClosedHiHat  Sequence  *    *     *   D13
+
+Bass-9            Sequence B1234 *     *   B11
+
+// Piano1
+Chord-6           Sequence  *    *     *   C13
+
+//  OverdriveGuitar
+Chord-7           Sequence  *    *     *   {C13 Shift .66 }
+
+//  Organ2
+Chord-8           Sequence  *    *     *    C1
+
+DefGroove ShuffleRockIntro    A 4 bar introduction
+
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove ShuffleRock
+SeqSize 2
+
+Drum-KickDrum1    Sequence  *      D1
+Drum-SnareDrum1   Sequence  {D1234 Shift .66}  D1
+Drum-ClosedHiHat  Sequence  *      D1
+
+Bass-9            Sequence B1234   B1
+
+// Piano1
+Chord-6           Sequence  *      C1
+
+//  OverdriveGuitar
+Chord-7           Sequence  {C13 Shift .66 }  C1
+
+//  Organ2
+Chord-8           Sequence  *      C1
+
+
+DefGroove ShuffleRockEnd      A 2 bar ending
+
+

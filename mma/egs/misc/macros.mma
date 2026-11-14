@@ -1,0 +1,101 @@
+Print A few examples of macros.
+
+Chord Sequence {1 1 90 * 4} // a simple pattern to force output
+
+Print Simplist of all is setting a variable to a string:
+
+Set Test This is a line of silly stuff
+
+Print and to print it: $Test
+
+///////////////////////
+
+Print
+Print A counter...
+
+Set Count 1
+Repeat
+Print the value of Count is: $count
+inc count
+endrepeat 10
+
+///////////////////////
+
+Print
+Print Setting multiple lines in a macro
+
+Mset Chorus
+ C
+ C
+ Dm
+ Em
+ G7
+Endmset
+
+Print The variable CHORUS was set to 5 lines of chords. To insert
+Print the chords into the song, just call the macro:
+
+$Chorus
+
+///////////////////////////////////
+
+Print
+Print To save a temporary value on the stack use StackValue.
+
+StackValue $_SwingMode
+StackValue $_Debug
+
+SwingMode On
+Debug Warnings=Off   // no reason for this other than demo
+
+ Drum Define  Swing8 1 0 90 * 8
+
+Debug $_Stackvalue      // you have to unstack in the same order you stacked
+SwingMode $_StackValue
+
+
+/////////////////////////////////
+
+Print
+Print Use of VEXPAND. Here we include both the bar number
+Print and current volume in the lyrics.
+
+Vexpand Off
+Set Text [ $_BarNum $_Volume ]
+Vexpand On
+Lyric Split=Bar 
+
+ C $Text
+ / $Text
+ Dm $Text
+
+Print Use a MIDI player with lyrics to see the output.
+
+
+//////////////////////////////////////
+
+Print
+Print Some simple tests
+
+If NDef Foo
+ Print Variable FOO is not defined
+Endif
+
+Set Foo This is Foo
+
+If Def Foo
+ Print Variable FOO == $Foo
+Endif
+
+Set Count 1
+Repeat
+ If GE $Count  3
+  Print $Count
+ Endif
+ Inc Count
+EndRepeat 10
+
+
+
+
+Showvars xxx count foo

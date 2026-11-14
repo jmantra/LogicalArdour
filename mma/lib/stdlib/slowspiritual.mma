@@ -1,0 +1,133 @@
+
+// popspiritual
+
+Begin Doc
+   A slower version of the PopSpiritual groove. This is best for slow and \
+   sentimental songs. This was written for the song \
+   "Count Your Blessings Instead of Sheep." 
+
+End
+
+Author Bob van der Poel
+
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////////////
+/////// Instrument patterns
+
+
+/////////////////////////////////
+// Main pattern
+
+SeqSize 4
+
+Begin Chord
+   Voice Piano1
+   Octave 5
+   Voicing Mode=Optimal
+   Articulate 120
+   Volume m
+   RVolume 5
+   RTime 5
+   Sequence  {1 4. 90; 3 2 90} \
+             {1 2. 80} \
+             {1 4. 90; 3 2 80} \
+             {C1234}
+End
+
+Begin Plectrum
+   Voice JazzGuitar
+   Octave 5
+   Volume mp
+   Sequence {1.0   +8      90   88    86   82   80   77; 
+             3.0   +8      88   84    80   77   74   72; }
+End
+
+Begin Bass
+    Voice AcousticBass
+    Sequence {1 4. 1 90; 2 4 3 80; 4  4. 5 85}  \
+             {1 2 1 90;  3 8 5 80; 4 2 3 70}
+    Octave 3  
+	Volume m
+	RVolume 5
+	Articulate 80
+End
+
+
+DefGroove SlowSpiritual  Basic pattern.
+
+/////////////////////////////////////////////
+/// Sustained ... big organ sound
+
+Groove SlowSpiritual
+
+Begin Chord-Sus
+    Voice ChurchOrgan
+    Volume pp
+    Octave 4
+    Voicing Mode=Optimal
+    Articulate 100
+    Unify On
+    Rvolume 10
+    DupRoot 1 
+    Sequence {1 1 90 80 70 0 * 4 }
+End
+
+DefGroove SlowSpiritualSus  Piano with big sustained organ.
+
+///////////////////////////////////////////////
+//// Plus  ... change the guitar strum to arpeggios
+
+Groove SlowSpiritual
+
+Plectrum Sequence -
+
+Begin Arpeggio
+    Voice $_Plectrum_Voice
+    Octave $_Plectrum_Octave
+    Articulate 120
+    Harmony OpenBelow
+    Volume p
+    Range 1.5
+    Direction Up
+    Sequence A8 / / A4
+End
+
+DefGroove SlowSpiritualPlus   Let the guitar apreggiate.
+Begin Chord-Sus
+  Groove SlowSpiritualSus
+  Volume -40%
+End
+
+DefGroove SlowSpiritualSusPlus  Organ and guitar.
+
+
+///////////////////////////////////////////////////////////
+/// Intro
+
+Groove SlowSpiritual
+
+Chord    Sequence   L2   /  /   L1
+Plectrum Sequence  {1.0  +1   80   90    90   90   90   80;
+                    3.0   -1  80   90    90   90   90   80;} / / \
+                    {1.0 +4 80}
+Bass     Sequence   B11  /  /  B1
+
+DefGroove SlowSpiritualIntro  4 bar introduction
+
+//////////////////////////////////////////////////////////
+/// Ending
+
+Groove SlowSpiritualSus
+
+Chord     Sequence  L2           L1
+Plectrum  Sequence  {1.0 +5 80}  {1.0 +10 60}
+Chord-Sus Sequence  {1 1 70 * 2} {1 1 50 * 2}
+Bass      Sequence  B1           B1
+
+DefGroove SlowSpiritualEnd   Simple ending.

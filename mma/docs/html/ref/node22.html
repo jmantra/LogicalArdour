@@ -1,0 +1,661 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Subroutines</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node23.html">
+<LINK REL="previous" HREF="node21.html">
+<LINK REL="next" HREF="node23.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node23.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node21.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node23.html">Plugins</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node21.html">Variables, Conditionals and Jumps</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html647"
+  HREF="node22.html#SECTION002210000000000000000">DefCall</A>
+<LI><A ID="tex2html648"
+  HREF="node22.html#SECTION002220000000000000000">Call</A>
+<UL>
+<LI><A ID="tex2html649"
+  HREF="node22.html#SECTION002221000000000000000">Defaults</A>
+<LI><A ID="tex2html650"
+  HREF="node22.html#SECTION002222000000000000000">Local Values</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION002200000000000000000"></A>
+<A ID="sec-subroutines"></A>
+<BR>
+Subroutines
+</H1>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  supports primitive subroutines as part of its language. The format
+and usage is deliberately simple and limited ...we're really not
+trying to make 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  into a functional programming
+language.<A ID="tex2html99"
+  HREF="#foot9558"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+
+<P>
+
+<H1><A ID="SECTION002210000000000000000"></A>  <A ID="defcall"></A>
+<BR>
+DefCall
+</H1> 
+
+<P>
+Before you can use a subroutine you need to create it. Pretty simple to
+do. First, here is a subroutine which does not have any parameters:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>defCall MyCopyright 
+<BR>&nbsp;&nbsp;&nbsp;print Adding copyright to song 
+<BR>&nbsp;&nbsp;&nbsp;MidiCopyright (C) Bob van der Poel 2014 
+<BR>
+endDefCall   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that the subroutine definition starts with D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL> and is
+terminated by E<SMALL>ND</SMALL>D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL> or D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL>E<SMALL>ND</SMALL>. The name of the
+subroutine and any parameters must be on the same line as D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL>
+and E<SMALL>ND</SMALL>D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL> must be on a line by itself. The body of the
+subroutine can contain any valid 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command or chord data
+(including other D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL> and C<SMALL>ALL</SMALL> commands).
+
+<P>
+Subroutines must be defined before they can be used. This can be done in
+the main song file, or in a different file you have included
+(including library files).
+
+<P>
+So, now you can insert a copyright message into your MIDI file just by
+calling the subroutine:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call MyCopyright  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Of course, you'll be using the same message every time ... so,
+let's make it a bit more useful be including a parameter:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>defCall Copyright Name 
+<BR>&nbsp;&nbsp;&nbsp;print Adding copyright to song: $Name 
+<BR>&nbsp;&nbsp;&nbsp;MidiCopyright $Name 
+<BR>
+endDefCall   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that we have a parameter to the subroutine with the name &ldquo;Name&rdquo;.
+In the body of the subroutine we reference this using the name $Name.
+In this case, to assign copyright to &ldquo;Treble Music&rdquo; we'd use:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Copyright (c) 2020 Treble Music  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If you need to pass more than one parameter, separate each one using a
+single comma. Let's assume that you find that you have a large number
+of 2 bar chord repetitions in your song and you are tired of
+typing:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Am / Gm 
+<BR>
+Edim / Gm 
+<BR>
+Am / Gm 
+<BR>
+Edim / Gm 
+<BR>...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You could define a subroutine for this:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall 2Bars C1 , C2 , Count 
+<BR>&nbsp;&nbsp;&nbsp;Repeat 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$C1 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$C2 
+<BR>&nbsp;&nbsp;&nbsp;RepeatEnd $Count   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+And call it with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call 2bars Am / Gm , Edim / Gm , 7   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+to generate a total of 14 bars of music.<A ID="tex2html100"
+  HREF="#foot9559"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> If you doubt that this is
+working, call 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the -r option (see
+<A HREF="node2.html#running-r">here</A>).
+
+<P>
+The parameters in a subroutine can have default values. You can set a
+parameter default in two ways:
+
+<P>
+
+<OL>
+<LI>By adding the default value in the header using the
+  parameter=value format. For example, to set the copyright example
+  above, you might use:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall Copyright Name=Bob van der Poel 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MidiCopyright $Name 
+<BR>
+EndDefCall   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+in which case you can now use C<SMALL>ALL </SMALL>C<SMALL>OPYRIGHT</SMALL> to set the value
+to the default &ldquo;Bob van der Poel&rdquo; or you can pass your own value.
+So, 
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call Copyright  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set the Midi Copyright to &ldquo;Bob van der Poel&rdquo; but
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call Copyright Susan Jones  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set it to &ldquo;Susan Jones&rdquo;.
+
+<P>
+</LI>
+<LI>You can also set default values by placing a series of
+  D<SMALL>EFAULT</SMALL> messages anywhere in the D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL>.
+ For example, the above example could be done with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall Copyright Name 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default Name Bob van der Poel
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MidiCopyright $Name 
+<BR>
+EndDefCall   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This produces the same result. Note: <SPAN  CLASS="textit">any default settings made in the
+body of the definition will override the parameter settings. It's
+probably best to adopt one method and stick with that in your code.</SPAN>
+
+<P>
+You can also assign NULL or empty values to a variable by using the
+D<SMALL>EFAULT</SMALL> command (you can't do this in the definition since
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is looking for a value after the &ldquo;=&rdquo;. An empty
+definition permits constructs like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall Copyright Name 
+<BR>&nbsp;&nbsp;Default Name 
+<BR>&nbsp;&nbsp;If IsEmpty Name 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;print This MIDI has no copyright 
+<BR>&nbsp;&nbsp;Else 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;print Adding copyright $Name to MIDI 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;MidiCopyright $Name 
+<BR>&nbsp;&nbsp;EndIf 
+<BR>
+EndDefCall     </B> 
+   
+	    </td></tr>
+      </Table>
+
+</LI>
+</OL>
+
+<P>
+The concept of default values for parameters is discussed in detail
+below in the Defaults section (<A HREF="#subroutine-defaults">here</A>).
+
+<P>
+Some points to remember:
+
+<UL>
+<LI>
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  subroutines do not return values to the caller. However, it is
+possible to use the built-in S<SMALL>TACKVALUE</SMALL> macros (see
+<A HREF="node21.html#stackvalue">here</A>).
+
+<P>
+</LI>
+<LI>You can use macros in a subroutine. Macros will <SPAN  CLASS="textit">not</SPAN>
+  be expanded until the subroutine is executed.
+
+<P>
+</LI>
+<LI>Both the subroutine name and the parameters are case
+  insensitive.
+
+<P>
+</LI>
+<LI>When a subroutine is executed parameters are expanded. Assuming
+  that you have used the parameter &ldquo;P1&rdquo; in the definition of the
+  subroutine and passed the value &ldquo;Am&rdquo; when calling, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  changes
+  any occurrences of &ldquo;$P1&rdquo; in the body of the subroutine to &ldquo;Am&rdquo;.
+  One limitation of this scheme is that if you have a macro of the
+  same name it will be changed to the contents of the parameter
+  <SPAN  CLASS="textit">before</SPAN> the line is parsed for execution: your macro will
+  be ignored.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION002220000000000000000">
+Call</A>
+</H1>  
+
+<P>
+As discussed above, you execute a defined S<SMALL>UBROUTINE</SMALL> via the
+C<SMALL>ALL</SMALL> command. There are three parts to this command:
+
+<P>
+
+<OL>
+<LI>The keyword C<SMALL>ALL</SMALL>,
+</LI>
+<LI>The subroutine name,
+</LI>
+<LI>A list of parameters to be passed. If there is more than one
+  parameter you must use commas to separate them.
+</LI>
+</OL>
+
+<P>
+If you wish to have a literal comma in a parameter you must escape it
+by prefacing it with a single backslash. So, 
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call Prt  My, what a nice song  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will pass two parameters (&ldquo;My&rdquo; and &ldquo;what a nice song&rdquo;) to the
+subroutine &ldquo;Prt&rdquo;.
+
+<P>
+On the other hand:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call Prt My\, what a nice song  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+passes only one parameter (&ldquo;My, what a nice song&rdquo;).
+
+<P>
+If you have used default values in D<SMALL>EF</SMALL>C<SMALL>ALL</SMALL> things get a tad
+more complicated. 
+
+<P>
+Notes:
+
+<UL>
+<LI>There is no check to check for excessive nesting or recursion.
+  You're on your own.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H2><A ID="SECTION002221000000000000000"></A>
+<A ID="subroutine-defaults"></A>
+<BR>
+Defaults
+</H2>
+
+<P>
+As noted, above, you can have default arguments for the subroutine
+parameters. If you have set defaults (using the D<SMALL>EFAULT</SMALL> keyword
+or a Param=value pair) these will be used for &ldquo;missing&rdquo; parameters
+in a subroutine call.
+However, if any parameters at all are supplied, they must be in the same
+order as in the definition. So, if you have created a subroutine like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall MySub  P1 , P2 , P3=somevalue , P4=another value  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+or
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall MySub  P1 , P2 , P3 , P4 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Default P3 somevalue 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Default P4 another value  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and call it with 
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call MySub  P1Value, P2Value , This is for p3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+the the following settings apply:
+
+<P>
+<BLOCKQUOTE>
+$P1 &ndash; P1Value 
+<BR> $P2 &ndash; P2value 
+<BR> $P3 &ndash; This is for p3 
+<BR> $P4 &ndash; another value 
+<BR>
+</BLOCKQUOTE>
+
+<P>
+We can assign a value to a variable by using a &ldquo;variable=value&rdquo; pair.
+This assigns a value to a parameter ... nicely, the order of variables
+is not important as long as you don't try to use non &ldquo;=&rdquo; pairs after
+one. For clarity, some examples follow (in all cases we use the
+definition):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefCall fun a, b=1, c=2 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Print $A $B $C 
+<BR>
+EndDefCall  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, with different calling orders:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun 0, b=1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Result: 0 1 2. The &ldquo;0&rdquo; is from the first argument, &ldquo;1&rdquo; from
+&ldquo;b=1&rdquo; and &ldquo;2&rdquo; from the default for $C.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun 0, c=2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Result: 0 1 2. The &ldquo;0' if from the first argument, &ldquo;1&rdquo; is the
+default setting for $B and &ldquo;2&rdquo; is from &ldquo;c=2&rdquo;.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun 0, b=1, 2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Result: A 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  runtime error since a  non-named argument is used
+after a named.
+
+<P>
+Arguments without a default setting can be set with the &ldquo;=&rdquo; syntax:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun a=0, c=2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+Result: 0 1 2. Here we have set $a from the call, &ldquo;1&rdquo; is the
+default for the second parameter and &ldquo;2&rdquo; was set with &ldquo;c=2&rdquo;.
+
+<P>
+When using the &ldquo;parameter=value&rdquo; syntax the order of named parameters does not matter:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun c=2, a=0, b=1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+Result: 0 1 2. Just as expected.
+
+<P>
+Any arguments without a default value must be specified:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Call fun b=1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+Result: A 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  runtime error since there is no value for $a.
+
+<P>
+
+<H2><A ID="SECTION002222000000000000000">
+Local Values</A>
+</H2>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tries very hard not to change any variables (macros) you have
+already set when a subroutine is called. To do this any variables set
+on the subroutine call line are saved. Their original values are
+restored at the end of the subroutine call.
+
+<P>
+Variables you create inside a subroutine can manipulated 
+by saving and restoring them using S<SMALL>TACK</SMALL>V<SMALL>ALUE</SMALL> (see
+<A HREF="node21.html#stackvalue">here</A>). You can return values to
+the caller (your main 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  code or another subroutine) by pushing a
+value onto the stack and pulling it off later. However, it is up to
+the the caller (you) to ensue that the order and number of stack
+pushes and pulls is correct.
+
+<P>
+This makes complex (as well as recursive) programming possible. 
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot9558">...
+language.</A><A
+ HREF="node22.html#tex2html99"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>If you do solve the Towers of Hanoi using 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+  subroutines, please let us know.
+
+</DD>
+<DT><A ID="foot9559">... music.</A><A
+ HREF="node22.html#tex2html100"><SUP><SPAN CLASS="arabic">22</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>In this case we are using the
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  primitive R<SMALL>EPEAT/</SMALL>E<SMALL>ND</SMALL>R<SMALL>EPEAT</SMALL>, but it could also be
+accomplished with a counter, <SMALL>LABEL</SMALL> and G<SMALL>OTO</SMALL> ... we'll
+leave that as an exercise for the reader.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node23.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node21.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node23.html">Plugins</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node21.html">Variables, Conditionals and Jumps</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

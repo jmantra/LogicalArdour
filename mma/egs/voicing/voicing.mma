@@ -1,0 +1,60 @@
+/// Simple script to demo all the various
+/// voicing mode options. Here we create a
+/// simple CHORD pattern that we play with the
+/// same chords in each mode.
+
+Include stdpats
+
+Seqsize 4
+Keysig C
+
+Begin Chord
+   Voice Piano1
+   Octave 5
+   Sequence C1234  C13  C1234 L1
+End
+
+Mset Cpattern   /// set our chord pattern
+   C
+   G
+   Fm7
+   C7
+EndMset
+
+Chord Voicing Mode=Root  /// same as none which is the default
+$Cpattern
+
+
+Chord Voicing  Mode=Optimal
+$Cpattern
+
+Chord Voicing  Mode=Key
+$Cpattern
+
+Chord Voicing  Mode=Key2
+$Cpattern
+
+Chord Voicing  Mode=Drop2
+$Cpattern
+
+Chord Voicing  Mode=Drop2Key
+$Cpattern
+
+Chord Voicing  Mode=Drop23
+$Cpattern
+
+Chord Voicing  Mode=Drop23Key
+$Cpattern
+
+Chord Voicing  Mode=Invert
+$Cpattern
+
+Chord Voicing  Mode=Compressed
+$Cpattern
+
+
+
+
+
+
+   

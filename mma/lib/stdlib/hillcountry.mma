@@ -1,0 +1,138 @@
+
+// hillcountry
+
+Begin Doc
+
+  A HillBilly country beat. Seems to work with ''Flowers on the Wall.''
+                
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+
+////////////////////////////////////
+/////////////////// Our basic beat
+
+
+SeqSize 4
+
+Begin Chord
+	Sequence      C1234  
+	Accent  1 10 
+	RSkip 10
+	Voicing    Mode=Optimal
+	Voice Banjo
+	Volume mp
+	Octave 5
+	Strum 10
+	Direction  Both
+	Articulate 99
+End
+
+Begin Bass
+	Voice FingeredBass
+	Sequence   B13  B11 B13  {1 2. 1 90 * 2}
+	Octave 3
+	Articulate 99
+	Volume m
+End
+
+
+Begin Drum-HH
+	Sequence   D13  /  /  D1234
+	Tone OpenHiHat
+	RSkip 5
+	Volume pp
+	Rvolume 20
+	Rtime 4
+End
+
+Begin Drum-Snare
+	Sequence  D1234
+	Tone SnareDrum2
+	Rvolume 20
+	Volume pp
+	Rtime 3
+End
+
+DefGroove HillCountry      Our basic hillbilly beat. Pretty boring.
+
+
+Begin Arpeggio
+	VOice Banjo
+	Octave 6
+	Volume mp
+	Range 1
+	Direction Up
+	Sequence A8
+	Rskip 30
+End
+
+DefGroove HillCountryPlus    Adds in another banjo.
+
+
+Groove HillCountry
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	DupRoot -1
+	Voicing Mode=Optimal
+	Volume mp
+	Rskip 10
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+
+DefGroove HillCountrySus            Why not strings in the hills?
+
+
+Arpeggio Groove HillCountryPlus
+
+DefGroove HillCountrySusPlus        Strings and banjos!
+
+////////////////////////////////
+/// Single bar fill, good in repeats
+
+Groove HillCountry
+
+Chord    Sequence      C8  
+Bass     Sequence      {1 4 5 90; 2 4 4 90; 3 4 3 90; 4 4 2 90}  // walk down
+Drum-HH  Sequence      D1234
+Drum-Snare 	Sequence  D13
+
+DefGroove HillCountryFill  Single bar fill with walking bass, good for repeats.
+
+//////////////////////////////
+/// 4 bar Intro
+
+Groove HillCountry
+
+Chord       Sequence   *    *   *  {1 8 90; 1.5 8 90; 2 2 90}
+Bass        Sequence   B11  /   /  {1 2 1 90}
+Drum-HH     Sequence   *    *   *  {1 0 120}
+Drum-Snare  Sequence   *    *   *  D12
+
+
+DefGroove HillCountryIntro A basic 4 bar intro.
+
+///////////////////////////////
+/// 2 Bar Ending
+
+Groove HillCountry
+SeqSize 2
+
+Chord       Sequence   C8    {1 1 90}
+Bass        Sequence   B11   {1 1 1 90}
+Drum-HH     Sequence   *     {1 0 120}
+Drum-Snare  Sequence   *     D1
+
+DefGroove HillCountryEnd  An abrupt 2 bar ending.

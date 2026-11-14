@@ -1,0 +1,47 @@
+// Trigger Truncate demo
+
+// This shows how using the truncate option changes things.
+
+// The results here depend a lot on the voice. Try changing from
+// a long ringing voice like the jazzguitar to Piano1 or a string.
+
+Begin Chord-test
+    Voice Strings
+    //Voice Jazzguitar
+    //Voice  Piano1
+    Octave 6
+    Volume mf
+    Articulate 100
+    // note, no sequence defined, but we create a trigger
+    // with it's own sequence in the block. This is a single
+    // pattern with a half note chord
+    Trigger Beats = 1,3 Sequence={1 2 90}
+End
+
+// This plays a chord on 1 and 3. No problems
+
+1  C
+2  G7
+
+// Now change the trigger to hit chords on each beat
+// Again, no serious problems
+
+Chord-test Trigger Beats=1,2,3,4
+
+3  C
+4  G7
+
+// But, when we add in chords a bit of overlap disonance develops
+
+5  C D E F
+6  G7
+
+// Which is solved by truncating the chords
+
+Chord-test Trigger Truncate=true
+
+7  z  /// this is to permit the previous chord to decay
+8  C D E F
+9  G7
+
+

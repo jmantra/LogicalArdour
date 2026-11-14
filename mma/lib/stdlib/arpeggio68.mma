@@ -1,0 +1,137 @@
+// arpeggio68
+
+Begin Doc 
+
+   A simple set or arpeggios. Great for lesson pieces and lullabies.
+
+   Remember that for the following variables to
+   take effect they need to be set before loading any Groove in the file
+    or after a GrooveClear.
+
+   This groove is based on the ``arpeggiowaltz'' groove.
+
+   Note when setting chord locations that there are six quarter notes per bar!
+
+   When doing a solo/melody you'll find it easy to use 6 eight notes/bar and expand 
+   them with a "Stretch 200".
+
+   You will need to double the tempo for this to work out right.
+End
+  
+Begin DocVar
+  Harmony    Sets the Harmony used for the piano. Default: None.
+  Direction  Sets the arpeggio direction. Default: UP.
+  Bass       If set Bass is enabled with a hit on beat 1. Default: no bass.
+End
+
+If Ndef Harmony
+   Set ArpHarmony None
+Else 
+   Set ArpHarmony $Harmony
+Endif
+
+If Ndef Direction
+   Set ArpDirection Up
+Else
+   Set ArpDirection $Direction
+Endif
+
+If Ndef Bass
+   Set BassSeq -
+else
+   Set BassSeq B15
+Endif
+
+Author Bob van der Poel
+
+SeqClear
+Time 6  // beats per bar ... these are actually QUARTERS
+Timesig 6/8
+Include stdpats68
+
+SeqSize 4
+
+//// Some useful defines
+
+Begin Arpeggio Define
+    AR2 1 4 90; 4 4 80;
+    AR6 1 4 90; 2 4 88; 3 4 85; 4 4 82; 5 4 77; 6 4 70
+    AR12 AR6 * 2
+End
+
+//// Basic pattern ... just an arpeggiating piano
+
+Begin Arpeggio
+    Voice Piano1
+    Volume m
+    Octave 4
+    Articulate 160
+    Rtime 5
+    Rvolume 5
+    Range .9
+    Direction $ArpDirection
+    Sequence AR6
+    Harmony $ArpHarmony
+End 
+
+Begin Bass
+    Voice AcousticBass
+    Volume 70 60 50 40
+    //Rvolume 10
+    Rtime 5
+    Articulate 80
+    Octave 3
+    Sequence $BassSeq
+End
+
+DefGroove Arpeggio68    A eighth note piano (6 hits/bar).
+
+Groove Arpeggio68
+
+Arpeggio Sequence AR12
+
+DefGroove Arpeggio68-16  A 16th note piano (12 hits/bar).
+
+Arpeggio Sequence AR6 / / AR12
+
+DefGroove Arpeggio68-816  3 bars of 8ths, 1 bar 16ths.
+
+
+//////// Sustained versions
+
+Groove Arpeggio68
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence  { 1 1. 90 0 80 0 * 6}  // Root and fifth notes only.
+	Voicing Mode=Key
+	Octave 5
+	Articulate 100
+	Unify On
+	//Rvolume 5
+	Volume p
+End
+
+DefGroove Arpeggio68Sus  Sustained strings with eight note piano.
+
+Groove Arpeggio68-16
+ Chord-Sus Groove Arpeggio68Sus
+DefGroove Arpeggio68Sus-16 Sustained strings with 16ths.
+
+Groove Arpeggio68-816
+ Chord-Sus Groove Arpeggio68Sus
+DefGroove Arpeggio68Sus-816 Sustained strings with 8ths, 8ths, 8ths, 16ths pattern.
+
+
+//////// Introduction
+
+Groove Arpeggio68
+
+Arpeggio Sequence * * * A2
+
+DefGroove Arpeggio68Intro  A basic 4 bar introduction (works for ending as well).
+
+Chord-sus Groove Arpeggio68Sus
+
+DefGroove Arpeggio68SusIntro  Same intro with strings.
+

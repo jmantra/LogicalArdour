@@ -1,0 +1,188 @@
+
+// waltz
+
+
+Begin Doc
+
+  Strauss waltz pattern.
+   
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 3
+Timesig 4 4
+Include stdpats34
+
+
+//////////////////////////////////////////////////
+//   VieneseWaltz
+
+
+SeqSize 4
+
+//   For the chords we use a piano on beat 1. This
+//   is done with a bass pattern. Beats 2 and 3 have
+//   a piano chord.
+
+Begin Bass
+	Sequence	B1	B1/5
+	Voice Piano2
+	Octave 3
+	Articulate 90
+	Volume f
+End
+
+
+Begin Chord-Piano
+	Sequence	C23
+	Invert 1 0
+	Voice Piano2
+	Articulate 95
+	RVolume 10
+	Octave 4
+	Volume mp
+End
+
+
+Begin Drum-Kick
+	Sequence	D1
+	Tone  KickDrum1
+	Rvolume 20
+	Volume p
+	Rtime 4
+End
+
+Begin Drum-Cym
+	 Sequence	D2
+	 Tone RideCymbal1
+	 Rvolume 10
+	 Volume mp
+	 Rtime 3
+End
+
+Begin Drum-HH
+	Sequence	D23
+	Tone ClosedHiHat
+	Rvolume 10
+	Volume p
+	Rtime 2
+	Rskip 20
+End
+
+
+DefGroove VieneseWaltz      Basic waltz,  piano only.
+
+
+Begin Chord-Sus
+	Sequence	C123
+	Articulate 100
+	Voicing Mode=Optimal
+	Unify On
+	Octave 6
+	Voice Strings
+	Volume p
+End
+
+
+DefGroove VieneseWaltzSus     Basic waltz with strings and piano.
+
+
+//////////////////////////////////////////////////////////////
+///   VieneseWaltz1  - Same as above, but with arp musicbox
+
+
+Groove VieneseWaltz
+
+Chord-Piano  Sequence -		// Kill piano
+
+// Set up a musicbox to arpeggiate on 3 bars and a scale on the 4th
+// A6 and S6 are both 3 pairs of 1/8 notes.
+
+Begin Arpeggio
+	Sequence 	A6   /  /  z 
+	Accent 1 10
+	Invert 0 1
+	Articulate 99
+	Volume mp
+	Range 2
+	Octave 5
+	Rvolume 20
+	Voice  MusicBox
+End
+
+Begin Scale
+	Sequence 	 z   z  z  S6 
+	Accent 1 10
+	Articulate 99
+	Volume mp
+	Octave 5
+	Rvolume 20
+	Voice  MusicBox
+End
+
+DefGroove VieneseWaltz1      Our VieneseWaltz with light, eight note arpeggios.
+
+Chord-Sus Groove VieneseWaltzSus  
+Scale Rskip 5
+Arpeggio Rskip 20
+
+DefGroove VieneseWaltz1Sus     Waltz with arpeggios and strings.
+
+//////////////////////////////////////
+/// Arpeggio with piano chords. The break between the basic and 1 versions
+///   are a bit too large. Use this as a transition.
+
+Groove VieneseWaltz
+
+Chord-Piano Volume -30%
+
+Begin Arpeggio
+    Groove VieneseWaltz1
+	Volume -25%
+	Articulate 110
+End
+Begin Scale
+    Groove VieneseWaltz1
+	Volume -25%
+	Articulate 110
+End
+
+DefGroove VieneseWaltz2   Musicbox sounds with piano.
+
+Groove VieneseWaltz2
+Chord-Sus Groove VieneseWaltzSus
+DefGroove VieneseWaltz2Sus  Musicbox with piano and strings.
+
+////////////////////////////////////
+//// Intro
+
+Groove VieneseWaltz
+
+
+Bass         Sequence   *    *    B123    {1 2. 1 90}
+Chord-Piano  Sequence   *    *    C123    L1
+//Drum-Kick
+Drum-Cym     Sequence	*    *    *       D1
+Drum-HH      Sequence	*    *    *       D2
+
+
+DefGroove VieneseWaltzIntro     Simple 4 bar introduction.
+
+
+///////////////////////////////////
+/// Ending
+
+Groove VieneseWaltz
+
+Chord-Piano  Sequence	C23  /  C1  /
+Bass         Sequence	B1	B123 /  B1
+Drum-Cym     Sequence	D2  /   D1  /
+Drum-HH      Sequence	D123 /  D12 D1
+
+DefGroove VieneseWaltzEnd    A 4 bar ending. Set SEQ so that the \
+                             final bar is the 4th bar of the pattern. \
+                             A CUT after the last bar will help.
+
+

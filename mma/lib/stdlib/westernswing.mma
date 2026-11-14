@@ -1,0 +1,179 @@
+
+// westernswing
+
+Begin Doc
+
+  Based on CountrySwing, this is supposed to be an improvement.
+  Works with "Don't Fence Me In".
+                
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////////
+///////// Pattern defines
+
+Begin Drum Define
+	D12+34  D1234 ; 2.5 0 80 
+End
+
+////////////////////////////////////
+/////////////////// WesternSwing
+
+SeqSize 4
+
+Begin Chord
+	Voice       JazzGuitar
+	Sequence    C1234  /  /  {C13 ; 1.5 16 60 ; 3.5 16 60 }
+	Accent      1 10 
+	RSkip       10
+	Voicing     Mode=Key
+	Volume      m
+	Octave      5
+	Strum       4
+	Direction   Both
+	Articulate  99
+End
+
+Begin Chord-Steel
+    Voice      SteelGuitar
+    Voicing    Mode=Key
+    Volume     m
+    Octave     5
+    Rskip      20
+    Articulate 80
+    Sequence   C13 
+End
+
+Begin Bass
+	Voice      FingeredBass
+	Sequence   B13  /  /  z
+	Octave     3
+	Articulate 99
+	Volume     mf
+    Accent     1 10
+End
+
+Begin Walk
+	Voice      $_Bass_Voice
+	Octave     $_Bass_Octave
+	Sequence   z    z    z   W1234
+	Articulate 80
+	Volume     $_Bass_Volume
+    Accent     $_Bass_Accent
+    Direction  Random
+End
+
+Begin Drum-HH
+	Sequence    D13  /  /  D1234
+	Tone        OpenHiHat
+	RSkip       5
+	Volume      pp
+	Rvolume     20
+	Rtime       4
+End
+
+Begin Drum-Snare
+	Sequence     D12+34
+	Tone         SnareDrum2
+	Rvolume      20
+	Volume       ppp
+	Rtime        3
+End
+
+Begin Drum-Kick
+    Tone        KickDrum1
+    Volume      mp
+    Rvolume     5
+    Rtime       2
+    Sequence    D13
+End
+
+DefGroove WesternSwing     Not too bad for dancing.
+
+// For the sustain we add in some accordion
+
+Begin Chord-Sus
+	Voice      Accordion
+	Sequence   { 1 1 90 0 * 2 } { 1 1 0 0 90 0 * 2}
+	Octave     5
+	SeqRnd     On
+	Voicing    Mode=Optimal
+	Volume     mp
+    
+	Articulate 100
+	Unify      On
+End
+
+DefGroove WesternSwingSus   Adds a sustained accordion for the chorus.
+
+///////////////////////////////////////
+/// Plus versions give the steel a solo line
+
+Groove WesternSwing
+
+Begin Arpeggio
+	Sequence    Swing8  /  A8  A4
+	Voice       SteelGuitar
+	SeqRnd      On
+	Volume      mf
+	Articulate  150       
+	Rskip       70     /   80  30
+	Rvolume     10
+	Octave      5
+    Range       1
+    Direction   Random
+    Harmony     3Below+8Below
+End
+
+Chord-Steel Sequence -
+
+DefGroove WesternSwingPlus   Adds in Steel Guitar "melody".
+
+Chord-Sus Groove WesternSwingSus
+
+DefGroove WesternSwingSusPlus   Steel guitar and accordion
+
+////////////////////////////////
+// Introduction
+////////////////////////////////
+
+Groove WesternSwing
+
+Alltracks SeqRnd Off
+
+Chord       Sequence      C1234   /    /   {1 2. 80}
+Chord-Steel Sequence      *       *    *   L1
+Bass        Sequence      B13     /    /   {1 2 1 80}
+Walk        Sequence      -
+Drum-HH     Sequence      D13     /   /    D14
+Drum-Snare 	Sequence      D12+34  /   /    D1
+Drum-Kick   Sequence      *       *   *    D1
+
+DefGroove WesternSwingIntro   Simple 4 bar introduction.
+
+////////////////////////////////
+// WesternSwingEnd
+// 2 bar ending, just set everything to a straight 4
+
+Groove WesternSwing
+
+Seqsize 2
+
+Arpeggio     Sequence  -
+Walk         Sequence  -
+Bass         Sequence  B1234   B1
+Chord        Sequence  C1234   L1     
+Chord-Steel  Sequence  C13     L1
+Drum-HH      Sequence  D1234   D1
+Drum-Snare   Sequence  D1234   D1
+Drum-Kick    Sequence  D12     D1     
+
+DefGroove WesternSwingEnd    Simple ending. Hits on each beat on bar 1, \
+                             beat 1 only on bar 2.
+

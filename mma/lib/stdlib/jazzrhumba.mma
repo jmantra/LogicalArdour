@@ -1,0 +1,265 @@
+
+// jazzrhumba
+
+Begin Doc
+
+Loosely based on the rhumba groove with added off beat syncopation.
+Written for the Miles Davis tune "Nardis".
+
+End
+
+Author Bob van der Poel
+
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////////////
+/////// Instrument patterns
+
+
+Begin Drum Define
+	D3+       D3 Shift .5
+	D1+3+     D13 Shift .5
+	D2+4+     D24 Shift .5
+	D12+4     D14 ; D2 Shift .5  
+	D13+      D1 ; D3+
+	D3+4      D3+ ; D4
+	D1+2+3+   D1+3+; D3+
+End
+
+Begin Walk Define
+	W14+       1 2 100 ; 4.5 4 77  
+End
+
+Begin Bass Define
+	B14+      1 2 1 90 ; 4. 4 1 90 
+End
+
+Begin Chord Define
+	C30         1 81 70 ; 1+81 82 70 ; 2+81 82 70
+End 
+
+/////////////////////////////////
+///////// Jazz Rhumba
+
+SeqSize 4
+
+Begin Drum-Claves
+	Sequence     D13  /  /  D134
+	Tone  Claves
+	Rvolume 10
+	Rtime 2
+	Volume fff
+End
+
+Begin Drum-Maraca
+	Sequence     D8  /  /  D1234
+	Tone Maracas
+    Volume m
+	Rvolume 5
+	Rtime 2
+End
+	
+Begin Drum-LoConga
+	Sequence     D4  D3+4
+	Tone LowConga
+	Rvolume 5
+	Rtime 2
+	Volume ff
+End
+
+Begin Drum-HH
+	Sequence      D3             D3+        /  z
+	Tone          OpenHighConga  OpenHiHat  /  /
+	Rvolume 5
+	Rtime 2
+    Volume m
+End
+
+Begin Drum-MuteConga
+	Sequence     D2 { D1 Shift .5 }
+	Tone MuteHighConga
+	Rvolume 5
+	Rtime 2
+    Volume m
+End
+
+Begin Drum-Bongo
+	Sequence     D3        D2+4+
+	Tone         LowBongo  HighBongo
+	Rvolume 5
+	Rtime 2
+    Volume mf
+End
+
+
+Begin Drum-Chh
+	Sequence     D8
+	Tone  ClosedHiHat
+	Volume mp
+	Rvolume 5
+	Rtime 2
+End
+
+/////// Main chording is the piano ... this is for all the variations.
+
+	
+Begin Chord
+	Sequence	C134  C123 { C1; C34 Shift .5 }	{ C2; C34 Shift .5 } 
+	Accent 1 20 3 10
+	Voicing Mode=Key
+	SeqRnd On
+	Rvolume 10
+	Voice Piano2
+	Articulate 93
+	Octave 5
+	Volume mp
+End
+
+
+//////// The walk and bass alternate bars. Gives a nice feeling.
+
+Begin Bass
+	Voice      FretLessBass
+	Sequence   B14+   z    B14+  z
+	Articulate 80
+	Accent 1 20
+	Rvolume 15
+	Rtime 4
+	Octave 3
+	Volume m 
+End
+
+Begin Walk
+	Voice      $_Bass_Voice
+	Octave     $_Bass_Octave
+	Rvolume    $_Bass_Rvolume
+	Rtime      $_Bass_Rtime
+	Accent     $_Bass_Accent
+	Articulate 55
+	Volume     $_Bass_Volume
+	Sequence   z   W14+   z   W14+   
+End
+
+
+DefGroove JazzRhumba    Nice, smooth easy listening.
+
+//////// Add sustained strings
+
+/// The chord pattern just plays the root and 5th. The 2 defs
+/// vary the volume of the root/5th.
+
+Begin Chord-sus
+	Sequence	{ 1 1 90 0 50 0 * 4 } { 1 1 50 0 90 0 * 4 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+	Voice Strings
+	Articulate 110
+	Unify On
+	Volume p
+	Octave 5
+End
+
+DefGroove JazzRhumbaSus  Sustained strings make it smoother.
+
+
+////////////////////////////
+// Add arpeggios
+
+
+Groove JazzRhumba
+
+Begin Arpeggio
+	Sequence    A4  A8  A4  A8
+	Invert      0   0   1   1
+	SeqRnd On
+	Voice PizzicatoString
+	Articulate 120
+	Octave 4
+    Range 2
+    Direction random
+    Harmony OpenBelow
+	Volume mp
+	Rvolume 10
+	Rskip  40
+End
+
+DefGroove JazzRhumbaPlus     Adds pizzicato arpeggios.
+
+Chord-sus Groove JazzRhumbaSus
+DefGroove JazzRhumbaSusPlus  Apreggios and sustained strings.
+
+/////////////////////////////////
+//// Fill
+
+Groove JazzRhumba
+
+AllTracks SeqRnd Off
+
+Drum-Claves     Sequence     D1234
+Drum-Maraca     Sequence     D13
+Drum-LoConga    Sequence     D1
+Drum-HH         Sequence     D1234
+Drum-MuteConga  Sequence     D13
+Drum-Bongo      Sequence     D13
+Drum-Chh        Sequence     D8 
+
+Chord           Sequence	L2
+Begin Bass 
+           Sequence    B13
+           Articulate  65
+           Volume  f
+End
+Walk            Sequence -
+
+DefGroove JazzRhumbaFill    A one bar fill for endings.
+
+///////////////////////////
+// Intro
+
+Groove JazzRhumba
+
+AllTracks SeqRnd Off
+
+Drum-Claves     Sequence     *      *       *       D1234
+Drum-Maraca     Sequence     D8     /       /       D13
+Drum-LoConga    Sequence     D4     D3+4    D2      D1
+Drum-HH         Sequence     D3     D3+     /       z
+Drum-MuteConga  Sequence     D2    { D1 Shift .5 }  D2  z
+Drum-Bongo      Sequence     D3     D2+4+   D3      D3
+Drum-Chh        Sequence     D8     /       /       D1234
+
+Chord           Sequence	C134  /        /        {1 1 8	0}
+Bass            Sequence    B14+   /     /  {1 2 5 70; 2.5 4 3 60; 3 4 2 50; 4.25 4 1 40}
+Walk            Sequence -
+
+DefGroove JazzRhumbaIntro   4 bar intro
+
+///////////////////////////
+// Endings
+
+
+Groove JazzRhumba
+
+Seqsize 2
+
+Alltracks SeqRnd Off
+
+Drum-Claves     Sequence  D8 D12
+Drum-Maraca     Sequence  D1 
+Drum-LoConga    Sequence  D1234 D12
+Drum-HH         Sequence  D3+   D1
+Drum-MuteConga  Sequence  D2 
+Drum-Bongo      Sequence  D3    D2
+Drum-Chh        Sequence  D8    D12
+Chord           Sequence  C134  C12
+Bass            Sequence  B14+ B1
+Walk            Sequence -
+
+DefGroove  JazzRhumbaEnd   Simple, 2 bar, ending.
+	

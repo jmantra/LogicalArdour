@@ -1,0 +1,468 @@
+// Pattern: LATN01
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-----------------1-----3-----------------1-----|3-----------------1-----2-----------------1-----|
+  Sequence { 1.0 0 90; 2.5 0 30; 3.0 0 90; 4.5 0 30 } \
+           { 1.0 0 90; 2.5 0 30; 3.0 0 60; 4.5 0 30 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |------------------------------------------------|------------------------------------3-----------|
+  Sequence Z \
+           { 4.0 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |3-----1-----3-----1-----1-----1-----3-----2-----|2-----1-----3-----1-----2-----2-----3-----2-----|
+  Sequence { 1.0 0 90; 1.5 0 30; 2.0 0 90; 2.5 0 30; 3.0 0 30; 3.5 0 30; 4.0 0 90; 4.5 0 60 } \
+           { 1.0 0 60; 1.5 0 30; 2.0 0 90; 2.5 0 30; 3.0 0 60; 3.5 0 60; 4.0 0 90; 4.5 0 60 } 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |------------3-----3-----------------------------|------------3-----2-----------------------------|
+  Sequence { 2.0 0 90; 2.5 0 90 } \
+           { 2.0 0 90; 2.5 0 60 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |1----1------3-----1-----2----1--1--3-----1-----2|-----1------3----1-----3-----1------3----1------|
+  Sequence { 1.0 0 30; 1.4 0 30; 2.0 0 90; 2.5 0 30; 3.0 0 60; 3.4 0 30; 3.7 0 30; 3.9 0 90; 4.4 0 30; 4.9 0 60 } \
+           { 1.4 0 30; 2.0 0 90; 2.4 0 30; 2.9 0 90; 3.4 0 30; 4.0 0 90; 4.4 0 30 } 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |------------------------------------3-----------|------------------------------------3-----------|
+  Sequence { 4.0 0 90 } / 
+End
+
+DefGroove LATN01 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, Stick, Maracas, Tambourine.
+
+// Pattern: LATN02
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |1-2-1-11|1-2-112-|
+  Sequence { 1.0 0 30; 2.0 0 60; 3.0 0 30; 4.0 0 30; 4.5 0 30 } \
+           { 1.0 0 30; 2.0 0 60; 3.0 0 30; 3.5 0 30; 4.0 0 60 } 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |23112311|2312322-|
+  Sequence { 1.0 0 60; 1.5 0 90; 2.0 0 30; 2.5 0 30; 3.0 0 60; 3.5 0 90; 4.0 0 30; 4.5 0 30 } \
+           { 1.0 0 60; 1.5 0 90; 2.0 0 30; 2.5 0 60; 3.0 0 90; 3.5 0 60; 4.0 0 60 } 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |------12|------13|
+  Sequence { 4.0 0 30; 4.5 0 60 } \
+           { 4.0 0 30; 4.5 0 90 } 
+End
+
+Begin Drum-MutHiConga
+  Tone     MuteHighConga
+           // |--3-----|--3-----|
+  Sequence { 2.0 0 90 } / 
+End
+
+Begin Drum-OpenHiConga
+  Tone     OpenHighConga
+           // |1--3-2--|3--1-2--|
+  Sequence { 1.0 0 30; 2.5 0 90; 3.5 0 60 } \
+           { 1.0 0 90; 2.5 0 30; 3.5 0 60 } 
+End
+
+DefGroove LATN02 Time = 4/4, SeqLen = 2; Ride, Tambourine, LowConga, MutHiConga, OpenHiConga.
+
+// Pattern: LATN03
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3----3-3|--------|
+  Sequence { 1.0 0 90; 3.5 0 90; 4.5 0 90 } Z 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |31313131|31313232|
+  Sequence { 1.0 0 90; 1.5 0 30; 2.0 0 90; 2.5 0 30; 3.0 0 90; 3.5 0 30; 4.0 0 90; 4.5 0 30 } \
+           { 1.0 0 90; 1.5 0 30; 2.0 0 90; 2.5 0 30; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 60 } 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |--3-----|-33---32|
+  Sequence { 2.0 0 90 } \
+           { 1.5 0 90; 2.0 0 90; 4.0 0 90; 4.5 0 60 } 
+End
+
+Begin Drum-MutHiConga
+  Tone     MuteHighConga
+           // |-----3--|-----3--|
+  Sequence { 3.5 0 90 } / 
+End
+
+Begin Drum-OpenHiConga
+  Tone     OpenHighConga
+           // |------22|--------|
+  Sequence { 4.0 0 60; 4.5 0 60 } Z 
+End
+
+DefGroove LATN03 Time = 4/4, SeqLen = 2; Kick, ClosedHat, LowConga, MutHiConga, OpenHiConga.
+
+// Pattern: LATN04
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |--2---22--2---22|--2---22--2---22|
+  Sequence { 1.5 0 60; 2.5 0 60; 2.8 0 60; 3.5 0 60; 4.5 0 60; 4.8 0 60 } / 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |------23------23|------23------23|
+  Sequence { 2.5 0 60; 2.8 0 90; 4.5 0 60; 4.8 0 90 } / 
+End
+
+Begin Drum-OpenHiConga
+  Tone     OpenHighConga
+           // |--2-------2-----|--2-------2-----|
+  Sequence { 1.5 0 60; 3.5 0 60 } / 
+End
+
+DefGroove LATN04 Time = 4/4, SeqLen = 2; Maracas, LowConga, OpenHiConga.
+
+// Pattern: LATN05
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |------------------------3-----------------------|------------------------3-----------------------|
+  Sequence { 3.0 0 90 } / 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |2----------1------2------2---------1-----2------|2-----------2------2----2----------2-----2------|
+  Sequence { 1.0 0 60; 1.9 0 30; 2.5 0 60; 3.1 0 60; 3.9 0 30; 4.4 0 60 } \
+           { 1.0 0 60; 2.0 0 60; 2.6 0 60; 3.0 0 60; 3.9 0 60; 4.4 0 60 } 
+End
+
+DefGroove LATN05 Time = 4/4, SeqLen = 2; Stick, Maracas.
+
+// Pattern: LATN06
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3--33--3|3--33--3|
+  Sequence { 1.0 0 90; 2.5 0 90; 3.0 0 90; 4.5 0 90 } / 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |3-3-33-3|-3-33-3-|
+  Sequence { 1.0 0 90; 2.0 0 90; 3.0 0 90; 3.5 0 90; 4.5 0 90 } \
+           { 1.5 0 90; 2.5 0 90; 3.0 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-Tom3
+  Tone     HighTom1
+           // |--------|------22|
+  Sequence Z \
+           { 4.0 0 60; 4.5 0 60 } 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |--3--3--|3--3--3-|
+  Sequence { 2.0 0 90; 3.5 0 90 } \
+           { 1.0 0 90; 2.5 0 90; 4.0 0 90 } 
+End
+
+DefGroove LATN06 Time = 4/4, SeqLen = 2; Kick, Ride, Tom3, Stick.
+
+// Pattern: LATN07
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |3-2-2-2-|2-2-3-3-|
+  Sequence { 1.0 0 90; 2.0 0 60; 3.0 0 60; 4.0 0 60 } \
+           { 1.0 0 60; 2.0 0 60; 3.0 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |2-1-1-2-|1-2-2-1-|
+  Sequence { 1.0 0 60; 2.0 0 30; 3.0 0 30; 4.0 0 60 } \
+           { 1.0 0 30; 2.0 0 60; 3.0 0 60; 4.0 0 30 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |32323232|32323233|
+  Sequence { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 60; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 60 } \
+           { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 60; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 90 } 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |3---3---|3---3---|
+  Sequence { 1.0 0 90; 3.0 0 90 } / 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |------22|------22|
+  Sequence { 4.0 0 60; 4.5 0 60 } / 
+End
+
+Begin Drum-MutHiConga
+  Tone     MuteHighConga
+           // |--2--2--|--2--2--|
+  Sequence { 2.0 0 60; 3.5 0 60 } / 
+End
+
+DefGroove LATN07 Time = 4/4, SeqLen = 2; ClosedHat, Ride, Maracas, Tambourine, LowConga, MutHiConga.
+
+// Pattern: LATN08
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |2--2-----3-----3----2---3----3------2--3-----1--|2--2-----3-----3----2---3----3------2--3-----1--|
+  Sequence { 1.0 0 60; 1.2 0 60; 1.8 0 90; 2.2 0 90; 2.7 0 60; 3.0 0 90; 3.4 0 90; 4.0 0 60; 4.2 0 90; 4.8 0 30 } / 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |3--1--1--2--3--1--1--3--3--1--1--2--3--1--1--3--|3--1--1--2--3--1--1--3--3--1--1--2--3--1--1--3--|
+  Sequence { 1.0 0 90; 1.2 0 30; 1.5 0 30; 1.8 0 60; 2.0 0 90; 2.2 0 30; 2.5 0 30; 2.8 0 90; 3.0 0 90; 3.2 0 30; 3.5 0 30; 3.8 0 60; 4.0 0 90; 4.2 0 30; 4.5 0 30; 4.8 0 90 } / 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |---------2--3-----------------------------------|---------2--3-----------------------------------|
+  Sequence { 1.8 0 60; 2.0 0 90 } / 
+End
+
+Begin Drum-MutHiConga
+  Tone     MuteHighConga
+           // |1--0--3--------0--------2--0--3--1--0--3--------|1--0--3--------0--------2--0--3--1--0--3--------|
+  Sequence { 1.0 0 30; 1.2 0 0; 1.5 0 90; 2.2 0 0; 3.0 0 60; 3.2 0 0; 3.5 0 90; 3.8 0 30; 4.0 0 0; 4.2 0 90 } / 
+End
+
+Begin Drum-OpenHiConga
+  Tone     OpenHighConga
+           // |------------------2--3--------------------2--3--|------------------2--3--------------------2--3--|
+  Sequence { 2.5 0 60; 2.8 0 90; 4.5 0 60; 4.8 0 90 } / 
+End
+
+DefGroove LATN08 Time = 4/4, SeqLen = 2; Ride, Maracas, LowConga, MutHiConga, OpenHiConga.
+
+// Pattern: LATN09
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |3-2-2-2-|2-2-3-3-|
+  Sequence { 1.0 0 90; 2.0 0 60; 3.0 0 60; 4.0 0 60 } \
+           { 1.0 0 60; 2.0 0 60; 3.0 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |2-2-2-2-|2-2-2-2-|
+  Sequence { 1.0 0 60; 2.0 0 60; 3.0 0 60; 4.0 0 60 } / 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |32323232|32323233|
+  Sequence { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 60; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 60 } \
+           { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 60; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 90 } 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |3---3---|3---3---|
+  Sequence { 1.0 0 90; 3.0 0 90 } / 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |------22|------22|
+  Sequence { 4.0 0 60; 4.5 0 60 } / 
+End
+
+Begin Drum-MutHiConga
+  Tone     MuteHighConga
+           // |--2--2--|--2--2--|
+  Sequence { 2.0 0 60; 3.5 0 60 } / 
+End
+
+DefGroove LATN09 Time = 4/4, SeqLen = 2; ClosedHat, Ride, Maracas, Tambourine, LowConga, MutHiConga.
+
+// Pattern: LATN10
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Tom2
+  Tone     LowTom1
+           // |------3-------2-|------3-------3-|
+  Sequence { 2.5 0 90; 4.5 0 60 } \
+           { 2.5 0 90; 4.5 0 90 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |3-223-233-333-33|3-333-333-333-33|
+  Sequence { 1.0 0 90; 1.5 0 60; 1.8 0 60; 2.0 0 90; 2.5 0 60; 2.8 0 90; 3.0 0 90; 3.5 0 90; 3.8 0 90; 4.0 0 90; 4.5 0 90; 4.8 0 90 } \
+           { 1.0 0 90; 1.5 0 90; 1.8 0 90; 2.0 0 90; 2.5 0 90; 2.8 0 90; 3.0 0 90; 3.5 0 90; 3.8 0 90; 4.0 0 90; 4.5 0 90; 4.8 0 90 } 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |------3-------11|--------------11|
+  Sequence { 2.5 0 90; 4.5 0 30; 4.8 0 30 } \
+           { 4.5 0 30; 4.8 0 30 } 
+End
+
+Begin Drum-MutHiConga
+  Tone     MuteHighConga
+           // |1--11---1--11---|1--11---1--11---|
+  Sequence { 1.0 0 30; 1.8 0 30; 2.0 0 30; 3.0 0 30; 3.8 0 30; 4.0 0 30 } / 
+End
+
+Begin Drum-OpenHiConga
+  Tone     OpenHighConga
+           // |--3---11--2-----|--3---11--321---|
+  Sequence { 1.5 0 90; 2.5 0 30; 2.8 0 30; 3.5 0 60 } \
+           { 1.5 0 90; 2.5 0 30; 2.8 0 30; 3.5 0 90; 3.8 0 60; 4.0 0 30 } 
+End
+
+DefGroove LATN10 Time = 4/4, SeqLen = 2; Tom2, Maracas, LowConga, MutHiConga, OpenHiConga.
+
+// Pattern: LATN11
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Tom2
+  Tone     LowTom1
+           // |-----------------------3------------------------|-----------------------3------------------------|
+  Sequence { 2.9 0 90 } / 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |3-----2-----3-----1-----3-----1-----3-----2-----|3-----2-----3-----2-----3-----2-----3-----1-----|
+  Sequence { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 30; 3.0 0 90; 3.5 0 30; 4.0 0 90; 4.5 0 60 } \
+           { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 60; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 30 } 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |------------------------------------2-----2-----|------------------------------------3-----2-----|
+  Sequence { 4.0 0 60; 4.5 0 60 } \
+           { 4.0 0 90; 4.5 0 60 } 
+End
+
+Begin Drum-OpenHiConga
+  Tone     OpenHighConga
+           // |3-----------------------------------------------|3-----------------------------------------------|
+  Sequence { 1.0 0 90 } / 
+End
+
+DefGroove LATN11 Time = 4/4, SeqLen = 2; Tom2, Maracas, LowConga, OpenHiConga.
+
+// Pattern: LATN12
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3--3----3-----3-|3--3--3-----3---|
+  Sequence { 1.0 0 90; 1.8 0 90; 3.0 0 90; 4.5 0 90 } \
+           { 1.0 0 90; 1.8 0 90; 2.5 0 90; 4.0 0 90 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |3-----3---3--3--|3---------3--3--|
+  Sequence { 1.0 0 90; 2.5 0 90; 3.5 0 90; 4.2 0 90 } \
+           { 1.0 0 90; 3.5 0 90; 4.2 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |----------------|--------------2-|
+  Sequence Z \
+           { 4.5 0 60 } 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |2-222-222-222222|2-222-222-222222|
+  Sequence { 1.0 0 60; 1.5 0 60; 1.8 0 60; 2.0 0 60; 2.5 0 60; 2.8 0 60; 3.0 0 60; 3.5 0 60; 3.8 0 60; 4.0 0 60; 4.2 0 60; 4.5 0 60; 4.8 0 60 } / 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |----33------3-3-|----32------323-|
+  Sequence { 2.0 0 90; 2.2 0 90; 4.0 0 90; 4.5 0 90 } \
+           { 2.0 0 90; 2.2 0 60; 4.0 0 90; 4.2 0 60; 4.5 0 90 } 
+End
+
+Begin Drum-OpenHiConga
+  Tone     OpenHighConga
+           // |3-3----3-3-3----|3-3----3-3-3----|
+  Sequence { 1.0 0 90; 1.5 0 90; 2.8 0 90; 3.2 0 90; 3.8 0 90 } / 
+End
+
+DefGroove LATN12 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, Ride, LowConga, OpenHiConga.
+

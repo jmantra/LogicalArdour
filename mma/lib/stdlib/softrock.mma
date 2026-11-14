@@ -1,0 +1,217 @@
+
+// softrock
+
+Begin Doc
+
+ Seems to work nicely for relatively fast 
+ (ie. not "slow dance"), older rock tunes. 
+ I use the SoftRock1 for "Blame It On The Bossa Nova".
+  
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////// Additional Patterns
+
+
+Begin Drum Define
+	D12+34 D134 ; 2.5 0 90 
+End
+
+
+Begin Chord Define
+	C1+34	C134; C2 Shift 2.5 
+End
+
+/////////////////////////////////////////////////
+////// SoftRock
+
+SeqSize 4
+
+Begin Drum-Snare
+	Sequence	D12+34
+	Tone SnareDrum1 SnareDrum2
+	SeqRnd On
+	Volume p
+	Rvolume 10
+End
+
+Begin Drum-HH
+	Sequence	D8
+	Tone ClosedHiHat
+	Volume mf
+	Rvolume 10
+	Rtime 10
+End
+
+Begin Drum-Tri
+	Sequence	D12   /   /    z
+	Tone OpenTriangle
+	Rskip 50
+	Volume pp
+	Rvolume 10
+	RTime 20
+End
+
+Begin Chord
+	Sequence	C1+34   C13    C1+34    C134
+	Voicing   Mode=Optimal
+	SeqRnd On
+	Voice Piano3
+	Volume mf
+	Octave 5
+	Articulate 90
+End
+
+Begin Bass
+	Voice FretlessBass
+	Sequence	B13   z     B13    z
+	Octave 3
+	Volume mp
+	Articulate 80
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence      z    W13   z  {1 4 90 ;  2.5 8 70 ; 3 8 90 ; 3.5 8 70 ; 4 8 70 }
+	Volume mp
+	Articulate 80
+End
+
+DefGroove SoftRock   Basic Soft-rock for 60's tunes.
+
+Begin Chord-sus
+	Sequence	{ 1 1 90 0 50 0 * 4 } { 1 1 50 0 90 0 * 4 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+	Voice TremoloStrings
+	Articulate 100
+	Unify On
+	Volume pp
+	Octave 5
+End
+
+
+DefGroove SoftRockSus   Strings with the rock.
+
+//// SoftRock1  Add in a latiny sounding arp
+
+
+Groove SoftRock    // Start with the basic
+
+Begin Arpeggio
+	Voice Flute
+	Sequence	A8  A8  A4  {A1 * 6} 
+	SeqRnd On
+	RSkip 25
+	Rvolume 15
+	Rtime 6
+	Range 3
+	Accent 1 10 3 10
+	Articulate 80
+	Volume p
+    Direction Random
+	Octave 5
+End
+
+DefGroove SoftRock1   Adds a latin-pop touch by using flute arpeggios.
+
+Chord-Sus Groove SoftRockSus
+
+DefGroove SoftRock1Sus   Latin-pop with sustained strings.
+
+
+///////////////////////////////
+///// SoftRock2
+///// Change the piano to guitar and punch up the drums
+
+
+Groove SoftRock
+
+
+Begin Arpeggio
+	Sequence {1 4 90; 2.5 4 90; 3 4 90; 4 4 90}
+	Rskip 20
+	Rtime 20
+	Range 1.5
+	Voice JazzGuitar
+	Volume mp
+	Octave 5
+	Articulate 120
+End
+
+
+DefGroove SoftRock2   Add some guitar arpeggios to basic rhythm.
+
+Groove SoftRock2
+Chord-Sus Groove SoftRockSus
+DefGroove SoftRock2Sus   SoftRock2 with added sustain.
+
+
+
+/////////////////////////////////////
+/// Fills
+
+Groove SoftRock
+SeqSize 1
+
+Drum-Snare     Sequence   D1234
+///Drum-HH
+// Drum-Tri
+Chord          Sequence   C1234
+Bass           Sequence   B13
+Walk           Sequence   -
+
+DefGroove SoftRockFill   1 bar fill for endings.
+
+ 
+////////////////////////////////////
+/// Intro
+
+Groove SoftRock
+
+Alltracks SeqRnd Off
+
+Drum-Snare   Sequence	D12+34  /    /      D1234
+Drum-HH      Sequence	D8      /    /      D13
+Begin Drum-Tri
+             Sequence	D12     /    /      z
+             Tone OpenTriangle
+             Rskip 0
+End
+	
+Chord        Sequence	C1+34 C13   C1+34   C13
+Bass         Sequence	B13   B11   B13     {1 2 5 100; 3 2 1 120} 
+Walk         Sequence   -
+
+DefGroove SoftRockIntro    Basic introduction.
+
+Begin Chord-Sus
+	Groove SoftRockSus
+	SeqRnd Off
+	Sequence	{ 1 1 90 0 50 * 4 } /  /  {1 2 90 0 50 }
+	Volume    mp  p  pp  ppp
+	Octave 5
+End
+
+DefGroove SoftRockSusIntro    Basic introduction with added strings.
+
+////////////////////////////////////
+/// SoftRockEnd  Change to straight 4s
+
+Groove SoftRock
+
+Chord       Sequence  C1234
+Drum-Snare 	Sequence  D1234
+Walk        Sequence  -
+Bass        Sequence  B11
+
+DefGroove SoftRockEnd   Simple 4 beats to the bar ending.
+

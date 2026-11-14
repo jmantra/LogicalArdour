@@ -1,0 +1,101 @@
+Keysig C
+Tempo 100
+
+// Test the TRUNCATE command
+
+// So we can hear the difference between side=left/right
+//  pick a groove which is quite different in the 1st 
+//  and 2nd half of the bar. This is esp. true for bar 4
+//  of most intros. The 50sRockintro is just fine.
+//  Stick it all in a macro to make life easy.
+
+Mset Pattern
+  Groove 50sRockIntro
+  Seq 4
+  C7 
+  Groove 50sRock
+  G
+  Truncate 1   // generate a 1 beat rest bar
+  z!
+EndMset
+
+// This is a normal pattern with 4 beat on each bar
+$Pattern
+
+// This shows TRUNCATE in action. The next bar is 2 beats
+// with the 2nd half of the bar not being played.
+
+Truncate 1
+$Pattern
+
+// This show TRUNCATE with the 1st half of the bar silent.
+
+Truncate 2  side=Right
+$Pattern
+
+////////////////////////////////////////////////////////////////////////////
+
+///  Make sure that Solo works.
+
+Begin Solo
+  Voice Trumpet
+  Riff 4c;d;e;f;
+  Riff 2g;
+  Riff 4g;f;e;d;
+  Riff 1c;
+End
+
+Groove Jazzguitar   // This has a plectrum voice to test as well
+
+C
+Truncate 2
+G
+C
+C
+
+// Try the bar count arg.
+// This will create an interesting mix...
+
+Groove Swing
+C                     // 4 beats of swing
+Truncate 2 Count=2    // make next 2 bars 2 beats
+Groove SwingSus
+G                     // 2 beats of sustained swing
+Groove Swing
+C                     // 2 beats of normal swing
+Truncate 1
+z                     // 1 beat of swing percussion
+Groove JazzGuitar
+G                     //  4 beats of jazz guitar
+
+
+///////////////////////////////////////////////////////////////////////
+// You can use fractional beats. This is silly here, but useful when
+// your song is compound meters, etc. I needed this for the song
+// "Theme from Mahongany".
+//
+// Here we create a 3/4 bar in the middle of some 4/4 swing bars.
+// And just for fun, we make the 3/4 bar 1.5, 1.5 and 1 beats.
+// Sounds awful in this case ... need better eg!
+
+Groove Swing
+C
+Truncate 1.5
+Groove SwingFill
+/
+Truncate 1.5 Side=3.5   // take last 1.5 beats of 4/4 pattern
+Groove SwingSus
+G
+//Truncate 1 Side=2    // take 2nd beat of 4/4 pattern
+//Groove SwingTriple
+//z
+Groove Swing
+G                     // this is a 4/4 bar
+
+
+
+
+
+
+
+

@@ -185,6 +185,22 @@ cd LogicalArdour
 
 sudo mkdir -p /opt/LogicalArdour
 
+sudo cp LogicalArdour.sh /opt/LogicalArdour/LogicalArdour.sh
+sudo chmod 755 /opt/LogicalArdour/LogicalArdour.sh
+
+mkdir -p "$HOME/.local/share/applications"
+cp LogicalArdour.desktop "$HOME/.local/share/applications/LogicalArdour.desktop"
+if command -v update-desktop-database >/dev/null 2>&1; then
+  update-desktop-database "$HOME/.local/share/applications"
+fi
+
+sudo cp resources/melody_generator /opt/LogicalArdour/melody_generator
+sudo chmod 755 /opt/LogicalArdour/melody_generator
+sudo cp resources/genres.json /opt/LogicalArdour/genres.json
+sudo cp resources/mma_genres.json /opt/LogicalArdour/mma_genres.json
+sudo rm -rf /opt/LogicalArdour/mma
+sudo cp -a mma /opt/LogicalArdour/mma
+
 sudo cp minibpm /opt/LogicalArdour/minibpm
 sudo chmod +x /opt/LogicalArdour/minibpm
 
@@ -219,6 +235,9 @@ sudo cp -rf ladspa-rubberband.so $folder
 
 sudo cp -rf samples/* /opt/LogicalArdour
 
+sudo mkdir -p /opt/LogicalArdour/soundfonts/soundfonts
+sudo cp -a resources/soundfonts/soundfonts/. /opt/LogicalArdour/soundfonts/soundfonts/
+
 sudo pacman -S --needed fuse3 fuse2 --noconfirm
 wget https://jmantra.blob.core.windows.net/data/mscore
 sudo cp -rf mscore /opt/LogicalArdour
@@ -250,7 +269,14 @@ sudo chmod 755 /opt/LogicalArdour/bassline_generator
 sudo chmod 755 /opt/LogicalArdour/bassline_generator.py
 sudo mkdir -p /usr/local/lib/vst3
 
-folder="$HOME/.config/ardour8"
+sudo pacman -S --needed webkit2gtk-4.1 rust pkgconf --noconfirm
+if [ -f score-editor/Cargo.toml ]; then
+  cargo build --release --no-default-features --manifest-path score-editor/Cargo.toml
+  sudo cp score-editor/target/release/score-editor /opt/LogicalArdour/score-editor
+  sudo chmod 755 /opt/LogicalArdour/score-editor
+fi
+
+folder="$HOME/.config/LogicalArdour/ardour8"
 backup_or_create_folder "$folder"
 
 cp -rf ardour8/*  $folder
@@ -260,12 +286,12 @@ backup_or_create_folder "$folder"
 
 cp -rf guitarix/*  $folder
 
-for file in $HOME/.config/ardour8/*; do
+for file in $HOME/.config/LogicalArdour/ardour8/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
 done
-for file in $HOME/.config/ardour8/route_templates/*; do
+for file in $HOME/.config/LogicalArdour/ardour8/route_templates/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi

@@ -1,0 +1,182 @@
+    
+// merengue
+
+Begin Doc
+
+	This is a very fast dance rhythm native to the Dominican Republic.
+	The demo song for this ``Compadre Pedro Juan''. Note that you'll have
+	to double up on the tempo for this to sound right. Patterns are from
+	``Latin Rhythms: Mystery Unraveled'' by Victor Lopez.
+End
+
+Author Bob van der Poel
+
+NewSet BandoneonOctave  6
+
+Begin DocVar
+  BandoneonOctave   The Octave setting for the bandoneon (default=6)
+End
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+Seqsize 2
+
+Begin Drum-Claves
+	Tone Claves
+	Volume mf
+	Rvolume 10
+	Rtime 2
+	Sequence Clave3 Clave2
+End
+
+Begin Drum-Cowbell
+	Tone CowBell
+	Volume mf
+	Rvolume 10
+	Rtime 2
+	Sequence D13
+End
+
+Begin Drum-Snare
+	Tone SnareDrum2
+	Volume p
+	Rtime 2
+	Sequence {D134; D24 Shift .5}{D1234; D34 Shift .5}
+End
+
+Begin Drum-Tom
+	Tone LowTom2
+	Volume m
+	Rtime 2
+	Sequence D13
+End
+
+Begin Drum-HHat
+	Tone OpenHiHat
+	Volume p
+	Rtime 2
+	Sequence Clave3 Clave2
+End
+
+Begin Chord
+	Voice Piano1
+	Voicing Mode=Optimal
+	Volume mf
+	Octave 6
+	Sequence {C1 Shift .5; 2.5 8 0 90 0; 3 4 0 0 90 0; C4} \
+             {1 4 0 90 0; C2; 3 4. 0 0 90 0; 4 8 90 0}
+End
+
+Begin Chord-2   // duplicate the 1st piano down an octave
+	Voice Piano1
+	Voicing Mode=Optimal
+	Volume m
+	Octave 5
+	Sequence {C1 Shift .5; 2.5 8 0 90 0; 3 4 0 0 90 0; C4} \
+             {1 4 0 90 0; C2; 3 4. 0 0 90 0; 4 8 90 0}
+End
+
+Begin Bass
+	Voice AcousticBass
+	Volume f
+	Octave 3
+	Articulate 70
+	Sequence {1 2 1 100;3 2 5 90}
+End
+
+DefGroove Merengue     Driving dance rhythm.
+
+Groove Merengue
+
+Begin Chord
+	Voice Bandoneon
+	Voicing Mode=Optimal
+	Volume pp
+	Octave  $BandoneonOctave
+End
+
+DefGroove Merengue1      Substitute bandoneon for first piano.
+
+Groove Merengue
+SeqSize 4
+
+Begin Chord-Brass
+	Voice BrassSection
+	Volume mf
+	Voicing Mode=Optimal
+	Articulate 70
+	Octave 6
+	Sequence z z z C24
+End
+
+DefGroove Merengue2      Add brass hits every 4 bars.
+
+//////// Sustained versions
+
+Groove Merengue
+
+Alltracks Volume -20%
+Begin Chord-Sus
+	Voice Bandoneon
+	Sequence   { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Octave     $BandoneonOctave
+	Voicing   Mode=Optimal
+	Articulate 100
+	Unify      On
+	Volume     mp
+End
+
+DefGroove MerengueSus         Basic version with sustained bandoneon.
+
+Groove Merengue1
+Alltracks Volume -20%
+Chord-Sus Groove MerengueSus
+DefGroove Merengue1Sus        Bandoneon rhythm and sustain.
+
+Groove Merengue2
+Alltracks Volume -20%
+Chord-Brass Volume +30%
+Chord-Sus Groove MerengueSus
+DefGroove Merengue2Sus        Bandoneon rhythm with 4 bar brass hits.
+
+////// Intro
+
+Groove Merengue
+SeqSize 8
+
+Drum-Claves   Sequence   *   *   *   *   *   *   D8  D1234
+//Drum-Cowbell  Sequence D13
+//Drum-Snare    Sequence {D134; D24 Shift .5} {D1234; D34 Shift .5}
+//Drum-Tom      Sequence D13
+Drum-HHat     Sequence   *   *   *   *   *   *   D8  D1234
+Chord         Sequence   *   *   *   *   *   *   C1234  {C1;L1 Shift .5}
+Chord-2       Sequence   *   *   *   *   *   *   C1234  {C1;L1 Shift .5}
+Bass          Sequence   *   *   *   B11 *   *   {1 2 1 90; 3 8 5 90; 4 4 5 90} {1 1 1 90}
+
+DefGroove MerengueIntro     8 bar introduction.
+
+/////   Ending
+
+Groove Merengue
+SeqSize 4
+
+Drum-Claves   Sequence    *   *   D8    D1
+Drum-Cowbell  Sequence    *   *   *     D1
+Drum-Snare    Sequence    *   *   D8    z
+Drum-Tom      Sequence    *   *   *     D1
+Drum-HHat     Sequence    *   *   D8    D1
+Chord         Sequence    *   *   C13   L1
+Chord-2       Sequence    *   *   C13   L1
+Bass          Sequence    *   *   B11   {1 1 1 90}
+
+DefGroove MerengueEnd     4 bar ending.
+
+
+
+
+
+
+

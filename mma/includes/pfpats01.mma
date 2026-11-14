@@ -1,0 +1,252 @@
+
+// ==============================================
+// Patterns
+// ==============================================
+
+// 
+
+Begin Drum Define
+
+    D1        1 0 90              // Hit on 1
+    D2        D1 Shift 1          // Hit on 2
+    D3        D1 Shift 2          // Hit on 3
+    D4        D1 Shift 3          // Hit on 4
+    D12       D1; D2              // Hits on 1 and 2
+    D13       D1 * 2              // Hits on 1 and 3
+    D14       D1; D4              // Hits on 1 and 4
+    D23       D12 Shift 1         // Hits on 2 and 3
+    D24       D13 Shift 1         // Hits on 2 and 4
+    D34       D23 Shift 1         // Hits on 3 and 4
+    D123      D1; D23             // Hits on 1, 2 and 3
+    D124      D1; D24             // Hits on 1, 2 and 4
+    D134      D1; D34             // Hits on 1, 3 and 4
+    D234      D123 Shift 1        // Hits on 2, 3 and 4
+
+    D1234     D13 * 2             // Hits on 1, 2, 3, 4
+
+    D1234-2   D1234 * 2           // Eights
+    D1234-2A  D123 * 2            // Jazzy Pattern A
+    D1234-2B  D124 * 2            // Jazzy Pattern B
+    D1234-2C  D134 * 2            // Jazzy Pattern C 
+    D1234-2X  D24 * 2             // Offbeat hits on 1, 2, 3, 4
+    D12+3     D14 * 2             // 8Beat Bass Drum
+    D123+     D12 * 2             // 8Beat Bass Drum
+    D234+     D123+ Shift 1       // 8Beat Snare Drum
+
+    D1234-3   D1234 * 3           // Eight Triplets
+    D1234-3A  D12 * 3             // Six notes 
+    D12+3-3   D13; D1 Shift 1.67  // Bass Drum Pattern
+    D12+34+-3 D12+3-3; D1 Shift 3.67 // Bass Drum Pattern
+
+    D1234-4   D1234 * 4           // 16ths 
+    D1234-4A  D1234-2A * 2        // Funky Pattern A
+    D1234-4B  D1234-2B * 2        // Funky Pattern B
+    D1234-4C  D1234-2C * 2        // Funky Pattern C
+    D1234-4D  D1234; D1234 Shift 0.25  // Disco Pattern
+    D1234-4X  D1234-4D Shift 0.5  // Disco Pattern
+    D12++3    D13; D1 Shift 1.75  // 16Beat Bass Drum
+    D123++    D13; D1 Shift 2.25  // 16Beat Bass Drum
+    D123+A    D123+; D1 Shift 2.25 // 16 Beat Bass Drum
+    D234++    D123++ Shift 1      // 16 Beat Snare Drum
+    D24-4     D24; D1 Shift 2.25  // 16 Beat Snare Drum
+
+    D1234-5   D1234 * 5           // Quintuplets 
+    D1+3-5    D13; D1 Shift 0.8   // Bass Drum Pattern
+    D1+3+-5   D1+3-5; D1 Shift 2.8 // Bass Drum Pattern
+    D24+-5    D24; D1 Shift 3.4   // Snare Drum Pattern
+    D2+4+-5   D24+-5; D1 Shift 1.4 // Snare Drum Pattern
+
+    D1234-6   D1234 * 6           // 16th Triplets 
+
+
+    DLatin1   D1; D1 Shift 0.75; D1 Shift 1.5; D1 Shift 2.5; D1 Shift 3
+    DLatin2   D1; D1 Shift 0.75; D1 Shift 1.75; D1 Shift 2.5; D1 Shift 3
+
+
+  // Drum Fill Patterns
+
+    // 4rds
+    DFill01A  D1                                           // Snare Drum
+    DFill01B  DFill01A Shift 1                             // Hi Tom-Tom                             
+    DFill01C  DFill01A Shift 2                             // Medium Tom-Tom
+    DFill01D  DFill01A Shift 3                             // Floor Tom-Tom
+
+    // 8ths
+    DFill02A  D1; D1 Shift .5                              // Snare Drum
+    DFill02B  DFill02A Shift 1                             // Hi Tom-Tom                             
+    DFill02C  DFill02A Shift 2                             // Medium Tom-Tom
+    DFill02D  DFill02A Shift 3                             // Floor Tom-Tom
+
+    // 8th triplets
+    DFill03A  D1; D1 Shift .33; D1 Shift .67               // Snare Drum
+    DFill03B  DFill03A Shift 1                             // Hi Tom-Tom                             
+    DFill03C  DFill03A Shift 2                             // Medium Tom-Tom
+    DFill03D  DFill03A Shift 3                             // Floor Tom-Tom
+
+    // 16 ths
+    DFill04A  D1; D1 Shift .25; D1 Shift .5; D1 Shift .75  // Snare Drum
+    DFill04B  DFill04A Shift 1                             // Hi Tom-Tom                             
+    DFill04C  DFill04A Shift 2                             // Medium Tom-Tom
+    DFill04D  DFill04A Shift 3                             // Floor Tom-Tom
+
+    // 8ths
+    DFill05A  D1; D1 Shift 2                               // Snare Drum
+    DFill05B  DFill05A Shift .5                            // Hi Tom-Tom                             
+    DFill05C  DFill05A Shift 1                             // Medium Tom-Tom
+    DFill05D  DFill05A Shift 1.5                           // Floor Tom-Tom
+
+    // 16ths
+    DFill06A  D1; D1 Shift 1; D1 Shift 2; D1 Shift 3       // Snare Drum
+    DFill06B  DFill06A Shift .25                           // Hi Tom-Tom                             
+    DFill06C  DFill06A Shift .5                            // Medium Tom-Tom
+    DFill06D  DFill06A Shift .75                           // Floor Tom-Tom
+
+    // 16th triplets
+    DFill07A  D1; D1 Shift .165; D1 Shift .33; \
+              D1 Shift .5; D1 Shift .67; D1 Shift .835     // Snare Drum
+    DFill07B  DFill07A Shift 1                             // Hi Tom-Tom                             
+    DFill07C  DFill07A Shift 2                             // Medium Tom-Tom
+    DFill07D  DFill07A Shift 3                             // Floor Tom-Tom
+
+    // quintuplets
+    DFill08A  D1; D1 Shift .2; D1 Shift .4; \
+              D1 Shift .6; D1 Shift .8                     // Snare Drum
+    DFill08B  DFill08A Shift 1                             // Hi Tom-Tom                             
+    DFill08C  DFill08A Shift 2                             // Medium Tom-Tom
+    DFill08D  DFill08A Shift 3                             // Floor Tom-Tom
+
+    // 8th triplets
+    DFill09A  D1; D1 Shift .67; D1 Shift 1.33; \
+              D1 Shift 2; D1 Shift 2.67; D1 Shift 3.33     // Snare Drum
+    DFill09B  D1 Shift .33; D1 Shift 1; D1 Shift 1.67      // Hi Tom-Tom                             
+    DFill09D  D1 Shift 2.33; D1 Shift 3; D1 Shift 3.67     // Floor Tom-Tom
+
+    // 8ths
+    DFill10A  D1 Shift .5; D1 Shift 1; D1 Shift 2; \
+              D1 Shift 2.5; D1 Shift 3.5                   // Snare Drum & Floor Tom-Yom
+    DFill10B  D1; D1 Shift 1.5; D1 Shift 3                 // Bass Drum                             
+
+End
+
+
+Begin Bass Define
+
+    B1        1 4 1 90            // Root on 1
+    B13       B1; B1 Shift 2      // Root on 1 and 3
+    B24       B13 Shift 2         // Root on 2 and 4
+    B1234     B13; B24            // Root on 1, 2, 3, 4
+    B1234-2   B1234 * 2           // 8 eights
+
+    B2+       2.5 8 1 90          // Root on 2.5
+    B4+       B2+ Shift 2         // Root on 4.5
+    B12+3     B13; B2+            // Root on 1, 2, 2.5, 3, 4
+    B12+34+   B12+3; B4+          // Root on 1, 2, 2.5, 3, 4, 4.5
+
+    B123      B13; B1 Shift 1     // Root on 1, 2, 3
+    B134      B13; B1 Shift 3     // Root on 1, 3, 4
+    B1234-4A  B123 * 4            // 16ths Pattern A
+    B1234-4B  B134 * 4            // 16ths Pattern B
+
+
+    BRock8    1 4 1 90; \
+              2.5 4 3 90; \
+              4 4 5 90            // 8th Rock Pattern
+
+    BRock12   1 4 1 90; \
+              2.67 16 3 90; \
+              3 4 5 90; \
+              4 4 3 90; \
+              4.67 16 5 90            // 8th Triplet Slow Rock Pattern
+
+    BDisco1   1 2 1 90; 3 2 1+ 90 * 4                 // Disco Pattern
+    BDisco2   1 2 1 90; 3 2 1+ 90; 4 2 1+ 90 * 4      // Disco Pattern
+
+End
+
+
+Begin Chord Define
+
+    C1        1 4 90              // quarter on 1
+    C13       C1; C1 Shift 2      // quarters on 1 and 3
+    C24       C13 Shift 1         // quarters on 2 and 4
+    C1234     C13; C24            // quarters on 1, 2, 3, 4
+    C1234X    C1234 Shift 0.5     // Offbeat quarters on 1, 2, 3, 4
+    C1234-2   C1234 * 2           // 8 eights
+    C1234-3   C1234 * 3           // 12 8th triplets
+
+    C12+3     C13; 2.5 8 90       // quarters on 1 and 3, eight on 2.5
+    C23+4     C12+3 Shift 1       // quarters on 2 and 4, eight on 3.5
+    C12+34    C12+3; C24          // quarters on 1, 2, 3, 4, eight on 2.5
+
+    C123+     C13; 3.5 8 90       // quarters on 1 and 3, eight on 3.5
+    C234+     C123+ Shift 1       // quarters on 2 and 4, eight on 4.5
+    C123+4    C123+; C24          // quarters on 1, 2, 3, 4, eight on 3.5
+
+    C12++3    C13; 2.75 16 90     // quarters on 1 and 3, 16th on 2.75
+    C23++4    C12++3 Shift 1      // quarters on 2 and 4, 16th on 3.75
+    C12++34   C12++3; C24         // quarters on 1, 2, 3, 4, 16th on 2.75
+
+    C123++    C13; 3.75 16 90     // quarters on 1 and 3, 16th on 3.75
+    C234++    C123++ Shift 1      // quarters on 2 and 4, 16th on 4.75
+    C123++4   C123++; C24         // quarters on 1, 2, 3, 4, 16th on 3.75
+
+
+    // Guitar Power Chords
+    G1234     1 1 90 0 90 0 * 4   // quarters
+    G1234-2   G1234 * 2           // eights
+    G1234-3   G1234 * 3           // 8th triplets
+    G1234-4   G1234 * 4           // 16ths
+
+    G1        1 4 90 0 90 0       // quarter on 1
+
+End
+
+Begin Plectrum Define
+
+    PD1       1.0 +5 80 75 70 65 60 55          // Down strum on 1
+    PD2       PD1 Shift 1                       // Down strum on 2
+    PD3       PD1 Shift 2                       // Down strum on 3
+    PD4       PD1 Shift 3                       // Down strum on 4
+    PD13      PD1; PD3                          // Down strum on 1 and 3
+    PD24      PD2; PD4                          // Down strum on 2 and 4
+    PD1234    PD13; PD24                        // Down strum on 1, 2, 3, 4
+
+    PUD1      1.0 +5 90 85 80 75 70 65; \
+              1.5 -5 - - - 60 65 70             // Up- and down strum on 1
+    PUD2      PUD1 Shift 1                      // Up- and down strum on 2
+    PUD3      PUD1 Shift 2                      // Up- and down strum on 3
+    PUD4      PUD1 Shift 3                      // Up- and down strum on 4
+    PUD13     PUD1; PUD3                        // Up- and down strum on 1 and 3
+    PUD24     PUD2; PUD4                        // Up- and down strum on 2 and 4
+    PUD1234   PUD13; PUD24                      // Up- and down strum on 1, 2, 3, 4
+
+    PU1       1.5 -5 - - - 60 65 70             // Up strum on 1
+
+    PD1-4     PD1 * 2                           // 16th Down strum on 1
+    PUD1-4    PUD1 * 2                          // 16th Up- and down strum on 1
+
+    PUD1234-4 PUD1234 * 2                       // 16th Up- and down strum on 1, 2, 3, 3
+
+End
+
+Begin Arpeggio Define
+
+    A1        1 1 90
+    A2        A1 * 2
+    A4        A1 * 4
+    A6        A1 * 6
+    A8        A1 * 8
+    A16       A1 * 16
+
+End
+
+Begin Scale Define
+
+    Scale        1 1 90
+    Scale2       Scale * 2
+    Scale4       Scale * 4
+    Scale8       Scale * 8
+    Scale16      Scale * 16
+    Scale32      Scale * 32
+
+End

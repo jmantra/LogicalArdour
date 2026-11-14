@@ -1,0 +1,129 @@
+// arpeggiowaltz
+
+Begin Doc 
+
+   A simple set or arpeggios. Great for lesson pieces and lullabies. See the 
+   example song ``Hush-A-Bye''.
+
+   Remember that for the following variables to
+   take effect they need to be set before loading any Groove in the file
+    or after a GrooveClear.
+
+End
+  
+Begin DocVar
+  Harmony    Sets the Harmony used for the piano. Default: None.
+  Direction  Sets the arpeggio direction. Default: UP.
+  Bass       If set Bass is enabled with a hit on beat 1. Default: no bass.
+End
+
+If Ndef Harmony
+   Set ArpHarmony None
+Else 
+   Set ArpHarmony $Harmony
+Endif
+
+If Ndef Direction
+   Set ArpDirection Up
+Else
+   Set ArpDirection $Direction
+Endif
+
+If Ndef Bass
+   Set BassSeq -
+else
+   Set BassSeq B1
+Endif
+
+Author Bob van der Poel
+
+SeqClear
+Time 3
+Timesig 3 4
+Include stdpats34
+
+SeqSize 4
+
+//// Some useful defines
+
+Begin Arpeggio Define
+    AR4 1 4 90; 2 4 80; 3 4 80
+    AR8 1 8 90; 1.5 8 88; 2 8 85; 2.5 8 82; 3 8 77; 3.5 8 70
+End
+
+//// Basic pattern ... just an arpeggiating piano
+
+Begin Arpeggio
+    Voice Piano1
+    Volume m
+    Octave 4
+    Articulate 130
+    Rtime 5
+    Rvolume 5
+    Range 1
+    Direction $ArpDirection
+    Sequence AR4
+    Harmony $ArpHarmony
+End 
+
+Begin Bass
+    Voice AcousticBass
+    Volume 70 60 50 40
+    //Rvolume 10
+    Rtime 5
+    Articulate 80
+    Octave 3
+    Sequence $BassSeq
+End
+
+DefGroove ArpeggioWaltz    An quarter note piano.
+
+Groove ArpeggioWaltz
+
+Arpeggio Sequence AR8
+
+DefGroove ArpeggioWaltz8  An 8th note piano.
+
+Arpeggio Sequence AR4 / / AR8
+
+DefGroove ArpeggioWaltz48  3 bars of quarters, 1 bar 8ths.
+
+
+//////// Sustained versions
+
+Groove ArpeggioWaltz
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence  { 1 1 90 0 80 0 * 3}  // Root and fifth notes only.
+	Voicing Mode=Key
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 5
+	Volume p
+End
+
+DefGroove ArpeggioWaltzSus  Sustained strings with quarters.
+
+Groove ArpeggioWaltz8
+ Chord-Sus Groove ArpeggiowaltzSus
+DefGroove Arpeggiowaltz8Sus Sustained strings with 8ths.
+
+Groove ArpeggioWaltz48
+ Chord-Sus Groove ArpeggiowaltzSus
+DefGroove Arpeggiowaltz48Sus Sustained strings with 4,4,4,8 pattern.
+
+
+//////// Introduction
+
+Groove ArpeggioWaltz
+
+Arpeggio Sequence * * * A1
+
+DefGroove ArpeggioWaltzIntro  A basic 4 bar introduction (works for ending as well).
+
+Chord-sus Groove ArpeggioWaltzSus
+
+DefGroove ArpeggioWaltzSusIntro  Same intro with strings.
+

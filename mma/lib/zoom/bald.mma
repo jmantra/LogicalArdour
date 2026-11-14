@@ -1,0 +1,343 @@
+// Pattern: BALD01
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |2------11-2-----|2------22-2-----|
+  Sequence { 1.0 0 60; 2.8 0 30; 3.0 0 30; 3.5 0 60 } \
+           { 1.0 0 60; 2.8 0 60; 3.0 0 60; 3.5 0 60 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2---------------|----------------|
+  Sequence { 1.0 0 60 } Z 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |----------------|--------------3-|
+  Sequence Z \
+           { 4.5 0 90 } 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |1---1---1---1---|1---1---1---1---|
+  Sequence { 1.0 0 30; 2.0 0 30; 3.0 0 30; 4.0 0 30 } / 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |----2-------2---|----2-------2---|
+  Sequence { 2.0 0 60; 4.0 0 60 } / 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |2-112-112-112-11|2-112-112-112-11|
+  Sequence { 1.0 0 60; 1.5 0 30; 1.8 0 30; 2.0 0 60; 2.5 0 30; 2.8 0 30; 3.0 0 60; 3.5 0 30; 3.8 0 30; 4.0 0 60; 4.5 0 30; 4.8 0 30 } / 
+End
+
+DefGroove BALD01 Time = 4/4, SeqLen = 2; Kick, ClosedHat, OpenHat, Ride, Stick, Tambourine.
+
+// Pattern: BALD02
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |2----------1|1---------21|
+  Sequence { 1.0 0 60; 4.7 0 30 } \
+           { 1.0 0 30; 4.3 0 60; 4.7 0 30 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |------------|-----------1|
+  Sequence Z \
+           { 4.7 0 30 } 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |1--1--1--0--|1--1--1--122|
+  Sequence { 1.0 0 30; 2.0 0 30; 3.0 0 30; 4.0 0 0 } \
+           { 1.0 0 30; 2.0 0 30; 3.0 0 30; 4.0 0 30; 4.3 0 60; 4.7 0 60 } 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |---3-----3--|---2--------|
+  Sequence { 2.0 0 90; 4.0 0 90 } \
+           { 2.0 0 60 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |--2--1--11--|--2--1--1112|
+  Sequence { 1.7 0 60; 2.7 0 30; 3.7 0 30; 4.0 0 30 } \
+           { 1.7 0 60; 2.7 0 30; 3.7 0 30; 4.0 0 30; 4.3 0 30; 4.7 0 60 } 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |---2--------|---2--------|
+  Sequence { 2.0 0 60 } / 
+End
+
+DefGroove BALD02 Time = 4/4, SeqLen = 2; Kick, Snare, Ride, Stick, Maracas, Tambourine.
+
+// Pattern: BALD03
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3----22-----|2----22-----|
+  Sequence { 1.0 0 90; 2.7 0 60; 3.0 0 60 } \
+           { 1.0 0 60; 2.7 0 60; 3.0 0 60 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |------------|---------1--|
+  Sequence Z \
+           { 4.0 0 30 } 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |1----11-----|1----11-----|
+  Sequence { 1.0 0 30; 2.7 0 30; 3.0 0 30 } / 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |---3-----3--|---3--------|
+  Sequence { 2.0 0 90; 4.0 0 90 } \
+           { 2.0 0 90 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |-------22-21|--1--2----21|
+  Sequence { 3.3 0 60; 3.7 0 60; 4.3 0 60; 4.7 0 30 } \
+           { 1.7 0 30; 2.7 0 60; 4.3 0 60; 4.7 0 30 } 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |-12------3--|----------22|
+  Sequence { 1.3 0 30; 1.7 0 60; 4.0 0 90 } \
+           { 4.3 0 60; 4.7 0 60 } 
+End
+
+DefGroove BALD03 Time = 4/4, SeqLen = 2; Kick, Snare, Ride, Stick, Maracas, Tambourine.
+
+// Pattern: BALD04
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |2----11-----|1----22---21|
+  Sequence { 1.0 0 60; 2.7 0 30; 3.0 0 30 } \
+           { 1.0 0 30; 2.7 0 60; 3.0 0 60; 4.3 0 60; 4.7 0 30 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |---1-----2--|---2-----2--|
+  Sequence { 2.0 0 30; 4.0 0 60 } \
+           { 2.0 0 60; 4.0 0 60 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |1----11----1|1----11-----|
+  Sequence { 1.0 0 30; 2.7 0 30; 3.0 0 30; 4.7 0 30 } \
+           { 1.0 0 30; 2.7 0 30; 3.0 0 30 } 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |---1--1--1--|1--1--1--1--|
+  Sequence { 2.0 0 30; 3.0 0 30; 4.0 0 30 } \
+           { 1.0 0 30; 2.0 0 30; 3.0 0 30; 4.0 0 30 } 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |---3-----3--|---3-----3--|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |---3-----3--|---3------23|
+  Sequence { 2.0 0 90; 4.0 0 90 } \
+           { 2.0 0 90; 4.3 0 60; 4.7 0 90 } 
+End
+
+DefGroove BALD04 Time = 4/4, SeqLen = 2; Kick, ClosedHat, OpenHat, Ride, Stick, Tambourine.
+
+// Pattern: BALD06
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3--3----|3--3----|
+  Sequence { 1.0 0 90; 2.5 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |222-2232|323-2222|
+  Sequence { 1.0 0 60; 1.5 0 60; 2.0 0 60; 3.0 0 60; 3.5 0 60; 4.0 0 90; 4.5 0 60 } \
+           { 1.0 0 90; 1.5 0 60; 2.0 0 90; 3.0 0 60; 3.5 0 60; 4.0 0 60; 4.5 0 60 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |---2----|---2----|
+  Sequence { 2.5 0 60 } / 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |--3---3-|--3---3-|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+DefGroove BALD06 Time = 4/4, SeqLen = 2; Kick, ClosedHat, OpenHat, Stick.
+
+// Pattern: BALD07
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-----3-3-------|3-----3-3-------|
+  Sequence { 1.0 0 90; 2.5 0 90; 3.0 0 90 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |----3-------3---|----3-------3---|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2222222222222222|2222222222222222|
+  Sequence { 1.0 0 60; 1.2 0 60; 1.5 0 60; 1.8 0 60; 2.0 0 60; 2.2 0 60; 2.5 0 60; 2.8 0 60; 3.0 0 60; 3.2 0 60; 3.5 0 60; 3.8 0 60; 4.0 0 60; 4.2 0 60; 4.5 0 60; 4.8 0 60 } / 
+End
+
+DefGroove BALD07 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat.
+
+// Pattern: BALD08
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3--3----|3--3----|
+  Sequence { 1.0 0 90; 2.5 0 90 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |--3---3-|--3---3-|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |32323232|32323232|
+  Sequence { 1.0 0 90; 1.5 0 60; 2.0 0 90; 2.5 0 60; 3.0 0 90; 3.5 0 60; 4.0 0 90; 4.5 0 60 } / 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |3-3-3-3-|3-3-3-3-|
+  Sequence { 1.0 0 90; 2.0 0 90; 3.0 0 90; 4.0 0 90 } / 
+End
+
+DefGroove BALD08 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, Ride.
+
+// Pattern: BALD09
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-----3-----|3-----3-----|
+  Sequence { 1.0 0 90; 3.0 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2122212112-1|2212212212-1|
+  Sequence { 1.0 0 60; 1.3 0 30; 1.7 0 60; 2.0 0 60; 2.3 0 60; 2.7 0 30; 3.0 0 60; 3.3 0 30; 3.7 0 30; 4.0 0 60; 4.7 0 30 } \
+           { 1.0 0 60; 1.3 0 60; 1.7 0 30; 2.0 0 60; 2.3 0 60; 2.7 0 30; 3.0 0 60; 3.3 0 60; 3.7 0 30; 4.0 0 60; 4.7 0 30 } 
+End
+
+Begin Drum-OpenHat
+  Tone     OpenHiHat
+           // |----------2-|----------2-|
+  Sequence { 4.3 0 60 } / 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |---3-----3--|---3-----3--|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+DefGroove BALD09 Time = 4/4, SeqLen = 2; Kick, ClosedHat, OpenHat, Stick.
+
+// Pattern: BALD10
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-------2---------------3-------2---------------|3-------2---------------3-------2---------------|
+  Sequence { 1.0 0 90; 1.7 0 60; 3.0 0 90; 3.7 0 60 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |-----------3-----------------------3------------|-----------3-----------------------3------------|
+  Sequence { 1.9 0 90; 3.9 0 90 } / 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |2---1---1---2---1---1---2---1---1---2---1---1---|2---1---1---2---1---1---2---1---1---2---1---1---|
+  Sequence { 1.0 0 60; 1.3 0 30; 1.7 0 30; 2.0 0 60; 2.3 0 30; 2.7 0 30; 3.0 0 60; 3.3 0 30; 3.7 0 30; 4.0 0 60; 4.3 0 30; 4.7 0 30 } / 
+End
+
+DefGroove BALD10 Time = 4/4, SeqLen = 2; Kick, Snare, Ride.
+

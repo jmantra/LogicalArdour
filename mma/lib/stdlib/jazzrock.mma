@@ -1,0 +1,197 @@
+
+// jazzrock
+
+Begin Doc
+ A upbeat jazz/rock. Written for "Moondance".
+End
+
+Author Bob van der Poel
+
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////// Additional defines
+
+
+////////////////////////
+// Basic
+
+
+SeqSize 4
+
+Begin Drum-Hat
+	Sequence	{D1234 * 3 }
+	Tone ClosedHiHat
+	Volume p
+	Rskip 1
+	Rvolume 10
+ End
+
+Begin Drum-Snare
+	Sequence   D1234
+	Tone SnareDrum1
+	Volume ppp
+	Rvolume 20
+End
+
+Begin Bass
+	Voice FretlessBass
+	Sequence {1 2 1 90; 3 4 5 70; 4 4 1 80} / / {1 2. 1 90; 4 4 1 80}
+	Octave 3
+	Volume mf
+	Articulate 80
+End
+
+Begin Chord
+	Sequence  {1 4 90; 3 2 90} / / C134
+	Voice Piano1
+	Volume mp
+	Octave 5
+	Articulate 80
+	Voicing mode=optimal
+End
+
+DefGroove JazzRock   Basic jazz-rock pattern.
+
+////////////////////////////////////////////////
+/// Sustain
+
+Groove JazzRock
+
+Begin Chord-Sus
+	Voice  SlowStrings //VoiceOohs
+	Sequence  { 1 1 90 60 80 40 * 2}  // Full strings, emph. root/5
+	Voicing mode=optimal
+	Volume mp
+	Octave 5 
+	Articulate 100
+	Unify On
+End
+
+DefGroove JazzRockSus  Basic with added choir voices.
+
+/////////////////////////////////////////////
+// Walking bass
+
+Groove JazzRock
+
+Bass Sequence -
+
+Begin Walk
+    Voice $_Bass_Voice	  
+	Sequence {1 4 90; 2.5 8 80; 3 4 80; 4 4 70}
+	Direction Down / Up /
+	Octave $_Bass_Octave
+	Volume m
+	Articulate 70
+End
+
+DefGroove JazzRockWalk  Our basic pattern with walking bass.
+
+Groove JazzRockWalk
+Chord-Sus Groove JazzRockSus
+DefGroove JazzRockWalkSus   Walking bass with choir.
+
+///////////////////////////////////////////////////
+/// Plus -- arpegiating trumpet
+
+Groove JazzRock
+
+Begin Arpeggio
+    Voice Trumpet
+	Articulate 90
+	Octave 6
+	Range .9
+	Direction Random
+	Rtime 5
+	Rvolume 5
+	Volume m
+	Rskip 40
+	Harmony OpenBelow
+	Sequence {1 4 90; 3 8 90; 3.5 4 90; 4 4 90} / / {1 4 90; 3 8 90; 4 8. 90}
+End
+
+DefGroove JazzRockPlus     Add a bit of trumpet solo.
+
+Groove JazzRockSus
+Arpeggio Groove JazzRockPlus
+DefGroove JazzRockSusPlus  The trumpet and strings.
+
+Groove JazzRockWalk
+Arpeggio Groove JazzRockPlus
+DefGroove JazzRockWalkPlus  Walking bass with trumpet.
+
+Groove JazzRockWalkSus
+Arpeggio Groove JazzRockPlus
+DefGroove JazzRockWalkSusPlus  Walking bass with trumpet and strings.
+
+
+////////////////////////////////////////////////
+/// Fill
+
+// a 1/4 note triplet filler
+
+Groove JazzRock
+
+SeqSize 1
+
+Begin Drum-hat
+    Sequence { D13 * 3 }
+	Volume +20%
+End
+
+Begin Drum-Snare
+    Sequence { D13 * 3 }
+	Volume +10%
+End
+
+Begin Chord 
+    Sequence { C13 * 3 }
+End
+
+Begin Bass
+    Sequence {1 2 1 90; 1 2 1 80}
+End
+
+DefGroove JazzRockFill   A single bar triplet fill.
+
+
+
+////////////////////////////////////////////////
+/// Intro
+
+Groove JazzRock
+
+Drum-hat    Sequence -
+Drum-Snare  Sequence *  *    *   D13
+Chord       Sequence *  *    *   L1
+Bass        Sequence *  B13  *   B1
+
+DefGroove JazzRockIntro   A 4 bar introduction.
+
+Groove JazzRock
+SeqSize 8
+
+Drum-hat    Sequence  -
+Drum-Snare  Sequence  *   *    *   *   *   *   *   D13
+Chord       Sequence  *   *    *   *   *   *   *   L1
+Bass        Sequence  *   B13  *   B13 *   B13 *   B1
+
+DefGroove JazzRockIntro8   A 8 bar introduction.
+
+
+////////////////////////////////////////////////
+/// Ending
+
+Groove JazzRock
+SeqSize 2
+
+Drum-hat    Sequence  -
+Drum-Snare  Sequence  D13  D1
+Chord       Sequence  C13  L1
+Bass        Sequence  *    B13
+
+DefGroove  JazzRockEnd  Simple 2 bar ending.

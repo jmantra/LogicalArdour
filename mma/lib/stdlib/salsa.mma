@@ -1,0 +1,211 @@
+
+// salsa
+
+Begin Doc
+
+	Salsa just means ``saucy'' or ``spicy'' and is based on son and rhumba
+	patterns. This is created from scratch. I use it for a Peggy Lee styled
+	version of the Cole Porter tune ``Always True To You In My Fashion.''
+
+End
+
+Author Bob van der Poel
+
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+Seqsize 2
+
+Begin Drum-Claves
+	Tone Claves
+	Volume m
+	Rvolume 10
+	Sequence Clave2 Clave3
+End
+
+Begin Drum-Sguiro
+	Tone ShortGuiro
+	Volume pp
+	Rvolume 10
+	Rtime 2
+	Rskip 10
+	Sequence {D24 ; D24 Shift .5}
+End
+
+Begin Drum-Lguiro
+	 Tone LongGuiro
+	 Volume pp
+	 RVolume 10
+	 Sequence  D13
+	 Rskip 10
+	 Rvolume 10
+End
+
+Begin Drum-CowBell
+	  Tone CowBell 
+	  Volume ppp
+	  Sequence {D1234; D4 Shift .5 }
+	  Rskip 30
+	  Rvolume 20
+End
+
+Begin Drum-Lbell
+	  Tone LowAgogo
+	  Volume pp
+	  Rskip 20
+	  Rvolume 10
+	  Sequence {D1234; D34 Shift .5} {D124 Shift .5; D23}
+End
+
+Begin Drum-Cabasa
+	  Tone Cabasa
+	  Volume mp
+	  Rskip 10
+	  Sequence {D123; D34 Shift .5} {D12; D234 Shift .5}
+End
+
+Begin Drum-LBongo
+	Tone LowBongo
+	Rvolume 10
+	Rtime 2
+	Volume mp
+	Rskip 10
+	Sequence D13
+End
+
+
+Begin Bass
+	Voice JazzGuitar
+	Volume f
+	Rvolume 10
+	Rtime 2
+	Octave 3
+	Articulate 80
+	Sequence {1 4 1 90; 2.5 8 5 90 ; 4 8 1 90}{1 4 1 90; 4 4 5 90}
+End
+
+Begin Chord
+	Voice Piano1
+	Voicing Mode=Optimal
+	Volume m
+	Octave 5
+	Articulate 66
+	Accent 1 10
+	Sequence {C12; C234 Shift .5} {C1; C1234 Shift .5}
+End
+
+DefGroove Salsa  Basic Salsa pattern.
+
+/////////////////////////////
+/// Plus ... add in arpeggiating piano
+
+
+Groove Salsa
+
+Begin Arpeggio
+    Voice Flute
+	Articulate 90
+	Octave 6
+	Volume m
+	Accent 1 10 3 10
+	Sequence {A4 Shift .5} A8 
+	SeqRnd On
+	Range 1.2
+	Rskip 20
+End
+
+DefGroove SalsaPlus   Basic pattern with apreggiating flute.
+
+
+/////////////////////////////
+//// Sustain
+
+Groove Salsa
+
+// The chord pattern just plays the root and 5th. The 2 defs
+/// vary the volume of the root/5th.
+
+Begin Chord-sus
+	Sequence	{ 1 1 90 0 50 0 * 4 } { 1 1 50 0 90 0 * 4 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+	Voice SynthStrings1
+	Articulate 110
+	Unify On
+	Volume m
+	Octave 6
+End
+
+Chord Volume -20%
+
+DefGroove SalsaSus   Basic pattern with added strings.
+
+Groove SalsaSus
+
+Arpeggio Groove SalsaPlus
+
+DefGroove SalsaSusPlus  Sustained pattern with added flute.
+
+////////  Intro
+
+Groove Salsa
+SeqSize 4     /// expand from 2 bars to 4!
+
+
+Drum-Claves      Sequence *  *   *   Clave2
+//Drum-Sguiro 
+//Drum-Lguiro
+Drum-CowBell     Sequence *  *   *   D123
+Drum-Lbell       Sequence *  *   *   D123
+Drum-Cabasa      Sequence *  *   *   D13
+Drum-LBongo      Sequence *  *   *   D1
+
+Bass             Sequence *  *   {1 4 5 120; 2.5 8 4 110 ; 4 8 3 100} {1 2. 1 90}
+Chord            Sequence *  *   C1234  L1
+
+DefGroove  SalsaIntro    A 4 bar introduction.
+
+
+
+////////// Fill
+
+
+Groove Salsa
+SeqSize 1     // the fill is 1 bar long
+
+Drum-Claves      Sequence   D1234
+Drum-Sguiro      Sequence   D13
+Drum-Lguiro      Sequence   -
+Drum-CowBell     Sequence   D1234
+Drum-Lbell       Sequence   D13
+Drum-Cabasa      Sequence   D13
+Drum-LBongo      Sequence   D1234
+
+Bass             Sequence   B13
+Chord            Sequence   C1234
+
+DefGroove  SalsaFill   Straight, 1 bar fill.
+
+
+////////// End
+
+
+Groove Salsa
+
+Drum-Claves      Sequence *  D123
+Drum-Sguiro      Sequence *  D13
+Drum-Lguiro      Sequence *  D1
+Drum-CowBell     Sequence *  D13
+Drum-Lbell       Sequence *  D1
+Drum-Cabasa      Sequence *  D1
+Drum-LBongo      Sequence *  D13
+
+Bass             Sequence {1 4 5 120; 2.5 8 4 110 ; 4 8 3 100} {1 2. 1 90}
+Chord            Sequence  C1234  L1
+
+DefGroove  SalsaEnd    Fast, 2 bar ending
+

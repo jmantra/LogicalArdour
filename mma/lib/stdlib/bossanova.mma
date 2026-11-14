@@ -1,0 +1,376 @@
+
+// bossanova
+
+Begin Doc
+
+	This is a great latin rhythm for pieces like
+    "Girl From Ipanema". There's 	a real tendency
+    for me to get these latin rhythms way too complicated, so
+    if you want to take some stuff out, feel free to do so.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+/////////////////////////////////////////////////
+// Do all defines first
+
+// For all the beats I describe them with 1,2,3,4 representing on-the-beat
+// and 1', 2', etc. being on the and-of-1, and-of-2, etc.
+// '8' is 8  8th notes
+
+Begin Drum Define
+	D2'4'    D13 Shift 1.5
+	D23'     D2; 3.5 0 90
+	D12'3    D13; 2.5 0 90
+	D12'4    D14; 2.5 0 90
+	D13'     D1 ; 3.5 0 90
+	D12'34'  D13; D2'4'
+End
+
+
+Begin Bass Define
+	Basic   1 4. 1 100 ; 2.5 8 5 90 ; 3 4. 5 90 ; 4.5 8 1 90
+End
+
+
+Begin Chord Define
+	C1233'4'  C123; 3.5 8 90; 4. 8 90
+	C1'2'34   C12 Shift .5; C34
+	Sus1      1 1 90        * 2
+	Sus3      1 1 0 90 0    * 2
+	Sus5      1 1 0 0 90 0  * 2
+End
+
+//////////////////////////////////////////////
+// BossaNova
+
+SeqSize 4
+
+Begin Drum
+	Tone Cabasa
+	Sequence  D8
+	Rvolume 10
+	Rtime 5
+	Volume mf
+	Accent 2 90 4 90
+End
+
+Begin Drum-LowConga
+	Sequence   D13'
+	Rvolume 10
+	Rtime 5
+	Volume f
+	Tone LowConga
+End
+
+Begin Drum-OpenHiConga
+	Sequence  D2'4'
+	Rvolume 10
+	Rtime 5
+	Volume mf
+	Tone OpenHighConga
+End
+
+Begin Drum-MuteConga
+	Sequence  D2
+	Rvolume 10
+	Rtime 5
+	Volume f
+	Tone MuteHighConga
+End
+
+Begin Drum-LowBongo
+	Sequence  D3
+	Rvolume 10
+	Rtime 5
+	Volume mf
+	Tone LowBongo
+End
+
+Begin Drum-CHH
+	Sequence  D23
+	Rvolume 10
+	Volume mp
+	Rtime 5
+	Tone ClosedHiHat
+End
+
+Begin Drum-SideKick
+	Sequence D12'4  D23'	// this is a 3/2 Clave pattern with delayed last beat
+	Rvolume 10
+	Rtime 5
+	Volume mp
+	Tone SideKick
+End
+
+Begin Drum-Kick
+	Sequence D12'34'
+	Rvolume 10
+	Volume mp
+	Rtime 5
+	Tone KickDrum2
+End
+
+Begin Drum-Clave
+	Sequence D12'4  D23'	// this is a 3/2 Clave pattern with delayed last beat
+	Tone Claves
+	Volume mf
+	RSkip 30
+End
+
+Begin Bass
+	Sequence  B13  Basic  /  /
+	Accent 1 20
+	SeqRnd On
+	RVolume 20
+	Rtime 5
+	Voice JazzGuitar
+	Octave 3
+	Articulate 70
+	Volume mf
+End
+
+Begin Chord
+	Sequence C1233'4' C1'2'34
+	Accent 1 20 3 10
+	Voicing  Mode=Optimal
+	Voice JazzGuitar
+	Articulate 75
+	Rskip 5
+	Strum 5
+	Octave 5
+	Volume mp
+End
+
+DefGroove BossaNova   Standard bossanova beat.
+
+//////////////////////////////////
+// Sustained versions
+
+Groove BossaNova
+
+// Change the seqsize from 4 to 8. This is done to let us give a lot
+// of variety to the voices. We use 5th, 3rds and roots in 2 octaves.
+
+SeqSize 8
+
+Begin Chord-Sus
+	Voice     ChoirAahs    /     /      /    VoiceOohs   /      /     /
+	Sequence  Sus1       Sus3   Sus5  Sus1   Sus1       Sus3   Sus5   z
+	Voicing   Mode=Optimal
+	Volume    ppp
+	Octave    5
+	Articulate 100
+	Unify On
+	SeqRnd On
+End
+
+DefGroove BossaNovaSus    Adds sustained choir voices.
+
+/// Back to 4 bar patterns
+
+Groove BossaNova
+
+Begin Chord-Sus
+	Sequence   { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Octave     5
+	Voice      Strings
+	Voicing   Mode=Optimal
+	Articulate 100
+	Unify      On
+	Volume     pp
+End
+
+DefGroove BossaNova1Sus    Adds sustained strings.
+
+Groove BossaNova
+
+Begin Bass-Sus
+	Voice Strings
+	Octave 6
+	Harmony Open+8Below
+	Sequence {1 2. 5 90; 4 4 3 90} {1 1 1 90}
+	Articulate 120
+	Unify On
+	Volume mp
+End
+
+DefGroove BossaNova2Sus   Basic Bossa with decending string pattern.
+
+Groove BossaNova1Sus
+SeqSize 4
+Begin Bass-Sus
+	Groove BossaNova2Sus
+	Sequence * * z z
+End
+
+Begin Chord-Sus
+	Sequence z z * *
+	Volume mp
+	Octave 6
+End
+
+DefGroove BossaNova3Sus  A combination of BossaNova1Sus and BossaNova2Sus. Alternating \
+                         bars of decending strings with full chords.
+
+
+/////////////////////////////
+/// Plus versions ... add in arpeggiating guitar
+
+Groove BossaNova
+
+Begin Arpeggio
+   Voice JazzGuitar
+   Octave 6
+   Articulate 120
+   Volume m
+   Rtime 10
+   Rskip 25
+   Harmony OpenBelow
+   Rvolume 10
+   Range .9
+   Direction Random
+   Sequence  {1 4 90; 2 4 90; 3 4 90; 3.5 8 90; 4. 8 90 } \
+             {1.5 8 90; 2.5 8 90; 3 4 90; 4 4 90}
+End
+
+DefGroove BossaNovaPlus    Basic rhythm with apreggiating guitar.
+
+Groove BossaNovaSus
+Arpeggio Groove BossaNovaPlus
+DefGroove BossaNovaSusPlus   Sustained choir and arpeggios.
+
+Groove BossaNova1Sus
+Arpeggio Groove BossaNovaPlus
+DefGroove BossaNova1SusPlus   Sustained strings and arpeggios.
+
+Groove BossaNova2Sus
+Arpeggio Groove BossaNovaPlus
+DefGroove BossaNova2SusPlus   Descending strings and arpeggios.
+
+Groove BossaNova3Sus
+Arpeggio Groove BossaNovaPlus
+DefGroove BossaNova3SusPlus   Alternating 1Sus/2Sus and arpeggios.
+
+//////////////////////////
+// BossaNovaFill
+// Add some bells. Good for a 1/2 bar transition
+
+Groove BossaNova
+
+// Drum mods ...
+//   1 - kill the congas
+//   2 - add a triangle
+//   3 - add in snares on 8ths
+
+
+Drum-OpenHiConga Sequence -
+Drum-MuteConga   Sequence -
+
+Begin Drum-Triangle
+	Sequence   { D1234 Shift .5 }
+	Rskip 30
+	Tone OpenTriangle
+	Volume ff
+End
+
+Begin Drum-Snare
+	Sequence D1234
+	Volume mf
+	RSkip 10
+	Tone SnareDrum1
+End
+
+Begin Drum-Snare1
+	Copy Drum-Snare
+	Sequence  { D1234 Shift .5 }
+	Tone SnareDrum2
+End
+
+// Make the bass just 13
+
+Bass Sequence B13
+
+// Make chord just 1234
+
+Chord Sequence C1234
+
+DefGroove BossaNovaFill  Adds a bell to the BossaNova groove and \
+                         forces the chord to a straight pattern. \
+                         This Good for the occasional bar in an ending, etc.
+///////////////////////////////////////////////////////
+// Intro
+
+Groove BossaNova
+
+Alltracks SeqRnd Off
+
+Bass   Sequence  B13   Basic   /  B1
+Chord  Sequence  C1233'4' C1'2'34 / {1 2 90}
+
+DefGroove BossaNovaIntro   Dull introduction.
+
+Groove BossaNovaIntro
+Begin Bass
+  Articulate 140
+  Volume ff
+  Sequence  B13   B11  B13  B1
+End
+Chord Sequence  C1233'4'  /  / { C12; 3 2 80}
+
+DefGroove BossaNovaIntro1  Same intro with straighter chording.
+
+Groove BossaNovaIntro
+SeqSize 8
+
+
+Bass  Sequence  B13 Basic B13  Basic B13  Basic  Basic B1
+Chord Sequence  C1233'4' / C1'2'34 / C1233'4' / C1'2'34 {1 2 90}
+
+DefGroove BossaNovaIntro8   Another dull intro, but this is for 8 bars.
+
+///////////////////////////////////////////////////////
+// Endings
+
+
+Groove BossaNova
+
+Alltracks SeqRnd Off
+Bass Sequence B13 / / {1 2 1 90}
+
+Begin Scale
+	Sequence Scale8 Scale4 Scale2 Scale
+	Range 4
+	Octave 4
+	Articulate 99
+	Voice Strings
+End
+
+Chord Sequence C1234
+Chord Duproot -1
+
+DefGroove BossaNovaEnd  The strings do a scale. First bar is eights, \
+                        second is quarters, third is  halves, and \
+                        the last is a held whole note.
+
+Begin Chord-Sus
+	Sequence   { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Octave     5
+	Voice      TremoloStrings
+	Voicing   Mode=Optimal
+	Articulate 100
+	Unify      On
+	Volume     mp
+End
+
+DefGroove BossaNova1End  Same ending, but with sustained strings added.
+
+Scale Sequence -
+
+DefGroove BossaNova2End  Ending with sustained strings, but no scale.

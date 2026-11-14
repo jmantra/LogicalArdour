@@ -1,0 +1,217 @@
+
+// fastblues
+
+
+Begin Doc
+
+	I use this in "Mad About Him...Blues". 
+ 
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////
+/// Pattern definitions
+
+Begin Chord Define
+	Cshuffle C1; C1 Shift 1.5
+End
+
+Begin Bass Define
+	Bx 1 8 1 90 ; 1.66 16 5 90 
+	Bsuffle Bx; Bx Shift 1; Bx Shift 2; Bx Shift 3
+End	
+
+Begin Walk Define
+	Wx 1 8 90 ; 1.66 3 80 
+	Wsuffle Wx; Wx Shift 1; Wx Shift 2; Wx Shift 3
+End	
+
+Begin Arpeggio Define
+	Ax  1 4 90; 1.66 3 80
+	Ashuffle  1.66 3 90; Ax Shift 1; Ax Shift 2; 4 8 90
+End 
+
+
+////////////////////////////////////////////////////
+////// FastBlues
+
+
+SeqSize 4
+
+Begin Drum-Snare
+	Sequence      { D1234 Shift .75 }
+	Tone SnareDrum1
+	Rskip 5
+	Rtime 2
+	Volume mp
+End
+
+Begin Drum-Snare2
+	Sequence     D24
+	Tone SnareDrum2
+	Rskip 5
+	Rtime 2
+	Volume mp
+End
+
+Begin Drum-HH
+	Sequence    D1234
+	Tone OpenHiHat
+	Accent 3 -20
+	Rskip 5
+	Rtime 2
+	Volume mf
+End
+
+Begin Drum-Kick
+	Sequence D1234 
+	Tone KickDrum1
+	Volume mf
+	Rvolume 10
+End
+
+Begin Bass
+	Sequence Bsuffle
+	Voice FingeredBass
+	Articulate 90
+	Volume mp
+	Octave 3
+End
+
+Begin Chord-Piano
+	Sequence  {Cshuffle Shift .1}
+	Voicing    Mode=Optimal
+	Voice Piano2
+	Articulate 60
+	Volume p
+	Octave 6
+End
+
+Begin Chord-Sax
+	Copy Chord-Piano
+    Voicing Mode=None
+	Invert 1
+	Sequence  {Cshuffle Shift .05}
+	Octave 6
+	Voice TenorSax
+End
+
+Begin Chord-Guitar
+	Copy Chord-Piano
+	Voicing   Mode=Optimal
+	Sequence  Cshuffle
+	Volume mp
+	Octave 5
+	Voice CleanGuitar
+End
+
+DefGroove FastBlues   Fast blues with a bit of R&B.
+
+Begin Chord-Sus
+	Sequence  {1 1 90 0 90 0 * 4 }
+	Voicing Mode=Optimal
+	Octave 5
+	Volume mp
+	Articulate 100
+	Unify On
+	Voice Strings
+End
+
+DefGroove FastBluesSus   Adds sustained strings to FastBlues
+
+// Walking bass versions
+
+Groove FastBlues
+
+Bass Sequence -
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence Wsuffle
+	Articulate 80
+	Volume mp
+End
+
+
+DefGroove FastBluesWalk  Change bass line from 1/5 to walking.
+
+Chord-Sus Groove FastBluesSus
+
+DefGroove FastBluesWalkSus   Walking bass version with sustained strings.
+
+
+
+//////////////////////////////////////////////
+// FastBlues1
+
+Groove FastBluesWalk
+
+Chord-Sax Sequence  -
+
+Begin Chord-Guitar
+	Voice DistortonGuitar
+	Sequence       Cshuffle     z
+	Articulate 60
+	Octave 5
+	Volume p
+End
+
+Begin Arpeggio
+	Sequence         z        Ashuffle 
+	Voice DistortonGuitar
+	Articulate 60
+	Octave 5
+	Range 2
+	Rskip 5
+	Rvolume 20
+	Rtime 10
+	Volume p
+End
+
+Begin Chord-Piano
+	Voice Piano3
+	Sequence    { C1234 Shift .66 }
+	Articulate 60
+	Volume mf
+	Octave 6
+End
+
+Begin Bass
+	Sequence Bsuffle
+	Voice CleanGuitar
+	Harmony OpenAbove
+	Octave 4
+	Volume mp
+End
+
+DefGroove FastBlues1    A more rowdy version, with alternating bars of \
+                        a distorted guitar riff.
+
+Chord-Sus Groove FastBluesSus
+
+DefGroove FastBlues1Sus   Who invited the violin guys to the blues party?
+
+//////////////////////////////////////
+
+
+Groove FastBlues
+
+Bass           Sequence   B13    B11
+Chord-guitar   Sequence   C1234  C13
+Chord-piano    Sequence   C1234  C1
+Chord-sax      Sequence   -
+Drum-hh        Sequence   D1234  D13
+Drum-kick      Sequence   D13
+Drum-snare     Sequence   {D13 Shift .75} {D1 Shift .75}
+Drum-snare2    Sequence   D13
+
+                     
+Defgroove FastBluesEnd  Simple ending.
+

@@ -1,0 +1,1618 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Chord Voicing</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node15.html">
+<LINK REL="previous" HREF="node13.html">
+<LINK REL="next" HREF="node15.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node15.html">Harmony</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node13.html">Randomizing</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html590"
+  HREF="node14.html#SECTION001410000000000000000">Voicing</A>
+<UL>
+<LI><A ID="tex2html591"
+  HREF="node14.html#SECTION001411000000000000000">Voicing Mode</A>
+</UL>
+<BR>
+<LI><A ID="tex2html592"
+  HREF="node14.html#SECTION001420000000000000000">ChordAdjust</A>
+<LI><A ID="tex2html593"
+  HREF="node14.html#SECTION001430000000000000000">Compress</A>
+<LI><A ID="tex2html594"
+  HREF="node14.html#SECTION001440000000000000000">DupRoot</A>
+<LI><A ID="tex2html595"
+  HREF="node14.html#SECTION001450000000000000000">Invert</A>
+<LI><A ID="tex2html596"
+  HREF="node14.html#SECTION001460000000000000000">Limit</A>
+<LI><A ID="tex2html597"
+  HREF="node14.html#SECTION001470000000000000000">NoteSpan</A>
+<LI><A ID="tex2html598"
+  HREF="node14.html#SECTION001480000000000000000">Range</A>
+<LI><A ID="tex2html599"
+  HREF="node14.html#SECTION001490000000000000000">DefChord</A>
+<LI><A ID="tex2html600"
+  HREF="node14.html#SECTION0014100000000000000000">PrintChord</A>
+<LI><A ID="tex2html601"
+  HREF="node14.html#SECTION0014110000000000000000">Notes</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION001400000000000000000"></A>
+<A ID="chord-voicing"></A>
+<BR>
+Chord Voicing
+</H1>
+
+<P>
+In music, a chord is simply defined as two more notes played
+simultaneously<A ID="tex2html65"
+  HREF="#foot2439"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>. Now,
+this doesn't mean that you can play just any two or three notes and
+get a chord which sounds nice&mdash;but whatever you do get will be a
+chord of some type. And, to further confuse the unwary, different
+arrangements of the same notes sound better (or worse) in different
+musical situations.
+
+<P>
+As a simple example, consider a C major chord. Built on the first,
+third and fifth notes of a C major scale it can be manipulated into a
+variety of sounds:
+
+<P>
+<DIV class="CENTER">
+  <IMG WIDTH="80%"  SRC="mupex/cmajor.png" ALT="Lost Image">
+
+</DIV>
+
+<P>
+These are all C major chords ... but they all have a different
+sound or color. The different forms a chord can take are called
+&ldquo;voicings&rdquo;. Again, this manual is not intended to be a primer on
+musical theory&mdash;that's a subject for which lots of lessons with your
+favorite music teacher is recommended. You'll need a bit of basic
+music theory if you want to understand how and why 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  creates its
+tracks.
+
+<P>
+The different options in this chapter effect not only the way chords
+are constructed, but also the way bass lines and other tracks are
+formed.
+
+<P>
+There are generally two ways in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to take care of voicings.
+
+<P>
+
+<OL>
+<LI>use 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's extensive V<SMALL>OICING</SMALL> options, most likely with
+  the <SPAN  CLASS="textit">&rdquo;Optimal&rdquo;</SPAN> voicing algorithm,
+
+<P>
+</LI>
+<LI>do everything by yourself with the commands I<SMALL>NVERT</SMALL> and
+  C<SMALL>OMPRESS</SMALL>.
+
+<P>
+</LI>
+</OL>
+
+<P>
+The commands L<SMALL>IMIT</SMALL> and D<SMALL>UP</SMALL>R<SMALL>OOT</SMALL> may be used independently
+for both variants.
+
+<P>
+
+<H1><A ID="SECTION001410000000000000000">
+Voicing</A>
+</H1>
+
+<P>
+The V<SMALL>OICING</SMALL> command is used to set the voicing mode and several
+other options relating to the selected mode. The command needs to have
+a C<SMALL>HORD</SMALL> track specified and a series of Option=Value pairs. For
+example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-Piano Voicing Mode=Optimal Rmove=10 Range=9  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In the following sections all the options available will be covered.
+
+<P>
+
+<H2><A ID="SECTION001411000000000000000">
+Voicing Mode</A>
+</H2>
+
+<P>
+The easiest way to deal with chord voicings is via the V<SMALL>OICING
+  </SMALL>M<SMALL>ODE=</SMALL>XX option.
+
+<P>
+When choosing the inversion of a chord to play an accompanist will
+take into consideration the style of the piece and the chord
+sequences. In a general sense, this is referred to as &ldquo;voicing&rdquo;.
+
+<P>
+A large number of the library files have been written to take
+advantage of the following voicing commands. However, not all styles
+of music take well to the concept. And, don't forget about the other
+commands since they are useful in manipulating bass lines, as well as
+other chord tracks (e.g., sustained strings).
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has a variety of sophisticated, intelligent
+algorithms<A ID="tex2html66"
+  HREF="#foot9507"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> to deal with voicing.
+
+<P>
+As a general rule you should not use the I<SMALL>NVERT</SMALL> and
+C<SMALL>OMPRESS</SMALL> commands in conjunction with the V<SMALL>OICING</SMALL>
+command. If you do, you may create beautiful sounds. But, the results
+are more likely to be less-than-pleasing. Use of voicing and other
+combinations will display various warning messages.
+
+<P>
+The main command to enable voicings is:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Voicing Mode=Type   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+As mentioned above, this command can only be applied to C<SMALL>HORD</SMALL>
+tracks. Also note that this effects all bars in the sequence ...
+you cannot have different voicings for different bars in the sequence
+(attempting to do this would make no sense, but you could do it by
+creating duplicate tracks with alternate bars sounding).
+
+<P>
+The following MODE types are available:
+
+<P>
+<DL>
+<DT><STRONG>Optimal</STRONG></DT>
+<DD>A basic algorithm which automatically chooses the best
+  sounding voicing depending on the voicing played before. Always try
+  this option before anything else. It might work just fine without
+  further work.
+
+<P>
+The idea behind this algorithm is to keep voicings in a sequence
+  close together. A pianist leaves his or her fingers where they are,
+  if they still fit the next chord. Then, the notes closest to the
+  fingers are selected for the next chord. This way characteristic
+  notes are emphasized.
+
+<P>
+The following optional setting apply to chords generated with
+  M<SMALL>ODE=</SMALL>O<SMALL>PTIMAL</SMALL>:
+
+<P>
+<DL>
+<DT><STRONG>Voicing Range</STRONG></DT>
+<DD>To get wider or closer voicings, you may define
+    a range for the voicings. This can be adjusted with the
+    R<SMALL>ANGE</SMALL> option:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-Guitar Voicing Mode=Optimal Range=12  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In most cases the default value of 12 should work just fine. But,
+    you may want to fine tune ... it's all up to you.
+
+<P>
+</DD>
+<DT><STRONG>Voicing Center</STRONG></DT>
+<DD>Just minimizing the Euclidean distance between
+    chords doesn't do the trick as there could be runaway progressions
+    that let the voicings drift up or down infinitely.
+
+<P>
+When a chord is &ldquo;voiced&rdquo; or moved to a new position, a &ldquo;center
+    point&rdquo; must be used as a base. By default, the fourth degree of
+    the scale corresponding to the chord is a reasonable choice.
+    However, you can change this with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-1 Voicing Center=&lt;value&gt;  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The <SPAN  CLASS="textit">value</SPAN> in this command can be any number in the range 0
+    to 12. Try different values. The color of your whole song might
+    change.
+
+<P>
+Note that the value is the note in the scale, not a chord-note
+    position.
+
+<P>
+</DD>
+<DT><STRONG>Voicing Move</STRONG></DT>
+<DD>To intensify a chord progression you may want to
+    have ascending or descending movement of voicings. This option, in
+    conjunction with the D<SMALL>IR</SMALL> optional (see below) sets the
+    number of bars over which a movement is done.
+
+<P>
+For the M<SMALL>OVE</SMALL> option to have any effect you must also set
+    the direction to either -1 or 1. Be careful that you don't force
+    the chord too high or low on the scale. Use of this command in a
+    R<SMALL>EPEAT</SMALL> section can cause unexpected results. For this
+    reason you should include a S<SMALL>EQ</SMALL> command at the beginning of
+    repeated sections of your songs.
+
+<P>
+In most cases the use of this command is limited to a section of a
+    song, its use is not recommended in groove files. You might want
+    to do something like this in a song:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>...select groove with voicing
+<BR>
+chords ...
+<BR>
+Chord-Piano Voicing Move=5 Dir=1 
+<BR>
+more chords...
+<BR>
+Chord-Piano Voicing Move=5 Dir=-1 
+<BR>
+more chords...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</DD>
+<DT><STRONG>Voicing Dir</STRONG></DT>
+<DD>This option is used in conjunction with the
+    M<SMALL>OVE</SMALL> option to set the direction (-1 or 1) of the movement.
+
+<P>
+<A ID="voice-rmove"></A>  
+</DD>
+<DT><STRONG>Voicing Rmove</STRONG></DT>
+<DD>As an alternate to movement in a specified
+    direction, random movement can add some color and variety to your
+    songs. The command option is quite useful (and safe to use) in
+    groove files. The argument for this option is a percentage value
+    specifying the frequency to apply a move in a random direction.
+
+<P>
+For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-3 Voicing Mode=Optimal Rmove=20  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+would cause a movement (randomly up or down) in 20% of the bars.
+    As noted earlier, using explicit movement instructions can move
+    the chord into an undesirable range or even &ldquo;off the keyboard&rdquo;;
+    however, the algorithm used in RMOVE has a sanity check to ensure
+    that the chord center position remains, approximately, in a two
+    octave range.
+
+<P>
+</DD>
+</DL>
+
+<P>
+</DD>
+<DT><STRONG>Key</STRONG></DT>
+<DD>This mode attempts to cluster the notes of a chord around
+  the root note of the key signature (<A HREF="node30.html#keysignature">see here</A>). For example, a C major chord has the
+  notes &ldquo;C&rdquo;, &ldquo;E&rdquo; and &ldquo;G&rdquo;. If K<SMALL>EY</SMALL>S<SMALL>IG</SMALL> is set to &ldquo;C&rdquo; the
+  &ldquo;G&rdquo; will be lowered by an octave. However, if the the key
+  signature were to be set to &ldquo;E&rdquo; no changes would be made. The
+  algorithm used is very simplistic, but the results sound
+  satisfactory.
+
+<P>
+</DD>
+<DT><STRONG>KEY2</STRONG></DT>
+<DD>This is the same as the K<SMALL>EY</SMALL> option, but notes such
+  as the 9th, 11th and 13th are not effected. This <SPAN  CLASS="textit">may</SPAN> give a
+  brighter sound when using these chord types.
+
+<P>
+</DD>
+<DT><STRONG>DROP2, DROP2KEY</STRONG></DT>
+<DD>In this mode the chord is played in root position with
+  the second note from the top of the chord is lowered by one octave.
+  The alternate D<SMALL>ROP2</SMALL>K<SMALL>EY</SMALL> will further cluster the notes around
+  the root note of the key signature.
+
+<P>
+</DD>
+<DT><STRONG>DROP3, DROP3KEY</STRONG></DT>
+<DD>In this mode the chord is played in root position with
+  the third note of the chord from the top is lowered by one octave.
+  The alternate D<SMALL>ROP3</SMALL>K<SMALL>EY</SMALL> clusters notes around the key signature.
+
+<P>
+</DD>
+<DT><STRONG>DROP23, DROP23KEY</STRONG></DT>
+<DD>In this mode the chord is played in root position with
+  the second and third notes of the chord, from the top, lowered by one octave.
+  The alternate D<SMALL>ROP23</SMALL>K<SMALL>EY</SMALL> clusters notes around the key signature.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       The various &ldquo;drop&rdquo; voicings are standard for jazz piano and
+    guitar players. Normally a player will not apply this option to a
+    chord which has less than 4 notes. Simple triads (three note chords)
+    like major or minor would have the third or root lowered by one
+    full octave with a Drop2/3  ... and this may not be
+    what you are expecting. In addition, note that the Drop2/3 will be
+    applied after any chord inversions (and this is expected by
+    &ldquo;real&rdquo; players).
+	
+           </td></tr>
+        </Table>
+
+<P>
+<DL>
+<DT><STRONG>ROOTKEY</STRONG></DT>
+<DD>Compress the notes in the chord into a single octave
+  and force all notes to be above the root of the key signature.
+  Assuming a key of &ldquo;C&rdquo; a F major chord would be transformed from
+  'f', 'a', 'c' <SPAN  CLASS="textit">to</SPAN> 'c', 'f', 'a'. However, if the key is set to
+  &ldquo;F&rdquo; the chord would be unaffected.
+
+<P>
+</DD>
+<DT><STRONG>Root</STRONG></DT>
+<DD>This Option may for example be used to turn off
+  V<SMALL>OICING</SMALL> within a song. V<SMALL>OICING </SMALL>M<SMALL>ODE=</SMALL>R<SMALL>OOT</SMALL> means nothing
+  else than doing nothing, leaving all chords in root position.
+
+<P>
+</DD>
+<DT><STRONG>None</STRONG></DT>
+<DD>This is the same as the R<SMALL>OOT</SMALL> option.
+
+<P>
+</DD>
+<DT><STRONG>Invert</STRONG></DT>
+<DD>Rather than basing the inversion selection on an
+  analysis of past chords, this method quite stupidly tries to keep
+  chords around the base point of &ldquo;C&rdquo; by inverting &ldquo;G&rdquo; and &ldquo;A&rdquo;
+  chords upward and &ldquo;D&rdquo;, &ldquo;E&rdquo; and &ldquo;F&rdquo; downward. The chords are
+  also compressed. Certainly not an ideal algorithm, but it can be
+  used to add variety in a piece. The chord setting I<SMALL>NVERT</SMALL>
+  (<A HREF="#chord-invert">here</A>) is a different
+  setting ... don't confuse the two and don't try to use them at
+  the same time.
+
+<P>
+</DD>
+<DT><STRONG>Compressed</STRONG></DT>
+<DD>Does the same as the stand-alone C<SMALL>OMPRESS</SMALL>
+  command. Like R<SMALL>OOT</SMALL>, it is only added to be used in some parts
+  of a song where V<SMALL>OICING </SMALL>M<SMALL>ODE=</SMALL>O<SMALL>PTIMAL</SMALL> is used.
+
+<P>
+</DD>
+</DL>
+
+<P>
+Notes:
+
+<UL>
+<LI>If you have duplicate M<SMALL>ODE</SMALL> or option values on the same
+  line the last found will be used. You cannot have different
+  modes/options for different sequence points.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION001420000000000000000">
+ChordAdjust</A>
+</H1>  
+
+<P>
+<A ID="sec-chordadjust"></A>The actual notes used in a chord are derived from a table which
+contains the notes for each variation of a &ldquo;C&rdquo; chord&mdash;this data is
+converted to the desired chord by adding or subtracting a constant
+value according to the following table:
+
+<P>
+<DIV class="CENTER">
+
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	        </DIV><TABLE   STYLE="width:30%;">
+<TR><TD>
+      <TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">G<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN></TD>
+<TD ALIGN="RIGHT">-6</TD>
+</TR>
+<TR><TD ALIGN="LEFT">G</TD>
+<TD ALIGN="RIGHT">-5</TD>
+</TR>
+<TR><TD ALIGN="LEFT">G<SPAN CLASS="MATH"><IMG
+ STYLE="height: 2.21ex; vertical-align: -0.55ex; " SRC="img2.png"
+ ALT="$\sharp$"></SPAN></TD>
+<TD ALIGN="RIGHT">-4</TD>
+</TR>
+<TR><TD ALIGN="LEFT">A<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN></TD>
+<TD ALIGN="RIGHT">-4</TD>
+</TR>
+<TR><TD ALIGN="LEFT">A</TD>
+<TD ALIGN="RIGHT">-3</TD>
+</TR>
+<TR><TD ALIGN="LEFT">A<SPAN CLASS="MATH"><IMG
+ STYLE="height: 2.21ex; vertical-align: -0.55ex; " SRC="img2.png"
+ ALT="$\sharp$"></SPAN></TD>
+<TD ALIGN="RIGHT">-2</TD>
+</TR>
+<TR><TD ALIGN="LEFT">B<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN></TD>
+<TD ALIGN="RIGHT">-2</TD>
+</TR>
+</TABLE> </TD></TR>
+</TABLE>
+<DIV class="CENTER"> </DIV><TABLE   STYLE="width:30%;">
+<TR><TD> <TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">B</TD>
+<TD ALIGN="RIGHT">-1</TD>
+</TR>
+<TR><TD ALIGN="LEFT">C<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN></TD>
+<TD ALIGN="RIGHT">-1</TD>
+</TR>
+<TR><TD ALIGN="LEFT">B<SPAN CLASS="MATH"><IMG
+ STYLE="height: 2.21ex; vertical-align: -0.55ex; " SRC="img2.png"
+ ALT="$\sharp$"></SPAN></TD>
+<TD ALIGN="RIGHT">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">C</TD>
+<TD ALIGN="RIGHT">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">C<SPAN CLASS="MATH"><IMG
+ STYLE="height: 2.21ex; vertical-align: -0.55ex; " SRC="img2.png"
+ ALT="$\sharp$"></SPAN></TD>
+<TD ALIGN="RIGHT">1</TD>
+</TR>
+<TR><TD ALIGN="LEFT">D<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN></TD>
+<TD ALIGN="RIGHT">1</TD>
+</TR>
+<TR><TD ALIGN="LEFT">D</TD>
+<TD ALIGN="RIGHT">2</TD>
+</TR>
+</TABLE> </TD></TR>
+</TABLE>
+<DIV class="CENTER"> </DIV><TABLE   STYLE="width:30%;">
+<TR><TD> <TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">D<SPAN CLASS="MATH"><IMG
+ STYLE="height: 2.21ex; vertical-align: -0.55ex; " SRC="img2.png"
+ ALT="$\sharp$"></SPAN></TD>
+<TD ALIGN="RIGHT">3</TD>
+</TR>
+<TR><TD ALIGN="LEFT">E<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN></TD>
+<TD ALIGN="RIGHT">3</TD>
+</TR>
+<TR><TD ALIGN="LEFT">E</TD>
+<TD ALIGN="RIGHT">4</TD>
+</TR>
+<TR><TD ALIGN="LEFT">F<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN></TD>
+<TD ALIGN="RIGHT">4</TD>
+</TR>
+<TR><TD ALIGN="LEFT">E<SPAN CLASS="MATH"><IMG
+ STYLE="height: 2.21ex; vertical-align: -0.55ex; " SRC="img2.png"
+ ALT="$\sharp$"></SPAN></TD>
+<TD ALIGN="RIGHT">5</TD>
+</TR>
+<TR><TD ALIGN="LEFT">F</TD>
+<TD ALIGN="RIGHT">5</TD>
+</TR>
+<TR><TD ALIGN="LEFT">F<SPAN CLASS="MATH"><IMG
+ STYLE="height: 2.21ex; vertical-align: -0.55ex; " SRC="img2.png"
+ ALT="$\sharp$"></SPAN></TD>
+<TD ALIGN="RIGHT">6</TD>
+</TR>
+</TABLE></TD></TR>
+</TABLE>
+<DIV class="CENTER">
+  
+	
+           </td></tr>
+        </Table>
+
+</DIV>
+
+<P>
+This means that when 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  encounters an &ldquo;Am&rdquo; chord it adjusts the
+notes in the chord table down by 3 MIDI values; a &ldquo;F&rdquo; chord is
+adjusted 5 MIDI values up. This also means that &ldquo;A&rdquo; chords will
+sound lower than &ldquo;F&rdquo; chords.
+
+<P>
+In most cases this works just fine; but, there are times when the
+&ldquo;F&rdquo; chord might sound better <SPAN  CLASS="textit">lower</SPAN> than the &ldquo;A&rdquo;. You can
+force a single chord by prefacing it with a single &ldquo;-&rdquo; or &ldquo;+&rdquo;
+(<A HREF="node36.html#octaveadjust">details here</A>). But, if
+the entire song needs adjustment you can use C<SMALL>HORD</SMALL>A<SMALL>DJUST</SMALL>
+command to raise or lower selected chord pitches:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>ChordAdjust E=-1 F=-1 Bb=1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Each item in the command consists of a pitch (&ldquo;B<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>&rdquo;, &ldquo;C&rdquo;,
+etc.) an &ldquo;=&rdquo; and an octave specifier (-1, 0 or 1). With enharmonic notes
+(E<SPAN CLASS="MATH"><IMG
+ STYLE="height: 2.21ex; vertical-align: -0.55ex; " SRC="img2.png"
+ ALT="$\sharp$"></SPAN> and F, C<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN> and B, etc.) you will need to set both
+pitches.<A ID="tex2html67"
+  HREF="#foot2552"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+
+<P>
+To set multiple values you can use a comma separated list like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>ChordAdjust E,E#,F,F#=-1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which will lower the listed chords by an octave.
+
+<P>
+To a large extent the need for octave adjustments depends on the chord
+range of a song. For example, the supplied song &ldquo;A Day In The Life Of
+A Fool&rdquo; needs all &ldquo;E&rdquo; and &ldquo;F&rdquo; chords to be adjusted down an
+octave.
+
+<P>
+The value &ldquo;0&rdquo; will reset the adjustment to the original value.
+
+<P>
+You can reset all the values to their original values using the
+R<SMALL>ESET</SMALL> option:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>ChordAdjust Reset  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+To view the current values in the chord adjustment table you can use
+the $_C<SMALL>HORD</SMALL>A<SMALL>DJUST</SMALL> builtin variable.
+
+<P>
+
+<H1><A ID="SECTION001430000000000000000"></A> <A ID="compress"></A>
+<BR>
+Compress
+</H1> 
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  grabs the notes for a chord, the notes are spread out from
+the root position. This means that if you specify a &ldquo;C13&rdquo; you will
+have an &ldquo;A&rdquo; nearly 2 octaves above the root note as part of the
+chord. Depending on your instrumentation, pattern, and the chord
+structure of your piece, notes outside of the &ldquo;normal&rdquo; single octave
+range for a chord <SPAN  CLASS="textit">may</SPAN> sound strange.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Compress 1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Forces 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to put all chord notes in a single octave range.
+
+<P>
+This command is only effective in C<SMALL>HORD</SMALL> and A<SMALL>RPEGGIO</SMALL>
+tracks. A warning message is printed if it is used in other contexts.
+
+<P>
+Instead of the values 0 and 1 you can use &ldquo;On&rdquo;, &ldquo;True&rdquo;, &ldquo;Off&rdquo;
+and &ldquo;False&rdquo; to make your code a bit more readable.
+
+<P>
+You can specify a different C<SMALL>OMPRESS</SMALL> for each bar in a
+sequence. Repeated values can be represented with a &ldquo;/&rdquo;:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Compress True / False /  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+To restore to its default (off) setting, use a &ldquo;0&rdquo; or &ldquo;False&rdquo; as
+the argument.
+
+<P>
+For a similar command, with different results, see the L<SMALL>IMIT</SMALL>
+command (<A HREF="#limit">here</A>).
+
+<P>
+
+<H1><A ID="SECTION001440000000000000000"></A><A ID="duproot"></A>
+<BR>
+DupRoot
+</H1>
+
+<P>
+To add a bit of fullness to chords, it is quite common for keyboard
+players to duplicate the root tone of a chord into a lower (or higher)
+octave. This is accomplished in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord DupRoot -1 -2 1 2   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In the above example, the value of -1 adds a note one octave lower
+than the root note, -2 adds the tone 2 octaves lower, etc. Similarly,
+the value of 1 will add a note one octave higher than the root tone,
+etc.
+
+<P>
+Only the values -9 to 9 are permitted.
+
+<P>
+You can have multiple notes generated by setting multiple duplicates
+as comma separated lists:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord DupRoot -1,-2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will add notes 1 and 2 octaves below the root of the chord and
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord DupRoot -1,1,2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will add notes 1 below, and 1 and 2 above.<A ID="tex2html68"
+  HREF="#foot2580"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> <SPAN  CLASS="textit">Note:</SPAN> no spaces are
+in the comma separated list (spaces indicate the next bar in the
+sequence).
+
+<P>
+The volume used for the generated note(s) is the average of the
+non-zero notes in the chord adjusted by the H<SMALL>ARMONY</SMALL>V<SMALL>OLUME</SMALL>
+setting for the current track.<A ID="tex2html69"
+  HREF="#foot9510"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+
+<P>
+Different values can be used in each bar of the sequence.
+
+<P>
+The option is reset to 0 after all S<SMALL>EQUENCE</SMALL> or S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL>
+commands. To turn off this setting just use a value of 0:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord DupRoot 0  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The D<SMALL>UP</SMALL>R<SMALL>OOT</SMALL> command is only valid in C<SMALL>HORD</SMALL> tracks.
+
+<P>
+D<SMALL>UP</SMALL>R<SMALL>OOT</SMALL> can only duplicate only the root tone of a chord. If
+you want to duplicate other pitches in the chord, create a B<SMALL>ASS</SMALL>
+track with the appropriate pattern. For example, if you want to
+duplicate the fifths in your chord, try this:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Chord 
+<BR>&nbsp;&nbsp;Voice Piano1 
+<BR>&nbsp;&nbsp;Octave 6 
+<BR>&nbsp;&nbsp;Sequence 1 1 90 * 4 
+<BR>
+End 
+<BR>&nbsp;
+<BR>
+Begin Bass-dupchord 
+<BR>&nbsp;&nbsp;ChShare Chord 
+<BR>&nbsp;&nbsp;Octave 5 
+<BR>&nbsp;&nbsp;Sequence  1 1 1- 90 * 4; 1 1 5- 90 * 4 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The above, very simple, example will play the third and fifth notes of
+the chord an octave lower using the same pattern as the basic chords.
+
+<P>
+
+<H1><A ID="SECTION001450000000000000000"></A> <A ID="chord-invert"></A>
+<BR>
+Invert
+</H1> 
+
+<P>
+By default 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses chords in the root position. By example, the
+notes of a C major chord are C, E and G. Chords can be inverted
+(something musicians do all the time). Sticking with the C major
+chord, the first inversion shifts the root note up an octave and the
+chord becomes E, G and C. The second inversion is G, C and E.
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  extends the concept of inversion a bit by permitting the shift
+to be to the left or right, and the number of shifts is not limited.
+So, you could shift a chord up several octaves by using large invert
+values.<A ID="tex2html70"
+  HREF="#foot9512"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
+
+<P>
+Inversions can be different in each bar of a sequence. For example
+example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqSize 4 
+<BR>
+Chord-1 Sequence STR1 
+<BR>
+Chord-1 Invert 0 1 0 1   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Here the sequence pattern size is set to 4 bars and the pattern for
+each bar in the Chord-1 track is set to &ldquo;STR1&rdquo;. Without the next
+line, this would result in a rather boring, repeating pattern. But,
+the Invert command forces the chord to be in the root position for the
+first bar, the first inversion for the second, etc.
+
+<P>
+You can use a negative Invert value:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-1 Invert -1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this case the C major chord becomes G, C and E.
+
+<P>
+Note that using fewer Invert arguments than the current sequence size
+is permitted. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  simply expands the number of arguments to the
+current sequence size. You may use a &ldquo;/&rdquo; for a repeated value.
+
+<P>
+A S<SMALL>EQUENCE</SMALL> or C<SMALL>LEAR</SMALL>S<SMALL>EQ</SMALL> command resets I<SMALL>NVERT</SMALL> to
+0.
+
+<P>
+This command on has an effect in C<SMALL>HORD</SMALL> and A<SMALL>RPEGGIO</SMALL>
+tracks. And, frankly, A<SMALL>RPEGGIO</SMALL>s sound a bit odd with
+inversions.
+
+<P>
+If you use a large value for I<SMALL>NVERT</SMALL> you can force the notes out
+of the normal MIDI range. In this case the lowest or highest possible
+MIDI note value will be used.
+
+<P>
+A further option is to randomize the inversion process. If you specify
+a range of values (two values joined with a comma) 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will select
+a random value from that range and apply that to the invert. For
+example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Invert -2,2   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will cause a random invert of -2, -1, 0, 1 or 2 each time a chord is
+generated. The results can be quite jarring and unexpected.
+
+<P>
+The values used to set this option must be in the range -10 to 10.
+
+<P>
+
+<H1><A ID="SECTION001460000000000000000"></A> <A ID="limit"></A>
+<BR>
+Limit
+</H1> 
+
+<P>
+If you use so-called &ldquo;jazz&rdquo; chords in your piece, some people might
+not like the results. To some folks, chords like 11th, 13th, and
+variations have a dissonant sound. And, sometimes they are in a chart,
+but don't really make sense. The L<SMALL>IMIT</SMALL> command can be used to
+set the number of notes of a chord used.
+
+<P>
+For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Limit 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will limit any chords used in the C<SMALL>HORD</SMALL> track to the first 4
+notes of a chord. So, if you have a C11 chord which is C, E, G,
+B<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>, D, and F, the chord will be truncated to C, E, G and
+B<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>.
+
+<P>
+This command only applies to C<SMALL>HORD</SMALL> and A<SMALL>RPEGGIO</SMALL> tracks.
+It can be set for other tracks, but the setting will have no effect
+(no warning will be displayed).
+
+<P>
+
+<UL>
+<LI>L<SMALL>IMIT</SMALL> takes any single value from 3 to 8 as an argument
+  which sets the desired maximum number of notes in a chord. This command
+  applies to all chords in the sequence.
+
+<P>
+</LI>
+<LI>To restore to its default (off) setting, use a 0, &ldquo;Off&rdquo; or
+  &ldquo;False&rdquo; as the argument. The D<SMALL>ROP</SMALL> setting (below) is not
+  saved.
+
+<P>
+</LI>
+</UL>
+To further refine the pruning of chords you can also set a D<SMALL>ROP</SMALL>
+value as an option, for example:
+
+<P>
+<A ID="accordion-voicing"></A>
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-Accordion Limit 3 Drop=5  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this case 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will remove the fifth scale note from the chords
+with a length greater than three and prune any remaining notes from
+large chords (ie, a &ldquo;13&rdquo;) and force the total number of notes to
+three.<A ID="tex2html71"
+  HREF="#foot2630"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>
+
+<P>
+The D<SMALL>ROP</SMALL> argument must be in the range of 1 to 7 and represents
+a single note in the corresponding scale for that chord. For example,
+to drop all root notes for a sequence:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-NoRoot Limit 8 Drop=1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Assuming a C7 chord (C, E, G, B<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>) the C would be removed (the
+scale for the chord is C, D, E, F, G, A, B<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>). Applying the
+same to a C5 (a power chord) would eliminate the first C note (a C5
+chord has the scale C, D, E, F, G, A, B and the note C, C, G, G
+... in this case it ends up effectively doing nothing).
+
+<P>
+The F<SMALL>ORCE</SMALL> option is set with a &ldquo;True&rdquo; or &ldquo;False&rdquo; argument
+(You can use &ldquo;On&rdquo;, &ldquo;1&rdquo;, etc. as well. &ldquo;False&rdquo; is the default and
+is included only for completeness.)
+
+<P>
+Use of this will force the D<SMALL>ROP</SMALL> option to be executed no
+matter how many notes are in the chord. Some simple examples:
+
+<P>
+<DL>
+<DT><STRONG>C<SMALL>HORD </SMALL>L<SMALL>IMIT 8 </SMALL>D<SMALL>ROP=1</SMALL></STRONG></DT>
+<DD>No effect on any chords since they will all be less than length eight.
+
+<P>
+</DD>
+<DT><STRONG>C<SMALL>HORD </SMALL>L<SMALL>IMIT 8 </SMALL>D<SMALL>ROP=1 </SMALL>F<SMALL>ORCE=</SMALL>T<SMALL>RUE</SMALL></STRONG></DT>
+<DD>All chords will have the root note removed. This will result in three
+note chords (major and minor triads) only having two notes.
+
+<P>
+</DD>
+<DT><STRONG>C<SMALL>HORD </SMALL>L<SMALL>IMIT 3 </SMALL>D<SMALL>ROP=1</SMALL></STRONG></DT>
+<DD>Chords with more than three notes will have the root note removed. No
+chords will be shorter than three notes, unless they were created that
+way in a chord table.
+
+<P>
+</DD>
+<DT><STRONG>C<SMALL>HORD </SMALL>L<SMALL>IMIT 3 </SMALL>D<SMALL>ROP=1 </SMALL>F<SMALL>ORCE=</SMALL>T<SMALL>RUE</SMALL></STRONG></DT>
+<DD>All chords will have the root note dropped. Three note chords will be
+shortened to two.
+
+<P>
+</DD>
+</DL>
+For a similar command, with different results, see the C<SMALL>OMPRESS</SMALL>
+command (<A HREF="#compress">here</A>).
+
+<P>
+
+<H1><A ID="SECTION001470000000000000000"></A> <A ID="sec-notespan"></A>
+<BR>
+NoteSpan
+</H1> 
+
+<P>
+Many instruments have a limited range. For example, the bass section
+of an accordion is limited to a single octave.<A ID="tex2html72"
+  HREF="#foot2652"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A> To emulate these sounds it is a simple matter of
+limiting 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's output to match the instrument. For example, in the
+&ldquo;frenchwaltz&rdquo; file you will find the directive:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord NoteSpan 48 59  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which forces all C<SMALL>HORD</SMALL> tones to the single octave represented
+by the MIDI values 48 though 59.
+
+<P>
+This command is applied over other voicing commands like O<SMALL>CTAVE</SMALL>
+and R<SMALL>ANGE</SMALL> and even T<SMALL>RANSPOSE</SMALL>. Notes will still be
+calculated with respect to these settings, but then they'll be forced
+into the limited N<SMALL>OTE</SMALL>S<SMALL>PAN</SMALL>.
+
+<P>
+N<SMALL>OTE</SMALL>S<SMALL>PAN</SMALL> expects two arguments: The first is the range start,
+the second the range end (first and last notes to use). The values are
+MIDI tones and must be in the range 0 to 127. The first value must be
+less than the second, and the range must represent at least one full
+octave (12 notes). It can be applied to all tracks except D<SMALL>RUM</SMALL>.
+
+<P>
+
+<H1><A ID="SECTION001480000000000000000"></A> <A ID="sec-range"></A>
+<BR>
+Range
+</H1> 
+
+<P>
+For A<SMALL>RPEGGIO</SMALL> and S<SMALL>CALE</SMALL> tracks you can specify the number
+of octaves used. The effects of the R<SMALL>ANGE</SMALL> command is slightly
+different between the two.
+
+<P>
+S<SMALL>CALE</SMALL>: Scale tracks, by default, create three octave scales.
+The R<SMALL>ANGE</SMALL> value will modify this to the number of octaves
+specified. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Scale Range 1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will force the scales to one octave. A value of 4 would create 4
+octave scales, etc.
+
+<P>
+You can use fractional values when specifying R<SMALL>ANGE</SMALL>. For
+example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Scale Range .3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will create a scale of 2 notes.<A ID="tex2html73"
+  HREF="#foot2673"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A> And,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Scale Range 1.5  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will create a scale of 10 notes. Now, this gets a bit more confusing
+for you if you have set S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL> C<SMALL>HROMATIC</SMALL>. In this
+case a R<SMALL>ANGE 1</SMALL> would generate 12 notes, and R<SMALL>ANGE 1.5</SMALL>
+18.
+
+<P>
+Partial scales are useful in generating special effects.
+
+<P>
+A<SMALL>RPEGGIO</SMALL>: Normally, arpeggios use a single octave.<A ID="tex2html74"
+  HREF="#foot2680"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A> The R<SMALL>ANGE</SMALL> command specifies the
+number of octaves<A ID="tex2html75"
+  HREF="#foot9513"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">11</SPAN></SUP></A> to use. A fractional value can be used; the
+exact result depends on the number of notes in the current chord.
+
+<P>
+In all cases the values of &ldquo;0&rdquo; and &rdquo;1&rdquo; have the same effect.
+
+<P>
+For both S<SMALL>CALE</SMALL> and A<SMALL>RPEGGIO</SMALL> there will always be a
+minimum of two notes in the sequence. In all other tracks this option
+is ignored.
+
+<P>
+
+<H1><A ID="SECTION001490000000000000000"></A> <A ID="defchord"></A>
+<BR>
+DefChord
+</H1> 
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  comes with a large number of chord types already defined. In
+most cases, the supplied set (<A HREF="node36.html#sec-chordname">see this list</A>) is sufficient for all the &ldquo;modern&rdquo; or
+&ldquo;pop&rdquo; charts normally encountered. However, there are those times
+when you want to do something else, or something different.
+
+<P>
+You can define additional chord types at any time, or redefine
+existing chord types. The D<SMALL>EF</SMALL>C<SMALL>HORD</SMALL> command makes no distinction
+between a new chord type or a redefinition, with the exception that a
+warning message is printed for the later.
+
+<P>
+The syntax of the command is quite strict:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefChord NAME (NoteList) (ScaleList)  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+where:
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textit">Name</SPAN> can be any string, but cannot contain a &ldquo;/&rdquo;,
+  &ldquo;&gt;&rdquo; or space. It is case sensitive. Examples of valid
+  <SPAN  CLASS="textit">name</SPAN>s include &ldquo;dim&rdquo;, &ldquo;NO3&rdquo; and &ldquo;foo-12-xx&rdquo;.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textit">NoteList</SPAN> is a comma separated list of note offsets
+  (actually MIDI note values), all of which are enclosed in a set of
+  &ldquo;()&rdquo;s. There must be at least 2 note offsets and no more than 8
+  and all values must be in the range 0 to 24. Using an existing chord
+  type, a &ldquo;7&rdquo; chord would be defined with (0, 4, 7, 10). In the case
+  of a C7 chord, this translates to the notes (c, e, g, b<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>).
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textit">ScaleList</SPAN> is a list of note offsets (again, MIDI note
+  values), all of which are enclosed in a set of &ldquo;()&rdquo;s. There must
+  be exactly 7 values in the list and all values must be in the range
+  0 to 24. Following on the C7 example above, the scale list would be
+  (0, 2, 4, 5, 7, 9, 10) or the notes (c, d, e, f, g, a, b<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>).
+
+<P>
+</LI>
+</UL>
+
+<P>
+Some examples might clarify. First, assume that you have a section of
+your piece which has a major chord, but you only want the root and
+fifth to sound for the chords and you want the arpeggios and bass
+notes to <SPAN  CLASS="textit">only</SPAN> use the root. You could create new patterns, but
+it's just as easy to create a new chord type.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefChord 15 (0,4) (0, 0, 0, 0, 0, 0, 0) 
+<BR>
+1 C / G / 
+<BR>
+2 C15 / G15   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this case a normal Major chord will be used in line 1. In line 2
+the new &ldquo;15&rdquo; will be used. Note the trick in the scale: by setting
+all the offsets to &ldquo;0&rdquo; only the root note is available to the
+<SMALL>WALK</SMALL> and <SMALL>BASS</SMALL> tracks.
+
+<P>
+Sometimes you'll see a new chord type that 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  doesn't know. You
+could write the author and ask him to add this new type, but if it is
+something quite odd or rare, it might be easier to define it in your
+song. Let's pretend that you've encountered a &ldquo;Cmaj12&rdquo; A reasonable
+guess is that this is a major 7 with an added 12th (just the 5th up an
+octave). You could change the &ldquo;maj12&rdquo; part of the chord to a &ldquo;M7&rdquo;
+or &ldquo;maj7&rdquo; and it should sound fine. But:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefChord maj12 (0, 4, 7, 11, 19) (0, 2, 4, 5, 7, 9, 11)   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+is much more fun. Note a few details:
+
+<P>
+
+<UL>
+<LI>The name &ldquo;maj12&rdquo; can be used with any chord. You can have
+  &ldquo;Cmaj12&rdquo; or G<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>maj12&rdquo;.
+
+<P>
+</LI>
+<LI>&ldquo;maj12&rdquo; a case sensitive name. The name &ldquo;Maj12&rdquo; is quite
+  different (and unknown).
+
+<P>
+</LI>
+<LI>A better name might be &ldquo;maj(add12)&rdquo;.
+
+<P>
+</LI>
+<LI>The note and scale offsets are MIDI values. They are easy to
+  figure if you think of the chord as a &ldquo;C&rdquo;. Just count off notes
+  from &ldquo;C&rdquo; on a keyboard (C is note 0).
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textit">Do Not</SPAN> include a chord name (i.e., C or B<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>) in the
+  definition. Just the <SPAN  CLASS="textit">type</SPAN>.
+
+<P>
+</LI>
+</UL>
+
+<P>
+The final example handles a minor problem in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  and &ldquo;diminished&rdquo;
+chords. In most of the music the author of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  encounters, the
+marking &ldquo;dim&rdquo; on a chord usually means a &ldquo;diminished 7th&rdquo;. So,
+when 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  initializes it creates a copy of the &ldquo;dim7&rdquo; and calls it
+&ldquo;dim&rdquo;. But, some people think that &ldquo;dim&rdquo; should reference a
+&ldquo;diminished triad&rdquo;. It's pretty easy to change this by creating a
+new definition for &ldquo;dim&rdquo;:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefChord dim (0, 3, 6) (0, 2, 3, 5, 6, 8, 9 )   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this example the scale notes use the same notes as those in a
+&ldquo;dim7&rdquo;. You might want to change the B<!-- MATH
+ $\flat{}\flat$
+ -->
+<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN> (9) to B<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>
+(10) or B (11). If you really disagree with the choice to make a dim7
+the default you could even put this in a <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> file.
+
+<P>
+It is even easier to use the non-standard notation &ldquo;dim3&rdquo; to specify
+a diminished triad. Better yet: use the author's preferred and
+unambiguous &ldquo;m<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>5&rdquo; for a triad and &ldquo;dim7&rdquo; for a four note
+chord.
+
+<P>
+
+<H1><A ID="SECTION0014100000000000000000">
+PrintChord</A>
+</H1>
+
+<P>
+This command can be used to make the creation of custom chords a bit
+simpler. Simply pass one or more chord types after the command and
+they will be displayed on your terminal. Example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>PrintChord m M7 dim  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+in a file should display:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>m : (0, 3, 7) (0, 2, 3, 5, 7, 9, 11) Minor triad. 
+<BR>
+M7 : (0, 4, 7, 11) (0, 2, 4, 5, 7, 9, 11) Major 7th. 
+<BR>
+dim : (0, 3, 6, 9) (0, 2, 3, 5, 6, 8, 9) Diminished. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  assumes
+  a diminished 7th.  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+From this you can cut and paste, change the chord or scale and insert
+the data into a D<SMALL>EF</SMALL>C<SMALL>HORD</SMALL> command.
+
+<P>
+
+<H1><A ID="SECTION0014110000000000000000">
+Notes</A>
+</H1>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  makes other adjustments on-the-fly to your chords. This is done
+to make the resulting sounds &ldquo;more musical&rdquo; ... to keep life
+interesting, the definition of &ldquo;more musical&rdquo; is quite elusive. The
+following notes will try to list some of the more common adjustments
+made &ldquo;behind your back&rdquo;.
+
+<P>
+
+<UL>
+<LI>Just before the notes (MIDI events) for a chord are generated
+  the first and last notes in the chord are compared. If they are a
+  separated by a half-step (or 1 MIDI value) or an octave plus
+  half-step, the volume of the first note is halved. This happens in
+  chords such as a Major-7th or Flat-9th. If the adjustment is not
+  done the dissonance between the two tones may overwhelm the ear.
+
+<P>
+</LI>
+</UL>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot2439">...
+simultaneously</A><A
+ HREF="node14.html#tex2html65"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>Some will argue that two notes do not make a
+  chord and three or more are needed. Okay. That's what the internet
+  is for: mindless, needless arguments about trivial details.
+
+</DD>
+<DT><A ID="foot9507">...
+algorithms</A><A
+ HREF="node14.html#tex2html66"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>Great thanks are due to Alain Brenzikofer who not
+  only pressured me into including the V<SMALL>OICING</SMALL> options, but
+  wrote a great deal of the actual code.
+
+</DD>
+<DT><A ID="foot2552">...
+pitches.</A><A
+ HREF="node14.html#tex2html67"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>Internally there are separate table entries for each
+  chord name, which does mean that you can have E<SPAN CLASS="MATH"><IMG
+ STYLE="height: 2.21ex; vertical-align: -0.55ex; " SRC="img2.png"
+ ALT="$\sharp$"></SPAN> and G<SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN>
+sounding in different octaves! Careful!
+
+</DD>
+<DT><A ID="foot2580">... above.</A><A
+ HREF="node14.html#tex2html68"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>Adding too many
+  root tones in varying octaves can create harmonic overtone problems
+  (in other words, it can sound crappy).
+
+</DD>
+<DT><A ID="foot9510">... track.</A><A
+ HREF="node14.html#tex2html69"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DD>By default the
+  H<SMALL>ARMONY</SMALL>V<SMALL>OLUME</SMALL> is 80%. You probably do not want the added
+  note(s) to be louder, but experiment!
+
+</DD>
+<DT><A ID="foot9512">...
+values.</A><A
+ HREF="node14.html#tex2html70"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
+<DD>The term &ldquo;shift&rdquo; is used here, but that's not quite
+  what 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  does. The order of the notes in the internal buffer
+  stays the same, just the octave for the notes is changed. So, if the
+  chord notes are &ldquo;C E G&rdquo; with the MIDI values &ldquo;0, 4, 7&rdquo; an invert
+  of 1 would change the notes to &ldquo;C<SPAN CLASS="MATH"><SUP>2</SUP></SPAN> E G&rdquo; and the MIDI values
+  to &ldquo;12, 4, 7&rdquo;.
+
+</DD>
+<DT><A ID="foot2630">...
+three.</A><A
+ HREF="node14.html#tex2html71"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
+<DD>Most accordions with a Stradella bass play three note chords
+  and drop the fifth for seventh and diminished chords. Some
+  accordionists will create larger and more complex chords in the left
+hand by pressing multiple buttons, but is beyond this implementation.
+
+</DD>
+<DT><A ID="foot2652">... octave.</A><A
+ HREF="node14.html#tex2html72"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A></DT>
+<DD>Some
+  accordions have &ldquo;freebass&rdquo; switches which overcomes this, but that
+  is the exception.
+
+</DD>
+<DT><A ID="foot2673">... notes.</A><A
+ HREF="node14.html#tex2html73"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A></DT>
+<DD>Simple math here: take the
+  number of notes in a scale (7) and multiply by .3. Take the integer
+  result as the number of notes.
+
+</DD>
+<DT><A ID="foot2680">... octave.</A><A
+ HREF="node14.html#tex2html74"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A></DT>
+<DD>Not
+  quite true: they use whatever notes are in the chord, which might
+  exceed an octave span.
+
+</DD>
+<DT><A ID="foot9513">... octaves</A><A
+ HREF="node14.html#tex2html75"><SUP><SPAN CLASS="arabic">14</SPAN>.<SPAN CLASS="arabic">11</SPAN></SUP></A></DT>
+<DD>Again, not quite true: the command just
+  duplicates the arpeggio notes the number of times specified in the
+  R<SMALL>ANGE</SMALL> setting.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node15.html">Harmony</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node13.html">Randomizing</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

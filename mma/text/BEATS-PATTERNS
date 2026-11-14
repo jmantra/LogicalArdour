@@ -1,0 +1,44 @@
+A confusing part of the way MMA works are chord lines and patterns.
+
+Let's start with a simple example. You have a pattern (it doesn't matter
+if this is part of a complex groove or just a one line sequence). We'll 
+set this up as a simple pattern for a chord:
+
+  Chord   Sequence {1 4 90; 3 4 90;}
+
+If you have been following the manual, you'll understand right away that we have
+created a pattern which plays a chord at beats 1 and 3 (we are assuming 4 beats
+per bar). 
+
+If we have a data line:
+
+  1  C
+
+A "C" chord will be generated on beat 1 and 3. Simple and logical.
+
+Now, what happens if we put different chords on the data line:
+
+  1  C / Dm /
+
+In this case, you'll get a "C" chord on beat 1 and "Dm" on beat 3. Again,
+simple and logical.
+
+The "problem" arises when we have chords not in sync with the pattern:
+
+  1  C Dm E F
+
+If you compile this and look at the output you will see that the "Dm" and "F"
+chords are never played. Only a "C" and "E". Huh? 
+
+It's not that complicated. MMA generates chords based on the pattern, not
+the offsets in a chord data line. Again, chords are generated on beats
+1 and 3 ... just like you directed. The chord settings on beats 2 and 4 will
+only be used by patterns which generate a chord or note at the position. So,
+any pattern which starts a note/chord on or after beat 2 and before beat 3
+will use the "Dm", etc.
+
+If this isn't completely clear ... read it again. And if not yet, write me.
+
+bvdp  Oct/2015.
+
+

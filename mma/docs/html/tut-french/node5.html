@@ -1,0 +1,714 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Cr&#233;ation d'un fichier lib.</TITLE>
+<META NAME="description" CONTENT="Cr&#233;ation d'un fichier lib.">
+<META NAME="keywords" CONTENT="mma-tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma-tutorial.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="mma-tutorial.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html86"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html84"
+  HREF="mma-tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html78"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> suivant:</B> <A NAME="tex2html87"
+  HREF="node6.html">&#192; propos de ce</A>
+<B> monter:</B> <A NAME="tex2html85"
+  HREF="mma-tutorial.html">Tutorial</A>
+<B> pr&eacute;c&eacute;dent:</B> <A NAME="tex2html79"
+  HREF="node4.html">Un exemple plus complexe</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Sous-sections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html88"
+  HREF="node5.html#SECTION00510000000000000000">Cr&#233;ation de notre premier G<SMALL>ROOVE</SMALL></A>
+<UL>
+<LI><A NAME="tex2html89"
+  HREF="node5.html#SECTION00511000000000000000">Le Batteur</A>
+<LI><A NAME="tex2html90"
+  HREF="node5.html#SECTION00512000000000000000">Le Bassiste</A>
+<LI><A NAME="tex2html91"
+  HREF="node5.html#SECTION00513000000000000000">Le Pianiste</A>
+<LI><A NAME="tex2html92"
+  HREF="node5.html#SECTION00514000000000000000">Assemblage de tous les &#233;l&#233;ments</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html93"
+  HREF="node5.html#SECTION00520000000000000000">Comment utiliser notre premier G<SMALL>ROOVE</SMALL></A>
+<LI><A NAME="tex2html94"
+  HREF="node5.html#SECTION00530000000000000000">Qu'est-ce qu'on fait maintenant ?</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00500000000000000000">
+Cr&#233;ation d'un fichier lib.</A>
+</H1>
+
+<P>
+Commr le moteur servant &#341; d&#233;finir un G<SMALL>ROOVE</SMALL> est un outil tr&#269;s puissant aux possibilit&#233;s quasi illimit&#233;es,
+il nous est impossible de toutes les aborder dans un tel tutoriel. 
+De plus, la flexibilit&#233; de 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  vous permet de faire les m&#281;mes choses de plusieurs mani&#269;res. 
+L'exemple que vous verrez ici d&#233;crit juste l'une des m&#233;thodes utilis&#233;es pour cr&#233;er un G<SMALL>ROOVE</SMALL>. 
+Nous avons essay&#233; de rester simples et d'organiser correctement ce sujet, afin que vous compreniez comment un G<SMALL>ROOVE</SMALL> se construit.<A NAME="tex2html1"
+  HREF="#foot696"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+<P>
+Le jour o&#367; vous d&#233;ciderez de cr&#233;er les v&#244;tres, vous devrez lire le <SPAN  CLASS="textsl">Manuel de R&#233;f&#233;rence</SPAN> en d&#233;tail !
+
+<P>
+
+<H1><A NAME="SECTION00510000000000000000">
+Cr&#233;ation de notre premier G<SMALL>ROOVE</SMALL></A>
+</H1>
+
+<P>
+Le G<SMALL>ROOVE</SMALL> que nous allons cr&#233;er sera un G<SMALL>ROOVE</SMALL> de rock en <SPAN  CLASS="textbf">4/4</SPAN>.
+
+<P>
+Nous devons d'abord d&#233;finir la battue en <SPAN  CLASS="textbf">4/4</SPAN> et initialiser les variables dont nous avons besoin. 
+Ces derni&#269;res sont expliqu&#233;es en d&#233;tail dans le <SPAN  CLASS="textsl">Manuel de R&#233;f&#233;rence</SPAN>.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqClear
+<BR>
+SeqSize 1
+<BR>
+Time 4 
+<BR>
+Timesig 4 4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Cr&#233;ons maintenant notre <SPAN  CLASS="textsl">pattern</SPAN>.
+
+<P>
+
+<H2><A NAME="SECTION00511000000000000000">
+Le Batteur</A>
+</H2>
+
+<P>
+Pour le batteur, nous utiliserons le pattern sivant:
+
+<P>
+<DIV ALIGN="CENTER">
+  <IMG WIDTH="80%"  SRC="mup/drums.png" ALT="Lost Image">
+
+</DIV>
+
+<P>
+Comme on peut le voir, il est relativement simple.
+
+<P>
+Nous avons
+
+<P>
+
+<UL>
+<LI>la grosse caisse (<SPAN  CLASS="textsl">kick <SPAN  CLASS="textbf">D</SPAN>rum</SPAN> en anglais) sur les temps 1, 2 and, 3
+</LI>
+<LI>la caisse claire (<SPAN  CLASS="textsl"><SPAN  CLASS="textbf">S</SPAN>nare</SPAN> en anglais) sur les temps 2 et 4
+</LI>
+<LI>le charleston ferm&#233; (<SPAN  CLASS="textsl"><SPAN  CLASS="textbf">C</SPAN>losed <SPAN  CLASS="textbf">H</SPAN>ighhat</SPAN> en anglais) sur les croches
+</LI>
+</UL>
+
+<P>
+Avant de d&#233;finir les diff&#233;rentes percussions, nous allons d&#233;finir les diff&#233;rents patterns que nous utiliserons:
+
+<P>
+
+<P></P>
+
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Drum Define 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;D1 1 8 90 ; 2.5 8 90 ; 4 8 90  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<P>
+<BR>
+
+
+<P>
+Qu'avons-nous fait ?
+
+<P>
+Nous avons juste retranscrit la partie <SPAN  CLASS="textsl">grosse caisse</SPAN> de la partition ci-dessus, et cr&#233;&#233; le pattern <TT><SPAN  CLASS="textbf">D1</SPAN></TT>,
+avec des croches sur les temps 1, 2.5 et 4, et une dynamique de 90.<A NAME="tex2html2"
+  HREF="#foot803"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+<P>
+En suivant la m&#281;me logique, on cr&#233;e the pattern de la caisse claire :
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>S1 2 8 90 ; 4 8 90  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+pour le charleston ferm&#233;, nous utiliserons une petite astuce pour ne pas avoir &#341; rentrer 8 notes.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>CH1 1 8 90
+<BR>
+C1 CH1 * 8  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Nous avons juste d&#233;fini 1 croche sur le 1<SUP>er</SUP> temps avec une dynamique de 90, et nous l'avons multipli&#233;e par 8.
+Au final, nous obtenons les 8 croches recherch&#233;es.
+
+<P>
+Nous fermons la d&#233;finition des patterns en ajoutant
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Maintenant que nous avons &#341; disposition les patterns pour notre batterie,
+nous allons en cr&#233;er les diverses percussions.<A NAME="tex2html3"
+  HREF="#foot804"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Drum-Kick
+<BR>&nbsp;&nbsp;Tone KickDrum1 
+<BR>&nbsp;&nbsp;Sequence D1 
+<BR>
+End 
+<BR>&nbsp;
+<BR>
+Begin Drum-Snare 
+<BR>&nbsp;&nbsp;Tone SnareDrum1 
+<BR>&nbsp;&nbsp;Sequence S1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Drum-HH 
+<BR>&nbsp;&nbsp;Tone ClosedHiHat 
+<BR>&nbsp;&nbsp;Sequence C1 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A NAME="SECTION00512000000000000000">
+Le Bassiste</A>
+</H2>
+
+<P>
+Nous avons d&#233;j&#341; notre Batteur ; voyons ce que jouera le Bassiste dans notre G<SMALL>ROOVE</SMALL>.
+
+<P>
+<DIV ALIGN="CENTER">
+  <IMG WIDTH="80%"  SRC="mup/bass.png" ALT="Lost Image">
+
+</DIV>
+
+<P>
+Ce sont les notes que le Bassiste jouera sur un accord de Do.
+Il joue un joli petit riff en utilisant uniquement l'accord &#341; l'&#233;tat fondamental.
+
+<P>
+Il est assez simple d'adapter &#341; la basse, et dans la syntaxe de 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  , ce que nous avons
+appris pour cr&#233;er le pattern de la batterie.
+
+<P>
+Nous remontons dans notre fichier texte &#341; l'endroit o&#367; nous avons cr&#233;&#233; les patterns 
+de la batterie (la ligne apr&#269;s <TT><SPAN  CLASS="textbf">End</SPAN></TT>) et nous saisissons:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Bass Define 
+<BR>&nbsp;&nbsp;B1 1 4+8 1 90 ; 2.5 8 1 90 ; 3 8 1 90 ; 3.5 4 1 90 ; 4.5 8 1 90 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Vous avez sans doute reconnu le timing du riff, la dur&#233;e et la dynamique des notes. 
+Le seul &#233;l&#233;ment qui est diff&#233;re pour un bassiste, c'est que nous ajoutons la d&#233;finition du <SPAN  CLASS="textsl">pitch</SPAN> pour la note &#341; jouer.
+
+<P>
+La 1<SUP>&#269;re</SUP> note a une dur&#233;e de <TT><SPAN  CLASS="textbf">4+8</SPAN></TT> (noire point&#233;e)<A NAME="tex2html4"
+  HREF="#foot824"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>; 
+elle est aussi la base de l'accord et sa dynamique de 90<A NAME="tex2html5"
+  HREF="#foot810"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>.
+
+<P>
+Une derni&#269;re chose &#341; faire : ajouter le Bassiste &#341; la fin du fichier, comme nous l'avons fait pour la batterie.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Bass-Simple 
+<BR>&nbsp;&nbsp;Voice AcousticBass<A NAME="tex2html6"
+  HREF="#foot855"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> 
+<BR>&nbsp;&nbsp;Sequence B1 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A NAME="SECTION00513000000000000000">
+Le Pianiste</A>
+</H2>
+
+<P>
+Comme dans l'exemple pr&#233;c&#233;dent, nous ajouterons le Pianiste au G<SMALL>ROOVE</SMALL>, avec un simple riff.
+
+<P>
+<DIV ALIGN="CENTER">
+  <IMG WIDTH="80%"  SRC="mup/piano.png" ALT="Lost Image">
+
+</DIV>
+
+<P>
+Cr&#233;er des patterns pour le piano est un peu diff&#233;rent des autres instruments
+parce qu'on en joue (la plupart du temps) &#341; 2 mains. Nous voyons ci-dessous, 
+(en utilisant seulement un accord de Do), que notre pianiste jouera le deuxi&#269;me renversement de l'accord 
+avec sa main droite sur la dur&#233;e d'une blanche point&#233;e puis d'une noire; et avec la main gauche, 
+la base de l'accord au d&#233;but de la mesure, toujours pour une blanche point&#233;e.
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  dispose de 2 m&#233;thodes pour d&#233;finir cela. Ici, nous n'en verrons qu'une.
+
+<P>
+Nous allons d&#233;finir les 2 mains du pianiste s&#233;par&#233;ment.<A NAME="tex2html7"
+  HREF="#foot812"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>
+<P>
+Commen&#231;ons par le plus facile, la main gauche. 
+En fait, &#341; bien y r&#233;fl&#233;chir, il n'y a pas une grande diff&#233;rence entre les jeux du bassiste et de la main gauche d'un Pianiste. 
+Suivant cette logique, nous nous contenterons de d&#233;finir un nouveau pattern et nous l'assimilerons &#341; un <SPAN  CLASS="textsl">nouveau Bassiste</SPAN> appel&#233; <TT><SPAN  CLASS="textbf">Bass-LeftHandPiano</SPAN></TT>.
+
+<P>
+Nous savons d&#233;j&#341; faire cela.
+
+<P>
+Dans la partie pattern de notre G<SMALL>ROOVE</SMALL>, nous ajouterons :
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>L1 1 2+4 1 90  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Petit rappel : 1<SUP>er</SUP> temps, blanche point&#233;e, accord &#341; l'&#233;t&#233; fondamental, dynamique de 90.
+
+<P>
+Et nous cr&#233;ons le <SPAN  CLASS="textsl">nouveau Bassiste</SPAN>:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Bass-LeftHandPiano 
+<BR>&nbsp;&nbsp;Voice Piano1 
+<BR>&nbsp;&nbsp;Sequence L1 
+<BR>&nbsp;&nbsp;Octave 3 // Nouvelle commande simple &#341; comprendre 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Maintenant, la main droite. 
+Il faut qu'elle joue des accords plut&#244;t que de simple notes. 
+C'est exactement ce que nous allons demander &#341; 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  .
+
+<P>
+Sur le riff que nous avons choisi, nous voyons qu'elle joue le 1<SUP>er</SUP> renversement de l'accord, 
+mais pour que la prise en main de ce document reste simple, nous passerons outre et nous d&#233;finirons 
+l'accord &#341; l'&#233;tat fondamental.<A NAME="tex2html8"
+  HREF="#foot814"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A>
+<P>
+Nous retournons une nouvelle fois dans la partie patterns de notre G<SMALL>ROOVE</SMALL>
+et nous entrons la d&#233;finiton de l'accord en dessous des patterns de la basse.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Chord Define 
+<BR>&nbsp;&nbsp;C1 1 2+4 80 ; 4 4 80 <A NAME="tex2html9"
+  HREF="#foot873"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A>
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Comme vous le remarquez, la structure de la d&#233;finition des accords est un peu
+diff&#233;rente de ce que nous avons vu jusqu'ici.
+
+<P>
+La d&#233;finition des accords se fait comme suit: Nom (ici <TT><SPAN  CLASS="textbf">C1</SPAN></TT>), Temps (ici <TT><SPAN  CLASS="textbf">1</SPAN></TT>), 
+et la dynamique (ici <TT><SPAN  CLASS="textbf">80</SPAN></TT>). 
+Il est possible de sp&#233;cifier des dynamiques diff&#233;rentes pour chaque note composant un accord (voir page <A HREF="#sec-chordseq"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A> dans le <SPAN  CLASS="textsl">Manuel de R&#233;f&#233;rence</SPAN>) 
+et m&#281;me d'en d&#233;sactiver certaines notes ou de limiter la dur&#233;e de l'accord.
+
+<P>
+Enfin, nous cr&#233;ons la partie <SPAN  CLASS="textsl">main droite</SPAN> pour le piano.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Chord-RightHandPiano
+<BR>&nbsp;&nbsp;Voice Piano1
+<BR>&nbsp;&nbsp;Sequence C1 
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A NAME="SECTION00514000000000000000">
+Assemblage de tous les &#233;l&#233;ments</A>
+</H2>
+
+<P>
+Nous venons de cr&#233;er un trio qui jouera le batterie, la basse et le piano &#341; notre place.
+
+<P>
+Nous devons donner un nom &#341; ce nouveau G<SMALL>ROOVE</SMALL>. 
+C'est n&#233;cessaire pour pouvoir l'utiliser dans un morceau.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>DefGroove  Myrock1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+est ajout&#233; &#341; la fin du fichier.
+
+<P>
+Le fichier que nous venons de cr&#233;er ressemble &#341; ceci<A NAME="tex2html10"
+  HREF="#foot819"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A> :
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SeqClear
+<BR>&nbsp;&nbsp;SeqSize 1 
+<BR>&nbsp;&nbsp;Timesig 4 4 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Drum Define 
+<BR>&nbsp;&nbsp;D1 1 8 90 ; 2.5 8 90 ; 4 8 90 
+<BR>&nbsp;&nbsp;S1 2 8 90 ; 4 8 90 
+<BR>&nbsp;&nbsp;CH1 1 8 90 
+<BR>&nbsp;&nbsp;C1 CH1 * 8 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Bass Define 
+<BR>&nbsp;&nbsp;B1 1 4+8 1 90 ; 2.5 8 1 90 ; 3 8 1 90 ; 3.5 4 1 90 ; 4.5 8 1 90 
+<BR>&nbsp;&nbsp;L1 1 2+4 1 90 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Chord Define 
+<BR>&nbsp;&nbsp;C1 1 2+4 80; 4 4 80  
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Drum-Kick 
+<BR>&nbsp;&nbsp;Tone KickDrum1 
+<BR>&nbsp;&nbsp;Sequence D1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Drum-Snare 
+<BR>&nbsp;&nbsp;Tone SnareDrum1 
+<BR>&nbsp;&nbsp;Sequence S1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Drum-HH 
+<BR>&nbsp;&nbsp;Tone ClosedHiHat 
+<BR>&nbsp;&nbsp;Sequence C1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Bass-Simple 
+<BR>&nbsp;&nbsp;Voice AcousticBass  
+<BR>&nbsp;&nbsp;Sequence B1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Bass-LeftHandPiano 
+<BR>&nbsp;&nbsp;Voice Piano1 
+<BR>&nbsp;&nbsp;Sequence L1 
+<BR>&nbsp;&nbsp;Octave 3 // This a new command, but simple to understand 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+Begin Chord-RightHandPiano 
+<BR>&nbsp;&nbsp;Voice Piano1 
+<BR>&nbsp;&nbsp;Sequence C1 
+<BR>
+End 
+<BR>&nbsp;&nbsp;
+<BR>
+DefGroove Myrock1   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H1><A NAME="SECTION00520000000000000000">
+Comment utiliser notre premier G<SMALL>ROOVE</SMALL></A>
+</H1>
+
+<P>
+Enregistrez le fichier texte cr&#233;&#233; pr&#233;c&#233;demment dans le r&#233;pertoire de 
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  et nommez-le <TT><A NAME="tex2html12"
+  HREF="myrock.mma">myrock.mma</A></TT>.
+
+<P>
+Puis, demandez &#341; 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  de mettre &#341; jour sa base de donn&#233;es
+pour que notre nouveau G<SMALL>ROOVE</SMALL> soit trouv&#233;. 
+
+<P>
+Pour se faire, ouvrez l'invite de commande et entrez : $ <TT><SPAN  CLASS="textbf">mma -g</SPAN></TT>
+
+<P>
+Ouvrez un nouveau fichier texte pour cr&#233;er un morceau. Commencez la saisie par :
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Myrock1 
+<BR>
+Tempo 120
+<BR>&nbsp;
+<BR>// Entrez les accords ici  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Sauvegardez le fichier comme nous l'avons fait avec <TT>Mysong.mma</TT>.
+Cela vous a &#233;t&#233; expliqu&#233; dans la premi&#269;re partie de ce tutoriel.
+
+<P>
+
+<H1><A NAME="SECTION00530000000000000000">
+Qu'est-ce qu'on fait maintenant ?</A>
+</H1>
+
+<P>
+Le style que nous venons de cr&#233;er peut para&#238;tre simpliste et manquer d'originalit&#233;...
+une intro, un break, un final...
+pas de panique ! toutes ces choses sont possibles...mais vont au-del&#341; de simple prise en main de
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
+
+<P>
+A partir de maintenant, et avant de faire quoi que ce soit d'autre : <SPAN  CLASS="textbf">LISEZ LE MANUEL DE REFERENCE !</SPAN>
+C'est le meilleur conseil que vous pourrez recevoir.
+
+<P>
+L'auteur de ce programme a mis tous ses efforts dans d&#233;veloppement de ce logiciel, 
+afin qu'il soit aussi puissant et aussi flexible que possible. 
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  est le fruit de plusieurs ann&#233;es de travail... ne pensez donc pas le ma&#238;triser totalement en un jour !
+
+<P>
+Lisez aussi les fichiers README livr&#233;s avec la distribution.
+Vous y trouverez des renseignements utiles.
+<P>
+<SPAN  CLASS="textbf">Fa&#238;tes-vous plaisir avec 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> !</SPAN>
+
+<P>
+<BR><HR><H4>Notes</H4>
+<DL>
+<DT><A NAME="foot696">...</A><A
+ HREF="node5.html#tex2html1"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>Ce chapitre a &#233;t&#233; &#233;crit par Rony Steelandt de Kara Music Production
+
+</DD>
+<DT><A NAME="foot803">...</A><A
+ HREF="node5.html#tex2html2"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>Voir le <SPAN  CLASS="textsl">Manuel de R&#233;f&#233;rence</SPAN> de 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  , section <A HREF="#sec-drum"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
+pour plus de renseignements
+
+</DD>
+<DT><A NAME="foot804">...</A><A
+ HREF="node5.html#tex2html3"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>Voir le <SPAN  CLASS="textsl">Manuel de R&#233;f&#233;rence</SPAN> de 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  , section <A HREF="#drum-tone"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A> pour plus de renseignements.
+
+</DD>
+<DT><A NAME="foot824">...</A><A
+ HREF="node5.html#tex2html4"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>Lors de la sp&#233;cification de la dur&#233;e d'une note,
+les codes suivants sont &#233;quivalents : <TT><SPAN  CLASS="textbf">4+8</SPAN></TT>, <TT><SPAN  CLASS="textbf">4.</SPAN></TT>, <TT><SPAN  CLASS="textbf">8+8+8</SPAN></TT>.
+
+</DD>
+<DT><A NAME="foot810">... 90</A><A
+ HREF="node5.html#tex2html5"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DD>Voir le <SPAN  CLASS="textsl">Manuel de R&#233;f&#233;rence</SPAN> de 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  , section <A HREF="#sec-bass"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A> pour plus de renseignements.
+
+</DD>
+<DT><A NAME="foot855">... AcousticBass</A><A
+ HREF="node5.html#tex2html6"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
+<DD>Pour la batterie, nous utilisons T<SMALL>ONE</SMALL>, pour les autres instruments V<SMALL>OICE</SMALL>.
+
+</DD>
+<DT><A NAME="foot812">...</A><A
+ HREF="node5.html#tex2html7"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
+<DD>Comme souvent dans 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  , il y a plusieurs fa&#231;ons de d&#233;finir ce genre
+de pattern. Si vous &#281;tes curieux, consultez le <SPAN  CLASS="textsl">Manuel de R&#233;f&#233;rence</SPAN>, section <A HREF="#duproot"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>, page
+<A HREF="#duproot"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
+
+</DD>
+<DT><A NAME="foot814">...</A><A
+ HREF="node5.html#tex2html8"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A></DT>
+<DD>Si vous &#281;tes curieux au sujet des renversements des accords, consultez le <SPAN  CLASS="textsl">Manuel de R&#233;f&#233;rence</SPAN>,
+section <A HREF="#chord-invert"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>, page <A HREF="#chord-invert"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
+
+</DD>
+<DT><A NAME="foot873">...</A><A
+ HREF="node5.html#tex2html9"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A></DT>
+<DD>Ce n'est pas tout &#341; fait exact ; la 7<SUP>&#269;me</SUP> d'un accord de C7 serait aussi jou&#233;e,
+  mais cela d&#233;passe le cadre de ce tutoriel.
+
+</DD>
+<DT><A NAME="foot819">... ceci</A><A
+ HREF="node5.html#tex2html10"><SUP><SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A></DT>
+<DD>Si vous &#281;tes vraiment paresseux au point de ne pas vouloir taper le texte, 
+t&#233;l&#233;chargez le fichier ici <TT><A NAME="tex2html11"
+  HREF="http://www.kara-moon.com/MMA/tut1.mma">http://www.kara-moon.com/MMA/tut1.mma</A></TT>.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html86"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html84"
+  HREF="mma-tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html78"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> suivant:</B> <A NAME="tex2html87"
+  HREF="node6.html">&#192; propos de ce</A>
+<B> monter:</B> <A NAME="tex2html85"
+  HREF="mma-tutorial.html">Tutorial</A>
+<B> pr&eacute;c&eacute;dent:</B> <A NAME="tex2html79"
+  HREF="node4.html">Un exemple plus complexe</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+bob
+2010-12-31
+</ADDRESS>
+</BODY>
+</HTML>

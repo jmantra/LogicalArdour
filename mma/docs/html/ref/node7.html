@@ -1,0 +1,461 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Riffs</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node8.html">Musical Data Format</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node6.html">Grooves</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html548"
+  HREF="node7.html#SECTION00710000000000000000">DupRiff</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION00700000000000000000"></A> <A ID="sec-riff"></A> 
+ 
+ <A ID="riff"></A>
+<BR>
+Riffs
+</H1>
+
+<P>
+In previous chapters you were shown how to create a P<SMALL>ATTERN</SMALL>
+which becomes a part of a S<SMALL>EQUENCE</SMALL>. And how to set a musical
+style by defining a G<SMALL>ROOVE</SMALL>.
+
+<P>
+These predefined G<SMALL>ROOVE</SMALL>s are wonderful things. And, yes, entire
+accompaniment tracks can be created with just some chords and a single
+G<SMALL>ROOVE</SMALL>.  But, often a bit of variety in the track is needed.
+
+<P>
+The R<SMALL>IFF</SMALL> command permits the setting of an alternate pattern
+for any track for a single bar&ndash;this overrides the current
+S<SMALL>EQUENCE</SMALL> for that track.
+
+<P>
+The syntax for R<SMALL>IFF</SMALL> is very similar to that of D<SMALL>EFINE</SMALL>,
+with the exception that no pattern name is used. You might think of
+R<SMALL>IFF</SMALL> as the setting of an S<SMALL>EQUENCE</SMALL> with an anonymous
+pattern.
+
+<P>
+A R<SMALL>IFF</SMALL> is set with the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Track Riff Pattern  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+where:
+
+<P>
+<DL>
+<DT><STRONG>Track</STRONG></DT>
+<DD>is any valid 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  track name,
+
+<P>
+</DD>
+<DT><STRONG>Pattern</STRONG></DT>
+<DD>is any existing pattern name defined for the specified
+  track, or a pattern definition following the same syntax as a
+  D<SMALL>EFINE</SMALL>. In addition the pattern can be a single &ldquo;z&rdquo;,
+  indicating no pattern for the specified track.
+
+<P>
+</DD>
+</DL>
+
+<P>
+Following is a short example using R<SMALL>IFF</SMALL> to change the Chord Pattern:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Rhumba 
+<BR>
+1     Fm7 
+<BR>
+2     Bb7 
+<BR>
+3     EbM7 
+<BR>
+Chord Riff 1 4 100; 3 8 90; 3.666 8 80; 4.333 8 70 
+<BR>
+4     Eb6 / Eb 
+<BR>
+5 Fm7   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this case there is a Rhumba Groove for the song; however, in bar 4
+the melodic pattern is emphasized by chording a quarter-note triplet
+over beats 3 and 4. In this case the pattern has been defined right in
+the R<SMALL>IFF</SMALL> command.
+
+<P>
+The next example shows that R<SMALL>IFF</SMALL> patterns can be defined just
+like the patterns used in a sequence.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Define Emph8 1 0 128 * 8 
+<BR>
+Groove Blues 
+<BR>
+1  C 
+<BR>
+2  G 
+<BR>
+Drum-Clap Riff Emph8
+<BR>
+3  G 
+<BR>
+4  F 
+<BR>
+Drum-Clap Riff Emph8 
+<BR>
+5 C   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Here the <SPAN  CLASS="textit">Emph8</SPAN> pattern is defined as a series of eighth notes.
+This is applied for the third and fifth bars. If you compile and play this example
+you will hear a sporadic hand-clap on bar 3. The <SPAN  CLASS="textit">Drum-Clap</SPAN>
+track was previously defined in the Blues G<SMALL>ROOVE</SMALL> as random
+claps on beats 2 and 4&mdash;our R<SMALL>IFF</SMALL> changes this to a louder
+volume with multiple hits.
+
+<P>
+The special pattern &ldquo;z&rdquo; can be used to turn off a track for a single
+bar. This is similar to using a &ldquo;z&rdquo; in the S<SMALL>EQUENCE</SMALL>
+directive.
+
+<P>
+A few things to keep in mind when using R<SMALL>IFF</SMALL>s:
+
+<P>
+
+<UL>
+<LI>Each R<SMALL>IFF</SMALL> is in effect for only one bar (see the
+  discussion below about multiple R<SMALL>IFF</SMALL>s).
+
+<P>
+</LI>
+<LI>R<SMALL>IFF</SMALL> sequences are always enabled. Even if there is no
+  sequence for a track, or if the &ldquo;z&rdquo; sequence is being used, the
+  pattern specified in R<SMALL>IFF</SMALL> will apply.
+
+<P>
+</LI>
+<LI>The existing voicing, articulation, etc. for the track will
+  apply to the R<SMALL>IFF</SMALL>.
+
+<P>
+</LI>
+<LI>It's quite possible to use a macro for repeated R<SMALL>IFF</SMALL>s.
+  The following example  uses a macro which
+  sets the V<SMALL>OLUME</SMALL>, A<SMALL>RTICULATE</SMALL>, etc. as well as the
+  pattern. Note how the pattern is initially set as single whole note,
+  but, redefined in the R<SMALL>IFF</SMALL> as a run controlled by another
+  macro. In bar 2 an eight note run is played and in bar 5 this is
+  changed to a run of triplets.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Mset CRiff
+<BR>&nbsp;&nbsp;Begin Scale 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Define Run 1 1 120
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Riff Run * $SSpeed
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Voice AltoSax
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Volume f
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Articulate 80
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Rskip 5
+<BR>&nbsp;&nbsp;End
+<BR>
+MsetEnd
+<BR>
+Groove Blues
+<BR>
+1  C 
+<BR>
+Set SSpeed 8
+<BR>      $CRiff
+<BR>
+2  G 
+<BR>
+3  G 
+<BR>
+Set SSpeed 12 
+<BR>      $CRIFF
+<BR>
+5 C    </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</LI>
+<LI>A R<SMALL>IFF</SMALL> can only be deleted by using it (i.e., a music bar
+  follows the setting), with a S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL> or by a track D<SMALL>ELETE</SMALL>.
+
+<P>
+</LI>
+</UL>
+
+<P>
+R<SMALL>IFF</SMALL>s can also be used to specify a bar of music in a
+S<SMALL>OLO</SMALL> or M<SMALL>ELODY</SMALL> track. Please see <A HREF="node10.html#chap-solo">Solo and
+  Melody</A>.
+
+<P>
+The above examples show how to apply a temporary pattern to a single
+bar&mdash;the bar which follows the R<SMALL>IFF</SMALL> command.  But, you can
+&ldquo;stack&rdquo;<A ID="tex2html41"
+  HREF="#foot1335"><SUP><SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> a number of patterns to be processed sequentially. Each
+successive R<SMALL>IFF</SMALL> command adds a pattern to the stack; these
+patterns are then &ldquo;pulled&rdquo; from the stack as successive chord lines
+are processed.
+
+<P>
+Recycling an earlier example, let's assume that you want to use a
+customized pattern for bars 4 and 5 in a mythical song:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Rhumba 
+<BR>
+1     Fm7 
+<BR>
+2     Bb7 
+<BR>
+3     EbM7 
+<BR>
+Chord Riff 1 4 100; 3 8 90; 3.666 8 80; 4.333 8 70 
+<BR>
+Chord Riff 1 2 100; 3 8 90; 
+<BR>
+4     Eb6 / Eb 
+<BR>
+5 Fm7   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this example the first <SPAN  CLASS="textit">Chord Riff</SPAN> will be used in bar 4; the
+second in bar 5. For an example of this see the sample file
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">egs/riffs/riffs.mma</SPAN></SPAN>.
+
+<P>
+A great use of this feature is to create a number of lines for a S<SMALL>OLO</SMALL>.
+
+<P>
+
+<H1><A ID="SECTION00710000000000000000"></A> <A ID="dupriff"></A>
+<BR>
+DupRiff
+</H1> 
+
+<P>
+In the above section we discussed the creation of R<SMALL>IFF</SMALL>s. In
+addition to being fun and useful in a specified track, they
+can easily be duplicated between similar tracks with a single command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Solo DupRiff Solo-1 Solo-2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will copy any pending R<SMALL>IFF</SMALL> data in the S<SMALL>OLO</SMALL> track to the
+S<SMALL>OLO-1</SMALL> and S<SMALL>OLO-2</SMALL> tracks. 
+
+<P>
+A few rules:
+
+<P>
+
+<UL>
+<LI>All the tracks must be of the same type. You can't copy a
+  R<SMALL>IFF</SMALL> from C<SMALL>HORD</SMALL> track to a S<SMALL>OLO</SMALL>, etc.
+
+<P>
+</LI>
+<LI>The source track must have R<SMALL>IFF</SMALL> data to copy.
+
+<P>
+</LI>
+<LI>The destination track(s) must <SPAN  CLASS="textit">not</SPAN> have any pending
+  R<SMALL>IFF</SMALL> data.
+
+<P>
+</LI>
+</UL>
+
+<P>
+The use of the D<SMALL>UP</SMALL>R<SMALL>IFF</SMALL> makes it very easy to manage data for
+solos with multiple instruments. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Solo-1 
+<BR>&nbsp;&nbsp;	Voice Flute 
+<BR>&nbsp;&nbsp;	HarmonyOnly Open 
+<BR>
+End 
+<BR>&nbsp; 
+<BR>
+Begin Solo 
+<BR>&nbsp;&nbsp;	Voice Clarinet 
+<BR>&nbsp;&nbsp; Begin Riff 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; 2g+; f+; 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; 2e+; d+; 
+<BR>&nbsp;&nbsp;	End 
+<BR>
+End 
+<BR>&nbsp;
+<BR>
+Solo DupRiff Solo-1
+  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The above example creates two S<SMALL>OLO</SMALL> tracks. S<SMALL>OLO-1</SMALL> will
+only play the harmony notes; S<SMALL>OLO</SMALL> will play the melody. Without
+D<SMALL>UP</SMALL>R<SMALL>IFF</SMALL> you would need to duplicate the note data in both
+tracks, either line by line or with a macro. Using D<SMALL>UP</SMALL>R<SMALL>IFF</SMALL> is
+much simpler.
+
+<P>
+You can reverse the action of this command so that it copies data
+<SPAN  CLASS="textit">from</SPAN> an existing track to the current one with the use of the
+keyword F<SMALL>ROM</SMALL>:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Solo DupRiff From  Solo-1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+copies the R<SMALL>IFF</SMALL> data from S<SMALL>OLO-1</SMALL> and inserts it into
+S<SMALL>OLO</SMALL>. In this mode you can only from/to one track at a time.
+
+<P>
+To keep this direction stuff all neat and tidy, you can use the
+optional keyword T<SMALL>O</SMALL> to duplicate the default action.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Solo DupRiff To Solo-1 Solo-2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note: The D<SMALL>UP</SMALL>R<SMALL>IFF</SMALL> command <SPAN  CLASS="textit">only</SPAN> copies the riff that
+     has already been read into memory. You will still need to apply
+     the octave, harmony, etc. If you have used the S<SMALL>TRETCH</SMALL>
+     command you will need to apply that as well.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot1335">...
+&ldquo;stack&rdquo;</A><A
+ HREF="node7.html#tex2html41"><SUP><SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>Actually a queue or FIFO (First In, First Out)
+buffer.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node8.html">Musical Data Format</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node6.html">Grooves</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

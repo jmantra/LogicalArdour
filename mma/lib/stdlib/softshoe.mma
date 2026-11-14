@@ -1,0 +1,182 @@
+
+// softshoe
+
+Begin Doc
+
+ Syncopated ditty for the old dancers. Written for "Me and
+ My Shadow".
+  
+End
+
+Author Bob van der Poel
+
+Begin DocVar
+	  ChordVoice  Voice used in Chord tracks (defaults to Piano2).
+End
+
+If NDef ChordVoice
+   Set ChordVoice Piano2
+Endif
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////
+/// Basic Pattern
+
+SeqSize 4
+
+Begin Drum-Kick
+	Tone      KickDrum1
+	Sequence  D13
+	Volume    pp
+	Rtime     5
+	Rvolume   10
+End
+	 
+Begin Drum-Side
+	Tone      SideKick
+	Sequence  D24
+	Volume    pp
+	Rtime     10
+	Rvolume   10
+End
+
+
+Begin Drum-OHH
+	Tone      OpenHiHat
+	Sequence  { D13 ; D24 Shift .75 } / / {D1234 ; D12 Shift .75; D34 Shift .5}
+	Volume    pp
+    Volume    100%   100%   -10%    -20%
+	Rtime     2
+	Rvolume   10
+End
+
+Begin Bass
+	Voice     AcousticBass
+	Sequence  B13  /  /   z
+	Accent    1 20
+	Articulate 80
+	Octave    3
+	Volume    mp
+	Rtime 5
+	RVolume 5	
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Sequence z z z W1234
+	Articulate $_Bass_Articulate
+	Octave $_Bass_Octave
+	Volume $_Bass_Volume
+	Rtime $_Bass_Rtime
+	Rvolume $_Bass_Rvolume
+End
+
+Begin Chord
+	Voice $ChordVoice
+	Volume mp
+	Articulate 110 110 80 70
+	Octave 5
+	Sequence  C13 / {C134 ; C2 Shift .5} {C134; C23 Shift .5}
+	Rskip 5
+	Rvolume 10
+	Rtime 3
+End
+	
+DefGroove Softshoe  Nice little dance beat with ``shuffles'' on bar 3 and 4.
+
+Begin Arpeggio
+	Voice      Clarinet
+	Sequence   {A4 Shift .5; A2} A8 A4 {A2 Shift .5}
+    SeqRnd     On
+	Harmony    OpenAbove
+	Articulate 80
+	Octave     5
+	Range      1.8
+	Direction  Up
+	Rskip      50
+	Volume     p
+End
+
+DefGroove SoftShoePlus    Add a cool clarinet.
+
+////////////////////////
+/// Sustained version
+
+Groove Softshoe
+
+Begin Chord-Sus
+	Sequence  { 1 1 90 0 90 0 * 4 }
+	Voicing Mode=Optimal
+	Volume    p
+	Voice     Strings
+	Octave    5
+	Articulate 100
+	Unify     On
+End
+
+DefGroove SoftShoeSus     Add sustained strings.
+
+Begin Arpeggio
+	Groove  SoftShoePlus
+	Volume  pp
+	Articulate 70
+	Direction Down
+End
+	
+DefGroove SoftShoeSusPlus   Add the cool clarinet and strings.
+
+
+//////////////////////
+//// Intro
+
+Groove SoftShoe
+
+ 
+Drum-Side    Sequence  * * * D1
+Drum-OHH     Sequence  { D13 ; D24 Shift .75 } / / D13
+
+Bass         Sequence  B13 / / {1 4 5 90; 2 4 4 90; 3 4 3 90; 4 4 2 90}
+Walk         Sequence -
+
+Chord        Sequence  * * * L1
+	
+
+DefGroove SoftShoeIntro   A 4 bar introduction.
+
+Groove  SoftShoe
+SeqSize 8
+
+
+Drum-Side    Sequence  * * * * * * * D1
+Drum-OHH     Sequence  { D13 ; D24 Shift .75 } / / / / / / D13
+
+Bass         Sequence  B13 / / / / / / {1 4 5 90; 2 4 4 90; 3 4 3 90; 4 4 2 90}
+Walk         Sequence -
+
+Chord        Sequence  * * * * * * * L1
+	
+DefGroove SoftShoeIntro8   Same intro over 8 bars.
+
+////////////////////////
+//// Ending
+
+Groove SoftShoe
+
+SeqSize 2
+
+	 
+Drum-Side  	Sequence  * D1
+Drum-OHH    Sequence  D8  D12
+
+Bass        Sequence  {1 4 5 90; 2 4 4 90; 3 4 3 90; 4 4 2 90} {1 2 1 90}
+Walk        Sequence  -
+
+Chord       Sequence  C13 L1
+
+	
+DefGroove SoftShoeEnd   2 bar ending with nice walk on first bar.

@@ -1,0 +1,286 @@
+
+// charleston
+
+Begin Doc
+
+ The Charleston is a fast (200 to 300 bpm) dance from the 1920s. This version
+ uses traditional instrumentation to keep it sounding a bit authentic. 
+ Written for the song ``Charleston''.
+ 
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+//////////////////////////////////////////////////////////
+// Charleston
+
+
+SeqSize 2
+	
+
+Begin Drum-Snare
+    Tone Snaredrum1
+	Volume p
+	Rtime 5
+	Rvolume 10
+	Sequence {1 0 90; 2 0 90; 2.66 0 90; 3 0 90; 4 0 90; 4.66 0 90}
+End
+
+Begin Drum-Kick
+	Sequence D1
+	Tone KickDrum1
+	Volume f
+	Rvolume 10
+	Rtime 10
+End
+
+Begin Bass
+    Voice Tuba
+	Volume m
+	Articulate 80
+	Octave 3
+	Sequence { 1 4 1 90; 3 4 5 90}
+	Accent 1 10
+End
+
+Begin Chord-Guitar
+    Voice JazzGuitar
+	Octave 5
+	Articulate 90
+	Volume m
+	Voicing Mode=Optimal
+	Sequence  {1 4 90; 2.5 2. 90}
+End
+
+DefGroove Charleston   Basic Charleston rhythm.
+
+Groove Charleston
+
+Chord-Guitar Sequence {1 4 90; 2.5 8 90}
+
+DefGroove Charleston1   Basic rhythm with snappier guitar.
+
+
+Groove Charleston
+
+Begin Chord-Guitar
+    Articulate 70
+	Accent 1 10 4 10
+	Sequence {1 8 90; 1.5 8 90; 2.5 4 90; 3.5 8 90; 4 8 90; 4.5 8 90}
+End
+
+DefGroove Charleston2   Basic rhythm with complex guitar.
+
+/////////////////////////////////////////
+//// Walking bass versions of the above.
+
+Groove Charleston
+SeqSize 4
+
+Bass Sequence -
+
+Begin Walk
+    Voice $_Bass_Voice
+	Volume $_Bass_Volume
+	Articulate 80
+	Direction Down
+	Octave $_Bass_Octave
+	Sequence W13   /   /   {1 4 100; 2.5 8 80; 3 8 90; 4 4 100}
+End
+
+DefGroove CharlestonWalk   Basic with walking bass.
+
+Groove Charleston1
+SeqSize 4
+
+Bass Sequence -
+
+Walk Groove CharlestonWalk
+
+DefGroove Charleston1Walk   Snappy with walking bass.
+
+Groove Charleston2
+SeqSize 4
+
+Bass Sequence -
+
+Walk Groove CharlestonWalk
+
+DefGroove Charleston2Walk   Complex with walking bass.
+
+
+///////////////////////////////////
+/// Sustained sax section
+
+
+Groove Charleston
+
+Begin Chord-sus
+	Voice AltoSax
+	Sequence { 1 1 80 0 50 0 * 4 } { 1 1 50 0 80 0 * 4 }
+	SeqRnd On
+	Duproot -1
+	Voicing Mode=Optimal
+	Rvolume 10
+	Articulate 100
+	Unify On
+	Volume mp
+	Octave 5
+End
+
+DefGroove CharlestonSus   Basic with sustained sax section.
+
+Groove Charleston1
+Chord-sus Groove CharlestonSus
+DefGroove Charleston1Sus   Snappy guitar with saxes.
+
+Groove Charleston2
+Chord-sus Groove CharlestonSus
+DefGroove Charleston2Sus   Complex guitar with saxes.
+
+/// Sustain with walk
+
+Groove CharlestonWalk
+Chord-sus Groove CharlestonSus
+DefGroove CharlestonWalkSus    Basic walk with saxes.
+
+Groove Charleston1Walk
+Chord-sus Groove CharlestonSus
+DefGroove Charleston1WalkSus   Snappy walking with saxes.
+
+Groove Charleston2Walk
+Chord-sus Groove CharlestonSus
+DefGroove Charleston2WalkSus   Complex walking with saxes.
+
+///////////////////////////////////
+// Plus versions feature arpeggiated piano
+
+Groove Charleston
+
+Begin Arpeggio
+   Voice Piano2
+   Octave 5
+   Volume m
+   Articulate 80
+   Rskip 10  4
+   Range 2
+   Harmony OpenBelow
+   SeqRnd On
+   Sequence {1 4 90; 2 8 90; 2.5 8 90; 3 8 90; 3.5 8 90; 4 4 90} {1 4. 90; 3 4. 90} 
+End
+
+DefGroove CharlestonPlus    Basic with piano.
+
+Groove Charleston1
+Arpeggio Groove CharlestonPlus
+DefGroove Charleston1Plus    Snappy with piano.
+
+Groove Charleston2
+Arpeggio Groove CharlestonPlus
+DefGroove Charleston2Plus    Complex with piano.
+
+
+//// Walking Plus
+
+Groove CharlestonWalk
+Arpeggio Groove CharlestonPlus
+DefGroove CharlestonWalkPlus   Basic walking with piano.
+
+Groove Charleston1Walk
+Arpeggio Groove CharlestonPlus
+DefGroove Charleston1WalkPlus   Snappy walking with piano.
+
+
+Groove Charleston2Walk
+Arpeggio Groove CharlestonPlus
+DefGroove Charleston2WalkPlus   Complex walking with piano.
+
+
+//// Sustained Plus
+
+
+Groove CharlestonPlus
+Chord-sus Groove CharlestonSus
+DefGroove CharlestonSusPlus   Basic with saxes and piano.
+
+Groove Charleston1Plus
+Chord-sus Groove CharlestonSus
+DefGroove Charleston1SusPlus   Snappy with saxes and piano.
+
+
+Groove Charleston2Plus
+Chord-sus Groove CharlestonSus
+DefGroove Charleston2SusPlus   Complex with saxes and piano.
+
+/// Walking Sus Plus
+
+
+Groove CharlestonWalkPlus
+Chord-sus Groove CharlestonSus
+DefGroove CharlestonWalkSusPlus   Basic walking with saxes and piano.
+
+Groove Charleston1WalkPlus
+Chord-sus Groove CharlestonSus
+DefGroove Charleston1WalkSusPlus   Snappy walking with saxes and piano.
+
+
+Groove Charleston2WalkPlus
+Chord-sus Groove CharlestonSus
+DefGroove Charleston2WalkSusPlus   Complex walking with saxes and piano.
+
+
+////////////////////////////////////////////
+//// Introduction
+
+
+Groove Charleston
+SeqSize 4
+
+Drum-Snare     Sequence  *  *  D8   D1
+Drum-Kick      Sequence  *  *  D13  D1
+
+Bass           Sequence  *  *  *   {1 2 1 100}
+Chord-Guitar   Sequence  *  *  {1 4 90; 2.5 8 90}  L1
+
+DefGroove CharlestonIntro   Simple 4 bar introduction.
+
+Groove Charleston
+SeqSize 8
+
+Drum-Snare     Sequence  *  *  *  *  *   *  D8   D1
+Drum-Kick      Sequence  *  *  *  *  *   *  D13  D1
+
+Bass           Sequence  *  *  *  z  *   *  z     z
+
+Begin Walk
+  Groove CharlestonWalk
+  Sequence  z  z  z  W13  z   z  W13   W1234
+End
+
+Chord-Guitar   Sequence  *  *  *  *  *   * {1 4 90; 2.5 8 90}  L1
+
+DefGroove CharlestonIntro8   Simple 8 bar introduction.
+
+
+////////////////////////////////////////////
+/// Ending
+
+Groove Charleston
+
+Drum-Snare     Sequence  D8   D1
+Drum-Kick      Sequence  D1
+
+Bass           Sequence  *   {1 2 1 100}
+Chord-Guitar   Sequence  *   L1
+
+DefGroove CharlestonEnd  Simple 2 bar ending.
+
+
+
+

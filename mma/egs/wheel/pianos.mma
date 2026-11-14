@@ -1,0 +1,34 @@
+// Demo to show how to play a solo using 2 pianos at the same
+// time. They are duplicated completely. The 2nd time though
+// we detune one (using pitch bend) to get a "bigger" sounds.
+
+Repeat
+
+Begin Solo
+    Voice Piano1
+    Octave 5
+    /// everything else is default
+    /// A simple "melody" ...  a 2 bar scale
+    Begin Riff
+        4c;d;e;f;
+        4g;a;b;c+;
+    End
+End
+
+Begin Solo-1
+    Copy Solo
+    Begin Riff
+        4c;d;e;f;
+        4g;a;b;c+;
+    End
+End
+
+z * 2
+
+// For the 2nd time we set the pitchbend
+Solo-1 MidiWheel Set=0x2040
+
+RepeatEnd
+
+// And clear it at the end, just in case
+Solo-1 MidiWheel Reset   

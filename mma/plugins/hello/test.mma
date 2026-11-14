@@ -1,0 +1,35 @@
+// A first test for plugins 
+// Run with mma -e plugtest to see what's happening
+
+Plugin Hello     // load the plugin
+
+// This tells use what plugins are loaded. It should
+// just display "@HELLO"
+
+print Registered Plugins: $_Plugins
+
+// This call to the plugin displays a message and a list
+// of the args in the call
+
+@hello Cm EM G7
+
+// There are 2 entry points to the plugin. The non-track
+// call (above) really doesn't do anything other than echo
+// the user parameters. The track variant returns some values
+// to MMA in the form of print statements. 
+
+// We need a track for this to work.
+
+Chord Sequence {1 1 90 * 4}
+
+// display the current settings
+print
+print For the chord track we have an octave of $_Chord_Octave and voice of $_Chord_Voice 
+print
+
+// Call track version of plug
+
+Chord @Hello
+
+print
+print The plugin has changed the octave to $_Chord_Octave and voice to $_Chord_Voice 

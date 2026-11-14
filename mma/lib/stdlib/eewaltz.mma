@@ -1,0 +1,170 @@
+// eewaltz
+
+Begin Doc 
+
+   A try at doing something for traditional Slavic, dreary waltzes. We're
+   using a name convention "Eastern European Waltz" simply because "EE" is
+   much shorter than "Russian"). This was written for "Dark Eyes". Note: For
+   strumming we emulate a balalaika which has 3 strings. We using a EEA
+   (Prima) tuning, but you can change this if you want.
+
+End
+  
+Author Bob van der Poel
+
+SeqClear
+Time 3
+Timesig 3 4
+Include stdpats34
+
+SeqSize 24
+
+/// Bass is important. First version has a 2 bar pattern
+/// with a bass on beat 1. Alternates betweed root and 5.
+
+Begin Bass
+    Voice AcousticBass
+    Volume mf
+    Rvolume 10
+    Rtime 5
+    Articulate 110
+    Octave 3
+    Sequence {1 4 1 90;} {1 4 5 90;}
+End
+
+Begin Plectrum
+    Tuning e e a
+	Voice Koto
+	Volume m
+    Articulate 5
+    Octave 5
+    Rskip 10
+    Sequence {2 -3 80; 2.5 -3 60; 3 -5 90; }
+End
+
+DefGroove EEWaltz   A basic waltz for Slavic love tunes.
+
+// A walking bass version
+
+Groove EEWaltz
+
+Bass Sequence -
+
+Begin Walk
+    Voice $_Bass_Voice
+    Octave $_Bass_Octave
+    Volume $_Bass_Volume
+    Sequence W123
+    Accent 1 40   // emphasis on beat 1
+    Volume -20%   // reduce overall volume (copied) to adjust for beat 1 accent
+    Articulate 80
+    Rtime 20
+    Rvolume 20
+    Rduration -20,0   // duration adjust: -20% less to same, never longer
+    Rskip   Beats=2,3 10  /// skip occassion hits on 2 and 3, never 1
+End
+
+DefGroove EEWaltzWalk  /// change the bass to 3 beat walk
+
+//////////////////////////////////////////////////////////////////////
+////  A plus version with solo
+
+
+Groove EEWaltz
+
+Begin Arpeggio
+    Voice      $_Plectrum_Voice
+    Octave     7
+	Volume     mf
+	Direction  Random
+	Range      .5
+    Harmony    OpenBelow
+	Sequence   {1 2 90; 2 4 80; 3 4 80;} A6 {1 2 90; 2 4 80; 2.5 4 80; 3 2 70} A12 
+	Rskip      70
+	SeqRnd     On
+	Articulate 110
+End
+
+Plectrum Sequence {2 -3 80; 3 -5 90; }
+
+DefGroove EEWaltzPlus    Lighten up on the chords and add in some random improve.
+
+Groove EEWaltzPlus
+Bass Sequence -
+Walk Groove EEWaltzWalk
+
+DefGroove EEWaltzWalkPlus  Exchange regular bass for walking.
+
+//////////////////////////////////////////////
+/// A sort-of sustained version
+
+Groove EEWaltz
+
+
+Begin Chord-sus
+    /// Start just before the beat, play only 1 & 5, toggle volume of
+    ///  the 2 notes being played.
+	Sequence	{ 1.9 2 90 0 50 0} { 1.9 2 50 0 90 0 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+    Rtime 10
+	Voice Bandoneon 
+	Articulate 110
+	Volume p
+	Octave 5
+End
+
+Plectrum Sequence {2 -3 80; 3 -5 90; }
+
+DefGroove EEWaltzSus  Not quite a sustain since the accordion notes start just before beat 2.
+
+Groove EEWaltzSus
+
+Bass Sequence -
+Walk Groove EEWaltzWalk
+
+DefGroove EEWaltzWalkSus Same sustain with a walking bass.
+
+///////////////////////////////////////////
+////   Introductions
+
+Groove EEWaltz
+
+Begin Plectrum
+    Sequence {1 -20 80; } / / {1 -40 70}
+End
+
+Begin Bass
+    Volume mf m mp p
+End
+DefGroove EEWaltzIntro   /// A 4 bar intro
+
+//// Intro with a walking bass
+
+Groove EEWaltzWalk
+
+Begin Walk
+  Volume mf m mp p
+  Sequence  * * * { 1 1 70; }
+End
+Plectrum Sequence  {1 4 90; 2 4 80; 3 4 70} / / {1 4 90;}
+
+DefGroove EEWaltzIntroWalk  /// A 4 bar intro with walking bass
+
+/////////////////////////////////////////////////////////
+//// Ending
+
+Groove EEWaltz
+
+Seqsize 2
+
+Bass Sequence {1 2 1 90;} {1 2 5 60;}  // make the bass notes longer
+
+Plectrum Sequence {2 -3 80; } {1.8 -5 70}
+
+DefGroove EEWaltzEnd   A 2 bar ending
+
+    
+
+

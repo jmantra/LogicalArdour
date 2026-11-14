@@ -1,0 +1,219 @@
+
+// mambo
+
+Begin Doc
+
+	The Mambo was popularized by the great Cuban bandleader Perez Prado.
+	The sample song ``Patricia, It's Patricia'' is a decent demo.
+	This file was mostly developed from the patterns in``Latin Rhythms: Mystery Unraveled''
+	by Victor Lopez. The variations in this file are mostly borrowed from the
+	Rhumba library.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+SeqSize 2
+
+Begin Drum-Clave
+	Tone Claves
+	Volume mf
+	Sequence Clave2 Clave3
+	Rvolume 10
+	Rtime 5
+End
+
+Begin Drum-Cow
+	Tone CowBell
+	Volume mf
+	Sequence  {D1234; D3 Shift .5} {D12; D23 Shift .5}
+	Rvolume 10
+	Rtime 5
+End
+
+Begin Drum-Bell
+	Tone RideBell
+	Volume p
+	Rvolume 10
+	Rtime 5
+	Sequence {D1234; D34 Shift .5} { D234; D124 Shift .5}
+End
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Volume m
+	Rvolume 10
+	Rtime 5
+	Sequence D2
+End
+
+Begin Drum-HConga
+	Tone OpenHighConga
+	Volume mp
+	Rvolume 10
+	Rtime 2
+	Sequence {1 0 90; 1.5 0 90; 3.5 0 90} {1 0 90; 1.5 0 90; 2.5 0 90; 3.5 0 90; 4.5 0 90}
+End
+
+Begin Drum-LConga
+	Tone LowConga
+	Volume mp
+	Rvolume 10
+	Rtime 2
+	Sequence {2 0 90; 2.5 0 90; 3 0 90; 4 0 90; 4.5 0 90} {2 0 90; 3 0 90; 4 0 90}
+End
+
+
+Begin Chord
+	Voice Piano2
+	Octave 5
+	Volume m
+	Articulate 80
+	Voicing Mode=Optimal
+	Define Broken 1 8 90; 1.5 8 0 90 0; 2 8 0 0 90; 2.5 8 90
+	Sequence { Broken; Broken Shift 2 }
+End
+
+Begin Arpeggio
+	Voice $_Chord_Voice
+	Octave 4
+	Volume mp
+	Articulate 77
+	Sequence A8
+	Range 1
+End
+
+Begin Bass
+	Voice JazzGuitar
+	Volume ff
+	Octave 3
+	Articulate 80
+	Sequence {1 4. 1 90; 2.5 4. 5 90; 4 2 1+ 90}
+End
+
+DefGroove Mambo   Basic rhythm.
+
+// Variation 1
+
+Groove Mambo
+Seqsize 4
+Begin Arpeggio
+	Sequence    A4  A8  A4  A8
+	Invert      0   0   1   1
+	SeqRnd On
+	Voice PizzicatoString
+	Articulate 110
+	Octave 5  6
+	Volume mf
+	Rvolume 10
+	Rskip  20
+End
+
+DefGroove Mambo1	Adds pizzicato arpeggios.
+
+/////  Variation 2
+
+Groove Mambo
+
+Begin Chord-Mallet
+	Voice Marimba
+	Sequence  {C1234; C1234 Shift .2; C1234 Shift .4; C1234 Shift .6; C1234 Shift .8} \
+              {C24; C24 Shift .2; C24 Shift .4 ; C24 Shift .6; C24 Shift .8}
+	Articulate 60
+	Voicing  Mode=Optimal
+	Octave 6
+	DupRoot -1
+	Accent 1 40
+	Volume p
+End
+
+DefGroove Mambo2    Add articulated Marimbas.
+
+///// Variation 3
+
+Groove Mambo
+SeqSize 4
+Begin Chord-Guitar
+	Voice JazzGuitar
+	Sequence  C1234 C134 C24 C13
+	SeqRnd On
+	Voicing  Mode=Optimal
+	Articulate 110
+	Octave 6
+	Accent 1 20 3 20
+	Volume p
+End
+
+DefGroove Mambo3    Add jazz guitar chords.
+
+//////// Sustained versions
+
+Groove Mambo
+Alltracks Volume -20%
+Begin Chord-Sus
+	Sequence	{ 1 1 90 0 50 0 * 4 } { 1 1 50 0 90 0 * 4 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+	Voice Strings
+	Articulate 110
+	Unify On
+	Volume mp
+	Octave 5
+End
+
+DefGroove MamboSus         Sustained version.
+
+Groove Mambo1
+Alltracks Volume -20%
+Chord-Sus Groove MamboSus
+DefGroove Mambo1Sus         Sustain and pizzicato arpeggios.
+
+Groove Mambo2
+Alltracks Volume -20%
+Chord-Sus Groove MamboSus
+DefGroove Mambo2Sus         Sustain and articulated Marimbas.
+
+Groove Mambo3
+Alltracks Volume -20%
+Chord-Sus Groove MamboSus
+DefGroove Mambo3Sus         Sustain and guitar chords.
+
+////// Intro
+
+Groove Mambo
+SeqSize 4      // change from 2 bar pattern to 4
+
+Drum-Clave	 Sequence  D1    D1   Clave2   D12
+Drum-Cow     Sequence  D13   *    *        D1
+Drum-Bell    Sequence  D2    *    *        D2
+Drum-Snare   Sequence  D24   /    /        D12
+Drum-HConga  Sequence  *     *    *        z
+Drum-LConga  Sequence  *     *    *        z
+Chord        Sequence  L1    *    *        {L1; L1 Shift .5; L1 Shift 1}
+Arpeggio     Sequence  z     z    *        z
+Bass         Sequence  *     *    *        {1 1 1 90}
+
+DefGroove MamboIntro      4 bar intro with a bit of a cha-cha on 4.
+
+//// Ending
+
+Groove Mambo
+
+Drum-Clave	 Sequence  Clave2   D1
+//  Drum-Cow    no change
+Drum-Bell    Sequence  D1234    D1
+// Drum-Snare no change
+Drum-HConga  Sequence  *        D1
+Drum-LConga  Sequence  *        D1
+Chord        Sequence  {L1; L1 Shift .5; L1 Shift 1}  C13
+Arpeggio     Sequence           z
+Bass         Sequence  {1 4 5 90; 2 4 4 90; 3 4 3 90; 4 4 2 90}  {1 1 1 90}
+
+DefGroove MamboEnd   That's the end!

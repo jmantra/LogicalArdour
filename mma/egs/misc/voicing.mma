@@ -1,0 +1,56 @@
+// This shows the effects of various voicing options.
+// Each chord is played 4x with voicing set to None, Optimal, Key and Key2.
+
+// First off, set the key signature. This makes a LOT of difference when
+// using KEY or KEY2. No difference at all for OPTIMAL or NONE.
+// Try changing the keysig to hear the differences!
+
+Keysig C
+Tempo 100
+Seqsize 4   /// don't change this
+
+// This forces an arpeggio so we can hear the effects.
+// Set to 0 if you want full on chords.
+Set Strum 50
+
+// A seqeunce to use in all the bars.
+// Using a define ensures each bar is the same
+Chord Define SS  1 2 90
+
+// Now we define 4 different tracks, one for each bar in the seq.
+
+Begin Chord-1        /// no voicing
+    Strum $Strum
+    Sequence SS  z  z  z
+    Voicing Mode=None
+End
+
+Begin Chord-2        /// Optimal
+    Strum $Strum
+    Sequence z  SS  z  z
+    Voicing Mode=Optimal
+End
+
+Begin Chord-3       ///  Key
+    Strum $Strum
+    Sequence z  z  SS  z
+    Voicing Mode=Key
+End
+
+Begin Chord-4      /// Key2
+    Strum $Strum
+    Sequence z  z  z SS
+    Voicing Mode=Key2
+End
+
+/// Finally, our chords...
+
+C9   * 4
+C11  * 4
+C13  * 4
+C7   * 4
+
+
+
+
+

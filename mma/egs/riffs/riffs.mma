@@ -1,0 +1,76 @@
+// Demo file for RIFFS.
+
+// This is just the 4 bar intro a few lines from the
+// song "As Time Goes By".
+
+// Set up the time, do a metronome and set the key signature
+Tempo 80
+Groove Metronome2-4
+	z * 2
+
+Keysig 3b
+
+// The initial groove is SlowJazz1Sus. This has a arpeggio in it
+// which we overwrite. The 'RIFFS' set up an 8 note arp. for the
+// first bar, 1/4s for the 2nd and 1/2s for 3 and 4. We also change
+// the voicing and use some midi trickery.
+
+Groove SlowJazz1Sus
+
+Begin Arpeggio
+	Volume f 
+	Voice Strings
+	Articulate 75
+	MidiVoice {1 ReleaseTime 80 } z
+	MidiClear 1 ReleaseTime 0 
+
+	Begin Riff
+		1 1 90 * 8
+		1 1 90 * 4
+		1 1 90 * 2
+		1 1 90 * 2 
+	End
+End
+
+// The 'SOLO' is apreggio sounding, but done as a melody line.
+// This is supposed to contrast with the auto arpeggios above.
+// Again, we use RIFFS to define for the 4 bars.
+
+Begin Solo
+	Voice Piano1
+	Volume mf
+	Harmony 2Above
+	Accent 1 10 3 10
+	Articulate 99
+	
+	Begin Riff
+		8e;f;g;a;b;a;g;f;
+		8e;f;g;a;4g;f;
+		8f;g;a;b;4a;f;
+		2.e;
+	End
+End
+
+1       Eb   
+2       Abm  
+3       Bb7  
+4       Eb   
+
+// We've used up the SOLO and ARPEGGIO RIFF lines. 
+// The DELETE forces the MIDICLEAR as well, but it's not
+// really needed here. Just a neat place to do it.
+
+Delete Solo Arpeggio
+
+// Now, normal chording.
+
+Groove SlowJazz
+
+5       Fm7   /     Bb7  
+6       Bbm6  /     Bb7  
+7       Eb    Bb+   Eb   
+8       /     /     /     Gm   
+9       F7   
+10      Bb7sus4 Bb7   Fm7   Bb7  
+
+// ....... much more chording.

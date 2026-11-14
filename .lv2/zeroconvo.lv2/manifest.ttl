@@ -1,0 +1,88 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix zcpset: <http://gareus.org/oss/lv2/zeroconvolv/pset#> .
+
+<http://gareus.org/oss/lv2/zeroconvolv#Mono>
+	a lv2:Plugin;
+	lv2:binary <zeroconvolv.so>;
+	rdfs:seeAlso <zeroconvolv.ttl>.
+
+<http://gareus.org/oss/lv2/zeroconvolv#CfgMono>
+	a lv2:Plugin;
+	lv2:binary <zeroconvolv.so>;
+	rdfs:seeAlso <zeroconvolv.ttl>.
+
+<http://gareus.org/oss/lv2/zeroconvolv#Stereo>
+	a lv2:Plugin;
+	lv2:binary <zeroconvolv.so>;
+	rdfs:seeAlso <zeroconvolv.ttl>.
+
+<http://gareus.org/oss/lv2/zeroconvolv#CfgStereo>
+	a lv2:Plugin;
+	lv2:binary <zeroconvolv.so>;
+	rdfs:seeAlso <zeroconvolv.ttl>.
+
+<http://gareus.org/oss/lv2/zeroconvolv#MonoToStereo>
+	a lv2:Plugin;
+	lv2:binary <zeroconvolv.so>;
+	rdfs:seeAlso <zeroconvolv.ttl>.
+
+<http://gareus.org/oss/lv2/zeroconvolv#CfgMonoToStereo>
+	a lv2:Plugin;
+	lv2:binary <zeroconvolv.so>;
+	rdfs:seeAlso <zeroconvolv.ttl>.
+
+<http://gareus.org/oss/lv2/zeroconvolv#ir>
+	a lv2:Parameter;
+	rdfs:label "Impulse Response";
+	rdfs:range atom:Path.
+
+<http://gareus.org/oss/lv2/zeroconvolv#gain>
+	a lv2:Parameter;
+	rdfs:label "Signal Level Gain";
+	rdfs:range atom:Float.
+
+<http://gareus.org/oss/lv2/zeroconvolv#sum_inputs>
+	a lv2:Parameter;
+	rdfs:label "Downmix stereo input (only useful with true-stereo varian)";
+	rdfs:range atom:Bool.
+
+<http://gareus.org/oss/lv2/zeroconvolv#predelay>
+	a lv2:Parameter;
+	rdfs:label "Pre-delay";
+	rdfs:range atom:Int.
+
+<http://gareus.org/oss/lv2/zeroconvolv#channel_gain>
+	a lv2:Parameter;
+	rdfs:label "Gain per channel";
+	rdfs:range atom:Vector.
+
+<http://gareus.org/oss/lv2/zeroconvolv#channel_predelay>
+	a lv2:Parameter;
+	rdfs:label "Pre-delay per channel";
+	rdfs:range atom:Vector.
+
+<http://gareus.org/oss/lv2/zeroconvolv#artificial_latency>
+	a lv2:Parameter;
+	rdfs:label "Artificial latency to be announced to the host (inverse pre-delay, useful for FIR filters)";
+	rdfs:range atom:Int.
+
+<http://harrisonconsoles.com/lv2/routing#connectAllOutputs>
+	a lv2:Feature .
+
+zcpset:noopMono
+	a pset:Preset;
+	lv2:appliesTo <http://gareus.org/oss/lv2/zeroconvolv#Mono>;
+rdfs:seeAlso <presets.ttl> .
+
+zcpset:noopMonoToStereo
+	a pset:Preset;
+	lv2:appliesTo <http://gareus.org/oss/lv2/zeroconvolv#MonoToStereo>;
+rdfs:seeAlso <presets.ttl> .
+
+zcpset:noopStereo
+	a pset:Preset;
+	lv2:appliesTo <http://gareus.org/oss/lv2/zeroconvolv#Stereo>;
+rdfs:seeAlso <presets.ttl> .

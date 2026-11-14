@@ -1,0 +1,253 @@
+
+// rb-ballad.mma
+
+Begin Doc
+	Rythmn and Blues ballad. Based on the R&B style, just made
+    softer and prettier. Done for "Mercy, Mercy, Mercy".
+End
+ 
+  
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////////////
+
+SeqSize 4
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence  {D13; D34 Shift .5}
+	Volume p
+	Accent 1 10 3 10
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Drum-Clap
+	Tone HandClap
+	Sequence  D4
+	Volume mp
+	Rskip 10
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Drum-Snare
+	Tone SnareDrum2
+	Sequence  D13
+	Volume p
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Drum-Ride
+	Tone RideCymbal1
+	Sequence  D1234
+	Rskip 10
+	Volume p
+	Accent 1 10 3 10
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Drum-Tam
+	Tone Tambourine
+	Sequence  D14
+	Rskip 5
+	Volume p
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Chord
+	Voice Piano2
+	Sequence   {C134 Shift .5; C3} {C4 Shift .5}  C134   C13
+	Rtime 10
+	Rvolume 10
+	Octave 5
+	Volume mp
+	Voicing  Mode=Optimal	
+End
+
+Begin Chord-Organ
+	Voice Organ1
+	Sequence	{C2; C24 Shift .5}   C13   C24    C134
+	DupRoot -2
+	Articulate  60
+	Rtime 10
+	Rvolume 10
+	Octave 4
+	Volume pp  ppp
+End
+
+
+Begin Bass
+	Voice AcousticBass
+	Octave 3
+	Articulate 70
+	Volume mf
+	Rtime 10
+	Rvolume 10
+	Sequence    {1 4 1 90; 2.5 8 1 90; 3 8 3 90; 4 4 1 90 } z   B13   z
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Articulate $_Bass_Articulate
+	Volume $_Bass_Volume
+	Rtime $_Bass_Rtime
+	Rvolume $_Bass_RVolume
+	Sequence    z {1 4 90; 2.5 8 90 ; 3 8 90;  4 8 90; 4.5 8 90 }  z  {1 2 90; 3 2 90}
+End
+
+DefGroove R&B-Ballad    Basic R&B Ballad.
+
+
+/// Sustained, take out rhythmic organ
+
+Begin Chord-Organ
+	 Sequence L2
+	 Volume pp
+	 DupRoot 0
+	 Articulate 100
+	 Unify On
+	 Voicing   Mode=Optimal
+End
+
+DefGroove R&B-BalladSus     Change rhythmic organ to sustained chords.
+
+
+/////////////////////////////////////
+/// A one bar fill ... just lots of piano
+
+Groove R&B-Ballad
+
+Begin Chord
+    Sequence {C1234 Shift .5}
+    Articulate 50
+End
+
+Begin Bass-Guitar
+	Sequence  { B13 * 4 }
+	Rskip 0
+	Accent 
+	Volume +10%
+End
+
+Begin Drum-Clap
+	Sequence  D1234
+	Volume fff//m
+	Rskip 1
+	Rvolume 20
+End
+
+
+DefGroove R&B-BalladFill   Simple one bar fill
+
+/////////////////////////////////////////////
+//// Plus 
+
+Groove R&B-Ballad
+
+Begin Arpeggio
+    Voice NylonGuitar
+	Sequence  A4 / / A8
+	Range 1.2
+	SeqRnd On
+    Direction Random
+	Rtime 5
+	RVolume 15
+	Rskip 25
+	Harmony 3Below+8Below
+	Accent 1 10
+	Volume mf
+	Octave 6
+    Articulate 120
+End
+
+DefGroove R&B-BalladPlus  Basic with added guitar riffs.
+
+Groove R&B-BalladSus
+ Arpeggio Groove R&B-BalladPlus
+DefGroove R&B-BalladSusPlus   Sustained with guitar riffs.
+
+
+/////////////////////////////////////////////
+/// Intro
+
+Groove R&B-Ballad
+
+Begin Alltracks
+	Rskip 0
+	Rtime 0
+End
+
+Drum-Kick    Sequence  *   *     *   D1
+Drum-Clap    Sequence  *   *     *   D1
+Drum-Snare   Sequence  *   *     *   D13
+
+	
+Chord        Sequence  *   *     *   C1
+Chord-Organ  Sequence  *   *     *   C1
+
+Bass         Sequence  *   B13   *   B1
+Walk         Sequence  -
+
+DefGroove R&B-BalladIntro     A bit laid-back, 4 bar intro.
+
+/////////////////////////////////////////////
+/// Fill, for endings
+
+Groove R&B-Ballad
+
+Begin Alltracks
+	Rskip 0
+	Rtime 0
+End
+Seqsize 1
+
+Drum-Kick    Sequence   D1
+Drum-Clap    Sequence   D1
+Drum-Snare   Sequence   D1234
+
+Chord        Sequence   C13
+Chord-Organ  Sequence   -
+
+Bass         Sequence  -
+Begin Walk
+    Sequence  W1234
+    Articulate 50
+	Volume ff
+End
+
+DefGroove R&B-BalladFill Bass Heavy one bar fill.
+
+/////////////////////////////////////////////
+/// Ending
+
+Groove R&B-Ballad
+
+SeqSize 2
+
+Drum-Kick     Sequence   D13     D13
+Drum-Clap     Sequence   D24     D2
+Drum-Snare    Sequence   D24     D2
+Drum-Ride     Sequence   D1234   D1
+Drum-Tam      Sequence   D14     D1
+
+Chord         Sequence   C134    {1 2 90 }
+Chord-Organ   Sequence	 C24     C1
+Bass          Sequence   B13     B11
+Walk          Sequence   -
+
+
+DefGroove R&B-BalladEnd   Two bar ending.
+
+
+
+	

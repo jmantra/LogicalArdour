@@ -1,0 +1,488 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Plugins</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node24.html">
+<LINK REL="previous" HREF="node22.html">
+<LINK REL="next" HREF="node24.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node24.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node22.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node24.html">Low Level MIDI Commands</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node22.html">Subroutines</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><A ID="tex2html651"
+  HREF="node23.html#SECTION002301000000000000000">Naming and Locating</A>
+<LI><A ID="tex2html652"
+  HREF="node23.html#SECTION002302000000000000000">Distribution</A>
+<LI><A ID="tex2html653"
+  HREF="node23.html#SECTION002303000000000000000">Enabling</A>
+<LI><A ID="tex2html654"
+  HREF="node23.html#SECTION002304000000000000000">Disabling</A>
+<LI><A ID="tex2html655"
+  HREF="node23.html#SECTION002305000000000000000">Security</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION002300000000000000000"></A>
+<A ID="sec-plugs"></A>
+<BR>
+Plugins
+</H1>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  can be infinitely expanded by the use of P<SMALL>LUGIN</SMALL>s.
+
+<P>
+So, what is a plugin? In it's simplest it is a bit of Python code
+which is loaded into a running 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . This code can then communicate
+with 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  just as if it were a native part of it.
+
+<P>
+
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       <BR><SPAN  CLASS="textit">Warning: Since a plugin is
+    just a bunch of Python code it can do anything ... unfortunately
+    this <SPAN  CLASS="textbf">may</SPAN> include malicious or unwanted things. The author
+    of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  cannot take any responsibility for anything which happens
+    when running a plugin. It is up to you to ensure that any plugins
+    you include in your 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  directories are safe to run. </SPAN>
+  
+<BR>  <DIV class="CENTER">
+<BIG CLASS="LARGE"><SPAN  CLASS="textit">Only use plugins from a trusted
+    source!</SPAN> 
+</BIG></DIV>
+	
+           </td></tr>
+        </Table>
+
+<P>
+If you want to try writing your own P<SMALL>LUGIN</SMALL>, please refer to the
+&ldquo;writing plugins&rdquo; document in either HTML to PDF.
+
+<P>
+When a plugin is loaded into 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's memory it will add a keyword
+which can be used just like any other command. All P<SMALL>LUGIN</SMALL>
+command names are prefaced with a single &ldquo;@&rdquo; character. This serves
+two purposes:
+
+<P>
+
+<OL>
+<LI>It gives plugin keywords a distinctive appearance,
+</LI>
+<LI>It permits plugin keywords which duplicate existing keywords.
+  Native MMA keywords are guaranteed to never begin with an &ldquo;@&rdquo;.
+</LI>
+</OL>
+
+<P>
+
+<H2><A ID="SECTION002301000000000000000">
+Naming and Locating</A>
+</H2>
+
+<P>
+As mentioned above, a plugin consists of a Python module which is
+added to 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's internal command table. These modules are free to
+call existing 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  functions, and even add their own plugins, and call other
+programs.<A ID="tex2html101"
+  HREF="#foot9562"><SUP><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+
+<P>
+Each plugin must have a containing directory with the same name as the
+plugin. So, the plugin &ldquo;hello&rdquo; would live in the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">hello</SPAN></SPAN>
+directory. Once found and loaded the command @H<SMALL>ELLO</SMALL> will be
+available to your script.
+
+<P>
+This directory must contain a Python module with the name
+&ldquo;plugin.py&rdquo;. The <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugin.py</SPAN></SPAN> module should have the following
+methods defined:
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<DL>
+<DT><STRONG><SPAN  CLASS="textbf">run</SPAN></STRONG></DT>
+<DD>This is the entry point for a simple (non-track) command.
+
+<P>
+</DD>
+<DT><STRONG><SPAN  CLASS="textbf">trackRun</SPAN></STRONG></DT>
+<DD>This is the entry point for a track command.
+
+<P>
+</DD>
+<DT><STRONG><SPAN  CLASS="textbf">printUsage</SPAN></STRONG></DT>
+<DD>The entry point for a usage command. This is used by
+  the -I command line option.
+
+<P>
+</DD>
+</DL></td></tr></table>
+
+<P>
+The spelling (including case) of these three methods must be exactly
+as described above.
+
+<P>
+In addition, each plugin directory <SPAN  CLASS="textit">must</SPAN> contain an <SPAN  CLASS="textbf">empty</SPAN> file
+called __<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">init</SPAN></SPAN>__<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">.py</SPAN></SPAN>. This file is necessary for Python's import
+facility to operate. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  checks for this file and will generate an
+error if not found or not empty.<A ID="tex2html102"
+  HREF="#foot4168"><SUP><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+
+<P>
+Hoping that a few lines of example code will compensate for the lack
+of pages of reference, we suggest that you look at the module
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugins/hello/plugin.py</SPAN></SPAN>.
+
+<P>
+When locating modules 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  makes a case-insensitive search for the
+directory and python module. So, when loading &ldquo;hello&rdquo; you could have
+a directory &ldquo;HELLO&rdquo; and a module &ldquo;PLUGIN.py&rdquo; and all will work.
+The Python module <SPAN  CLASS="textit">must</SPAN> end with &ldquo;.py&rdquo; (all lowercase). We
+really recommend you simplify your life and use the all lowercase
+version! If you have both a &ldquo;hello&rdquo; and &ldquo;HELLO&rdquo; directories a
+warning message will be printed; one of the two modules will be
+loaded, but which is indeterminate (the first found will be
+used).<A ID="tex2html103"
+  HREF="#foot4172"><SUP><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+
+<P>
+
+<H2><A ID="SECTION002302000000000000000">
+Distribution</A>
+</H2>
+
+<P>
+The directory for a plugin <SPAN  CLASS="textit">should</SPAN> also contain a sample file
+which shows how the plugin can be used and some documentation. At its
+simplest this could be a <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">README</SPAN></SPAN> text file; more complex plugins
+can have more extensive examples and other reference material.
+
+<P>
+Plugins can reside in four different locations. When requested to
+load a plugin 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  searches, in the order below, the following:
+
+<P>
+
+<OL>
+<LI>The user's current directory. This is normally referred to as
+  &ldquo;.&rdquo;,
+
+<P>
+</LI>
+<LI>A directory named <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugins</SPAN></SPAN> in the user's current
+  directory. This permits a collection of plugins for each user.
+
+<P>
+</LI>
+<LI>The directory of the <SPAN  CLASS="textit">current</SPAN> file being processed. This
+  means that if you load a G<SMALL>ROOVE</SMALL> into memory and the groove's
+  library file contains a &ldquo;load plugin&rdquo; directive, the search will match a
+  plugin in that directory.
+
+<P>
+</LI>
+<LI>The <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugins</SPAN></SPAN> directory. We recommend that all plugins use
+  this location! It makes it easy to track where your plugins live.
+  You cannot change the the location or name of this directory: it
+  must be a directory called <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugins</SPAN></SPAN> and be located in the main
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  directory tree (the same location as the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMA</SPAN></SPAN> modules
+  directory). Unfortunately, if you are using a standard 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+  distribution this directory may not be modifiable by you since it is
+  in a &ldquo;root access&rdquo; location ... which is why the above locations
+  are available.
+
+<P>
+</LI>
+</OL>
+
+<P>
+You can change the search path using the D<SMALL>ISABLE</SMALL> command, see
+below.
+
+<P>
+
+<H2><A ID="SECTION002303000000000000000">
+Enabling</A>
+</H2>
+
+<P>
+To enable a P<SMALL>LUGIN</SMALL> it must be first loaded into a running
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . This is done with the P<SMALL>LUGIN</SMALL> command. For example,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Plugin Hello  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will load the &ldquo;hello&rdquo; plugin into memory. You can now invoke the
+command with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>@Hello  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+or, you can pass a variety of additional information to the plugin
+code:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>@Hello Some things to tell HELLO  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If you have both a track and non-track function, you could:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass @Hello  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<UL>
+<LI>Please note that no plugins will be loaded or activated unless
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is specifically told to load with a P<SMALL>LUGIN</SMALL> directive.
+
+<P>
+</LI>
+<LI>You may have multiple plugin names on a single P<SMALL>LUGIN</SMALL>
+  line.
+
+<P>
+</LI>
+<LI>You <SPAN  CLASS="textit">can not</SPAN> reload a plugin. If you try a warning message
+  will be displayed.
+
+<P>
+</LI>
+<LI>When chosing a name for your plugin make sure it isn't the name
+  of a module which 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has already used. Examples include copy,
+  random, time and os. If you attempt to load your module with such a
+  name you will receive an error message.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H2><A ID="SECTION002304000000000000000">
+Disabling</A>
+</H2>
+
+<P>
+You can disable the search path used when searching for plugins. If
+you are a bit worried about malicious code:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Plugin Disable=ALL  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will prevent any plugins being loaded.
+
+<P>
+We noted above that the user's current directory, the directory of the
+current file, and the plugin directory are searched. You can disable
+any of these using the options &ldquo;Dot&rdquo;, &ldquo;Local&rdquo; and &ldquo;PlugDir&rdquo;. You
+can specify more that one by appending settings with single commas.
+So,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Plugin Disable=Dot,Local  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will force the search to only the plugin directory.
+
+<P>
+For security, there is no &ldquo;enable&rdquo; command. So, feel safe in putting
+this in your <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> file.
+
+<P>
+
+<H2><A ID="SECTION002305000000000000000">
+Security</A>
+</H2>
+
+<P>
+We try to give you as many options as possible in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . We also try
+to keep your systems and data as secure as we can.
+
+<P>
+We don't have any control over what a P<SMALL>LUGIN</SMALL> can do. But, we do
+make it a bit harder for someone to screw you around. The
+D<SMALL>ISABLE</SMALL> options, above, are one such step.
+
+<P>
+In addition, the first time a plugin is loaded you will be asked if
+you wish to give permission for the plugin to load. If you don't
+recognize the name, just say &ldquo;no&rdquo;.
+
+<P>
+The prompt will permit the entry of a single character &ldquo;<SPAN  CLASS="texttt">y</SPAN>&rdquo; (followed
+by the <SPAN  CLASS="texttt">Enter</SPAN> key). Accepting a plugin will create an entry
+in the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugin.list</SPAN></SPAN> file and the plugin will silently load in
+the future.
+
+<P>
+If you enter an &ldquo;<SPAN  CLASS="texttt">o</SPAN>&rdquo; the plugin will be loaded only this
+run. This may or may not be a wise thing to do ... if you're not
+sure you probably should not enable it. 
+
+<P>
+If any changes are made to the plugin code, you'll be asked again.
+
+<P>
+Permissions are stored in a file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugins.list</SPAN></SPAN>. Depending on
+your system this will be located in a &ldquo;standard&rdquo;
+location.<A ID="tex2html104"
+  HREF="#foot9563"><SUP><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
+
+<P>
+If you are confident that no harm will come to your system by loading
+plugins (which is probably true most of the time) you can skip all this
+security by starting 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  with the -II command line option.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot9562">...
+programs.</A><A
+ HREF="node23.html#tex2html101"><SUP><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>The reason we're so free with this stuff is that
+  it's impossible to restrict what a good or malicious Python (or any
+  other language) program can do. Again, <SPAN  CLASS="textit">Be Careful.</SPAN>
+
+</DD>
+<DT><A ID="foot4168">... empty.</A><A
+ HREF="node23.html#tex2html102"><SUP><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>Python doesn't restrict the
+  __init__.py module to be empty. It can actually contain code. For
+  security reasons we force it to be empty.
+
+</DD>
+<DT><A ID="foot4172">...
+used).</A><A
+ HREF="node23.html#tex2html103"><SUP><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>This would only be possible on computers with a
+  case-sensitive filename structure, like Linux.
+
+</DD>
+<DT><A ID="foot9563">...
+location.</A><A
+ HREF="node23.html#tex2html104"><SUP><SPAN CLASS="arabic">23</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses the Python module appdirs.py (included in
+  this distribution) to determine the &ldquo;best&rdquo; location to store
+  configuration files. For more information see <kbd><A ID="tex2html105"
+  HREF="http://github.com/ActiveState/appdirs">http://github.com/ActiveState/appdirs</A></kbd>.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node24.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node22.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node24.html">Low Level MIDI Commands</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node22.html">Subroutines</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,42 @@
+
+// Standard defines for 5/4 time.
+
+// All volumes are 90. If you need different volumes use
+// one of (or combination) of Volume and Accent. Or redefine
+// the sequence.
+
+if NE  $_TIME 5
+	Print Warning: Including pattern defs for TIME 5, but TIME is $_TIME !
+Endif
+
+
+Begin Drum Define
+	D1     1 0 90 
+	D2     D1 Shift 1
+	D3     D1 Shift 2
+	D4     D1 Shift 3
+	D5     D1 Shift 4
+	D45    D4; D5
+	D145   D1; D45
+	D12345  D1 * 5
+End
+
+Begin Chord Define
+	C1    1 4 90
+	C2    C1 Shift 1
+	C3    C1 Shift 2
+	C4    C1 Shift 3
+	C5    C1 Shift 4
+	C25   C2; C5
+	C245  C25; C4
+End
+
+Begin Bass Define
+	B145  1 4 1 90 ; 4 4 3 90 ; 5 4 5 90
+End
+
+Begin Walk Define
+	W12345   1 1+4 90 * 5
+End
+
+

@@ -1,0 +1,248 @@
+
+// rb.mma
+
+Begin Doc
+	Rythmn and Blues. I did a raunchy version of "My 
+	Blue Heaven" using this groove.
+End
+ 
+  
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////////////
+
+SeqSize 2
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence  {D13; D34 Shift .5}
+	Volume p
+	Accent 1 10 3 10
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Drum-Clap
+	Tone HandClap
+	Sequence  D24
+	Volume mp
+	Rskip 10
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Drum-Snare
+	Tone SnareDrum2
+	Sequence  D24
+	Volume p
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Drum-Ride
+	Tone RideCymbal1
+	Sequence  D1234
+	Rskip 10
+	Volume p
+	Accent 1 10 3 10
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Drum-Tam
+	Tone Tambourine
+	Sequence  D14
+	Rskip 5
+	Volume p
+	Rtime 10
+	Rvolume 20
+End
+
+Begin Chord
+	Voice Piano2
+	Sequence   {C134 Shift .5; C3} {C4 Shift .5}
+	Rtime 10
+	Rvolume 10
+	Octave 5
+	Volume mp
+	Voicing  Mode=Optimal	
+End
+
+Begin Chord-Organ
+	Voice Organ1
+	Sequence	{C2; C24 Shift .5}   {C1234; C1 Shift .5}
+	DupRoot -2
+	Articulate  60
+	Rtime 10
+	Rvolume 10
+	Octave 5
+	Volume pp
+End
+
+Begin Bass-Guitar
+	Voice CleanGuitar
+	Sequence  { B13 * 4 }
+	Rtime 10
+	RVolume 10
+	Rskip 20
+	Accent 1 20 3 20
+	Volume mf
+	Octave 4
+End
+
+Begin Bass
+	Voice FingeredBass
+	Octave 3
+	Articulate 80
+	Volume mf
+	Rtime 10
+	Rvolume 10
+	Sequence    {1 4 1 90; 2.5 8 1 90; 3 8 3 90; 4 4 1 90 } z
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Articulate 80
+	Volume mf
+	Rtime 10
+	Rvolume 10
+	Sequence    z {2.5 8 90 ; 3 8 90; 3.5 8 90; 4 8 90; 4.5 8 90 }
+End
+
+DefGroove R&B    Basic Rythmn and Blues.
+
+
+/// Sustained, take out rhythmic organ
+
+Groove R&B
+
+Begin Chord-Organ
+	 Sequence L2
+	 Volume p
+	 DupRoot 0
+	 Articulate 100
+	 Unify On
+	 Voicing   Mode=Optimal
+End
+
+DefGroove R&BSus     Change rhythmic organ to sustained chords.
+
+
+/// Add some guitar picking
+
+Groove R&B
+
+Bass-Guitar Sequence -
+
+Begin Arpeggio
+    Voice CleanGuitar
+	Sequence  A8 A4
+	Range .8
+	SeqRnd On
+	Rtime 5
+	RVolume 15
+	Rskip 25
+	Harmony 3Below
+	Accent 1 10
+	Volume f
+	Octave 5
+End
+
+DefGroove R&BPlus   Our basic rhythm with some nice picking.
+
+Groove R&BPlus
+
+Chord-Organ Groove R&BSus 
+
+DefGroove R&BSusPlus  Sustained with picking.
+
+/////////////////////////////////////
+/// A one bar fill ... just lots of piano
+
+Groove R&B
+
+Begin Chord
+    Sequence {C1234 Shift .5}
+    Articulate 50
+End
+
+Begin Bass-Guitar
+	Sequence  { B13 * 4 }
+	Rskip 0
+	Accent 
+	Volume +10%
+End
+
+Begin Drum-Clap
+	Sequence  D1234
+	Volume m
+	Rskip 0
+	Rvolume 20
+End
+
+
+DefGroove R&BFill   Simple one bar fill
+
+
+/////////////////////////////////////////////
+/// Intro
+
+Groove R&B
+
+SeqSize 4   // the main groove is 2 bars
+
+Begin Alltracks
+	Rskip 0
+	Rtime 0
+End
+
+Drum-Kick    Sequence  *   *     *   D1
+Drum-Clap    Sequence  *   *     *   D1
+Drum-Snare   Sequence  *   *     *   z
+
+Begin Drum-Snare2  
+	Tone      $_Drum-Snare_Tone
+	Volume    $_Drum-Snare_Volume
+	Mallet    Rate=32 Decay=-3
+	Rvolume   3
+	Sequence  z  z  z {1 1 100}
+End	
+	
+Chord        Sequence  *   *     *   C1
+Chord-Organ  Sequence  *   *     *   C1
+
+Bass-Guitar  Sequence  -
+Bass         Sequence  *   B13   *   B1
+Walk         Sequence  -
+
+DefGroove R&BIntro     A bit laid-back, 4 bar intro.
+
+/////////////////////////////////////////////
+/// Ending
+
+Groove R&B
+
+Drum-Kick     Sequence   D13     D13
+Drum-Clap     Sequence   D24     D2
+Drum-Snare    Sequence   D24     D2
+Drum-Ride     Sequence   D1234   D1
+Drum-Tam      Sequence   D14     D1
+
+Chord         Sequence   C134    {1 2 90 }
+Chord-Organ   Sequence	 C24     C1
+Bass-Guitar   Sequence   B1234   B11
+Bass          Sequence   B13     B11
+Walk          Sequence   -
+
+
+DefGroove R&BEnd   Ending for R&B.
+
+
+
+	

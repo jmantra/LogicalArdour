@@ -1,0 +1,55 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<>
+	a pset:Preset ;
+	lv2:appliesTo <urn:ardour:a-fluidsynth> ;
+	rdfs:label "dance" ;
+	lv2:port [
+		lv2:symbol "chorus_depth" ;
+		pset:value 0.0
+	] , [
+		lv2:symbol "chorus_enable" ;
+		pset:value 1.0
+	] , [
+		lv2:symbol "chorus_level" ;
+		pset:value 0.0
+	] , [
+		lv2:symbol "chorus_nr" ;
+		pset:value 1.0
+	] , [
+		lv2:symbol "chorus_speed" ;
+		pset:value 1.0
+	] , [
+		lv2:symbol "chorus_type" ;
+		pset:value 0.0
+	] , [
+		lv2:symbol "enable" ;
+		pset:value 1.0
+	] , [
+		lv2:symbol "level" ;
+		pset:value 0.0
+	] , [
+		lv2:symbol "rev_damp" ;
+		pset:value 0.5
+	] , [
+		lv2:symbol "rev_enable" ;
+		pset:value 1.0
+	] , [
+		lv2:symbol "rev_level" ;
+		pset:value 0.1
+	] , [
+		lv2:symbol "rev_roomsize" ;
+		pset:value 0.5
+	] , [
+		lv2:symbol "rev_width" ;
+		pset:value 10.0
+	] ;
+	state:state [
+		<urn:ardour:a-fluidsynth:sf2file> <Dance%20Drums.sf2>
+	] .

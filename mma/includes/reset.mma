@@ -1,0 +1,15 @@
+// GM Reset.
+// Can be included in mma files with the MMAStart directive.
+// Just add "MMAstart reset" to you mmarc file.
+
+// It is probably a BAD IDEA to use this! Not only will it
+// stop hung notes and readjust volumes (which is what you
+// probably want, it also resets transpose and other settings...
+
+MIDI 0xF0 0x05 0x7E 0x7F 0x09 0x01 0xF7
+
+// After sending the RESET, do a brief pause for the synth
+// to do it's thing. We probably don't need this much, but it
+// doesn't hurt.
+
+BeatAdjust .5

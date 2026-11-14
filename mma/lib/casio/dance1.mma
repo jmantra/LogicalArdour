@@ -1,0 +1,124 @@
+ //  dance1.mma
+
+Begin Doc  
+      Dance1 (060). Techno dance beat. 
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 2
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-HighQ
+    Tone HighQ
+    Volume m
+    Sequence {1.75 0 75; 2.6 0 68; 3.25 0 75} \
+             {1.75 0 75; 2.6 0 68; 3.25 0 75; 4.75 0 75} 
+End
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 115; 2.75 0 112}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence {2 0 100; 4 0 100}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 82; 1.5 0 82; 2 0 82; 2.5 0 82; 3 0 82; 3.5 0 82; 4 0 82; 4.5 0 82}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence {2.75 0 86}
+End
+
+Begin Bass-9
+    Voice Organ3
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 16 1 96; 1.75 16 5 84; 2.5 16 1 88} \
+             {1 16 1 92; 1.75 16 5 92; 2.5 16 1 88; 4.75 32 5 100} 
+End
+
+
+Begin Bass-6
+    Voice Organ1
+    Octave 6
+    Articulate 100
+    Volume mp
+    Sequence {3 32 1 104; 3.25 32 1 108; 4 8 1 112; 4.75 6 1 112} z
+End
+
+Begin Chord-7
+    Voice EPiano
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 6 90; 2.75 6 90} \
+             {1.5 6 90; 2.25 6 90; 3 6 90; 4 8 90}
+End
+
+DefGroove Dance1  Basic pattern
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove Dance1
+Seqsize 4
+
+Drum-HighQ       Sequence  *   *   *   D8
+Drum-KickDrum1   Sequence  D1234 *  *  D1
+Drum-SnareDrum2  Sequence  *     *   *  D1234
+Drum-ClosedHiHat Sequence  *     *   D8  D4
+Drum-OpenHiHat   Sequence  *   *     *    *
+
+Bass-9           Sequence B1234  *   *   B1234
+
+//  Organ1
+Bass-6           Sequence z      z   *   {3 32 1 104; 3.25 32 1 108; 4 8 1 112}
+
+// EPiano
+Chord-7          Sequence *      *   *   C1234
+
+
+DefGroove Dance1Intro  4 bar introduction
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove Dance1
+
+Drum-HighQ       Sequence  *      D1
+Drum-KickDrum1   Sequence  D1234  D1
+Drum-SnareDrum2  Sequence  *      D1
+Drum-ClosedHiHat Sequence  D8     D1
+Drum-OpenHiHat   Sequence  *      D1
+
+Bass-9           Sequence B1234   B1
+
+//  Organ1
+Bass-6           Sequence  *      {1 16 5 80}
+
+// EPiano
+Chord-7          Sequence *        C1
+
+DefGroove Dance1End   2 bar ending
+
+
+

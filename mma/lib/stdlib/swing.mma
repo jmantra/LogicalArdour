@@ -1,0 +1,593 @@
+// swing
+
+Begin Doc
+
+	Some pretty good swing stuff. Works well for standards like 
+	"C'est Si Bon". The "Triple" and "Plus" versions are built 
+	on their basics, so it it sounds fine to toggle between, for
+	example, Swing, SwingPlus and  SwingTriple.
+         
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+/////////////////////////////////////////////////
+////// Additional pattern defs
+
+
+Begin Chord Define
+	LongSS1    1 4 90 ; 1+81 82 80 ; 2 8 85 
+	LongSS2    1 4 90 ; 2 4 80 ; 3+81 82 85 ; 4 8 80 
+End
+
+Begin Bass Define
+	Sync1   1 4  1 90; 2+81 16 1 80; 3 4 1 90; 4+81 16 1 80 
+	Sync2   1 4  1 90; 2+81 16 1 80; 3 4 5 90; 4 4 1 80 
+End
+
+Begin Walk Define
+	Sync1   1 4  90 ; 2+81 82 80; 3 4 90 ; 4+81 82 80 
+	Sync2   1 4  90 ; 2+81 82 80; 3 4 90 ; 4 4 80 
+End
+
+	
+////////////////////////////
+// Basic Swing Patterns
+////////////////////////////
+
+/////////////////////
+////// Swing
+
+SeqClear
+Seqsize 4    // Make all the patterns 4 bars long
+
+// The hats use a swing pattern. 
+
+Begin Drum-PHH
+	Sequence	Swing8
+	Tone PedalHiHat
+	Rskip 30
+	Rvolume 10
+	Rtime 1
+	Volume p
+End
+
+Begin Drum-OHH
+	Sequence	Swing8
+	Tone OpenHiHat
+	Rskip 30
+	Rvolume 10
+	Rtime 1
+	Volume p
+End
+
+// Kicks are one 1,2,3 and 4
+	
+Begin Drum-Kick
+	Sequence	D1234
+	Tone KickDrum2
+	Rskip 40
+	Rvolume 10
+	Rtime 3
+	Volume mp
+End
+
+Begin Drum-Side
+	Sequence	D1234
+	Tone SideKick
+	Rskip 40
+	Rvolume 10
+	Rtime 3
+	Volume mp
+End
+
+// Low-Congas on 1 and 3; hi on 2,4
+
+Begin Drum-LowConga
+	Sequence	D13
+	Tone LowConga
+	Rskip 10
+	Rvolume 10
+	Rtime 5
+	Volume f
+End
+
+Begin Drum-HiConga
+	Sequence	D24
+	Tone OpenHighConga
+	Rskip 10
+	Rvolume 10
+	Rtime 5
+	Volume f
+End
+	
+
+Begin Chord	
+	Voice Organ3
+	Sequence	{1 2 90 ; 3+81 4. 85 }  C1
+	Octave 6
+	Voicing Mode=Optimal
+	Volume mp
+	Articulate  80
+	Rvolume 3
+End
+
+Begin Chord-Guitar
+	Voice JazzGuitar
+	Sequence  C13   C1234
+	Voicing Mode=Optimal
+	Articulate 90
+	Strum 5
+	Octave 5
+	SeqRnd On
+	Volume mp
+	Rvolume 5
+End
+
+Begin Bass
+	Voice  AcousticBass
+	Sequence   	Sync1 Sync2
+	Articulate 80
+	Octave 3
+	Volume mf
+	Rvolume 10
+End
+
+DefGroove Swing   Basic swing beat.
+
+/// Change bass to walking.
+
+Groove Swing
+
+Bass Sequence -
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence   	Sync1 Sync2
+	Articulate 76
+	Volume mf
+	Rvolume 10
+End
+
+DefGroove SwingWalk       Change the 1/3 syncapated bass to the same \
+                          pattern, but with a walking style.
+                          
+ 
+////// Single bar triple swing
+
+Groove Swing
+SeqSize 1
+
+Drum-PHH      Sequence  Triple6
+Bass          Sequence  B13
+Chord         Sequence	C13
+
+Begin Chord-Guitar
+	Sequence Triple6
+	Articulate 85
+	Accent  1 30 3 30
+End
+
+DefGroove SwingTriple  Modified Swing with quarter note triplets. Good \
+                       for occasional fill bars.
+
+////// 2 bar fill
+
+Groove Swing
+SeqSize 2
+
+Drum-PHH  Sequence Swing8 D1234
+Drum-OHH  Sequence D1234  
+Drum-Kick Sequence *  D13
+Drum-Side Sequence *  D13
+//  Drum-LowConga
+// Drum-HiConga
+
+Chord  Sequence L2 C1	
+Chord-Guitar  Sequence L1 C13
+Bass  Sequence  B13
+
+DefGroove SwingFill   Simple 2 bar fill. Good for endings.
+
+
+////// Arpeggiating clarinet
+
+Groove Swing
+
+Begin Arpeggio
+	Sequence    Swing8  /     /      z
+	Invert      0       1     2      0
+	Voice Clarinet
+	SeqRnd On
+	Volume p
+	Articulate 70       
+	Rskip       10      50    40     0
+	Rvolume 10
+	Octave      6   
+End
+
+DefGroove SwingPlus     Adds clarinet arpeggios to Swing.
+
+Groove SwingWalk
+Arpeggio Groove SwingPlus
+DefGroove SwingWalkPlus  Swing with walking bass and arpeggios.
+
+/// Sustained strings over the swing pattern.
+
+Groove Swing
+
+Begin Chord-sus
+	Voice TremoloStrings
+	Sequence	{ 1 1 90 0 50 0 * 4 } { 1 1 50 0 90 0 * 4 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+	Articulate 100
+	Unify On
+	Volume p
+	Octave 5
+End
+
+
+DefGroove SwingSus         Add sustained strings to Swing.
+
+
+Groove SwingPlus
+Chord-Sus Groove SwingSus
+DefGroove SwingPlusSus     Add sustained strings to SwingPlus. This is\
+                           getting a bit thick sounding.
+
+                         
+Groove SwingWalk
+Chord-Sus Groove SwingSus
+DefGroove SwingWalkSus     Swing with walking bass and sustained strings.
+
+Arpeggio Groove SwingPlus
+DefGroove SwingWalkPlusSus    Swing with walking bass, arpeggio \
+                              and sustained Strings.
+
+
+/////////////////////
+/// Variation 1
+
+Groove Swing	// Use basic swing voicing
+
+// Leave the drums mostly the same, but cancel the pedal hihats
+// and grab a RideCymbal
+
+
+Drum-PHH   Sequence -
+Begin Drum-RideC
+	Copy Drum-PHH
+	Sequence	Swing8
+	Tone RideCymbal1
+End
+
+// Change the organ to a piano, same rhythm
+
+Begin Chord 
+	Voice Piano2
+	Octave 5
+	Articulate 80
+End
+
+// Replace syncopated bass with straight 1/3
+
+Begin Bass
+	Voice SlapBass1
+	Octave 3
+	Articulate 90
+ 	Sequence   B13 
+End 
+
+DefGroove Swing1       A more syncopated version of Swing. This sounds \
+                       a bit "twangy" with the piano voice selected.
+
+
+// Same swing with walking bass
+
+Bass Sequence -
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence W1234
+	Accent 1 10 3 10
+	Articulate 70
+	Volume mf
+	Rvolume 10
+	Rtime 5
+End
+
+DefGroove Swing1Walk  Walking bass version of Swing1.
+
+//// Triplet version
+
+Groove Swing1
+SeqSize 1
+
+Bass            Sequence  B11
+Chord           Sequence  C13
+
+Begin Chord-Guitar
+	Sequence  Triple6
+	Articulate 99
+	Accent  1 30 3 30
+End
+
+Drum-HiConga    Sequence  -
+Drum-Kick       Sequence  D1
+Drum-LowConga   Sequence  D13
+Drum-OHH        Sequence  Triple6
+Drum-RideC      Sequence  Triple6
+Drum-Side       Sequence  D1
+
+DefGroove Swing1Triple    Modified Swing1 with quarter note triplets.
+
+
+///// Sustained versions
+
+Groove Swing1
+Chord-Sus Groove SwingSus
+DefGroove Swing1Sus        Swing1 with sustained strings.
+
+Groove Swing1Walk
+Chord-Sus Groove SwingSus
+DefGroove Swing1WalkSus    Swing1Walk with sustained strings.
+
+//// Clarinet versions
+
+Groove Swing1
+Arpeggio Groove SwingPlus
+DefGroove Swing1Plus        Swing1 with arpeggiating clarinets.
+
+Chord-Sus Groove SwingSus
+DefGroove Swing1PlusSus     Swing1 with clarinet and sustained strings.
+Groove Swing1Walk
+Arpeggio Groove SwingPlus
+DefGroove Swing1WalkPlus    Swing1Walk with the clarinet.
+
+Chord-Sus Groove SwingSus
+DefGroove Swing1WalkPlusSus Swing1Walk with clarinet and sustained strings.
+
+
+/////////////////////
+////// Variation 2
+
+Groove Swing	
+
+
+// Change the organ chording and voice
+
+Begin Chord
+	Sequence   LongSS1  /        /        /
+	Voice 	   Organ3
+	Voicing Mode=None
+	Invert     0        2        1        0
+	Articulate 90
+	SeqRnd On
+	Volume p
+	Octave	5
+End
+
+// Change guitar as well
+
+Chord-Guitar  Sequence -
+
+Begin Chord-Sax
+	Sequence   LongSS2  C13   C1234   LongSS2
+	Voicing  Mode=Optimal
+	Volume ppp
+	SeqRnd On
+	Articulate 80       50    50      80
+	Octave 5
+	Voice  AltoSax
+	Limit 3			// Just play the 1st 3 chord notes;
+	                // the sustained chords take care of 7ths, etc.
+End
+
+// The bass line consists of 3 bars of walking bass 
+// followed by a fourth bar of a root/root bass.
+
+
+Begin Walk
+	Sequence   W1234   /         /        z
+	Articulate 60
+	Accent 1 10 3 10
+	Octave 3
+	Volume mf
+	Voice SlapBass1
+	RVolume 10
+End
+
+Begin Bass
+	Voice $_Walk_Voice
+	Octave $_Walk_Octave
+	Sequence   z        z        z        B11
+	Articulate 60
+	Volume mf
+	RVolume 10
+End
+
+DefGroove Swing2    This version is much better with slower tempos \
+                    (no walking bass versions since it's already marching).
+
+//////// Triplet
+
+Groove Swing2
+SeqSize 1
+
+Bass            Sequence  B13
+Walk            Sequence  -
+Begin Chord
+                Sequence  Triple6
+       Volume mf
+       Octave 6
+End
+Chord-Sax       Sequence  C13
+Drum-HiConga    Sequence  -
+Drum-Kick       Sequence  Triple6
+Drum-OHH        Sequence  Triple6
+Drum-PHH        Sequence  D1
+Drum-Side       Sequence  Triple6
+
+DefGroove Swing2Triple   Modified Swing2 with quarter note triplets.
+
+
+/// Clarinets
+
+Groove Swing2
+Arpeggio Groove SwingPlus
+DefGroove Swing2Plus        Swing2 with clarinet
+
+///// Sustained version
+
+Groove Swing2
+Chord-Sus Groove SwingSus
+DefGroove Swing2Sus         Swing2 with sustained strings.
+
+//// Combo
+
+Groove Swing2Sus
+Arpeggio Groove SwingPlus
+DefGroove Swing2PlusSus        Swing2 with clarinet.
+
+
+///////////////////////
+//  Intro
+
+
+Groove Swing
+
+Alltracks SeqRnd Off
+
+Drum-PHH       Sequence Swing8  /      /     D12
+Drum-OHH       Sequence	Swing8  /      /     D12
+Drum-Kick      Sequence	D1234   /      /     D12
+Drum-Side      Sequence	D1234   /      /     D12
+Drum-LowConga  Sequence	D13     /      /     D1
+Drum-HiConga   Sequence	D24     /      /     D2
+Chord	       Sequence	{1 2 90 ; 3+81 4. 85 }  C1 C13 {1 2 90}
+Chord-Guitar   Sequence C13    C1234   C13   L1
+Bass           Sequence Sync1  Sync2   Sync1 B1
+
+
+DefGroove SwingIntro    Simple, 4 bar introduction.
+
+Groove Swing2
+
+Alltracks SeqRnd Off
+
+Drum-PHH       Sequence Swing8  /      /     D12
+Drum-OHH       Sequence	Swing8  /      /     D12
+Drum-Kick      Sequence	D1234   /      /     D12
+Drum-Side      Sequence	D1234   /      /     D12
+Drum-LowConga  Sequence	D13     /      /     D1
+Drum-HiConga   Sequence	D24     /      /     D2
+Chord	       Sequence	{1 2 90 ; 3+81 4. 85 }  C13 C13 {1 2 90}
+Chord-Sax      Sequence {C1; 3 8 100}  /  /  {1 2 100}
+Walk           Sequence -
+Bass           Sequence Sync1  Sync2   Sync1 B1
+
+
+DefGroove SwingIntro2   Same intro, but Swing2 voices.
+
+
+///////////////////////
+//  Endings
+
+
+Groove Swing	// Use basic swing voicing
+SeqSize 2
+Alltracks 	SeqRnd Off
+
+Chord         Sequence   C13
+Chord-Guitar  Sequence   C1234   C13
+Bass          Sequence	 B1234   B13 
+
+Begin Drum-Snare
+	Sequence   D8   D13
+	Tone SnareDrum1
+End
+
+Drum-Kick  Sequence  D13
+Drum-PHH   Sequence  -
+Drum-OHH   Sequence  -
+Drum-Side  Sequence  -
+Drum-HiConga Sequence  D24  D13
+
+DefGroove SwingEnd   Basic ending based on Swing. 4 beats on first bar; \
+                     beats on 1 and 3 on the second.
+
+
+
+Groove Swing1
+SeqSize 2
+
+Alltracks SeqRnd Off
+
+Chord           Sequence	C1234  C13 
+Chord-Guitar    Sequence 	C1234  C13
+Bass            Sequence    B11
+Walk            Sequence	-
+Drum-Kick       Sequence    D13
+Drum-RideC      Sequence    D8     D13
+Drum-OHH        Sequence    D1234  D1
+Drum-Side       Sequence    D13    -
+Drum-LowConga   Sequence    D24    D13
+Drum-HiConga    Sequence    D24    D13
+
+
+DefGroove Swing1End    Ending for Swing1.
+
+
+
+Groove Swing2	
+
+// We use the same inst for the Chords, but change the pattern
+// We continue with the Sax Chord for 2 bars, then kill it 
+// We make the alto play the impossible scale for the 3rd bar,
+// and a hold note for the last.
+
+Alltracks SeqRnd Off
+
+Chord      Sequence	LongSS2 LongSS2 LongSS2 C12
+Chord-Sax  Sequence	C1234	z	z       z
+
+Begin Scale 
+	SeqCLear
+	Sequence      z  Scale16 Scale8 Scale2
+	Direction Up
+	Articulate 99
+	Range 3
+	octave 5
+	Volume mp
+	ScaleType Chromatic
+	Voice  AltoSax
+End
+
+// Change the bass to be more repetitive
+
+Bass	Sequence    z       z    B11    B11
+Walk	Sequence    W1234   /     /      z
+
+// And some finality to the the drums
+
+Drum-HiConga    Sequence   D24    /      D1      /
+Drum-Kick       Sequence   D1234  /      D13    D1
+Drum-LowConga   Sequence   D13    /       /     D13
+Drum-OHH        Sequence   Droll  /      D1234  D1
+Drum-PHH        Sequence   DRoll  D1234  D13    D1
+Drum-Side       Sequence   D1234  /       /     D1
+                  
+DefGroove Swing2End     Swing2 ending with  alto sax run. Use ``seq'' so \
+                        that you end on bar 4. The sax plays 1 bar of chords,\
+                        then 16th, 8th, half note runs on bar 2, 3 and 4. If \
+                        don't like the sax run, use ''Scale Off'' to disable.
+

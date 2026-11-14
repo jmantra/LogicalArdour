@@ -1,0 +1,104 @@
+// WISH
+//
+// Composition by Jaap Klok, 1992.
+//
+// The composition consists of 11 measures that are notated in a circle,
+// like a mandala. The song can be repeated indefinitely.
+// https://www.facebook.com/jaap.klok.961/videos/2301128506799158/
+//
+// For practical reasons we create only 4 repetitions.
+
+SeqClear
+SeqSize 1
+Plectrum Channel 1
+
+// For randomizing.
+Set RVolume 15
+
+Time 6/8
+
+// Each 6/8 measure has one chord strum, consisting of a bass note
+// (ususally chord root) and strings 3 2 1 2 3.
+// Since some chords have a twin to the bass, we (ab)use string 4 for that.
+// Note that we use only 5 strings, with a non-standard tuning.
+
+Begin Plectrum
+    Voice       NylonGuitar
+    Tuning	e- a g b e+
+    Sequence {
+            1.0    0   100 90 - - -;
+            2.0    0   3:90;
+            3.0    0   2:90;
+            4.0    0   1:100;
+            5.0    0   2:90;
+            6.0    0   3:90;
+    }
+    RVolume	$RVolume
+End
+
+DefGroove G1
+
+// Final groove.
+
+Begin Plectrum
+    Voice       NylonGuitar
+    Sequence {
+            1.0    10   1-5:50;
+    }
+    RVolume	$RVolume
+End
+
+DefGroove GzA
+
+////////////////
+
+Time		6/8
+KeySig		C
+If Def Tempo
+  Tempo         $Tempo
+Else
+  Tempo		100
+EndIf
+If NDef Repeat
+  Set Repeat	4
+EndIf
+
+// Define pseudo-chords.
+
+Begin Plectrum Shape
+      //      E   A   G   B   E
+      C       8   -  -3  -4  -4
+      C7/Bb   6   -  -3  -4   -
+      C/G     -   -   9  -4  -2
+      A       5   5  -3  -4  -3
+      A/A     5   -  -3  -4  -3
+      F#      2   9   3   2   -
+      F#m/A   -   -   9  -1   2
+      B	      7   7  -1   0  -2
+      A/D     5   3  -5  -5   -
+      A/F#    -   -   2  -5  -2
+      G       3   -  -8  -9  -9
+      F       1   -  -8  -9   -
+      F/A     -   -   2  -9  -5
+      E/A     0   0  -8  -9  -8
+      E       0   -  -8  -9  -8
+End
+
+Repeat
+Groove G1
+1	C
+2	C7/Bb C/G
+3	A
+4	A/A
+5       F#    F#m/A
+6       B
+7       A/D   A/F#
+8       G
+9	F     F/A
+10	E/A
+11	E
+RepeatEnd  $Repeat NoWarn
+
+Groove GzA
+25	 C
+26	 z!

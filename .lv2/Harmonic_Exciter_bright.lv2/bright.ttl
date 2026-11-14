@@ -1,0 +1,28 @@
+@prefix atom: <http://lv2plug.in/ns/ext/atom#> .
+@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<>
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/brummer10/HarmonicExciter> ;
+	rdfs:label "bright" ;
+	lv2:port [
+		lv2:symbol "Bypass" ;
+		pset:value 1.0
+	] , [
+		lv2:symbol "Knob1" ;
+		pset:value 0.34
+	] , [
+		lv2:symbol "Knob2" ;
+		pset:value 0.5
+	] , [
+		lv2:symbol "Knob3" ;
+		pset:value 0.72999996
+	] , [
+		lv2:symbol "Knob4" ;
+		pset:value 0.56
+	] .

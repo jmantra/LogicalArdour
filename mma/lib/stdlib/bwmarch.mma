@@ -1,0 +1,243 @@
+
+// bwmarch
+
+Begin Doc
+
+ Broadway March. This was developed from the Broadway style. It is
+ in 2/4, so you'll probably want to double the tempo.
+ I'm using this in "I'm On Your Way" (Paint Your Wagon) at a tempo of 248.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////////
+//// Basic Pattern
+
+Seqsize 4
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Volume m
+	Rvolume 10
+	Rtime 2
+	Sequence D13
+End
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Volume m
+	Sequence  D1  z  z  z
+End
+
+Begin Drum-HiH1
+	Tone ClosedHiHat
+	Volume f
+	Sequence  D13
+End
+
+Begin Drum-HiH2
+	Tone ClosedHiHat
+	Volume mp
+	Sequence D24
+	Rtime 2
+	Rskip 5
+End
+
+Begin Drum-Tri
+	Tone OpenTriangle
+	Volume mp
+	Sequence {D1 shift .2} z z z
+End
+
+Begin Bass
+	Voice AcousticBass
+	Volume mf
+	Articulate 60
+	Rtime 4
+	Rvolume 10
+	Accent 1 10 3 1
+	Octave 3
+	Sequence B13  / {1 4 1 90; 3 8 3 90; 4 8 4 90} { 1 4  5 90; 3 4 3 90}
+End
+
+Begin Chord-Brass
+    Voice BrassSection
+    Volume mp
+    Articulate 90
+    Rskip 30
+    Rtime 5
+    Rvolume 10
+    Octave 5
+    Sequence {1 4 90; 2.5 8 90; 3 4 90} z C13 z      
+End
+
+Begin Chord-Strings
+	Voice Strings
+	Volume mp
+    Articulate 70
+	Rskip 5
+	Rvolume 10
+	Rtime 5
+	Voicing Mode=Key2
+	Sequence C13
+	Octave 5
+End
+
+
+Begin Chord-Gloc
+	Voice Glockenspiel
+	Sequence  C1 C2 C3 C13
+    SeqRnd On
+	Voicing Mode=Key2
+	Rskip 50
+	Articulate 50
+	Volume p
+	Octave 7
+End
+
+DefGroove BWMarch    A musical style march.
+
+Begin Arpeggio
+	Voice Piccolo
+	Sequence A4
+	Articulate 40
+	Rskip 60
+	Octave 7
+	Volume m
+End
+
+DefGroove BWMarchPlus   Add in arpegiating flute.
+
+
+////////////////////////////////////
+/// Sustained versions
+
+Groove BWMarch
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing Mode=Key2
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 5
+	Volume p
+End
+
+Chord-Strings  Volume -30%
+
+DefGroove BWMarchSus   Add sustained strings.
+
+Begin Arpeggio
+	Groove BWMarchPlus
+	Volume -40%
+End
+
+DefGroove BWMarchSusPlus   Sustained strings and apregiating flute.
+
+
+/////////////////////////////
+/// An alternate fill version
+
+Groove BWMarch
+
+Begin Arpeggio-Piano
+   Voice Piano1
+   Octave 5
+   Articulate 80
+   Volume mf
+   Harmony OpenBelow
+   Rtime 10
+   Rskip 40
+   Rvolume 10
+   Range 2
+   SeqRnd On
+   Direction Up
+   Ornament Type=3After Place=Above Bars=1 Beats=1,3 Duration=60 Pad=40 Rskip=30
+   Sequence  A2   {A2; 4 8 80}    {A2; 3 8 70}    {A2; 2 8 80}
+End
+
+DefGroove BWMarchPlus2   Basic rhythm with some piano fills.
+
+Groove BWMarchSus
+Arpeggio-Piano  Groove BWMarchPlus2
+DefGroove BWMarchSusPlus2   Add in strings and piano fills.
+
+//////////////////////////////////////////
+/// Fills (for endings)
+
+Groove BWMarch
+SeqSize 2
+
+//Drum-Kick	Sequence D13
+Drum-Snare	Sequence  D13
+//Drum-HiH1	Sequence  D13
+//Drum-HiH2	Sequence D24
+Drum-Tri 	Sequence *    // force triangle to all bars
+
+// 2 bar bass run
+Bass	Sequence {1 4 1 90; 3 4 3 90} {1 4 5 90; 2 4 4 100; 3 4 3 110; 4 4 2 120}
+
+// change the strings to single note on 2, chord on 4
+Chord-Strings  Sequence {2 4 90 0; 4 4 90}
+
+// Gloc, one long tone on 1
+Chord-Gloc	Sequence L1
+
+DefGroove BWMarchFill   A 2 bar fill for endings.
+
+/////////////////////////////////////////////
+/// Introduction
+
+Groove BWMarch
+
+SeqSize 4
+
+Drum-Kick     Sequence  *  *     *                      D13
+Bass          Sequence  *  *    {1 2 5 90; 3 2 4 90} {1 4. 3 90; 3 4. 2 90}
+Chord-Strings Sequence  *  *    C13                     C1
+Chord-Gloc    Sequence  *  *    C13                     C1
+
+DefGroove BWMarchIntro   Simple 4 bar intro.
+
+/// Expand to 8 bars
+
+Groove BWMarch
+SeqSize 8
+
+Drum-Kick      Sequence  *  *  * * * *   *                      D13
+Bass           Sequence  *  *  * * * *  {1 2 5 90; 3 2 4 90} {1 4. 3 90; 3 4. 2 90}
+Chord-Strings  Sequence  *  *  * * * *  C13                     C1
+Chord-Gloc     Sequence  *  *  * * * *  C13                     C1
+
+DefGroove BWMarchIntro8   Simple 8 bar intro.
+
+////////////////////////////////////////////
+/// Ending
+
+
+Groove BWMarch
+SeqSize 2
+
+Drum-Kick     Sequence   D1234    D12
+Drum-Snare    Sequence   D1        /
+Drum-HiH1     Sequence   D1234    D12
+Drum-HiH2     Sequence   *      {D1 Shift .5}
+Drum-Tri      Sequence   D1       /
+Bass          Sequence  {1 4 5 90; 2 4 4 90; 3 4 3 90; 4 4 2 90} {1 2 1 90}
+Chord-Strings Sequence   *       {C123}
+Begin Chord-Gloc 
+      SeqRnd Off
+      Rskip 0      
+      Sequence   *       C123
+End
+
+Defgroove BWMarchEnd   A 2 bar ending with a very final sound.

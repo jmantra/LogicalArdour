@@ -1,0 +1,121 @@
+
+// This file attempts to show a number of different ways
+// solo (melody) can be created in MMA with the Solo track.
+// We're using the popular (if you are 3 years old) melody
+// "Mary had a little lamb" for all the examples.
+
+
+Keysig F
+Tempo 150
+
+Groove Folk
+
+/// Set up a solo track with a flute. Set the notes in {} after each
+/// chord. This is the easy-concept but hard-to-do version.
+
+Begin Solo
+  Voice Flute
+  Octave 5
+  Articulate 90
+  Rvolume 10
+  Rtime 5
+End
+
+1  F   { 4.a;8g;4f;g; }
+2  /   { 4a;;2; }
+3  C7  { 4g;;2; }
+4  F   { 4a;c+;2; }
+5  /   { 4.a;8g;4f;g; }
+6  /   { 4a;;;; }
+7  C7  { 4g;;a;g; }
+8  F   { 2.f; }
+
+///////////////////////////////////////
+/// Same notes and chords. This time we
+/// use riffs in the solo block and add
+/// a harmony.
+
+
+Groove FolkBallad
+
+Begin Solo
+  Voice Flute
+  Octave 5
+  Articulate 90
+  Rvolume 10
+  Rtime 5
+  Harmony 3Below
+  Begin Riff
+    4.a;8g;4f;g; 
+    4a;;2; 
+    4g;;2; 
+    4a;c+;2; 
+    4.a;8g;4f;g; 
+    4a;;;; 
+    4g;;a;g; 
+    2.f; 
+  End /// end riff
+End  /// end Solo
+
+1  F 
+2  / 
+3  C7
+4  F 
+5  / 
+6  / 
+7  C7
+8  F 
+
+///////////////////////////////////////
+/// Third time. Use the melody via a mset
+/// so it can be duplicated into 2 solo 
+/// tracks (melody and harmony)
+
+label foo
+Groove Dixie
+
+Mset Mary
+  Begin Riff
+    4.a;8g;4f;g; 
+    4a;;2; 
+    4g;;2; 
+    4a;c+;2; 
+    4.a;8g;4f;g; 
+    4a;;;; 
+    4g;;a;g; 
+    2.f; 
+  ENd
+Msetend
+
+Begin Solo
+  Voice Flute
+  Harmony None
+  Octave 5
+  Volume ff
+  Articulate 90
+  Rvolume 10
+  Rtime 5
+  $Mary  
+End
+
+Begin Solo-Harmony
+  Voice Clarinet
+  Octave 5
+  HarmonyOnly OpenAbove
+  Volume mp
+  Articulate 80
+  Rtime 10
+  Rvolume 0,10
+  $Mary
+End
+
+1  F 
+2  / 
+3  C7
+4  F 
+5  / 
+6  / 
+7  C7
+Groove DixieEnd
+8  F z!
+

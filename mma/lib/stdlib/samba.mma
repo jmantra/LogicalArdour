@@ -1,0 +1,245 @@
+
+// rhumba
+
+Begin Doc
+
+ First try at a samba. Note: This is really in 2/2 time
+ but we notate with 4 chords/bar ... so double the tempo!
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////////////
+/////// Instrument patterns
+
+
+
+/////////////////////////////////
+///////// Samba
+
+
+Seqsize 4
+
+
+Begin Drum-Kick
+	Tone KickDrum2
+	Sequence      D13
+	Volume fff
+	Rtime 4
+	Rvolume 10
+End
+
+Begin Drum-Side
+	Tone SideKick
+	Sequence     {D13; D34 Shift .5}    {D1 shift .5; D34}
+	Volume mf
+	Rvolume 10
+	Rskip 5
+	RTime 5
+End
+
+Begin Drum-PHH
+	Tone PedalHiHat
+	Sequence      z                 D4
+	Rskip 10
+	Volume fff
+	Rtime 5
+	RVolume 10
+End
+
+Begin Drum-OHH
+	Tone OpenHiHat
+	Sequence      z                 D1
+	Volume f
+	Rtime 5
+	Rvolume 10
+	Rskip 5
+End
+
+Begin Drum-Ride
+	Tone  RideCymbal1
+	Sequence     D24
+	Rtime 10
+	Rskip 5
+	Rvolume 10
+End
+
+Begin Drum-Shaker
+	Tone Shaker
+	Sequence     D8
+	Rtime 5
+	Rskip 10
+	Rvolume 10 
+End
+
+Begin Bass
+	Voice FretlessBass
+	Sequence  {1 8 1 90; 2.5 16 1 80; 3 4 5- 90; 4 4 1 90} \
+              {2.5 16 1 80; 3 8 5- 90; 4 8 5- 9 } \
+              {1 4 1 90; 3 4 5 90; 4.5 8 1+ 80} \
+              {1 4 5 90; 3 8 1 90; 4 8 1 90}
+	Octave 3
+	Rvolume 20
+	Rtime 3
+	Rskip 4
+	Articulate 75
+End
+
+Begin Chord-Piano
+	Voice Piano1
+	Voicing Mode=Optimal
+	Volume mf
+	Octave 5
+	Articulate 75
+	Rskip 10
+	Rvolume 10
+	Rtime 3
+	Sequence  { 1 8 90; 2.5 8 90; 3 4 90; 4 4 90} \
+              { 1.5 8 90; 3 4 90; 4 4 90 } \
+              { 1 4. 90; 2.5 8 90; 3.5 8 90; 4.5 8 90} \
+              { 1.5 8 90; 2 4 90; 4 4 90}
+End
+
+Begin Chord-Guitar
+	Voice JazzGuitar
+	Voicing Mode=Optimal
+	Volume mf
+	Octave 5
+	Rvolume 10
+	Rtime 3
+	Strum 5
+	Articulate 90
+	Strum 5
+	Sequence  { 1 1 90 } \
+              { 1 2 90; 3 8 90; 4 4 90 } \
+              { 1 4 90 } \
+              { 2 4 90 ; 4 4 90}
+
+End
+
+Defgroove Samba    Our basic dance beat. 
+
+Begin Drum-Whistle
+	Tone ShortHiWhistle
+	Sequence D1234
+	Volume f
+	Rskip 30
+	Rvolume 10
+End
+
+DefGroove SambaFill     Adds a whistle to the standard beat.
+
+Groove Samba
+
+Chord-Guitar Sequence -
+
+Begin Arpeggio
+	Voice PizzicatoString
+	Volume mf
+	Articulate 120
+	Rskip 50
+	Rvolume 20
+	Rtime 5
+	Octave 6
+	Range 2
+	Direction Random
+	Sequence A4 //A8
+End
+
+DefGroove SambaPlus    Adds pizzicato strings
+
+////////////////////////////////////////////
+/// Sustained versions
+
+Groove Samba
+
+Begin Chord-Sus
+	Voice Bandoneon
+	Sequence	{ 1 1 70 40 50 0 * 2 } { 1 1 50 40 70 0 * 2 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+	Articulate 100
+	Unify On
+	Volume mf
+	Octave 5
+End
+
+DefGroove SambaSus            Add sustained bandoneon.
+
+Groove SambaFill
+Chord-Sus Groove SambaSus
+DefGroove SambaSusFill        Sustained bandoneon and whistle.
+
+Groove SambaPlus
+Chord-Sus Groove SambaSus
+DefGroove SambaSusPlus        Sustained bandoneon and arpeggios.
+
+
+//////////////////////////////////
+/// Intros
+
+
+Groove Samba
+
+Drum-PHH     Sequence   D1
+Drum-OHH     Sequence   D1
+Drum-Shaker  Sequence   D8 / D16 {D12; D12 Shift .5}
+
+Bass         Sequence B13 / / {1 4 5 100; 2 4 3 100; 3 4 3 110; 4 4 2 120 }
+Chord-Piano  Sequence {C1234; C24 Shift .5} / / L1
+Chord-Guitar Sequence C13 / / L1
+
+DefGroove SambaIntro         4 bar introduction.
+
+Groove Samba
+
+Drum-PHH     Sequence   D13
+Drum-OHH     Sequence   D13
+Drum-Shaker  Sequence   D8 / D16 {D12; D12 Shift .5}
+
+Bass         Sequence B13 B11 B1234 {1 4 5 100; 2 4 3 100; 3 4 3 110; 4 4 2 120 }
+Chord-Piano  Sequence {C1234; C24 Shift .5} C1234 {C1234; C13 Shift .5}  L1
+Chord-Guitar Sequence C13 / C1234  L1
+
+DefGroove SambaIntro1         Alternate 4 bar introduction.
+
+// an 8 bar version
+Groove SambaIntro
+Seqsize 8
+
+Drum-Shaker  Sequence   D8 / / / / / D16 {D12; D12 Shift .5}
+
+Bass         Sequence B13 / / / / / / {1 4 5 100; 2 4 3 100; 3 4 3 110; 4 4 2 120 }
+Chord-Piano  Sequence {C1234; C24 Shift .5} / / / / / / L1
+Chord-Guitar Sequence C13 / / / / / / L1
+
+DefGroove SambaIntro8   8 bar introduction.
+
+//////////////////////////////////////
+///// Ending
+
+Groove Samba
+Alltracks SeqRnd Off
+Drum-OHH  Sequence -
+
+Begin Drum-Whistle
+	Groove SambaFill
+	Rskip 0
+	Sequence D124 D13 D13 D1234
+End
+
+Drum-Shaker  Sequence {D123; D12 Shift .5}
+Bass         Sequence B1234 / / {1 2 1 90}
+Chord-Piano  Sequence {C1234; C24 Shift .5} / / L1
+Chord-Guitar Sequence C13
+
+
+Defgroove SambaEnd      4 bar ending.

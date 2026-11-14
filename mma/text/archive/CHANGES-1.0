@@ -1,0 +1,56 @@
+
+A new track, ARIA, has been added. This lets mma create melodies (sort of).
+
+Reorganized the solo extraction routine and harmony. This is now generating the
+  correct velocities for the harmony notes.
+
+Changed a number of chords and descriptions to match more standardized usage. Mostly in
+  9ths and 11ths. Added some new chords and aliases. The descriptions are more detailed
+  as to exceptions. Please refer to the document chords.pdf for details.
+
+I've started to add things like:
+
+     If Ndef ChordVoice
+       Set ChordVoice Piano2
+     Endif
+
+  to style files. This makes it much easier to change the feel of a style from
+  within a song file. See the softshoe lib file and the song L-O-V-E for a
+  simple example.
+
+To help in documenting the above, a new documentation command DOCVAR has been added.
+  You should have a DOCVAR for each user variable you use in a library file.
+
+It is sometimes useful to clear out current Groove definitions. So
+  the command GrooveClear has been added.
+
+Added NEWSET command. This is just like SET, but ONLY has an effect if the variable currently
+  does NOT have a value. So:
+
+      NEWSet Foo  something
+
+    and
+
+      If NDef Foo
+	     Set Foo Something
+      Endif
+
+  are identical.
+
+Added a SYNCRONIZATION command line flag. If you have a "-0" in the command line
+  MMA will add a very brief on/off event at the start of each midi track it
+  generates. You might find this helpful when lining up generated tracks in 
+  multi-track editor.
+
+Added a mini-how-to text file on TIMIDITY.
+
+Added a split track program: util/timsplit.py.
+
+March 10, 2007 --- released Version 1.1
+
+
+
+
+
+
+

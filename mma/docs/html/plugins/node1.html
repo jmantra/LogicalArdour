@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2021.2 (Released July 1, 2021) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Easy Guide</TITLE>
+<META NAME="description" CONTENT="Easy Guide">
+<META NAME="keywords" CONTENT="mma-plugins">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-2">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2021.2">
+
+<LINK REL="STYLESHEET" HREF="mma-plugins.css">
+
+<LINK REL="next" HREF="node2.html">
+<LINK REL="previous" HREF="mma-plugins.html">
+<LINK REL="next" HREF="node2.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node2.html">Entry Points</A>
+<B> Up:</B> <A
+ HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A
+ HREF="mma-plugins.html">Plugins</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00100000000000000000">
+Easy Guide</A>
+</H1>
+
+<P>
+<DIV class="CENTER">
+
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       </DIV>
+<DIV class="CENTER">
+<DIV class="CENTER"><BIG CLASS="XLARGE">This is a DRAFT document. 
+	
+           </td></tr>
+        </Table>
+
+</BIG></DIV></DIV>
+
+<P>
+This document is provided as a reference to advanced 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  users
+writing plugins. It does not pretend to be definitive or complete. It
+is a supplement to the main reference manual.
+
+<P>
+As mentioned in the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Reference Guide, a plugin must have its own
+directory. The name of this directory must be the same as the name you
+with to assign to the plugin (without the &ldquo;@&rdquo; prefix). So, the
+plugin @H<SMALL>ELLO</SMALL> will have a directory <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">hello</SPAN></SPAN>.
+
+<P>
+In this directory you must have the following files:
+
+<P>
+
+<OL>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">__init__.py</SPAN></SPAN> &mdash; this must be an empty file. Note that the name
+  &ldquo;init&rdquo; has two leading and trailing underscores,
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugin.py</SPAN></SPAN> &mdash; this contains your plugin code.
+</LI>
+</OL>
+
+<P>
+In the Reference Manual in the Plugins section, we discuss the fact
+that characters in filenames are, mostly, not case
+sensitive. However, we recommend that you use lower case characters
+for all file and directory names.
+
+<P>
+When the P<SMALL>LUGIN</SMALL> command finds the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugin.py</SPAN></SPAN> it is
+loaded into the running 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  program. The plugin loader will 
+attempt to register three functions or methods from <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">plugin.py</SPAN></SPAN>:
+
+<P>
+
+<OL>
+<LI><code>run(param-list)</code> &mdash; this is the code executed when your new command
+  is encountered in a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  script.
+
+<P>
+</LI>
+<LI><code>trackRun(TrackName, param-list)</code> &mdash; this is the code executed when your new
+  command is encountered as part of a track command.
+
+<P>
+</LI>
+<LI><code>dataRun(param-list)</code> &mdash; this is code which will be
+  inserted into a data line when called.
+
+<P>
+</LI>
+<LI><code>printUsage()</code> &mdash; this code is used when you request a
+  usage message from the command line using the &ldquo;-I&rdquo; option.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="mma-plugins.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node2.html">Entry Points</A>
+<B> Up:</B> <A
+ HREF="mma-plugins.html">Plugins</A>
+<B> Previous:</B> <A
+ HREF="mma-plugins.html">Plugins</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

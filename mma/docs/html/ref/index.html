@@ -1,0 +1,892 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Reference Manual </TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="../mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev_g.png">   
+<BR>
+<B> Next:</B> <A
+ HREF="node1.html">Overview and Introduction</A>
+<B> Up:</B> <A
+ HREF="../mma.html">Main MMA Reference</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+<H1 class="CENTER"><IMG
+ STYLE="" SRC="../logo.png"
+ ALT="LOST LOGO">
+
+<P>
+<BIG CLASS="XHUGE">Reference Manual </BIG> </H1>
+<DIV CLASS="author_info">
+
+<STRONG>Bob van der Poel</STRONG>
+<BR>
+Wynndel, BC, Canada
+<BR>
+<BR>
+<BR>    
+      <A HREF="mailto:bob@mellowood.ca"> Bob van der Poel </A>
+<P>
+January 5, 2025</P>
+</DIV><P>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html155"
+  HREF="node1.html">Overview and Introduction</A>
+<UL>
+<LI><A ID="tex2html156"
+  HREF="node1.html#SECTION00110000000000000000">License, Version and Legalities</A>
+<LI><A ID="tex2html157"
+  HREF="node1.html#SECTION00120000000000000000">About this Manual</A>
+<UL>
+<LI><A ID="tex2html158"
+  HREF="node1.html#SECTION00121000000000000000">Typographic Conventions</A>
+<LI><A ID="tex2html159"
+  HREF="node1.html#SECTION00122000000000000000"><SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> and HTML</A>
+<LI><A ID="tex2html160"
+  HREF="node1.html#SECTION00123000000000000000">Other Documentation</A>
+<LI><A ID="tex2html161"
+  HREF="node1.html#SECTION00124000000000000000">Music Notation</A>
+</UL>
+<LI><A ID="tex2html162"
+  HREF="node1.html#SECTION00130000000000000000">Installing 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> </A>
+<LI><A ID="tex2html163"
+  HREF="node1.html#SECTION00140000000000000000">Running 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> </A>
+<LI><A ID="tex2html164"
+  HREF="node1.html#SECTION00150000000000000000">Comments</A>
+<LI><A ID="tex2html165"
+  HREF="node1.html#SECTION00160000000000000000">Theory Of Operation</A>
+<LI><A ID="tex2html166"
+  HREF="node1.html#SECTION00170000000000000000">MIDI File Format</A>
+<LI><A ID="tex2html167"
+  HREF="node1.html#SECTION00180000000000000000">Case Sensitivity</A>
+<LI><A ID="tex2html168"
+  HREF="node1.html#SECTION00190000000000000000">Script Conventions</A>
+</UL>
+<BR>
+<LI><A ID="tex2html169"
+  HREF="node2.html">Running 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> </A>
+<UL>
+<LI><A ID="tex2html170"
+  HREF="node2.html#SECTION00210000000000000000">Command Line Options</A>
+<LI><A ID="tex2html171"
+  HREF="node2.html#SECTION00220000000000000000">Lines and Spaces</A>
+<LI><A ID="tex2html172"
+  HREF="node2.html#SECTION00230000000000000000">Programming Comments</A>
+</UL>
+<BR>
+<LI><A ID="tex2html173"
+  HREF="node3.html">Tracks and Channels</A>
+<UL>
+<LI><A ID="tex2html174"
+  HREF="node3.html#SECTION00310000000000000000">
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Tracks</A>
+<LI><A ID="tex2html175"
+  HREF="node3.html#SECTION00320000000000000000">Track Channels</A>
+<LI><A ID="tex2html176"
+  HREF="node3.html#SECTION00330000000000000000">Track Descriptions</A>
+<UL>
+<LI><A ID="tex2html177"
+  HREF="node3.html#SECTION00331000000000000000">Drum</A>
+<LI><A ID="tex2html178"
+  HREF="node3.html#SECTION00332000000000000000">Chord</A>
+<LI><A ID="tex2html179"
+  HREF="node3.html#SECTION00333000000000000000">Arpeggio</A>
+<LI><A ID="tex2html180"
+  HREF="node3.html#SECTION00334000000000000000">Scale</A>
+<LI><A ID="tex2html181"
+  HREF="node3.html#SECTION00335000000000000000">Bass</A>
+<LI><A ID="tex2html182"
+  HREF="node3.html#SECTION00336000000000000000">Walk</A>
+<LI><A ID="tex2html183"
+  HREF="node3.html#SECTION00337000000000000000">Plectrum</A>
+<LI><A ID="tex2html184"
+  HREF="node3.html#SECTION00338000000000000000">Solo and Melody</A>
+<LI><A ID="tex2html185"
+  HREF="node3.html#SECTION00339000000000000000">Automatic Melodies</A>
+</UL>
+<LI><A ID="tex2html186"
+  HREF="node3.html#SECTION00340000000000000000">Silencing a Track</A>
+</UL>
+<BR>
+<LI><A ID="tex2html187"
+  HREF="node4.html">Patterns</A>
+<UL>
+<LI><A ID="tex2html188"
+  HREF="node4.html#SECTION00410000000000000000">Defining a Pattern</A>
+<UL>
+<LI><A ID="tex2html189"
+  HREF="node4.html#SECTION00411000000000000000">Bass</A>
+<LI><A ID="tex2html190"
+  HREF="node4.html#SECTION00412000000000000000">Chord</A>
+<LI><A ID="tex2html191"
+  HREF="node4.html#SECTION00413000000000000000">Arpeggio</A>
+<LI><A ID="tex2html192"
+  HREF="node4.html#SECTION00414000000000000000">Walk</A>
+<LI><A ID="tex2html193"
+  HREF="node4.html#SECTION00415000000000000000">Scale</A>
+<LI><A ID="tex2html194"
+  HREF="node4.html#SECTION00416000000000000000">Aria</A>
+<LI><A ID="tex2html195"
+  HREF="node4.html#SECTION00417000000000000000">Plectrum</A>
+<LI><A ID="tex2html196"
+  HREF="node4.html#SECTION00418000000000000000">Drum</A>
+<LI><A ID="tex2html197"
+  HREF="node4.html#SECTION00419000000000000000">Drum Tone</A>
+</UL>
+<LI><A ID="tex2html198"
+  HREF="node4.html#SECTION00420000000000000000">Including Existing Patterns in New Definitions</A>
+<LI><A ID="tex2html199"
+  HREF="node4.html#SECTION00430000000000000000">Multiplying and Shifting Patterns</A>
+</UL>
+<BR>
+<LI><A ID="tex2html200"
+  HREF="node5.html">Sequences</A>
+<UL>
+<LI><A ID="tex2html201"
+  HREF="node5.html#SECTION00510000000000000000">Defining Sequences</A>
+<LI><A ID="tex2html202"
+  HREF="node5.html#SECTION00520000000000000000">SeqClear</A>
+<LI><A ID="tex2html203"
+  HREF="node5.html#SECTION00530000000000000000">SeqRnd</A>
+<LI><A ID="tex2html204"
+  HREF="node5.html#SECTION00540000000000000000">SeqRndWeight</A>
+<LI><A ID="tex2html205"
+  HREF="node5.html#SECTION00550000000000000000">SeqSize</A>
+</UL>
+<BR>
+<LI><A ID="tex2html206"
+  HREF="node6.html">Grooves</A>
+<UL>
+<LI><A ID="tex2html207"
+  HREF="node6.html#SECTION00610000000000000000">Creating A Groove</A>
+<LI><A ID="tex2html208"
+  HREF="node6.html#SECTION00620000000000000000">Using A Groove</A>
+<UL>
+<LI><A ID="tex2html209"
+  HREF="node6.html#SECTION00621000000000000000">Extended Groove Notation</A>
+<LI><A ID="tex2html210"
+  HREF="node6.html#SECTION00622000000000000000">Groove Search Summary</A>
+<LI><A ID="tex2html211"
+  HREF="node6.html#SECTION00623000000000000000">Overlay Grooves</A>
+</UL>
+<LI><A ID="tex2html212"
+  HREF="node6.html#SECTION00630000000000000000">Groove Aliases</A>
+<LI><A ID="tex2html213"
+  HREF="node6.html#SECTION00640000000000000000">AllGrooves</A>
+<UL>
+<LI><A ID="tex2html214"
+  HREF="node6.html#SECTION00641000000000000000">Options</A>
+</UL>
+<LI><A ID="tex2html215"
+  HREF="node6.html#SECTION00650000000000000000">Deleting Grooves</A>
+<LI><A ID="tex2html216"
+  HREF="node6.html#SECTION00660000000000000000">Sticky</A>
+<LI><A ID="tex2html217"
+  HREF="node6.html#SECTION00670000000000000000">Library Issues</A>
+</UL>
+<BR>
+<LI><A ID="tex2html218"
+  HREF="node7.html">Riffs</A>
+<UL>
+<LI><A ID="tex2html219"
+  HREF="node7.html#SECTION00710000000000000000">DupRiff</A>
+</UL>
+<BR>
+<LI><A ID="tex2html220"
+  HREF="node8.html">Musical Data Format</A>
+<UL>
+<LI><A ID="tex2html221"
+  HREF="node8.html#SECTION00810000000000000000">Bar Numbers</A>
+<LI><A ID="tex2html222"
+  HREF="node8.html#SECTION00820000000000000000">Bar Repeat</A>
+<LI><A ID="tex2html223"
+  HREF="node8.html#SECTION00830000000000000000">Chords</A>
+<LI><A ID="tex2html224"
+  HREF="node8.html#SECTION00840000000000000000">Rests (Muting)</A>
+<LI><A ID="tex2html225"
+  HREF="node8.html#SECTION00850000000000000000">Positioning</A>
+<LI><A ID="tex2html226"
+  HREF="node8.html#SECTION00860000000000000000">Case Sensitivity</A>
+<LI><A ID="tex2html227"
+  HREF="node8.html#SECTION00870000000000000000">Track Chords</A>
+</UL>
+<BR>
+<LI><A ID="tex2html228"
+  HREF="node9.html">Lyrics</A>
+<UL>
+<LI><A ID="tex2html229"
+  HREF="node9.html#SECTION00910000000000000000">Lyric Options</A>
+<UL>
+<LI><A ID="tex2html230"
+  HREF="node9.html#SECTION00911000000000000000">Enable</A>
+<LI><A ID="tex2html231"
+  HREF="node9.html#SECTION00912000000000000000">Event Type</A>
+<LI><A ID="tex2html232"
+  HREF="node9.html#SECTION00913000000000000000">Kar File Mode</A>
+<LI><A ID="tex2html233"
+  HREF="node9.html#SECTION00914000000000000000">Word Splitting</A>
+</UL>
+<LI><A ID="tex2html234"
+  HREF="node9.html#SECTION00920000000000000000">Chord Name Insertion</A>
+<UL>
+<LI><A ID="tex2html235"
+  HREF="node9.html#SECTION00921000000000000000">Chord Transposition</A>
+</UL>
+<LI><A ID="tex2html236"
+  HREF="node9.html#SECTION00930000000000000000">Setting Lyrics</A>
+<UL>
+<LI><A ID="tex2html237"
+  HREF="node9.html#SECTION00931000000000000000">Limitations</A>
+</UL>
+</UL>
+<BR>
+<LI><A ID="tex2html238"
+  HREF="node10.html">Solo and Melody Tracks</A>
+<UL>
+<LI><A ID="tex2html239"
+  HREF="node10.html#SECTION001010000000000000000">Note Data Format</A>
+<UL>
+<LI><A ID="tex2html240"
+  HREF="node10.html#SECTION001011000000000000000">Chord Extensions</A>
+<LI><A ID="tex2html241"
+  HREF="node10.html#SECTION001012000000000000000">Accents</A>
+<LI><A ID="tex2html242"
+  HREF="node10.html#SECTION001013000000000000000">Long Notes</A>
+<LI><A ID="tex2html243"
+  HREF="node10.html#SECTION001014000000000000000">Using Defaults</A>
+<LI><A ID="tex2html244"
+  HREF="node10.html#SECTION001015000000000000000">Stretch</A>
+<LI><A ID="tex2html245"
+  HREF="node10.html#SECTION001016000000000000000">Other Commands</A>
+</UL>
+<LI><A ID="tex2html246"
+  HREF="node10.html#SECTION001020000000000000000">AutoSoloTracks</A>
+<LI><A ID="tex2html247"
+  HREF="node10.html#SECTION001030000000000000000">Drum Solo Tracks</A>
+<LI><A ID="tex2html248"
+  HREF="node10.html#SECTION001040000000000000000">Arpeggiation</A>
+<LI><A ID="tex2html249"
+  HREF="node10.html#SECTION001050000000000000000">Sequence</A>
+<LI><A ID="tex2html250"
+  HREF="node10.html#SECTION001060000000000000000">Voicing</A>
+</UL>
+<BR>
+<LI><A ID="tex2html251"
+  HREF="node11.html">Emulating plucked instruments: Plectrum Tracks</A>
+<UL>
+<LI><A ID="tex2html252"
+  HREF="node11.html#SECTION001110000000000000000">Tuning</A>
+<LI><A ID="tex2html253"
+  HREF="node11.html#SECTION001120000000000000000">Capo</A>
+<LI><A ID="tex2html254"
+  HREF="node11.html#SECTION001130000000000000000">Strum</A>
+<LI><A ID="tex2html255"
+  HREF="node11.html#SECTION001140000000000000000">Articulate</A>
+<LI><A ID="tex2html256"
+  HREF="node11.html#SECTION001150000000000000000">Patterns</A>
+<LI><A ID="tex2html257"
+  HREF="node11.html#SECTION001160000000000000000">Shape</A>
+<LI><A ID="tex2html258"
+  HREF="node11.html#SECTION001170000000000000000">Fret Noise</A>
+</UL>
+<BR>
+<LI><A ID="tex2html259"
+  HREF="node12.html">Automatic Melodies: Aria Tracks</A>
+<LI><A ID="tex2html260"
+  HREF="node13.html">Randomizing</A>
+<UL>
+<LI><A ID="tex2html261"
+  HREF="node13.html#SECTION001310000000000000000">RndSeed</A>
+<LI><A ID="tex2html262"
+  HREF="node13.html#SECTION001320000000000000000">RSkip</A>
+<LI><A ID="tex2html263"
+  HREF="node13.html#SECTION001330000000000000000">RTime</A>
+<LI><A ID="tex2html264"
+  HREF="node13.html#SECTION001340000000000000000">RDuration</A>
+<LI><A ID="tex2html265"
+  HREF="node13.html#SECTION001350000000000000000">RPitch</A>
+<LI><A ID="tex2html266"
+  HREF="node13.html#SECTION001360000000000000000">Other Randomizing Commands</A>
+</UL>
+<BR>
+<LI><A ID="tex2html267"
+  HREF="node14.html">Chord Voicing</A>
+<UL>
+<LI><A ID="tex2html268"
+  HREF="node14.html#SECTION001410000000000000000">Voicing</A>
+<UL>
+<LI><A ID="tex2html269"
+  HREF="node14.html#SECTION001411000000000000000">Voicing Mode</A>
+</UL>
+<LI><A ID="tex2html270"
+  HREF="node14.html#SECTION001420000000000000000">ChordAdjust</A>
+<LI><A ID="tex2html271"
+  HREF="node14.html#SECTION001430000000000000000">Compress</A>
+<LI><A ID="tex2html272"
+  HREF="node14.html#SECTION001440000000000000000">DupRoot</A>
+<LI><A ID="tex2html273"
+  HREF="node14.html#SECTION001450000000000000000">Invert</A>
+<LI><A ID="tex2html274"
+  HREF="node14.html#SECTION001460000000000000000">Limit</A>
+<LI><A ID="tex2html275"
+  HREF="node14.html#SECTION001470000000000000000">NoteSpan</A>
+<LI><A ID="tex2html276"
+  HREF="node14.html#SECTION001480000000000000000">Range</A>
+<LI><A ID="tex2html277"
+  HREF="node14.html#SECTION001490000000000000000">DefChord</A>
+<LI><A ID="tex2html278"
+  HREF="node14.html#SECTION0014100000000000000000">PrintChord</A>
+<LI><A ID="tex2html279"
+  HREF="node14.html#SECTION0014110000000000000000">Notes</A>
+</UL>
+<BR>
+<LI><A ID="tex2html280"
+  HREF="node15.html">Harmony</A>
+<UL>
+<LI><A ID="tex2html281"
+  HREF="node15.html#SECTION001510000000000000000">Harmony</A>
+<UL>
+<LI><A ID="tex2html282"
+  HREF="node15.html#SECTION001510100000000000000">Chord Based</A>
+<LI><A ID="tex2html283"
+  HREF="node15.html#SECTION001510200000000000000">Note Value  Based</A>
+<LI><A ID="tex2html284"
+  HREF="node15.html#SECTION001510300000000000000">Interval Based</A>
+<LI><A ID="tex2html285"
+  HREF="node15.html#SECTION001510400000000000000">Combining Harmonies</A>
+<LI><A ID="tex2html286"
+  HREF="node15.html#SECTION001510500000000000000">Random Harmony Selection</A>
+<LI><A ID="tex2html287"
+  HREF="node15.html#SECTION001510600000000000000">Some notes and cautions</A>
+</UL>
+<LI><A ID="tex2html288"
+  HREF="node15.html#SECTION001520000000000000000">HarmonyOnly</A>
+<LI><A ID="tex2html289"
+  HREF="node15.html#SECTION001530000000000000000">HarmonyVolume</A>
+</UL>
+<BR>
+<LI><A ID="tex2html290"
+  HREF="node16.html">Ornament</A>
+<LI><A ID="tex2html291"
+  HREF="node17.html">Tempo and Timing</A>
+<UL>
+<LI><A ID="tex2html292"
+  HREF="node17.html#SECTION001710000000000000000">Tempo</A>
+<LI><A ID="tex2html293"
+  HREF="node17.html#SECTION001720000000000000000">Time</A>
+<LI><A ID="tex2html294"
+  HREF="node17.html#SECTION001730000000000000000">TimeSig</A>
+<LI><A ID="tex2html295"
+  HREF="node17.html#SECTION001740000000000000000">Truncate</A>
+<LI><A ID="tex2html296"
+  HREF="node17.html#SECTION001750000000000000000">BeatAdjust</A>
+<LI><A ID="tex2html297"
+  HREF="node17.html#SECTION001760000000000000000">Fermata</A>
+<LI><A ID="tex2html298"
+  HREF="node17.html#SECTION001770000000000000000">Cut</A>
+</UL>
+<BR>
+<LI><A ID="tex2html299"
+  HREF="node18.html">Swing</A>
+<UL>
+<LI><A ID="tex2html300"
+  HREF="node18.html#SECTION001810000000000000000">Skew</A>
+<LI><A ID="tex2html301"
+  HREF="node18.html#SECTION001820000000000000000">Accent</A>
+<LI><A ID="tex2html302"
+  HREF="node18.html#SECTION001830000000000000000">Delay</A>
+<LI><A ID="tex2html303"
+  HREF="node18.html#SECTION001840000000000000000">Notes</A>
+<LI><A ID="tex2html304"
+  HREF="node18.html#SECTION001850000000000000000">Summary</A>
+</UL>
+<BR>
+<LI><A ID="tex2html305"
+  HREF="node19.html">Volume and Dynamics</A>
+<UL>
+<LI><A ID="tex2html306"
+  HREF="node19.html#SECTION001910000000000000000">Accent</A>
+<LI><A ID="tex2html307"
+  HREF="node19.html#SECTION001920000000000000000">AdjustVolume</A>
+<UL>
+<LI><A ID="tex2html308"
+  HREF="node19.html#SECTION001921000000000000000">Mnemonic Volume Ratios</A>
+<LI><A ID="tex2html309"
+  HREF="node19.html#SECTION001922000000000000000">Master Volume Ratio</A>
+</UL>
+<LI><A ID="tex2html310"
+  HREF="node19.html#SECTION001930000000000000000">Volume</A>
+<LI><A ID="tex2html311"
+  HREF="node19.html#SECTION001940000000000000000">Cresc and Decresc</A>
+<LI><A ID="tex2html312"
+  HREF="node19.html#SECTION001950000000000000000">Swell</A>
+<LI><A ID="tex2html313"
+  HREF="node19.html#SECTION001960000000000000000">RVolume</A>
+<LI><A ID="tex2html314"
+  HREF="node19.html#SECTION001970000000000000000">Saving and Restoring Volumes</A>
+</UL>
+<BR>
+<LI><A ID="tex2html315"
+  HREF="node20.html">Repeats</A>
+<LI><A ID="tex2html316"
+  HREF="node21.html">Variables, Conditionals and Jumps</A>
+<UL>
+<LI><A ID="tex2html317"
+  HREF="node21.html#SECTION002110000000000000000">Variables</A>
+<UL>
+<LI><A ID="tex2html318"
+  HREF="node21.html#SECTION002111000000000000000">Set</A>
+<LI><A ID="tex2html319"
+  HREF="node21.html#SECTION002112000000000000000">NewSet</A>
+<LI><A ID="tex2html320"
+  HREF="node21.html#SECTION002113000000000000000">Mset</A>
+<LI><A ID="tex2html321"
+  HREF="node21.html#SECTION002114000000000000000">RndSet</A>
+<LI><A ID="tex2html322"
+  HREF="node21.html#SECTION002115000000000000000">UnSet VariableName</A>
+<LI><A ID="tex2html323"
+  HREF="node21.html#SECTION002116000000000000000">ShowVars</A>
+<LI><A ID="tex2html324"
+  HREF="node21.html#SECTION002117000000000000000">Inc and Dec</A>
+<LI><A ID="tex2html325"
+  HREF="node21.html#SECTION002118000000000000000">VExpand On or Off</A>
+<LI><A ID="tex2html326"
+  HREF="node21.html#SECTION002119000000000000000">StackValue</A>
+</UL>
+<LI><A ID="tex2html327"
+  HREF="node21.html#SECTION002120000000000000000">Predefined Variables</A>
+<LI><A ID="tex2html328"
+  HREF="node21.html#SECTION002130000000000000000">Indexing and Slicing</A>
+<LI><A ID="tex2html329"
+  HREF="node21.html#SECTION002140000000000000000">Mathematical Expressions</A>
+<LI><A ID="tex2html330"
+  HREF="node21.html#SECTION002150000000000000000">Conditionals</A>
+<LI><A ID="tex2html331"
+  HREF="node21.html#SECTION002160000000000000000">Goto</A>
+</UL>
+<BR>
+<LI><A ID="tex2html332"
+  HREF="node22.html">Subroutines</A>
+<UL>
+<LI><A ID="tex2html333"
+  HREF="node22.html#SECTION002210000000000000000">DefCall</A>
+<LI><A ID="tex2html334"
+  HREF="node22.html#SECTION002220000000000000000">Call</A>
+<UL>
+<LI><A ID="tex2html335"
+  HREF="node22.html#SECTION002221000000000000000">Defaults</A>
+<LI><A ID="tex2html336"
+  HREF="node22.html#SECTION002222000000000000000">Local Values</A>
+</UL>
+</UL>
+<BR>
+<LI><A ID="tex2html337"
+  HREF="node23.html">Plugins</A>
+<UL>
+<LI><A ID="tex2html338"
+  HREF="node23.html#SECTION002301000000000000000">Naming and Locating</A>
+<LI><A ID="tex2html339"
+  HREF="node23.html#SECTION002302000000000000000">Distribution</A>
+<LI><A ID="tex2html340"
+  HREF="node23.html#SECTION002303000000000000000">Enabling</A>
+<LI><A ID="tex2html341"
+  HREF="node23.html#SECTION002304000000000000000">Disabling</A>
+<LI><A ID="tex2html342"
+  HREF="node23.html#SECTION002305000000000000000">Security</A>
+</UL>
+<BR>
+<LI><A ID="tex2html343"
+  HREF="node24.html">Low Level MIDI Commands</A>
+<UL>
+<LI><A ID="tex2html344"
+  HREF="node24.html#SECTION002410000000000000000">Channel</A>
+<LI><A ID="tex2html345"
+  HREF="node24.html#SECTION002420000000000000000">ChannelPref</A>
+<LI><A ID="tex2html346"
+  HREF="node24.html#SECTION002430000000000000000">ChShare</A>
+<LI><A ID="tex2html347"
+  HREF="node24.html#SECTION002440000000000000000">ChannelInit</A>
+<LI><A ID="tex2html348"
+  HREF="node24.html#SECTION002450000000000000000">ForceOut</A>
+<LI><A ID="tex2html349"
+  HREF="node24.html#SECTION002460000000000000000">MIDI</A>
+<LI><A ID="tex2html350"
+  HREF="node24.html#SECTION002470000000000000000">MIDIClear</A>
+<LI><A ID="tex2html351"
+  HREF="node24.html#SECTION002480000000000000000">MIDICue</A>
+<LI><A ID="tex2html352"
+  HREF="node24.html#SECTION002490000000000000000">MIDICopyright</A>
+<LI><A ID="tex2html353"
+  HREF="node24.html#SECTION0024100000000000000000">MIDIDef</A>
+<LI><A ID="tex2html354"
+  HREF="node24.html#SECTION0024110000000000000000">MIDICresc and MIDIDecresc</A>
+<LI><A ID="tex2html355"
+  HREF="node24.html#SECTION0024120000000000000000">MIDIFile</A>
+<LI><A ID="tex2html356"
+  HREF="node24.html#SECTION0024130000000000000000">MIDIGlis</A>
+<LI><A ID="tex2html357"
+  HREF="node24.html#SECTION0024140000000000000000">MIDIWheel</A>
+<LI><A ID="tex2html358"
+  HREF="node24.html#SECTION0024150000000000000000">MIDIInc</A>
+<LI><A ID="tex2html359"
+  HREF="node24.html#SECTION0024160000000000000000">MIDIMark</A>
+<LI><A ID="tex2html360"
+  HREF="node24.html#SECTION0024170000000000000000">MIDINote</A>
+<UL>
+<LI><A ID="tex2html361"
+  HREF="node24.html#SECTION0024171000000000000000">Setting Options</A>
+<LI><A ID="tex2html362"
+  HREF="node24.html#SECTION0024172000000000000000">Note Events</A>
+<LI><A ID="tex2html363"
+  HREF="node24.html#SECTION0024173000000000000000">Controller Events</A>
+<LI><A ID="tex2html364"
+  HREF="node24.html#SECTION0024174000000000000000">Pitch Bend</A>
+<LI><A ID="tex2html365"
+  HREF="node24.html#SECTION0024175000000000000000">Pitch Bend Range</A>
+<LI><A ID="tex2html366"
+  HREF="node24.html#SECTION0024176000000000000000">Channel Aftertouch</A>
+<LI><A ID="tex2html367"
+  HREF="node24.html#SECTION0024177000000000000000">Channel Aftertouch Range</A>
+</UL>
+<LI><A ID="tex2html368"
+  HREF="node24.html#SECTION0024180000000000000000">MIDIPan</A>
+<LI><A ID="tex2html369"
+  HREF="node24.html#SECTION0024190000000000000000">MIDISeq</A>
+<LI><A ID="tex2html370"
+  HREF="node24.html#SECTION0024200000000000000000">MIDISplit</A>
+<LI><A ID="tex2html371"
+  HREF="node24.html#SECTION0024210000000000000000">MIDIText</A>
+<LI><A ID="tex2html372"
+  HREF="node24.html#SECTION0024220000000000000000">MIDITname</A>
+<LI><A ID="tex2html373"
+  HREF="node24.html#SECTION0024230000000000000000">MIDIVoice</A>
+<LI><A ID="tex2html374"
+  HREF="node24.html#SECTION0024240000000000000000">MIDIVolume</A>
+</UL>
+<BR>
+<LI><A ID="tex2html375"
+  HREF="node25.html">Patch Management</A>
+<UL>
+<LI><A ID="tex2html376"
+  HREF="node25.html#SECTION002510000000000000000">Voice</A>
+<LI><A ID="tex2html377"
+  HREF="node25.html#SECTION002520000000000000000">Patch</A>
+<UL>
+<LI><A ID="tex2html378"
+  HREF="node25.html#SECTION002521000000000000000">Patch Set</A>
+<LI><A ID="tex2html379"
+  HREF="node25.html#SECTION002522000000000000000">Patch Rename</A>
+<LI><A ID="tex2html380"
+  HREF="node25.html#SECTION002523000000000000000">Patch List</A>
+<LI><A ID="tex2html381"
+  HREF="node25.html#SECTION002524000000000000000">Ensuring It All Works</A>
+</UL>
+</UL>
+<BR>
+<LI><A ID="tex2html382"
+  HREF="node26.html">Triggers</A>
+<LI><A ID="tex2html383"
+  HREF="node27.html">After</A>
+<LI><A ID="tex2html384"
+  HREF="node28.html">Fine Tuning and Tweaks</A>
+<UL>
+<LI><A ID="tex2html385"
+  HREF="node28.html#SECTION002810000000000000000">Translations</A>
+<UL>
+<LI><A ID="tex2html386"
+  HREF="node28.html#SECTION002811000000000000000">VoiceTr</A>
+<LI><A ID="tex2html387"
+  HREF="node28.html#SECTION002812000000000000000">ToneTr</A>
+<LI><A ID="tex2html388"
+  HREF="node28.html#SECTION002813000000000000000">VoiceVolTr</A>
+<LI><A ID="tex2html389"
+  HREF="node28.html#SECTION002814000000000000000">DrumVolTr</A>
+</UL>
+<LI><A ID="tex2html390"
+  HREF="node28.html#SECTION002820000000000000000">Tweaks</A>
+<UL>
+<LI><A ID="tex2html391"
+  HREF="node28.html#SECTION002821000000000000000">Default Voices</A>
+<LI><A ID="tex2html392"
+  HREF="node28.html#SECTION002822000000000000000">DrumKit</A>
+<LI><A ID="tex2html393"
+  HREF="node28.html#SECTION002823000000000000000">Diminished Chord Type</A>
+<LI><A ID="tex2html394"
+  HREF="node28.html#SECTION002824000000000000000">Plectrum Reset On Groove Change</A>
+</UL>
+<LI><A ID="tex2html395"
+  HREF="node28.html#SECTION002830000000000000000">Xtra Options</A>
+<UL>
+<LI><A ID="tex2html396"
+  HREF="node28.html#SECTION002831000000000000000">NoCredit</A>
+<LI><A ID="tex2html397"
+  HREF="node28.html#SECTION002832000000000000000">Chords</A>
+<LI><A ID="tex2html398"
+  HREF="node28.html#SECTION002833000000000000000">CheckFile</A>
+<LI><A ID="tex2html399"
+  HREF="node28.html#SECTION002834000000000000000">Grooves</A>
+<LI><A ID="tex2html400"
+  HREF="node28.html#SECTION002835000000000000000">Print</A>
+<LI><A ID="tex2html401"
+  HREF="node28.html#SECTION002836000000000000000">Splitting Output</A>
+<UL>
+<LI><A ID="tex2html402"
+  HREF="node28.html#SECTION002836100000000000000">Channel Split</A>
+<LI><A ID="tex2html403"
+  HREF="node28.html#SECTION002836200000000000000">Track Split</A>
+</UL>
+</UL>
+<LI><A ID="tex2html404"
+  HREF="node28.html#SECTION002840000000000000000">Debug</A>
+</UL>
+<BR>
+<LI><A ID="tex2html405"
+  HREF="node29.html">Enviroment Variables</A>
+<LI><A ID="tex2html406"
+  HREF="node30.html">Other Commands and Directives</A>
+<UL>
+<LI><A ID="tex2html407"
+  HREF="node30.html#SECTION003010000000000000000">AllTracks</A>
+<LI><A ID="tex2html408"
+  HREF="node30.html#SECTION003020000000000000000">Articulate</A>
+<LI><A ID="tex2html409"
+  HREF="node30.html#SECTION003030000000000000000">CmdLine</A>
+<LI><A ID="tex2html410"
+  HREF="node30.html#SECTION003040000000000000000">Copy</A>
+<LI><A ID="tex2html411"
+  HREF="node30.html#SECTION003050000000000000000">Comment</A>
+<LI><A ID="tex2html412"
+  HREF="node30.html#SECTION003060000000000000000">Delay</A>
+<LI><A ID="tex2html413"
+  HREF="node30.html#SECTION003070000000000000000">Delete</A>
+<LI><A ID="tex2html414"
+  HREF="node30.html#SECTION003080000000000000000">Direction</A>
+<LI><A ID="tex2html415"
+  HREF="node30.html#SECTION003090000000000000000">Error</A>
+<LI><A ID="tex2html416"
+  HREF="node30.html#SECTION0030100000000000000000">KeySig</A>
+<LI><A ID="tex2html417"
+  HREF="node30.html#SECTION0030110000000000000000">Mallet</A>
+<LI><A ID="tex2html418"
+  HREF="node30.html#SECTION0030120000000000000000">Octave</A>
+<LI><A ID="tex2html419"
+  HREF="node30.html#SECTION0030130000000000000000">MOctave</A>
+<LI><A ID="tex2html420"
+  HREF="node30.html#SECTION0030140000000000000000">Off</A>
+<LI><A ID="tex2html421"
+  HREF="node30.html#SECTION0030150000000000000000">On</A>
+<LI><A ID="tex2html422"
+  HREF="node30.html#SECTION0030160000000000000000">Print</A>
+<LI><A ID="tex2html423"
+  HREF="node30.html#SECTION0030170000000000000000">PrintActive</A>
+<LI><A ID="tex2html424"
+  HREF="node30.html#SECTION0030180000000000000000">Restart</A>
+<LI><A ID="tex2html425"
+  HREF="node30.html#SECTION0030190000000000000000">ScaleType</A>
+<LI><A ID="tex2html426"
+  HREF="node30.html#SECTION0030200000000000000000">Seq</A>
+<LI><A ID="tex2html427"
+  HREF="node30.html#SECTION0030210000000000000000">Strum</A>
+<LI><A ID="tex2html428"
+  HREF="node30.html#SECTION0030220000000000000000">StrumAdd</A>
+<LI><A ID="tex2html429"
+  HREF="node30.html#SECTION0030230000000000000000">Synchronize</A>
+<LI><A ID="tex2html430"
+  HREF="node30.html#SECTION0030240000000000000000">SetSyncTone</A>
+<LI><A ID="tex2html431"
+  HREF="node30.html#SECTION0030250000000000000000">Transpose</A>
+<LI><A ID="tex2html432"
+  HREF="node30.html#SECTION0030260000000000000000">Unify</A>
+</UL>
+<BR>
+<LI><A ID="tex2html433"
+  HREF="node31.html">Begin/End Blocks</A>
+<UL>
+<LI><A ID="tex2html434"
+  HREF="node31.html#SECTION003110000000000000000">Begin</A>
+<LI><A ID="tex2html435"
+  HREF="node31.html#SECTION003120000000000000000">End</A>
+</UL>
+<BR>
+<LI><A ID="tex2html436"
+  HREF="node32.html">Documentation Strings</A>
+<UL>
+<LI><A ID="tex2html437"
+  HREF="node32.html#SECTION003210000000000000000">Doc</A>
+<LI><A ID="tex2html438"
+  HREF="node32.html#SECTION003220000000000000000">Author</A>
+<LI><A ID="tex2html439"
+  HREF="node32.html#SECTION003230000000000000000">DocVar</A>
+</UL>
+<BR>
+<LI><A ID="tex2html440"
+  HREF="node33.html">Paths, Files and Libraries</A>
+<UL>
+<LI><A ID="tex2html441"
+  HREF="node33.html#SECTION003301000000000000000">
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Modules</A>
+<LI><A ID="tex2html442"
+  HREF="node33.html#SECTION003302000000000000000">Special Characters In Filenames</A>
+<LI><A ID="tex2html443"
+  HREF="node33.html#SECTION003303000000000000000">Tildes In Filenames</A>
+<LI><A ID="tex2html444"
+  HREF="node33.html#SECTION003304000000000000000">Filenames and the Command Line</A>
+<LI><A ID="tex2html445"
+  HREF="node33.html#SECTION003310000000000000000">File Extensions</A>
+<LI><A ID="tex2html446"
+  HREF="node33.html#SECTION003320000000000000000">Eof</A>
+<LI><A ID="tex2html447"
+  HREF="node33.html#SECTION003330000000000000000">LibPath</A>
+<LI><A ID="tex2html448"
+  HREF="node33.html#SECTION003340000000000000000">MIDIPlayer</A>
+<LI><A ID="tex2html449"
+  HREF="node33.html#SECTION003350000000000000000">Groove Previews</A>
+<LI><A ID="tex2html450"
+  HREF="node33.html#SECTION003360000000000000000">OutPath</A>
+<LI><A ID="tex2html451"
+  HREF="node33.html#SECTION003370000000000000000">Include</A>
+<LI><A ID="tex2html452"
+  HREF="node33.html#SECTION003380000000000000000">IncPath</A>
+<LI><A ID="tex2html453"
+  HREF="node33.html#SECTION003390000000000000000">Use</A>
+<LI><A ID="tex2html454"
+  HREF="node33.html#SECTION0033100000000000000000">MmaStart</A>
+<LI><A ID="tex2html455"
+  HREF="node33.html#SECTION0033110000000000000000">MmaEnd</A>
+<LI><A ID="tex2html456"
+  HREF="node33.html#SECTION0033120000000000000000">RC Files</A>
+<LI><A ID="tex2html457"
+  HREF="node33.html#SECTION0033130000000000000000">Library Files</A>
+<UL>
+<LI><A ID="tex2html458"
+  HREF="node33.html#SECTION0033131000000000000000">Maintaining and Using Libraries</A>
+</UL>
+</UL>
+<BR>
+<LI><A ID="tex2html459"
+  HREF="node34.html">Creating Effects</A>
+<UL>
+<LI><A ID="tex2html460"
+  HREF="node34.html#SECTION003410000000000000000">Overlapping Notes</A>
+<LI><A ID="tex2html461"
+  HREF="node34.html#SECTION003420000000000000000">Jungle Birds</A>
+</UL>
+<BR>
+<LI><A ID="tex2html462"
+  HREF="node35.html">Frequency Asked Questions</A>
+<UL>
+<LI><A ID="tex2html463"
+  HREF="node35.html#SECTION003510000000000000000">Chord Octaves</A>
+<LI><A ID="tex2html464"
+  HREF="node35.html#SECTION003520000000000000000">AABA Song Forms</A>
+<LI><A ID="tex2html465"
+  HREF="node35.html#SECTION003530000000000000000">Where's the GUI?</A>
+<LI><A ID="tex2html466"
+  HREF="node35.html#SECTION003540000000000000000">Where's the manual index?</A>
+</UL>
+<BR>
+<LI><A ID="tex2html467"
+  HREF="node36.html">Symbols and Constants</A>
+<UL>
+<LI><A ID="tex2html468"
+  HREF="node36.html#SECTION003610000000000000000">Chord Names</A>
+<UL>
+<LI><A ID="tex2html469"
+  HREF="node36.html#SECTION003611000000000000000">Octave Adjustment</A>
+<LI><A ID="tex2html470"
+  HREF="node36.html#SECTION003612000000000000000">Altered Chords</A>
+<LI><A ID="tex2html471"
+  HREF="node36.html#SECTION003613000000000000000">Diminished Chords</A>
+<LI><A ID="tex2html472"
+  HREF="node36.html#SECTION003614000000000000000">Slash Chords</A>
+<LI><A ID="tex2html473"
+  HREF="node36.html#SECTION003615000000000000000">Polychords</A>
+<LI><A ID="tex2html474"
+  HREF="node36.html#SECTION003616000000000000000">Chord Inversions</A>
+<LI><A ID="tex2html475"
+  HREF="node36.html#SECTION003617000000000000000">Barre Settings</A>
+<LI><A ID="tex2html476"
+  HREF="node36.html#SECTION003618000000000000000">Roman Numerals</A>
+</UL>
+<LI><A ID="tex2html477"
+  HREF="node36.html#SECTION003620000000000000000">MIDI Voices</A>
+<UL>
+<LI><A ID="tex2html478"
+  HREF="node36.html#SECTION003621000000000000000">Voices, Alphabetically</A>
+<LI><A ID="tex2html479"
+  HREF="node36.html#SECTION003622000000000000000">Voices, By MIDI Value</A>
+</UL>
+<LI><A ID="tex2html480"
+  HREF="node36.html#SECTION003630000000000000000">Drum Tones</A>
+<UL>
+<LI><A ID="tex2html481"
+  HREF="node36.html#SECTION003631000000000000000">Drum Tones, Alphabetically</A>
+<LI><A ID="tex2html482"
+  HREF="node36.html#SECTION003632000000000000000">Drum Tones, by MIDI Value</A>
+</UL>
+<LI><A ID="tex2html483"
+  HREF="node36.html#SECTION003640000000000000000">DrumKits</A>
+<UL>
+<LI><A ID="tex2html484"
+  HREF="node36.html#SECTION003641000000000000000">Drum Kits </A>
+</UL>
+<LI><A ID="tex2html485"
+  HREF="node36.html#SECTION003650000000000000000">MIDI Controllers</A>
+<UL>
+<LI><A ID="tex2html486"
+  HREF="node36.html#SECTION003651000000000000000">Controllers, Alphabetically</A>
+<LI><A ID="tex2html487"
+  HREF="node36.html#SECTION003652000000000000000">Controllers, by Value</A>
+</UL>
+</UL>
+<BR>
+<LI><A ID="tex2html488"
+  HREF="node37.html">Bibliography and Thanks</A>
+<LI><A ID="tex2html489"
+  HREF="node38.html">Command Summary</A>
+<LI><A ID="tex2html490"
+  HREF="node39.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+
+</BODY>
+</HTML>

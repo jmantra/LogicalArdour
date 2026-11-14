@@ -1,0 +1,204 @@
+
+// nitejazz
+
+Doc A slow jazz trio beat for slow and sassy stuff. Initially written for \
+    a 56bpm version of Chelsea Bridge.
+  
+Begin DocVar
+  PUSH0 The swing feeling for this groove is controlled by the PUSH0 value. \
+         By default it is set to 0.666 which gives a regular ``swing'' feel. \
+         You might want to change it to 0.75 for a more ``square'' feel.
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+Seqsize 4
+
+// These are used in the bass-accent grooves and others to set
+// an offset for the "push" notes.
+If Ndef Push0
+  Set Push0 0.666
+Endif
+Set Push2 $( 2 + $PUSH0 )
+Set Push3 $( 3 + $PUSH0 )
+Set Push4 $( 4 + $PUSH0 )
+
+
+///////// Additional Patterns
+
+
+////////// LateNightJazz   - basic groove
+
+// The bass line is simple, a strong beat on 1/3
+Begin Bass
+   Voice AcousticBass
+   Rvolume 5,10
+   Rtime 10
+   Volume mp
+   Octave 3
+   Articulate 80
+   Sequence  B13
+End
+
+// This adds a pickup on the push beat just before 1 and 3 at
+// random times. Note that we can't do this is a single BASS
+// groove, but it's very simple if we split the tracks. Also
+// note how we use different combinations of notes (4,3,5,1) in
+// different bars and then randomize that with seqrnd.
+Begin Bass-Accent
+   Voice $_Bass_Voice
+   ChShare Bass
+   Articulate 70
+   Octave $_Bass_Octave
+   Volume $_Bass_Volume
+   Rvolume 0,10
+   Sequence  { $Push2 8 4 90; $Push4 8 7 90 } \
+             { $Push2 8 3 90; $Push4 8 5 90 } \
+             { $Push2 8 2 90; $Push4 8 1 90 } \
+             { $Push2 8 1 90; $Push4 8 5 90 }
+   SeqRnd ON
+   Rskip  60
+End
+
+/// Use an arpeggio for the piano. No full chords, ever. However, with
+/// the addition of the big harmony setting we're getting lots of notes.
+/// All on-the-beat. 
+Begin Arpeggio-Piano
+    Voice Piano1
+    Rvolume 10
+    Rtime 4
+    Volume mp
+    Articulate 150
+    Octave 4          /// low octave for a dark sound
+    Accent 1 20 3 10
+    Rskip 10
+    Range  1.2   // if you restrict to '1' it will sound less bright
+    Direction Random
+    Harmony 3Above+OpenBelow
+    Sequence A4
+End
+
+Begin Drum-RideCymbal2
+ Tone RideCymbal2
+ Rvolume 5
+ Rtime 5
+ Volume p
+ Sequence  D1
+End
+
+Begin Drum-Conga
+ Tone LowConga
+ Rvolume 5 
+ Rtime 5
+ Volume p
+ Rskip 10
+ Volume mf
+ Sequence  D13
+End
+
+Begin Drum-Cabasa
+ Tone Cabasa
+ Rvolume 5
+ Rtime 5
+ Volume p
+ Rskip 10
+ Sequence  D34
+End
+
+
+DefGroove NiteJazz  Our basic sultry beat.
+
+
+//////////////////////////////////////////
+// Sustained
+
+Groove NiteJazz
+
+// Some dark strings. Only uses root/fifth of chords
+Begin Chord-Sus
+    Voice SlowStrings
+    Rvolume 5
+    Voicing Mode=Key2
+    Rtime 5
+    Volume pp
+    Octave 4
+    Rskip 15       // drop some notes (only for a quarter beat)
+    Articulate 100
+    Unify On
+    Sequence  { 1 1 90 0 90 0 * 4 }
+End
+
+DefGroove NiteJazzSus   Add in some strings
+
+////////////////////////////////////////
+/// Plus - some random jazz guitar pickings
+
+Groove NiteJazz
+
+Begin Arpeggio-Guitar
+	Voice JazzGuitar
+	Volume m
+	Octave 4
+	Direction Random
+	Range 1.5
+    Articulate 110
+	Sequence { A4; $Push2 8 70; $Push3 8 70} \
+             { A4; $Push3 4 70 } \
+             { A4; $Push2 8. 70 } \
+             { A4; A4 Shift $Push0 }
+    SeqRnd  On
+    Harmony OpenBelow+OpenAbove
+	Rskip 30
+End
+
+DefGroove NiteJazzPlus   Add in some jazz guitar picking.
+
+Groove NiteJazzPlus
+Chord-Sus Groove NiteJazzSus
+DefGroove NiteJazzSusPlus    Guitar picking and sustained low strings.
+
+////////////////////////////////////////
+//// Intro
+
+Groove NiteJazz
+
+Bass         Sequence  *   *   *   {1 4 5 90; 2 4 4 85; 3 4 3 80; 4 4 2 70}
+Bass-Accent  Sequence  *   *   *   z
+
+Arpeggio-Piano   Sequence  *   *   *  {1 1 90}
+Bass-Piano       Sequence  *   *   *   z
+
+Begin Drum-RideCymbal2  
+      Sequence  *   *   *   *
+      Volume    p   p   mp  m
+End
+
+Begin Drum-Conga
+      Sequence   D13   /   /   D1
+      Volume m
+End
+Drum-Cabasa         Sequence   D3   /   z   /
+
+DefGroove NiteJazzIntro   Simple 4 bar intro with bass walk on 4.
+
+////////////////////////////////////
+/// Ending
+
+Groove NiteJazz
+SeqSize 2
+
+Bass                Sequence  *     B1
+Bass-Accent         Sequence  *     z
+
+Arpeggio-Piano      Sequence  A4    A2
+Bass-Piano          Sequence  *     z
+
+Drum-RideCymbal2    Sequence  *     D1
+Drum-Conga          Sequence  D13   D1
+Drum-Cabasa         Sequence   D3   D1
+
+DefGroove NiteJazzEnd  2 bar ending.

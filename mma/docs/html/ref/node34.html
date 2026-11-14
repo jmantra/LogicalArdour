@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Creating Effects</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node35.html">
+<LINK REL="previous" HREF="node33.html">
+<LINK REL="next" HREF="node35.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node35.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node33.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node35.html">Frequency Asked Questions</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node33.html">Paths, Files and Libraries</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html762"
+  HREF="node34.html#SECTION003410000000000000000">Overlapping Notes</A>
+<LI><A ID="tex2html763"
+  HREF="node34.html#SECTION003420000000000000000">Jungle Birds</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION003400000000000000000"></A>
+<A ID="sec-effects"></A>
+<BR>
+Creating Effects
+</H1>
+
+<P>
+It's really quite amazing how easy and effective it is to create
+different patterns, sequences and special effects. As 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  was
+developed lots of silly things were tried ... this chapter is an
+attempt to display and preserve some of them.
+
+<P>
+The examples don't show any music to apply the patterns or sequences
+to. The manual assumes that if you've read this far you'll know
+that you should have something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>1  C 
+<BR>
+2  G 
+<BR>
+3  G 
+<BR>
+4 C   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+as a simple test piece to apply tests to.
+
+<P>
+
+<H1><A ID="SECTION003410000000000000000">
+Overlapping Notes</A>
+</H1>
+
+<P>
+As a general rule, you should not create patterns in which notes
+overlap. However, here's an interesting effect which relies on
+ignoring that rule:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Scale 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S1 1 1+1+1+1 90  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S32 S1 * 32 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Sequence S32 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;ScaleType  Chromatic 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Direction Both 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Voice Accordion 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Octave 5 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+&ldquo;S1&rdquo; is defined with a note length of 4 whole notes (1+1+1+1) so that
+when it is multiplied for S32 a pattern of 32 8th notes is created.
+Of course, the notes overlap. Running this up and down a chromatic
+scale is &ldquo;interesting&rdquo;.  You might want to play with this a bit and
+try changing &ldquo;S1&rdquo; to:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>define S1 1 1 90   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+to see what the effect is of the notes overlapping. Or change the
+S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL> and/or D<SMALL>IRECTION</SMALL>.
+
+<P>
+
+<H1><A ID="SECTION003420000000000000000">
+Jungle Birds</A>
+</H1>
+
+<P>
+Here's another use for S<SMALL>CALE</SMALL>s. Someone (certainly not the
+author) decided that some jungle sounds would be perfect as an
+introduction to &ldquo;Yellow Bird&rdquo;.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>groove Rhumba 
+<BR>
+Begin Scale 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S1 1 1 90  
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;define S32 S1 * 32 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Sequence S32 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;ScaleType Chromatic 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Direction  Random 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Voice BirdTweet 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Octave 5 6 4 5 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;RVolume 30 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Rtime 2 3 4 5 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Volume pp pp ppp ppp 
+<BR>
+End 
+<BR>
+DefGroove BirdRhumba   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The above is an extract from the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  score. The entire song is
+included in the &ldquo;songs&rdquo; archive available on our website: <kbd><A ID="tex2html144"
+  HREF="http://www.mellowood.ca/mma/">http://www.mellowood.ca/mma/</A></kbd>.
+
+<P>
+A neat trick is to create the bird sound track and then add it to the
+existing Rhumba groove. Then define a new groove. Now one can select
+either the library &ldquo;rhumba&rdquo; or the enhanced &ldquo;BirdRhumba&rdquo; with a
+simple G<SMALL>ROOVE</SMALL> directive. In the above example the
+D<SMALL>EF</SMALL>G<SMALL>ROOVE</SMALL> is not needed if you have chord lines following the
+example.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node35.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node33.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node35.html">Frequency Asked Questions</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node33.html">Paths, Files and Libraries</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,148 @@
+ // 16beatballad3.mma
+
+Begin Doc  
+      16 Beat Ballad3 (35). Gentle ballad with strings.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 95; 2.8 0 78; 3 0 82; 3.5 0 82}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {2 0 95; 4 0 95}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 10
+    Rtime 5
+    Sequence {1 0 86; 1.3 0 38; 1.5 0 60; 1.8 0 55; 2 0 86; \
+                2.3 0 55; 2.5 0 52; 2.8 0 74; 3 0 55; 3.3 0 60; \
+                3.5 0 64; 3.8 0 38; 4 0 74; 4.3 0 40; 4.8 0 49} 
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    Sequence {4.5 0 70}    z 
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence z  {4.5 0 67} 
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Rvolume 10
+    Rtime 5
+    Sequence {1 4 1 82; 2.3 64 5 60; 2.5 6 1 82; 2.8 6 1 78; 4.5 3 5 90} \
+             {1 4 1 95; 2.3 32 5 52; 2.5 32 1 78; 2.8 6 1 95; 4.3 0 5 49; \
+                 4.5 6 5 95; 4.8 32 5 67}
+End
+
+Begin Chord-6
+    Voice RhodesPiano
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Rvolume 10
+    Rtime 6
+    Rskip 5
+    Sequence  {1 8 90; 1.8 64 90; 2.3 0 90; 2.5 4 90; 4.3 8 90; 4.5 3 90; 4.8 16 90} 
+End
+
+
+
+Begin Chord-7
+    Voice WarmPad
+    Octave 6
+    Articulate 100
+    Volume m
+    Unify On
+    Sequence {1 1 70 0 60 0 * 4}  // chord has root and 5
+End
+
+Begin Bass-8
+    Voice JazzGuitar
+    Octave 5
+    Articulate 120
+    Volume mp
+    Sequence {1 3 1 86; 1.8 0 1 82; 2.5 0 5 43; 2.8 64 1 86; \
+                 3.5 0 5 19; 3.8 0 1 86; 4.8 0 5 33} \
+             {1 3 1 86; 1.5 64 5 15; 1.8 0 1 86; 2.5 0 5 37; \
+                 2.8 64 1 82; 3.5 0 5 52; 3.8 0 5 82; 4.8 64 5 67} 
+End
+
+DefGroove 16BeatBallad3   Basic pattern
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove 16BeatBallad3
+
+Drum-KickDrum1     Sequence   *    *     *     D1234
+Drum-SnareDrum1    Sequence   *    *     D8    *
+Drum-ClosedHiHat   Sequence   *    *     *     Droll
+Drum-PedalHiHa     Sequence   *    *     *     z
+Drum-OpenHiHat     Sequence   z    *     z     z
+
+Bass-9             Sequence  B1234 *     *    B11
+
+// RhodesPiano
+Chord-6            Sequence   *    *     *    L2
+
+// warmpad
+Chord-7            Sequence  z     *     *    L1
+
+// jazzguitar
+Bass-8             Sequence  *     *     *    B1
+
+DefGroove 16BeatBallad3Intro   4 bar introduction
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove 16BeatBallad3
+Seqsize 2
+
+Drum-KickDrum1     Sequence   *       D1
+Drum-SnareDrum1    Sequence   D8      D1
+Drum-ClosedHiHat   Sequence   Droll   D1
+Drum-PedalHiHa     Sequence   *        z
+Drum-OpenHiHat     Sequence   -
+
+Bass-9             Sequence  B1234     B1
+
+// RhodesPiano
+Chord-6            Sequence   *        L1
+
+// warmpad
+Chord-7            Sequence   *        L1
+
+// jazzguitar
+Bass-8             Sequence   *        B1
+
+DefGroove 16BeatBallad3End  2 bar ending
+

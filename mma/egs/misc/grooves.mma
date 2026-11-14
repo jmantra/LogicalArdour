@@ -1,0 +1,73 @@
+// Demo to show different GROOVE options.
+// This assumes that the library file bossanova.mma is installed.
+
+// I've just stolen a few bars from 'A Day In The Life Of A Fool' for this.
+
+// Start off with a short intro. This just sets the rhythm to
+// a bossa intro.
+
+Tempo 120
+
+Print
+Print Plain, single selection.
+
+Groove BossaNovaIntro
+Print Bar $_BarNum  Groove $_Groove
+
+1       Am
+2       Bm7&5 /  E7&9
+3       Am
+4       Bm7&5
+
+// Now show the selection method for grooves.
+// This does 5 repeats with different grooves.
+
+Print
+Print Count Groove Selection.
+
+Set Count 1
+Repeat
+Groove $Count BossaNova BossaNovaSus / BossaNova1Sus
+Print Bar $_BarNum  Groove $_Groove
+
+5      Am
+6      Bm7&5 /  E7&9
+7      Am
+8      Bm7&5 /  E7&9
+9      Am
+10     Dm7 /  G7
+11     CM7
+
+Inc Count
+RepeatEnd 5
+
+// Now do the goofy changes between bars.
+
+Print
+Print Per bar Groove Selection.
+
+Groove  BossaNovaFill BossaNovaSus BossaNovaFill BossaNova1Sus
+
+Print Bar $_BarNum  Groove $_Groove
+12       Am
+
+Print Bar $_BarNum  Groove $_Groove
+13      Bm7&5 /  E7&9
+
+Print Bar $_BarNum  Groove $_Groove
+14      A
+
+Print Bar $_BarNum  Groove $_Groove
+15      Bm7&5 /  E7&9
+
+Print Bar $_BarNum  Groove $_Groove
+16       Am
+
+Print Bar $_BarNum  Groove $_Groove
+17      Bm7&5 /  E7&9
+
+Print Bar $_BarNum  Groove $_Groove
+18      Am
+
+Print Bar $_BarNum  Groove $_Groove
+19      Bm7&5 /  E7&9

@@ -1,0 +1,61 @@
+
+The ARTICULATE option can be a wonderful thing. It can also be a curse!
+
+Here's the deal: When you create a track the ARTICULATE setting defaults to 90.
+ This is a percentage value and is used to set the actual duration of notes.
+ So, if you have a quarter note you might think that you will generate a MIDI
+ note with a duration of 192 MIDI ticks. Well, there are two things wrong with
+ this assumption.
+
+1. A MIDI note doesn't have a duration. It is a ON or OFF event. So, MMA
+   figures out a time (in really this is an offset in the file) in the file
+   to set the note ON and a different time to set the note OFF.
+
+2. It's not 192 ticks. The ARTICULATE setting (assuming the default of 90)
+   will reduce this to .9 * 192 = 172 ticks. Yes, this is perfectly fine.
+   You really, really don't want all your notes mushed together.
+
+Now, consider what happens when we change the ARTICULATE value to something
+ larger that 100,
+
+       Solo Articulate 125
+
+Now, the 1/4 note will sound for 1.25 * 192 = 240 ticks. Again, this is not a
+ problem. You get nice overlapping notes. If you have a woodwind sound it MIGHT
+ be muddy; but with a voice that decays (piano, guitar, etc) it'll sound just fine.
+
+Okay, now the problem. Lets assume you have 2 quarter notes of the same pitch and
+ you have set an articulate greater than 100 (in this case it's 125). What happens
+ is best shown with a time line, the number in the left column are offsets (in midi ticks):
+
+   0   - event to turn on the note
+   192 - event to turn on the same note. Unless the volume is different,
+         it'll be ignored (this is somewhat dependent on the synth.)
+   240 - note OFF, we hope the note turned on at 0
+   432 - note OFF, we hope the note turned on at 192.
+
+But, at 240 the note tuned off is the same pitch as the note at 192. So, both
+ (actually one since event 192 duplicates the one at 0) notes are turned off.
+ Between 240 and 432 there will be no sound! Then, at 432 we have yet another
+ ignored event.
+
+Notice that the "problem" only occurs when we have the same PITCH repeated.
+
+Workarounds:
+
+1. Use the UNIFY option. In the above example, unify will delete the events at
+   192 and 240. You'll just have one long note.
+
+2. If you are doing a SOLO shorten your notes. Either the duration or using
+   one of the accents (the "!" accent works nicely).
+
+3. In a pattern sequence pay close attention to the pattern you are using!!!
+
+Having read all this doom and gloom, you can relax. MMA has sophisticated
+ algorithms to avoid most of these problems. Essentially, it monitors
+ overlapping notes and will avoid most of the problems. However, it's still
+ better to be aware and avoid the issue.
+
+Hope this helps.
+
+bvdp/Jan 2014.

@@ -1,0 +1,255 @@
+
+// waltz
+
+Begin Doc
+
+ A pretty basic 3/4 waltz. 
+    
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 3
+TimeSig 3 4
+Include stdpats34
+
+
+//////////////////////////////////////
+/////   Waltz        - plain, dull (and a bit heavy sounding), 3/4
+
+
+SeqSize 4
+
+Begin Drum-CHH
+	Tone ClosedHiHat
+	Sequence	D1	D23	
+	Volume mp
+	Rvolume 10
+	Rtime 3
+End
+
+Begin Drum-Kick
+	Sequence	  z   D1   /    /	
+	Tone KickDrum1
+	Volume mp
+	Rskip 5
+	Rvolume 10
+	Rtime 3
+End
+
+Begin Drum-Snare
+	Sequence 	D23	/	/	{D1 Shift .5 ; D23 }
+	Tone SnareDrum1
+	Volume pp
+	Rskip 2
+	Rvolume 20
+	Rtime 2
+End
+
+Begin Drum-Tri
+	Sequence	D1	z	z	z
+	Tone OpenTriangle
+	Volume pp
+	Rvolume 10
+	Rtime 2
+End
+
+Begin Chord
+	Sequence	C123  {C123; C2 Shift .5}  C123  {C123; C23 Shift .5}
+	Accent 1 40
+	Voicing Mode=Optimal
+	Volume p
+	Voice Piano1
+	Articulate 80
+	Octave 4
+End
+
+// Alternate bass on root/five bar to bar
+
+Begin Bass
+	Voice AcousticBass
+	Sequence	B1   B1/5   B1   z
+	Octave  3
+	Volume p
+	Articulate 70
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence	z    z    z   W123
+	Volume p
+	Articulate 70
+End
+
+DefGroove Waltz         A very boring waltz with piano chords.
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence  { 1 2. 90 0 50 * 3 }
+	Voicing Mode=Optimal
+	Articulate 100
+	Unify On
+	Volume p
+	Octave 5
+End
+
+
+DefGroove WaltzSus         Adds strings to Waltz.
+
+
+// Add interest by alternating scales and apreggios.
+
+Groove Waltz
+
+Chord Sequence  C13 / / C123
+
+Begin Arpeggio
+	Sequence	z	A6	/	/
+	Voice Piano1 
+	Octave 4
+	Range 2
+	Rskip 10
+	Invert 0 1 2 1
+	Volume p
+	Articulate 99
+End
+
+Begin Scale
+	Sequence	S6	z	z	z 
+	Voice  Piano1
+	Octave 4
+	Range 2
+	Volume p
+	Articulate 99
+End
+
+DefGroove Waltz1       Add piano apreggios to the basic waltz.
+Chord-Sus Groove WaltzSus
+
+DefGroove Waltz1Sus        Waltz with arpeggios and sustained strings.
+
+
+/////////////////////////////////////
+/// Walking bass versions
+
+Groove Waltz
+
+Bass Sequence -
+Walk Sequence	W123
+DefGroove WaltzWalk         Walking bass version of Waltz.		
+
+Chord-Sus Groove WaltzSus
+DefGroove WaltzWalkSus        Walking bass and sustained strings.
+
+Groove Waltz1
+Bass Sequence -
+Walk Sequence W123
+DefGroove Waltz1Walk        Walking bass and arpeggios.
+
+Chord-Sus Groove WaltzSus
+DefGroove Waltz1WalkSus    Walking bass, arpeggios and sustained strings.
+
+
+/////////////////////////
+/// Intro (4 bar)
+
+Groove Waltz
+
+Drum-CHH  Sequence * * * D123
+Drum-Tri  Sequence D1 z z D1
+
+Chord     Sequence  *  *  * {1 2. 100}
+
+
+DefGroove WaltzIntro        Waltz intro with piano chords.
+
+Begin Chord-Sus
+   Groove WaltzSus
+   Sequence  { 1 2. 90 0 50 * 3 } / / {1 2 80 0 50}
+End
+
+DefGroove WaltzSusIntro    Simple intro with strings.
+
+Chord     Sequence -
+
+Begin Arpeggio
+	Sequence	A6	/	/  A3
+	Voice Piano1 
+	Octave 4
+	Range 2
+	Volume p
+	Articulate 99
+End
+
+DefGroove Waltz1Intro     Waltz intro with piano arpeggios.
+
+Chord-Sus Groove WaltzSusIntro
+
+DefGroove Waltz1SusIntro  Intro with arepeggios and strings.
+
+/////  Intro (8 bar)
+
+Groove Waltz
+SeqSize 8
+   
+Drum-CHH  Sequence *   *   *   *   *   *   *   D123
+Drum-Tri  Sequence D1  z   z   D1 
+
+Chord     Sequence  *  *   *   *   *   *   *  {1 2. 100}
+
+
+DefGroove WaltzIntro8       8 bar waltz intro with piano chords.
+
+Begin Chord-Sus
+   Groove WaltzSusIntro
+   Sequence  { 1 2. 90 0 50 * 3 } / / / / / / {1 2 80 0 50}
+End
+
+DefGroove WaltzSusIntro8    8 bar Intro with arepeggios and strings.
+
+Chord Sequence -
+
+Begin Arpeggio
+	Sequence	A6	/	/  /  /  /  /  A3
+	Voice Piano1 
+	Octave 4
+	Range 2
+	Volume p
+	Articulate 99
+End
+
+DefGroove  Waltz1Intro8    8 bar wWaltz intro with piano arpeggios.
+
+Chord-Sus Groove WaltzSusIntro8
+DefGroove Waltz1SusIntro8   8 bar intro with arpgeggios and strings.
+
+////////////////////////
+///// Ending
+
+
+Groove Waltz
+
+Drum-Snare   Sequence 	D123	/	D23	 D1
+Drum-Tri     Sequence   D1	    z	D1   z
+Drum-CHH     Sequence   D1
+Chord        Sequence	C123    /   C12  C1
+Bass         Sequence	B1   B1/5   B1   B1
+Walk         Sequence   -
+
+Begin Scale
+	Sequence	S12	S6	S3	S1 
+	Voice  Piano1
+	Octave 4
+	Volume mp
+	Articulate 99
+End
+
+DefGroove WaltzEnd      Simple ending based on Waltz with piano scales. \
+                        Scales are 16ths on bar 1, 8ths on 2, quarters \
+                        on 3 and a single note on 4. Adjust your SEQ \
+                        accordingly, and use a CUT to finish the last bar.
+                        
+
+

@@ -1,0 +1,364 @@
+
+// slowjazz
+
+
+Begin Doc
+
+	An easy going jazz rhythm in 4. Mostly piano chords, sort of what
+	you'd expect from a piano-bass-drum trio. I use this for
+	"As Time Goes By". The SlowJazz2 variations bring in a nice organ.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////
+/// Additional patterns
+
+
+/// Sweet open chords...
+///  R1 has root & fifth for dotted 1/2 note, plus a push chord at bar end,
+///  R2 has root & fifth half notes on 1/3.
+
+Begin Chord Define
+	R1   1 2. 70 0 90 0; 3+81 82 70 80 90
+	R2   1 1 70 0 90 0 * 2
+	R3   1 2 70 0 90 0 ; 3 4 70 0 90 0
+	R4   R2 * 2
+End
+
+Begin Drum Define
+	Swing8 1+81 0 90; 2+81 0 90; 3+81 0 90; 4+81 0 9
+End
+
+///// Basic sound
+
+
+Seqsize 4
+
+Begin Drum-HH
+	Tone RideCymbal2
+	Sequence  {D1234; Swing8} D1234
+	Volume pp
+	Rtime 5
+	Rvolume 5
+	Rskip 5
+	Accent 1 10 3 10
+End
+
+Begin Drum-Shake
+	Tone Shaker
+	Sequence D13
+	Rtime 5
+	Rvolume 10
+	Rskip 10
+	Volume p
+End
+
+// Alternate the bass pattern with a 1/3 in bar 1, walk in bar 2
+// 1/1 in bar 3 and a full walk in bar 3.
+
+Begin Bass
+	Voice AcousticBass
+	Volume mp
+	Articulate 90
+	Accent 1 10
+	Rtime 10
+	Rvolume 5
+	Octave 3
+	Sequence   B13  z  B11 z
+End
+
+
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Volume mf
+	Articulate 90
+	Accent 1 10
+	Rtime 10
+	Rvolume 5
+	Sequence   z  W13 z W1234
+	Direction Down
+End
+
+Begin Arpeggio
+	Voice Piano2
+	Articulate 99
+
+	// The first pattern is 8ths on 2, 2.3, 3 and 4. This is used
+	// in bars 1, 2 and 3. The 4th bar gets  8./16ths as swing notes.
+
+	Sequence {2 8 90; 2+81 8 90; 3 8 90; 4 8 90} / / Swing8
+	Octave 4
+	Range 2
+	Harmony OpenAbove
+	Volume mp
+	Rskip 5
+End
+
+Begin Chord
+	Voice Piano2
+	Voicing mode=optimal
+	DupRoot -1
+	Articulate 100 90
+	Octave 5
+	Rvolume 10
+	Rtime 6
+	Volume mp
+	Sequence   R1 R2
+End
+
+DefGroove SlowJazz   Slow, basic jazz backup track.
+
+//////// Sustained
+
+Groove SlowJazz
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 5
+	Volume pp
+End
+
+DefGroove SlowJazzSus			Bring in the orchestra.
+
+
+/// Walking bass version
+
+Groove SlowJazz
+Bass Sequence -
+Walk Sequence W1234
+
+DefGroove SlowJazzWalk         Change bass to walk on 1/2/3/4.
+
+Chord-Sus Groove SlowJazzSus
+
+DefGroove SlowJazzWalkSus      Sustained version with full walk.
+
+//// Plus
+
+Groove SlowJazz
+
+Begin Arpeggio-Plus
+    Voice JazzGuitar
+    Octave 5
+    Volume m
+    Articulate 110
+    Harmony OpenAbove
+    Rskip 40
+    Sequence  Swing8 A4 {Swing8; A4} A4
+    SeqRnd  On
+End
+Arpeggio Sequence -
+DefGroove SlowJazzPlus     A bit of a plucked melody backup.
+
+Groove SlowJazzSus
+Arpeggio-Plus Groove SlowJazzPlus
+DefGroove SlowJazzSusPlus   Plucked melody plus strings.
+
+////////////////////////////////////////////////////////////////
+////  Duplicate all the grooves leaving out the push chords. ('1' versions)
+////
+////  To add some life we set up some randomness in the chords and aprpeggios.
+
+Groove SlowJazz
+
+Drum-HH Sequence  {D1234; D1234 Shift .5} D1234
+
+Begin Chord
+	Sequence R2 / R3 R4
+	SeqRnd On
+End
+
+Begin Arpeggio
+	Sequence A8 A4 A8 A2
+	Range 3
+	SeqRnd On
+	Rskip    20 5 20 0
+End
+
+DefGroove SlowJazz1        Slow jazz piano with a straight rhythm.
+
+Groove    SlowJazzSus
+Chord     Groove SlowJazz1
+Arpeggio  Groove SlowJazz1
+DefGroove SlowJazz1Sus     Add sustained strings to straight slow jazz.
+
+Groove    SlowJazzWalk
+Chord     Groove SlowJazz1
+Arpeggio  Groove SlowJazz1
+DefGroove SlowJazz1Walk    Slow, straight piano jazz with walking bass.
+
+Groove    SlowJazzWalkSus
+Chord     Groove SlowJazz1
+Arpeggio  Groove SlowJazz1
+DefGroove SlowJazz1WalkSus  Slow, straight walking with strings.
+
+Groove SlowJazz1
+Arpeggio-Plus Groove SlowJazzPlus
+Arpeggio-Plus Sequence A4 A8
+DefGroove SlowJazz1Plus   Straight chords with plucked background melody.
+
+Groove SlowJazz1Sus
+Arpeggio-Plus Groove SlowJazzPlus
+DefGroove SlowJazz1SusPlus   Straight chords, strings and plucked background melody.
+
+
+///////////////////////////////////
+// Jazz guitar version (straight)
+
+SeqClear
+Seqsize 4
+
+Begin Drum-Shake
+	Tone Shaker
+	Sequence D1234
+	Rtime 5
+	Rvolume 10
+	Volume mf
+End
+
+Begin Drum-Snare
+	Tone SnareDrum2
+	Sequence  D13
+	Volume pp
+	Rtime 5
+	Rvolume 5
+	Accent 1 10 3 10
+End
+
+// For the chording we use a jazzguitar. There is a push note defined
+// for one of beat 1, 2, 3 or 4. We use seqrnd so that the push is
+// always a surprise.
+
+Begin Chord
+	Voice JazzGuitar
+	Sequence R4 / / R2
+	Voicing Mode=Optimal
+	Octave 4
+	Volume mp
+	Articulate 95
+	Accent 1 10 3 5
+	Rvolume 6
+End
+
+Begin Chord-Fill
+	Voice $_Chord_Voice
+	Octave $_Chord_Octave
+	Volume $_Chord_Volume
+	RVolume $_Chord_RVolume
+	Voicing $_Chord_Voicing
+	Define 	P1 1.75 8 0 70 0; 2 4 0 90 0
+	Sequence  {P1} {P1 Shift 1} { P1 Shift 2 } { P1 Shift 3 }
+	SeqRnd On
+End
+
+Bass Groove SlowJazz
+Walk Groove SlowJazz
+
+DefGroove SlowJazz2     A pretty straight, guitar strum for slow tunes.
+
+Chord		Volume mp
+Drum-Snare	Volume pp
+
+Begin Chord-Organ
+	Voice Organ3
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Octave 6
+	DupRoot -1
+	Articulate 100
+	Unify On
+	Rvolume 5
+	Volume mf
+End
+
+DefGroove SlowJazz2Sus   Straight guitar with sustained Hammond-like organ.
+
+////////////////////////
+///////////  Fills. All 1 bar long
+
+Groove SlowJazz
+SeqSize 1
+Drum-HH     Sequence  D8
+Drum-Shake  Sequence  D8
+
+Bass        Sequence  {1 4 5 90; 2 4 3 80; 3 4 2 70; 4 4 1 60}
+Walk        Sequence  -
+Arpeggio    Sequence  -
+Chord       Sequence  L2
+
+
+DefGroove SlowJazzFill    One bar fill with a decending bass walk.
+
+
+
+////////////////////////
+///////////  Intros
+
+
+Groove SlowJazz
+
+Drum-HH     Sequence  {D1234; Swing8} / / D1
+Drum-Shake  Sequence  D13  / /  D1
+Bass        Sequence  B13 z B11 z
+Walk        Sequence   z  W13 z {1 4 90; 2 4 90; 3 2 90}
+
+Begin Arpeggio
+            Sequence {2 81 90; 2+81 82 90; 3 81 90; 4 81 90} / / z
+            Range 1
+End
+Chord       Sequence   R1 / /  L1
+
+
+DefGroove SlowJazzIntro  A 4 bar introduction.
+
+
+Chord     Sequence R2 / / L1
+Arpeggio  Sequence {2 8 90; 2.5 8 90; 3 8 90; 4 8 90} / / z
+
+DefGroove SlowJazz1Intro  4 bar intro without push chords.
+
+
+Groove SlowJazzIntro
+Arpeggio  Sequence -
+Chord     Sequence -
+Begin Chord-Organ
+	Groove SlowJazz2Sus
+	DupRoot 0
+	Octave 6
+End
+
+DefGroove SlowJazz2Intro A 4 bar intro with organ
+
+///////////////////////
+////// Ending
+
+Groove SlowJazz
+
+SeqSize 2
+
+Walk      Sequence  -
+Bass      Sequence  B13 B11
+Drum-HH   Sequence  D1234 D13
+Arpeggio  Sequence  A4 A2
+Chord     Sequence  L2
+
+DefGroove SlowJazzEnd      An easy, 2 bar ending.
+
+
+Chord Voice Organ3
+
+DefGroove SlowJazz2End     Substitute organ for Piano.

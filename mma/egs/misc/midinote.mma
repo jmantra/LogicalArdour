@@ -1,0 +1,263 @@
+// This is an example file to show some of the capabilities of
+// the MidiNote command.
+
+Include stdpats   // this is inserted in case we block out parts of the file
+
+
+//////////////////////////////////////////////////////////////////////////
+// Inserting a few melody notes is simple enough in MMA. For example
+// here is a 4 bar bossanova song with a simple melody using a SOLO
+// track (actually, this is just a cut/paste of the intro to Julia).
+// To demonstrate something simple we play the intro 2x, the 2nd time
+// is with the modulation set. Note that we turn it off after the repeat!
+
+
+Groove BossaNovaIntro
+
+Begin Solo
+	Voice Piano2
+	Articulate 110
+	Volume mf
+	Octave 5
+End
+
+Repeat
+
+Begin Solo Riff
+  4.c+;8;4;4;
+  4.c+;8;4;4;
+  2.d+;4c+;
+  1c;
+End
+
+1   F
+2   Dm
+3   Gm
+4   C7
+
+Begin Solo MidiNote
+	  Offsets=Beats   // work in beat offsets, not ticks
+	  Ctrl 1 Modulation 90
+End
+BeatAdjust 1
+Repeatend
+
+Solo MidiNote Ctrl 1 Modulation 0
+
+//////////////////////////////////////////////////////////////////////////
+// Pitch Bend
+
+// You can use the pitch bend for interesting effects. Here's an example
+// with 2 piano tracks playing in unison, but with the Chord-2 playing
+// a bit out of pitch. This is supposed to give a "fuller" sound.
+
+SeqClear
+BeatAdjust 1
+
+Begin Chord-1
+ Voice Piano1
+ Sequence L2
+End
+Begin Chord-2
+ Voice Piano1
+ Sequence L2
+End
+Chord-2 MidiNote Offsets=Beats
+
+1   C
+2   G
+
+BeatAdjust 1
+Chord-1 Midinote  PB 1 -20
+Chord-2 Midinote  PB 1  20
+
+3   C
+4   G
+
+Chord-1 Midinote PB  1 0
+Chord-2 Midinote PB  1 0
+
+//////////////////////////////////////////////////////////////////////////
+// Pitch Bend Range
+
+// Pitch Bend Range can be used for interesting effects. Here we insert
+// a single chord and bend it up and down. For this example we are using
+// MIDI ticks for offsets.
+
+// Pitch Bend effects ALL currently playing notes in a Midi channel.
+
+SeqClear
+BeatAdjust 1
+
+Begin Solo
+ Voice Flute
+ Volume f
+ Octave 5
+ Articulate 110
+ Harmony Open
+ Midinote Offsets=Ticks
+End
+ Solo MidiNote articulate=on Pbr 20  0,192    0,8000
+ Solo Midinote Pbr 20  384,576  8000,0
+ z  {1ae+c+;}
+Solo MidiNote Pb 0 0
+
+// This is a similar effect using a chord track. The sequence is a long piano tone.
+// This time the offsets are given in beats. Note that '1' is the start of the bar.
+
+SeqClear
+BeatAdjust 1
+
+Begin Chord
+  Voice TremoloStrings
+  Volume f
+  Octave 5
+  Articulate 110
+  Midinote Offsets=Beats
+  Sequence L1
+End
+
+Chord MidiNote PBR 30  1,2  0,8000
+Chord Midinote PBR 30  3,4  8000,0
+
+  C7     /// our single chord to bend
+
+Chord MidiNote PB  1  0   // tidiness may count in a future life!
+
+//////////////////////////////////////////////////////////////////////////
+// Channel Aftertouch
+
+// This inserts a series of aftertouch events (range) over a cascading
+// G major chord.
+
+SeqClear
+BeatAdjust 1
+
+Groove Rhumba
+
+Begin Solo
+   Voice Flute
+End
+
+Begin Solo MidiNote
+   Transpose=ON Offsets=Beats Duration=Notes
+   1 g 100 1+1
+   2 b 100 1+2.
+   3 d+ 100 1+2
+   4 g+ 100 1+4
+   chatr 50 1,4.9 1,127
+End
+
+1          G
+2          G
+
+Solo midinote   chat 1 0
+
+//////////////////////////////////////////////////////////////////////////
+// Note Insert
+
+// Insert actual MIDI note on/off into the stream. This is much easier to do with
+// SOLO track notation, but this is an example what you can do, not what you should.
+// In this case I've recorded a few bars of my playing on a keyboard (using a piano
+//  tone) and extracted this into a text file which was then pasted into this file.
+// I used mma-extract to generate the data. A few bars of Londonairy Air.
+
+SeqClear
+BeatAdjust 1
+
+Keysig Eb
+Tempo 80
+
+Groove FolkBallad
+Volume ppp
+
+Begin Solo
+ Voice TremoloStrings
+  // everything below this is ignored by MidiNote
+ Volume f
+ Octave 5
+ Harmony OpenBelow
+ Articulate 110
+End
+
+Begin Solo MidiNote
+  // Note the adjust factor of 22. This was calculated by looking at the 2nd
+  // bar start note (offset 790) and subtracting a full bar of ticks (768)
+  Offsets=Ticks Duration=Ticks Adjust=-22
+
+  // 0
+  Note 505 62 70 97
+  Note 599 63 60 90
+  Note 688 65 68 88
+  // 1
+  Note 790 67 67 291
+  Note 1083 65 63 105
+  Note 1175 67 63 92
+  Note 1261 72 63 102
+  Note 1352 70 56 105
+  Note 1443 67 59 101
+  // 2
+  Note 1543 65 56 103
+  Note 1643 63 49 111
+  Note 1741 60 56 304
+  Note 2043 63 75 99
+  Note 2139 67 75 78
+  Note 2215 68 72 88
+  // 3
+  Note 2317 70 67 284
+  Note 2599 72 63 92
+  Note 2690 70 61 90
+  Note 2781 67 61 95
+  Note 2882 63 43 92
+  Note 2980 67 56 104
+  // 4
+  Note 3084 65 53 477
+  Note 3563 62 67 101
+  Note 3655 63 61 85
+  Note 3748 65 75 95
+  // 5
+  Note 3849 67 55 283
+  Note 4135 65 64 102
+  Note 4222 67 63 107
+  Note 4320 72 45 86
+  Note 4401 70 50 90
+  Note 4492 67 60 94
+  Note 4587 65 60 104
+  // 6
+  Note 4686 63 53 114
+  Note 4790 60 58 324
+  Note 5096 62 66 82
+  Note 5186 63 57 93
+  Note 5287 65 49 96
+  // 7
+  Note 5395 67 40 286
+  Note 5667 68 56 87
+  Note 5759 67 58 94
+  Note 5853 65 53 104
+  Note 5946 63 52 101
+  Note 6048 65 50 107
+  // 8
+  Note 6145 63 55 600
+End
+
+// We've actually inserted the entire melody stuff into the MMA track.
+// Since MMA doesn't track bars when doing MIDINOTE stuff our pointer
+// is still at the start of the song! So, we can do normal notation for
+// the chords.
+
+// If you want to have a bit of fun, add harmony notes at the end of each
+// line. This shows how to combine things. Bars 2,3 & 4 have an example commented out.
+
+1   z               // pickup bar
+2   Eb              // {2e;g;}
+3   Ab				// {2a;e;}
+4   Eb   Ab  Eb     // {4e;a;g;e;}
+5   F7   /   Bb  Bb7
+6   Eb   /   /   Eb7
+8   Ab   /   /   Bb7
+9   Eb   /   /   Bb7
+10  Eb   /   z!
+
+
+
+

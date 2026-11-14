@@ -1,0 +1,20 @@
+/// This is a plugin to handle quarter tone notes in MMA solo/melody sections.
+/// To use, just use a "%" or "*" to indicate that a note should be 1/4 flat or sharp.
+
+Plugin qriff
+
+time 4
+
+// Take the following line and convert to 3 riff tracks
+
+Begin Solo
+   Voice Clarinet
+End
+
+// Stick 2 bars of solo into a riff
+solo @qriff 4a;a*;a#;a#*;
+solo @qriff b;b%;b&;a#;
+
+// Play the bars ... no accomp.
+z!
+z!

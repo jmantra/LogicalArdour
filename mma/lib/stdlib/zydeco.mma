@@ -1,0 +1,134 @@
+
+// zydeco
+
+Begin Doc
+
+	After listening to way too much Buckwheat I came up with this. I
+	use it for "Jambalaya".
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+
+/////////////////////////////
+/// Basic
+
+Seqsize 4
+
+Begin Drum-snare
+	Tone SnareDrum1
+	Volume mp
+	Rvolume 20
+	Rtime 10
+	Sequence { D1234; D2 Shift .5 }
+End
+
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Volume f
+	Rvolume 10
+	Sequence D1
+End
+
+
+Begin Chord
+	Voice JazzGuitar
+	Volume mf
+	Octave 5
+	Articulate 90
+	Strum 5
+	Direction Both
+	Rtime 10
+	Rvolume 10
+	Rskip 20
+	Sequence C1234 /  / C13
+End
+
+
+Begin Bass
+	Voice FretlessBass
+	Volume f
+	Octave 3
+	Articulate 120
+	Sequence  B11  /  /  B13
+End
+
+
+DefGroove Zydeco     Our basic cajan beat.
+
+Begin Chord-Acc
+	Voice Accordion
+	Sequence  {C1234; C2 Shift .5} / /  {1 2 90; 3 2 90}
+	Voicing Mode=Optimal
+	Volume p
+	Octave 6
+	Rskip 10
+	Articulate 70  
+End
+
+
+DefGroove ZydecoPlus    Adds a rhythmic accordion 
+
+
+///////////////////////
+/// Sustained versions
+
+Groove Zydeco
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing Mode=Optimal
+	Volume mp
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+DefGroove ZydecoSus    The orchestra in New Orleans?
+
+Chord-Acc Groove ZydecoPlus
+DefGroove ZydecoSusPlus   String and accordion? Too cool!
+
+
+//////////////////////////////
+/// Intro
+
+Groove Zydeco
+
+Drum-snare	Sequence { D1234; D2 Shift .5 } / / D13
+Chord Sequence -
+Bass Sequence  B11  /  /  B1
+Chord-Acc Groove ZydecoPlus
+
+DefGroove ZydecoIntro     A simple, 4 bar, introduction with accordion.
+
+
+//////////////////////////////
+/// Ending
+
+Groove Zydeco
+
+Seqsize 2
+
+Drum-snare 	Sequence D1234  D1
+Chord       Sequence C1234  L1
+Bass        Sequence  B11   B1
+
+DefGroove ZydecoEnd      2 bar ending with guitar.
+
+
+Begin Chord-Acc
+	Groove ZydecoPlus
+	Sequence  {C1234; C2 Shift .5} L1
+End
+
+DefGroove ZydecoPlusEnd   2 bar ending with accordion.

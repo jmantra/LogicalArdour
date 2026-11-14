@@ -1,0 +1,290 @@
+
+// boneym.mma
+
+Begin Doc
+    I started to develop this as a generic Disco pattern. Didn't quite
+    work out, but seems to work well for Boney M. stuff.
+	I did "Rivers of Babylon"  using this groove.
+End
+ 
+  
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////////////
+
+/// Note the only reason for the sequence size of 8 bars is of the crash cymbal
+SeqSize 8
+
+Begin Drum-Snare
+    Tone SnareDrum2
+    Volume m
+    RVolume 10
+    Sequence D24
+End
+
+Begin Drum-Kick
+    Tone KickDrum1
+    Volume m
+    Rtime 4
+    Rvolume 5
+    Sequence D1234
+End
+
+Begin Drum-HH
+    Tone OpenHiHat
+    Volume p
+    Rtime 4
+    RVolume 6
+    Sequence D8
+End
+
+Begin Drum-OpenHH
+    Tone OpenHiHat
+    Volume p
+    RVolume 5
+    Sequence {D3 Shift .5 }
+End
+
+Begin Drum-PedalHH
+    Tone PedalHiHat
+    Volume p
+    RVolume 5
+    Sequence {D1234 Shift .5; D4 }
+End
+
+Begin Drum-ClosedHH
+    Tone PedalHiHat
+    Volume p
+    RVolume 5
+    Sequence D1234 
+End
+
+Begin Drum-Maracas
+    Tone Maracas
+    Volume p
+    Rtime 2
+    RVolume 20
+    Sequence D8
+End
+
+Begin Drum-LowConga
+    Tone LowConga
+    Volume mp
+    Rtime 4
+    RVolume 5
+    Sequence { D24; D13 shift .5 }
+End
+
+Begin Drum-MuteHiConga
+    Tone MuteHighConga
+    Volume p
+    Rtime 4
+    RVolume 10
+    Sequence {D13; D2 Shift .25; D2 Shift .5} {1 0 90; 1.5 0 90; 2.75 0 90; 3 0 90}
+End
+
+Begin Drum-Tambourine
+    Tone Tambourine
+    Volume p
+    RVolume 10
+    Sequence {D1234 Shift .5}
+End
+
+Begin Drum-Cymbal
+    Tone CrashCymbal1
+    Volume ff
+    Rvolume 20
+    Sequence D1 z z z z z z z
+End
+
+// This is the basic bass line. Notated in 8ths, changed by the rduration (enough?).
+Begin Bass
+    Voice PickedBass
+    Harmony OpenBelow
+    Octave 3
+    Articulate 80
+    RVolume 10
+    Rduration 5
+    Volume m
+    Sequence \
+        { 1 8 1 90; 1.5 8 1 90; 2 8 6- 120; 2.5 8 1 90; 3.5 8 1 90; 4 8 6- 110; 4.5 8 7- 90;}\ 
+        { 1 8 1 90; 1.5 8 1 90; 2 8 6- 114; 2.5 8 1 90; 3.5 8 1 90; 4 8 3 111; 4.5 8 5 90; }
+End
+
+Begin Chord
+    Voice CleanGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 90
+    RVolume 10
+    Rduration 10
+    Volume m
+    Sequence  { 1 16 90; 1.5 4 90; 2.5 16 90; 3 16 90; 3.5 4 90; 4.5 16 94; }
+End
+
+DefGroove BoneyM     Our basic BoneyM pattern.
+
+////////////////////////////////////////////////////////////
+//////// Plus, uses steel drum, but could be anything harshish
+
+Groove BoneyM
+
+Begin Arpeggio-Plus
+    Voice SteelDrums
+    Octave 6
+    Rtime 5
+    RDuration 10
+    RVolume 10
+    Range .6
+    Volume m
+    Articulate 90
+    Harmony OpenAbove
+    RSkip 30
+    Mallet Decay=-10 Rate=16
+    Sequence  { 1.5 8 90; 2.5 8 80; 3 8 90; 4 8 95; }
+End
+
+DefGroove BoneyMPlus   Basic pattern with added steel drum line.
+
+////////////////////////////////////////////////////////
+/// Sustained
+
+Groove BoneyM
+
+Begin Chord-Sus
+    Voice Strings
+    Octave 5
+    Articulate 100
+    Volume mp
+    RVolume 10
+    Unify On
+    RVolume 20
+    Sequence {1 1 90 * 4} 
+End
+
+DefGroove BoneyMSus   Sustained strings added.
+
+Groove BoneyMSus
+Begin Arpeggio-Plus 
+   Groove BoneyMPlus
+   Rskip 60   // To busy otherwise
+End
+DefGroove BoneyMSusPlus   Strings and steel. 
+
+/////////////////////////////////////////////////////////////
+/// Fill
+
+Groove BoneyM
+SeqSize 1
+
+
+Drum-Snare        Sequence D124
+Drum-Kick         Sequence D1234
+Drum-HH           Sequence D16
+Drum-OpenHH       Sequence {D34 Shift .5 }
+Drum-PedalHH      Sequence {D1234 Shift .5; D4 }
+Drum-ClosedHH     Sequence D1234 
+Drum-Maracas      Sequence D16
+Drum-LowConga     Sequence { D1234 }
+Drum-MuteHiConga  Sequence { D8 }
+Drum-Tambourine   Sequence { D4 }
+Drum-Cymbal       Sequence D134
+
+Bass  Sequence   { 1 8 1 90; 1.5 8 1 90; 2 8 6- 120; 2.5 8 1 90; 3 4 1 90; 4 8 1 110}
+Chord  Sequence  { 1 16 90; 1.5 4 90; 2.5 16 90; 3 4 90;  4 8 94; }
+
+Begin Arpeggio-Plus
+   Groove BoneyMPlus
+   Sequence A4
+   Range 1
+   Rskip 10
+End
+
+
+DefGroove BoneyMFill   One bar fill with some steel drums.
+
+/////////////////////////////////////////////////////////////
+/// Introduction
+
+Groove BoneyM
+SeqSize 4
+
+
+Drum-Snare        Sequence *   *   *  D1234
+Drum-Kick         Sequence *   *   *  D24
+Drum-HH           Sequence *   *   D16  D13
+Drum-OpenHH       Sequence *   *   *   z
+Drum-PedalHH      Sequence *
+Drum-ClosedHH     Sequence *
+Drum-Maracas      Sequence *   *   *   D13
+Drum-LowConga     Sequence *
+Drum-MuteHiConga  Sequence *
+Drum-Tambourine   Sequence *   *   *   D13
+Drum-Cymbal       Sequence D1  z   z   D1
+
+Bass              Sequence *   *   B1234   B1    
+
+Chord             Sequence *   *   *     L1
+
+DefGroove BoneyMIntro    A 4 bar introduction
+
+
+Groove BoneyM
+
+Drum-Snare        Sequence *  *   *   *   *   *   *   D1234
+Drum-Kick         Sequence *  *   D13 *   *   *   D1  D34
+Drum-HH           Sequence *  *   *   D16 *   *   *   D1234
+Drum-OpenHH       Sequence *  *   *   *   *   *   *   z
+Drum-PedalHH      Sequence *  *   *   D4  *   *   *   D14
+Drum-ClosedHH     Sequence * 
+Drum-Maracas      Sequence *  *   *    *  *   *   *   D1234
+Drum-LowConga     Sequence *
+Drum-MuteHiConga  Sequence *  *   *   D24 *  *  *   D13
+Drum-Tambourine   Sequence *  *   *   D1    *  *  *   D13
+Drum-Cymbal       Sequence D1 z   z   D3     z  z  z   z
+
+Bass              Sequence *  *  *  B13  *  *  * B11 
+
+Chord             Sequence  *  *  * C13  *  *  * L1
+
+
+Begin Arpeggio-Plus
+   Groove BoneyMPlus
+   Sequence A4 / / A8 / / / A1
+   Range 1
+   Rskip 50
+End
+
+DefGroove BoneyMIntro8    A 8 bar introduction.
+
+
+/////////////////////////////////////////////////////////////
+/// Ending
+
+Groove BoneyM
+SeqSize 2
+
+
+Drum-Snare        Sequence D24   D1
+Drum-Kick         Sequence D24   D1
+Drum-HH           Sequence D8    D1
+Drum-OpenHH       Sequence *     D12
+Drum-PedalHH      Sequence *     {D12; D1 Shift .5}
+Drum-ClosedHH     Sequence D123  D12
+Drum-Maracas      Sequence D4    D1
+Drum-LowConga     Sequence *     D2
+Drum-MuteHiConga  Sequence *     D12
+Drum-Tambourine   Sequence *     {D1 Shift .5}
+Drum-Cymbal       Sequence D1    D1
+
+Bass              Sequence B1234  B1
+Chord             Sequence  *     L1
+
+
+DefGroove BoneyMEnd   A 2 bar ending.
+

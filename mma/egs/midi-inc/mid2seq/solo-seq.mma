@@ -1,0 +1,58 @@
+
+// This is a short demo/test to show how one can steal a few bars
+// of rhythm out of an existing midi file and convert that into
+// a sequence.
+
+// The MIDI file is one I found on the 'net many years ago "Count Me In". A hit
+// for Gary Lewis and the Playboys. We use the drum track from that song
+// to play in the Lewis song "She's Just My Style".
+
+// All we're doing right now are drums, in other words: all of track 10.
+
+// Create a drum track. This is a SOLO track, but that has to be that
+// way since only solo/melody tracks accept sequence info from an imported file.
+// Also, note that the reason right now for this demo to use a SOLO is that
+// these tracks completely ignore GROOVEs. We want to "add" this stuff to
+// our existing groove information ... using a melody would end up with no drums.
+
+
+SeqSize 4     /// need here just so we have the right size. Could do
+              /// same with having "Groove 50sRock" here.
+
+Solo-Drum DrumType   /// somewhere for the imported drum stuff
+
+/// Do the import. Note the the use of all the different parms.
+/// They are all needed!
+
+MidiInc file=countme.mid StripSilence=Off Solo-Drum=10,sequence start=36 end=52 Volume=60
+
+/// Now we are ready for the song. Note how we turn off the existing drum tracks.
+/// Sorry, not an easy way to do this. But, this whole thing is just a demo :)
+
+Groove 50sRock
+
+Drum-kick Off
+Drum-Clap Off
+Drum-Snare off
+Drum-HH off
+
+/// This is pulled out of the sample file "shes-just-my-style.mma"
+
+5         G
+6         /
+7        Eb      /      F
+8         G
+
+Groove 50sRockSus
+
+9         /
+10        /
+11       Eb      /      F      G
+12        /
+
+Groove 50sRockPlus
+
+13       Bm
+14       Em
+15       Bm
+16       Em

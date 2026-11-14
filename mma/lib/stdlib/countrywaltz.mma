@@ -1,0 +1,248 @@
+
+// countrywaltz
+
+// converted to use plectrum instead of chord for guitar. BVDP, March/2010.
+
+Begin Doc
+
+  These waltzes are good for "old-time" things like 
+  "Que Sera Sera" and "Tammy".
+  
+End
+
+Author Bob van der Poel
+
+
+
+SeqClear
+Time 3
+Timesig 3 4
+Include stdpats34
+
+/////////////////////////////////////////////
+// Country/Old-time 
+
+
+Seqsize 4
+
+Begin Bass
+	Sequence  {1 4. 1 90} {1 4. 5 90}
+	Voice AcousticBass
+	Octave 3
+	Articulate 90
+	Volume mf
+End
+	
+Begin Plectrum
+	Sequence {2 5 90 90 80 80 70 70;
+              3 5 80 80 80 70 70 65 }
+	Voice NylonGuitar
+	Octave 4
+	Volume p
+End
+
+// Same voice as the strumming guitar we play a decending 5/3/1 line
+// on the 1st, 5th, etc. bar, and the same accending on 3, 7, etc.
+
+Begin Bass-Chord
+	Sequence   {1 4 5 90; 2 4 3 90; 3 4 1 90}  z  B123  z
+	Voice NylonGuitar
+	Octave 4
+	Volume mp
+	Articulate 99
+End
+
+
+Begin Drum
+	Sequence D23
+	Tone ClosedHiHat
+	Rtime 10
+	Rvolume 10
+	Rskip 10
+	Volume mp
+End
+
+Begin Drum-Kick
+	Sequence D1
+	Tone KickDrum1
+	Rtime 10
+	Rvolume 10
+	Volume pp
+End
+
+DefGroove CountryWaltz  Doris Day would like this! A string \
+                        bass on beat 1 with a strummed guitar on 2 \
+                        and 3, and a light-feeling drum. 
+		
+/// Add a sustained string to our CountryWaltz
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence  { 1 1 90 0 80 0 * 3}  // Root and fifth notes only.
+	Voicing Mode=Optimal
+	Volume pp
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+
+DefGroove   CountryWaltzSus  The CountryWaltz with a sustained string.
+
+///////////////////////////////////////
+/// CountryWaltz with a decending flute line
+
+Groove CountryWaltz
+
+Begin Arpeggio
+	Sequence   A6   A3 
+	Octave 5
+	Invert 0 1 2 1
+	Voice Flute
+	Direction Down
+	Rskip 30
+	SeqRnd On
+	Rvolume 30
+	Volume ppp
+	Articulate 90
+End
+
+DefGroove CountryWaltz1   Same old waltz with an arpeggiating flute. Nice.
+Chord-Sus  Groove CountryWaltzsus
+DefGroove CountryWaltz1Sus  Arpeggiating flute and sustained strings.
+
+Groove CountryWaltz
+
+Begin Arpeggio
+	Voice NylonGuitar
+	Sequence   A3 / / A6
+	Octave 4
+	Range 1.8
+	Direction Up / / Down
+	Rvolume 10
+	Accent 1 10
+	Volume mp
+	Articulate 99
+End
+
+DefGroove CountryWaltz2    Guitar arpeggios.
+
+Chord-Sus  Groove CountryWaltzsus
+
+DefGroove CountryWaltz2Sus  Guitar arpeggios and sustained strings.
+
+
+//// Walking bass versions
+
+Groove CountryWaltz
+
+Bass Sequence -
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence W123 
+	Articulate 75
+	Volume mf
+End
+
+DefGroove CountryWaltzWalk  Countrywaltz with walking bass.
+
+Groove CountryWaltzSus
+Bass Sequence -
+Walk Groove CountryWaltzWalk
+DefGroove CountryWaltzWalkSus  CountryWaltz with sustained string and \
+                               walking bass.
+                               
+Groove CountryWaltz1
+Bass Sequence -
+Walk Groove CountryWaltzWalk
+DefGroove CountryWaltz1Walk   Walking bass and arpeggiating flute. 
+
+Groove CountryWaltz2
+Bass Sequence -
+Walk Groove CountryWaltzWalk
+DefGroove Countrywaltz2Walk   Walking bass and apreggiating guitar.
+
+Groove CountryWaltz1Sus
+Bass Sequence -
+Walk Groove CountryWaltzWalk
+DefGroove CountryWaltz1SusWalk Arpeggiating flute, sustained string \
+                               and walking bass
+
+Groove CountryWaltz2Sus
+Bass Sequence -
+Walk Groove CountryWaltzWalk
+DefGroove  CountryWaltz2SusWalk Apregginating guitar, sustained string \
+                                and walking bass.
+
+
+
+//// Introduction
+
+Groove CountryWaltz1
+
+Bass       Sequence  *  *  {1 4. 3 90} {1 4. 5 90}
+Plectrum   Sequence  *  *  *   {1 9 80 75 70 65 60 55}
+// Bass-Chord  	Sequence   {1 4 5 90; 2 4 3 90; 3 4 1 90}  z  B123  z
+
+Drum       Sequence  *  *  *           D123
+Drum-Kick  Sequence  *  *  *           *
+Begin Arpeggio
+	Sequence        A6   A3  A3  A1
+	Invert    0
+	SeqRnd    Off
+	Volume          m    mp   p  pp
+	Range     2
+	Harmony   OpenBelow
+	Octave    5
+	Rskip     0
+End
+
+DefGroove CountryWaltzIntro   Introduction to the waltz.
+
+//// Pretty much the same, but expanded to 8 bars.
+
+Groove CountryWaltz1
+Seqsize 8
+
+Bass       Sequence  *  *  *  *  *  * {1 4. 3 90} {1 4. 5 90}
+Plectrum   Sequence  *  *  *  *  *  *  *    {1 10 80 75 70 65 60 55}
+// Bass-Chord  	Sequence   {1 4 5 90; 2 4 3 90; 3 4 1 90}  z  B123  z
+
+Drum       Sequence  *  *  *  *  *  *  *          D123
+Drum-Kick  Sequence  *  *  *  *  *  *  *          *
+
+Arpeggio   Sequence  A6 /  A3  /  A3 /  /  A1
+
+DefGroove CountryWaltzIntro8  8 Bar intro to the waltz.
+
+//// Ending
+
+Groove CountryWaltz
+
+Begin Plectrum
+	Sequence {2 5 1-3:90 4-6:80; 3 5 80} / \
+             {2 5 1-3:90 4-6:80 } \
+             {1 10 90}
+	Volume pp
+End
+
+Begin Bass
+	Sequence B123  B1/5  B123  B1
+	Volume mp
+End
+
+Begin Drum
+	Sequence   D12   /  /  D1
+	Volume    ppp   pp  p  mf
+End
+
+Begin Drum-Kick
+	Sequence D1
+	Volume p
+End
+	
+DefGroove CountryWaltzEnd 	A good, simple ending. The 4th bar just hits on the first beat.
+
+	

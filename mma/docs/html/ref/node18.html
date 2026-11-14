@@ -1,0 +1,465 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Swing</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node19.html">
+<LINK REL="previous" HREF="node17.html">
+<LINK REL="next" HREF="node19.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node19.html">Volume and Dynamics</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node17.html">Tempo and Timing</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html618"
+  HREF="node18.html#SECTION001810000000000000000">Skew</A>
+<LI><A ID="tex2html619"
+  HREF="node18.html#SECTION001820000000000000000">Accent</A>
+<LI><A ID="tex2html620"
+  HREF="node18.html#SECTION001830000000000000000">Delay</A>
+<LI><A ID="tex2html621"
+  HREF="node18.html#SECTION001840000000000000000">Notes</A>
+<LI><A ID="tex2html622"
+  HREF="node18.html#SECTION001850000000000000000">Summary</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION001800000000000000000"></A> <A ID="swingmode"></A>
+<BR>
+Swing
+</H1> 
+
+<P>
+When playing jazz or swing music special timing is applied
+to eighth notes. Normally, the first of a pair of eights is lengthened
+and the second is shortened. In the sheet music this can is sometimes
+notated as sequences of a dotted eighth followed by a sixteenth. But,
+if you were to foolish enough to play the song with this timing you'd
+get a funny look from a jazz musician who will tell you to &ldquo;swing&rdquo;
+the notes.
+
+<P>
+The easiest way to think about swing eighths is to mentally convert
+them to a triplet consisting of a quarter note and and eighth.
+
+<P>
+<DIV class="CENTER">
+  <IMG WIDTH="75%"  SRC="mupex/swingconv.png" ALT="Lost Image">
+
+</DIV>
+
+<P>
+In the above music the first shows &ldquo;straight eights&rdquo;, the second
+&ldquo;dotted eight, sixteenths&rdquo;, and the third a rough indication of how
+the first line would be played in &ldquo;swing&rdquo;. It all depends on the
+style of music ... if we are playing a classical piece the first line
+would have eight notes of the same length, and the second line would
+have a sixteenth note one third the length of the dotted eights. In
+contemporary music it might be that way ... or either or both could
+be played as the third line.
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  can handle this musical style in a number of ways, the control
+is though the S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> command and options.
+
+<P>
+In default mode 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  assumes that you don't want your song to swing.
+
+<P>
+To enable automatic conversions, simply set S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> to
+&ldquo;on&rdquo;:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SwingMode On  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This directive accepts the value &ldquo;On&rdquo; and &ldquo;Off&rdquo; or &ldquo;1&rdquo; and
+&ldquo;0&rdquo;.
+
+<P>
+With S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> enabled 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  takes some extra steps when
+creating patterns and processing of S<SMALL>OLO</SMALL> and M<SMALL>ELODY</SMALL>
+parts.
+
+<P>
+
+<UL>
+<LI>Any eighth note in a pattern &ldquo;on the beat&rdquo; (1, 2, etc.) is
+  converted to a &ldquo;81&rdquo; note.
+
+<P>
+</LI>
+<LI>Any eighth note in a pattern &ldquo;off the beat&rdquo; (1.5, 2.5, etc.)
+  is converted to &ldquo;82&rdquo; note, and the offset is adjusted to the prior
+  beat plus the value of an &ldquo;81&rdquo; note.
+
+<P>
+</LI>
+<LI>Drum notes with a value of a single MIDI tick are handled in the
+  same way, but only the offset adjustment is needed.
+
+<P>
+</LI>
+<LI>In S<SMALL>OLO</SMALL> and M<SMALL>ELODY</SMALL> tracks any successive pairs of
+  eighth notes (or rests) are adjusted.
+
+<P>
+</LI>
+</UL>
+
+<P>
+<SPAN  CLASS="textit">Important:</SPAN> when defining patterns and sequences remember that
+the adjustment is made when the pattern is compiled. With a
+D<SMALL>EFINE</SMALL> command the arguments are compiled (and swing will be
+applied). But a S<SMALL>EQUENCE</SMALL> command with an already defined
+pattern will use the existing pattern values (the swing adjustment may
+or may not have been done at define time). Finally, if you have a
+dynamic define in the sequence the adjustment will take place if
+needed.
+
+<P>
+<SPAN  CLASS="textit">Important (again):</SPAN> S<SMALL>WINGMODE</SMALL> is saved and restored when
+switching G<SMALL>ROOVES</SMALL>. This means that the S<SMALL>WINGMODE</SMALL> setting
+you set in a song file is only valid until the next time you issue a
+G<SMALL>ROOVE</SMALL> command. See the summary below for more details.
+
+<P>
+
+<H1><A ID="SECTION001810000000000000000">
+Skew</A>
+</H1>
+
+<P>
+S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> has an additional option, S<SMALL>KEW</SMALL>. This factor is
+used to create the &ldquo;81&rdquo; and &ldquo;82&rdquo; note lengths (see
+<A HREF="node4.html#notelength">here</A>). By default the value
+&ldquo;66&rdquo; is used. This simply means that the note length &ldquo;81&rdquo; is
+assigned 66% of the value of an eight note, and &ldquo;82&rdquo; is assigned
+34%.
+
+<P>
+You can change this setting at any point in your song or style
+files. It will take effect immediately on all future patterns and solo
+lines.
+
+<P>
+The setting:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SwingMode Skew=60  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set a 60/40 setting.
+
+<P>
+If you want to experiment, find a G<SMALL>ROOVE</SMALL> with note lengths of
+&ldquo;81&rdquo; and &ldquo;82&rdquo; (&ldquo;swing&rdquo; is as good a choice as any). Now, put a
+S<SMALL>WING</SMALL>M<SMALL>ODE </SMALL>S<SMALL>KEW=</SMALL>V<SMALL>ALUE</SMALL> directive at the top of your song file
+(before selecting any G<SMALL>ROOVE</SMALL>s). Compile and play the song with
+different values to hear the effects.
+
+<P>
+If you want to play with different effects you could do something like
+this:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SwingMode On Skew=40  
+<BR>  ... Set CHORD pattern/groove
+<BR>
+SwingMode Skew=30  
+<BR>  ... Set Drum-1 pattern/groove 
+<BR>
+SwingMode Skew=whatever 
+<BR>  ... Set Drum-2   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This will give different rates for different tracks. I'll probably not
+enjoy your results, but I play polkas on the accordion for fun.
+
+<P>
+
+<H1><A ID="SECTION001820000000000000000">
+Accent</A>
+</H1>
+
+<P>
+It's natural for musicians to emphasize swing notes by making the
+first (the longer one) a bit louder than the second. By default 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+uses the internal/default volumes for both notes. However, you can
+change this with the A<SMALL>CCENT</SMALL> option. The option takes a pair of
+values joined by a single comma. The first value sets the percentage
+change for the &ldquo;on-the-beat&rdquo; notes; the second set the adjustment
+for the &ldquo;off-the-beat&rdquo; notes. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Swingmode On Accent=110,80   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will apply changes of 110% and 80% to the volumes. Use of this
+option will create more natural sounding tracks.
+
+<P>
+
+<H1><A ID="SECTION001830000000000000000">
+Delay</A>
+</H1>
+
+<P>
+By default, the logic for setting the start positions of each note generated by
+S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> is that the first note of the pair doesn't move and
+the second is set at the duration of a &ldquo;81&rdquo; note from the first
+(remember, &ldquo;81&rdquo; is set by the S<SMALL>KEW</SMALL> value).
+
+<P>
+However, you can move either or both notes forward to backwards with
+the D<SMALL>ELAY</SMALL> option. This option takes 2 arguments (a comma pair)
+with the first setting a delay for the first note and the second a
+delay for the second. The delays can be negative, in which case the
+note would be sounded early. The values represent MIDI ticks and must
+be in the range -20 ... +20.
+
+<P>
+Example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Swingmode On Delay=5,0   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+would push the first note of each pair just past the beat. 
+
+<P>
+
+<H1><A ID="SECTION001840000000000000000">
+Notes</A>
+</H1>
+
+<P>
+So far in this section we have assumed that all swing notes are eight
+note pairs. But, you can also set the function to work over sixteenth
+notes as well:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Swingmode On Notes=16   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The only permitted values for N<SMALL>OTES</SMALL> are &ldquo;8&rdquo; (the default) and
+&ldquo;16&rdquo;. This is, probably, only useful in very slow tempo settings.
+
+<P>
+
+<H1><A ID="SECTION001850000000000000000">
+Summary</A>
+</H1>
+
+<P>
+S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> is a <SPAN  CLASS="textit">Global</SPAN> setting which functions <SPAN  CLASS="textit">when
+patterns and solo note sequences  are defined or created</SPAN>. This can be
+confusing ... you can't take an existing G<SMALL>ROOVE</SMALL> and just do a
+S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> after calling it up ... the command will have no
+effect. Instead, you'll have modify the actual library code. Or write
+your own. And, to add yet another potential downfall, a G<SMALL>ROOVE</SMALL>
+command will undo any existing S<SMALL>WING</SMALL> options, but only for
+those tracks which are saved/restored in a G<SMALL>ROOVE</SMALL>. So, if you have
+the following code:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Solo Riff 8a;b;c;d;e;f;g; 
+<BR>
+SwingMode On 
+<BR>
+Groove Dixie 
+<BR>
+C 
+<BR>  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+It will work since the G<SMALL>ROOVE</SMALL> does not save/restore S<SMALL>OLO</SMALL> tracks.
+
+<P>
+The complete S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> setting is saved in the current
+G<SMALL>ROOVE</SMALL> and can be accessed via the $_S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> built-in
+macro.
+
+<P>
+The easy (and ugly and unintuitive) way to handle swing is to
+hard-code the value right into your patterns. For example, you could
+set a swing chord pattern with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Define Swing8 1 3+3 80; 1.66 3 80; 2 3+3 80; 2.66 3 80
+  ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+We really don't recommend this for the simple reason that the swing
+rate is frozen as quarter/eighth triplets.
+
+<P>
+If you refer to the table of note lengths
+(<A HREF="node4.html#notelength">here</A>) you will find the cryptic
+values of &ldquo;81&rdquo; and &ldquo;82&rdquo;. These notes are adjusted depending on the
+S<SMALL>WING </SMALL>S<SMALL>KEW</SMALL> value. So:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Define Swing8 1 81 80; 1+81 82 80; 2 81 80; 2+81 82 80
+  ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+is a bit better. In this case we have set a chord on beat 1 as the
+first of an eighth note, and a chord on the off-beat as the
+second. Note how we specify the off-beats as &ldquo;1+81&rdquo;, etc.
+
+<P>
+In this example the feel of the swing will vary with the
+S<SMALL>WING </SMALL>S<SMALL>KEW</SMALL> setting.
+
+<P>
+But, aren't computers supposed to make life simple? Well, here is our
+recommended method:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SwingMode On 
+<BR>
+Chord Define Swing8 1 8 80; 1.5 8 80; 2 8 80; 2.5 8 80 ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will convert the values for you. Magic, well ...
+almost.
+
+<P>
+There are times when you will need to be more explicit, especially in
+S<SMALL>OLO</SMALL> and M<SMALL>ELODY</SMALL> tracks:
+
+<P>
+
+<UL>
+<LI>If a bar has both swing and straight eighths.
+
+<P>
+</LI>
+<LI>If the note following an eighth is not an eighth.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node19.html">Volume and Dynamics</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node17.html">Tempo and Timing</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,152 @@
+// polka
+
+Begin Doc  
+      Polka (080). Yup, a polka.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel & Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence {1 0 94; 2 0 94; 3 0 94; 4 0 94;}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence {1.5 0 67; 2.5 0 67; 3.5 0 67; 4.5 0 67}
+End
+
+Begin Drum-Tambourine
+    Tone Tambourine
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence {2 0 64; 4 0 64}
+End
+
+Begin Drum-RideCymbal2
+    Tone RideCymbal2
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence {1 0 56; 2 0 56; 3 0 56; 4 0 56;}
+End
+
+Begin Bass-9
+    Voice FretlessBass
+    Octave 3
+    Articulate 120
+    Volume m
+    Rtime 10
+    RVolume 10
+    Sequence {1 8 1 100; 2 8 5 100; 3 8 1 100; 4 8 5 100; }
+off
+End
+
+Begin Chord-6
+    Voice NylonGuitar
+    Octave 5
+    Rtime 10
+    RVolume 20
+    Voicing Mode=Key
+    Articulate 120
+    Volume mp
+    Sequence {1 3 90; 1.5 64 90; 2 3 90; 2.5 64 90; 3 3 90; 3.5 64 90; 4 3 90; 4.5 64 90;}
+End
+
+Begin Chord-7
+    Voice Bandoneon
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mf
+    RVolume 10
+    Sequence {1 64 90; 1.25 32 90; 1.5 3 90; 2 32 90; 2.25 64 90; 2.5 3 90; \
+              3 64 90; 3.25 64 90; 3.5 3 90; 4 64 90; 4.25 64 90; 4.5 3 90}
+End
+
+ 
+Begin Bass-8
+    Voice FrenchHorn
+    Octave 5
+    Articulate 100
+    Volume mp
+    RVolume 10
+    Sequence {1 2 1 70; 1 2 3 68} \ 
+             {1 2 3 73; 1 2 5 72} \
+             {1 2 1 70; 1 2 5 70} \
+             {1 8 1 72; 1 8 3 73}
+End
+
+
+DefGroove Polka    Standard polka with strumming guitar from Casio.
+
+/////////////////////////////////////////////////////////
+///////  Ending
+
+Groove Polka
+Seqsize 2
+
+Drum-KickDrum2     Sequence  D13   D1
+Drum-PedalHiHat    Sequence  *     D1
+Drum-Tambourine    Sequence  *     D1
+Drum-RideCymbal2   Sequence  D8    D1
+
+
+// fretless
+Bass-9    Sequence {1 8 5 100; 2 8 4 95; 3 8 3 90; 4 8 2 85; } \
+                   {1 4 1 80 }
+
+//  NylonGuitar
+Chord-6           Sequence  *       C1
+
+// Bandoneon
+Chord-7          Sequence   {1 1 60}     {1 8 60}
+
+// FrenchHorn
+Bass-8           Sequence    *         z
+
+DefGroove PolkaEnd  A 2 bar ending.
+
+
+/////////////////////////////////////////////////////////
+///////  Intro
+
+Groove Polka
+SeqSize 4
+
+
+Drum-KickDrum2     Sequence D1   *   *   D1
+Drum-PedalHiHat    Sequence *    *   *   {D13 Shift .5}
+Drum-Tambourine    Sequence *    *   *   D2
+Drum-RideCymbal2   Sequence *    *   *   D1
+
+// fretless
+Bass-9       Sequence   *    *    *    B1
+
+//  NylonGuitar
+Chord-6      Sequence   *    *    *    L1
+
+// Bandoneon
+Chord-7      Sequence   *    *    {1 8 90; 3 8 80}    {1 8 60}
+
+// FrenchHorn
+Bass-8 Sequence -
+
+
+DefGroove PolkaIntro  A 4 bar intro.

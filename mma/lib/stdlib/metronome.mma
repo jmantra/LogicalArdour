@@ -1,0 +1,101 @@
+
+// metronome
+
+Begin Doc
+
+  Simple beats to put at the start of a piece. This file has
+  only 4/4 times.
+
+End
+
+Author Bob van der Poel
+
+Begin DocVar
+  NoMetronome If this variable is set the clicks will still sound, but \
+              their volume will be at a zero level. This gives a bit of silence \
+              at the start of playing a track. Quite useful for performance.
+End
+
+
+
+SeqClear
+Time 4
+Timesig 4 4
+
+
+// push the metronome velocity value onto the stack. Either 0 or 90.
+If Ndef NOMETRONOME
+   StackValue 90
+Else
+   StackValue 0
+Endif
+
+Begin Drum  Define
+    M1      1 0 $_StackValue
+    M3      M1 Shift 2
+    M13     M1; M3
+    M24     M13 Shift 1
+    M1234   M13; M24
+End
+
+
+////////////////////////////////////////////////////////
+/// Metronome2   Ticks on beat 1 and 3
+
+
+Seqsize 1
+
+Begin Drum-Low
+	Sequence	M1
+	Tone  LowWoodBlock
+End
+
+Begin Drum-Hi
+	Sequence    M3
+	Tone HighWoodBlock
+End
+
+DefGroove Metronome2     Single bar sequence with hits on beats 1 and 3.
+
+////////////////////////////////////////////////////////
+/// Metronome4  Ticks on 1, 2, 3 and 4.
+
+SeqClear
+Seqsize 1
+
+Begin Drum-Low
+	Sequence    M13
+	Tone  LowWoodBlock
+End
+
+Begin Drum-Hi
+	Sequence    M24
+	Tone  HighWoodBlock
+End
+
+DefGroove Metronome4     Single bar sequence with hits on beats \
+                         1, 2, 3 and 4.
+
+
+/////////////////////////////////////
+/// Metronome2-4
+/// Tick on 1,3 then 1,2,3,4. 2 Bar seq.
+
+SeqClear
+SeqSize 2
+
+Begin Drum-Low
+	Sequence    M1   M13
+	Tone LowWoodBlock
+End
+
+Begin Drum-Hi
+	Sequence    M3   M24
+	Tone HighWoodBlock
+End
+
+DefGroove Metronome2-4   A very useful introduction. On bar one we have \
+                         hits on beats 1 and 3; on bar two hits on beats \
+                         1, 2, 3 and 4.
+
+

@@ -1,0 +1,156 @@
+
+The documentation did not list the useful RESTART command. Sorry.
+
+In a manner similar to that used in Scale tracks, Arpeggio tracks
+  now reset pointer positions after a RANGE or DIRECTION change.
+
+Added harmonies Open8Below and Open8Above.
+
+Changed the behaviour of MidiInc so that program changes (voices)
+  included in the file being imported are ignored. This forces the
+  voice set in the MMA track to be used ... this makes sense most of
+  the time, but you can override with IgnorePC=False/Off/0 in the
+  MidiInc command line.
+
+Roman numerals can be used to specify chords. Roman is simply
+  converted to standard notation. Key signatures are honored, so do
+  read the docs in the "chord names" section for details.
+
+Slash chords can now use Roman or Arabic numbers to set a "fingered
+  bass" note in chords.
+
+
+Debug: $_LastDebug was not working properly.
+       Added Roman=0/1 for displaying roman numeral chord conversions.
+       Added plectrum debug info the debug and plectrum manual sections.
+
+
+June 24, 2010 - released 1.6a
+
+Added option to permit usage of character values 176 & 248 to indicate
+ dim/half-dim chords in both roman and normal notation.
+
+Added little program to convert files from Roman to std. notation.
+ See utils/mma-rm2std.py. Comes with a little readme as well.
+
+June 28, 2010 - released 1.6b
+
+Changed the ln-install and cp-install scripts so that they now check
+ for the directory and offer to create it if needed. Mostly for OS X
+ systems which might not have a /usr/local/share or /usr/local/bin
+ directory.
+
+Large number of Solo changes ================
+ 
+ Added OFFSET=xx to the permitted options in <> modifier. The idea is
+  that notes can now start anywere in a bar, not just in nice 
+  beat values. Example of a solo string might be
+ 
+     <offset=10>4a;4b; 
+
+  which places 2 quarter notes in the bar, pushed off normal by 10 midi
+  ticks. 
+
+ You can specify note pitches in MIDI values.
+
+ You can change the velocity (volume) of individual notes in a solo by
+  appending a value after a '/'. Eg. "4c e g/120" creates a 3 note
+  chord with the 'g' velocity at 120, the others will be the default 90.
+
+  Solo/Melody tracks now have an ARPEGGIATE option.
+
+  The volume setting code for solos is improved/fixed ... but it might
+   make existing tracks a tad loud. Sorry, but I think it is right now :)
+
+ Accents: Set accents !-^& for notes/chords in solos.
+
+      All this is in the manual. 
+
+
+Note Duration: In all settings you can now specify a note duration in
+ MIDI Ticks as well as the conventional '4', '8', etc. Just append
+ a 't' to end of the note. In a pattern definition you could use:
+
+      Chord Sequence { 1 4 90 }
+          or         { 1 196t 90}
+
+ for identical results. Note that articulation, etc. is still
+ applied. Handy for defining "odd" durations.
+
+
+
+MidiInc: You can now apply a "RIFF" option to the MidiInc stuff. This
+ will create a set of notes which are then inserted into a solo
+ track. Now, the "neat stuff" in the solo track is applied to the
+ included notes. "Neat stuff" includes harmony, articulate,
+ arpeggiate, etc. Fun.
+
+ Modified the StripSilence option to permit a
+ manual setting.
+
+ Added Report feature to display the information on a
+ file you can to include.
+
+Harmony: some more harmony options are available.
+
+DupRiff: New and useful command. This makes harmony (and other) tracks
+ easy to create ... just create data in one track and copy to
+ other(s).
+
+July 18, 2010 -- Released 1.6c
+
+
+Minor fix to permit spacing between duration and accent in solos
+ specs.
+
+Fixed up docs to more clearly show the options for Voicing
+ Mode=Optimal.
+
+When specifying solo info in a {} at the end of a chord line you can
+ have empty sets of {} to use as placeholders with the AutoSoloTracks
+ list. There's an example in the docs.
+ 
+The -M command option works again. 
+
+September 17, 2009 -- released 1.6d
+
+MidiInc now honors -T and OFF settings; fixed RiffTranspose option.
+
+Changed the initial test in mma.py to check so that 3.x will notify of
+ problem.
+
+Added some grooves to lib/yamaha and lib/kara. Extensive renaming of
+groove names in these directories to make the compatible with new
+autolib fuctions. Sorry if this creates problems with existing files.
+
+Some major rewrites to the swing code. Hopefully, no bugs
+ created. Additional options for swing include ACCENT, DELAY and
+ NOTES. Better read the fine manual for details.
+
+Major change to the autolib function: the library database is now
+ searched by looking at all the directories in /mma/lib. This is
+ important since you might have grooves in both (for example)
+ mma/lib/stdlib and mma/stdlib/bob. By default, the groove in
+ the 'stdlib' directory will be found first (and used). Read the PATHS
+ section of the manual for more details.
+
+October 8, 2010 -- released 1.6e
+
+Added -V command to preview (prelisten) grooves. 
+
+Added -Dbo option to generate some library docs. This is used by the
+ mma-gb.py program in the utils directory to generate its database file.
+
+The MidiPlayer output used for -P and -V has been rewritten to use a
+ more modern Python interface which should ensure better compatiblity
+ between Unix and Windows platforms. In addition 2 new options for
+ SetMidiPlayer have been introduced: BackGround=0/1 and
+ Delay=<value>. See the Paths section in the manual. In most cases
+ you'll not need any changes to your rc or input files.
+
+A new program has been included in the util directory. mma-gb.py is a
+ groove browser which uses the new -V capability in a simple
+ GUI. Useful for listening to the over 1000 grooves in the main distro.
+
+The minimum Python version has been changed from 2.4 to 2.5. Since 2.5
+ was released in September/2006 we should be safe. 

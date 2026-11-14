@@ -1,0 +1,47 @@
+.TH mma-renum 1
+.SH NAME
+mma-renum  \- renumber mma source files.
+.SH SYNOPSIS
+.PP
+.B mma-renum
+.I INFILE
+
+.SH DESCRIPTION
+
+.B mma-renum
+renumbers the bar line numbers in an existing mma song file.
+
+When parsing the file any line starting with a digit is assumed
+to be a chord-data line. Each line is numbered sequentially starting with "1".
+
+Data lines which are processed (those with leading line numbers) are reformatted
+with a basic spacing of chords.
+
+.SH Caveats
+
+A complete filename is needed for
+.B mma-renum.
+Unlike in
+.B mma
+the ".mma" extension is not automatically appended.
+
+The existing file is deleted and a new file created. It is possible to lose data.
+
+.SH SEE ALSO
+mma(1), mma-libdoc(8).
+
+.SH RESOURCES
+The latest version of this program is always distributed with
+.B MMA
+and is available at http://www.mellowood.ca/mma
+
+
+.SH AUTHOR
+Bob van der Poel <bob@mellowood.ca>
+.SH LICENSE
+mma-renum is Copyright 2003-2017 Bob van der Poel. Free use of this software is granted
+under the terms of the GNU General Public License.
+
+
+
+

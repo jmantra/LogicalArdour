@@ -1,0 +1,209 @@
+
+// descendingjazz.mma
+
+Begin Doc
+	This is a jazz style with a constantly descending accompaniment line.
+    I wrote it especially for the song "My Baby Just Cares For Me" to
+    sort-of echo the style that Nina Simone used.
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////
+/// Pattern definitions
+
+/// This is for chording. We add in harmony 3below to get triads
+Begin Bass Define
+	Down1   1 4. 5 90; 2.5 8 5 70; 3 4. 3 90; 4.5 8 3 70 
+    Down2   1 4. 2 90; 2.5 8 2 70; 3 4. 1 90; 4.5 8 1 70 
+End
+
+Begin Arpeggio Define
+   A-16     1 16 90; 1.25 16 90;  1.5 16 90; 1.75 16 90
+   A-8      1 8 90; 1.5 8 90
+   A816     A-8; A-8 Shift 1; A-16 Shift 2; A-16 Shift 3
+   A168     A-16 ; A-16 Shift 1; A-8 Shift 2; A-8 Shift 3;
+End
+
+///////////////////////////
+/// Groove definitons
+
+SeqSize 4
+
+Begin Drum-Kick
+	Tone       KickDrum1
+	Sequence   D1
+	Volume     m
+	RVolume    10
+	RTime      5
+End
+
+Begin Drum-Side
+	Tone      SnareDrum1
+	Volume    mp
+	Rvolume   10
+	Rtime     5
+	Sequence  D24
+End
+
+Begin Drum-PHH
+	Tone         PedalHiHat
+	Sequence     D13
+	Volume       p
+	Rvolume      10
+	Rtime        5
+End
+
+
+Begin Drum-Ride
+	Tone         RideCymbal1
+	Sequence     D1234
+	Volume       p
+	Rvolume      10
+	Rtime        5
+End
+
+
+Begin Bass
+	Voice         AcousticBass
+	Octave        4
+	Harmony       Open
+	Sequence      Down1  Down2
+	Volume        f
+	Articulate    70
+End
+
+Begin Bass-Chord    // we need to create desending chords. This is a BASS track!
+	Voice         Piano1
+	Sequence      Down1  Down2
+	Harmony       3Below+8Above
+	Octave        4
+	Volume        mf
+	Articulate    90
+	Rskip         10
+End	
+
+Begin Chord       // fill with a straight chord
+    Voice        Piano1
+    Sequence     C13
+    Octave       5
+    Volume       mp
+    Articulate   80
+End
+	
+DefGroove DescendingJazz   A walking style with decending chords.
+
+/// Arpeggiated
+
+Groove DescendingJazz
+
+Begin Arpeggio
+    Voice      Piano1
+    Octave     5
+	Volume     mp
+	Direction  Random
+	Range      1.5
+	Sequence   A8   A16  A816 A168
+	Rskip      20
+	SeqRnd     On
+	Articulate 110
+End
+
+Chord Sequence -
+
+DefGroove DescendingJazzPlus   A walking style with piano arpeggios.
+
+/// Sustained
+
+Groove DescendingJazz
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence   { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing    mode=optimal
+	Volume     p
+	Octave     5
+	Articulate 100
+	Unify      On
+End 
+
+Chord Sequence -
+
+DefGroove DescendingJazzSus   A walking style with added strings.
+
+Groove DescendingJazzSus
+Arpeggio Groove DescendingJazzPlus
+DefGroove DescendingJazzSusPlus   A walking style with strings and arpeggios.
+
+//// Intro
+
+Groove DescendingJazz
+
+Drum-Kick   Sequence   D1  D13  D1   D1
+Drum-Side   Sequence   *   *    *    D2 
+Drum-PHH    Sequence   *   *    *    D12
+Drum-Ride   Sequence   *   *    *    D13
+Bass        Sequence   *   *    B13  B1
+Bass-Chord  Sequence   *   *    B13  B1
+Chord       Sequence   *   L1   *    L1
+
+Chord       Articulate  100
+
+DefGroove DescendingJazzIntro    4 bar introduction.
+
+Groove DescendingJazz
+SeqSize 8
+
+Drum-Kick   Sequence   D1  D13  *   *   *   *  D1   D1
+Drum-Side   Sequence   *   *    *   *   *   *  D2   D2 
+Drum-PHH    Sequence   *   *    *   *   *   *  D12  D12
+Drum-Ride   Sequence   *   *    *   *   *   *  D13  D13
+Bass        Sequence   *   *    *   *   *   *  B13  B1
+Bass-Chord  Sequence   *   *    *   *   *   *  B13  B1
+Chord       Sequence   *   L1   *   L1  *   *  L1   L1
+
+DefGroove DescendingJazzIntro8   8 bar introduction.
+
+Groove DescendingJazzIntro
+Begin Arpeggio
+	  Groove DescendingJazzPlus
+	  SeqRnd Off
+	  Sequence  A8  A16  A8  {A-8; A-8 Shift 1}
+End
+
+Chord Sequence -
+
+DefGroove DescendingJazzPlusIntro   4 bar introduction with arpeggios.
+
+Groove DescendingJazzIntro8
+Begin Arpeggio
+	  Groove DescendingJazzPlus
+	  SeqRnd Off
+	  Sequence  A8 /  A16 /  A8 /  {A-16; A-8 Shift 1} A-8
+End
+
+Chord Sequence -
+
+DefGroove DescendingJazzPlusIntro8   8 bar introduction with arpeggios.
+
+
+/// Ending
+
+Groove DescendingJazz
+SeqSize 2
+
+Drum-Kick   Sequence   D13  D1
+Drum-Side   Sequence   D13  D1
+Drum-PHH    Sequence   D12  /
+Drum-Ride   Sequence   D13  D12
+Bass        Sequence   B13  B1
+Bass-Chord  Sequence   B13  B1
+Chord       Sequence   L1   L1
+
+DefGroove DescendingJazzEnd       2 bar ending.
+

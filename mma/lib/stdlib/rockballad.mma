@@ -1,0 +1,207 @@
+
+// rockballad
+
+Begin Doc
+
+	Written for slowish/doo-wop things like "You Belong To Me".
+      
+End
+
+Author Bob van der Poel
+
+NewSet SusVoice  ChoirAahs
+NewSet SusVoiceOctave 4
+
+Begin DocVar
+	  SusVoice  Voice used for sustained voicing in RockBalladVoice (default=ChoirAahs).
+      SusVoiceOctave  Octave for sustained voices (default=4).
+End
+ 
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+///////////////////////////////////////
+////// Additional patterns
+
+
+/////////////////////////////////////////////////
+////// RockBallad
+SeqSize 4
+
+Begin Drum
+	Sequence	{D1234 * 3 }
+	Tone ClosedHiHat
+	Volume mf
+	Rskip 1
+	Rvolume 10
+ End
+
+Begin Drum-Snare
+	Sequence   D1234
+	Tone SnareDrum1
+	Volume p
+	Rvolume 20
+End
+
+Begin Drum-Kick
+	Sequence D1
+	Tone KickDrum1
+	Volume mp
+	Rvolume 20
+End
+
+Begin Bass
+	Voice FretlessBass
+	Sequence B13 / / z
+	Octave 3
+	Volume mf
+	Articulate 80
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence z z z W1234
+	Volume mf
+	Articulate 80
+End
+
+Begin Chord
+	Sequence  C1234  /   /  { C1234 * 3 }
+	Accent 1 20 3 20
+	Voice JazzGuitar
+	Volume mp
+	Octave 5
+	Articulate 80
+	Voicing mode=optimal
+End
+
+DefGroove RockBallad   Basic beat with triplet Hi-Hats.
+
+Groove RockBallad
+
+Chord Sequence C1234 
+
+DefGroove RockBallad1   Same as the basic pattern, but skips the chord triplet on bar 4.
+
+
+//////////////////////////
+// Guitar Fill
+
+Groove RockBallad
+
+Begin Arpeggio
+	Voice JazzGuitar
+	Sequence  A4  /   /  { A4 * 3 }
+	RSkip 5
+	Octave 4   / / 5
+	Range 2
+	Harmony Open / / None
+	Direction Up
+	Articulate 105
+End
+		
+DefGroove RockBalladFill    Add guitar arpeggios.
+
+Groove RockBallad1
+Arpeggio Groove RockBalladFill
+DefGroove RockBallad1Fill   Guitar apreggio fills without 4th bar triplets.
+
+/////////////////////////////
+// Adds some (sustained) voices
+
+Groove RockBallad
+
+Begin Chord-Sus
+	Voice $SusVoice
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Volume p
+	Octave $SusVoiceOctave
+	Articulate 100
+	Unify On
+End
+
+DefGroove RockBalladVoice   Adds some cheese with choir voices.
+
+Groove RockBallad1
+Chord-Sus Groove RockBalladVoice 
+DefGroove RockBallad1Voice   Cheese without 4th bar triplets.
+
+/////////////////////////////
+//// Intro
+
+Groove RockBallad
+
+Begin Drum
+        Sequence   {D1234 * 3}   /     /   {1 1 55}
+        Tone       ClosedHiHat   /     /   CrashCymbal1 
+End
+
+Drum-Snare  Sequence   D1234  /    /   D1
+Drum-Kick   Sequence   D1
+Bass        Sequence   B13    /    /   {1 4 1 90; 2 4 3 90; 3 4 5 90; 4 4 1+ 90}
+Walk        Sequence   -
+
+Begin  Chord
+       Sequence  { C1234 * 3 } /  C1234 L1
+       Articulate  80          /   /    105
+End
+
+
+DefGroove RockBalladIntro 4 bar intro.
+
+Groove RockBalladIntro
+
+Chord-Sus Groove RockBalladVoice
+
+Begin Chord
+	  Volume -10%
+	  Sequence  C13 / / L1
+	  Articulate 110
+End
+
+Drum  Volume -20%
+Drum-Snare Volume -20%
+Drum-Kick  Volume -10%
+
+Bass Volume -20%
+Walk Volume -20%
+
+
+DefGroove RockBalladSusIntro  4 bar intro with mostly strings.
+
+
+///////////////////////////////////////////////
+/// 4 bar ending
+
+
+Groove RockBallad
+
+Chord  Sequence  C1234
+Bass   Sequence  B13
+Walk   SeqClear
+
+Begin Scale
+	Sequence Scale16 Scale8 Scale4 Scale2
+	Volume mp
+	Voice TenorSax
+	Articulate 99
+End
+
+DefGroove RockBalladEnd    Ending with a scaling tenor sax. Use Seq 1 \
+                           to 4 for 16ths, 8th, 4th or 1/2 note runs.
+	
+
+Groove RockBallad
+
+Seqsize 2
+
+Chord Sequence C1234 L2
+Bass  Sequence B13   B1
+Walk  Sequence -
+
+DefGroove RockBalladEnd1  Simple 2 bar ending.
+

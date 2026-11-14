@@ -118,9 +118,25 @@ if rv and rv["dropdown"] == 2 then
 		print("ACE Fluid Synth")
 		plugin_name = "ACE Fluid Synth"
 		track_name = plugin_name
-		preset_name = "gm"
 
 	 new = ARDOUR.LuaAPI.new_plugin(Session, plugin_name, ARDOUR.PluginType.LV2, "")
+	 if not new or new:isnil() then
+		LuaDialog.Message("Error", "Could not create ACE Fluid Synth.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+		return
+	 end
+
+	 local sel = Editor:get_selection()
+	 for r in sel.tracks:routelist():iter() do
+		if not r:to_track():isnil() then
+			local old = r:nth_plugin(0)
+			if old:isnil() then
+				LuaDialog.Message("Error", "The selected track has no instrument plugin to replace.", LuaDialog.MessageType.Error, LuaDialog.ButtonType.Close):run()
+				return
+			end
+			r:replace_processor(old, new, nil)
+			r:set_name(track_name, nil)
+		end
+	 end
 
      Editor:access_action("LuaAction", "script-15")
      return  -- stop further processing
@@ -174,7 +190,7 @@ if rv and rv["dropdown"] == 2 then
 		end
 
   	-- Fetch the user config directory
-local user_config_directory = ARDOUR.user_config_directory(8) -- get the config directory (using version 8)
+local user_config_directory = ARDOUR.user_config_directory(-1) -- running config (honors XDG_CONFIG_HOME)
 
 print(user_config_directory)
 

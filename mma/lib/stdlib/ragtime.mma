@@ -1,0 +1,129 @@
+// Ragtime
+
+Begin Doc
+
+      This is simple version of Rag Time accompaniment. It's written in
+      4/4 time. Since most rags are in 2/4 you'll need to double the
+      tempo to make it work. Don't play too fast (tempos around 200 quarters per
+      second work well)! Note: No drums in this. Just a
+      single piano and some strings for the sustained part.
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+//////// Additional patterns
+
+
+/////////////
+
+SeqSize 4
+
+Begin Bass
+    Voice Piano1
+    Sequence  B13  /  /  z
+	Articulate 80
+	Octave    3
+	Volume    m
+	Rtime 5
+	RVolume 5
+End
+
+Begin Walk
+    Voice      $_Bass_Voice
+    Accent     1 10 3 10
+    Articulate $_Bass_Articulate
+    Octave     $_Bass_Octave
+    Volume     $_Bass_Volume
+    RTime      $_Bass_Rtime
+    RVolume    $_Bass_RVolume
+    Sequence   z  z  z  W1234
+End
+
+Begin Chord
+    Voice      $_Bass_Voice
+    Articulate 80
+    Octave     5
+    Volume     10
+    RTime      5
+    RVolume    5
+    Volume     m
+    Sequence   C24  {C24; C2 Shift .5} C24  {C24; 1 4 60}
+End
+
+DefGroove RagTime   A simple ragtime pattern.
+
+//////////////////////////////////////////
+/// A busier version with arpeggios.
+
+Begin Arpeggio
+	Voice      $_Bass_Voice
+	Sequence   {A4 Shift .5; A2} A8 A4 {A2 Shift .5}
+    SeqRnd     On
+	Articulate 80
+	Octave     5
+	Range      1.8
+	Direction  Up
+	Rskip      20
+	Volume     p
+End
+
+DefGroove RagtimePlus  Addition of a arpeggiating piano makes it a bit busier
+
+/////////////////////////////////////////////////
+/// Sustained
+
+Groove RagTime
+
+Begin Chord-Sus
+	Sequence  { 1 1 90 0 90 0 * 2 }
+	Voicing Mode=Optimal
+	Volume    p
+	Voice     Strings
+	Octave    5
+	Articulate 100
+	Unify     On
+End
+
+DefGroove  RagtimeSus   Our simple ragtime with string section.
+
+Begin Arpeggio
+	Groove  RagTimePlus
+	Volume  -5%
+	Articulate 70
+	Direction Down
+End
+
+DefGroove RagtimeSusPlus   Busy version with strings
+
+
+///////////////////////////////////////////////////////////////
+/// Intro
+
+Groove Ragtime
+
+Bass   Sequence   *  *  *  {1 1 1 90}
+Walk   Sequence   -
+Chord  Sequence   *  /   /  L1
+
+DefGroove RagtimeIntro  A 4 bar introduction
+
+
+///////////////////////////////////////////////////////////////
+/// Ending
+
+Groove Ragtime
+SeqSize  2
+
+Bass    Sequence   z   B1
+Walk    Sequence   W1234  z
+Chord   Sequence   *   C1
+
+DefGroove RagtimeEnd  A 2 bar ending
+
+

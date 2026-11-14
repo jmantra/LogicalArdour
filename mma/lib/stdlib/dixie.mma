@@ -1,0 +1,339 @@
+
+// dixie
+
+Begin Doc
+
+ These Dixieland grooves are great for songs like "Bill Bailey". The 
+ Time is set to 4, so if you have a 2/4 piece double the tempo. 
+ This rhythm works best with tempos around 200.    
+ This might be a bit busy, if so you're free to make changes!
+ 
+End
+
+// Modified to use plectrum for banjo, March/1010, bvdp.
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+///////////////////////////////
+// Pattern definitions
+
+Begin Drum Define
+	D12+3  D13; 2.5 0 90 
+End
+
+Begin Chord Define
+	Swing1         C1234 ; 2.5 8 80 
+End
+
+
+//////////////////////////////////////////////////////////
+// Dixie
+
+
+SeqSize 4
+	
+Begin Drum-Snare
+	Sequence	D12+3
+	Tone  SnareDrum1
+	Rvolume 10
+	Rskip 20
+	Volume pp
+End	
+
+Begin Drum-Kick
+	Sequence	D13
+	Tone KickDrum1
+	Rvolume 10
+	Rskip 10
+	Volume p	
+End
+
+Begin Drum-HH
+	Sequence	D4
+	Tone OpenHiHat
+	Rvolume 10
+	Rskip 5
+	Rtime 10
+	Volume mp
+End
+
+
+Begin Chord
+	Sequence	Swing1	/	/	C1234
+	Invert		0 1 0 1
+	SeqRnd On
+	Voice Honky-TonkPiano
+	Strum 3
+	Octave 5
+	Volume mp
+	Articulate 99
+End
+
+Begin Bass
+	Voice Tuba
+	Sequence	z	z	z	B13
+	Octave 3
+	Volume p
+	Rvolume 10
+	Rtime 10
+	Articulate 85
+End
+	
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence	W1234	/	/	z
+	Articulate 85
+	Volume p
+	Rskip 5
+	Rvolume 10
+	Rtime 10
+End
+
+Begin Arpeggio
+	Sequence	A16 	/	/	 A8
+	SeqRnd On
+	Volume p
+	Voice Banjo
+	Articulate 99
+	Harmony Open
+	Rskip 20
+	Octave 5
+End
+
+DefGroove Dixie   Complete with arpeggiating banjo.
+
+///////////////////////////////////////////////////
+// Dixie1
+// Alternate, swap bass/walk bars
+
+Groove Dixie
+
+Bass Sequence	B13	/	/	z
+Walk Sequence	z	/	/	W1234
+
+DefGroove Dixie1    Bass/walk variation.
+
+////////////////////////////////////////////////////
+// Dixie2
+// Alternate with slower arp
+
+Groove Dixie
+
+Arpeggio Sequence	A8 / / A4
+
+Begin Plectrum-Banjo  
+    Tuning c- g b d    // tuning for a 4 string plectrum banjo
+	Sequence	{1 4 90; 3 4 90} {1 4 90; 2 -4 80; 3 4 90; 4 -4 80}
+	SeqRnd On
+	Volume pp
+	Voice Banjo
+	Octave 5
+End
+
+DefGroove Dixie2   The arpeggio has been slowed down and a \
+                   stumming, plectrum, banjo has been added. Use this for \
+                   repeat endings, etc.
+	
+//////////////////////////////////
+// Dixie3
+// A bit calmer version
+
+Groove Dixie
+	
+Drum-Snare   Sequence   D13   D1234
+Drum-HH      Sequence   D1
+
+Begin Chord
+	Sequence	L2
+	Invert		0 1 0 1
+	SeqRnd On
+	Octave 5
+	Articulate 80
+End
+
+Begin Plectrum-Guitar
+	Sequence  {1 6 90; 2 8 90}	/  {1 4 90; 2 -4 80; 3 4 90; 4 -4 80} /
+	SeqRnd On
+	Voice JazzGuitar
+	Octave 6
+	Volume p
+End
+
+Bass   Sequence	  B13   /  B11  z
+Walk   Sequence   z     z  z    W1234
+
+Arpeggio  Sequence  A2  A4  z  z
+
+DefGroove Dixie3   A more gentle attempt.
+
+
+/////////////////////////////////////////
+//// Un-busy-fied. 
+
+Groove Dixie
+
+//Drum-Snare	Sequence	D12+3
+//Drum-Kick 	Sequence	D13
+// Drum-HH	Sequence	D4
+
+Chord 	Sequence	C13
+//Bass	Sequence	z	z	z	B13
+// Walk	Sequence	W1234	/	/	z
+Arpeggio  	Sequence	A8 	/	/	 A4
+
+
+DefGroove Dixie4  Same voicing, but less strumming.
+
+//////////////
+
+Groove Dixie
+
+Arpeggio Sequence -
+Begin Plectrum-Banjo
+    Tuning c g d+ a+  // tuning for a tenor banjo
+	Sequence   {1 8 90; 2 -8 80; 3 8 90; 4 -8 80}  {1 8 90; 2 -8 80; 2.5 4 90; 3 8 90; 4 -8 80} 
+	Voice Banjo
+	Volume p
+	Octave 4
+End
+
+DefGroove DixieStrum  Strumming tenor banjo and piano. No apreggiating.
+
+Groove Dixie
+
+
+Arpeggio Sequence -
+
+Chord    Sequence	C13	/	/	L1
+
+Begin Plectrum-Banjo
+    Tuning c g d+ a+  // tuning for a tenor banjo
+	Sequence   {1 8 90; 3 8 90; }  {1 8 90;   3 8 90; 4 -8 80} 
+	Voice Banjo
+	Volume p
+	Octave 4
+End
+
+DefGroove Dixie4Strum  Less strumming version of DixieStrum
+
+///////////////////////////////////
+/// Sustained ... add in a clarinet + trumpet section
+
+Groove Dixie
+
+Begin Chord-Sus
+	Sequence { 1 2 90 0 90 0; 3 2 90 0 90 0}
+	Octave     5
+	Voice     Clarinet
+	Voicing   Mode=Optimal
+	Articulate 100
+	Unify      On
+	Volume     mp
+End
+
+Begin Chord-Sus1
+	Sequence { 1 2 0 90 0; 3 2 0 90 0}
+	Octave     6
+	Voice     Trumpet
+	Voicing   Mode=Optimal
+	Articulate 100
+	Unify      On
+	Volume     mp
+End
+
+DefGroove DixieSus    Basic groove with added sustain.
+
+Groove Dixie1
+Chord-Sus  Groove DixieSus
+Chord-Sus1 Groove DixieSus
+DefGroove Dixie1Sus   Bass/Walk variation with sustain.
+
+Groove Dixie2
+Chord-Sus  Groove DixieSus
+Chord-Sus1 Groove DixieSus
+DefGroove Dixie2Sus   Strumming banjo and sustain.
+
+Groove Dixie3
+Chord-Sus  Groove DixieSus
+Chord-Sus1 Groove DixieSus
+DefGroove Dixie3Sus    Gentle dixie with sustain.
+
+Groove Dixie4
+Chord-Sus  Groove DixieSus
+Chord-Sus1 Groove DixieSus
+DefGroove Dixie4Sus    Less strumming and sustain.
+
+Groove DixieStrum
+Chord-Sus  Groove DixieSus
+Chord-Sus1 Groove DixieSus
+DefGroove DixieStrumSus  Strumming banjo and piano with sustain.
+
+//////////////////////////////////////////////
+/// Introductions
+
+Groove Dixie
+	
+Drum-Snare   Sequence  *  *  *  D13
+Drum-Kick    Sequence  *  *  *  D1
+Drum-HH      Sequence  *  *  *  D1
+Begin Chord
+        Sequence  C13 / /  L1
+        Invert    0
+        SeqRnd Off
+End
+
+Bass    Sequence  B13 / / B1
+Walk    Sequence -
+
+Begin  Arpeggio
+     Sequence	A8  /   A4  z
+	 SeqRnd Off
+End
+
+DefGroove DixieIntro   A 4 bar intro.
+
+
+Groove Dixie
+SeqSize 8
+
+Drum-Snare   Sequence  *  *  *  *  *  *  *  D13
+Drum-Kick    Sequence  *  *  *  *  *  *  *  D1
+Drum-HH      Sequence  *  *  *  *  *  *  *  D1
+Begin Chord
+        Sequence  C1234 C13 C1234 C13 C1234 C13 /  L1
+        Invert    0
+        SeqRnd Off
+End
+
+Bass    Sequence  B13 / / B11  B13 / / B1
+Walk    Sequence -
+
+Begin  Arpeggio
+     Sequence	A16  /  A8  /   A4 / A2  z
+	 SeqRnd Off
+End
+DefGroove DixieIntro8  An 8 bar introduction which gets less and less busy.
+
+
+//////////////////////////////////////////////////
+// DixieEnd
+
+Groove Dixie
+
+Drum-Snare   Sequence   D13  /  D1 /
+Drum-Kick    Sequence	D13  /  D1 /
+Drum-HH      Sequence   D4   D13  D1 /
+Chord        Sequence   C1234  /  L2  C1
+Bass         Sequence   B13  B11   B13   B11
+Walk         Sequence   -
+Arpeggio     Sequence   A16   A8   A4   A2
+
+DefGroove DixieEnd   Straight ending.
+
+

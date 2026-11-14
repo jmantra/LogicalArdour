@@ -1,0 +1,218 @@
+Changes file for the 2015 series
+
+This reflects changes to MMA since the release of version 15.01.
+
+================================
+
+Added macro variables $_Track_Delay, $_Track_HarmonyOnly,
+  $_Track_MidiVolume and $_Track_StrumAdd.
+
+Fixed bugs in GRACE notes. When fixing the code which ensured that all
+  the notes in a chord ended up with the same duration, we forgot that
+  GRACE notes were supposed to be different. Well, they are now!
+
+Harmony was NOT being applied to chords with grace notes. Fixed.
+
+Solo note volume adjustments weren't working properly.
+
+February 8, 2015
+Released 15.01a
+
+---------------------------------------------
+
+Added RPITCH command. Modifies notes on-the-fly for random "mistakes".
+ Actually makes some bass lines, etc sound quite natural. See the
+ docs for details.
+
+Added donated instrument file for Roland-mt32 in includes. Thanks 
+ so much Hanno Behrens!
+
+Added alternate spelling for TRANSPOSE and LYRICS TRANSPOSE. Both now accept
+ interval syntax like "Up Minor Third", etc.
+
+May 13, 2015
+Released 15.01b
+
+---------------------------------------------------
+
+
+Added Subroutines. See the manual for details. This could be quite useful.
+
+
+May 19, 2015
+Released 15.01c
+
+----------------------------------------------------
+
+Fixed Transpose so that "Up Major 2" is the same as "Up Major Second".
+
+Fixed the warning messages for slash chords so that things like C/B
+ do not print warnings. The manual for slash chords has been
+ (hopefully) clarified.
+
+In the manual and code the COMPRESS option took values 0 (off), 1, ... 5.
+ I have no idea why. The actual code only compresses once and the value
+ is ignored. Docs and code are updated to reflect reality.
+
+July 10, 2015
+Released 15.01d
+
+----------------------------------------------------------
+
+Added Lyric option On or Off.
+
+Fixed import error for python3.
+
+Added fretnoise option in plectrum tracks. See the docs and a short
+ example in egs/misc.
+
+August 29, 2015
+Released 15.01f
+
+------------------------------------------------------------
+
+Added -L option to report label/lines proceesed order.
+
+CHANGED fretnoise strings are now numbered in the correct mode.
+ String 1 is the highest sounding, just like a real guitar.
+
+BUGFIX: fretnoise now looks for chord change instead of just string change.
+
+September 9, 2015
+Released  15.01g
+
+Released 15-09
+
+---------------------------------------------------------------
+
+
+Modified -L option to show '?' for bars without labels.
+
+Fixed MIDIINC which was crashing when importing a file with lyrics.
+
+Fixed longstanding bug in the html docs which didn't show the MMA
+ logo. A simple path issue. Thanks Anthony Fok.
+
+Change to mma-gb so that that the database file is now stored 
+ in ~/.cache (user's local directory). Thanks Anthony Fok.
+
+Changes to mma-splitrec to make it work with python3. Thanks
+ Anthony Fok.
+
+The -G option now force deletes existing .mmaDB files. Should solve a
+ problem with out-of-control recursion when a database is really
+ screwed up.
+
+Added $_TimeSig variable.
+
+The TIME command has been expanded to include the option to set
+  the time signature and a new concept of "Chord Tabs". This
+  should make life easier if you use "odd" times and/or use
+  notation editors to read MMA putput.
+
+TIME now supports fractional settings. This makes it possible to do
+  real compound times like 5/8 (Time 2.5), etc.
+
+Note durations can be specified as tuplet ratios. An 8th note triplet
+  could always be set as '3', you can now use '3:4'. No biggie, but
+  you can also do stuff like '6:1' ( one sixth of a whole note).
+
+Added new macro $_NoteLen(note). Returns the duration
+  of the note in MIDI ticks.
+
+October 10, 2015
+Released 15-09a
+
+------------------------------------------------------------
+
+MidiPan: Added a 'm' option to the beat count. 
+
+When grooves are restored (via a GROOVE command) a check is made
+ for any unprocessed (DE)CRESC stacks. This means that you can
+ force a gradual change over a Groove change ... this makes sense
+ since a Groove will have it's own volume. However, SOLO and ARIA
+ tracks don't get saved/restored with grooves ... so it doesn't
+ make sense to NOT permit a solo/aria (de)cresc over a groove
+ change. Done.
+
+Added variable $_Ctabs.
+
+Added "Add" option to transpose so we can change the current value.
+ For the lyric option you need to append (or prepend) the "add"
+ keyword to the transposition value.
+
+A large number of library files were missing (the docs were there,
+ but the porch light wasn't on). The entire library should now be there!
+
+November 12, 2015
+Released 15-09b
+
+----------------------------------------------------------------------
+
+If you create a database with Python3 and then attempt to read it with Python2
+ an error is reported. Seems py3 has pickle protocols which py2 doesn't know.
+ This is now trapped and the user is advised to run mma -G as root.
+
+Fretnoise: Trapped bug to check for lack of a bass track being set; trapped 
+ non-existent track error, fixed voice change in slave track
+
+Cleaned up docs for ornament. Hopefully this is more readable now.
+
+December 15, 2015
+Release 15-12
+
+
+------------------------------------------------------------------------
+
+When setting a chord name you can have multiple '+'s or '-'s to
+ change its octave.
+
+String compares were mostly returning TRUE. Not what we want! I think this
+ crept in when I added '<', '!=', etc. Fixed now.
+
+Fixed timing issue with offsets in plectrum tracks. Thanks Iganzio!
+
+Changed the error/warning routine to pretty print (wrap) messages.
+
+Plugins. Please read the manual section and the additional PLUGIN API.
+ Added macros $_Plugins and $_TrackName_Plugins.
+
+Added chords 7b5(add13) and 7(add13).
+
+The ChordAdjust code has been fixed up and has a RESET option. You
+ can also concat a series of chords names: A,F,G=-1. Added a macro,
+ $_ChordAdjust, to list current settings.
+
+Version numbering: a minor change. We're still using YY.MM for
+ the major releases. For minor (developer) releases we now
+ use YY.MM.[a-z]. 
+
+February 21, 2016
+Release 15.2.a
+
+-------------------------------------------------------------
+
+DUPRIFF: Addition of the FROM keyword to reverse direction of copy.
+
+Added the pluginUtils module for your plugins to access. Added
+ Ignazio's documentation and updated his strumPattern plugin.
+
+April 14, 2016
+Release 15.2.b
+
+-------------------------------------------------------------
+
+
+Added AFTER command
+
+-------------------------------------------------------------
+
+May 22, 2016
+Release 15.2.c
+
+Added EOF event to After.
+
+Wrote quarter tone riff module. It's not perfection, but works.
+
+June 11, 2016
+Release 16.06

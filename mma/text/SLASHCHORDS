@@ -1,0 +1,95 @@
+
+If you start to transfer music from fake books to MMA you'll find
+chords which look like C/E, Dm/C or Am/C. These chords are called
+"slash chords".
+
+Unfortunately, the notation used by arrangers and composers who
+create fakebooks and lead sheets in not nearly as standardized as one
+might like. And, when it comes to slash chords, the standard is far
+from firm. So, what to do in MMA?
+
+Let's look at the different ways that slash chords are used, but
+first lets revisit the method used by MMA to create a chord. MMA has
+a set of tables which represent each type of chord in terms of MIDI
+note values. These note values are adjusted for the particular scale.
+For example, the "notes" for a Major chord are stored in the table as
+(0,4,7). If you specify a F Major chord the notes will be converted
+to (5,9,12), which corresponds to F,A,C. In addition, each chord has
+a list of notes for a corresponding scale. A Major chord will have
+the notes for a Major scale, etc. So, in the previous example, a
+scale list (5,7...16) representing the notes F,G,A,Bb,C,D,E is also
+created.
+
+So, on to the slash chords ... we'll show different types and what MMA
+does and doesn't do.
+
+The easiest case is the simple inversion. In this case the slash note
+will be a note in the chord. Examples include Am/C, A/C#  and C/E.
+MMA handles these by:
+
+ - Rotating the chord so that the slash note becomes the root. An
+   Am/C chord (A,C,E) becomes C,E,A; the C/E chord (C,E,G) becomes E,G,C.
+
+ - Rotating the associated scale. In the case of Am/C the scale
+   A,B,C,D,E,F,G becomes C,D,E,F,G,A,B.
+
+This may OR MAY NOT effect the output, especially if you have enabled
+Voicing MODE=OPTIMAL, KEY, etc. which may do chord rotation on its own.
+In most cases the bass notes will be effected.
+
+
+The next case encountered is a slash note which is not in the chord,
+but is in the scale. Example of this include C/B and Am/F. A C Major
+chord does not have a B note in it (although a B Major 7th chord
+does), but the scale associated with the C Major chord C,D,E,F,G,A,B
+does. So, MMA leaves the chord alone and rotates the scale to
+B,C,D,E,F,G,A. Scale lists are used for bass and scale patterns.
+Since scale patterns are mostly circular, the effect on these
+patterns is negligible; however, for bass patterns the root note (1)
+will be changed from C to F ... which is probably what you want.
+However, note that the 5th is also changed from G to F which might
+NOT be what you want.
+
+
+Yet another slash notation is to have the slash note as neither a
+scale or chord note. For example, one might want a C chord with the
+dominant 7th played ONLY in the bass. The notation for this would be
+C/Bb. If you encounter this, just change the chord to C7 and you'll
+probably be as close as you're going to get. We've played with
+different methods of handling this and haven't come up with anything
+satisfactory. We considered the following (all of which ignore the
+chord notes):
+
+ - Just adding the Bb note to the scale. But, that's quite dumb since
+   in the case of C/Bb we'd end up with a scale Bb,C,D,E,F,G,A,B. Not
+   only is this 1 note too long (all scales are 7 notes long!) it has a
+   B and Bb in it.
+
+ - Add the note and drop the extra note. In the above case this gives
+   us Bb,C,D,E,F,G,A. Perfect! But, what if we have C/Eb? If I saw this
+   in a chart I'd probably figure that we want a Cm chord with the Eb
+   played only in the bass. But, really, it could be just about
+   anything. And, if we followed the add and drop routine we'd have
+   Eb,C,D,E,F,G,A,B, which leaves that nasty E.
+
+ - Find a "close" note, substitute and rotate. Well, not a bad idea.
+   In the case of C/Bb we could parse the scale and discover that B is
+   only one MIDI value away from Bb. Okay, lets change the B to a Bb and
+   rotate. Perfect ... but, the note A is only one value out too. So,
+   maybe that's the one to modify. If we had the tables listed as note
+   names instead of MIDI values this might be simpler. But, as it is ...
+   well, it's just not going to be reliable.
+
+So, in this case MMA just reports a failure, but doesn't barf.
+
+
+In some charts (not so much new ones, but you never know) you'll see
+things like Cm/9 or even Cm/dim. One can only guess at the meanings
+... and MMA avoids guessing. So, in these cases it just reports an
+error.
+
+
+
+bvdp, December/04
+
+

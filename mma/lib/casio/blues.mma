@@ -1,0 +1,136 @@
+ // blues.mma
+
+Begin Doc  
+      Blues (048). A pretty strong, raucous blues.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    RVolume 20
+    Sequence {1 0 88; 2 0 115; 3 0 95; 4 0 115}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    RVolume 10
+    Sequence {1.66 0 56; 2.66 0 60; 3.66 0 62; 4.66 0 53}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    RVolume 10
+    Sequence {2 0 127; 4 0 127}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    RVolume 20
+    Sequence {1 0 124; 2 0 115; 3 0 91; 4 0 115}
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 3 1 126; 1.66 6 5 69; 2 16 1 126; 2.66 16 5 85;\
+                 3 3 1 125; 3.66 6 5 100; 4 3 1 127; 4.66 6 5 93}
+End
+
+Begin Chord-6
+    Voice TenorSax
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    RVolume 10
+    Sequence {1 16 90 0 80 0; 2.66 6 90 0 84 0}
+End
+
+
+Begin Chord-7
+    Voice Piano2
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {1 6 90; 2.66 32 90} 
+End
+
+
+Begin Chord-8
+    Voice CleanGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 6 90; 2.66 6 90}
+End
+
+DefGroove Blues  Main 4 bar pattern
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove Blues
+
+Drum-KickDrum1   Sequence  *    *    *   D13
+Drum-SnareDrum1  Sequence  *    *    *   {D13 Shift .66}
+Drum-SnareDrum2  Sequence  *    *    *   D1234
+Drum-OpenHiHat   Sequence  *    *    D8   D16
+
+Bass-9           Sequence  *    *    *    B13
+
+// Tsax
+Chord-6          Sequence  C1   *    *    {1 8 90 0 80 0; 3 8 90 0 84 0}
+
+// Piano2
+Chord-7          Sequence  C13  *    *    { C1234 Shift .66 }
+
+// Cleanguitrar
+Chord-8          Sequence  *    *    *    C1234
+
+DefGroove BluesIntro    4 bar intro
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove Blues
+Seqsize 2
+
+Drum-KickDrum1   Sequence  *      D1
+Drum-SnareDrum1  Sequence  D1234  D1
+Drum-SnareDrum2  Sequence  {D1234 Shift .6}  D1
+Drum-OpenHiHat   Sequence  D16    D1
+
+Bass-9           Sequence   *     B1
+
+// Tsax
+Chord-6          Sequence  C13     C1
+
+// Piano2
+Chord-7          Sequence  C13     C1
+
+// Cleanguitrar
+Chord-8          Sequence  C1234   C1
+
+
+DefGroove BluesEnd   2 bar ending
+
+
+

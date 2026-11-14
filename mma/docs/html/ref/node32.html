@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Documentation Strings</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node33.html">
+<LINK REL="previous" HREF="node31.html">
+<LINK REL="next" HREF="node33.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node33.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node31.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node33.html">Paths, Files and Libraries</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node31.html">Begin/End Blocks</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html741"
+  HREF="node32.html#SECTION003210000000000000000">Doc</A>
+<LI><A ID="tex2html742"
+  HREF="node32.html#SECTION003220000000000000000">Author</A>
+<LI><A ID="tex2html743"
+  HREF="node32.html#SECTION003230000000000000000">DocVar</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION003200000000000000000">
+Documentation Strings</A>
+</H1>
+
+<P>
+It has been mentioned a few times already the importance of clearly
+documenting your files and library files. For the most part, you can
+use comments in your files; but in library files you use the
+D<SMALL>OC</SMALL> directive.
+
+<P>
+In addition to the commands listed in this chapter, you should also
+note <A HREF="node6.html#sec-grooves">D<SMALL>EF</SMALL>G<SMALL>ROOVES</SMALL></A>).
+
+<P>
+For some real-life examples of how to document your library files,
+look at any of the library files supplied with this distribution.
+
+<P>
+
+<H1><A ID="SECTION003210000000000000000"></A> <A ID="sec-docs"></A>
+<BR>
+Doc
+</H1>
+
+<P>
+A D<SMALL>OC</SMALL> command is pretty simple: 
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Doc This is a documentation string!   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In most cases, D<SMALL>OC</SMALL>s are treated as C<SMALL>OMMENT</SMALL>s.  However,
+if the <SPAN  CLASS="textit">-Dx</SPAN><A ID="tex2html137"
+  HREF="#foot9616"><SUP><SPAN CLASS="arabic">32</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> option is given
+on the command line, D<SMALL>OC</SMALL>s are processed and printed to standard
+output.
+
+<P>
+For producing the <SPAN  CLASS="textit">
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Standard Library Reference</SPAN> a trivial
+Python program is used to collate the output generated with a command
+like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -Dxl -w /usr/local/lib/mma/swing  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note,  the '-w' option has been used to suppress the printing of warning
+messages.
+
+<P>
+All D<SMALL>OC</SMALL> lines/strings are concatenated into one long
+paragraph. If you want any line breaks they should be indicated with a
+&ldquo;&lt;P&gt;&rdquo;. In <SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> this is converted to a new
+line; in html it is left as is (forcing a new line as well).
+
+<P>
+
+<H1><A ID="SECTION003220000000000000000">
+Author</A>
+</H1>
+
+<P>
+As part of the documentation package, there is a A<SMALL>UTHOR</SMALL>
+command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Author Bob van der Poel  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Currently A<SMALL>UTHOR</SMALL> lines are processed and the data is saved, but
+never used. It may be used in a future library documentation
+procedures, so you should use it in any library files you write.
+
+<P>
+
+<H1><A ID="SECTION003230000000000000000">
+DocVar</A>
+</H1>
+
+<P>
+If any variables are used to change the behavior of a library file
+they should be documented with a D<SMALL>OC</SMALL>V<SMALL>AR</SMALL> command. Normally these
+lines are treated as comments, but when processing with the -Dxl or
+-Dxh command line options the data is parsed and written to the output
+documentation files.
+
+<P>
+Assuming that you are using the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variable $C<SMALL>HORD</SMALL>V<SMALL>OICE</SMALL> as
+an optional voice setting in your file, you might have the following
+in a library file:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin DocVar
+<BR>
+ChordVoice  Voice used in Chord tracks (defaults to Piano2).
+<BR>
+End
+<BR> 
+<BR>
+If NDef ChordVoice 
+<BR>
+Set ChordVoice Piano2 
+<BR>
+Endif  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+All variables used in the library file should be documented. You
+should list the user variables first, and then any variables internal
+to the library file. To double check to see what variables are used
+you can add a S<SMALL>HOW</SMALL>V<SMALL>ARS</SMALL> to the end of the library file and
+compile. Then document the variables and remove the S<SMALL>HOW</SMALL>V<SMALL>ARS</SMALL>.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot9616">...-Dx</A><A
+ HREF="node32.html#tex2html137"><SUP><SPAN CLASS="arabic">32</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>See the <A HREF="node2.html#cmd-summary">command
+    summary</A>.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node33.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node31.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node33.html">Paths, Files and Libraries</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node31.html">Begin/End Blocks</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

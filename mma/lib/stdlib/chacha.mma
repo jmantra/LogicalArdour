@@ -1,0 +1,270 @@
+
+// chacha
+
+Begin Doc
+
+	The Cha-Cha-Cha remains a popular rhythm with broad audience appeal,
+    despite the fact that it is somewhat dated and made trite by
+    Americanized versions. I've used "Rico Vacilon" as a demo.
+	This file was mostly developed from the patterns in
+    "Latin Rhythms: Mystery Unraveled" by Victor Lopez.
+End
+
+Author Bob van der Poel
+
+NewSet ArpeggioOctave  7
+NewSet ArpeggioVoice   Flute
+NewSet ScaleVoice      Flute
+
+Begin DocVar
+  ArpeggioOctave   The Octave setting for the flute arpeggios (default=7)
+  ArpeggioVoice    Voice for the ChaCha1 Arpeggios (default=Flute)
+  ScaleVoice       Voice for the accending scale in ChaCha1Fill (default=Flute)
+End
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+Seqsize 2
+
+Begin Drum-Clave
+	Tone Claves
+	Volume f
+	Sequence Clave2 Clave3
+	Rvolume 10
+	Rtime 5
+End
+
+Begin Drum-LGuiro
+	Tone LongGuiro
+	Volume f
+	Sequence {D13; D13 Shift .2}
+	Rvolume 10
+	Rtime 5
+End
+
+Begin Drum-SGuiro
+	Tone ShortGuiro
+	Volume f
+	Sequence {D24; D24 Shift .5}
+	Rvolume 10
+	Rtime 5
+End
+
+Begin Drum-HConga
+	Tone MuteHighConga
+	Volume m
+	Rvolume 10
+	Rtime 2
+	Sequence {D1; D13 Shift .5} {D1; D1234 Shift .5}
+End
+
+Begin Drum-LConga
+	Tone LowConga
+	Volume m
+	Rvolume 10
+	Rtime 2
+	Sequence {D234; D24 Shift .5} D234
+End
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Volume m
+	Rvolume 10
+	Rtime 2
+	Sequence D13
+End
+
+Begin Drum-HH
+	Tone RideCymbal1
+	Volume p
+	Rvolume 10
+	Rtime 2
+	Accent 1 70 2 60 3 70 4 60
+	Sequence D8
+End
+
+Begin Drum-MTom
+	Tone MidTom2
+	Volume f
+	Rvolume 10
+	Rtime 2
+	Sequence D4
+End
+
+Begin Drum-HTom
+	Tone HighTom2
+	Volume f
+	Rvolume 10
+	Rtime 2
+	Sequence {D4 Shift .5}
+End
+
+Begin Bass
+	Voice JazzGuitar
+	Volume f
+	Octave 3
+	Articulate 100
+	Unify On
+	Sequence {1 4  1- 90; 2.5 16 5 90; 3 8 3 90; 4 4 1  90} \
+             {1 4  1  90; 2.5 16 5 90; 3 8 5 90; 4 4 1- 90}
+End
+
+Begin Chord
+	Voice Piano1
+	Volume mf
+	Articulate 66
+	Voicing Mode=Optimal
+	Octave 5
+	Rskip 10
+	Rvolume 10
+	Sequence {C12; C34 Shift .5} {C23 Shift .5}
+End
+
+
+DefGroove ChaCha       Our basic, non-American, pattern.
+
+//////  Add in flute arps.
+
+Groove ChaCha
+
+Begin Arpeggio
+	Voice $ArpeggioVoice
+	Volume m
+	Articulate 80
+	SeqRnd On
+	Octave $ArpeggioOctave
+	Range 1
+	Direction Random
+	Harmony Open
+	HarmonyVolume 50
+	Rskip 10
+	Rvolume 30
+	Rtime 20
+	Sequence A8  A4
+End
+
+DefGroove ChaCha1      Adds in flute arpeggios.
+
+//////////////////////////
+//////  Sustained
+
+Groove ChaCha
+
+Alltracks Volume -20%
+
+Begin Arpeggio-Sus
+	Voice Bandoneon
+	Volume p
+	Octave 6
+	Articulate 100
+	Harmony Open
+	Range .9
+	Direction Random
+	Sequence A2
+End
+
+DefGroove ChaChaSus    Adds sustained string arpeggios.
+
+Groove ChaCha1
+Arpeggio-Sus Groove ChaChaSus
+DefGroove ChaCha1Sus   Combines the flute and string arpeggios.
+
+///////////////////////////
+//// Fills
+
+Groove ChaCha
+Seqsize 1
+
+Drum-Clave       Sequence   D1234 
+//Drum-LGuiro    
+//Drum-SGuiro     
+Drum-HConga      Sequence { D1234 Shift .5 }
+Drum-LConga      Sequence   { D1234 Shift .75 }
+//Drum-Snare      
+//Drum-HH       
+//Drum-MTom  
+//Drum-HTom      
+Bass             Sequence  {1 2. 1 120; 3 4 5 120}
+Chord            Sequence  C13
+
+DefGroove ChaChaFill   A one bar fill.
+
+Groove ChaChaFill
+
+Begin Scale
+	Voice $ScaleVoice
+	Octave 6
+	Volume mf
+	Sequence { 1 1 90 * 24 }
+	Articulate 102
+	Range 2
+	ScaleType Chromatic
+	Direction Up
+End
+
+DefGroove ChaCha1Fill  Fill with accending flute run. Makes a good section introduction.
+
+
+////////////////////////////
+//////  Introduction
+
+Groove ChaCha
+SeqSize 4
+
+Drum-Clave       Sequence   *       *       *      D14
+Drum-LGuiro      Sequence   *       *       *      D1
+Drum-SGuiro      Sequence   *       *       *      {D12 Shift .5}
+Drum-HConga      Sequence   D13
+Drum-LConga      Sequence   D24
+Drum-Snare       Sequence   D1
+Drum-HH          Sequence   *       *       D16    D123
+//Drum-MTom        Sequence D4
+//Drum-HTom        Sequence {D4 Shift .5}
+Bass             Sequence   *       *       *      B11
+Chord            Sequence   *       *       C1234     L1 
+
+DefGroove ChaChaIntro  A plain 4 bar introduction.
+
+Groove ChaCha
+SeqSize 8
+
+Drum-Clave       Sequence   *       *       *     *  *  *  *  D14
+Drum-LGuiro      Sequence   *       *       *     *  *  *  *  D1
+Drum-SGuiro      Sequence   *       *       *     *  *  *  * {D12 Shift .5}
+Drum-HConga      Sequence   D13
+Drum-LConga      Sequence   D24
+Drum-Snare       Sequence   D1
+Drum-HH          Sequence   *       *       *     *   * *  D16    D123
+//Drum-MTom        Sequence D4
+//Drum-HTom        Sequence {D4 Shift .5}
+Bass             Sequence   *       *       *      *  * *  *      B11
+Chord            Sequence   *       *       *      *  * *  C1234     L1 
+
+DefGroove ChaChaIntro8		  Same intro expanded to 8 bars.
+
+
+/////////////////////////
+///// Ending
+
+Groove ChaCha
+
+Drum-Clave       Sequence   D1234   D13
+Drum-LGuiro      Sequence   *       z
+Drum-SGuiro      Sequence   *       {D2; D2 Shift .5}
+//Drum-HConga      Sequence   D13
+Drum-LConga      Sequence   D2
+Drum-Snare       Sequence   D8      D1
+Drum-HH          Sequence   D16     z
+Drum-MTom        Sequence   *       z
+Drum-HTom        Sequence   *       z
+Bass             Sequence   *       B11
+Chord            Sequence   *       L1
+
+DefGroove ChaChaEnd    The End.
+
+
+
+

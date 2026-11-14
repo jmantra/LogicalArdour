@@ -1,0 +1,184 @@
+
+// slowdesert
+
+Begin Doc
+
+    Based on the earlier "desert" groove, this was
+    written for the Lawrence of Arabia Theme. Needed
+    to do this one due to the vast tempo differences
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+/////////////////////////////////////////
+/////// Instrument patterns
+
+Begin Drum Define
+	Sync D13; D24 Shift .5
+End
+	        
+/////////////////////////////////
+
+
+SeqSize 4
+
+// Our main drum is the Tom. The pattern is trying to be hypnotic.
+// NOTE: Have a look at timpani ... not easy since they are pitched.
+
+Begin Drum
+	Tone LowTom2 
+	Sequence Sync  D1234  Sync  D124
+	Volume mp
+	Rvolume 10
+	Rtime 5
+	Accent 1 10 3 10
+End
+
+
+// Alternate bass/walking
+
+Begin Bass
+	Voice AcousticBass
+	Octave 3
+    Volume ff
+	Sequence B13 z 
+	Articulate 130
+	Rvolume 10
+	Rtime 5
+	Accent 3 40
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Volume $_Bass_Volume
+	Octave $_Bass_Octave
+	Rvolume 10
+	Rtime 5
+	Accent $_Bass_Accent
+	Articulate $_Bass_Articulate
+	Sequence z W13
+	Direction Up /  Down /
+End
+
+
+// Some piano chording.
+
+Begin Chord
+	Voice Piano2
+	Volume f
+	Octave 5
+    DupRoot -2
+	Articulate 150
+    // sparse chords, only 1 and 5. (remember, we are adding in a low root)
+    Sequence  {2 4. 90 0 80 0; 4 4. 90 0 80 0} / / {1 2. 90; 3 2. 90}
+End
+
+// And a mystic feel with the sitar
+
+Begin Arpeggio-String
+	Voice Sitar
+	Octave 5
+	Articulate 90
+	Sequence A8 / / A4
+    Rskip 60
+    Direction Down
+	Volume mp
+    Rvolume 50
+End
+
+DefGroove SlowDesert  Pretty funky beat for the desert.
+
+////////////////////////
+//// Sustained
+
+Groove SlowDesert
+
+Begin Chord-Sus
+	Voice Strings 
+
+	// The sustained chord has Root and fifth notes only.
+
+	Sequence  { 1 1 90 0 80 0 * 4 }  
+    Rskip 30
+	DupRoot -2
+	Octave 5
+	Articulate 100
+	// Unify On
+	Rvolume 5
+	Volume mp
+End
+
+DefGroove SlowDesertSus  Add sustained strings.
+
+//////////////////////////////////////////////
+/// Plus versions, a jazzy guitar solo thingie
+
+Groove SlowDesert
+
+Begin Arpeggio-Plus
+   Voice JazzGuitar
+   Octave 6
+   Articulate 140
+   Volume mf
+   Rtime 10
+   Rskip 40
+   Harmony 3Below+8Below
+   Rvolume 10
+   Range 1
+   Direction Random
+   Sequence  {1 4 90; 2 4 90; 3 4 90; 3.5 8 90; 4. 8 90 } {1.5 8 90; 2.5 8 90; 3 4 90; 4 4 90}
+End
+
+DefGroove SlowDesertPlus   Desert theme with a jazz guitar overlay
+
+Groove SlowDesertSus
+Arpeggio-Plus Groove SlowDesertPlus
+DefGroove SlowDesertSusPlus   Desert with strings and guitar
+
+///////////////////////////////
+// Fill, this just puts the chords in 1.2.3.4 and
+// adds extra, random, drum beats.
+
+Groove SlowDesert
+
+Chord           Sequence  C1234  C13
+Chord-String	Sequence  C13    C134
+
+Begin Drum-Fill
+	Tone $_Drum_Tone
+	Sequence { D1234 * 2}
+	Volume mf
+	Rvolume 10
+	Rtime 5
+	RSkip 50
+End
+
+DefGroove SlowDesertFill  A bit of a drum torrent over the basic beat.
+
+Chord-Sus Groove SlowDesertSus
+DefGroove SlowDesertFillSus    Fill groove with sustained strings
+
+/////////////////////////////////
+// Ending
+
+Groove SlowDesert
+
+Drum Sequence D1234 / D13 D1
+
+Drum-T Volume 80% 70% 60% 50%
+
+Walk Sequence -
+
+Bass Sequence B13 / B11 {1 2 1 90}
+
+Chord Sequence C1 C3 C1234 L1
+
+Arpeggio-String Sequence A4 / / A1
+
+DefGroove SlowDesertEnd   Desert Ending.

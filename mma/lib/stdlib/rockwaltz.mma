@@ -1,0 +1,237 @@
+
+// rockwaltz
+
+Begin Doc
+
+ This is our basic 3/4 waltz with added guitars and a bit of raunch.
+    
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 3
+TimeSig 3 4
+Include stdpats34
+
+Begin Arpeggio Define
+  ARun4 1 4 90;
+  ARun8 1 8 90; 1.5 8 90;
+  ARun1 ARun4; ARun8 Shift 1; ARun4 Shift 2
+  ARun2 ARun4; ARun4 Shift 1; ARun8 Shift 2
+End
+
+
+//////////////////////////////////////
+/////   Basic Rock Waltz
+
+
+SeqSize 4
+
+Begin Drum-CHH
+	Tone ClosedHiHat
+	Sequence	D1
+	Volume mp
+	Rvolume 10
+	Rtime 3
+End
+
+Begin Drum-Kick
+	Sequence	  z   D1   /    /	
+	Tone KickDrum1
+	Volume mp
+	Rskip 5
+	Rvolume 10
+	Rtime 3
+End
+
+Begin Drum-Snare
+	Sequence 	D23	/	/	{D1 Shift .5 ; D23 }
+	Tone SnareDrum1
+	Volume pp
+	Rskip 2
+	Rvolume 20
+	Rtime 2
+End
+
+Begin Drum-Tri
+	Sequence	D1	z	z	z
+	Tone OpenTriangle
+	Volume pp
+	Rvolume 10
+	Rtime 2
+End
+
+Begin Chord
+	Sequence	C123  {C123; C2 Shift .5}  C123  {C123; C23 Shift .5}
+	Accent 1 30
+	Voicing Mode=Optimal
+	Volume p
+	Voice CleanGuitar
+	Strum 20
+	Direction Both
+	Articulate 90
+	Octave 5
+End
+
+// Alternate bass on root/five bar to bar
+
+Begin Bass
+	Voice PickedBass
+	Sequence	B1   B1/5   B1   z
+	Octave  3
+	Volume mp
+	Articulate 90
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence	z    z    z   W123
+	Volume $_Bass_Volume
+	Articulate $_Bass_Articulate
+End
+
+DefGroove RockWaltz         Hold tight for this dance.
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence  { 1 2. 90 0 50 * 3 }
+	Voicing Mode=Optimal
+	Articulate 100
+	Unify On
+	Volume p
+	Octave 5
+End
+
+
+DefGroove RockWaltzSus         Add strings to RockWaltz.
+
+
+// Add interest by alternating scales and apreggios.
+
+Groove RockWaltz
+
+Chord Sequence  C13 / / C123
+
+Begin Arpeggio
+	Sequence	z	Arun1	/	/
+	Voice CleanGuitar 
+	Octave 5
+	Range 1.5
+	Rskip 60
+	Volume mp
+	Articulate 90
+End
+
+Begin Scale
+	Sequence	{1 4 90; 2 8 80; 2.5 8 70; 3 4 90} 	z	z	z 
+	Voice  $_Arpeggio_Voice
+	Octave $_Arpeggio_Octave
+	Range $_Arpeggio_Range
+	Rskip 60
+	Volume $_Arpeggio_Volume
+	Articulate $_Arpeggio_Articulate
+End
+
+DefGroove RockWaltz1       Add piano apreggios to the RockWaltz.
+Chord-Sus Groove RockWaltzSus
+
+DefGroove RockWaltz1Sus     RockWaltz with arpeggios and sustained strings.
+
+
+/////////////////////////////////////
+/// Walking bass versions
+
+Groove RockWaltz
+
+Bass Sequence -
+Begin Walk
+    Volume -30%
+    Sequence	W123
+End
+DefGroove RockWaltzWalk         Walking bass version of RockWaltz.		
+
+Chord-Sus Groove RockWaltzSus
+DefGroove RockWaltzWalkSus        Walking bass and sustained strings.
+
+Groove RockWaltz1
+Bass Sequence -
+Walk Sequence W123
+DefGroove RockWaltz1Walk        Walking bass and arpeggios.
+
+Chord-Sus Groove RockWaltzSus
+DefGroove RockWaltz1WalkSus    Walking bass, arpeggios and sustained strings.
+
+
+/////////////////////////
+/// Intro (4 bar)
+
+Groove RockWaltz
+
+Drum-CHH  Sequence * * * D123
+Drum-Tri  Sequence D1 z z D1
+
+Chord     Sequence  *  *  * {1 2. 100}
+
+
+DefGroove RockWaltzIntro        RockWaltz intro with guitar chords.
+
+Chord     Sequence -
+
+Begin Arpeggio
+	Sequence	ARun1	/	Arun2  A3
+	Voice CleanGuitar
+	Octave 4
+	Range 2
+	Volume p
+	Articulate 99
+End
+
+DefGroove RockWaltz1Intro     RockWaltz intro with arpeggios.
+
+
+/////  Intro (8 bar)
+
+Groove RockWaltz
+SeqSize 8
+   
+Drum-CHH  Sequence *   *   *   *   *   *   *   D123
+Drum-Tri  Sequence D1  z   z   D1 
+
+Chord     Sequence  *  *   *   *   *   *   *  {1 2. 100}
+
+
+DefGroove RockWaltzIntro8       8 bar RockWaltz intro with guitar chords.
+
+Chord Sequence -
+
+Begin Arpeggio
+	Sequence	Arun1	/	/  Arun2  Arun1   /  /  A3
+	Voice Piano1 
+	Octave 4
+	Range 2
+	Volume p
+	Articulate 99
+End
+
+DefGroove  RockWaltz1intro8    8 bar RockWaltz intro with arpeggios.
+
+////////////////////////
+///// Ending
+
+
+Groove RockWaltz
+
+Drum-Snare   Sequence 	D123	/	D23	 D1
+Drum-Tri     Sequence   D1	    z	D1   z
+Drum-CHH     Sequence   D1
+Chord        Sequence	C123    /   C12  C1
+Bass         Sequence	B1   B1/5   B1   B1
+Walk         Sequence   -
+
+
+DefGroove RockWaltzEnd  Simple 4 bar ending.
+                        
+
+

@@ -1,0 +1,140 @@
+// strut
+
+Begin Doc
+	This is copied from the BasicRock groove. It is more
+    rhythmic and driving (and has less noise). I wrote this for "Stray Cat Strut".
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+//////// Additional patterns
+
+
+/////////////
+
+SeqSize 2
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence  {D1; D2 Shift .5}
+	Volume mp
+	Rtime 10
+	Rvolume 10
+	Accent 1 20
+End
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Sequence  D24
+	Volume mp
+	Rtime 10
+	Rvolume 10
+End
+
+Begin Drum-OHH
+	Tone OpenHiHat
+	Sequence  D1234
+	Volume mp
+	Rtime 10
+	Rvolume 10
+	Accent 1 20 3 10
+End
+
+Begin Drum-Tam
+	Tone Tambourine
+	Sequence  D8
+	Volume mp
+	Rtime 10
+	Rvolume 10
+	Accent 1 20 3 10
+	Rskip 10
+End
+
+Begin Bass
+	Voice FingeredBass
+	Sequence  B13
+	Volume f
+	Octave 3
+	Articulate 80
+End
+
+Begin Chord-Clean
+	Voice CleanGuitar
+	Sequence  {1 4 60; C24; 2.5 8 80; 4 4 60}
+	Octave 5
+	Volume m
+	Articulate 110
+	Rtime 5
+	Rvolume 10
+End
+
+	
+DefGroove Strut       Basic strut in 4.
+
+Begin Chord-Sus
+	Voice Strings
+	Voicing Mode=Optimal
+	Volume mp
+	Articulate 100
+	Unify On
+	Octave 5
+	Sequence  {1 1 90 0 90 0 * 4 }
+End
+
+DefGroove  StrutSus   A soothing strut with strings.
+
+
+///////  A 2 beat version. 
+
+Groove Strut
+
+Begin Chord-Clean
+	Sequence  {C1 ; 2.5 8 80; C3}
+	Volume mf
+End
+
+DefGroove Strut2   Same strut with a 2 beat emphasis.
+             
+Chord-Sus Groove StrutSus
+
+DefGroove Strut2Sus   Our 2 beat version with strings.                    
+
+///////////////////////////////////////////
+/// 4 bar intro
+
+Groove Strut
+Seqsize 4
+
+Drum-Kick    Sequence  *    *    *   D13
+Drum-Snare   Sequence  *    *    *   D123
+// Drum-OHH
+Drum-Tam     Sequence  *    *    *   {D12; D12 shift .25; D12 shift .5; D12 shift .75}
+Bass         Sequence  *    *    *   B1
+Chord-Clean  Sequence  *    *    *   C13
+
+DefGroove    StrutIntro   4 bar intro.
+
+Groove StrutIntro
+Chord-Sus Groove StrutSus
+DefGroove StrutSusIntro   Same intro with sustained strings
+
+////////////////////////////////
+/// Ending
+
+Groove Strut
+
+Drum-Kickb    Sequence  D13
+Drum-Snare    Sequence  D24  D13
+Drum-OHH      Sequence  D1234  D13
+Drum-Tam      Sequence  D8   D13
+Bass          Sequence  B13  B11
+Chord-Clean   Sequence  C1234  C13
+	
+DefGroove StrutEnd   A 2 bar ending.
+
+

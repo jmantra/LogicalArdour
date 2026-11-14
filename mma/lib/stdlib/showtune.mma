@@ -1,0 +1,194 @@
+
+// showtune
+
+Begin Doc
+
+  An attempt for an orchestral backing for showtunes. I use this
+  for ``I Loved You Once In Silence'' from ``Camelot''. Lots of
+  strings and no drumkit.
+
+End
+
+Author Bob van der Poel
+
+NewSet ExtraVoice TubularBells
+NewSet ExtraOctave 6
+
+Begin DocVar
+	  ExtraVoice  Voice for the alternating arpeggios in ShowTune2 (Default=TubularBells).
+	  ExtraOctave Octave for ExtraVoice (Default=6).
+End
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////////
+//// Basic Pattern
+
+Seqsize 4
+
+
+Begin Chord-String
+    Voice Strings
+    Volume pp
+	Accent 1 20
+	Articulate 100
+	DupRoot -1
+	Unify On
+	Octave 5
+	Voicing Mode=Optimal
+	Sequence {1 1 90 * 4}
+End
+
+Begin Chord-Flute
+    Voice Flute
+    Volume ppp
+	Accent 1 20
+	Articulate 100
+	DupRoot -1
+	Unify On
+	Octave 5
+	Voicing Mode=Optimal
+	Sequence {1 1 90 * 4}
+End
+
+Begin Bass-Guitar
+	Voice AcousticBass
+	Volume m
+	Articulate 110
+	Rtime 2
+	Accent 1 10 
+	Sequence  B13   /   /   B11 
+	Octave 3
+End
+
+Begin Bass-Timp
+	Voice Timpani
+	Volume p
+	Sequence  B1 z  B11 z
+	Octave 3
+End
+
+DefGroove ShowTune    Basic track with strings.
+
+Groove ShowTune
+
+Begin Chord-Piz
+    Voice PizzicatoString
+ 	Volume p
+	Sequence C1234  /   /   z
+ 	Octave 5
+	Rskip 20
+End
+
+Begin Arpeggio-Piz
+	Voice PizzicatoString
+	Volume mp
+	Harmony Open
+	Octave 5
+	Rskip 20
+	Range 1
+	Direction Down
+	Sequence   z    z   z  A4
+End
+
+Chord-Flute Volume -20%
+Chord-String Volume -20%
+
+DefGroove ShowTune1   Add in pizzicato strings.
+
+Groove ShowTune
+
+Begin Arpeggio-Extra
+    Voice $ExtraVoice
+    Octave $ExtraOctave
+	Volume pp
+	Harmony OpenBelow
+	Articulate 80
+	Sequence A2
+	Range 1
+	Direction Random
+	Rskip 20
+End
+
+DefGroove ShowTune2   Basic version with extra ''stuff''. Set voice with ``ExtraVoice''.
+
+
+///////////////////////////////
+////// Plus versions
+
+Groove ShowTune
+
+Begin Arpeggio-Trumpet
+    Voice Trumpet
+	Volume mp
+	Articulate 90
+	Octave 5
+	Harmony OpenBelow
+	Sequence {1 2 90 * 4 } // 8th notes on 1,2,3,4
+	Range 1
+	Direction Down
+	Rskip 40
+End
+
+Begin Arpeggio-Horn
+	Voice FrenchHorn
+	Volume mp
+	Articulate 90
+	Octave 5
+	Sequence   z    {1 2. 90 * 2}   z     {1 2 90 * 2}
+	Harmony   None    Open         None     3
+	Rskip 20
+End
+
+DefGroove ShowTunePlus   Add trumpet arpeggios.
+
+Groove ShowTune1
+Arpeggio-Trumpet Groove ShowTunePlus
+Arpeggio-Horn    Groove ShowTunePlus
+
+DefGroove ShowTune1Plus   Add trumpets and plucked strings.
+
+
+Groove ShowTune2
+Arpeggio-Trumpet Groove ShowTunePlus
+Arpeggio-Horn    Groove ShowTunePlus
+
+DefGroove ShowTune2Plus   Add trumpets and ``extra''.
+
+
+/////////////////////////////////////////////////
+/// Intros
+
+
+Groove ShowTune1
+
+// the stings and flutes are unchanged
+
+Bass-Guitar   Sequence  B13  /  B11  {1 4 5 90; 3 4 1 90}
+Bass-Timp     Sequence  B1
+Chord-Piz     Sequence  *    *    C8   z
+Begin Arpeggio-Piz
+   Sequence  z    z    z    A8
+   Range 2
+   Octave 4
+   Volume -20%
+End
+
+DefGroove ShowTuneIntro   4 bar intro with plucked strings.
+
+
+//////////////////////////////////////
+/// Endings
+
+Groove ShowTune
+SeqSize 2
+
+Bass-Timp Sequence -
+Bass-Guitar  Sequence  B11
+
+DefGroove ShowTuneEnd   A pretty dull ending.
+

@@ -1,0 +1,114 @@
+
+A short tutorial on importing riffs with MidiInc.
+
+It's pretty easy, but a step by step never hurts! Here is what I did to
+create a short introduction to a song (The Summer Knows).
+
+1. I created a normal MMA file with a 4 bar intro and a 2 bar metronome.
+
+2. Compile the MMA file into a MIDI.
+
+-- we now have 2 files: summer.mid and summer.mma
+
+3. I imported the MIDI file into Rosegarden (however, any other recording
+    program will work just as well). 
+
+4. I played a simple, one note-at-a-time, introduction and saved it in
+   channel 1. Just 4 bars of note data.
+
+5. Save the MIDI file under a new name (in Rosegarden this is File-Export).
+
+ -- we now have 3 files: summer.mid, summer.mma and solo.mid
+
+6. Modify the original MMA file so we can analyze the solo file. Just add
+   the following line AFTER the metronome:
+
+     MidiInc File=solo.mid Report=On
+
+   save the file and  run "mma summer.mma".
+
+   You should get a print out on the screen with a bunch of information.
+   The key line we want to look at is:
+ 
+     Channel  1: First event 0        First Note 4361     Total Notes 15 
+
+   This is the melody we played. Note that our first note is played at
+   offset 4361. Make a note of this value!
+
+7. Modify the original file again. This time we want to listen to the
+   solo data, so change the MidiInc line to:
+
+   MidiInc File=sol.mid Solo=1,riff Volume=200  StripSilence=4361
+
+  Save and compile with "mma -P summer.mma". The song should play with
+  a fairly loud solo, probably played with a piano. If the start time
+  matches, go on. Otherwise you can modify the "StripSilence" value and try again.
+
+8. Modify the original file one more. This time we will suck the note data out:
+
+     MidiInc File=sol.mid Solo=1,riff,print Volume=200  StripSilence=4361
+
+   and compile. You should get a bunch of RIFF command lines on the screen.
+   If it's working you can cut/paste off the screen or redirect into a
+   scratch file.
+
+9. Back to the MMA file. Add some solo tracks, etc. and delete the MidiInc
+   line (it's done it's work). My file ended up looking like this:
+
+/////////////////////////////////
+
+// Summer Knows
+
+Tempo 80    /// I think it was much slower in the movie
+Keysig F minor
+
+Groove Metronome2-4
+  z * 2
+
+Groove GuitarBalladSusIntro
+
+Begin Solo
+   Voice Strings
+   Articulate 120
+   Volume m
+   Octave 5  // no effect since we're using midi pitch values
+   Riff <Offset=0> 180t 68/102;<Offset=178> 92t 72/108;<Offset=272> 294t 68/98;<Offset=648> 49t 68/127;<Offset=757> 175t 68/127 ~;
+   Riff <Offset=168> 102t 72/82;<Offset=274> 338t 68/104;<Offset=656> 96t 68/127;<Offset=756> 104t 70/102 ~;
+   Riff <Offset=124> 90t 70/120;<Offset=248> 97t 70/127;<Offset=354> 107t 73/124;<Offset=462> 162t 70/127;<Offset=635> 127t 68/106;<Offset=762> 291t 67/118 ~;
+End
+
+Begin Solo-1
+   Voice ChoirAahs
+   HarmonyOnly OpenBelow
+   octave 8         // Again, no effect
+   Articulate 130
+   Volume f
+End
+    
+Solo DupRiff Solo-1
+
+1         Ab
+2        Fm
+3       Bbm
+4        Eb7      /      z
+
+////////////  Song continues ......
+
+
+A few points to look at and remember:
+
+- Octave settings have no effect on Riff Solo data entered with MIDI note values. So, the octave settings in Solo and Solo-1 have no effect.
+
+- Use of DupRiff saves a lot of time!
+
+- The HarmonyOnly track notes are in the same octave at the Solo. We could have done 2 different imports, but it's not really necessary since we have lots of harmony choices.
+
+- I added "~" to the generated RIFF lines to turn off the long note warnings.
+
+There you go. Sounds a lot more complicated than it is. Try a few songs on your own. My creation is in the example song distro as "summer-knows.mma".
+
+
+bvdp   July/2010
+
+
+

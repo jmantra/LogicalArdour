@@ -1,0 +1,170 @@
+
+// slowbroadway
+
+Begin Doc
+
+ This is slower version of the "broadway" rhythm. It works in
+ 4/4 time and is voicing compatible. Written for an upbeat version
+ of "Some Enchanted Evening".
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////////
+//// Basic Pattern
+
+Seqsize 4
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Volume mp
+	Rvolume 10
+	Rtime 2
+	Sequence D1234
+End
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Volume mp
+	Sequence  D1  z  z  z
+End
+
+Begin Drum-HiH1
+	Tone ClosedHiHat
+	Volume f
+	Sequence  D1234
+End
+
+Begin Drum-HiH2
+	Tone ClosedHiHat
+	Volume mp
+	Sequence D24
+	Rtime 2
+	Rskip 5
+End
+
+Begin Drum-Tri
+	Tone OpenTriangle
+	Volume mp
+	Sequence {D1 shift .2} z D1  z
+End
+
+Begin Bass
+	Voice AcousticBass
+	Volume mf
+	Articulate 60
+	Rtime 4
+	Rvolume 10
+	Accent 1 10 3 10
+	Sequence B1234  / {1 4 1 90; 3 8 3 90; 4 8 4 90} { 1 4  5 90; 3 4 3 90}
+	Octave 3
+End
+
+Begin Chord-Piz
+	Voice PizzicatoString
+	Volume mp
+	Rskip 20
+	DupRoot 1
+	Rvolume 10
+	Rtime 5
+	Voicing Mode=Optimal
+	Sequence C8 
+	Octave 5
+End
+
+
+Begin Chord-Gloc
+	Voice Glockenspiel
+	Sequence  C13 C1 C3 C1234
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rskip 50
+	Articulate 50
+	Volume mp
+	Octave 7
+End
+
+DefGroove SlowBroadway    A corny Broadway tune rhythm.
+
+Begin Arpeggio
+	Voice Flute
+	Sequence A4
+	Articulate 95
+	Rskip 20
+	Harmony Open
+	Octave 6
+	Volume p
+End
+
+DefGroove SlowBroadway1   Add in arpegiating flute.
+
+
+////////////////////////////////////
+/// Sustained versions
+
+Groove SlowBroadway
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	DupRoot 1                       // Plus an octave for brightness
+	Voicing mode=optimal
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 5
+	Volume mp
+End
+
+Chord-Piz Volume -40%
+
+DefGroove SlowBroadwaySus   Add sustained strings.
+
+Begin Arpeggio
+	Groove SlowBroadway1
+	Volume -40%
+End
+
+DefGroove SlowBroadway1Sus   Sustained strings and apregiating flute.
+
+
+/////////////////////////////////////////////
+/// Introduction
+
+Groove SlowBroadway
+Alltracks SeqRnd Off
+
+Drum-Kick    Sequence  *  *     *    D13
+Bass         Sequence  *  *     *   {1 4 5 90; 2 4 3 80; 3 4 2 70; 4 4 1 90}
+Chord-Piz    Sequence  *  *     *   C13
+Chord-Gloc   Sequence  *  *     *   C13
+
+DefGroove SlowBroadwayIntro   Simple 4 bar intro.
+
+
+////////////////////////////////////////////
+/// Ending
+
+
+Groove SlowBroadway
+SeqSize 2
+AllTracks SeqRnd Off
+
+Drum-Kick	Sequence   D1234    D12
+Drum-Snare  Sequence   D1        /
+Drum-HiH1   Sequence   D1234    D12
+Drum-HiH2   Sequence   *      {D1 Shift .5}
+Drum-Tri    Sequence   D1       /
+Bass        Sequence  {B1234; B1234 Shift .5 } B1
+Chord-Piz   Sequence   *       {C12;C1 Shift .5}
+Chord-Gloc  Sequence   *       C1
+
+
+Defgroove SlowBroadwayEnd   A 2 bar ending.

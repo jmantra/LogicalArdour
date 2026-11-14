@@ -1,0 +1,144 @@
+
+// stringballad.mma
+
+Begin Doc
+
+ For very slow ballads. Lots of strings, a solid bass and some nice
+ little arpeggios. 
+  
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////
+/// Basic Pattern
+
+SeqSize 4
+
+Begin Bass
+	Voice FingeredBass
+	Volume p
+	Octave 3
+	Articulate 90
+	Sequence  {1 4. 1 90; 3 4. 5 90;} {1 4 1 90; 2 4 5 90; 3 2 1 90}
+End
+
+Begin Chord-Sus
+    Voice TremoloStrings
+    Octave 5
+    Articulate 100
+    Unify On
+    Volume mp
+    Voicing Mode=Optimal
+    Sequence {1 4 90 0 90 0 ; 2 4 90 0 90 0; 3 4 90 0 90 0; 4 4 90 0 90 0}
+End
+
+DefGroove StringBallad   Slow ballad with strings and bass.
+
+/////////////////////////////////////////////
+/// Add in some choir voices. Just the 1 and 3 are played.
+
+Groove StringBallad
+
+Begin Chord-Voice
+    Voice VoiceOohs
+    Octave 5
+    Articulate 110
+    Volume mp
+    Sequence {1 2 80 70 0; 3 2 70 60 0}
+End
+
+DefGroove StringBalladVoice   Add a sustained voice to the strings.
+
+//////////////////////////////
+/// Stummed guitar
+
+Groove StringBallad
+
+Begin Plectrum
+    Voice JazzGuitar
+	Volume mp
+	RVolume 10
+    Rtime 5
+	Octave 5
+    Sequence { 1 5 90 80 80 50 0 0; 3 -5 90 90 80 50 0 0; 4 6 80 80 70 50 0 0 }  \
+             { 1 5 90 80 70 0  0 0; 3 8 80 70 60 0  0 0 }                        \
+             { 1 5 90 80 80 50 0 0; 3 -5 70 70 60 0 0 0; 4 6 70 70 70 0 0 0 }    \
+             { 1 5 90 80 70 0  0 0 }
+
+End
+
+DefGroove StringBalladStrum  Gentle guitar adds some interest.
+
+Groove StringBalladStrum
+
+Groove StringBalladStrum
+Chord-Voice Groove StringBalladVoice
+DefGroove StringBalladVoiceStrum     Add the guitar and soothing voices.
+
+
+/////////////////////////////////
+/// Add in some piano arps
+
+Groove StringBallad
+
+Begin Arpeggio
+    Voice Piano1
+    Volume mp
+    Articulate 110
+    Harmony OpenBelow+8Below
+    Rskip 50
+    Rtime 5
+    Rvolume 10
+    Octave 5
+    Range 2
+    Direction Random
+    Sequence  A4  /  /   A8
+    SeqRnd On
+End
+
+Chord-Sus Volume -20%
+
+DefGroove StringBalladPlus   Add a bit of piano to the strings.
+
+Groove StringBalladPlus
+Plectrum Groove StringBalladStrum
+DefGroove StringBalladStrumPlus  Piano and strumming.
+
+Groove StringBalladPlus
+Chord-Voice Groove StringBalladVoice
+DefGroove StringBalladVoicePlus     Add the piano and soothing voices.
+
+
+
+
+////////////////////////////////////////////////
+/// Intro
+
+Groove StringBalladStrum
+
+Plectrum   Sequence  *  *  * {1 10 70 70 70 70 0 0}
+Bass       Sequence  *  *  * {1 4 5 90; 2 4 3 80; 3 4 2 70; 4 4 1 60}
+Chord-Sus  Sequence *  *  * {1 1 90 0}
+
+DefGroove StringBalladIntro  A 4 bar introduction
+
+
+////////////////////////////////////////////////////
+/// Ending
+
+Groove StringBalladStrum
+
+Seqsize 2
+
+Plectrum   Sequence  {1 10 70 70 70 70 0 0} {1 10 70 40 30 20 0 0}
+Bass       Sequence  {1 4 5 90; 2 4 3 80; 3 4 2 70; 4 4 1 60} {1 2 1 90}
+Chord-Sus  Sequence  {1 2 90 0 90 0; 3 2 90 0 90 0} {1 1 90 0}
+
+DefGroove StringBalladEnd  A 2 bar ending

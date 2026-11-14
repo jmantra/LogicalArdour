@@ -1,0 +1,676 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Patch Management</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node26.html">
+<LINK REL="previous" HREF="node24.html">
+<LINK REL="next" HREF="node26.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node26.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node24.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node26.html">Triggers</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node24.html">Low Level MIDI Commands</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html687"
+  HREF="node25.html#SECTION002510000000000000000">Voice</A>
+<LI><A ID="tex2html688"
+  HREF="node25.html#SECTION002520000000000000000">Patch</A>
+<UL>
+<LI><A ID="tex2html689"
+  HREF="node25.html#SECTION002521000000000000000">Patch Set</A>
+<LI><A ID="tex2html690"
+  HREF="node25.html#SECTION002522000000000000000">Patch Rename</A>
+<LI><A ID="tex2html691"
+  HREF="node25.html#SECTION002523000000000000000">Patch List</A>
+<LI><A ID="tex2html692"
+  HREF="node25.html#SECTION002524000000000000000">Ensuring It All Works</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION002500000000000000000"></A>
+<A ID="patch"></A>
+<BR>
+Patch Management
+</H1>
+
+<P>
+Modern music keyboards and synthesizers are capable of producing a
+bewildering variety of sounds. Many consumer units priced well under
+$1000.00 contain several hundred or more unique voices. But, &ldquo;out of
+the box&rdquo; 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  supports the 128 &ldquo;General MIDI&rdquo;<A ID="tex2html121"
+  HREF="#foot4949"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> preset voices as well as &ldquo;extended&rdquo; voices (see
+below). These voices are assigned the values 0 to 127. We refer to the
+various voices as &ldquo;tones&rdquo;, &ldquo;instruments&rdquo;, or
+&ldquo;patches&rdquo;.<A ID="tex2html122"
+  HREF="#foot4950"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+
+<P>
+
+<H1><A ID="SECTION002510000000000000000"></A>  <A ID="set-voice"></A>
+<BR>
+Voice
+</H1>
+
+<P>
+The MIDI instrument or voice used for a track is set with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord-2 Voice Piano1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Voices apply only to the specified track. The actual instrument can be
+specified via the MIDI instrument number, an &ldquo;extended&rdquo; value, or
+with the symbolic name.  See the tables in the MIDI
+<A HREF="node36.html#sec-voicenames">voicing section</A> for lists of the standard, recognized
+names.
+
+<P>
+You can create interesting effects by varying the voice used with drum
+tracks. By default &ldquo;Voice 0&rdquo; is used. However, you can change the
+drum voices. The supplied library files do not change the voices since
+this is highly dependent on the MIDI synth you are using.
+
+<P>
+All D<SMALL>RUM</SMALL> tracks share a common MIDI channel. This, for all
+practical purposes, means that all D<SMALL>RUM</SMALL> tracks will have the
+same V<SMALL>OICE</SMALL> or &ldquo;drum kit&rdquo;. In most cases, it is recommended
+that you use the V<SMALL>OICE</SMALL> command <SPAN  CLASS="textit">only</SPAN> in the generic track
+&ldquo;Drum&rdquo;. At this point, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  doesn't enforce this recommendation.
+
+<P>
+When setting a V<SMALL>OICE</SMALL> for a D<SMALL>RUM</SMALL> track, you can also use
+the known mnemonic name from the table
+<A HREF="node36.html#sec-drumkitnames">here</A>. However, please note
+that in order to avoid possible name conflicts you <SPAN  CLASS="textit">must</SPAN> append
+&ldquo;Kit&rdquo; to the name. The following two examples produce the same
+result:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Voice JazzKit  </B> 
+   
+	    </td></tr>
+      </Table>
+
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Drum Voice  32  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can specify a different V<SMALL>OICE</SMALL> for each bar in a sequence.
+Repeated values can be represented with a &ldquo;/&rdquo;:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Voice Piano1 / / Piano2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+It is possible to set up translations for the selected voice: see
+<A HREF="node28.html#set-voicetr">V<SMALL>OICE</SMALL>TR</A>.
+
+<P>
+To complicate matters a little bit more, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  also adds a pseudo
+voice N<SMALL>ONE</SMALL> which disables the generation of MIDI code to
+select a default voice. This is useful when you set a given track to
+a specific MIDI channel and you have preset an external synth. For
+example, suppose you want a S<SMALL>OLO</SMALL> track on MIDI channel 1 with
+no voice settings:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Solo 
+<BR>&nbsp;&nbsp; channel 1 
+<BR>&nbsp;&nbsp; Voice None 
+<BR>&nbsp;&nbsp; ... 
+<BR>
+End 
+<BR></B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this case the voice or tone used will be that already set by an
+external synth.
+
+<P>
+
+<H1><A ID="SECTION002520000000000000000"></A> 
+<A ID="extended-patch"></A>
+<BR>
+Patch
+</H1>
+
+<P>
+In addition to the 128 standard voices mandated by the MIDI standards
+(referred to as the GM voices) 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  also supports extended voice
+banks.
+
+<P>
+<DIV class="CENTER">
+
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       <SPAN  CLASS="textit">The rest of this
+        chapter presents features which are highly dependent your hardware.
+        It is quite possible to create MIDI files which sound very
+        different (or even awful, or perhaps not at all) on other
+        hardware. We recommend that you <SPAN  CLASS="textit">do not</SPAN> use these
+        features to create files you want to share!</SPAN>
+	
+           </td></tr>
+        </Table>
+
+</DIV>
+
+<P>
+A typical keyboard will assign instruments to different voice
+banks. The first, default, bank will contain the standard set of 128
+GM instruments. However, you can select different banks, each with a
+variety of voices, by changing the current voice bank. This switching
+is done by changing the value of MIDI Controller 0, 32 or both. You'll
+need to read the manual for your hardware to figure this out.
+
+<P>
+In order to use voices outside of the normal GM range 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses an
+extended addressing mode which includes values for the patch and
+controllers 0 and 32. Each value is separated from the others with a
+single &ldquo;.&rdquo;. Two examples would include 22.33.44 and 22.33. The first
+value is the Patch Number, the second is a value for Controller 0. The
+third value, if present, is the setting for Controller 32.
+
+<P>
+My Casio Wk-3000 lists Bank-53, Program-27 as &ldquo;Rotary Guitar&rdquo;. It's easy to use
+this voice directly in a V<SMALL>OICE</SMALL> command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Voice 27.53  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Yes, but who wants all those &ldquo;funny&rdquo; numbers in their 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  files?
+Well, no one that I know. For this reason the P<SMALL>ATCH</SMALL> command has
+been developed. This command lets you modify existing patch names,
+list names and create new ones.
+
+<P>
+P<SMALL>ATCH</SMALL> takes a variety of options. We suggest you read this
+section and examine some of the included example files before
+venturing out on your own. But, really, it's not that complicated.
+
+<P>
+Unless otherwise noted, you can stack a number of different options
+onto the same P<SMALL>ATCH</SMALL> line.
+
+<P>
+
+<H2><A ID="SECTION002521000000000000000"></A>
+<A ID="patch-set"></A>
+<BR>
+Patch Set
+</H2>
+
+<P>
+The S<SMALL>ET</SMALL> option is used to assign one or more patch values to
+symbolic names. Going back to my Casio example, above, I could use the
+following line to register the voice with 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Patch Set 27.53=RotaryGuitar  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The assignment consists of two parts or keys joined by a &ldquo;=&rdquo;
+sign. No spaces are permitted. The left part of the assignment is a
+value. It can be a single number in the range 0 to 127; or 2 or 3 numbers
+joined by &ldquo;.&rdquo;s. The right right part is a symbolic name. Any characters
+are permitted (but no spaces!).
+
+<P>
+After the assignment you can use &ldquo;RotaryGuitar&rdquo; just like any other
+instrument name:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Voice rotaryguitar  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that once the voice has been registered you don't need to worry
+about the case of individual letters.
+
+<P>
+It's even possible to register a number of voices in this manner:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Patch set 27.53=RotaryGuitar 61.65=BASS+TROMBONE   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Just make sure that the S<SMALL>ET</SMALL> assignments are the last thing on
+the P<SMALL>ATCH</SMALL> line.
+
+<P>
+It is relatively easy to load entire sets of extended patch names by
+creating special 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  include files. For example, for a Casio
+WK-3000 keyboard you might have the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">includes/casio-wk3000.mma</SPAN></SPAN>
+with a large number of settings. Here's a snippet:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Patch Set 
+<BR>&nbsp;&nbsp;    0.48=GrandPiano 
+<BR>&nbsp;&nbsp;    1.48=BrightPiano 
+<BR>&nbsp;&nbsp;    2.48=ElecGrandPiano 
+<BR>&nbsp;&nbsp;    3.48=Honky-Tonk1 
+<BR>&nbsp;&nbsp; ...
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, at the top of your song file or in a <SMALL>MMARC</SMALL> file insert the
+command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>include casio-wk3000<A ID="tex2html123"
+  HREF="#foot13905"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+A file like this can be created by hand or you can convert existing an
+existing file to a format  understands. A number of &ldquo;patch&rdquo;
+files exist for the popular &ldquo;Band in a Box&rdquo; program from PGMusic.
+There files may be subject to copyright, so use them with respect.
+None of these patch files are included in this distribution, but many
+are freely available on the internet. For a start you might want to
+look at <kbd><A ID="tex2html124"
+  HREF="http://www.pgmusic.com/support_miscellaneous.htm">http://www.pgmusic.com/support_miscellaneous.htm</A></kbd>. These
+files cannot be read by 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> , so we have included a little
+conversion utility <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">util/pg2mma.py</SPAN></SPAN>. There is a short file with
+instructions <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">util/README.pg2mma</SPAN></SPAN>.
+
+<P>
+The S<SMALL>ET</SMALL> option will issue warning messages if you redefine
+existing instrument names or addresses. We suggest that you edit any
+configuration files so that they have unique names and that you do not
+rename any of the standard GM names.
+
+<P>
+
+<H2><A ID="SECTION002522000000000000000">
+Patch Rename</A>
+</H2>
+
+<P>
+The naming of patches is actually quite arbitrary. You'll find that
+different manufacturers use different names to refer to the same
+voices. Most of the time this isn't a major concern, but you have the
+freedom in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to change any patch name you want. For example, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+calls the first voice in the GM set &ldquo;Piano1&rdquo;. Maybe you want to use
+the name &ldquo;AcousticGrand&rdquo;. Easy:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Patch Rename Piano1=AcousticGrand  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Each R<SMALL>ENAME</SMALL> option has a left and right part joined by an &ldquo;=&rdquo;
+sign. The left part is the current name; the right is the new
+name. Please note that after this command the name &ldquo;Piano1&rdquo; will not
+be available.
+
+<P>
+You can have any number of items in a list; however, they must be the
+last items on the P<SMALL>ATCH</SMALL> line.
+
+<P>
+
+<H2><A ID="SECTION002523000000000000000">
+Patch List</A>
+</H2>
+
+<P>
+After making changes to 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's internal tables you might want to
+check to make sure that what you meant is what you got. For this
+reason there are three different versions of the L<SMALL>IST</SMALL>
+command.
+
+<P>
+<DL>
+<DT><STRONG>List=GM</STRONG></DT>
+<DD>Lists the current values of the GM voices,
+</DD>
+<DT><STRONG>List=EXT</STRONG></DT>
+<DD>Lists the extended voices,
+</DD>
+<DT><STRONG>List=All</STRONG></DT>
+<DD>Lists both the GM and extended voices.
+</DD>
+</DL>
+
+<P>
+For example, the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Patch List=EXT  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will produce a listing something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>0.48=GrandPiano 
+<BR>
+1.48=BrightPiano 
+<BR>
+2.48=ELEC.GrandPiano 
+<BR> ...</B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION002524000000000000000">
+Ensuring It All Works</A>
+</H2>
+
+<P>
+If you are going to use any of the extended patches in your MIDI files
+you may need to do some additional work.
+
+<P>
+Your hardware may need to be in a &ldquo;special&rdquo; mode for any of the
+extended patches to take effect. What we suggest is that you use the
+MIDI command <A HREF="node24.html#sec-midi">(details here)</A> to do some initialization. For an example please
+look at the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">includes/init.mma</SPAN></SPAN> which we include in our
+personal files. This file sets the volume, pan and controller values
+to known settings. It's easy to modify this file to match your
+hardware setup.
+
+<P>
+To use a file like <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">includes/init.mma</SPAN></SPAN> just include a line like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>include init  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+in your mmarc file. See the Path section of this manual for details
+<A HREF="node33.html#sec-paths">(here)</A>.
+
+<P>
+To help keep things sane, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  checks each track as it is closed. If
+an extended voice has been used in that track it resets the effected
+controllers to a zero state. In most cases this means that if you
+finish playing the file your keyboard will be returned to a
+&ldquo;default&rdquo; state.
+
+<P>
+However, you might wish to generate some explicit MIDI sequences at the
+end of a generated file. Just write another file like the
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">init.mma</SPAN></SPAN> file we discussed above. You can insert this file by
+placing a line like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>include endinit  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+at the end of your song file. Or, use the MMAE<SMALL>ND</SMALL> command
+detailed <A HREF="node33.html#sec-mmaend">here</A>.
+
+<P>
+You can get about as complicated as you want with all this. One scheme
+you might consider is to use macros to wrap your extended patch
+code. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>if def Casio 
+<BR>&nbsp;&nbsp;  include casio-wk3000 
+<BR>&nbsp;&nbsp;  include init.file.for.casio.mma 
+<BR>
+endif 
+<BR>   
+<BR>
+Groove somegroove 
+<BR>   
+<BR>
+if def Casio 
+<BR>&nbsp;&nbsp;    Chord Voice RotaryGuitar 
+<BR>
+Endif 
+<BR>   
+<BR>
+1  Cm 
+<BR>
+2  Dm 
+<BR>&nbsp; ...more chords 
+<BR>
+if def Casio 
+<BR>&nbsp;&nbsp;  include restore-file-for-casio.mma 
+<BR>
+endif   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Now, when you compile the file define the macro on the command line:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -SCASIO filename   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This defines the macro so that your wrappers work. To compile for the
+GM voicing, just skip the &ldquo;-SCASIO&rdquo;.
+
+<P>
+An alternate method is to use the V<SMALL>OICE</SMALL>TR command
+<A HREF="node28.html#set-voicetr">(details here)</A>. Using a similar example we'd create a song
+file like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>if def Casio 
+<BR>&nbsp;&nbsp; include casio-wk3000 
+<BR>&nbsp;&nbsp; include init.file.for.casio.mma 
+<BR>&nbsp;&nbsp; VoiceTR Piano1=RotaryGuitar ChoralAhhs=VoxHumana 
+<BR>
+endif 
+<BR>  
+<BR>
+Groove somegroove 
+<BR>
+1  Cm 
+<BR>
+2  Dm 
+<BR>&nbsp;  ...more chords 
+<BR>
+if def Casio 
+<BR>&nbsp;&nbsp;  include restore-file-for-casio.mma 
+<BR>
+endif   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Notice how, in this example, we don't need to wrap each and every
+V<SMALL>OICE</SMALL> line. We just create a translation table with the
+alternate voices we want to use. Now, when the G<SMALL>ROOVE</SMALL> is loaded
+the various voices will be changed.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot4949">... MIDI&rdquo;</A><A
+ HREF="node25.html#tex2html121"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>The General
+  MIDI or GM standard was developed by the MIDI Manufactures
+  Association.
+
+</DD>
+<DT><A ID="foot4950">...
+&ldquo;patches&rdquo;.</A><A
+ HREF="node25.html#tex2html122"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>&ldquo;Patch&rdquo; a bit of a historical term dating back
+  to the times when synthesizers cost a lot of money and used bits of
+  wire and cable to &ldquo;patch&rdquo; different oscillators, filters, etc.   together.
+
+</DD>
+<DT><A ID="foot13905">... casio-wk3000</A><A
+ HREF="node25.html#tex2html123"><SUP><SPAN CLASS="arabic">25</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>Refer to I<SMALL>NCLUDE</SMALL> <A HREF="node33.html#sec-include">(here)</A> for details on file placement.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node26.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node24.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node26.html">Triggers</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node24.html">Low Level MIDI Commands</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

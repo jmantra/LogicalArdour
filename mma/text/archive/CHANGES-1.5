@@ -1,0 +1,97 @@
+Chords can now be placed anywhere in a bar, not only on-the-beat. The
+  extended "@" syntax permits this. Eg. To place a chord change at
+  beats 1 and 3.5 you could "Cm@1 D@4.5". The old syntax works
+  fine. See the manual chapter on "Musical Data" for details.
+
+
+** August 24, 2009 -- released test/dev version 1.5a
+
+ALLGROOVES was not honoring and non-track commands. They were set,
+  but not saved into the groove. Fixed
+
+Added slice notation for variables. You can now do cool stuff like
+  $myvar[3] or $_Bass_Octave[0].
+
+OCTAVE settings can now increment or decrement by using values like
+  +1, -2, etc. This is handy!
+
+ARTICULATE settings can now inc/dec by using +/- values.
+
+For solo/melody strings an additional articulation can be set for each
+  note/chord. This is done in the <> by specifying a percent
+  adjustment. Values can be 1..200 (same as ARTICULATE). They are in
+  effect for the duration of the bar and are still adjusted by the
+  articulation setting for the bar. Handy for specifying staccato
+  notes. See the very fine manual for details. The Volume setting can
+  also have a default "Volume=" for compatibility. Future <> options
+  may follow.
+
+MidiInc: The StripSilence=On/Off option has been added. Use to to
+  avoid stripping off any leading silence in an imported MIDI track.
+
+** December 28, 2009 -- released test/dev version 1.5b
+
+Enhanced the SEQUENCE define code so that multiple lines without '\'
+  can be used.
+
+Added the Plectrum track-type. This track is designed to emulate
+  picked or strumed intruments like guitars. Quite complex and
+  generates nice sounds. Read the manual!
+
+** February 14, 2010 -- released test/dev verfsion 1.5c
+
+Fixed lib doc generation for plectrum tracks.
+
+Added MidiCopyright, MidiCue and MidiText commands.
+
+MidiVoice and MidiSeq - fixed so that {} not required for single seq 
+  (as advertised in the docs).
+
+Minor doc revisions.
+
+Minor program code restructuring.
+
+** March 27, 2010 -- released test/dev version 1.5d
+
+Lyrics: \n and \r now start a new line in column 1 (not
+  2). Added Karmode: does syllable splits on '-', changes extension
+  from .mid to .kar and inserts some meta info.
+
+Added global MidiTName command. This overwrites the song name
+  automatically inserted from the filename.
+
+Added global MidiText command. Fills out the Track MidiText.
+
+Modified code for Track MidiText and Track MidiCue so that the text is
+  now queued until the track is created. It was being put into the meta
+  track.
+
+Plectrum bug fixes: Strings now mute properly on chord changes;
+  non-base tracks (like Plectrum-Banjo) now work with tuning changes.
+
+Fixed a spelling mistake ... program changes should now come into
+  effect at the proper offset!
+
+When running -g/G a check is made for duplicate groove defs. Please
+  don't ask how many hours I wasted editing the wrong file before I
+  noticed that I had an identical groove name in 2 different
+  files ... and the groove I was editing was not the one being loaded.
+
+Created an archive directory for all the old CHANGES* files.
+
+** April 11, 2010 - Released test/dev version 1.5d
+
+RVolume, Rtime: Expanded syntax now accepts a range in the form x1,x2. The
+  old single value format is still (and will continue to be)
+  supported. This extended syntax permits fine tuning.
+
+Plectrum: Now honors rtime settings.
+
+Failure to find psyco on startup no longer generates warning
+  message. Honestly, it appears to make less than 2% of a speedup and
+  it will mostly likely be deleted completely in the next MMA
+  series. I'm guessing that both the MMA and Python code have gotten
+  better over the years.
+
+Failure to find the default mmarc file now only generates a warning in
+  debug mode.

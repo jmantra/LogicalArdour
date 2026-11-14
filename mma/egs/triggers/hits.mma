@@ -1,0 +1,122 @@
+// Hits ... a cheap and dirty demo to show
+//  how to force a cymbal hit on certain bars.
+
+
+// This is the song "Yours" from our own set of tunes.
+
+// The only change we have made is to delete the inital
+// Metronome and to add in a trigger
+
+
+Tempo 96
+Keysig D
+
+Groove SlowBoleroIntro
+
+Begin Solo
+    Voice TremoloStrings
+    Articulate 110
+    Harmony OpenBelow+8Below
+    Octave 5
+    Volume f
+    Begin Riff
+        4.f;g;4a;
+        2.b;4a;
+        4.g;a;4b;
+        1a;
+    End
+End
+
+Swell mp f 4
+
+/* This will sound a cymbal (twice actually) at the start of
+    bars listed in "Measures". Honestly, I have no idea why you'd
+    want to do this ... but it's an example. So, be happy.
+*/
+
+Begin Drum-trigger
+    Tone CrashCymbal1
+    Volume mf
+    Trigger Sequence={D1;D1 Shift .5} Count=2 Beats=1 Measures=4,8,12,16,24
+    Sticky True  // needed!!!!
+End
+
+1          D
+2         Bm
+3         Em
+4         A7
+
+Repeat
+Groove SlowBolero
+Volume m
+
+5          D
+6          G      /      D  Ddim3
+7          G      /      D
+8         /
+
+Groove SlowBoleroSus
+
+9          /
+10         /      /      /     B7
+11        Em
+12         /
+
+Groove SlowBoleroPlus
+
+13         /
+14         /
+15        A7
+16         /
+
+Groove SlowBolero
+
+17         /
+18         /
+19         D
+20         /
+
+Groove SlowBolero1
+
+21         /
+22         G      /      D  Ddim3
+23         G      /      D
+24         /
+
+Groove SlowBolero1Sus
+
+25        B7
+26         /
+27        Em
+28         /
+
+Groove SlowBolero
+
+29         /
+30         /      /     A7
+31         G      D     B7
+32        Em      /     B7
+
+Groove SlowBoleroPlus
+
+33        Em
+34         /      /     Gm
+35         D      /     Gm      D
+36         /      /     A7
+
+RepeatEnding
+
+Groove SlowBoleroSus
+
+37         D
+38         /
+
+RepeatEnd
+
+Groove SlowBoleroEnd
+
+39         D      /     A7
+40         D     z!
+
+
+

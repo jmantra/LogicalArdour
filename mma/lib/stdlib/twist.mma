@@ -1,0 +1,154 @@
+// twist
+
+Begin Doc
+
+	Take me back to the 60s! This is a classic twist rythm made famous
+    by Chubby Checker with "The Twist".
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+SeqSize 4
+
+
+Begin Bass
+    Begin Define
+      B8  1 8 1 90; 1.5 8 1 80;  2 8 3 90; 2.5 8 3 80; \
+          3 8 5 88; 3.5 8 5 75; 4 8 1b+ 80; 4.5 8 6 75
+      B84 1 8 1 90; 1.5 8 1 80; 2 4 3 90; \
+          3 8 5 88; 3.5 8 5 75; 4 8 6 80;
+      B4  1 4 1 90; 2 4 3 90; 3 4 5 88; 4 8 6 80;
+    End
+    Voice FretlessBass
+    Volume m
+    Articulate 40
+    Rtime 5
+    Rvolume 5
+    Octave 3
+    Sequence  B8 B84 B8 B4
+End
+
+Begin Chord-Piano
+    Voice Piano2
+    Volume mp
+    Voicing Mode=Key
+    Articulate 40
+    Octave 5
+    RTime 5
+    RSkip 5
+    RVolume 5
+    Accent 1 10 2 8 3 5 4 3
+    /// The chords are 2 notes only (root and 5)
+    Sequence {1 1 90 0 90 0 * 8 }  / / {1 1 90 0 90 0 * 4}
+End
+
+Begin Chord-Guitar
+    Voice CleanGuitar
+    Volume m
+    Voicing Mode=Key
+    Articulate 120
+    Octave 5
+    Rtime 5
+    Rvolume 5
+    Rskip 10
+    Sequence  C4  C24
+End
+
+Begin Drum-PHH
+    Tone PedalHiHat
+    Volume p
+    Rtime 5
+    Rvolume 5
+    Sequence D1234
+End
+
+Begin Drum-Clap
+    Tone HandClap
+    Volume pp
+    Rtime 3
+    Rvolume 10
+    Sequence D1234 D14 D1234 D8
+End
+
+Begin Drum-PedalHH
+    Tone PedalHiHat
+    Volume p
+    Rtime 4
+    Rvolume 5
+    Sequence  D13 {D13; D4 Shift .5} D13 D13
+End
+
+DefGroove Twist    A basic 50s twist.
+
+//////////////////////////////////////////////////////////
+/// A little less chording .. take out most of the eight notes
+
+Groove Twist
+Chord-Piano Sequence  {1 1 90 0 90 0 * 4}
+Begin Bass
+            Sequence  B4 
+            Articulate 90
+End
+
+Drum-Clap  Sequence   D14  D1234  D13  D1234
+
+DefGroove Twist4  Same twist, leaving out a lot of eight notes.
+
+/// Sustained
+
+Groove Twist
+
+Begin Chord-Organ
+    Voice      Organ1
+    Volume     p
+    Articulate 95
+	Voicing    Mode=Key
+	Sequence   { 1 2 90 80 70 0 ; 3 4. 80 60 50 0 }  /// 3 note chords
+	Octave     5
+End
+
+DefGroove TwistSus   Basic twist with sustained organ
+
+Groove Twist4
+Chord-Organ Groove TwistSus
+DefGroove Twist4Sus   Four-to-the-bar twist with organ.
+
+
+////////////////////////////////////////////////////////
+/////// Introduction
+
+Groove TwistSus
+
+Bass         Sequence  B13 /  B4  {1 4. 1 90}
+Chord-Piano  Sequence  {1 1 90 0 90 0 * 8 }  / {1 1 90 0 90 0 * 4} {1 2 90 0 90 0}
+Chord-Guitar Sequence  C4  C24   C4 L1
+Chord-Sus    Sequence  *   *   * {1 2 90 80 0}
+Drum-PHH     Sequence  *  *  * D1
+Drum-Clap    Sequence  *  *  * D1234
+
+Drum-PedalHH Sequence  *  *  * D13
+
+DefGroove TwistIntro  Pretty boring, but safe, 4 bar intro.
+
+///////////////////////////////////////////////////////
+//////  Ending
+
+Groove Twist
+Seqsize 2
+
+Bass         Sequence  B13  B1
+Chord-Piano  Sequence  {1 1 90 0 90 0 * 8 } {1 4 90 0  90 0}
+Chord-Guitar Sequence  C24  C1
+
+Drum-PHH     Sequence  * D1
+Drum-Clap    Sequence  * D1
+
+Drum-PedalHH Sequence  * D13
+
+DefGroove TwistEnd  A short and sweet 2 bar ending.

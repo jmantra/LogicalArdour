@@ -1,0 +1,162 @@
+ // slowbigband.mma
+
+Begin Doc  
+      Slow Big Band (072).
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 57; 3.75 0 49} \
+             {1.75 0 36; 3.75 0 45; 4.75 0 50}
+End
+
+Begin Drum-SideKick
+    Tone SideKick
+    Volume m
+    Sequence {2 0 81} \
+             {1.75 0 27; 2 0 71; 4.75 0 36} \
+             {1.75 0 32; 2 0 78; 4 0 70; 4.75 0 32} \
+             {2 0 71; 4.75 0 36}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    RVolume 10
+    Sequence {2 0 102; 4 0 110}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence {1 0 75}  z
+End
+
+Begin Drum-SplashCymbal
+    Tone SplashCymbal
+    Volume m
+    Sequence z    z    {4.75 0 1}   {1 0 16}
+End
+
+Begin Drum-RideCymbal2
+    Tone RideCymbal2
+    Volume m
+    RVolume 20
+    Sequence {1 0 72; 2 0 106; 2.75 0 62; 3 0 86; 3.75 0 49; 4 0 103; 4.75 0 56} 
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 8 1 90; 1.75 6 1 63; 2 8 2 73; 3 8 3 73; 4 8 5 78} \
+             {1 8 1 78; 1.75 6 1 79; 2 8 5 68; 3 8 3 74; 4 8 5 74; 4.75 32 6 76}
+End
+
+
+Begin Bass-6
+    Voice TenorSax
+    Octave 4
+    Articulate 100
+    Volume m
+    Sequence {1 2 3 43; 1 2 1 56; 4 8 3 44; 4 8 1 56; 4.75 6 3 60; 4.75 32 1 66} \
+             z \
+             {1 2 3 46; 1 2 1 56; 4 8 3 50; 4 8 1 62; 4.75 32 3 85; 4.75 32 1 99} \
+             {3.75 3 3 60; 4 3 5 49; 4.75 32 1 80}
+End
+
+Begin Chord-7
+    Voice BrassSection
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {3 8 90; 3.75 64 90} \
+             {1 4 90; 2.75 64 90} \
+             {1 4 90; 2.75 32 90; 4 8 90; 4.75 64 90} \
+             {2.75 3 90; 3 8 90; 3.75 6 90}
+End
+
+
+Begin Chord-8
+    Voice JazzGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {2 16 90; 3 8 90; 3.75 32 90} \
+             {1.75 6 90; 2.75 6 90; 3 3 90; 3.75 6 90; 4 3 90; 4.75 6 90} \
+             {1 8 90; 2 8 90; 2.75 32 90; 3.75 6 90; 4 8 90; 4.75 32 90} \
+             {1 3 90; 2 3 90; 3 8 90; 3.75 32 90}
+End
+
+
+DefGroove SlowBigBand  4 bar pattern
+
+/////////////////////////////////////////////////////////
+///////  Intro
+
+Groove SlowBigBand
+
+Drum-KickDrum1    Sequence  *   *   *  {D1; D1 Shift .5}
+Drum-SideKick     Sequence  *   *   *  D1234
+Drum-PedalHiHat   Sequence  *   *   *  D2
+Drum-OpenHiHat    Sequence  *   z   *  z
+Drum-SplashCymbal Sequence  z   z   *  D1
+Drum-RideCymbal2 Sequence   *   *   D8 D12
+
+// AcousticBass
+Bass-9 Sequence  B1234  *   *   B13
+
+//  TenorSax
+Bass-6 Sequence  z   z   *   B1
+
+// BrassSection
+Chord-7 Sequence *   *   z   C1
+
+// JazzGuitar
+Chord-8 Sequence *   *   *  C12
+
+DefGroove SlowBigBandIntro  4 bar introduction
+
+/////////////////////////////////////////////////////////
+///////  Ending
+
+Groove SlowBigBand
+Seqsize 2
+
+Drum-KickDrum1    Sequence  *     D1
+Drum-SideKick     Sequence  *     D1
+Drum-PedalHiHat   Sequence  *     D1
+Drum-OpenHiHat    Sequence  *     z
+Drum-SplashCymbal Sequence  z     D1
+Drum-RideCymbal2 Sequence   *     D1
+
+// AcousticBass
+Bass-9 Sequence  B1234     B1
+
+//  TenorSax
+Bass-6 Sequence  B1  B1
+
+// BrassSection
+Chord-7 Sequence   z   C1
+
+// JazzGuitar
+Chord-8 Sequence  *    C1
+
+DefGroove SlowBigBandEnd   2 bar endingxd
+
+

@@ -1,0 +1,1223 @@
+
+Change log for beta version 0.1 to current beta.  This entire file
+will be deleted when we achieve a 1.0 milestone?????
+
+Feburary 16/2003
+
+Released version 0.1 to the world.
+
+=================================
+
+May 4/2003
+
+Added new error message to USE. It now checks for a matching filename
+is a different case. Should help for this common error. I've not done
+the same for INCLUDE, and it's probably not necessary????
+
+----------
+
+Added a few more chords. I'm not going to document these here, they
+are updated in the docs.
+
+-----------
+
+Fixed up the read() code so that it returns lists. The BEGIN/END logic
+has been moved to read() as well, which fixes the earlier problem with
+repeats not working properly. NOTE for docs: BEGIN/END are local to a
+file, and an error occurs if you try USE or INCLUDE while a BEGIN is
+active.
+
+------------
+
+Continuation lines! Multiple lines in a file can be concatenated by
+ending successive lines with a single '\'. For example:
+
+    Chord Define G1 1 4 90 0 90 0 ; \ 2.5 8 90 0 90 0; \ 3 4 90 0 90  0; \ 4 4 90 0 90 0
+
+Get translated to the single line:
+
+	Chord Define G1 1 4 90 0 90 0 ; 2.5 8 90 0 90 0; 3 4 90 0 90 0; 4 4 90 0 90 0
+
+Comments are stripped AFTER lines are appended. So:
+
+    Chord Define G1 1 4 90 0 90 0 ; // This is a comment \ 2.5 8 90 0  90 0
+
+Becomes:
+
+    Chord Define G1 1 4 90 0 90 0 ;
+
+NOTE: The 2nd line as well as the comment have been deleted!
+
+We could change this, but the whole ugliness of continuation lines
+probably suggests that the way we have it is the right way. Comments?
+
+
+Note that you can use continuation lines at any point in your input.
+
+INPUT FILE FORMAT CHANGE!!!!!!!!!!! With this the trailing '@' to
+indicate the end of a DEFINE has been eliminated. In fact, having a
+trailing '@' will generate an error. They have been deleted from all
+my files....
+
+---------------------
+
+The docs have been split into two different files. The reference to
+the standard library has been taken out of the reference manual and is
+now a separate file (lib.ps). As well, a tutorial has been started.
+
+---------------------
+
+Test for proper python version added.
+
+---------------------------
+
+BEGIN/END Blocks can now be nested. This means that you can do
+something like:
+
+	Begin Chord
+	      Begin Define
+		    C1234 4
+	      End
+	      Octave 4
+	      Voice Piano1
+	End
+
+This is most useful for Doc blocks.
+
+----------------------------
+
+Documentation blocks. Please see the ref-man for detail, but a new set
+of commands for embedding documentation in library files has been
+added. Also, added a -x option to print out (eXtract) the doc strings.
+
+The syntax for DefGroove has been expanded to permit a trailing
+comment.
+
+	DefGroove Waltz This is a waltz groove
+
+Defines the groove, but it also does a:
+
+	Doc Defines This is a waltz groove
+
+This should help in maintaining library docs!
+
+
+-----------------------------------------
+
+Added new comand:
+
+	Chord | BASS | etc. LIMIT <value>
+
+This limits the number of notes of a chord used. Mostly, this will
+kill off the odd sounding (to some people) of the higher notes in
+chord, esp.  when the chord is an 11th, 13th, etc.
+
+
+---------------------
+
+Added new command:
+
+	EOF
+
+This stops the processing of a file. Useful if you just want to test
+the first part. Note that the rest of the file is NOT PARSED.
+
+
+May 15, 2003 - released 0.2
+
+==========================================
+
+New command: Duplicate. This duplicates each note for Scale, Chord,
+Apreggio, and Bass by the specified ocatve.
+
+---------------------------
+
+July 19, 2003
+
+Fixed up error reporting to include filename being processed.
+
+Added several lib files.
+
+August 2, 2003 - released 0.3
+
+===============================================
+
+Aug 28, 2003
+
+Added CUT command.
+
+
+Septebmer 18, 2003
+
+Variable support, conditionals, label and goto have been added.  This
+is a big addition (and probably has bugs!).  Read the new chapter in
+the manual "Varaibles..." for all the details.
+
+
+Changed the input reading routine again. Continuation lines and
+comments have been changed once again. Comments are now stripped after
+line joining.
+
+
+October 19, 2003 - released 0.4
+
+
+Modified InvertChord function. Chords are no longer rotated; just the
+notes are changed.
+
+December 4, 2003
+
+Added new command:
+
+	Debug [mode=on/off] Modes debug, patterns, sequence, runtime, warnings, expand.
+
+This is the same as the commandline options -dpsrwe
+
+
+Changed command line options a bit. All document extractions are now
+part of -D.
+
+Added commands to extract midi inst. and chord info (see -D)
+
+Reworked chords into a class.
+
+December 5, 2003
+
+The file extenstion .mma has been created. For song files using an
+extension is optional, but for lib files using automatic groove
+detection it is mandatory. Simply, when mma opens a file it first
+checks to see if the filename as given exists. If it does not exist
+AND the filename does not end with ".mma", the extension is added. The
+deliberate exception is that when libraries are searched/processed
+with the -g option only files with a .mma extension are processed.
+
+A lot of testing is done to make sure that files can be specified with
+or without the .mma extension. And tests are done to strip the
+extension when creating the midi file. If you find a bug here, please
+shout at me!
+
+December 11, 2003
+
+Added LYRIC command. See the docs for details, but the short version
+is:
+
+	lyric My lyrics are not so good.
+
+This adds the text in the current bar, so it should appear before the
+chord data. Lyrics are added a MIDI Meta-event data ($FF $05) in the
+Meta track.
+
+
+December 17, 2003
+
+The LIMIT command has been changed. No longer can you specify
+different values for each bar in the sequence. Just didn't make
+musical sense. Shout at me if you think you need it.
+
+December 19, 2003
+
+Changed the defaults for searching for the library. We now set up the
+path depending on what library can be found.
+
+December 22, 2003
+
+Added DIRECTION UP/DOWN code to walking bass.
+
+Added -o option to display complete filenames as they are
+opened. Handy to figure what lib files are really being used.
+
+Chord voicing: This has been a lot of work (THANKS ALAIN!). I think it
+is working well enough to set it free in the real world. Please read
+the new chapter in the reference manual dealing with voicing! This is
+a big change and makes tracks much more musical.
+
+
+December 26, 2003
+
+Okay--this is a big release! And there are a lot of changes NOT listed
+above (sorry). I'll try to be more prompt in future releases.  And,
+yes, I think we are approaching 1.0!
+
+Released 0.5.
+
+-------------------------------------
+
+MAJOR CHANGE: MMA is now modular Python!
+
+Install note: the python modules for mma MUST be in one of the
+following locations:
+
+	/usr/local/share/mma/modules -- the preferred location
+
+	/usr/share/mma/modules -- alternate
+
+	./modules -- permits running from working dir
+
+
+The library location has been changed. The standard lib is now in on
+of:
+
+	/usr/local/share/mma/lib/stdlib
+
+	/usr/share/mma/lib/stdlib
+
+	./lib/stdlib
+
+The idea is that other template libs should be put into the lib
+directory.
+
+This does create a problem for people with USE directives calling
+standard files. You really should get rid of the USE and rely on 'mma
+-g' and the database it creates, or change the paths in USE to include
+the subdir. IE, change "use rhumba" to "use stdlib/rhumba".
+
+To complete this, we've modifed the -g code (and made it much
+simpler). It now runs MUCH faster. It also scans subdirectories. And,
+if there is a special file "MMAIGNORE" in a directory, that dir will
+be ignored (including subdirs).
+
+The SetLibPath command has been modified. It now looks for a '+' as a
+leading char in any of the args, or by itself. If found, ALL the paths
+in the command are APPENDED to the current path; otherwise the libpath
+is set to path(s).
+
+Rewritten part of the tutorial. Originally we used "Happy Birthday" as
+an example song, but that song is under copyright (really!) and we
+can't legally include the score for it. So, we're using "Fella Bird"
+instead.
+
+Added MIDI command to send arbitrary MIDI data to any track. See docs!
+
+Added the IncPath directive. This sets the search path for MMAstart,
+MMAend and Include paths.
+
+MMAstart and MMAend can now have multiple values.
+
+February 7, 2004
+
+Again, way too long in releasing this. But, the modularization changes
+keep biting back. I think it's stable now. Feedback appreciated!
+
+Fixed bug in random chord movement which caused chords to float off
+the keyboard.
+
+February 9, 2004
+
+Released 0.6
+
+-----------------------------------
+
+February 10, 2004
+
+The chord table has been changed. Duplicates are now listed in a
+synonym table. Added code to properly handle this in the doc generator
+as well.
+
+
+Minor change to FERMATA. If the offset is negative (FERMATA -1 1 150)
+then all note-on events in the specified beat are cancelled. See docs
+for detailed explanation.
+
+
+Added RIFF. A riff is a one bar override to an existing pattern.  See
+the new chapter on RIFFs in the docs.
+
+Better error detection in main module when loading modules.
+
+In specifying note durations the dotted and double dotted notation has
+be added. So, "2." = "2+4" = "4+4+4"; "2.." == "2+4+8".
+
+The notation in patterns '3' was generating a 1/4 note triplet, not a
+1/8 as advertised. Fixed (you may have pattern/lib issues).
+
+MIDI tracks are now automatically allocated. The -c command now parses
+the entire file and then reports MIDI channel usage (no file is
+produced).
+
+The MIDI commands for Portamento, Pan, TrackName and ChannelVolume are
+now stacked in the track buffers. They are sent into the MIDI stream
+when musical data is created for the track. This saves on creating
+MIDI tracks with only directives, but no data. Also makes it easier to
+assign these events to the track, not the channel.
+
+Add the MELODY and SOLO tracks. This lets you add any kind of music to
+your tracks. Added the commands KEYSIG, AUTOSOLOTRACKS and HARMONY.
+See the new chapter in the docs.
+
+I've spent a few days on the docs and have successfully implementing
+latex2html for all the files. This means that there is now an HTML
+version of the docs in addition to the ps standard.
+
+
+Added COPY command. This takes a useful subset of parms from one track
+and copies it to another. Useful in libs when you want a set of tracks
+with the same articulation, voicing, etc.
+
+April 19, 2004 Released 0.7
+
+---------------------------
+
+MAJOR CHANGE IN TRACK ALLOCATION AND NAMES!
+
+1. Valid track names are BASS, CHORD, etc (just the base) and
+the base plus a '-' and a string. This means that all
+of the following are valid track names:
+
+	BASS BASS-1 BASS-Sustaining-String
+
+However, the old notation of BASS1, DRUM5, etc. are NO
+LONGER VALID.
+
+2. Tracks are now allocated dynamically and there is no limit
+on the number of sub-tracks. To see what's happening
+run mma with the -c option of a few existing songs to
+see the track allocation.
+
+Sorry if this breaks your existing libs, but I think we need
+some stable track nameing rules. This new naming scheme should
+also permit more descriptive names in lib file for the
+different tracks.
+
+The -c command line option has been modified to show the names of the
+allocated tracks as well as the midi channel info.
+
+
+Rewrote the harmony function. Valid harmony types are 2, 3, OPEN,
+2ABOVE, 3ABOVE or OpenAbove. To disable harmony use a '-' or 0.
+Harmony enabled for scale, arpeggio, walk, bass, solo and melody. Also
+fixed bug in harmony when used with transpose (you really do need to
+tranpose both the main and the harmony at the same time!)
+
+
+Fixed some MS-DOS/WINDOWS problems. Added a 'b' to the open/file
+statement when creating a midi file to force binary. Plus, the midi
+file is now created in-memory with the possibly problematic
+tell()/seek() being deleted.
+
+Large rewrite of the pattern define code. You can now do things like:
+
+	Drum Define D1234 1 0 90 * 4
+
+	or even
+
+	Drum Define D1234' 1 0 90 * 4 Shift .5
+
+See the updated docs!
+
+When setting a sequence you can use a dynamically allocated pattern.
+For example:
+
+	Drum-Ugly Sequence { 1 0 99 * 4 }
+
+	or
+
+	Drum-Foo Sequence { D1234; 1.5 0 99 } { D1234 }
+
+
+I've added this option since I find that an awful lot of defines are
+just used once, and they _really_ should be with the sequence, not in
+a separate block.
+
+Fixed sequence sizing error when restoring volume grooves.
+
+Added the ACCENT command.
+
+The entire chunk of code dealing with patterns and definitions has
+been reworked and simplified:
+
+	- Definitions are now stored in one big dict, they are not
+
+	- saved or restored in grooves, they must exist when used in a
+
+	- SEQUENCE, changing the def of a pattern after it is used in
+
+	- a SEQUENCE has no effect on the seq.
+
+
+Deleted optional notation for specifing a repeated bar. Used to be
+that
+
+	1 Em / / / *2 // NOW ILLEGAL
+
+and
+
+	2 Em / / / * 2
+
+were the same. (1) is no longer permitted.
+
+LibPath and IncPath are NO longer lists. Only one path can be
+specified for either. The file search stuff has been rewritten as
+well... searches now follow a simple line for opening all files.  See
+the docs in the paths chapter for details.
+
+The auto-groove stuff has been rewritten. The database is now stored
+in MMADIR as a picked dataset.
+
+Added PrintActive command. Use when developing groove files to see
+what is active at certain points. Debugging tool only!
+
+Fixed problem with overlapping ON/OFF events. This eliminates all
+kinds of RSKIP/ARTICULATE problems.
+
+Walking bass routine reworked. Resulting patterns are harmonious (but
+uninspired).
+
+Added DELETE command. This lets you delete an existing track, freeing
+its midi channel for future use.
+
+Changed the TEMPO command ... if you use a '*', '+' or '-' modifier
+this must be a separate token. Earlier we demanded "*.9", now we want
+"* .9". Sorry, if this breaks anything, but it makes things more
+consistent.
+
+The DOC suite of commands has been changed/simplified. The old syntax
+of "DOC AUTHOR" or "Doc Note ..." is no longer recognized. Instead, we
+have three doc methods or commands:
+
+	1. Anything after a DEFGROOVE is passed to docs to be saved as
+	   as description.  2. AUTHOR - this saves the "author name",
+	   but is not currently used.  3. DOC ... - this saves the
+	   data for use in a lib file header.
+
+See the docs or just look at some of the included lib files.
+
+
+The '/' is NOT permitted in a groove name. This is now reserved for a
+future use idea.
+
+June 25, 2004
+
+Released 0.8
+
+---------------------------
+
+
+Running status has been implemented for the generated MIDI files. This
+is actually pretty simple to do and generates MIDI files which are
+about 25% smaller. Don't know if there are any other savings, but it
+seems to be the "right thing" to do. If you DON'T WANT running status
+generation use the "MidiFile Running=0" directive.
+
+You can now generate type 0 MIDI files. Some players only play these,
+so you have the option. The command "MidiFile SMF=<type>" sets this to
+1 (default) or 0. I suggest adding this to your mmarc file. There is a
+cmdline option for this as well '-M x' where x is 0 or 1. This will
+override the setting in the RC file, but not in your song/init/groove
+files.
+
+Added RANGE command. This applies to the number of octaves a scale or
+arpeggio uses. Note: scale used to use COMPRESS for this...COMPRESS
+does nothing for scale.
+
+DUPLICATE was transposing already transposed notes for very
+interesting effects.
+
+I have done a lot of increased modularization. I had a bit of fear
+that this would slow processing, but I see no such effect. And smaller
+modules should make code writing easier!
+
+When creating a track MMA no longer sets the default channel volume to
+100. It is left as is. Either set the volume in an include file (see
+includes/init.mma for an example), or do a explicit TRACK
+CHANNELVOLUME command in your groove or song file (or even a mmastart
+file). This is done the way it now is to avoid having MMA do things
+behind your back...
+
+Opps, I wasn't opening the database file in binary mode...so sorry if
+you are using an OS from Redmond which requires this.
+
+July 5, 2004
+
+Released 0.9
+
+------------------------------
+
+
+Fixed up the -g option so that only new/modfied/deleted library files
+are processed. Greatly speeds up this operation!
+
+
+MAJOR change to the way bass patterns are defined. The note offset
+MUST be a '1', '3' or '5', referring to the root, third and fifth of
+the scale.
+
+
+Python version change: Minimum version for Python has been upped to
+2.3. Since this version was release in Aug/03 I don't think we're
+pushed too many envelopes on this.
+
+Added internal macros $_Volume and $_LastVolume.
+
+I will drop DEFVOLUME/SETVOLUME from the next release unless people
+really want it left in! I find that the code is ugly and quite
+useless...it really doesn't do what people expect. Easier, if you need
+to save a set of volumes for differnt inst. settings, just to do a
+DefGroove to a private name.
+
+In the library docs the grooves are listed in the order in which they
+are defined. There is probably a reason for having defines in the
+groove files in a certain order and the reporting should abide by
+that.
+
+
+The channel assigment code has been tweaked a bit. CHSHARE no long
+complains about duplicate assignments. Added ChannelPref command (see
+docs).
+
+
+2 new variables: $_DEBUG and $_LASTDEBUG reflect the current state of
+the debug flags and the state before the last "debug xxx=yy"
+command. This value can be used to reset the debug state after a temp
+change.
+
+Added a MALLET command to reiterate notes in solo/melody tracks. Makes
+things like marimbas should quite cool. See docs in the SOLO
+section. See the sample song "Yellow Bird" for an example usage.
+
+
+Added -G command line opt. Same as -g, but forces creation of
+completely new database.
+
+
+The VoicingMode and friends syntax has been changed :) The command
+VoicingMode, VoicingCenter and VoicingRange have been deleted. New
+command is VOICING with the option pairs MODE=XX, RANGE=xx, CENTER=xx,
+RMOVE=xx, DIR=xx. See docs.
+
+Minor changes to install script.
+
+July 25, 2004 Released 0.10
+
+--------------------------
+
+The DefVolume/SetVolume code has been deleted from the code and the
+docs. A "good idea" gone forever :)
+
+Added the VoiceTR command. This lets you set up a voice name
+translation table. Handy if you have a non-GM MIDI synth or want to
+use difference voicings with library files.
+
+The LYRIC command set has been changed, mostly just to get all the
+lyric stuff into one container. Gone is LYRICVERSE. And the command
+LYRIC now is used for all LYRIC options. Details in docs. As well, you
+can specify the beat for a lyric syllable--just enclose it in <>s The
+set [<3>Pick Up] will start the lyrics on beat 3. Useful in a pickup
+bar situation.
+
+Added the UNIFY command. If you set UNIFY for a track overlapping note
+ON/OFF events will be combined into one long note. So, if you're doing
+a sustained background note use:
+
+	Begin Chord-Sus Sequence {1 1 90 * 4 } Voice Strings
+	  Articulate 100 Unify 1 End
+
+This should generate more pleasing results than using a half or whole
+note sequence and will obey chord changes on each note. See docs. All
+supplied grooves have been fixed to use this.
+
+To aid creation of BASS patterns ... you can specify an octave offset
+in the offset. So, in addition to an offset of '1' you can have '1+'
+or '1++' or '1-', etc.
+
+MIDISeq - New command permits MIDI controller data to be sent at every
+beat (or partial) in a bar for each track.
+
+MIDIVoice - New command permits MIDI controller data to be sent with a
+VOICE setting for each track/bar.
+
+MIDIClear - Recommended command to undo the effects of MIDIVoice/Seq
+at groove changes and file end.
+
+MIDIDEF - definition class for MIDISeq/Voice/Clear.
+
+Added docs for midi controller names. Added -Dcm and -Dca opts for doc
+printing.
+
+
+IMPORTANT NOTATION CHANGE in the MIDI command: Previously the args
+were to be in hex; this has been changed. You can enter the value
+'0x7f' as '0x7f' or '127' or even (if you like octal) '0177'. In
+previous versions of mma we insisted on '7f' ... this will no longer
+work.
+
+Sept 21, 2004 Released 0.11
+
+--------------------------
+
+
+Timesig is properly set, only when needed. It's also saved as part of
+the GROOVE.
+
+
+Major change to BASS patterns. First off I've put tables into
+MMAchords.py which represent scales associated with different
+chords. I think they are all correct, but proof reading is
+welcome. These scales are used to select bass notes, instead of taking
+the notes out of a chord. The result is that you can now specify any
+of 1 to 7 as the noteoffset to select in a bass pattern. This makes
+bass much more versatile.
+
+BASS pattern note offsets can also have a "+ - # b or &" added to
+represent an alternate note. The "+ -" are for octaves, and can be
+concatenated. For example, a note offset "5++" would be the fifth of
+the scale (a "g" in a C chord) 2 octaves above the normal note. The
+note offset "6#" would be the 6th raised a semitone (we use this in
+the boggiewoggie style).
+
+To keep chord names and note names similar, you can not use '&' as
+well as 'b' to designate a flat. The chords 'E&' and 'Eb' are the
+same.
+
+The SCALE track has be revamped to use the new scale tables. The
+SCALETYPE options are now limited to CHROMATIC and AUTO. I've also
+attempted to keep the scale running to the next note even when chords
+change. Also, changing SCALETYPE or DIRECTION will now reset the scale
+to restart at point 0.
+
+The WALK track now uses the scale tables. This should be transparent
+from older versions, but faster.
+
+Fixed minor problem with drum tracks not getting a default
+voice. Added code to signal current voice set in shared tracks.
+
+Added harmony types: 8 or 8BELOW - single note one octave below 8ABOVE
+	- single note one octave up 8BOTH - two notes, one octave
+	below and one above 16BOTH - two notes, 2 octaves below/above
+
+AUTOSOLOTRACKS: This list now has a dual purpose. First, it assigns
+solos to tracks in chord lines (as before). Second, it is parsed
+before each chord line and any assigned tracks set as HarmonyOnly are
+filled with Note data from the first line. See docs for details.
+
+MIDIVOICE: I've added/duplicated the loops so that data can be sent
+BEFORE or AFTER the controller voice data. Seems that some controllers
+are reset by a voice, others not. My experiments show that BANK should
+be sent before, most others AFTER. So, we use the beat offset: 0 ->
+before; 1 (or anything not 0) after. Egs:
+
+	Voice Piano1 MidiVoice {0 Bank 5}
+
+	results in:
+
+		0 Param Ch=xx Con=00 val=05 0 ProgCh Ch=xx Prog=00
+
+	Voice Piano1 MidiVoice {1 ReleaseTime 100}
+
+	results in:
+
+		0 ProgCh Ch=xx Prog=00 0 Param Ch=xx Con=72 val=80
+
+
+Just the order is changed, but a sequencer should send items in the
+right order.
+
+
+RIFFS: A new command, RIFFS (not RIFF) lets you set multiple riff
+lines (for solos or sequences) in a stack. See the docs or the sample
+file egs/riffs.mma.
+
+LYRICS: Yes, a new command option "Lyric Set stuff" lets you define
+lyrics in a command line. See the file egs/lyrics.mma for
+example. Neat thing is that it works much like RIFFS so you can stack
+all your lyrics in one place. Your mma files should look neater with
+this :)
+
+REPEATEND: Added optional counter. Now, "REPEAT..REPEATEND 2" will
+cause a a total of 3 copies to be made. "REPEATEND 1" is the same as
+the default.  A bit of odd behaviour with REPEATENDINGS, but this
+seems to be a logical way to handle things.
+
+Added ~ notation to solo lines. A ~ as last note-event means to not
+warn about too-long lines. In addition, the extra time is saved for
+the next line.  If a line starts with a ~ and the previous line ends
+with ~ as well the extra time is squeezed into the new bar. This makes
+it easy to handle notes which are tied across bar lines. Also, you can
+have empty events by using just a <>. This is covered in the docs
+better, but consider this:
+
+	z {4a;b;c;1+1+4d~;} z {~<>~;} z {~4a;}
+
+
+Added the ability to include arbitary MIDI files into a MMA generated
+file. See the docs and/or the files in eg/frankie.
+
+
+Fixed bug in the voicing RMOVE code. I think the limits now work
+properly and we no long have chords walking into the bass domain.
+
+Dec 3, 2004 Released 0.12
+
+--------------------------
+
+Added note '6' for 1/16 triplet and '5' for 1/8 note quintuplet.
+
+
+Slash chord (ie. F/C) are now supported. There are 3 possible slash
+combinations:
+
+	- C/E - simple inversion D/C - addition of maj7 as bass note
+	- ("in the scale") D/G# - addition of a aug4 as bass note
+	- ("out of scale")
+
+The first 2 forms are supported, the final causes an error.
+
+Added a longish note on libraries in the paths section of the
+documenation.
+
+
+Added DEFCHORD. This permits you to define a new chord type in a mma
+file. Syntax is detailed in the manual, but:
+
+	DefChord NAME Notes Scale
+
+		name is case INsensitive Notes are chord
+		offsets. Enclosed in () and comma separated.
+		(eg. Major Chord is ( 0, 3, 5) Scale are scale
+		offsets. Have to be 7. Enclosed in () and comma
+		separated. (eg. Major Chord has (0,2,3,5,7,9,10)
+
+Added PrintChord. Prints the notes/scale associated with an existing
+chord. Useful to cut/paste to create new chords with DEFCHORD.
+
+	PrintChord maj7 m7 dim
+
+will print the existing defs for a "maj7", "m7" and "dim" chord.
+
+Added ChShare* command. Exactly the same as ChShare, but no warning
+printed. This is probably a shortlived addition, so you might NOT want
+to use it :)
+
+Chord patterns can have 'direction both' which causes strumming to
+alternate directions.
+
+The system macros have been completely reworked. They are now all
+dynamic, so they don's show up in a ShowVars command. In addition, a
+number have been added, in particular look at the $_TrackName_xx
+macros ... these are useful in situations like when you do a
+ChShare. See docs ... quite a bit on this.
+
+Added warning if you select a track-groove with no sequence.
+
+
+March 21, 2005 - released 0.13
+
+--------------------------
+
+CHSHARE* is gone.
+
+CHSHARE has been changed a bit so that the current voice and octave
+from the old track are now copied to the new track. In most cases,
+this is what you will want. I really don't think that doing chshare is
+a great idea unless it's really needed due to running out of MIDI
+tracks. Makes for subtle problems and more difficult debugging.
+
+VOICE - if you change voice in a track which has been CHSHAREd, a
+warning will be printed.
+
+OUTPATH: This setting can be done in the song file now, not only in a
+MMAStart.
+
+System macros $_AutoLibPath, $_LibPath, $_IncPath and $_Outpath
+added. Well, a lot more than that ... best to check the docs for the
+current list of system variables.
+
+A major change to the auto groove loading database. Please read the
+manual in the PATHS/FILES section. Autolib variable and setting
+added. If you have a MMADIR file in your mma/lib directory please
+delete it. The database(s) are now stored in files named '.mmaDB' in
+each subdirectory in mma/lib.
+
+Variable can be concatenated in SET. For example,
+
+	Set a foo bar Print $a > foo bar Set a foo + bar Print $a >
+	foobar
+
+A chordname can start with a single "+" or "-". This will move the
+chord and scale up/down one complete octave. Useful for chromatic
+chord runs when the octave shifts the wrong way. Also, a secondary
+octave adjustment has been removed (hopefully this will avoid some
+awkward shifts).
+
+Added new command ALLTRACKS. This loops though all currently defined
+tracks and applies the given command. Eg: "Alltracks Articulate 90".
+
+With ALLTRACKS working the global versions of CHANNELVOLUME, RSKIP,
+RTIME and RVOLUME have been deleted. Use the track specific versions
+or use ALLTRACKS. I think that this is more explicit and easier to
+follow.
+
+Increased permittable ARTICULATE values to 200 (which means that notes
+will sound 2x as long as requested). Values greater than 120 will
+generate warning (the 200 limit is just something self-imposed). You
+might find values in the range 100 to 120 handy to force long and tied
+notes.
+
+Fixed DOWN DIRECTION in Scale tracks (it now works).
+
+Fixed annoying bug which sometimes put VOICE changes after the first
+note in a track (RSKIP could put first note before bar start).
+
+May 14, 2005 - released 0.14
+
+----------------------------------
+
+Fixed Voicing so that "Rmove=0" is legal. Validation didn't accept
+"0" and this created a system macro problem.
+
+Fixed MidiClear to take at the start of a groove switch, not the
+end. If done at the end the data was gone.
+
+The (de)cresc code has been modified to take an intial "start
+volume". So, instead of doing something like:
+
+	 volume pp
+	 Cresc mf 8
+
+you can now combine this to:
+
+    Cresc pp mf 8
+
+
+
+The ACCENT code has been tweaked and you can now have a different set
+of accents for each bar in the seq. To use this you have to set
+different bars in {}s. The old method still works. Egs:
+
+		  // accent drum on beats 1 and 3
+
+		  Drum Accent 1 20 3 20
+
+		  // same as above for bars  1/2/3, on 4 do beat 1 only.
+
+		  Drum Accent {1 20 3 20} / / {1 50}
+
+
+A new command, DrumTR, as been added. This is similar to the existing
+VoiceTR command, but translated drum tone selections.
+
+Added VoiceVolTr and DrumVolTR. Same purpose as DrumTr and VoiceTr
+... in both cases the volumes assigned to certain tones are
+adjusted. Read the docs.
+
+The RC FILE logic has been changed a bit. First, the order for
+checking for RC files now FOLLOWS the order in the docs. Second, the
+reading of RC files ends when the first one has been found. If you
+want multiple RC files read, include the others in the top level.
+
+Don't know what I was thinking at the time, but most of the minor
+scales were wrong (the chords were okay).
+
+Fixed bug in tilde continuation in solo notation.
+
+Added ChordAdjust command. This moves selected chords (by pitch)
+up/down one octave. See docs.
+
+Fixed Solo tracks so that tracks without data are properly converted
+when HarmonyOnly is set. Whatever code was in previous versions was
+dumb and wrong.
+
+July 22, 2005 - release 0.15
+
+-------------------------------
+
+Added NOTESPAN directive (mostly to duplicate accordion bass). Added Macro
+$_TRACK_NOTESPAN.
+
+When calculating a note length you can subtract as well as add. So, to
+get a note just a bit shorter than a full bar, you can do something
+like "1-0" which generates a note 1 midi tick shorter than "1".
+
+The code which set the keysig in the MIDI track was broken. Fixed.
+
+You can now use names like "F" or "G#" when setting the key signature
+(as well as 1b, 2#, etc). See docs.
+
+ALLTRACKS has been fixed, and now has an optional track type
+parameter. See docs.
+
+For all volume commands you can now specify the volume as a dynamic
+string (ff, mp, etc) a value (10,30, 100, etc) or an percentage
+adjustment (-10, +30, etc.)
+
+The various volume macros now print numeric values instead of guessing
+at the closest musical string.
+
+Subdirectories in the lib directory were not properly initializing the
+.mmaDB database file.
+
+When defining patterns you can specify a beat from 0 to 4.9 (assuming
+4/4) rather than 1 to 4.99. Any chords player in the 0 to .999 range
+will be played in the previous bar, but with the current bar's
+chord. Nice for push chords in jazz. A warning will be printed for all
+patterns with 0 to .99 offsets.
+
+Added 81 and 82 notes. 81 is the first of a swingskew 8th, 82 the 2nd.
+
+Added SWINGMODE command: args ON/OFF en/disable swingmode. Skew=xx
+sets the rate for paired 8ths. You need to use the special 81 and 82
+notation for this. See docs ... it's way too complicated for this file.
+
+Added STACKVALUE command. This puts its args on a stack. You can
+retrive with $_STACKVALUE. Handy to save/restore settings in a section
+without needing a 'real' variable.
+
+Oct, 2005 - release 0.16
+
+-------------------------------
+
+The SEQNORND command has been removed (use SeqRnd OFF).
+
+SeqRnd has been enhanced. You now need to specify ON or OFF, plus in
+global mode you can specify the tracks to apply rnd to. See docs.
+
+Added macros $_SeqRnd and $_TRACK_SeqRnd.
+
+Fixed bug in INVERT - thanks to Matti Jokinen.
+
+The notes C# and Cb were left as natural in Solo/Melody (a result of
+the swingmode hacking). Also, the note C below the staff was not
+generating a harmony note. Sorry ... important enough to force an
+interm release.
+
+Oct 8, 2005 - release 0.17
+
+-------------------------------
+
+AutoSoloTracks: If there was a trailing space in the first solo an
+error would occur with the auto track. Lines like {1c ; } didn't parse
+properly for the 2nd track.
+
+When a variable set with MSET is epxanded the current state of BEGIN
+will be honored. Have a look at the song "All of Me" to see how this
+feature is used to create a solo riff in 2 tracks.
+
+The Begin/End code has been rewritten. I think it belongs in the parse
+code, not the file.
+
+Mset macros with only one line now work.
+
+TEMPO: Changed again. Sorry. But, to make this consistent I've decided
+to change the syntax once again. Now, you MUST NOT have a space
+between the "+-*" and the value. So, to double the tempo use "Tempo
+*2".
+
+Warning messages now display filename as well as line number.
+
+The RIFFS command has been deleted. The singular RIFF now handles
+single and multiple settings.
+
+Added the note lengths '23' and '43' for a half note and quarter note
+triplet.
+
+SEQCLEAR no longer deletes/clears info for SOLO tracks in global
+context. Note, that "Solo Seqclear" still works as before. This change
+is in keeping with the "gooves etc don't effect solo tracks" concept.
+
+DUPLICATE. Gone! This was a command inserted in early development,
+before we had unlimited tracks, etc. And it never really worked ... if
+you want to duplicate a voice into a different octave, etc. just
+create a new track.
+
+From the command line it is possible to define a macro: -S foo=bar
+will set the macro $foo to the value 'bar'.
+
+Added CHORDS option to LYRICS. This copies the chord line as a lyric
+event. So, your karaoke player can display the chords as they go
+though the song. And while screwing with Lyric I've added a lyric
+macro ... not that useful, but can be used in debugging.
+
+A further enhancement to set volumes: you can set a volume with a
+string and inc/dec that by a percentage. Example: ff+10 will give the
+'ff' setting plus 10%; mf-10 will give the 'mf' setting minus 10%.
+
+Adjustvolume: 2 changes ... set the changes as "mf=xx" pairs; the 'xx'
+can be an existing volume, ie "mf=f+200" sets the volume "mf" to the
+"f" volume plus 200%.
+
+Nov 3, 2005 - release 0.18
+
+---------------------------------
+
+The lyrics->chord option wasn't discarding leading "-+".
+
+
+GOTO has been improved. Now all lines with a leading linenumber are
+considered to be labeled lines. So, it is now easy to jump to a
+section without having to set a label. Handy if you want to just test
+the last few bars of a song. Still doesn't work in repeats :)
+
+A new "pattern" has been added to the "Sequence" command. You can now
+use a single "*" to indicate "use existing pattern". This is useful if
+you want to create a modification of an exisiting sequence. Example:
+
+    Drum Sequence D1234 D1
+    Drum Sequence * D24
+
+The 2nd sequence will really be "D1234 D24"
+
+
+Added default Tone to Solo tracks if they are DRUMTYPE. This is set
+with a "Trackname Tone xx". It just means that you don't have to set
+the initial tone in a solo string. Also, you can use the special name
+"*" in a solo drum line to force the use of the default.
+
+The MALLET option has been enhanced so that it now works will all
+tracks, not just SOLO/MELODY as before.
+
+Lyrics now support transposed chord names with the Chords=On
+option. It DOESN'T look at the global transpose setting, so you can
+have transposed chord names (perhaps for cappo?) other than the chord
+names in the mma file. See docs.
+
+For some unknown (to me) reason volumes were being applied
+stupidly. In previous versions the base velocity was muliplied by the
+track and master percentage ... now, the base is mulitplied by the
+combinations of the track and master. This gives more consistant and
+broader volumes.
+
+Added volume "m" and use that as default. This is set to 100%.
+
+The ratio of the master vrs. track volume can be adjusted with the
+VolumeRatio command. Default applies 60% of the track volume and 40%
+of the master.
+
+Solo/Melody tracks had a funny initial velocity. They now default all
+notes to a velocity of 90 ... this is adjusted by the track and master
+volumes. You can't change the 90.
+
+A bit of fiddling with REPEATs now permit using 0 and 1 as the
+count. See the docs and the example file 'repeats'. This lets
+you skip entire repeat sections. Handy for debugging and setting up codas.
+
+VEXPAND -- somewhere along the way this was broken. Fixed.
+
+LYRICS BARSPLIT -- was broken, fixed.
+
+Added macros $_VExpand, $_BarNum and $_LineNum. SHOWVARS can now take
+args (which vars to print).
+
+Tweak to (De)Cresc. Previously the first bar after the Cresc was
+played at an increased volume (or decreased for Decresc). Now the
+first bar is played at the current volume. This makes sense in the
+case of commands like "Cresc PP F 4" ... the first bar will now be at
+PP, the 4th at F and the other 2 something inbetween.
+
+Added -Dk command line option. This will print out a summary of the
+various keywords MMA uses. This is meant to help folks writing editor
+extentsions for MMA.
+
+Dec 24, 2005 - release 0.19
+
+---------------------------------
+
+Bug in Sequence "*" when existing pattern was NULL fixed.
+
+Solo tracks were not doing ARTICULATE.
+
+In just about all cases where an integer value is expected you can use
+hex or octal notation. Shout if I missed something. Mainly done to
+support inc/dec for hex macro values.
+
+Some additional harmony modes added.
+
+Minor bug fixes.
+
+March 8, 2006 - release 0.20
+
+-----------------------------------
+
+Fixed warning report when unknown track is used with "Track Groove".
+
+MAJOR change to the modules stuff. I've done a bit better at using
+Python standard packaging methods. As a plus, the code seems to run a
+bit faster. From a user perspective, the only real change is that the
+modules directory has been renamed MMA.
+
+Fixed a few mistakes in midiInc ... misspelling of char() instead of
+chars().
+
+Lyric and Text events can now be copied via a MidiInc command. See
+docs.
+
+April 6, 2006 - release 0.21
+
+-----------------------------------
+
+
+Added GROOVE list. You can now have a list of grooves (instead of just
+one) on a GROOVE command directive. This is for alternating time sigs,
+or if you want a quick & dirty change between alternate bars. ALTERNATELY,
+you can start a list of grooves with a <value>, and the specified groove will
+be used. Handy for changing gooves in repeated sections. Minor change: you can't
+have an integer as the name of a groove.
+
+Fixed -c option, now shows channel assignments.
+
+Added HarmonyVolume ... default harmony notes are 80% of main note.
+
+Changed the harmony settings: the number of modes has been reduced,
+but you can concatenate them like OPEN+8BELOW, etc. See docs.
+
+Harmony now gets its own manual section.
+
+Added optional 'cut' and 'common' settings to TIMESIG.
+
+Added -i option to specify the RCfile to use.
+
+Modified -Dk to be a bit more machine friendly ... no extra formatting.
+
+Fixed parse bug. Lines with only a line number were causing an eof.
+
+The routines extracting lib info reported tracks which had no sequence set.
+
+Added ForceOut command. This forces the output of MIDI Voicing commands to
+"empty" tracks. Neat to set the keyboard channel with a song. See manual.
+
+June 26, 2006 - release 0.22
+
+-----------------------------------------
+
+I just discovered that python 2.4 has sorted() as a builtin :) So, I've gone
+though the MMA code and changed a bunch of sort() to sorted().
+
+Added RNDSEED command.
+
+September 1, 2006 - release 0.23
+
+-----------------------------------------
+
+MidiInc: Added a bunch of warnings, added Start and End options - this permits
+the inclusion of selected part of a midi file. The filename is now expanded for tildes.
+
+Added MIDISPLIT so that each note in a track can be output to a different midi track.
+
+Split out the midi.py file into midiC.py, midiM.py and midi.py.
+
+Added SeqRndWeight for global and tracks. This is potentially very useful. Read the manual!
+
+Added $_TRACK_Channel macro. Returns currently assigned MIDI channel number.
+
+Added TRACK MIDITNAME command. This sets the track name (in the midi file) to something other
+  than the MMA track name.
+
+Added an inversion option to chord notation. You can specify an inversion
+ with CHORDNAME>N where N is -5 to 5. This indicates the number of
+ rotations to do. Handy if you want to avoid slash chords, but want a special sound.
+ This documented in appendix A.1 of the reference manual.
+
+The tutorial now has a "library creation" section. Thanks to Rony Steelandt.
+
+Added RndSet. Sets a variable randomly from a list:
+      RndSet A 1 2 3 4 5
+Sets $A to one of the values.
+
+Added MIDIMARK. Inserts a midi marker at the specified offset.
+
+Command name changes:
+      PAN -> MIDIPAN,
+      PORTAMENTO -> MIDIGLIS and
+      CHANNELVOLUME -> MIDIVOLUME.
+  These changes make all the MIDI commands somewhat more consistant.
+
+September 25, 2006 - Released 1.0-RC1
+

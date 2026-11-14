@@ -1,0 +1,154 @@
+ // ambient2.mma
+
+Begin Doc  
+      Ambient2 (053). Electronic dance.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-ScratchPull
+    Tone ScratchPull
+    Volume m
+    RVolume 10
+    Sequence {2 0 89; 2.2 0 40; 2.5 0 30; 2.7 0 20; 4 0 96; 4.2 0 40} 
+End
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 122; 1.7 0 95; 2.5 0 90; 3 0 117} /  /  \
+             {1 0 104; 1.7 0 104; 2.5 0 95; 3 0 92; 3.2 0 98; 3.7 0 101; 4.5 0 101}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 10
+    Sequence {1.5 0 109; 3.5 0 116; 4.5 0 116}
+End
+
+Begin Drum-Maracas
+    Tone Maracas
+    Volume m
+    RVolume 10
+    Sequence {1 0 18; 1.2 0 17; 1.5 0 16; 1.7 0 15; 2 0 14; \
+               2.2 0 14; 2.5 0 14; 2.7 0 14; 3 0 15; 3.2 0 16; \
+               3.5 0 16; 3.7 0 16; 4 0 16; 4.2 0 16; 4.5 0 16; 4.7 0 16}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {2 0 57; 2.2 0 43; 2.5 0 28; 2.7 0 14; 4 0 57; 4.2 0 43}
+End
+
+Begin Bass-9
+    Voice SynthBass1
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 3 1 84; 1.5 64 1 66; 2 32 1 88; 2.5 32 1 81; 3 6 1 102}        z
+End
+
+Begin Chord-6
+    Voice EPiano
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 1 90} \
+             z \
+             z \
+             z
+End
+
+
+Begin Chord-7
+    Voice WarmPad
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Unify On
+    Sequence {1 1 90 * 4} 
+End
+
+
+Begin Bass-8
+    Voice Flute
+    Octave 6
+    Articulate 100
+    Volume m
+    RVolume 20
+    RSkip 10
+    Sequence {1 32 1 60; 1.2 6 1 63; 1.5 32 1 30; 1.5 16 3 96;  \
+               1.7 6 1 31; 1.7 16 7 72; 2 6 5 71; 2.2 16 7 36;  \
+               2.5 16 1 47; 2.5 16 5 35; 2.8 3 3 65; 3 16 1 23; \
+               3 16 5 69; 3.2 3 3 32; 3.2 3 7 61; 3.7 16 3 80;  \
+               3.7 3 7 30; 4 6 1 57; 4 6 5 29; 4.2 16 3 89;     \
+               4.5 6 1 28; 4.5 6 7 62; 4.7 6 1 39; 4.7 16 3 44}
+End
+
+
+DefGroove Ambient2  Main pattern
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove Ambient2
+
+Drum-ScratchPull  Sequence  *     *     *    D13
+Drum-KickDrum1    Sequence  D13   *     *    D1234
+Drum-ClosedHiHat  Sequence  *     *     *    D16
+Drum-Maracas      Sequence  *     *     *    D8
+Drum-SnareDrum1   Sequence  D1234 *     *    D13
+
+// SynthBass1
+Bass-9            Sequence B11    *     *    B1234
+
+// EPiano
+Chord-6           Sequence {1 1 90} {1 2. 80} {1 4 50} {1 2 80}
+
+// WarmPad
+Chord-7           Sequence *      *     *    C1
+
+// Flute
+Bass-8            Sequence *      *      *   {1 2 1 50}   
+
+
+DefGroove Ambient2Intro  A 4 bar introduction
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove Ambient2
+SeqSize 2
+
+Drum-ScratchPull  Sequence   *       D1
+Drum-KickDrum1    Sequence   D13     D1
+Drum-ClosedHiHat  Sequence   D16     D1
+Drum-Maracas      Sequence   *       D1
+Drum-SnareDrum1   Sequence  D1234    D1
+
+// SynthBass1
+Bass-9            Sequence B11       B1
+
+// EPiano
+Chord-6           Sequence  *        C1
+
+// WarmPad
+Chord-7           Sequence  *        C1
+
+// Flute
+Bass-8            Sequence  *       {1 4 5 50}   
+
+DefGroove Ambient2End   A 2 bar ending

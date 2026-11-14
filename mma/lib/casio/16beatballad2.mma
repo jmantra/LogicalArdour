@@ -1,0 +1,144 @@
+// 16beatballad2.mma
+
+Begin Doc  
+      16 Beat Ballad2 (034). 
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    Sequence {1 0 112; 2.8 0 65; 3 0 102} \
+             {1 0 112; 2.8 0 65; 3 0 95; 3.5 0 102}
+End
+
+Begin Drum-SideKick
+    Tone SideKick
+    Volume m
+    Sequence {2 0 89}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence {4 0 102}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 10
+    Rtime 5
+    Sequence {1 0 78; 1.3 0 50; 1.5 0 76; 1.8 0 50; 2 0 82; 2.3 0 46; \
+               2.5 0 61; 2.8 0 41; 3 0 82; 3.3 0 46; 3.5 0 80; \
+               3.8 0 46; 4 0 78; 4.3 0 48; 4.5 0 80; 4.8 0 48}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence  z    z    z   {4.8 0 65}
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 100
+    Volume m
+    RVolume 5
+    Sequence {1 4 1 95; 2.8 64 1 80; 3 4 1 95}
+End
+
+Begin Bass-6
+    Voice EPiano
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {3.5 2 5 67; 4 2 1 72; 4.5 2 3 72} \
+             {4 8 1 64; 4.5 3 5 68} 
+End
+
+
+Begin Bass-7
+    Voice JazzGuitar
+    Octave 5
+    Articulate 100
+    Volume m
+    RVolume 10
+    Sequence {1.5 2 3 93; 2 2 5 96; 2.5 4 1 97} \
+             {2.5 3 1 98; 3 4 5 95}
+End
+
+Begin Chord-8
+    Voice SynthStrings1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Unify On
+    Sequence {1 1 90 * 4} 
+End
+
+DefGroove 16BeatBallad2   Basic 4 bar pattern.
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove 16BeatBallad2
+
+Drum-KickDrum2    Sequence   *    *    D1234  D13
+Drum-SideKick     Sequence   *    *     D13   *
+Drum-SnareDrum2   Sequence  D1234 *     *    D24
+Drum-ClosedHiHat  Sequence   *    *     *    DRoll
+Drum-OpenHiHat    Sequence   z    z     z     D1
+
+Bass-9            Sequence   *    *     B1234  B13
+
+//Epiano
+Bass-6            Sequence   z    *      *     B1
+
+// Jazzguitar
+Bass-7            Sequence   *    *      *     B1
+
+// synthstrings
+Chord-8           Sequence   *    *      *     C1
+
+DefGroove 16BeatBallad2Intro   4 bar introduction.
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove 16BeatBallad2
+SeqSize 2
+
+Drum-KickDrum2    Sequence   D1234  D1
+Drum-SideKick     Sequence   *      D1
+Drum-SnareDrum2   Sequence   *      D1
+Drum-ClosedHiHat  Sequence   DRoll   z
+Drum-OpenHiHat    Sequence   -
+
+Bass-9            Sequence   B1234  B1
+
+//Epiano
+Bass-6            Sequence    *     B1
+
+// Jazzguitar
+Bass-7            Sequence   *       B1
+
+// synthstrings
+Chord-8           Sequence   *       C1
+
+DefGroove 16BeatBallad2End  2 bar ending
+
+
+

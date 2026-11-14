@@ -1,0 +1,150 @@
+
+// slow16beat
+
+Begin Doc  
+      Slow 16 Beat (013)
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    Sequence {1 0 115; 2.5 0 94; 3 0 115} \
+             {1 0 115; 2.5 0 92; 3 0 115; 4.8 0 80}
+End
+
+Begin Drum-SideKick
+    Tone SideKick
+    Volume m
+    Rvolume 5
+    Sequence {2 0 83; 4 0 84}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 87; 1.5 0 76; 2 0 91; 2.5 0 76; 3 0 85; 3.5 0 76; 4 0 91; 4.5 0 76} \
+             {1 0 87; 1.5 0 76; 2 0 89; 2.5 0 76; 3 0 85; 3.5 0 76; 4 0 91}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence    z     {4.5 0 69} 
+End
+
+Begin Drum-Cabasa
+    Tone Cabasa
+    Volume m
+    Sequence {1.2 0 37; 1.5 0 42; 1.8 0 37; 2.2 0 37; 2.5 0 42; \
+              2.8 0 37; 3.2 0 37; 3.5 0 42; 3.8 0 37; 4.2 0 37; \
+              4.5 0 42; 4.8 0 37}
+End
+
+Begin Bass-9
+    Voice SynthBass1
+    Octave 3
+    Articulate 120
+    Volume mp
+    Sequence {1 4 1 113; 3 4 1 113; 4.5 3 5 107} \
+             {1 4 1 112; 2.5 3 5 107; 3 8 1 112; 4 8 5 111} \
+             {1 4 1 111; 2.5 3 5 106; 3 4 1 111; 4.5 3 5 106} \
+             {1 4 1 111; 2.5 3 5 106; 3 8 1 111; 4 3 5 112; 4.5 3 1 107}
+End
+
+Begin Chord-6
+    Voice Epiano
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 4 90; 3 8 90; 4 8 90; 4.5 3 90} \
+             {1 4 90; 3 8 90; 4 8 90} \
+             {1 4 90; 3 4 90; 3.5 4 90; 4.5 3 90} \
+             {1 4 90; 2.5 3 90; 3 4 90; 4.5 3 90}
+End
+
+
+Begin Bass-7
+    Voice CleanGuitar
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {1 2 1 93; 1.1 2 3 85; 1.2 2 5 85} \
+             {1 2 5 95; 1.1 2 3 85; 1.2 2 1 85} \
+             {1 2 1 92; 1.1 2 3 84; 1.2 2 5 84} \
+             {1 2 1 92; 1.5 2 3 83; 2 4 5 92; 2.5 4 1 84; 3.5 4 5 84; 4 8 3 92; 4.5 3 1 92}
+End
+
+Begin Chord-8
+    Voice SynthStrings2
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume p
+    Unify On
+    Sequence {1 1 90  * 2}
+End
+
+DefGroove Slow16Beat   For techno huggers.
+
+///////////////////////////////////////////////
+////// Intro
+
+Groove Slow16Beat
+
+Drum-KickDrum2    Sequence  *  *   *   D1234
+Drum-SideKick     Sequence  *  *   *   *
+Drum-ClosedHiHat  Sequence  *  *   *   D1234
+Drum-OpenHiHat    Sequence  *  *   *   z
+Drum-Cabasa       Sequence  *  *   D1234   D13
+
+Bass-9            Sequence  *  *   B11  /
+
+// Epiano
+Chord-6           Sequence  *  *   C1234   L1
+
+// Clean Guitar
+Bass-7            Sequence  B1234  *  *  *
+
+// Strings
+Chord-8           Sequence  *  *  *  L1
+
+DefGroove Slow16BeatIntro  4 bar introduction
+
+
+///////////////////////////////////////////////
+////// Ending
+
+Groove Slow16Beat
+SeqSize 2
+
+Drum-KickDrum2    Sequence  D1234   D1
+Drum-SideKick     Sequence  *       z
+Drum-ClosedHiHat  Sequence  D1234   D1
+Drum-OpenHiHat    Sequence  *       z
+Drum-Cabasa       Sequence  *       D1
+
+Bass-9            Sequence  B1234   B1
+
+// Epiano
+Chord-6           Sequence  *       L1
+
+// Clean Guitar
+Bass-7            Sequence  *       B1
+
+// Strings
+Chord-8           Sequence  *       L1
+
+DefGroove Slow16BeatEnd   2 bar ending
+

@@ -1,0 +1,96 @@
+
+Changes file for the 2019 series
+
+This reflects changes to MMA since the release of version 19.07.
+
+BUG: When running on windows a crash occurred since there is a not a fcntl
+ module. This was used only when writing a buffer to a log file in *nix/mac.
+ MMA now discards the option on Windows.
+ 
+LYRICS are now permitted in repeat lines. If it is a "real" lyric, the
+ text is ignored for repeated lines; if the CHORD option is enabled
+ each line will contain correct chord info. Note: repeat lines are
+ those set with the " * count" option.
+
+The MIDI voice "DistortionGuitar" has been improperly spelled
+ "DistoronGuitar" since very early versions of MMA (note the
+ missing "i"). This is fixed, and the wrong spelling still works.
+
+With the -d switch on LibPath caused an error. Fixed.
+
+Leading zeros ('0') are now permitted and ignored in label line
+ numbers. Permits line numbers like '001', '002', etc. to work with
+ the -b option.
+
+Added $_FilePath and $_SongPath variables. These, plus $_FileName will
+ return '' (an empty string) if input is coming from STDIN.
+
+Source lines terminated with LF/CR combinations have been converted to
+ "unix" style (LF only). In the future, please submit ONLY files to
+ the author in this format. MMA doesn't care, but 'patch' and other
+ git programs do.
+ 
+Minor documentation fixes and internal source comment clearifications/fixes.
+
+August 4, 2019 - released version 19.08
+========================================
+
+RNDSEED - changed to require an integer argument (or none). Now produces
+ same results in python2 and 3.
+
+More documentation changes. I fear this comment will never stop giving
+ me grief :)
+
+Fixed debug error reporting.
+
+Added extended groovename option. You can now specify as DIR:Groovename.
+ As always, see the docs.
+
+GrooveAlias had it arguments reversed in the code. Fixed to match the existing
+ documentation, debug and error messages.
+
+At some point in the development cycle the check for env. variables
+ stopped working. It's fixed now.
+
+Added the cmd line option -xNOCREDIT which will supress the insertion
+ of "Created by MMA ... filename" text into the meta track. PLEASE DO
+ NOT USE THIS.
+
+Added cmd line option -xCHORDS=a,b,c. This will check each chord and see
+ if it acceptable to MMA. Displays error lines and list of the valid chords.
+
+Added cmd line option -xCHECKFILE=filename. This will parse (somewhat) the
+ file listed and report any unknown chords. At this point a 'z' chord in the
+ format CHORDxTrack will report an error.
+ 
+Fixed circular import problem when setting debug options from cmd line.
+
+October, 2019 - released version 19.08a
+========================================
+
+Fixed summary to show midi file duration as mm:ss.
+
+Changed -g message to "Skipped" from "Existing" ... hopefully
+ this is a bit more clear.
+
+The options -xCheckFile and -xChords have been modified. They now
+ take their args separately ... no '=' sign is needed/permitted.
+
+The code for the zOPTIONS has been twiddled. You can now do something
+ like 'zDC' to mute the drum and chord tracks and use the last chord.
+ Hope this works ... it's ugly code! The docs for this section
+ (Rests, section 8.4) have been rewritten,
+
+October 26, 2019 - released version 19.08b
+==========================================
+
+Fixed bug in prettyPrint to handle errors.
+
+Keysig accepts '0' as a synonym to '0b' or '0#'.
+
+Volume, Decresc, etc have been revamped. They now recommend
+  the use of an added '%' sign for increase/decrease to show
+  clearly what is going on. Also, some dumb constructs like 'f + 10%'
+  are now in error land.
+
+The $( RandInt()) expression was not documented.

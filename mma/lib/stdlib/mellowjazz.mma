@@ -1,0 +1,230 @@
+
+// mellowjazz
+
+Doc A little style for slow jazz tunes. Mostly stolen from my Casio Wk3000. \
+    I used this in Polka Dots And Moonbeams. Best at slow tempos around 60bpm.
+  
+Author Bob van der Poel
+
+Begin DocVar
+  PUSH0 The swing feeling for this groove is controlled by the PUSH0 value. \
+         By default it is set to 0.666 which gives a regular ``swing'' feel. \
+         You might want to change it to 0.75 for a more ``square'' feel.
+End
+
+
+SeqClear
+
+Time 4
+Timesig 4 4
+Include stdpats
+Seqsize 4
+
+// These are used in the arpeggio-accent grooves and others to set
+// an offset for the "push" notes.
+If Ndef Push0
+  Set Push0 0.666
+Endif
+Set PUSH1 $( 1 + $PUSH0 )
+Set Push2 $( 2 + $PUSH0 )
+Set Push3 $( 3 + $PUSH0 )
+Set Push4 $( 4 + $PUSH0 )
+
+
+////////////////////////////////////////////////
+/// Basic Groove
+
+
+/// Set the drum set to brushes. If you have a different patch set,
+/// change the "If Def" and Voice.
+
+If Def Wk3000
+    StackValue $_Debug
+    Debug Warnings=Off
+    Drum-Kick1  Voice BrushSet
+    Drum-Snare1 Voice BrushSet
+    Drum-Snare2 Voice BrushSet
+    Drum-Ride1  Voice BrushSet
+    Debug $_Stackvalue
+Endif
+
+
+Begin Drum-Kick1
+    Tone KickDrum1
+    Rvolume 5 
+    Rtime 5
+    Volume p
+    Sequence  { D1 } { $PUSH4 1 70 }
+End
+
+Begin Drum-Snare1
+    Tone SnareDrum1
+    Rvolume 5 
+    Rtime 5
+    Volume   p
+    Sequence { D1234 ; D24 Shift $PUSH0 }
+End
+
+
+BEGIN DRUM-SNARE2
+    Tone SnareDrum2
+    Rvolume 5 
+    Rtime 5
+    Volume mp
+    Sequence  { D1 } z  z  z
+End
+
+Begin Drum-OHH
+    Tone OpenHiHat
+    Rvolume 5 
+    Rtime 5
+    Volume m
+    Sequence  {1 0 50} z z z
+End
+
+Begin Drum-Ride1
+    Tone RideCymbal1
+    Rvolume 5 
+    Rtime 5
+    Volume mp
+    Sequence  { D1 } z  z  z
+End 
+
+
+Begin Walk-Main         /// Our main bass line on 1,3,4
+     Voice AcousticBass
+     Volume m
+     Articulate 90
+     Octave 3
+     Sequence {1 4 90 ; 3 4 90; 4 4 90; $PUSH2 8 90; $PUSH4 8 90}
+     Rskip 30 Beats= $PUSH2 , $PUSH4
+End
+
+Begin Chord-Guitar
+    Voice JazzGuitar
+    Articulate 120  
+    Volume pp
+    Octave 5
+    Strum 3
+    Voicing Mode=Key
+    Sequence {C1234; $PUSH4 8 80 } { 1 2 90; 3 2 90; $PUSH4 8 80 }
+End
+
+Begin Chord-Piano
+    Voice Piano1
+    Volume m
+    Rskip 20
+    Rtime 10
+    Rvolume 0,20
+    Articulate 110
+    Octave 5
+    Voicing Mode=Key
+    Sequence {C1; $PUSH4 8 80 }
+End
+
+DefGroove MellowJazz    A slow, steady beat.
+
+
+//////////////////////////////////////////////////////
+//// Plus, add in some piano melody
+
+Groove MellowJazz
+
+Begin Arpeggio-Piano
+    Voice Piano1
+    Rskip   40   50  30  40
+    SeqRnd  On
+    Direction Random
+    Articulate 110
+    Harmony OpenAbove   // 2 part harmony
+    Volume  m    mp   m   mp
+    Rvolume 10
+    Octave  5
+    Range  .9
+    Sequence  { A4; $PUSH4 8 80 }  \
+              { A4; $PUSH1 8 70; $PUSH2 8 70; $PUSH3 8 70; $PUSH4 8 60} \
+              { A2; $PUSH2 8 70; $PUSH4 8 60 } \
+              { A4; $PUSH2 8 80 }
+End
+
+DefGroove MellowJazzPlus   Add in some random piano notes.
+
+//////////////////////////////////////////////////////////
+/////  Sustained
+
+Groove MellowJazz
+
+Begin Chord-Strings
+    Voice TremoloStrings
+    Volume mp
+    Articulate 100
+    Unify On
+    Octave 5
+    DupRoot -1  // Add in some cellos
+    Sequence {1 2 90 0 80 0; 3 2 90 0 80 0}
+End
+
+DefGroove MellowJazzSus   Add strings to the mix.
+
+Groove MellowJazzSus
+Arpeggio-Piano Groove MellowJazzPlus
+DefGroove MellowJazzSusPlus   Solo piano and strings.
+
+////////////////////////////////////////////////
+/// Fill, good for an ending
+
+Groove MellowJazz
+SeqSize 1
+
+Drum-Kick1   Sequence  D13
+Drum-Snare1  Sequence  D1234
+Drum-Snare2  Sequence  D1
+Drum-OHH     Sequence  D13
+Drum-Ride1   Sequence  D1
+
+Begin Walk-Main
+    Sequence   W1234
+    Direction Down
+End
+
+Chord-Guitar Sequence -
+Chord-Piano  Sequence { C1234; C1234 Shift $Push0 }
+
+DefGroove MellowJazzFill  A one bar fill.
+
+/////////////////////////////////////////////
+/// Intro
+
+Groove MellowJazz
+
+Drum-Kick1   Sequence  *      *      /    D1
+Drum-Snare1  Sequence  *      *      *    {D1234}
+Drum-Snare2  Sequence  D1     z      D1    z
+Drum-OHH     Sequence  *      z    {1 0 50} z
+Drum-Ride1   Sequence  D1     z     D1      z
+
+Walk-Main   Sequence   { W1234; $PUSH2 8 75; $PUSH4 8 80} /    /   {1 2 90}
+
+Chord-Guitar Sequence  -
+Chord-Piano  Sequence  *      *     *   L1
+
+DefGroove MellowJazzIntro   Simple 4 bar intro.
+
+
+/////////////////////////////////////////////
+/// Ending
+
+Groove MellowJazz
+Seqsize 2
+
+Drum-Kick1   Sequence  D1     /
+Drum-Snare1  Sequence  *      D1
+Drum-Snare2  Sequence  D1     z 
+Drum-OHH     Sequence  *      z 
+Drum-Ride1   Sequence  D1     z 
+
+Walk-Main   Sequence   {W1234; $PUSH2 8 80; $PUSH4 8 80;}  {1 2 90}
+Chord-Guitar Sequence {1 2 90 }    z
+Chord-Piano  Sequence C1234        L1
+
+DefGroove MellowJazzEnd  Simple 2 bar ending.

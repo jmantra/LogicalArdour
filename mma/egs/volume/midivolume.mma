@@ -1,0 +1,65 @@
+// Short demo for MidiVolume
+
+Print
+Print This is a short demo of the midi volume settings
+Print In most cases you probably don't want to use these,
+Print mainly because debugging is a nightmare and many
+Print MIDI players use this controller for their own volume
+Print settings. But, in some cases (read long notes) it's
+Print the only way to accomplish what you want.
+Print
+Print First off we show the use of a track MidiVolume 
+Print
+
+// Play a single note for a bar and vary its volume
+
+Begin Solo
+   Voice Violin
+   Octave 4
+   Volume f  // this is the velocity
+   Articulate 100  // make the note exactly 2 bars
+End
+
+1 z  {1c;}  // no accomp, just the 'c' note
+
+// Same note, but use a lower volume
+Solo MidiVolume mp
+2 z  {1c;}
+
+Print A Track Midi(De)Cres
+Print
+
+// Same again, but with a crescendo
+Solo MidiCresc  mp mf 1
+3 z {1c;}
+
+// And a decresc
+Solo MidiDeCresc p 1
+4 z {1c;}
+
+Print And, finally, the global MIDI volume setting
+Print
+
+// Now add some chords and show how the global 
+// midi volume works. You could accomplish the
+// same by using track midivolumes!
+
+Begin Chord
+    Volume mf
+    midivolume m
+    Articulate 80
+    Voice Piano1
+    Octave 5
+    Sequence {1 1 90 * 4} /// 4 quarter notes
+End
+
+MidiCresc mp ff 4
+5  C
+6  G7
+7  C>-2
+Chord Riff 1 1 90  // A long chord, listen to the decay
+MidiDecresc p 1
+8  G
+
+
+

@@ -1,0 +1,230 @@
+
+// slowbolero
+
+Begin Doc
+
+	This bolero is different from the Ravel-ish sounds of ``bolero.mma''.
+	Sounds nice with slower songs. For an example see the exemplar
+	``Abrazame Asi''. This file is largely based on  ``Latin Rhythms: Mystery Unraveled''
+	by Victor Lopez.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+SeqSize 4
+
+Begin Drum-Claves
+	Tone Claves
+	Volume mf
+	Rvolume 10
+	Rtime 2
+	Sequence Clave2 Clave3
+End
+
+Begin Drum-Maraca
+	Tone Maracas
+	Volume mp
+	Rvolume 10
+	Rtime 2
+	Sequence {D8; D1 Shift .75} {D8; D1 Shift .5; D1 Shift .666; D1 Shift .832}
+End
+
+Begin Drum-HConga
+	Tone OpenHighConga
+	Volume mp
+	Rvolume 10
+	Rtime 2
+	Sequence {1 0 90; 1.5 0 90; 2.5 0 90; 4 0 90} {1 0 90; 1.5 0 90; 2.5 0 90; 4 0 90}
+End
+
+Begin Drum-LConga
+	Tone LowConga
+	Volume mp
+	Rvolume 10
+	Rtime 2
+	Sequence {2 0 90; 3 0 90; 3.5 0 90; 4.5 0 90} {2 0 90; 3 0 90; 3.5 0 90;  4.5 0 90}
+End
+
+Begin Drum-OHH
+	Tone OpenHiHat
+	Volume pp
+	Rvolume 10
+	Rtime 2
+	Rskip 5
+	Sequence D8
+End
+
+Begin Drum-SQ
+	Tone SquareClick
+	Volume mf
+	Rvolume 10
+	Rtime 2
+	Sequence D24
+End
+
+Begin Drum-Snare
+	Tone SnareDrum1
+	Volume mp
+	Rvolume 10
+	Rtime 2
+	Sequence {D13; D24 Shift .5}
+End
+
+Begin Bass
+	Voice FingeredBass
+	Volume f
+	Octave 3
+	Articulate 80
+	Sequence {1 1 1 90 * 2} {1 2 1 90; 3 4 1+ 9; 4 4 5 90}
+End
+
+Begin Chord
+	Voice Piano1
+	Voicing Mode=Optimal
+	Articulate 90
+	Volume m
+	Octave 6
+	DupRoot -1
+    Strum 3
+    Direction Both
+	Sequence L2   L1   L2   {1 2 90; C3 Shift .5}
+End
+
+Begin Chord-Guitar
+	Voice SteelGuitar
+	Articulate 120
+	Voicing Mode=Optimal
+	Octave 6
+	Volume p
+	Sequence C8 C1234  C8  {C12; C3 Shift .5}
+End
+
+DefGroove SlowBolero  Easy going Bolero for ballads.
+
+
+/////////////////////////////
+//// Sustained
+
+Groove SlowBolero
+
+Alltracks Volume -30%
+Begin Bass
+	Volume +40%
+	Articulate 70
+End
+
+Begin Chord-Sus
+	Sequence   C1234
+	Limit      3
+	Octave     5
+	Voice      VoiceOohs
+	Voicing    Mode=Optimal
+	Articulate 100
+	Unify      On
+	Volume     mp
+End
+
+DefGroove SlowBoleroSus   Add sustained voices.
+
+////////////////////////////////////
+///////  Plus
+
+Groove SlowBolero
+Begin Arpeggio
+	Voice NylonGuitar
+	Articulate 140
+	Octave 4
+	Volume m
+    Range 2
+    RSkip 30
+    Harmony OpenBelow
+    RVolume 20
+    RTime 10
+    Direction Random
+	Sequence A8 / A4 A8
+End
+
+DefGroove SlowBoleroPlus  Add in some nylon guitar apreggios
+
+Groove SlowBoleroPlus
+Chord-Sus Groove SlowBoleroSus
+DefGroove SlowBoleroSusPlus  Arpeggios and sustained voices.
+
+///////////////////////////
+/// Alternate 1 has a backing melody
+
+Groove SlowBolero
+
+Begin Bass-Accomp
+    Voice JazzGuitar //SteelGuitar
+    Volume mf
+    Harmony OpenBelow+OpenAbove
+    Rskip 20
+    Articulate 120
+    Octave 5
+    Rtime 10
+    RVolume 0,10
+    SeqRnd On
+    Sequence {1 8 1 90; 2 8 1 90; 3 4 3 80; 4 4 5 70} \
+             {1 8 1 90; 1.5 8 2 80; 2 8 1 80; 2.5 8 2 70;3 4 3 80; 4 4 2 75} \
+             {1 4 6 90; 2 8. 5 90; 3 4. 3 80; 4 4 1 70} \
+             {1 8 5 90; 1.5 8 3 80; 2 8 5 80; 2.5 8 3 70;3 4 2 80; 4 4 1 75}
+End
+
+DefGroove SlowBolero1   Basic slow Bolero with alternate backing melody.
+
+Groove SlowBolero1
+Chord-Sus Groove SlowBoleroSus
+DefGroove SlowBolero1Sus  Backing melody and sustained voices.
+
+
+//////////////////////////
+//////  Intro
+
+Groove SlowBolero
+
+//Drum-Claves   Sequence Clave2 Clave3
+Drum-Maraca   Sequence * * * D8
+Drum-HConga   Sequence * * * D12
+Drum-LConga   Sequence * * * D1234
+Begin Drum-OHH
+	Sequence * D16 * D16
+	Rskip  0
+	Volume pp p mp mp
+End
+Drum-SQ       Sequence * * * D2
+Drum-Snare    Sequence * * * D13
+
+Bass          Sequence * * * {1 4 1 90; 2 4 5 90; 3 4 3 90; 4 4 1 90}
+Chord         Sequence * * C1234  L2
+
+DefGroove SlowBoleroIntro   A simple introduction.
+
+Groove SlowBoleroIntro
+ Chord-Sus Groove SlowBoleroSus
+DefGroove SlowBoleroIntroSus  Intro with sustained voices.
+
+//////  Ending
+
+Groove SlowBolero
+Seqsize 2
+
+Drum-Claves   Sequence *  z
+Drum-Maraca   Sequence *  z
+Drum-HConga   Sequence *  D1
+Drum-LConga   Sequence D1234  D12
+Drum-OHH      Sequence D16 {D12; D12 Shift .5}
+Drum-SQ       Sequence * D2
+Drum-Snare    Sequence * D13
+
+Bass          Sequence * {1 1 1 90}
+Chord         Sequence C1234  L2
+
+DefGroove SlowBoleroEnd    2 bar ending.
+

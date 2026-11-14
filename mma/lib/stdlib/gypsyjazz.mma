@@ -1,0 +1,184 @@
+// gypsyjazz
+
+Begin Doc
+      An attempt to sound like Django and the Hot Five. All we use
+      is a standard ensemble of: Solo Guitar, Solo Violin, 2 Rhythm guitars
+      (la pompe style), and upright bass.
+
+       Honestly, this needs some work!
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+	
+///////////////////////////
+// Define patterns
+
+Begin Plectrum Define
+   LaPompe 1.0 5 60; 2.0 5 90;  3.0 5 60; 4.0 5 90
+   /// I also tried the following, but none really worked
+   ///   1.0 5 70; 2.0 5 90; 2.9 0 0; 3.0 5 70; 4.0 5 80; 4.9 0 0 
+   ///   1.0 -3 4-6:50 1-3:0; 1.33 5 70; 2.0 5 90; 2.8 0 0; \
+   ///         3.0 -3 4-6:50 1-3:0; 3.33 5 70; 4.0 5 80; 4.8 0 0
+End
+
+Seqsize 4
+
+
+Begin Walk
+    Voice AcousticBass
+    Octave 3
+    Volume mp
+    Sequence W13 / / W134
+    Accent 1 10 3 10
+    Articulate 50
+    Rtime 10
+    RVolume 10
+End
+
+/// This is our 2 guitars. Notice that they are slightly detuned from
+///   each other to give a "bigger" sound. The 2nd is capoed to change
+///   the chord note pitches to be a bit higher.
+
+/// Note: I did this using 2 CHORD tracks as well. Really quite similar in sound.
+///       I've stuck with the plectrum since it sounds a bit brighter. Most likely
+///       due to the Capo on the 2nd instrument.
+
+Begin Plectrum-1
+    Voice CleanGuitar
+    Octave 5
+    Volume mf
+    Sequence  LaPompe
+    Rtime 5
+    RVolume 5
+    MidiNote PB 0 -5 
+End
+
+Begin Plectrum-2
+    Voice $_Plectrum-1_Voice
+    Capo 5
+    Octave $_Plectrum-1_Octave
+    Volume m
+    Sequence  $_Plectrum-1_Sequence
+    RTime $_Plectrum-1_Rtime
+    RVolume $_Plectrum-1_RVolume
+    MidiNote PB 0 5
+End
+
+
+DefGroove GypsyJazz  Straight ahead gypsy
+
+/////////////////////////////////////////////////////////////////////
+/// Sustained
+/// A bit of liberty here since a single violin can't play chords.
+
+Groove GypsyJazz
+
+Begin Chord-Sus
+    Voice Violin
+    Octave 6
+    Volume pp
+    Articulate 100
+    Unify On
+    Sequence  C1234 //{ 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing Mode=Optimal
+End
+
+DefGroove GypsyJazzSus   Add in a sustained violin.
+
+///////////////////////////////////////////////////////////////////////
+//// Violin solo riff
+////   We add in come randomized violin solo stuff.
+
+Groove GypsyJazz
+
+Begin Arpeggio
+	Voice Violin
+	Octave 5
+	Volume m
+    Sequence  A4 A8 A4 A6   // /1/4, 1/8, 1/4, triplet
+	RSkip       30
+	Articulate  110
+	Direction Random / / Down
+	Range 2.2
+    Harmony 2Below  /// really just to add more notes to the mix
+End
+
+Plectrum-1 Volume -15%
+Plectrum-2 Volume -15%
+
+DefGroove GypsyJazzFiddle   A fiddling gypsy.
+
+Begin Chord-sus
+  Groove GypsyJazzSus
+  Volume p
+End
+
+Arpeggio Harmony None   /// getting too much fiddle, cut out some
+
+DefGroove GypsyJazzSusFiddle   A fiddling gypsy with orchestra.
+
+///////////////////////////////////////////////////////////////////////
+//// Guitar solo riff
+////   We add in come randomized guitar solo stuff. Notice that
+////   the guitar voice has been changed for this to JazzGuitar.
+
+Groove GypsyJazz
+
+
+Begin Arpeggio
+	Voice JazzGuitar
+	Octave 4
+	Volume m
+    Sequence  A8 A6   // Alternate between 1/4 note and triplets
+	RSkip       30
+	Articulate  110
+	Direction Both / / Random
+	Range 3
+    Harmony OpenBelow  /// really just to add more notes to the mix
+End
+
+DefGroove GypsyJazzGuitar    Add in guitar riffs.
+
+Begin Chord-sus
+  Groove GypsyJazzSus
+  Volume p
+End
+
+Arpeggio Harmony None   /// getting too much fiddle, cut out some
+
+DefGroove GypsyJazzSusGuitar   A guitar riffing gypsy with orchestra.
+
+/////////////////////////////////////////////////////////
+/// Intro
+
+Groove GypsyJazz
+
+Begin Walk
+    SeqRnd Off
+    Sequence *  *  *  {1 2 90}
+    Articulate 80  / / 90
+End
+
+Plectrum-1  Sequence  * / / {1.0 10 70}
+Plectrum-2  Sequence  $_Plectrum-1_Sequence
+
+DefGroove GypsyJazzIntro  Simple 4 bar intro.
+
+/////////////////////////////////////////////////////////
+/// Ending
+
+Groove GypsyJazz
+
+Begin Walk
+   SeqRnd Off
+   Sequence *  {1 2. 90}
+End
+Plectrum-1  Sequence  * {1.0 10 70}
+Plectrum-2  Sequence  $_Plectrum-1_Sequence
+
+DefGroove GypsyJazzEnd  Simple 2 bar ending.

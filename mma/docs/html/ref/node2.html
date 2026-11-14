@@ -1,0 +1,705 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Running </TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node3.html">
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node3.html">Tracks and Channels</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node1.html">Overview and Introduction</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html504"
+  HREF="node2.html#SECTION00210000000000000000">Command Line Options</A>
+<LI><A ID="tex2html505"
+  HREF="node2.html#SECTION00220000000000000000">Lines and Spaces</A>
+<LI><A ID="tex2html506"
+  HREF="node2.html#SECTION00230000000000000000">Programming Comments</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION00200000000000000000"></A>
+<A ID="sec-running"></A>
+<BR>
+Running 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+</H1>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is a command line program. To run it, simply type the program
+name followed by the required options. For example,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma test  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+processes the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test</SPAN></SPAN><A ID="tex2html13"
+  HREF="#foot9424"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> and creates
+the MIDI file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test.mid</SPAN></SPAN>.
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is finished it displays the name of the generated file,
+the number of bars of music processed and an estimate of the song's
+duration. Note:
+
+<P>
+
+<UL>
+<LI>The duration is fairly accurate, but it does not take into
+  account any mid-bar <SMALL>TEMPO</SMALL> changes.
+</LI>
+<LI>The report shows <SPAN  CLASS="textit">minutes</SPAN> and <SPAN  CLASS="textit">hundredths</SPAN> of minutes
+  in a MM.dd format (this is convenient if you want to add a number of
+  times together). In addition, the report shows the number of minutes
+  and seconds in a MM:SS format.
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION00210000000000000000">
+Command Line Options</A>
+</H1>
+
+<P>
+The following command line options are available:
+
+<P>
+<A ID="cmd-summary"></A><DL>
+<DT></DT>
+<DD>
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       <SPAN  CLASS="textbf">Debugging and other aids to
+        figuring out what's going on.</SPAN>
+	
+           </td></tr>
+        </Table>
+
+<P>
+<A ID="b-option"></A>  
+</DD>
+<DT><STRONG>-b <SPAN  CLASS="textbf">Range List</SPAN></STRONG></DT>
+<DD>Limit generation to specified range of
+    bars. The list of bar numbers is in the format N1-N2 or N1,N2,N3
+    or any combination (N1-N2,N3,N4-N5). Only those bars in the
+    specified range will be compiled. The bar numbers refer to the
+    &ldquo;comment&rdquo; bar number at the start of a data line ... note
+    that the comment numbers will vary from the actual bar numbers of
+    the generated song. <A ID="tex2html14"
+  HREF="#foot286"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>
+
+<P>
+</DD>
+<DT><STRONG>-B Range List</STRONG></DT>
+<DD>Same as -b (above), but here the bar numbers
+    refer to the absolute bar numbers in the generated file.
+
+<P>
+</DD>
+<DT><STRONG>-c</STRONG></DT>
+<DD>Display the tracks allocated and the MIDI channel
+    assignments after processing the input file. No output is
+    generated.
+
+<P>
+</DD>
+<DT><STRONG>-d</STRONG></DT>
+<DD>Enable LOTS of debugging messages. This option is mainly
+    designed for program development and may not be useful to
+    users.<A ID="tex2html15"
+  HREF="#foot9426"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+
+<P>
+</DD>
+<DT><STRONG>-e</STRONG></DT>
+<DD>Show parsed/expanded lines. Since 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  does some
+    internal fiddling with input lines, you may find this option
+    useful in finding mismatched B<SMALL>EGIN</SMALL> blocks, etc.
+
+<P>
+</DD>
+<DT><STRONG>-I Name</STRONG></DT>
+<DD>Display a help or usage message for a plugin. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+    will attempt to find and load the plugin <SPAN  CLASS="textbf">Name</SPAN> and display
+    its usage message (a &ldquo;not found&rdquo; message will be displayed if
+    the plugin doesn't have a printUsage method).
+
+<P>
+</DD>
+<DT><STRONG>-II</STRONG></DT>
+<DD>Ignore permission test for loading <SMALL>PLUGINS</SMALL>. Use of
+    this option is not recommended, but it can be quite useful when
+    writing and testing a plugin.
+
+<P>
+</DD>
+<DT><STRONG>-o</STRONG></DT>
+<DD>A debug subset. This option forces the display of complete
+    filenames/paths as they are opened for reading. This can be quite
+    helpful in determining which library files are being used.
+
+<P>
+</DD>
+<DT><STRONG>-p</STRONG></DT>
+<DD>Display patterns as they are defined. The result of this
+    output is not exactly a duplicate of your original definitions.
+    Most notable are that the note duration is listed in MIDI ticks,
+    and symbolic drum note names are listed with their numeric
+    equivalents.
+
+<P>
+<A ID="running-r"></A>  
+</DD>
+<DT><STRONG>-r</STRONG></DT>
+<DD>Display running progress. The bar numbers are displayed as
+    they are created complete with the original input line. Don't be
+    confused by multiple listing of &ldquo;*&rdquo; lines. For example the line
+    
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>33 Cm * 2  </B> 
+   
+	    </td></tr>
+      </Table>
+ would be displayed as:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>88: 33 Cm *2 
+<BR>
+89: 33 Cm *2   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This makes perfect sense if you remember that the same line was
+    used to create both bars 88 and 89.
+
+<P>
+See the -L option, below for an alternate report.
+
+<P>
+<A ID="running-L"></A>  
+</DD>
+<DT><STRONG>-L</STRONG></DT>
+<DD>This command option will save the bar numbers
+    (<A HREF="node8.html#sect-barnumbers">here</A>) you supply
+    at the start of lines and print this as a list at the end of the
+    compile process. This is very handy if you have multiple repeats
+    and/or G<SMALL>OTO</SMALL>s and need to determine what you might have done
+    wrong. Lines without labels are displayed as &rdquo;?&rdquo;.
+
+<P>
+</DD>
+<DT><STRONG>-s</STRONG></DT>
+<DD>Display sequence info during run. This shows the expanded
+    lists used in sequences. Useful if you have used sequences shorter
+    (or longer) than the current sequence length.
+
+<P>
+</DD>
+<DT><STRONG>-v</STRONG></DT>
+<DD>Show program's version number and exit.
+
+<P>
+</DD>
+<DT><STRONG>-w</STRONG></DT>
+<DD>Disable warning messages.
+
+<P>
+</DD>
+<DT></DT>
+<DD>
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       <SPAN  CLASS="textbf">Commands which modify 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's
+        behavior.</SPAN>
+	
+           </td></tr>
+        </Table>
+
+<P>
+</DD>
+<DT><STRONG>-0</STRONG></DT>
+<DD>Generate a synchronization tick at the start of every MIDI
+    track. Note that the option character is a &ldquo;zero&rdquo;, not a &ldquo;O&rdquo;.
+    For more details see S<SMALL>YNCHRONIZE</SMALL>,
+    <A HREF="node30.html#synchronize">here</A>.
+
+<P>
+</DD>
+<DT><STRONG>-1</STRONG></DT>
+<DD>Force all tracks to end at the same offset. Note that the
+    option character is a &ldquo;one&rdquo;, not an &ldquo;L&rdquo;. For more details see
+    S<SMALL>YNCHRONIZE</SMALL>, <A HREF="node30.html#synchronize">here</A>.
+
+<P>
+</DD>
+<DT><STRONG>-i BARS</STRONG></DT>
+<DD>Set the maximum number of bars which can be
+    generated. The default setting is 500 bars (a long
+    song!<A ID="tex2html16"
+  HREF="#foot317"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>). This setting is needed since you can create
+    infinite loops by improper use of the <SMALL>GOTO</SMALL> command. If your
+    song really is longer than 500 bars use this option to increase
+    the permitted size.
+
+<P>
+</DD>
+<DT><STRONG>-M x</STRONG></DT>
+<DD>Generate type 0 or 1 MIDI files. The parameter &ldquo;x&rdquo;
+    must be set to the single digit &ldquo;0&rdquo; or &rdquo;1&rdquo;. For more details,
+    see the M<SMALL>IDI</SMALL>SMF section <A HREF="node24.html#midismf">here</A>.
+
+<P>
+</DD>
+<DT><STRONG>-n</STRONG></DT>
+<DD>Disable generation of MIDI output. This is useful for
+    doing a test run or to check for syntax errors in your script.
+
+<P>
+</DD>
+<DT><STRONG>-P</STRONG></DT>
+<DD>Play and delete MIDI file. Useful in testing, the
+    generated file will be played with the defined MIDI file player
+    (see section <A HREF="node33.html#midiplayer">here</A>). The
+    file is created in the current directory and has the name
+    &ldquo;MMAtmpXXX.mid&rdquo; with &ldquo;XXX&rdquo; set to the current PID.
+
+<P>
+</DD>
+<DT><STRONG>-S</STRONG></DT>
+<DD>Set a macro. If a value is needed, join the value to the
+    name with a '='. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma myfile -S tempo=120  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will process the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">myfile.mma</SPAN></SPAN> with the variable $Tempo
+    set with the value &ldquo;120&rdquo;. You need not specify a value:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma myfile -S test  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+just sets the variable $test with no value.
+
+<P>
+<A ID="t-option"></A>  
+</DD>
+<DT><STRONG>-T TRACKS</STRONG></DT>
+<DD>Generate <SPAN  CLASS="textit">only</SPAN> data for the tracks specified.
+    The tracks argument is a list of comma separated track names. For
+    example, the command &ldquo;mma mysong -T drum-hh,chord&rdquo; will limit
+    the output to the Drum-HH and Chord tracks. This is useful in
+    separating tracks for multi-track recording.
+
+<P>
+</DD>
+<DT><STRONG>-V</STRONG></DT>
+<DD>Play a short audio preview of a G<SMALL>ROOVE</SMALL> in the
+    
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  library. For complete details on this command see section
+    <A HREF="node33.html#groovepreview">here</A>.
+
+<P>
+</DD>
+<DT></DT>
+<DD>
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       <SPAN  CLASS="textbf">Maintaining 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's database.</SPAN>
+	
+           </td></tr>
+        </Table>
+
+<P>
+<A ID="g-option"></A>  
+</DD>
+<DT><STRONG>-g</STRONG></DT>
+<DD>Update the library database for the files in the
+    L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL>. You should run this command after installing new
+    library files or adding a new groove to an existing library file.
+    If the database (stored in the files in each library under the
+    name <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">.mmaDB</SPAN></SPAN>) is not updated, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will not be able to
+    auto-load an unknown groove. Please refer to the detailed
+    discussion <A HREF="node33.html#lib-files">here</A> for
+    details.
+
+<P>
+<BR>
+
+<P>
+The current installation of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  does not set directory
+    permissions. It simply copies whatever is in the distribution. If
+    you have trouble using this option, you will probably have to
+    reset the permissions on the lib directory.
+
+<P>
+<BR>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will update the groove database with all files in the
+    current L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL>. All files <SPAN  CLASS="textit">must</SPAN> have a &ldquo;.mma&rdquo;
+    extension. Any directory containing a file named <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN>
+    will be ignored.<A ID="tex2html17"
+  HREF="#foot9429"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A> Note, that
+    <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN> consists of all uppercase letters and is usually
+    an empty file.
+
+<P>
+</DD>
+<DT><STRONG>-G</STRONG></DT>
+<DD>Same as the &ldquo;-g&rdquo; option (above), but the uppercase
+    version forces the creation of a new database file&mdash;an update
+    from scratch just in case something really goes wrong.
+
+<P>
+</DD>
+<DT></DT>
+<DD>
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       <SPAN  CLASS="textbf"> File commands.</SPAN>
+	
+           </td></tr>
+        </Table>
+
+<P>
+<A ID="i-option"></A>  
+</DD>
+<DT><STRONG>-i</STRONG></DT>
+<DD>Specify the RC file to use. See <A HREF="node33.html#sec-rc">details
+      here</A>.
+
+<P>
+<A ID="f-option"></A>  
+</DD>
+<DT><STRONG>-f FILE</STRONG></DT>
+<DD>Set output to FILE. Normally the output is sent to a
+    file with the name of the input file with the extension &ldquo;.mid&rdquo;
+    appended to it. This option lets you set the output MIDI file to
+    any file name. No extension is appended when using -f, you'll need
+    to include that yourself.
+
+<P>
+</DD>
+<DT><STRONG>-</STRONG></DT>
+<DD>A single &ldquo;-&rdquo; on the command line tells 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to use
+    STDIN for input. Use of this option makes the use of the -f option
+    (above) necessary ... otherwise 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  would not know where to
+    save the generated MIDI data.
+
+<P>
+</DD>
+<DT></DT>
+<DD>
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       <SPAN  CLASS="textbf"> The following commands are used
+        to create the documentation. As a user you should probably
+        never have a need for any of them.</SPAN>
+	
+           </td></tr>
+        </Table>
+
+<P>
+</DD>
+<DT><STRONG>-Dk</STRONG></DT>
+<DD>Print list of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  keywords. For editor extension
+    writers.
+
+<P>
+</DD>
+<DT><STRONG>-Dxl</STRONG></DT>
+<DD>Expand and print D<SMALL>OC</SMALL> commands used to generate
+    the standard library reference for <SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN> processing. No MIDI
+    output is generated when this command is given. Doc strings in RC
+    files are not processed. Files included in other files are
+    processed.
+
+<P>
+</DD>
+<DT><STRONG>-Dxh</STRONG></DT>
+<DD>Same as -Dxl, but generates HTML output. Used by the
+    <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma-libdoc.py</SPAN></SPAN> tool.
+
+<P>
+</DD>
+<DT><STRONG>-Dgh</STRONG></DT>
+<DD>Generate HTML output for Groove specified on the command
+    line. If the specified groove name has a '/' the first part of the
+    name is assumed to be a file to read using U<SMALL>SE</SMALL>. Used by the
+    <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma-libdoc.py</SPAN></SPAN> tool.
+
+<P>
+</DD>
+<DT><STRONG>-Djs</STRONG></DT>
+<DD>Generate JSON output for the specified G<SMALL>ROOVE</SMALL>.
+    See -D<SMALL>GH</SMALL>, above, for more details.
+
+<P>
+</DD>
+<DT><STRONG>-Dbo</STRONG></DT>
+<DD>Generate a list of defined groove names and descriptions
+    from a file specified on the command line. Used by the
+    <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma-gb.py</SPAN></SPAN> tool.
+
+<P>
+</DD>
+<DT><STRONG>-Ds</STRONG></DT>
+<DD>Generates a list of sequence information. Used by the
+    <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma-libdoc.py</SPAN></SPAN> tool.
+
+<P>
+</DD>
+<DT></DT>
+<DD>
+		<Table CellSpacing=0 Width="80%" Align="Center" CellPadding=10 BGColor="#dddddd" Border=3>
+           <tr> <td>
+	       <SPAN  CLASS="textbf">Some Miscellaneous and/or Seldom
+        Used Commands.</SPAN>
+	
+           </td></tr>
+        </Table>
+
+<P>
+</DD>
+<DT><STRONG>-xNoCredit</STRONG></DT>
+<DD>Suppresses the insertion of &ldquo;Generated my MMA&rdquo; in
+    Midi Meta data. Please don't use this ... it is nice for
+    
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to get credit. Details <A HREF="node28.html#xtra-nocredit">here</A>.
+
+<P>
+</DD>
+<DT><STRONG>-xChords List</STRONG></DT>
+<DD>Checks the list of chords and verifies that
+    
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  recognizes them. Details <A HREF="node28.html#sect-xtra-chords">here</A>.
+
+<P>
+</DD>
+<DT><STRONG>-xCheckFile FILE</STRONG></DT>
+<DD>Parses the filename and verifies each chord
+    found. Chords are listed in alphabetical order as an aid to see
+    which chords are in the file. <SPAN  CLASS="textbf">Does not verify other
+      commands and syntax in the file.</SPAN> Details
+    <A HREF="node28.html#sect-xtra-file">here</A>.
+
+<P>
+</DD>
+<DT><STRONG>-xGrooves <SPAN  CLASS="textit">[NAME]</SPAN></STRONG></DT>
+<DD>Lists all the G<SMALL>ROOVE</SMALL> names in the
+    
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  database. Details <A HREF="node28.html#sect-xtra-grooves">here</A>.
+
+<P>
+</DD>
+<DT><STRONG>-xPrint <SPAN  CLASS="textit">VAR</SPAN></STRONG></DT>
+<DD>Lists the value of system variables at
+    initialization. Details <A HREF="node28.html#sect-xtra-print">here</A>.
+
+<P>
+</DD>
+<DT><STRONG>-xCSplit</STRONG></DT>
+<DD>Create separate files for each MIDI track. Details <A HREF="node28.html#sect-xtra-csplit">here</A>.
+
+<P>
+</DD>
+<DT><STRONG>-xTSplit</STRONG></DT>
+<DD>Create separate files for each MIDI track. Details <A HREF="node28.html#sect-xtra-tsplit">here</A>.
+
+<P>
+</DD>
+</DL>
+A number of the above command line options are also available from the
+C<SMALL>MD</SMALL>L<SMALL>INE</SMALL> option detailed <A HREF="node30.html#sect-cmdline">here</A>.
+
+<P>
+
+<H1><A ID="SECTION00220000000000000000">
+Lines and Spaces</A>
+</H1>
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  reads a file it processes the lines in various passes. The
+first reading strips out blank lines and comments of the &ldquo;//&rdquo; type.
+
+<P>
+On the initial pass though the file any continuation lines are joined.
+A continuation line is any line ending with a single
+&ldquo; \&rdquo;&mdash;simply, the next line is concatenated to the current
+line to create a longer line.
+
+<P>
+Unless otherwise noted in this manual, the various parts of a line are
+delimited from each other by runs of white space. White space can be
+tab characters or spaces. Other characters may work, but that is not
+recommended, and is really determined by Python's definitions.
+
+<P>
+
+<H1><A ID="SECTION00230000000000000000">
+Programming Comments</A>
+</H1>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is designed to read and write files (including a file piped to
+it via stdin). However, it is not a filter.<A ID="tex2html18"
+  HREF="#foot9433"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A>
+
+<P>
+As noted earlier in this manual, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  has been written entirely in
+Python.There were some initial concerns about the speed of a
+&ldquo;scripting language&rdquo; when the project was started, but Python's
+speed appears to be entirely acceptable. On my long-retired AMD Athlon
+1900+ system running Mandrake Linux 10.1, most songs compiled to MIDI
+in well under one second. A more current system, an Intel i5-8400 @
+2.80GHz, does it in just over one tenth of a second. If you need
+faster results, you're welcome to re-code this program into C or C++,
+but it would be cheaper to buy a faster system, or spend a bit of time
+tweaking some of the more time intensive Python loops.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot9424">...</A><A
+ HREF="node2.html#tex2html13"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>Actually, the file
+  <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test</SPAN></SPAN> or <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test.mma</SPAN></SPAN> is processed. Please read section
+  <A HREF="node33.html#file-extensions">file extensions</A>.
+
+</DD>
+<DT><A ID="foot286">... song.</A><A
+ HREF="node2.html#tex2html14"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>Use of this command is not
+      recommended for creating production MIDI files. A great deal of
+      &ldquo;unused&rdquo; data is included in the files which may create timing
+      problems. The command is designed for quick previews and
+      debugging.
+
+</DD>
+<DT><A ID="foot9426">... users.</A><A
+ HREF="node2.html#tex2html15"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD> A number of the debugging commands can also be
+      set dynamically in a song. See the debug section
+      <A HREF="node28.html#debug">here</A> for details.
+
+</DD>
+<DT><A ID="foot317">... song!</A><A
+ HREF="node2.html#tex2html16"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>500 bars with 4 beats per bar at 200 BPM is about
+      10 minutes.
+
+</DD>
+<DT><A ID="foot9429">... ignored.</A><A
+ HREF="node2.html#tex2html17"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DD>Sub-directories in a directory with a
+      <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN> <SPAN  CLASS="textit">are</SPAN> processed ... they need
+      additional <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMAIGNORE</SPAN></SPAN> entires to ignore.
+
+</DD>
+<DT><A ID="foot9433">... filter.</A><A
+ HREF="node2.html#tex2html18"><SUP><SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
+<DD>It is possible
+  that filter mode for output could be added to 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> , but I'm not
+  sure why this would be needed.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node3.html">Tracks and Channels</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node1.html">Overview and Introduction</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

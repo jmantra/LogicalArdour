@@ -1,0 +1,122 @@
+
+// blues128
+
+Begin Doc
+ A 12/8 blues. Written for "Walk on the Wild Side" This is written in 4/4, so, when figuring
+ tempo use a dotted quarter for the beat count.
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/// Basic
+
+SeqSize 4
+
+Begin Drum-Snare
+	Tone SnareDrum2
+	Sequence { 1 0 30 * 12}
+	Accent 1 100 2 100 3 100 4 100
+	Volume p
+	Rtime 2
+	Rvolume 5
+End
+
+Begin Drum-Kick
+	Tone SideKick
+	Volume pp
+	Sequence { 1 0 70 * 2}
+End
+
+Begin Bass
+	Voice AcousticBass
+	Octave 3
+	Articulate 140
+	Volume m
+	Sequence  {B13; 4.66 8 7- 60}
+End
+
+
+Begin Chord
+	Voice  JazzGuitar
+	Volume p
+    Accent 1 30 3 20
+	Articulate 140
+	Octave 5
+	Voicing Mode=Key
+	Sequence {C13; C24 Shift .66}
+End
+
+DefGroove Blues128       A very simple, relaxed 12/8 blues pattern.
+
+////////////////////
+// Arpeggios
+
+Groove Blues128
+
+Begin Arpeggio
+	Voice Piano1
+	Volume m
+	Octave 5
+	Direction Random
+    Harmony 3Below
+	Range 1
+	Sequence { 1 1 90 * 12}
+	Rskip 50
+	Articulate 120
+End
+
+DefGroove Blues128Plus  Adds arpeggiated piano.
+
+/////////////////////////////////
+// Add in sustained strings
+
+Groove Blues128
+
+Begin Chord-Sus
+	Voice  Organ1
+	Sequence { 1 1 90 0 70 0 * 4 }
+	Voicing Mode=Key
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 10
+	Volume pp
+End
+
+DefGroove Blues128Sus    Add in sustained Organ
+
+Groove Blues128Plus
+Chord-Sus Groove Blues128Sus
+DefGroove Blues128SusPlus  Sustained strings and apreggiating piano.
+
+///////////////////////////////////////////////////
+/// Intro ... 
+
+Groove Blues128
+
+Drum-Snare 	Sequence -
+Drum-Kick   Sequence -
+Chord Sequence L2  /   /   L1
+
+
+DefGroove Blues128Intro  Straight chord/bass intro.
+
+/////////////////////////////////
+/// Ending
+
+Groove Blues128
+SeqSize 2
+
+Drum-Snare  Sequence  * {1 0 40 * 4}
+Drum-Kick   Sequence  *
+Bass        Sequence  * B11
+Walk        Sequence  -
+Chord       Sequence  *  C1234
+
+DefGroove Blues128End    A 2 bar ending.

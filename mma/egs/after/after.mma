@@ -1,0 +1,28 @@
+// Simple AFTER command examples
+
+Groove Rhumba
+
+// A macro with some chord lines
+Mset LNS
+  Am
+  Bm
+  Cm
+  Dm
+  Em
+  Gm
+EndMset
+
+// this inserts a Decresendo after the 4 line in the macro.
+
+After count=4 Decresc  ppp 2
+$lns
+
+// print silly message every 4 bar
+// Note how we use Vexpand to NOT expand the macros until runtime.
+
+Vexpand off
+After  Repeat=4 Print This is between bar $( $_Barnum -1 ) and $_Barnum
+Vexpand on
+
+$LNS
+$LNS

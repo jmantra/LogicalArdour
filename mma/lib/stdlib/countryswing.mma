@@ -1,0 +1,186 @@
+
+// countryswing
+
+Begin Doc
+
+  Quite simple rhythm. I'm not big on country, but this 
+  does seem to fit with "Singing The Blues".
+                
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////////
+///////// Pattern defines
+
+Begin Arpeggio Define
+	Fiddle1   1 2 90 * 2; 2+81 82 80; 3+81 82 80
+	Fiddle2   1 1 90 * 4; 1+81 82 80; 2+81 82 80; 3+81 82 80; 4+81 82 80
+End
+
+
+Begin Drum Define
+	D12+34  D1234 ; 2.5 0 80 
+End
+
+////////////////////////////////////
+/////////////////// CountrySwing
+
+
+SeqSize 4
+
+Begin Chord
+	Sequence      C1234  /  /  {C1234 ; 1.5 16 60 ; 3.5 16 60 }
+	Accent  1 10 
+	RSkip 10
+	Voicing    Mode=Optimal
+	Voice NylonGuitar
+	Volume f
+	Octave 5
+	Strum 4
+	Direction  Both
+	Articulate 99
+End
+
+Begin Bass
+	Voice FingeredBass
+	Sequence   B13  /  /  z
+	Octave 3
+	Articulate 99
+	Volume mp
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence  z  z  z  W1234
+	Articulate 80
+	Volume mp
+End
+
+Begin Drum-HH
+	Sequence   D13  /  /  D1234
+	Tone OpenHiHat
+	RSkip 5
+	Volume pp
+	Rvolume 20
+	Rtime 4
+End
+
+Begin Drum-Snare
+	Sequence  D12+34
+	Tone SnareDrum2
+	Rvolume 20
+	Volume ppp
+	Rtime 3
+End
+
+DefGroove CountrySwing     Marty Robbins might like this.
+
+// Here we could use a bass track since we are only playing
+// single notes in the sustain ... but, using chords gives
+// the advantage of VOICING ... which avoids some awkward jumps.
+// The sequence toggles between root and 5 ONLY.
+
+Begin Chord-Sus
+	Voice Fiddle
+	Sequence { 1 1 90 0 * 4 } { 1 1 0 0 90 0 * 4}
+	Octave 6
+	SeqRnd On
+	Voicing Mode=Optimal
+	Volume ppp
+	Articulate 100
+	Unify On
+End
+
+DefGroove CountrySwingSus   Adds a sustained fiddle to the hoedown.
+
+
+////////////////////////////////
+// CountrySwing1
+// Add a fiddle. Cheesy!
+
+Groove CountrySwing
+
+Begin Arpeggio
+	Sequence     Fiddle1   Fiddle2  
+	RSkip        20
+	Articulate  97 
+	SeqRnd On
+	Voice Violin
+	Range 2
+	Volume p
+	Octave 5
+End
+
+DefGroove CountrySwing1    Adds an annoying fiddle.
+
+Chord-Sus Groove CountrySwingSus
+
+DefGroove CountrySwing1Sus  Now we have 2 fiddlers, one off in wonderland \
+                            and a second playing long notes.
+
+/////  A different fiddler
+
+Groove CountrySwing
+
+Begin Arpeggio
+	Voice Violin
+	Sequence  A8 
+	Harmony OpenAbove
+	Invert 0 1 2 -1
+	Accent 1 10 3 10
+	Rskip 10
+	Articulate  90  80  100  70
+	SeqRnd On
+	Volume ppp
+	Octave 5
+End
+	
+DefGroove CountrySwing2   Same fiddle, but a more sane pattern.
+
+Chord-Sus Groove CountrySwingSus
+
+DefGroove CountrySwing2Sus  A sustained and a random fiddler. Great dance!
+
+////////////////////////////////
+// Introduction
+////////////////////////////////
+
+
+Groove CountrySwing
+
+Alltracks SeqRnd Off
+
+Chord       Sequence      C1234   /    /   {1 2. 80}
+Bass        Sequence      B13     /    /   {1 2 1 80}
+Walk        Sequence      -
+Drum-HH     Sequence      D13     /   /    D14
+Drum-Snare 	Sequence      D12+34  /   /    D1
+
+DefGroove CountrySwingIntro   Simple 4 bar introduction.
+
+////////////////////////////////
+// CountrySwingEnd
+// 2 bar ending, just set everything to a straight 4
+
+Groove CountrySwing
+
+Seqsize 2
+
+Arpeggio   Sequence  -
+Walk       Sequence  -
+Bass       Sequence  B1234   B13
+Chord      Sequence  C1234   C13     
+
+Drum-HH    Sequence  D1234
+Drum-Snare Sequence  D1234   D13     
+
+DefGroove CountrySwingEnd    Simple ending. Hits on each beat on bar 1, \
+                             beats 1 and 3 on bar 2.
+

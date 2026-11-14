@@ -1,0 +1,125 @@
+ // rock2.mma
+
+Begin Doc  
+      Rock2 (041). Hard driving rock beat.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Rvolume 5
+    Sequence {1 0 96; 2.5 0 96; 3.5 0 92; 4.5 0 82} \
+             {1 0 96; 1.5 0 82; 2.5 0 96; 3.5 0 92; 4.5 0 82}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Rvolume 5
+    Sequence {2 0 98; 4 0 98}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Rvolume 5
+    Sequence {1 0 68; 1.5 0 39; 2 0 83; 2.5 0 39; 3 0 68; 3.5 0 39; 4 0 83; 4.5 0 39} 
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Rvolume 5
+    Sequence z    z     z      {4.5 0 57}
+End
+
+Begin Bass-9
+    Voice PickedBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Rvolume 5
+    Sequence {1 8 1 93; 2 16 1 93; 2.5 8 1 93; 3.5 3 1 93; 4 8 5 93; 4.5 3 6 93} 
+End
+
+Begin Chord-6
+    Voice OverdriveGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Rvolume 5
+    Volume mp
+    Sequence {1 6 90; 1.5 32 90; 2 32 90; 2.5 32 90; 3 32 90; 3.5 32 90; 4 6 90; 4.5 3 90} \
+             {1.5 6 90; 2 32 90; 2.5 8 90; 3.5 6 90; 4 6 90; 4.5 6 90}
+End
+
+
+Begin Chord-7
+    Voice MutedGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Rvolume 5
+    Sequence {1 16 90; 1.5 32 90; 2 16 90; 2.5 32 90; 3 6 90; \
+                  3.5 32 90; 4 32 90; 4.5 6 90} \
+             {1 32 90; 1.5 32 90; 2 32 90; 2.5 6 90; 3 32 90; \
+                  3.5 32 90; 4 6 90; 4.5 32 90; 4.8 32 90}
+End
+
+DefGroove Rock2   Main pattern
+
+//////////////////////////////////////////////////////////////////////
+///////// Introduction
+
+Groove Rock2
+
+Drum-KickDrum1   Sequence  *    *    *    D13
+Drum-SnareDrum1  Sequence  *    *    *    D1234
+Drum-ClosedHiHat Sequence  *    *    *    D16
+Drum-OpenHiHat   Sequence  z    z     z   D8
+
+Bass-9           Sequence  *    B1234  *  B1234
+
+// OverdriveGuitar
+Chord-6          Sequence  *    *     *   C1234
+
+// MutedGuitar
+Chord-7          Sequence  *    *     *   C8
+
+DefGroove Rock2Intro  4 bar introduction
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove Rock2
+SeqSize 2
+
+Drum-KickDrum1   Sequence  D1234     D1
+Drum-SnareDrum1  Sequence  *         D1
+Drum-ClosedHiHat Sequence  D16       z
+Drum-OpenHiHat   Sequence  D8        D1
+
+Bass-9           Sequence  B1234    B1
+
+// OverdriveGuitar
+Chord-6          Sequence  *        C1
+
+// MutedGuitar
+Chord-7          Sequence  C8       C1
+
+
+DefGroove Rock2End   2 bar ending
+
+

@@ -1,0 +1,128 @@
+ // dancepop1.mma
+
+Begin Doc  
+      Dance Pop 1 (066). More electronica dance stuff.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 110; 2 0 110; 3 0 110; 4 0 110} \
+             {1 0 110; 2 0 110; 3 0 110; 4 0 110; 4.5 0 110} \
+             
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence {2 0 84; 4 0 84}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 100; 1.5 0 100; 2 0 100; 2.5 0 100; 3 0 100; 3.5 0 100; 4 0 100; 4.5 0 100}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    Sequence {2.75 0 100; 3.25 0 100}
+End
+
+Begin Drum-Cabasa
+    Tone Cabasa
+    Volume m
+    Sequence {1.5 0 53; 2.5 0 53; 3.5 0 53; 4.5 0 53} \
+             {1.5 0 53; 2.5 0 53; 3.5 0 53; 4.5 0 53; 4.75 0 32} \
+             {1.5 0 53; 1.75 0 21; 2.5 0 53; 2.75 0 21; 3.5 0 53; 3.75 0 21; 4.5 0 53; 4.75 0 21} \
+             {1.5 0 53; 1.75 0 21; 2.5 0 53; 2.75 0 21; 3.5 0 53; 3.75 0 21; 4.25 0 21; 4.5 0 53; 4.75 0 21}
+End
+
+Begin Bass-9
+    Voice SynthBass1
+    Octave 3
+    Articulate 100
+    Volume m
+    Rvolume 10
+    Sequence {1 8 1 92; 2 8 1 92; 2.75 6 1 80; 3.5 8 1 92; 4.5 3 5 96} 
+End
+
+Begin Chord-6
+    Voice EPiano
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 2 90} / \
+             {1 2 90; 3.5 32 90} \
+             {1 2 90}
+End
+
+
+Begin Bass-7
+    Voice NylonGuitar
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {1.5 8 1 96; 2 4 5 100; 2.5 8 1 92; 3.5 8 1 88; 4 4 5 96; 4.5 8 1 80}
+End
+
+
+DefGroove DancePop1   Electronic Dance beat.
+
+/////////////////////////////////////////////////////////
+///////  Intro
+
+Groove DancePop1
+
+Drum-KickDrum1   Sequence  *   *   *  D13
+Drum-SnareDrum2  Sequence  *   *   D1234  D2
+Drum-ClosedHiHat Sequence  *   *   DRoll  D1
+Drum-PedalHiHat  Sequence  *   *   *    {2.75 0 100}
+Drum-Cabasa      Sequence  *   *   *    D1
+
+// SynthBass1
+Bass-9  Sequence  B13   *   *  B1
+
+// EPiano
+Chord-6   Sequence *   *   *   C1
+
+// NylonGuitar
+Bass-7 Sequence    *   *   *   z
+
+DefGroove DancePop1Intro   Electronic Dance beat 4 bar intro.
+
+/////////////////////////////////////////////////////////
+///////  Ending
+
+Groove DancePop1
+SeqSize 2
+
+Drum-KickDrum1   Sequence  *      D1
+Drum-SnareDrum2  Sequence  D1234  D1
+Drum-ClosedHiHat Sequence  DRoll  D1
+Drum-PedalHiHat  Sequence  *      z
+Drum-Cabasa      Sequence  *      D1
+
+// SynthBass1
+Bass-9  Sequence  B13    B1
+
+// EPiano
+Chord-6   Sequence *     C1
+
+// NylonGuitar
+Bass-7 Sequence    *      z
+
+DefGroove DancePop1End   Electronic Dance beat 2 bar ending.

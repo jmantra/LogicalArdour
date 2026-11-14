@@ -1,0 +1,281 @@
+// 50srock
+
+Begin Doc
+
+	Most older rock tunes accept these. Try it with songs like 
+    "There's a Kind Of Hush".
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+//////// Additional patterns
+
+
+/////////////
+
+SeqSize 2
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence D1234 
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Clap
+	Tone HandClap
+	Sequence D24
+	Volume pp
+	Rskip 5
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Snare
+	Tone SnareDrum2
+	Sequence D24 { D24; 3.75 0 80}
+	SeqRnd On
+	Volume p
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-HH
+	Tone ClosedHiHat
+	Sequence { D1234; 2.75 0 90; 4.75 0 90}
+	Volume mp
+	Rvolume 5
+	Rtime 5
+	Volume mf
+End
+
+Begin Walk
+	Voice AcousticBass
+	Sequence    W1234  { W1234; 4.75 8 90 }
+	Octave 3
+	Articulate 50
+	Accent 1 10 3 10
+	Rvolume 20
+   	Rtime 10
+	Volume mf
+End
+
+Begin Bass-Sax
+	Voice TenorSax
+	Sequence     B1    B3
+	Articulate 90
+	Octave 4
+	Rvolume 30
+	Volume p
+	Rtime 10
+End
+
+
+Begin Chord-Piano
+	Voice Piano3
+	Sequence  { C1234; 1.75 8 90 ; 3.75 8 90} { C14; 1.75 8 90; 3.75 8 90 }
+	Accent 1 20 3 20
+	Voicing   Mode=Optimal
+	DupRoot -1
+	Articulate 74
+	Rvolume 20
+	Rskip 10
+	Rtime 10
+	Volume mp
+	Octave 5
+End
+
+Begin Chord-Sax
+	Voice TenorSax
+	Sequence    { C2; C3 Shift .75 }   { C1; C3 Shift .75 }
+	Voicing  Mode=Optimal
+	SeqRnd On
+	Articulate 60
+	Octave 5
+	Rvolume 30
+	Volume p
+	Rtime 10
+	Rskip 10
+End
+
+
+DefGroove 50sRock               Your basic rock beat from the 50s.
+
+
+///////////////////////////////////
+//////// Add in sustained strings
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence {1 1 90 0 90 0 * 4}
+	Voicing Mode=Optimal
+	Unify On
+	Volume p
+	Octave 5
+	Articulate 100
+End
+
+DefGroove 50sRockSus           Sustained strings added.
+
+/////////////////////////////////////////////
+/// Plus ... add in some random arps.
+
+Groove 50sRock
+SeqSize 4
+
+Begin Arpeggio
+	Voice CleanGuitar
+	Sequence  {A4; 1.75 8 90; 3.75 8 90} \
+              {A2; 1.75 4 90; 3.75 4 90} \
+              {A4 Shift .75} \
+              {A2; A4 Shift .75}
+    Harmony OpenBelow+OpenAbove
+	Articulate 130
+	Rvolume 0,20
+	Rskip 30
+    Range 1.5
+    SeqRnd ON
+    Direction Random
+	Volume m
+	Octave 5
+End
+
+DefGroove 50sRockPlus  Basic with extra guitar arpeggios.
+
+Groove 50sRockPlus
+Chord-Sus Groove 50sRockSus
+DefGroove 50sRockSusPlus  Basic sustained with arpeggions.
+
+///////////////////////////////
+/// Turn off the shuffle-feel
+
+Groove 50sRock
+
+Begin Drum-Clap
+	Tone HandClap
+	Sequence   D24
+	Rskip 20
+	Rvolume 10
+	Rtime 10
+	Volume mp
+End
+
+Drum-Snare 	Sequence  D24 { D24; 3.5 0 80}
+Drum-HH     Sequence  { D1234 ; 2.5 0 90; 4.5 0 90}
+Walk        Sequence  W1234  { W1234; 4.5 8 90 }
+Chord-Piano	Sequence  C134 C14
+Chord-Sax   Sequence  C23  C13
+
+DefGroove 50sRock1   Cut out most of the shuffle. Good for short \
+                     contrast sections.
+
+Chord-Sus  Groove 50sRockSus
+
+DefGroove 50sRock1Sus   Unshuffled 50s with sustained strings.
+
+Groove 50sRock1
+SeqSize 4
+Begin Arpeggio
+ Groove 50sRockPlus
+ Sequence  A4 A8 A4 A2
+End
+DefGroove 50sRock1Plus   Unshuffled with arpeggios.
+
+Groove 50sRock1Sus
+SeqSize 4
+Arpeggio Groove 50sRock1Plus
+DefGroove 50sRock1SusPlus   Unshuffled with strings and arpeggios.
+
+////////////////////////
+////// Intro
+
+Groove 50sRock
+SeqSize 4
+Alltracks SeqRnd Off
+
+Begin Drum-Kick  
+	Sequence  D1234  /  /  D1234
+	Volume    mp   mp mf fff
+End
+
+Drum-Clap   Sequence  D24    /  /  D1
+Begin Drum-Snare
+	Sequence  {D1234; 2.5 0 90; 4.5 0 90 }  /  /  D1234
+	Volume    p    p  mp  fff
+End
+
+Drum-HH     Sequence  D1234  /  /  D13
+
+Walk        Sequence    {W1234; 4.75 8 90} / /  {1 2 90 }
+
+Begin Bass-Sax
+	Sequence     {1 2 1 90}
+	Octave   3
+	Volume   pp p mp f
+End
+
+Chord-Piano Sequence L1 C24  L1  {1 2 90} 
+
+Chord-Sax   Sequence { C2; C3 Shift .75 } / / {1 2 90}
+
+DefGroove  50sRockIntro		A 4 bar introduction.
+
+
+///// alternate intro without sax bop in bar 4
+
+Groove 50sRock
+SeqSize 4
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence D1234 
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Drum-Clap   Sequence *  *  * {1 0 90; 1.5 0 70; 2 0 80; 2.5 0 70;3 0 100}
+Drum-Snare  Groove 50sRockIntro
+Drum-HH     Sequence *  *  * D123
+
+Walk        Sequence  *  *  *  {1 4 90; 2 2 70}
+Bass-Sax    Sequence  *  *  *  B1
+Begin Chord-Piano
+   Sequence  *  /  /  L1
+   Volume mf
+   Articulate 90
+End
+Chord-Sax   Groove  50sRockIntro
+
+
+DefGroove 50sRockIntro1   Alternate introduction (no big sax bop on bar 4).
+
+//////////////////////////////////
+////////// Simple Ending
+
+Groove 50sRock
+SeqSize 1
+
+Drum-Snare 	 Sequence D24 
+Drum-HH      Sequence D1234
+Walk         Sequence -
+Chord-Sax    Sequence C13
+Bass-Sax     Sequence -
+
+Begin Bass
+	Voice $_Walk_Voice
+	Octave $_Walk_Octave
+	Sequence B13
+	Volume ff
+	Articulate 80
+End
+
+DefGroove 50sRockEnd          Simple, single bar ending.
+

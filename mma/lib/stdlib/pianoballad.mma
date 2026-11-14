@@ -1,0 +1,216 @@
+
+// pianoballad
+
+Begin Doc
+
+ Piano arpeggios with a bit of drum and bass. I wrote this for
+ "Nature Boy".
+  
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////
+/// Basic Pattern
+
+SeqSize 4
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence D123
+	Volume mp
+	Rtime 3
+	RVolume 10
+End
+
+Begin Drum-Side
+	Tone SideKick
+	Sequence D13
+	Volume mp
+	Rtime 3
+	Rvolume 10
+End
+
+Begin Drum-CHiHat
+	Tone ClosedHiHat
+	Sequence D8
+	Volume p
+	Rtime 2
+	Rvolume 10
+End
+
+Begin Bass
+	Voice FingeredBass
+	Volume p
+	Octave 3
+	Articulate 90
+	Sequence  {1 4. 1 90; 2.5 8 1 90; 3 4. 1 90; 4.5 4 5 90} \
+              {1 4. 1 90; 2.5 8 1 90; 3 4  1 90; 4   4 3 90}
+End
+
+Begin Arpeggio-High
+	Voice Piano1
+	Volume mp
+	Articulate 80
+	Octave 5
+	Sequence {1 4 90; 2 8 90; 2.5 8 90; 3 4 90; 4 8 90; 4.5 8 90} \
+             {1 4. 90; 2.5 8 90; 3 4 90; 4 8 90; 4.5 8 90} 
+End
+
+Begin Arpeggio-Low
+	Voice Piano1
+	Volume p
+	Articulate 70
+	Octave 4
+	Sequence  {1 8 90; 1.5 8 90; 2 4 90; 3.5 4 90; 4.5 8 90} \
+              {1 8 90; 1.5 2 90; 3.5 8 90; 4 4 90} 
+End
+
+DefGroove PianoBallad   Simple ballad with drums and piano.
+
+Begin Chord-Piano
+	Voice Piano1
+	Volume p
+	Articulate 100
+	Octave 5
+	Sequence  C1 C13 C3 C1
+End
+
+DefGroove PianoBallad1  Add additional piano chords.
+
+////////////////////////
+/// Sustained version
+
+Groove PianoBallad
+
+// This uses a few tricks. First, a combination of single notes
+// and 2 note chords get created by using different sets of
+// volume lists; the decay is generated via a MIDIVOICE. This
+// will not work on all sequencers.
+
+Begin Chord-Sus
+	Voice Strings
+	MidiVoice { 1 ReleaseTime 80; 1 Chorus 90 }
+    MidiClear   1 ReleaseTime 0; 1 Chorus 0 
+	Volume pp
+	Sequence {1 2. 90 0 90 0; 4.5 16 0 90 0; 4.75 16 0 0 90 0} \
+             {1 1 90 0 90 0 * 4	} \
+             {1 2. 90 0 90 0 ; 4.5 16 0 90 0; 4.75 16 0 0 90 0} \
+             {1 16 90 0; 1.25 16 0 90 0; 1.5 2. 0 0 90 0}
+	Octave 6
+    Unify On
+	Articulate 60 100 60 60
+End
+
+DefGroove PianoBalladSus  Piano arpeggios with a bit of strings.
+
+Groove PianoBallad1
+Chord-Sus  Groove PianoBalladSus
+
+DefGroove PianoBallad1Sus   Piano arpeggios with chords and strings.
+
+
+/// block chords, no arpeggios
+
+Groove PianoBallad
+
+Arpeggio-High Sequence -
+Arpeggio-Low  Sequence -
+
+Begin Chord-Block
+  Voice $_Chord_Voice
+  Octave 6
+  Articulate 70
+  Volume mp
+  Sequence {1 4. 90; 2.5 8 80; 3 2 90} {C12; 3 2 90}
+End
+
+DefGroove PianoBallad2   PianoBallad with added block chords, no arpeggios.
+
+Groove PianoBallad2
+Chord-Sus  Groove PianoBalladSus
+
+DefGroove PianoBallad2Sus   Block chords and strings.
+
+
+//////////////////////
+//// Intro
+
+Groove PianoBallad
+
+Drum-Kick      Sequence  D12 
+Drum-Side 	   Sequence  D13
+Drum-CHiHat    Sequence  D8
+
+Bass           Sequence  *  *  *  { 1 2 1 90 }
+Arpeggio-High  Sequence  *  *  *  A4
+Arpeggio-Low   Sequence  A1 A2 A4 A1
+
+DefGroove PianoBalladIntro   A 4 bar introduction.
+
+/// same intro using block chords
+
+Groove PianoBalladIntro
+
+Arpeggio-High Sequence -
+Arpeggio-Low  Sequence -
+
+Begin Chord-Block
+  Voice $_Chord_Voice
+  Octave 6
+  Articulate 70
+  Volume m
+  Sequence {1 4. 90; 2.5 8 80; 3 2 90} {C12; 3 2 90} / L1
+End
+
+DefGroove PianoBalladIntro2   Simple intro using additional block chords.
+
+/////////////////////////
+// Fill
+
+Groove PianoBallad
+
+Seqsize 2
+
+Drum-Kick      Sequence D13
+//  Drum-Side
+Drum-CHiHat    Sequence D4 
+Bass           Sequence B1234  B11
+Begin Arpeggio-High
+	  Range 2
+	  Direction Down
+	  Sequence A8  A4
+	  Rskip 10
+End
+
+Begin Arpeggio-Low
+	Range 1
+	Direction Down
+//	Sequence  {1 8 90; 1.5 8 90; 2 4 90; 3.5 4 90; 4.5 8 90} \
+  //            {1 8 90; 1.5 2 90; 3.5 8 90; 4 4 90} 
+End
+
+DefGroove  PianoBalladFill    A 2 bar fill.
+
+////////////////////////
+//// Ending
+
+Groove PianoBallad
+
+SeqSize 2
+
+Drum-Kick      Sequence  D1234 D1 
+Drum-Side 	   Sequence  D1234 D12
+Drum-CHiHat    Sequence  D8 { D12 ; D12 Shift .5}
+
+Bass           Sequence  *  { 1 2 1 90 }
+Arpeggio-High  Sequence  A4 A1
+Arpeggio-Low   Sequence  A4 A1
+
+DefGroove PianoBalladEnd    A 2 bar ending.

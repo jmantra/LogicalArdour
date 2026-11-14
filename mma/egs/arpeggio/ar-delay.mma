@@ -1,0 +1,32 @@
+/// Simple demo to show an alternate to guitar stumming
+/// using an apreggio track instead of chord with strum or
+/// a plectrum.
+
+Groove Ballad    /// an existing groove
+
+/// Note: Since the arpeggio track has already been defined
+///       in the ballad groove--we just change it around here
+
+Begin Arpeggio
+   Voice JazzGuitar        /// changed from OrchestralHarp
+   Harmony OpenBelow       /// Added
+   Direction Up / / Random /// Added
+   Volume f                /// Changed from p
+   Articulate 120          /// Changed from 80
+   SeqRnd Off              /// Changed from ON
+   Sequence A8 /  /  A4    /// Changed from A8
+   Delay 20t               /// Added
+   Rskip 0                 /// Changed from 10
+   Rtime 0                 /// Changed from 10
+End
+
+/// Here is our "song". I just grabbed some random chords :)
+
+1 C   /  D
+2 G   /  A
+3 Am  /  Em
+4 Dm  /  Am
+5 D
+6 Fm  /  C
+7 /
+8 Cm  /  C

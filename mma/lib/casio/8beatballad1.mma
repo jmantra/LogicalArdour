@@ -1,0 +1,115 @@
+// 8beatballad1.mma
+
+Begin Doc  
+      8 beat ballad 1 (030). A strumming ballad.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 86; 3 0 90} \
+             {1 0 100; 2.5 0 86; 3 0 90}
+End
+
+Begin Drum-SideKick
+    Tone SideKick
+    Volume m
+    RVolume 10
+    Sequence {2 0 67; 4 0 67} 
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 5
+    Sequence {1 0 63; 1.5 0 63; 2 0 100; 2.5 0 59; 3 0 100; 3.5 0 61; 4 0 100; 4.5 0 61}
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 4 1 92; 2.5 4 1 74; 4.5 3 5 84; 4.8 4 1 92} \
+             {2.5 4 1 92; 4 4 5 77; 4.8 4 1 92} \
+             {2.5 4 1 92; 4.5 3 5 92; 4.8 4 1 92} \
+             {2.5 2 1 84}
+End
+
+Begin Chord-6
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {1 8 90; 2 8 90; 2.8 32 90; 3 8 90; 4 8 90; 4.2 8 90; 4.5 8 90} \
+             {1 8 90; 2 8 90; 2.8 32 90; 3 4 90; 4 4 90; 4.2 8 90; 4.5 16 90; 4.8 6 90} \
+             {1 8 90; 2 8 90; 2.8 6 90; 3 4 90; 4.5 6 90; 4.8 64 90} \
+             {1 8 90; 2 4 90; 3.5 8 90; 3.8 8 90; 4 8 90; 4.2 8 90; 4.5 3 90}
+End
+
+
+Begin Chord-7
+    Voice NylonGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 120
+    Volume m
+    Strum 20
+    Sequence {1.8 2. 80}
+End
+
+DefGroove 8BeatBallad1  A strumming minstrel.
+
+/////////////////////////////////////////////////////
+//// Intro
+
+Groove 8BeatBallad1
+
+Drum-KickDrum1      Sequence  D1234    *     *    D13
+Drum-SideKick       Sequence   *       *     *    D1234
+Drum-ClosedHiHat    Sequence   *       *     *    D1
+
+Bass-9              Sequence   *    *    B1234   B13
+
+// Piano1
+Chord-6             Sequence  *    *    *   C1234
+
+// Nylonguitar
+Chord-7             Sequence  *    *     *    C13
+
+
+DefGroove 8BeatBallad1Intro   4 bar intro.
+
+/////////////////////////////////////////////////////
+//// Ending
+
+Groove 8BeatBallad1
+Seqsize 2
+
+Drum-KickDrum1      Sequence  D1234     D1
+Drum-SideKick       Sequence  D1234     D1
+Drum-ClosedHiHat    Sequence   *        D1
+
+Bass-9              Sequence   *        B1
+
+// Piano1
+Chord-6             Sequence   C1234    {1 2 90}
+
+// Nylonguitar
+Chord-7             Sequence   *        C1
+
+
+DefGroove 8BeatBallad1End
+

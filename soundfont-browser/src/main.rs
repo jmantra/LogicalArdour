@@ -59,7 +59,9 @@ impl BrowserApp {
         };
         if let Some(storage) = cc.storage {
             if let Some(value) = storage.get_string("font_dir") {
-                app.font_dir = value;
+                if PathBuf::from(&value).is_dir() {
+                    app.font_dir = value;
+                }
             }
         }
         app.start_scan();
@@ -302,7 +304,7 @@ fn matches_query(preset: &Preset, query: &str) -> bool {
 }
 
 fn default_font_dir() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../soundfonts")
+    PathBuf::from("/opt/LogicalArdour/soundfonts/soundfonts")
 }
 
 fn scan_directory(directory: PathBuf, tx: std::sync::mpsc::Sender<ScanUpdate>) {

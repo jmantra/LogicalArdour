@@ -1,0 +1,141 @@
+ // 60srock.mma
+
+Begin Doc  
+      60s Rock (046). We'll be dreaming of Marvin Gaye.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 82; 2.5 0 95; 4.5 0 74}
+End
+
+Begin Drum-SideKick
+    Tone SideKick
+    Volume m
+    RVolume 10
+    Sequence {2 0 72; 4 0 72}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 10
+    Sequence {1 0 97; 2 0 74; 3 0 97; 4 0 78}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    RVolume 10
+    Sequence   z    {4.5 0 79} 
+             
+End
+
+Begin Drum-OpenTriangle
+    Tone OpenTriangle
+    Volume m
+    Sequence   {4 0 41}     z
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 100
+    Volume m
+    RVolume 10
+    Sequence {1 3 1 106; 2.5 8 1 106; 4 8 5 106; 4.5 3 6 106}
+End
+
+Begin Chord-6
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 2 90}
+End
+
+
+Begin Chord-7
+    Voice Organ1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {2 32 90; 4 32 90}
+End
+
+
+Begin Chord-8
+    Voice Strings
+    Octave 6
+    Voicing Mode=Key
+    Articulate 100
+    Volume p
+    Sequence {1 2 90}
+End
+
+
+DefGroove 60sRock  Nice 4 bar main pattern
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove 60sRock
+
+Drum-KickDrum1     Sequence  *   *   *  D13
+Drum-SideKick      Sequence  *   *   D1234 *
+Drum-ClosedHiHat   Sequence  *   *   *   D8
+Drum-OpenHiHat     Sequence  z   *   z   D13
+Drum-OpenTriangle  Sequence  *   z   *   D24
+
+Bass-9             Sequence  *   *   *   B11
+
+//  Piano1
+Chord-6            Sequence  *   *   *   C13
+
+//  Organ1
+Chord-7            Sequence  *   *   *   {1 2 40}
+
+// Strings
+Chord-8            Sequence  *   *   *   {1 2. 60}
+
+DefGroove 60sRockIntro   4 bar intro
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove 60sRock
+SeqSize 2
+
+Drum-KickDrum1     Sequence  D1234   D1
+Drum-SideKick      Sequence  *       D1
+Drum-ClosedHiHat   Sequence  DRoll   D1
+Drum-OpenHiHat     Sequence   D1      z 
+Drum-OpenTriangle  Sequence   D24     D1
+
+Bass-9             Sequence  B1234    B1
+
+//  Piano1
+Chord-6            Sequence  *        C1
+
+//  Organ1
+Chord-7            Sequence  *      {1 8 40}
+
+// Strings
+Chord-8            Sequence  *      {1 4 60}
+
+DefGroove 60sRockEnd  A 2 bar ending.
+

@@ -1,0 +1,195 @@
+
+// 68swing
+
+
+Begin Doc
+
+   A swing rhythm in 6/8. This is implemented with 6 beats to the bar. If you want to
+   use solos written in standard notation set the STRETCH variable to 200; or convert
+   the 8th notes to quarters, etc. Since most 6/8 tempos are specified in 2/4 you'll
+   most likely want to use a tempo three times what you might think. Also, note that
+   when setting chord lines you'll want the second
+   chord (which the conductor would beat at ``2'') at position 4 (ie ``C / / G'').
+   Written for ``Hey, Look Me Over''.
+   	
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 6 
+Timesig 6 8
+
+/////////////////////////////////////////
+/// Our basic 6/8 swing, 4 bar pattern
+
+Seqsize 4
+
+Begin Drum-Snare
+	Tone     SnareDrum2
+	Sequence {1 0 90; 3 0 60; 4 0 80; 6 0 60} 
+	Accent 1 20  3 20
+	Volume p
+	Rtime 2
+	Rvolume 5
+End
+
+Begin Drum-Kick
+	Tone SideKick
+	Volume p
+    Sequence  {1 0 90; 4 0 70}
+End
+
+Begin Drum-HH
+	Sequence   { 1 0 60; 3 1 40; 4 0 60; 6 0 40 }
+	Rskip 10
+	Tone  OpenHiHat
+	Volume p
+	Rvolume 10
+	Rtime 10
+End
+
+//  The walk pattern is just bass notes on 1 and 4 (assuming 6/8 time sig);
+//  on the 4th bar we do hits on 1, 3, 4 and 6.
+
+Begin Walk
+    Voice      AcousticBass
+    Volume     m
+    Articulate 90
+    Octave     3
+    Rtime      5
+    Rvolume    5
+    Sequence   {1 4. 90; 4 4. 90}  /   / \
+               {1 4 90; 3 8 80; 4 4 90; 6 8 80} 
+End
+
+/// Piano hits on 1 and 4 (or is that 1-2). On the
+/// 4th bar do a single hit.
+Begin Chord
+    Voice      Piano1
+    Volume     mp
+    Voicing    Mode=Key
+    DupRoot    -1
+    Articulate 80
+    Octave     5
+    Rtime      5
+    Rvolume    5
+    Rskip      5
+    Sequence   {1 4. 90; 4 4. 90} / / {1 2. 90}
+End
+
+DefGroove 68Swing   Basic 6/8 swing time, 2 to the bar chording.
+
+/// Some alternates with different piano timings.
+
+Groove 68Swing
+Chord Sequence  {1 1 90}   /   /   {1 1 94}
+DefGroove 68Swing1   Chord just sounds once per bar.
+
+Groove 68Swing
+Chord Sequence  {1 4 90; 3 8 80; 4 4 90; 6 8 80} / / \
+                {1 8 90; 3 8 80; 4 8 90; 6 8 80} 
+DefGroove 68Swing2   Chord Pattern is 4-8-4-8.
+
+
+////////////////////////////////////////////////////
+// Sustained versions
+
+Groove 68Swing
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence	{ 1 1. 90 0 50 0 * 3 } { 1 1. 50 0 90 0 * 3 }
+	SeqRnd On
+	Voicing Mode=Key
+	Rvolume 10
+	Articulate 100
+	Unify On
+	Volume p
+	Octave 5
+End
+
+DefGroove 68SwingSus   2 to the bar with sustained strings.
+
+Groove 68Swing1
+Chord-Sus Groove 68SwingSus
+DefGroove 68Swing1Sus   Single chord to the bar with strings.
+
+Groove 68Swing2
+Chord-Sus Groove 68SwingSus
+DefGroove 68Swing2Sus   Single chord to the bar with strings.
+
+////////////////////////////////////
+/// Plus, add pseudo melody accomps
+
+Groove 68Swing
+
+Begin Arpeggio
+    Voice JazzGuitar
+    Volume m
+    Articulate 140
+    Octave 6
+    Range .9
+    Rskip 30
+    Rtime 10
+    RVolume 40
+    Direction Up
+    Harmony 3Below
+    Sequence  {1 1. 90 * 2} \
+              {1 2 90 } \
+              {1 4. 90; 3 8. 90; 4 4. 80 } \
+              {1 4. 60; 4 4. 60; 6 4 60}
+
+End
+
+DefGroove 68SwingPlus       Add in a solo guitar to 2-to-the-bar piano.
+
+Groove 68Swing1
+Arpeggio Groove 68SwingPlus
+DefGroove 68Swing1Plus      Solo guitar with 1-to-the-bar piano.
+
+Groove 68Swing2
+Arpeggio Groove 68SwingPlus
+DefGroove 68Swing2Plus      Solo guitar with 4-to-the bar piano.
+
+
+Groove 68SwingSus
+Arpeggio Groove 68SwingPlus
+DefGroove 68SwingSusPlus    Strings and solo guitar with 2-to-the-bar piano
+
+Groove 68Swing1Sus
+Arpeggio Groove 68SwingPlus
+DefGroove 68Swing1SusPlus   Strings and solo guitar with 1-to-the-bar piano
+
+Groove 68Swing2Sus
+Arpeggio Groove 68SwingPlus
+DefGroove 68Swing2SusPlus   Strings and solo guitar with 4-to-the-bar piano
+
+
+//////////////////////////////////////////
+/// Intro
+
+Groove 68Swing
+
+Drum-Snare  Sequence  *  *  {1 0 90 * 6} {1 0 90}
+Drum-Kick   Sequence  *  *  *  {1 0 90}
+Drum-HH     Sequence  *  *  *  {1 0 60; 4 0 40 }
+Walk        Sequence  *  *  {1 4 90; 3 8 80; 4 4 70; 6 8 50} {1 2 90}
+/// Chord     
+
+DefGroove 68SwingIntro   Basic 4 bar introduction.
+
+
+/////////////////////////////////////////////
+//// Ending
+
+Groove 68Swing
+Seqsize 2
+
+Drum-Snare  Sequence  {1 0 90 * 6} {1 0 90}
+Drum-Kick   Sequence  {1 0 90}
+Drum-HH     Sequence  {1 0 60 * 6} {1 0 100}
+Walk        Sequence  {1 4. 90; 4. 2 70} {1 2 90}
+Chord       Sequence  {1 1. 90 * 2} {1 2 90}
+
+DefGroove 68SwingEnd    Simple 2 bar ending.

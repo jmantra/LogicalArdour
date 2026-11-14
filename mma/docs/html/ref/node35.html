@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Frequency Asked Questions</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node36.html">
+<LINK REL="previous" HREF="node34.html">
+<LINK REL="next" HREF="node36.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node36.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node34.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node36.html">Symbols and Constants</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node34.html">Creating Effects</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html764"
+  HREF="node35.html#SECTION003510000000000000000">Chord Octaves</A>
+<LI><A ID="tex2html765"
+  HREF="node35.html#SECTION003520000000000000000">AABA Song Forms</A>
+<LI><A ID="tex2html766"
+  HREF="node35.html#SECTION003530000000000000000">Where's the GUI?</A>
+<LI><A ID="tex2html767"
+  HREF="node35.html#SECTION003540000000000000000">Where's the manual index?</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION003500000000000000000"></A>
+<A ID="sec-faq"></A>
+<BR>
+Frequency Asked Questions
+</H1>
+
+<P>
+This chapter will serve as a container for questions asked by
+some enthusiastic 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  users. It may make some sense in the future to
+distribute this information as a separate file.
+
+<P>
+
+<H1><A ID="SECTION003510000000000000000">
+Chord Octaves</A>
+</H1>
+
+<P>
+<SPAN  CLASS="textit">I've keyed in a song but some of the chords sound way too high
+  (or low).</SPAN>
+
+<P>
+When a real player plays chords he or she adjusts the position of the
+chords so that they don't &ldquo;bounce&rdquo; around between octaves. One way
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tries to do the same is with the &ldquo;Voicing Mode=Optimal&rdquo;
+setting. However, sometimes the chord range of a piece is too large
+for this to work properly. In this case you'll have to use the octave
+adjustments in chords. For more details <A HREF="node14.html#sec-chordadjust">go here</A>.
+
+<P>
+
+<H1><A ID="SECTION003520000000000000000">
+AABA Song Forms</A>
+</H1>
+
+<P>
+<SPAN  CLASS="textit">How can one define parts as part &ldquo;A&rdquo;, part &ldquo;B&rdquo; ... and
+  arrange them at the end of the file? An option to repeat a &ldquo;solo&rdquo;
+  section a number of times would be nice as well.</SPAN>
+
+<P>
+Using 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variables and some simple looping, one might try something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Swing
+<BR>  // Set the music into a 
+<BR>  // series of macros
+<BR>
+mset A
+<BR>&nbsp;&nbsp;Print Section A
+<BR>&nbsp;&nbsp;C
+<BR>&nbsp;&nbsp;G
+<BR>
+endmset
+<BR>
+mset B
+<BR>&nbsp;&nbsp;print Section B
+<BR>&nbsp;&nbsp;Dm
+<BR>&nbsp;&nbsp;Em
+<BR>
+endmset
+<BR>
+mset Solo
+<BR>&nbsp;&nbsp;Print Solo Section $Count
+<BR>&nbsp;&nbsp;Am / B7 Cdim
+<BR>
+endmset
+<BR>  // Use the macros for an
+<BR>  // "A, A, B, Solo * 8, A"
+<BR>  // form
+<BR>  $A
+<BR>  $A
+<BR>  $B
+<BR>
+set Count 1
+<BR>
+label a
+<BR>&nbsp;&nbsp;$solo
+<BR>&nbsp;&nbsp;inc COUNT
+<BR>&nbsp;&nbsp;if le $count 8
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;goto A
+<BR>&nbsp;&nbsp;endif
+<BR>  $A
+<BR></B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that the &ldquo;Print&rdquo; lines are used for debugging purposes. The case
+of the variable names has been mixed to illustrate the fact that
+&ldquo;Solo&rdquo; is the same as &ldquo;SOLO&rdquo; which is the same as &ldquo;solo&rdquo;.
+
+<P>
+Now, if you don't like things that look like old BASIC program code,
+you could just as easily duplicate the above with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Swing
+<BR>
+repeat
+<BR>&nbsp;&nbsp;repeat
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Print Section A
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;C
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;G
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;If Def count
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eof
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Endif
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Endrepeat
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Print Section B
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Dm
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Em
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Set Count 1
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Repeat
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Print Solo $Count
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Am
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inc Count
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Repeatending 7
+<BR>&nbsp;&nbsp;Repeatend
+<BR>
+Repeatend   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The choice is up to you.
+
+<P>
+It's easy to get lost in what lines are being processed. Use the
+&ldquo;-L&rdquo; command line option for a commentary. You must have each line
+numbered for this work!
+
+<P>
+
+<H1><A ID="SECTION003530000000000000000">
+Where's the GUI?</A>
+</H1>
+
+<P>
+<SPAN  CLASS="textit">I really think that 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is a cool program. But, it needs a
+  <SPAN  CLASS="textit">GUI</SPAN>.  Are you planning on writing one? Will you help me if I
+  start to write one?</SPAN>
+
+<P>
+Thanks for the kind comments! The author likes 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  too. A lot!
+
+<P>
+Some attempts have been made to write a number of <SPAN  CLASS="textit">GUI</SPAN>s for
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .  But, nothing seemed to be much more useful than the existing
+text interface. So, why waste too much time? There is nothing wrong with
+graphical programming interfaces, but perhaps not in this case.
+
+<P>
+But, I may well be wrong. If you think it'd be better with a
+<SPAN  CLASS="textit">GUI</SPAN> ... well, this is open source and you are more than
+welcome to write one. If you do, I'd suggest that you make your
+program a front-end which lets a user compile standard 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  files. If
+you find that more error reporting, etc. is required to interact
+properly with your code, let me know and I'll probably be quite
+willing to make those kind of changes.
+
+<P>
+
+<H1><A ID="SECTION003540000000000000000">
+Where's the manual index?</A>
+</H1>
+
+<P>
+Yes,this manual needs an index. I just don't have the time
+to go though and do all the necessary work. Is there a volunteer?
+
+<P>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node36.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node34.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node36.html">Symbols and Constants</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node34.html">Creating Effects</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

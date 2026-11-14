@@ -1,0 +1,202 @@
+
+This is the initial doc file for the new ARIA track. The plan is to
+incorporate this into the main documentation once the command settles
+down. In the meantime I really do want feedback. Thanks.
+
+Purpose:
+
+The new ARIA tracks are designed to let MMA auto generate
+something resembling melody. Honest, this will never put real
+composers on the unemployment line (well, no more than they are mostly
+there already).
+
+You might want to use an ARIA to embellish a section of a song (like
+an introduction or an ending). Or you can have MMA generate a complete
+melody over the song chords.
+
+
+Theory:
+
+In a traditional song the melody depends on two parts: patterns
+(IE. note lengths, volume, articulation) and pitch (usually determined
+by the chords in a song). If you have been using MMA at all you will
+know that that chords are the building block of what MMA does
+already. So, to generate a melody we just need some kind of
+pattern. And, since MMA already uses patterns in most things it
+does, it is a short step to use a specialized pattern to generate a
+melody.
+
+It might serve to look at the two sample song files enclosed in this
+package. Compile them and play them. Not to bad?
+
+Now, let's get into the command set. In addition to the existing
+tracks, there is a new ARIA track defined. Just like other tracks, you
+can create as many ARIAs as you want. So, you can have the tracks
+Aria-1, Aria, and Aria-silly all at the same time.
+
+Most of the commands which you can apply to the other tracks also
+apply to ARIAs. This includes things like VOICE, RTIME, VOLUME, HARMONY, etc.
+
+A few things work differently:
+
+PATTERN - the pattern definition for an ARIA is <Offset Length
+Volume>. Much like a Scale pattern.
+
+RANGE - Just like scale tracks. A RANGE of 2 would let MMA work on a 2
+octave chord, etc.
+
+SCALETYPE: Much like a scale track. By default, the setting for this
+is CHORD. But, you can use AUTO, SCALE or CHROMATIC. AUTO and SCALE
+are identical and force MMA to select notes from the scale associated
+with the current chord; CHROMATIC generates an 11 tone scale starting
+at the root note of the chord.
+
+DIRECTION: As MMA processes the song it moves a note-selection pointer
+up or down. By default DIRECTION is set to the single value "1" which
+tells MMA to add 1 after each note is generated. However, you can set
+the value to an integer -4 to 4 or the special value "r". With "r" a
+random value -1, 0 or 1 will be used.
+
+To further confuse, you can have a list of values for direction. Note
+that this this has nothing to do with the sequence size! So, look at
+this:
+
+		Aria Direction 0 0 1 2 4 -2 r r 1 -1
+
+Now, if we have a piece with only Cmajor chord the following notes
+would be generated:
+
+     Event     Offset Pointer    Note
+      1           0               c
+      2           0               c
+      3           1               e
+      4           3 -> 0          c
+      5           4 -> 0          c
+      6           -2 -> 2         g
+      7           random          c,e,g
+      8           random          c,e,g
+      9            ....    etc.
+
+But, if you were to change the SCALETYPE to SCALE you would get a
+completely different series.
+
+Things to try:
+
+- use seqrnd in an ARIA for a less predictable pattern.
+
+- use HARMONYONLY with a 2nd voice.
+
+Other Changes:
+
+The 'z' notation has been expanded with a 'CHORDzR' (like 'zS', etc) to
+disable an aria for specific beats.
+
+PROBLEMS and CAVEATS:
+
+1. ARIAs are NOT saved or modified by GROOVE commands. Well, almost
+... the sequence size will be adjusted to match the new size from the
+groove. This might be unexpected:
+
+  - load a groove. Let's say it has a seqsize of 4.
+  - create a ARIA. Use 4 patterns to match the groove size (if you
+     don't MMA will expand the sequence size for the ARIA stuff, just
+     like other tracks).
+  - Process a few bars of music.
+  - Load a new groove, but this time with a seqsize of 2. Now, the
+     ARIA will be truncated. This behaviour is duplicated in other
+     tracks as well, but it might be unexpected here.
+
+2. DIRECTION can not be changed on a bar per bar basis. It applies to
+the entire sequence. Probably not an issue.
+
+3. The timing for the elements in the sequence are  hard
+coded when you create the pattern. Example:
+
+	   Aria Pattern {1 1 90 * 4}
+
+will generate 1/4 notes on each beat. What if you want to have some
+1/4, some 1/8 and some 1/2? Well, right now you can do this by having
+3 different patterns and using a random selection. But, this is not
+ideal. Suggestions?
+
+
+3. The current method of doing all this is quite ugly. I have thought
+that it might make some sense to save ARIAs with GROOVEs ... but
+probably not. After all, the pattern _I_ think sounds great with a
+bossanova might just suit you idea of rock. So, saving ARIAs as part
+of a groove will probably not happen. I think it would limit things
+too much.
+
+So, how do I see these things being used? One simple way might be to
+have a ARIA directory. Easy to have this as a subdir in the existing
+"includes" directory. Now, for each aria you create, make a
+directory. So, let's assume you create something to sound like Joplin
+(Scott, not Janis). And, we'll further assume that the pattern has 4
+built in styles. First off, create a directory
+"includes/joplin". Next, create 5 files with some example code. First
+off the main file which sets the voicing, etc.
+
+FILE: includes/aria/joplin/main
+
+--------------
+
+seqsize 4
+Begin Aria
+   Voice Piano3
+   Volume f
+   Articulate 120
+   Harmony Open+8Below  /  / 8Below
+   Octave 6
+   Rskip 10
+   Rtime 10
+   Rvolume 20
+   Direction r 0 0 1 -1 0 0 1 r
+   ScaleType Chord / / Auto
+End
+
+-----------------
+
+Next, the specific stuff for pattern 1:
+
+FILE: includes/joplin/pat1
+
+-----------------------
+
+Include joplin/main     /// this will load the aria voicing, etc.
+
+Aria Sequence {1.5 8 90; 2 8 90; 2.5 8 90; 3 8 90; 3.5 8 90; 4 8 90; 4.5 8 90} \
+               {1 8 90; 1.5 8 90; 2 8 90; 2.5 8 90; 3 8 90; 3.5 8 90; 4 4 90 }
+
+-------------------
+
+Do similar stuff for patterns 2, 3 and 4.
+
+
+Now, in your song you can do something like:
+
+--------------
+
+Tempo 120
+Groove Swing
+Include joplin/pat1  /// note, we're including the settings AND the pattern
+.....
+
+include joplin/pat3
+....
+
+
+Comments on this will be accepted!!! Better ideas will be gratefully
+accepted!!!!!
+
+
+NOTE: I thought that it might be handy to be able to copy an
+existing sequence/pattern (eg. the CHORD sequence) and use that for
+the aria sequence. Matter of fact, I got it running ... but it's quite
+useless since it just really duplicates the specified pattern and
+notes and doesn't add enough interesting notes to be worthwhile. Just
+a dead end. So, the code has been dumped.
+
+
+
+
+

@@ -1,0 +1,30 @@
+
+Starting in this version the CHANGES files will be split out. A new file will be
+ created for each release.
+
+Changed the search paths for the modules, libs and includes to include "c:\mma". This should
+ make life easier for Windows users. For RC files, added "c:\mma\mmarc".
+
+Changed the command line options a bit. '-Dx' is gone, replaced with '-Dxl' and '-Dxh'. The
+ first generates Latex docs, the 2nd html. This also led to some html code generation writing.
+
+The binary distribution now has the text files in a separate directory. This is tidier and
+ it resolves conflicts with files like 'install' and 'INSTALL' in non-case-sensitive
+ environments.
+
+The program 'mklibdoc.py' and a README has been included in the utils directory of the
+ binary distro. This will update the HTML version of the library docs.
+
+In SCALE/ARPEGGIO tracks you can now use a fractional value for RANGE. See the docs.
+
+Added the document chords.pdf to the distribution tree. This shows the chords/scales used
+  in musical notation. Good for debugging chord errors.
+
+The install has changed a bit. I've renamed the old install script to cp-install and
+ included a new ln-install script. This just creates a link is probably an easier
+ method to use.
+
+The base distribution now includes the html documentation.
+
+
+October 15, 2006 -- released 1.0-RC2

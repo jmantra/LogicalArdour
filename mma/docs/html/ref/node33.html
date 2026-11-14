@@ -1,0 +1,1569 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Paths, Files and Libraries</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node34.html">
+<LINK REL="previous" HREF="node32.html">
+<LINK REL="next" HREF="node34.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node34.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node32.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node34.html">Creating Effects</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node32.html">Documentation Strings</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><A ID="tex2html744"
+  HREF="node33.html#SECTION003301000000000000000">
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Modules</A>
+<LI><A ID="tex2html745"
+  HREF="node33.html#SECTION003302000000000000000">Special Characters In Filenames</A>
+<LI><A ID="tex2html746"
+  HREF="node33.html#SECTION003303000000000000000">Tildes In Filenames</A>
+<LI><A ID="tex2html747"
+  HREF="node33.html#SECTION003304000000000000000">Filenames and the Command Line</A>
+</UL>
+<BR>
+<LI><A ID="tex2html748"
+  HREF="node33.html#SECTION003310000000000000000">File Extensions</A>
+<LI><A ID="tex2html749"
+  HREF="node33.html#SECTION003320000000000000000">Eof</A>
+<LI><A ID="tex2html750"
+  HREF="node33.html#SECTION003330000000000000000">LibPath</A>
+<LI><A ID="tex2html751"
+  HREF="node33.html#SECTION003340000000000000000">MIDIPlayer</A>
+<LI><A ID="tex2html752"
+  HREF="node33.html#SECTION003350000000000000000">Groove Previews</A>
+<LI><A ID="tex2html753"
+  HREF="node33.html#SECTION003360000000000000000">OutPath</A>
+<LI><A ID="tex2html754"
+  HREF="node33.html#SECTION003370000000000000000">Include</A>
+<LI><A ID="tex2html755"
+  HREF="node33.html#SECTION003380000000000000000">IncPath</A>
+<LI><A ID="tex2html756"
+  HREF="node33.html#SECTION003390000000000000000">Use</A>
+<LI><A ID="tex2html757"
+  HREF="node33.html#SECTION0033100000000000000000">MmaStart</A>
+<LI><A ID="tex2html758"
+  HREF="node33.html#SECTION0033110000000000000000">MmaEnd</A>
+<LI><A ID="tex2html759"
+  HREF="node33.html#SECTION0033120000000000000000">RC Files</A>
+<LI><A ID="tex2html760"
+  HREF="node33.html#SECTION0033130000000000000000">Library Files</A>
+<UL>
+<LI><A ID="tex2html761"
+  HREF="node33.html#SECTION0033131000000000000000">Maintaining and Using Libraries</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION003300000000000000000"></A>
+<A ID="sec-paths"></A>
+<BR>
+Paths, Files and Libraries
+</H1>
+
+<P>
+This chapter covers 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  filenames, extensions and a variety of
+commands and/or directives which effect the way in which files are
+read and processed.
+
+<P>
+
+<H2><A ID="SECTION003301000000000000000"></A>
+<A ID="sec-defaultpaths"></A>
+<BR>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Modules
+</H2>
+First a few comments on the location of the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  Python modules.
+
+<P>
+The Python language (which was used to write 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> ) has a very useful
+feature: it can include other files and refer to functions and data
+defined in these files. A large number of these files or modules are
+included in every Python distribution. The program 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  consists of
+a short &ldquo;main&rdquo; program and several &ldquo;module&rdquo; files. Without these
+additional modules 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will not work.
+
+<P>
+The only sticky problem in a program intended for a wider audience is
+where to place these modules. Hopefully, it is a &ldquo;good thing&rdquo; that
+they should be in one of several locations. On a Linux (and Mac)
+system the following locations are checked:
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/usr/local/share/mma/MMA</SPAN></SPAN>
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/usr/share/mma/MMA</SPAN></SPAN>
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">./MMA</SPAN></SPAN>
+</LI>
+</UL>
+
+<P>
+on Mac the same path as Linux is used, with the addition of:
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/Users/Shared/mma/MMA</SPAN></SPAN>
+</LI>
+</UL>
+
+<P>
+and on a Windows system:
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">c:</SPAN></SPAN>\<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma</SPAN></SPAN>\<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMA</SPAN></SPAN>
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">c:</SPAN></SPAN>\<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">Program Files</SPAN></SPAN>\<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma</SPAN></SPAN>
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">.</SPAN></SPAN>\<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">MMA</SPAN></SPAN>
+</LI>
+</UL>
+
+<P>
+To make it possible to have multiple installations of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  (most
+likely for testing), a check is made to see the modules are present in
+the home of the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  executable. This is stored in the Python system
+variable sys.path[0].<A ID="tex2html138"
+  HREF="#foot9619"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>
+
+<P>
+Additionally it is possible to place the modules in your python-site
+directory. If, when initializing itself, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  cannot find the needed
+modules it will terminate with an error message.
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  assumes that the default include and library directories are
+located in the above listed directories as well. If these can't be
+found a warning message will be displayed.
+
+<P>
+If you really need to, you can modify this in the main <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma.py</SPAN></SPAN>
+script.
+
+<P>
+
+<H2><A ID="SECTION003302000000000000000">
+Special Characters In Filenames</A>
+</H2>
+
+<P>
+In all the following sections we refer to various forms of
+&ldquo;filename&rdquo; and &ldquo;path&rdquo;. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  parses files and uses various forms
+of &ldquo;whitespace&rdquo;<A ID="tex2html139"
+  HREF="#foot6074"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> to separate different parts of
+commands. This means that you cannot, easily, include space characters
+in a filename embedded in a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  source file. But, you can, if
+needed. When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses a path or filename it first transforms any
+sequences of the literal &ldquo;\x20&rdquo; into &ldquo;space&rdquo;
+characters.
+
+<P>
+If you are on a Windows or Mac platform you may need to use the space
+feature, if not for filenames, for paths.
+
+<P>
+For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetMidiPlayer C:\Program\x20Files\Windows\x20Player  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this example we are setting our MIDI player to
+&ldquo;C:\Program&nbsp;Files\Windows&nbsp;Player&rdquo;. The
+&ldquo;\x20&rdquo;s are converted to space characters.
+
+<P>
+When running 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  on a Windows platform you don't need to use the
+rather ugly &ldquo;\&rdquo;s since Python will conveniently
+convert paths with normal &ldquo;forward&rdquo; slash characters to something
+Windows understands.
+
+<P>
+A common mistake made, especially by users on Windows platforms, is
+using quote characters to delimit a filename. <SPAN  CLASS="textbf">Don't use
+  quotation marks!</SPAN> 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  doesn't see anything special in quotes and
+the quote characters will be assumed to be part of a filename ...
+and it won't work.
+
+<P>
+
+<H2><A ID="SECTION003303000000000000000">
+Tildes In Filenames</A>
+</H2>
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetOutPath ~/music/midies  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this case the &ldquo;~&rdquo; is replaced with the path of the
+current user (for details see the Python documentation for
+<SPAN  CLASS="textit">os.path.expanduser()</SPAN>). The result of tilde expansions is system
+dependent and varies between Linux, Mac, and Windows. For details
+please refer to the Python documentation for <SPAN  CLASS="textit">os.path.expanduser()</SPAN>.
+
+<P>
+The case of a filename is relevant if your system supports
+case-sensitive filenames. For example, on a Linux system the names
+&ldquo;file.mid&rdquo; and &ldquo;File.MID&rdquo; refer to different files; on a Windows
+system they refer to the same file. An overview of this can be found
+at <kbd><A ID="tex2html140"
+  HREF="https://en.wikipedia.org/wiki/Filename#Letter_case_preservation">https://en.wikipedia.org/wiki/Filename#Letter_case_preservation</A></kbd>.
+
+<P>
+
+<H2><A ID="SECTION003304000000000000000">
+Filenames and the Command Line</A>
+</H2>
+
+<P>
+Please note that the above discussion, especially the parts concerning
+embedded spaces, applies only to file and path names in a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  source
+file. If you want to compile a <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">.mma</SPAN></SPAN> file with a space character
+it is not a problem. From the command line:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma "my file"  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+works just fine ... but note that we used quotation marks to tell
+the shell, not 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> , that &ldquo;my file&rdquo; is one name, not two.
+
+<P>
+
+<H1><A ID="SECTION003310000000000000000"></A> <A ID="file-extensions"></A>
+<BR>
+File Extensions
+</H1>
+
+<P>
+For most files the use of a the file name extension &ldquo;.mma&rdquo; is
+optional. However, it is suggested that most files (with the
+exceptions listed below) have the extension present. It makes it much
+easier to identify 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  song and library files and to do selective
+processing on these files.
+
+<P>
+In processing an input song file 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  can encounter several
+different types of input files. For all files, the initial search is
+done by adding the file name extension &ldquo;.mma&rdquo; to file name (unless
+it is already present), then a search for the file as given is done.
+
+<P>
+For files included with the U<SMALL>SE</SMALL> directive, the directory set
+with <SMALL>SET</SMALL>L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> is first checked, followed by the current
+directory.
+
+<P>
+For files included with the I<SMALL>NCLUDE</SMALL> directive, the directory
+set with <SMALL>SET</SMALL>I<SMALL>NC</SMALL>P<SMALL>ATH</SMALL> is first checked, followed by the current
+directory.
+
+<P>
+Following is a summary of the different files supported:
+
+<P>
+<DL>
+<DT><STRONG>Song Files</STRONG></DT>
+<DD>The input file specified on the command line should
+  always be named with the &ldquo;.mma&rdquo; extension. When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  searches
+  for the file it will automatically add the extension if the file
+  name specified does not exist and doesn't have the extension.
+
+<P>
+</DD>
+<DT><STRONG>Library Files</STRONG></DT>
+<DD>Library files <SPAN  CLASS="textit">really should</SPAN> all be named
+  with the extension. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will find non-extension names when used
+  in a U<SMALL>SE</SMALL> or I<SMALL>NCLUDE</SMALL> directive. However, it will not
+  process these files when creating indexes with the &ldquo;-g&rdquo; command
+  line option&mdash;these index files are used by the G<SMALL>ROOVE</SMALL>
+  commands to automatically find and include libraries.
+
+<P>
+</DD>
+<DT><STRONG>RC Files</STRONG></DT>
+<DD>As noted in the RC-File discussion
+  <A HREF="#sec-rc">(here)</A> 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will
+  automatically include a variety of &ldquo;RC&rdquo; files. You can use the
+  extension on these files, but common usage suggests that these files
+  are probably better without.
+
+<P>
+</DD>
+<DT><STRONG>MMAstart and MMAend</STRONG></DT>
+<DD>
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will automatically include files at
+  the beginning or end of processing (<A HREF="#sec-mmaend">start/end
+    details</A>). Typically these files are
+  named MMA<SMALL>START</SMALL> and MMA<SMALL>END</SMALL>. Common usage is to
+  <SPAN  CLASS="textit">not</SPAN> use the extension if the file is in the current
+  directory; use the file if it is in an &ldquo;includes&rdquo; directory.
+
+<P>
+</DD>
+</DL>
+
+<P>
+One further point to remember is that filenames specified on the
+command line are subject to wild-card expansion via the shell you are
+using.
+
+<P>
+
+<H1><A ID="SECTION003320000000000000000">
+Eof</A>
+</H1>
+
+<P>
+Normally, a file is processed until its end. However, you can
+short-circuit this behavior with the E<SMALL>OF</SMALL> directive. If 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+finds a line starting with E<SMALL>OF</SMALL> no further processing will be
+done on that file ... it's just as if the real end of file was
+encountered. Anything on the same line, after the E<SMALL>OF</SMALL>, is also
+discarded.
+
+<P>
+You may find this handy if you want to test process only a part of a
+file, or if you making large edits to a library file. It is often used
+to quit when using the L<SMALL>ABEL</SMALL> and G<SMALL>OTO</SMALL> directives to
+simulate constructs like <SPAN  CLASS="textit">D.C. al Coda</SPAN>, etc.
+
+<P>
+
+<H1><A ID="SECTION003330000000000000000"></A> <A ID="libpath"></A>
+<BR>
+LibPath
+</H1> 
+
+<P>
+The search for library files can be set with the LibPath variable. To
+set L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL>:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetLibPath PATH  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can have as many paths in the S<SMALL>ET</SMALL>L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> directive as you
+want.
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  starts up it sets the library path to the first valid
+directory in the list:
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/usr/local/share/mma/lib</SPAN></SPAN>
+
+<P>
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/usr/share/mma/lib</SPAN></SPAN>
+
+<P>
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">./lib</SPAN></SPAN>
+
+<P>
+</LI>
+</UL>
+
+<P>
+The last choice lets you run 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  directly from the distribution
+directory.
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  initializes it will force the directory <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">stdlib</SPAN></SPAN> to
+be the first directory in the list. It will also display a warming
+message if <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">stdlib</SPAN></SPAN> is not found. If the path is changed later by
+the user, the user's order will be honored. No check for <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">stdlib</SPAN></SPAN>
+being present is made.
+
+<P>
+You are free to change this to any other location(s) in a
+<A HREF="#sec-rc">RCFile</A>. Remember that the
+previous setting is lost. If you just want to add directories, use a
+macro. Example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetLibPath&nbsp;/mymma $_LibPath   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will add the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mymma</SPAN></SPAN> directory in your HOME directory to the
+search path.
+
+<P>
+L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> is used by the routine which auto-loads grooves from
+the library, and the U<SMALL>SE</SMALL> directive. The -g and -G command line
+options are used to maintain the library
+<A HREF="node2.html#g-option">database</A>).
+
+<P>
+The current setting can be accessed via the macro $_L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL>.
+
+<P>
+One useful trick is to set the L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> to limit G<SMALL>ROOVE</SMALL>
+selection to a specific library. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>set c $_LibPath + /casio 
+<BR>
+setLibPath $c   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that you need to do this in two steps since it's only the
+<SMALL>SET</SMALL> command that recognizes string concatenation.
+
+<P>
+A better way to have your own personal grooves checked first might be:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>set c $_LibPath + mylib 
+<BR>
+setLibPath $c $_LibPath  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+which is set <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mylib</SPAN></SPAN> to be the first directory checked for a
+groove.
+
+<P>
+
+<H1><A ID="SECTION003340000000000000000"></A> <A ID="midiplayer"></A>
+<BR>
+MIDIPlayer
+</H1> 
+
+<P>
+When using the -P command line option 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses the MIDI file player
+defined with S<SMALL>ET</SMALL>MIDI<SMALL>PLAYER</SMALL> to play the generated file. By
+default the program is set to &ldquo;aplaymidi&rdquo; on Linux, &ldquo;open&rdquo; on Mac,
+and an empty file on Windows. You can change this to a different
+player:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetMIDIplayer /usr/local/kmid  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You will probably want to use this command in an RC file.
+
+<P>
+It is permissible to include command options as well. So, for example,
+on Linux you might do:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetMIDIplayer timidity -a  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Command line options with an &ldquo;=&rdquo; are permitted, so long as they
+<SPAN  CLASS="textit">do not</SPAN> start with an alpha character. So,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetMIDIplayer aplaymidi &ndash;port=12:3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will work.
+
+<P>
+To set to an empty name, just use the command with no arguments:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetMIDIplayer  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+An empty filename On a Linux host will generate an error if you
+attempt to preview a file with the -P command line option; on Windows
+hosts the empty string instructs Windows to use the default player for
+the generated MIDI file.
+
+<P>
+There are two additional settings for the MIDI file player:
+
+<P>
+
+<UL>
+<LI>In a Windows environment the player will be forked as a
+  background process and 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will wait for a set time.
+
+<P>
+</LI>
+<LI>In a Unix environment the player will be forked in the
+  foreground and 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will wait for the player to terminate.
+</LI>
+</UL>
+
+<P>
+You can change the above behavior with the B<SMALL>ACKGROUND</SMALL> and
+D<SMALL>ELAY</SMALL> options.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetMidiPlayer BackGround=1 Delay=4 myplayer -abc   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In the above example the player is forced to play as a background
+process with a delay time of 4 seconds. The player name is set to
+&ldquo;myplayer&rdquo; with an option string of &ldquo;-abc&rdquo;.
+
+<P>
+and,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetMidiPlayer BackGround=0 Delay=4   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set the player name to &ldquo;&rdquo; (which is only valid in a Windows
+environment) and force it to play in the foreground. In this case the
+delay setting will have no effect.
+
+<P>
+The B<SMALL>ACK</SMALL>G<SMALL>ROUND</SMALL> option can be set with &ldquo;1&rdquo; or &ldquo;Yes&rdquo; and
+unset with &ldquo;0&rdquo; or &ldquo;No&rdquo;. No other values are valid.
+
+<P>
+Note that when setting player options the player name is required
+(otherwise it is set to &ldquo;&rdquo;).
+
+<P>
+
+<H1><A ID="SECTION003350000000000000000"></A> <A ID="groovepreview"></A>
+<BR>
+Groove Previews
+</H1>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  comes with well over 1500 (and increasing!) different grooves
+in its standard libraries. Determining which to use in your song can
+be quite a chore. For this reason a special &ldquo;preview&rdquo; command line
+option has been included. To use it, first decide on which
+G<SMALL>ROOVE</SMALL> you'd like to listen to. Then, from a terminal or other
+command line interface, type a command like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -V bolero  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This will create a short (4 bar) file with a G<SMALL>ROOVE </SMALL>B<SMALL>OLERO</SMALL>
+command and some chords. This file will then be played in the same
+manner as the <SPAN  CLASS="textbf">-P</SPAN> command line option. If you don't hear the
+file being played or if you get an error message, please refer to the
+S<SMALL>ET</SMALL>M<SMALL>IDI</SMALL>P<SMALL>LAYER</SMALL> section, above.
+
+<P>
+In addition to using a default set of chords, etc. you can customize
+the preview with some command line options. Note that each of these
+options can be placed anywhere on the line in any order. Nothing in
+the options (except chord names) is case sensitive. Each of the
+commands must have an <SPAN  CLASS="textbf">=</SPAN> and contain no spaces:<A ID="tex2html141"
+  HREF="#foot6204"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>
+
+<P>
+<DL>
+<DT><STRONG>Count</STRONG></DT>
+<DD>set the number of bars to create/play. The default is 4.
+
+<P>
+</DD>
+<DT><STRONG>Chords</STRONG></DT>
+<DD>set the chords to use. The chords must be in the form of
+  a list with commas separating the chord names. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chords=A,Gm,C,D7   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+By default we use:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chords=I,vi,ii,V7   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+A generic introduction notated in Roman numerals.
+
+<P>
+</DD>
+</DL>
+
+<P>
+Any other 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  command can be inserted in a <SPAN  CLASS="textbf">-V</SPAN> line. For
+example, to play a 4 bar sequence in the key of <SPAN  CLASS="textbf">G</SPAN> with a
+tempo of 144:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -V mambo2 Chords=I,I,V7,III Tempo=144 KeySig=G   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The supplied utility <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma-gb.py</SPAN></SPAN> makes extensive use of this
+command set.
+
+<P>
+With the extended <SMALL>GROOVE</SMALL> name extension, (<A HREF="node6.html#extended-groove">more
+  details</A>) you can preview grooves from
+files not yet in the library (or database). Assuming you are working
+on a new library file in your current directory, just issue a command
+like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -V ./newfile:newgroove   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can skip the leading &ldquo;./&rdquo; in the path, but it forces a bit more
+verbiage frm 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
+
+<P>
+
+<H1><A ID="SECTION003360000000000000000"></A> <A ID="setoutpath"></A>
+<BR>
+OutPath
+</H1> 
+
+<P>
+MIDI file generation is to an automatically generated filename
+(<A HREF="node2.html#sec-running">more details</A>). If the
+O<SMALL>UT</SMALL>P<SMALL>ATH</SMALL> variable is set, that value will be prepended to the
+output filename. To set the value:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetOutPath PATH  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Just make sure that &ldquo;PATH&rdquo; is a simple path name. The variable is
+case sensitive (assuming that your operating system supports case
+sensitive filenames). This is a common directive in a RC file
+(<A HREF="#sec-rc">more details</A>). By default, it
+has no value.
+
+<P>
+You can disable the O<SMALL>UT</SMALL>P<SMALL>ATH</SMALL> variable quite simply: just issue
+the command without an argument.
+
+<P>
+If the name set by this command begins with a &ldquo;.&rdquo;, &ldquo;/&rdquo; or
+&ldquo; \&rdquo; it is prepended to the complete filename specified on
+the command line. For example, if you have the input filename
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">test.mma</SPAN></SPAN> and the output path is
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">˜/mids</SPAN></SPAN> &mdash;the output file will
+be <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/home/bob/mids/test.mid</SPAN></SPAN>.
+
+<P>
+If the name doesn't start with the special characters noted in the
+preceding paragraph the contents of the path will be inserted before
+the filename portion of the input filename. Again, an example: the
+input filename is <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma/rock/crying</SPAN></SPAN> and the output path is
+&ldquo;midi&rdquo;&mdash;the output file will be <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma/rock/midi/crying.mid</SPAN></SPAN>.
+
+<P>
+The current setting can be accessed via the macro $_OutPath.
+
+<P>
+Note that this option is ignored if you use the <A HREF="node2.html#f-option">-f
+  command line option</A> or
+if an absolute name for the input file (one starting with a &ldquo;/&rdquo; or a
+&ldquo;~&rdquo;) is used.
+
+<P>
+
+<H1><A ID="SECTION003370000000000000000"></A>
+<A ID="sec-include"></A>
+<BR>
+Include
+</H1>
+
+<P>
+Other files with sequence, pattern or music data can be included at
+any point in your input file. There is no limit to the level of
+includes.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Include Filename  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+A search for the file is done in the I<SMALL>NC</SMALL>P<SMALL>ATH</SMALL> directories (see
+below) and the current directory. The &ldquo;.mma&rdquo; filename extension is
+optional (if a filename exists both with and without the &ldquo;.mma&rdquo;
+extension, the file with the extension will be used).
+
+<P>
+The use of this command should be quite rare in user files; however,
+it is used extensively in library files to include standard patterns.
+
+<P>
+
+<H1><A ID="SECTION003380000000000000000"></A> <A ID="incpath"></A>
+<BR>
+IncPath
+</H1> 
+
+<P>
+The search for include files can be set with the I<SMALL>NC</SMALL>P<SMALL>ATH</SMALL>
+variable. To set I<SMALL>NC</SMALL>P<SMALL>ATH</SMALL>:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetIncPath PATH  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can have as many paths in the S<SMALL>ET</SMALL>I<SMALL>NC</SMALL>P<SMALL>ATH</SMALL> directive as you
+need.
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  initializes it sets the include path to first found
+directory in:
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/usr/local/share/mma/includes</SPAN></SPAN>
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/usr/share/mma/includes</SPAN></SPAN>
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">./includes</SPAN></SPAN>
+
+<P>
+</LI>
+</UL>
+
+<P>
+The last location lets you run 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  from the distribution directory.
+
+<P>
+If this value is not appropriate for your system, you are free to
+change it in a RC File. If you need to add a second directory to this
+list, remember that previous settings are lost. So, to add a local
+path you can do something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetIncPath&nbsp;/mymma/incs $_IncPath  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+to insert a local path into the path.
+
+<P>
+The current setting can be accessed via the macro $_IncPath.
+
+<P>
+
+<H1><A ID="SECTION003390000000000000000"></A> <A ID="lib-use"></A>
+<BR>
+Use
+</H1> 
+
+<P>
+Similar to I<SMALL>NCLUDE</SMALL>, but a bit more useful. The U<SMALL>SE</SMALL>
+command is used to include library files and their predefined grooves.
+
+<P>
+Compared to I<SMALL>NCLUDE</SMALL>, U<SMALL>SE</SMALL> has important features:
+
+<P>
+
+<UL>
+<LI>The search for the file is done in the paths specified by the
+  LibPath variable,
+
+<P>
+</LI>
+<LI>The current state of the program is saved before the library
+  file is read and restored when the operation is complete.
+
+<P>
+</LI>
+</UL>
+
+<P>
+Let's examine each feature in a bit more detail.
+
+<P>
+When a U<SMALL>SE</SMALL> directive is issued,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>use stdlib/swing   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  first attempts to locate the file &ldquo;stdlib/swing&rdquo; in the
+directories specified by L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> or the current directory. As
+mentioned above, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  automatically added the &ldquo;.mma&rdquo; extension to
+the file and checks for the non-extension filename if that can't be
+found.
+
+<P>
+If things aren't working out quite right, check to see if the filename
+is correct. Problems you can encounter include:
+
+<P>
+
+<UL>
+<LI>Search order: you might be expecting the file in the current
+  directory to be used, but the same filename exists in the
+  L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL>, in which case that file is used.
+
+<P>
+</LI>
+<LI>Not using extensions: Remember that files <SPAN  CLASS="textit">with</SPAN> the
+  extension added are first checked.
+
+<P>
+</LI>
+<LI>Case: The filename is <SPAN  CLASS="textit">case sensitive</SPAN>. The files &ldquo;Swing&rdquo;
+  and &ldquo;swing&rdquo; are not the same. Since most things in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  are case
+  insensitive, this can be an easy mistake to make.
+
+<P>
+</LI>
+<LI>Quotes: <SPAN  CLASS="textit">DO NOT</SPAN> put quotation marks around the filename!
+
+<P>
+</LI>
+</UL>
+
+<P>
+As mentioned above, the current state of the compiler is saved during
+a U<SMALL>SE</SMALL>. 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  accomplishes this by issuing a slightly modified
+D<SMALL>EF</SMALL>G<SMALL>ROOVE</SMALL> and G<SMALL>ROOVE</SMALL> command before and after the
+reading of the file. Please note that I<SMALL>NCLUDE</SMALL> doesn't do this.
+But, don't let this feature fool you&mdash;since the effects of defining
+grooves are cumulative you <SPAN  CLASS="textit">really should</SPAN> have S<SMALL>EQ</SMALL>C<SMALL>LEAR</SMALL>
+statements at the top of all your library files. If you don't you'll
+end up with unwanted tracks in the grooves you are defining.
+
+<P>
+<SPAN  CLASS="textit">In most cases you will not need to use the U<SMALL>SE</SMALL> directive
+  in your music files.</SPAN> If you have properly installed 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  and keep
+the database up-to-date by using the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -g  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+grooves from library files will be automatically found and loaded.
+Internally, the U<SMALL>SE</SMALL> directive is used, so existing states are
+saved.
+
+<P>
+If you are developing new or alternate library files you will find the
+U<SMALL>SE</SMALL> directive handy.
+
+<P>
+
+<H1><A ID="SECTION0033100000000000000000"></A> <A ID="MMAstart"></A>
+<BR>
+MmaStart
+</H1> 
+
+<P>
+If you wish to process a certain file or files before your main input
+file, set the M<SMALL>MA</SMALL>S<SMALL>TART</SMALL> filename in an RCFile. For example, you
+might have a number of files in a directory which you wish to use
+certain P<SMALL>AN</SMALL> settings. In that directory, you just need to have
+a file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> which contains the following command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>MmaStart setpan  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The actual file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">setpan</SPAN></SPAN> has the following directives:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Pan 0 
+<BR>
+Bass1 Pan 0 
+<BR>
+Bass2 Pan 0 
+<BR>
+Walk Pan 0 
+<BR>
+Walk1 Pan 0 
+<BR>
+Walk2 Pan 0   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+So, before each file in that directory is processed, the P<SMALL>AN</SMALL>
+for the bass and walking bass voices are set to the left channel.
+
+<P>
+If the file specified by a M<SMALL>MA</SMALL>S<SMALL>TART</SMALL> directive does not exist a
+warning message will be printed (this is not an error).
+
+<P>
+Also useful is the ability to include a generic file with all the MIDI
+files you create. For example, you might like to have a MIDI reset at
+the start of your files&mdash;simple, just include the following in your
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> file:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>MMAstart reset  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This includes the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">reset.mma</SPAN></SPAN> located in the &ldquo;includes&rdquo;
+directory (<A HREF="#incpath">IncludePath</A>).
+
+<P>
+Multiple MMA<SMALL>START</SMALL> directives are permitted. The files are
+processed in the order declared. You can have multiple filenames on a
+MMA<SMALL>START</SMALL> line.
+
+<P>
+One caution with MMA<SMALL>START</SMALL> files: the file is processed after
+the RC file, just before the actual song file.
+
+<P>
+
+<H1><A ID="SECTION0033110000000000000000"></A> <A ID="sec-mmaend"></A>
+<BR>
+MmaEnd
+</H1> 
+
+<P>
+Just the opposite of M<SMALL>MA</SMALL>S<SMALL>TART</SMALL>, this command specifies a file to
+be included at the end of a main input file. See the comments above
+for more details.
+
+<P>
+To continue this example, in your <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> file you would have:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>MmaEnd nopan  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and in the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">nopan</SPAN></SPAN> have:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Pan 64 
+<BR>
+Bass1 Pan 64 
+<BR>
+Bass2 Pan 64 
+<BR>
+Walk Pan 64 
+<BR>
+Walk1 Pan 64 
+<BR>
+Walk2 Pan 64   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+If the file specified by a M<SMALL>MA</SMALL>E<SMALL>ND</SMALL> directive does not exist a
+warning message will be printed (this is not an error).
+
+<P>
+Multiple MMA<SMALL>END</SMALL> directives are permitted and processed in the
+order declared. You can have multiple filenames on a MMA<SMALL>END</SMALL>
+line.
+
+<P>
+
+<H1><A ID="SECTION0033120000000000000000"></A>
+<A ID="sec-rc"></A>
+<BR>
+RC Files
+</H1>
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  starts it checks for initialization files. Only the first
+found file is processed. The following locations/files are checked (in
+order):
+
+<P>
+
+<OL>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> &mdash; this is a normal file in the current directory.
+
+<P>
+</LI>
+<LI>~<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/.config/mma/mmarc</SPAN></SPAN> &mdash; a file in the user's home
+  configuration directory.
+
+<P>
+</LI>
+<LI>~<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/.mmarc</SPAN></SPAN> &mdash; this is an &ldquo;invisible&rdquo;
+  file in the user's home directory.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/usr/local/etc/mmarc</SPAN></SPAN>
+
+<P>
+</LI>
+<LI><SPAN  CLASS="texttt"><SPAN  CLASS="textbf">/etc/mmarc</SPAN></SPAN>
+
+<P>
+</LI>
+</OL>
+
+<P>
+<SPAN  CLASS="textbf"> <SPAN  CLASS="textit">Only the first</SPAN></SPAN> found file will be processed. This
+means you can override a &ldquo;global&rdquo; RC file with a user specific one.
+If you just want to override some specific commands you might want to:
+
+<P>
+
+<OL>
+<LI>Create the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> in a directory with 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  files,
+
+<P>
+</LI>
+<LI>As the first line in that file have the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>include ~/.mmarc   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+to force the inclusion of your global stuff,
+
+<P>
+</LI>
+<LI>Now, place your directory specific commands in your custom RC
+  file.
+</LI>
+</OL>
+
+<P>
+By default, no RC files are installed. If you have enabled debugging
+(-d) a warning message will be displayed if no RC file is found.
+
+<P>
+An alternate method for using a different RC file is to specify the
+name of the file on the command line by using the <SPAN  CLASS="textit">-i</SPAN> option
+<A HREF="node2.html#i-option">(here)</A>. Using this option
+you can have several RC files in a directory and compile your songs
+differently depending on the RC file you specify.
+
+<P>
+The RC file is processed as a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  input file. As such, it can
+contain anything a normal input file can, including music commands.
+However, you should limit the contents of RC files to things like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>SetOutPath 
+<BR>
+SetLibPath 
+<BR>
+MMAStart 
+<BR>
+MMAEnd   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+A useful setup is to have your source files in one directory and MIDI
+files saved into a different directory. Having the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN>
+in the directory with the source files permits setting O<SMALL>UT</SMALL>P<SMALL>ATH</SMALL>
+to the MIDI path.
+
+<P>
+
+<H1><A ID="SECTION0033130000000000000000"></A> <A ID="lib-files"></A>
+<BR>
+Library Files
+</H1>
+
+<P>
+Included in this distribution are a number of predefined patterns,
+sequences and grooves. They are in different files in the &ldquo;lib&rdquo;
+directories.
+
+<P>
+The library files should be self-documenting. A list of standard file
+and the grooves they define is included in the separate document,
+supplied in this distribution as &ldquo;<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma-lib.ps</SPAN></SPAN>&rdquo;.
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  maintains a database file in each directory found in the
+<SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma/lib</SPAN></SPAN> directory structure. These are invisible files with the
+name <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">.mmaDB</SPAN></SPAN>. When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  starts up it sets a path list
+containing the names of each directory found in <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma/lib</SPAN></SPAN>. When a
+G<SMALL>ROOVE</SMALL> is needed 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will look in the database files for
+each directory. The directory <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma/lib/stdlib</SPAN></SPAN> will be checked
+first.
+
+<P>
+
+<H2><A ID="SECTION0033131000000000000000"></A> <A ID="library-maint"></A>
+<BR>
+Maintaining and Using Libraries
+</H2>
+
+<P>
+The basic 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  distribution comes with a set of pattern or style
+files which are installed in the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma/lib/stdlib</SPAN></SPAN> directory. Each
+one of these files has a number of G<SMALL>ROOVE</SMALL>s defined in them. For
+example, the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma/lib/stdlib/rhumba.mma</SPAN></SPAN> contains the
+grooves <SPAN  CLASS="textit">Rhumba</SPAN>, <SPAN  CLASS="textit">RhumbaEnd</SPAN> and many more.
+
+<P>
+If you are writing G<SMALL>ROOVE</SMALL>s with the intention of adding them to
+the standard library you should ensure that none of the names you
+choose duplicate existing names already used in the same
+directory.<A ID="tex2html142"
+  HREF="#foot9627"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
+
+<P>
+If you are creating a set of alternate grooves to duplicate the
+existing library you might do the following:
+
+<P>
+
+<OL>
+<LI>Create a directory with your name or other short id in the
+  <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma/lib/</SPAN></SPAN> hierarchy. For example, if your name is &ldquo;Bob van
+  der Poel&rdquo; you might create the directory <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mma/lib/bvdp</SPAN></SPAN>.
+  <SPAN  CLASS="textit">Alternately</SPAN> you might create a new directory in your own user
+  tree and add that name to L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> in your <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> file
+  (see above for details).
+
+<P>
+</LI>
+<LI>Place all your files (or modified files) in that directory.
+
+<P>
+</LI>
+<LI>Now, when your song wants to use a groove, you have two choices:
+
+<P>
+
+<UL>
+<LI>Include the file with the U<SMALL>SE</SMALL> directive. For example,
+    if you have created the file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">rock.mma</SPAN></SPAN> and want to use the
+    <SMALL>GROOVE</SMALL> <SPAN  CLASS="textit">rock8</SPAN> you would place the directive U<SMALL>SE
+      BVDP/ROCK</SMALL> near the top of the song file. Note: it might not be
+    apparent from the typeface here, but the filename here is all
+    <SPAN  CLASS="textit">lowercase</SPAN>. In Unix/Linux case is important, so please make
+    sure of the case of the filenames in commands like U<SMALL>SE</SMALL>.
+
+<P>
+</LI>
+<LI>Alternately you can enable the groove using extended groove
+    names with the directive G<SMALL>ROOVE BVDP/ROCK:ROCK8</SMALL>.
+
+<P>
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>Tell 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  about your new file(s) and G<SMALL>ROOVES</SMALL> by
+  updating the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  database with the -g or -G<A ID="tex2html143"
+  HREF="#foot6399"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A> command line options. If you elect this route,
+  remember that the order for the paths in L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> is
+  important. If the filename or groove names duplicate material in the
+  <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">stdlib</SPAN></SPAN> you may be better off forcing the include by doing a
+  U<SMALL>SE</SMALL> ... a trick to set things up so that <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">stdlib</SPAN></SPAN> is
+  NOT searched first is to use the S<SMALL>ET</SMALL>L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> command in a
+  <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> file to set your collection to the top of the list. See
+  <A HREF="#libpath">here</A> for details.
+
+<P>
+Example: Assume you have created a new &ldquo;bossanova&rdquo; file. To force
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to use this, a simple method is:
+
+<P>
+
+<UL>
+<LI>Create a user directory outside of the default 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  library
+    tree. This is important! If you have both <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">stdlib</SPAN></SPAN> and
+    <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mystuff</SPAN></SPAN> directories in the default library path,
+    <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">stdlib</SPAN></SPAN> will be searched first ... not what you want.
+
+<P>
+</LI>
+<LI>Let 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  know about your new collection by updating the
+    <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">mmarc</SPAN></SPAN> file with an updated L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> (see above).
+
+<P>
+</LI>
+<LI>Update the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  database with the command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$ mma -g  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+this needs to be done when you add new G<SMALL>ROOVE</SMALL> names to your
+    file.
+
+<P>
+</LI>
+</UL>
+
+<P>
+</LI>
+</OL>
+
+<P>
+For those who &ldquo;really need to know&rdquo;, here are the steps that 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+takes when it encounters a G<SMALL>ROOVE</SMALL> command:
+
+<P>
+
+<OL>
+<LI>if the named groove has been loaded/created already 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  just
+  switches to the internal version of that groove.
+
+<P>
+</LI>
+<LI>if the groove can't be found in memory, a search of the groove
+  databases (created with the -g command line option) is done. If no
+  database is in memory it is loaded from the directories pointed to
+  by the L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> variables. These databases are then searched
+  for the needed G<SMALL>ROOVE</SMALL>. The databases contain the filenames
+  associated with each G<SMALL>ROOVE</SMALL> and that file is then read with
+  the same routines that U<SMALL>SE</SMALL> uses.
+
+<P>
+</LI>
+</OL>
+
+<P>
+The databases are files <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">.mmaDB</SPAN></SPAN> stored in each sub directory of
+L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL>. This is a &ldquo;hidden&rdquo; file (due to the leading &ldquo;.&rdquo; in
+the filename). You cannot change the name of this file. Sub-directores
+are processed in turn.
+
+<P>
+If a library file you create depends on G<SMALL>ROOVES</SMALL> from another
+library file you will need to load that library file with a U<SMALL>SE</SMALL>
+directive. This is due to limitation is the -g/-G update commands.
+
+<P>
+By using a U<SMALL>SE</SMALL> directive you force the loading of your set of
+grooves.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot9619">... sys.path[0].</A><A
+ HREF="node33.html#tex2html138"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>The system variable sys.path[] is a
+  list. The first entry is not necessarily the same as <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">&ldquo;.&rdquo;</SPAN></SPAN>.
+
+</DD>
+<DT><A ID="foot6074">... &ldquo;whitespace&rdquo;</A><A
+ HREF="node33.html#tex2html139"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>Whitespace is defined by Python to include
+  space characters, tabs, etc. Again, refer to the Python
+  documentation if you need details.
+
+</DD>
+<DT><A ID="foot6204">... spaces:</A><A
+ HREF="node33.html#tex2html141"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>The
+reason for the &ldquo;=&rdquo; and the other restrictions are mainly to protect
+your arguments from the underlying shell.
+
+</DD>
+<DT><A ID="foot9627">...
+directory.</A><A
+ HREF="node33.html#tex2html142"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>When you update the database with the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  -g/G
+  command a list of files containing duplicate groove definition names
+  will be displayed. It would not be a big chore to verbosely display
+  each and every duplication, but it would most likely generate too
+  much noise to be useful.
+
+</DD>
+<DT><A ID="foot6399">... -G</A><A
+ HREF="node33.html#tex2html143"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DD>-G
+    forcefully deletes the existing database files to ensure a
+    complete update.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node34.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node32.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node34.html">Creating Effects</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node32.html">Documentation Strings</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+// Muting voices/tracks for selected beats
+
+// Please refer to the manual section "Musical Data Format" --> Rests(muting)
+
+// It is easy to mute a track(s) for a select number of beats or bars.
+// Certainly, it is easy to do this when creating a GROOVE, but sometimes
+// that is a bit of overkill :)
+//
+// For a simple example, let's assume we have a nice little groove running
+// using the Swing predefined library. In this example, we have 4 bars a simple
+// pattern...
+
+Groove Swing
+1  C
+2  F
+3  C
+4  G7
+
+// Great. But, now we decide that the first 2 beats of bar 4 should
+// not have a drummer (I don't know why! She's a great drummer!)...
+// Just use the "z" notation
+
+1  C
+2  F
+3  C
+4  G7zD / G7
+
+// The notation can be a bit confusing, let's see if we can clearify
+
+// 1. A single "z" means turn off everything EXCEPT the drum.
+// 2. You can have a number of modifiers following the "z",
+//     ! - turn off everything including the drum
+//     and of of C, A, S, W, B, R, P or D representing various tracks:
+//       C - Chord
+//       B - Bass
+//       A - Arpeggio
+//       W - Walk
+//       D - Drum
+//       S - Scale
+//       R - Aria
+//       P - Plectrum
+//
+// Important to remember: you can have many different tracks of the same type in
+//  a groove. You might have 2 different Bass tracks ... !B will turn off all of them
+//  and you can't use this shortcut to specify one.
+
+// Back to our example, we could turn off the Drum and the Chords for beats 1 and 2
+// in bar 4:
+
+
+1  C
+2  F
+3  C
+4  G7zCD / G7
+
+// To add to the beauty, you can create neat solos by ONLY playing a
+// particular track. Again, in bar 4 we could just have the bass playing:
+
+1  C
+2  F
+3  C
+4  G7z!+BW / G7
+
+// Note, we've using BW to force playing of Bass and Walk tracks since they are
+// often using together in grooves.
+
+
+
+
+
+

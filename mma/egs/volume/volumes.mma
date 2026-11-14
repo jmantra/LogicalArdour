@@ -1,0 +1,105 @@
+// Demo file to show effects of different volume/ratio settings
+
+
+Print
+Print This file generates a few chords and solo notes.
+Print Not much in the way of nice music, but the idea
+Print is to demo how different volume combinations work.
+Print
+Print For all of this we are going to use a CHORD pattern
+Print simply defined as 4 quarter notes.
+
+Begin Chord 
+	// No Volume ... use default of "M"
+	Sequence {1 1 90 * 4}  // simple 4 quarters
+	Voice JazzGuitar
+	Octave 5
+	Articulate 80
+End
+
+Print 
+Print First off, just play a bar of C chord.
+Print
+
+ C
+BeatAdjust 1
+
+Print Now, apply a crescendo from PP to FF over 4 bars
+Print
+
+Cresc pp ff 4
+
+Repeat
+Print Volume == $_Volume
+ C 
+RepeatEnd 4
+BeatAdjust 1
+
+Print
+Print Now, we add a solo line. This is just a bit of mary's lamb
+Print To be way too cute, we include the volume settings as lyric events.
+Print Look at the source ... it's all done with macros :) 
+
+Lyric Split=Bar
+Vexpand Off
+Set Vo  Main $_Volume Solo $_Solo_Volume 
+Mset Mary
+ F {4a;g;f;g;}    [ Volume Ratio $_VolumeRatio  $Vo ]
+ / {4a; ; 2;}     [ $Vo ]
+ C7 {4g; ; 2;}    [ $Vo ] 
+ F  {4a; c+; 2;}  [ $Vo ]
+ BeatAdjust 1
+EndMset
+Vexpand On
+
+Begin Solo
+	Voice Trumpet
+	Articulate 90
+	Harmony Open
+	Octave 5
+End
+
+
+Volume M
+Solo Volume Mf
+ 
+$Mary
+
+Print
+Print Now, the same but with a different volume ratio ...
+Print The ratio of 80 gives the track setting in Solo more beef
+
+AdjustVolume ratio=80
+
+$Mary
+
+Print
+Print Opposing Cresc and Decresc with normal ratio restored.
+
+AdjustVolume Ratio=60
+
+Solo Cresc p f 4
+Decresc f p 4
+
+$Mary
+
+Print
+Print Same with the track ratio increased
+
+AdjustVolume Ratio=80
+
+Solo Cresc p f 4
+Decresc f p 4
+
+$Mary
+
+Print
+Print Finally, with the track volume set to 40
+
+AdjustVolume Ratio=60
+
+Solo Cresc p f 4
+Decresc f p 4
+
+$Mary
+

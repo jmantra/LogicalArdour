@@ -1,0 +1,215 @@
+/// afro-cuban.mma
+
+Begin Doc
+ 
+   Afro-cuban rhythm in 6/8 time. Pretty much completely from Victor Lopez (Latin Rhythms).
+
+   This probably isn't the greatest Afro-Cuban rhythm ... but it does sound fairly
+   descent. If you understand this stuff, please help!!
+
+   This is implemented as a 3/4 time, which means that your 6/8 melody notes will fit in perfectly.
+
+End
+
+
+Author Bob van der Poel 
+
+SeqClear
+Time 3
+Timesig 6 8
+
+Include stdpats34
+
+///////////////////////////////
+// Basic pattern
+
+Seqsize 4
+
+Begin Drum-Clave
+    Tone Claves
+    Sequence { 1 0 90; 2 0 90; 3.5 0 90 }
+    Volume m
+    Rtime 5
+    Rvolume 5
+End
+
+Begin Drum-Maraca
+    Tone Maracas
+    Sequence D6
+    Volume mp
+    Rtime 5
+    Rvolume 5
+End
+
+Begin Drum-Cow
+    Tone Cowbell
+    Sequence { 1 0 90; 2 0 90; 3 0 90; 3.5 0 90 } \
+             { 1.5 0 90; 2.5 0 90; 3.5 0 90 }
+    Volume mf
+    Rtime 5
+    Rvolume 5
+End
+
+Begin Drum-Conga
+    Tone OpenHighConga
+    Sequence D6
+    Volume mp
+    Rtime 5
+    Rvolume 5
+End
+
+Begin Drum-Shaker
+    Tone Shaker
+    Sequence { 1 0 70; 2 0 70;2.5 0 60;3.5 0 60 } \
+             { 1 0 70; 1.5 0 70;2.5 0 70; 3 0 70; 3.5 0 70 }
+    Volume m
+    Rtime 5
+    Rvolume 5
+End
+
+Begin Bass
+    Voice AcousticBass
+    Volume m
+    Octave 3
+    Articulate 90
+    Rtime 5
+    Rvolume 5   
+    Sequence { 1 4 1 90; 2 8. 5 90; 3 8 1+ 80; 3.5 8 5 80 } \
+             { 1 4 1 90; 2 4 3 90; 3 4 5 90 } \
+             { 1 4 1 90; 2 4 5 90; 3 8 1+ 80; 3.5 8 5 80 } \
+             { 1 4 1 90; 2 8 5 90; 2.5 8 3 80; 3 4 1 90 }
+End
+
+Begin Chord
+    Voice Piano1
+    Articulate 90
+    Voicing Mode=Key
+    Octave 5
+    Volume m
+    Sequence { 1 4 90; 2 2 90 } \
+             { 1 8 90; 1.5 8 90; 2.5 4. 90 } \
+             { 1 4 90; 2 4. 90; 3.5 8 90 } \
+             { 1.5 8 90; 2.5 4. 90 }
+    Rskip 20
+End
+
+DefGroove Afro-Cuban   Basic 6/8 Afro-Cuban style.
+
+//////////////////////////////////////////////////////////////////
+/// Introduction ... just the basic pattern with the 4th bar offering
+/// a bang for your money.
+
+Groove Afro-Cuban
+
+Drum-Clave  Sequence   *  *   *   { 1 0 90; 1.5 0 85; 2 0 80; 2.5 0 70; 3 0 100}
+Drum-Maraca Sequence   *  *   D3  D1
+Drum-Cow    Sequence   D1 
+Drum-Conga  Sequence   *  *   *   D3
+Drum-Shaker Sequence   *  *   *   D3
+
+Begin Bass
+   Sequence  *  *  * { 1 8 5 90; 2 8 3 80; 3 8 2 70; 3.5 8 1 90}
+   Volume fff
+   Octave 4
+End
+Chord  Sequence  L1 C123 L1 C13
+
+DefGroove Afro-CubanIntro  A 4 bar introduction
+
+//////////////////////////////////////////////////////////////////
+/// A sustained version ... well, added organ so it sort of counts
+/// as sus.
+
+Groove Afro-Cuban
+
+Begin Chord-Sus
+    Voice Organ1
+    Volume p
+    Articulate 90
+    Octave 5 / 6 /
+    Sequence {1 8 90; 2.5 16 90; 3.5 2. 80} z 
+End
+
+DefGroove Afro-CubanSus  Add in an jazz organ sound
+
+//////////////////////////////////////////////////////////////////
+/// A PLUS version. Just bring in the trumpet player and let him do
+/// a little showing off
+
+Groove Afro-Cuban
+
+Begin Arpeggio
+     Voice MutedTrumpet
+     Volume m
+     Harmony 3Above
+     Octave 5
+     Range 2
+     Direction Random
+     RSkip   50
+     Articulate  100
+     Sequence  A6  A3  {1 4 90; 2.5 1 90} A1
+End
+
+DefGroove Afro-CubanPlus  Basic pattern with articulating trumpet
+
+Groove Afro-CubanPlus
+ Begin Chord-Sus
+    Groove Afro-CubanSus
+    Volume 80%
+ End
+DefGroove Afro-CubanSusPlus  Organ and muted trumpet.
+
+//////////////////////////////////////////////////////////////////
+/// A one bar drum heavy fill
+
+Groove Afro-Cuban
+
+SeqSize 1
+
+Drum-Clave  Sequence   D13
+Drum-Maraca Sequence   D12
+Drum-Cow    Sequence   D123
+Drum-Conga  Sequence   D13
+Drum-Shaker Sequence   D6
+
+Begin Drum-Whistle
+      Tone ShortHiWhistle
+      Sequence D123
+      Volume f
+End
+
+Begin Bass
+   Sequence  { 1 8 1 90 * 4 }
+   Volume ff
+   Octave 4  
+End
+
+Chord  Sequence  -
+
+
+DefGroove Afro-CubanFill  A 1 bar fill
+
+
+//////////////////////////////////////////////////////////////////
+/// Our 2 bar ending
+
+Groove Afro-Cuban
+
+SeqSize 2
+
+Drum-Clave  Sequence   D3   D1
+Drum-Maraca Sequence   D3   D1
+Drum-Cow    Sequence   D1
+Drum-Conga  Sequence   D3   D1
+Drum-Shaker Sequence   D6   D1
+
+Begin Bass
+   Sequence  { 1 4. 1 90 }
+   Volume ff
+   Octave 4  3
+End
+
+Chord  Sequence  L1  C1
+
+
+DefGroove Afro-CubanEnd  A 2 bar ending

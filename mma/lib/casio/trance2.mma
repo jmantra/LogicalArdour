@@ -1,0 +1,166 @@
+ // trance2.mma
+
+Begin Doc  
+      Trance2 (051). Upbeat electronica (again, I have no idea).
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    Sequence {1.25 0 69; 2.5 0 60; 2.75 0 65; 3.25 0 55; 3.5 0 59} \
+             {1.25 0 75; 2.5 0 66; 2.75 0 65; 3.25 0 76} \
+             {1.25 0 69; 2.5 0 60; 2.75 0 65; 3.25 0 55; 3.5 0 59; 4.5 0 61} \
+             {1.25 0 75; 2.5 0 66; 2.75 0 65; 3.25 0 76}
+End
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    RVolume 10
+    Sequence {1 0 123; 2 0 124; 3 0 125; 4 0 123; 4.5 0 123}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    RVolume 20
+    Sequence {2 0 105; 4 0 96}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 20
+    Sequence {1 0 101; 1.3 0 109; 2 0 93; 2.25 0 66; 3 0 69; 4 0 64} 
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    RVolume 20
+    Sequence {1.5 0 71; 2.5 0 116; 3.5 0 93; 4.5 0 85} 
+End
+
+Begin Drum-Cabasa
+    Tone Cabasa
+    Volume m
+    RVolume 10
+    Sequence {1.5 0 101; 2.5 0 103; 3.5 0 112; 4.5 0 108}
+End
+
+Begin Drum-MuteTriangle
+    Tone MuteTriangle
+    Volume m
+    RVolume 10
+    Sequence {1.25 0 35; 1.75 0 42; 2.25 0 44; 2.75 0 44; \
+                 3.25 0 45; 3.75 0 40; 4.2 0 50; 4.75 0 44}
+End
+
+Begin Drum-OpenTriangle
+    Tone OpenTriangle
+    Volume m
+    RVolume 10
+    Sequence {1 0 47; 2 0 41; 3 0 40; 4 0 41} 
+End
+
+Begin Drum-Shaker
+    Tone Shaker
+    Volume m
+    RVolume 10
+    Sequence {1.66 0 90; 2.8 0 74; 3.8 0 73; 4.66 0 72}
+End
+
+Begin Bass-9
+    Voice SynthBass1
+    Octave 5
+    Articulate 100
+    Volume m
+    
+    Sequence {1 3 1 100; 1.5 16 1 83; 2 3 1 85; 2.5 16 5 85; \
+               2.75 16 1 87; 3.25 6 5 84; 3.75 16 5 83; 4.25 6 5 89; 4.75 6 1 80}
+End
+
+Begin Chord-6
+    Voice SynthBass1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume p
+    Sequence {1 32 90; 1.25 32 90; 2 3 90; 2.5 64 90; 2.75 32 90; \
+                3.25 64 90; 3.75 64 90; 4 32 90; 4.5 32 90; 4.75 32 90}
+End
+
+
+Begin Bass-7
+    Voice SynthBass1
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {1.5 32 1 82; 1.8 32 1 76; 2.5 32 1 82; 2.75 64 1 80; \
+                3.5 32 1 96; 3.75 64 1 77; 4.5 32 1 87; 4.75 64 1 82}
+End
+
+DefGroove Trance2
+
+//////////////////////////////////////////////////////////////////////
+/////////  Intro
+
+Groove Trance2
+
+Drum-KickDrum2     Sequence   *    *    *   D13
+Drum-KickDrum1     Sequence   *    *    *   D24
+Drum-SnareDrum2    Sequence   *    *    *   D1234
+Drum-ClosedHiHat   Sequence   *    *    *   D8
+Drum-OpenHiHat     Sequence   *    *    *   {D13 Shift .5}
+//Drum-Cabasa        Sequence {1.5 0 101; 2.5 0 103; 3.5 0 112; 4.5 0 108}
+Drum-MuteTriangle  Sequence   *    *    *   D13
+Drum-OpenTriangle  Sequence   *    *    *   D8
+Drum-Shaker        Sequence   D8   *    *   D8 
+
+Bass-9             Sequence   B1234 *   *   B1234
+
+// SynthBass1
+Chord-6            Sequence    *    *    *   C1234
+
+// SynthBass1
+Bass-7             Sequence    *    *    *   {1 2. 1 80 * 4}
+
+DefGroove Trance2Intro
+
+//////////////////////////////////////////////////////////////////////
+/////////  Ending
+
+Groove Trance2
+SeqSize 2
+
+Drum-KickDrum2     Sequence   D13    D1
+Drum-KickDrum1     Sequence   *      D1
+Drum-SnareDrum2    Sequence   D1234  D1
+Drum-ClosedHiHat   Sequence   D8     D1
+Drum-OpenHiHat     Sequence   *      D1
+Drum-Cabasa        Sequence   *      D1
+Drum-MuteTriangle  Sequence   *      D1
+Drum-OpenTriangle  Sequence   D8     D1
+Drum-Shaker        Sequence   D8     D1 
+
+Bass-9             Sequence   B1234  B1 
+
+// SynthBass1
+Chord-6            Sequence    C1234  C1
+
+// SynthBass1
+Bass-7             Sequence    {1 2. 1 80 * 4} B1
+
+DefGroove Trance2End
+

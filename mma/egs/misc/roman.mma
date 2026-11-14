@@ -1,0 +1,89 @@
+Tempo 120
+
+Print A short demo for Roman numeral chord notations.
+Print The warning messages are correct for MMA. Using
+Print standard chord notation will generate the same results.
+Print The numbers on the left are line numbers.
+Print
+
+Debug Roman=1  // display conversions
+
+keysig Bb Minor 
+
+Print Standard chords with slash-Roman chords
+Print Here, key signature doesn't matter.
+Print
+
+C/V
+G7/vi
+A     // should not print
+Bb /  / C7/v
+
+Print
+Print Keysig is $_Keysig
+Print Roman chords, show translations
+Print
+
+I / V
+I / iv
+
+Keysig A
+Print
+Print Same chords, key is A
+Print
+
+I / V
+I / iv
+
+Keysig G Minor
+
+Print
+Print Key now $_Keysig  Do some normal and slash chords.
+Print
+
+vii/V
+vi/V
+V/ii
+II+
+V7
+ii6
+iii6/5
+
+Keysig C
+Print
+Print Some goofy combinations, in key of $_KeySig
+Print
+
+Vm7          // Really should be v7
+iim7&5       // should be a ii-0 (half dim)
+ii6(add9)
+I6(add9)
+Ibm7
+
+Keysig Gb
+Print
+Print Some incorrect flat/sharp notations we permit, key $_Keysig
+Print
+
+I      // Key Gb, should be Gb
+Ibm    //  should be Gbbm (dbl flat) or Fm
+ib     //  same result (lowercase i==minor), Fm
+I#     //  intermed is Gb# which becomes G
+
+i0       // this if fine, a Gb dim3 (3 is a mma extension)
+I#dim    // odd, but gives G dim (will end up a dim7)
+i#0      // still odd, a G dim3 (see how '0' is a triad)
+i#07     // and here we have G dim7 
+
+Print
+Print If you have an extended keyboard or can enter extended ASCII
+Print characters into your file, you can use character 176 for "DIM"
+Print and character 248 for half-dim. NOTE: You may need to change
+Print your terminal settings to display the degree symbols.
+Print
+
+i°        /// This is a degree sign, diminished (lowercase)
+i°7       /// Diminished 7
+vø7       /// and this is a half-dim (lowercase)
+
+Print

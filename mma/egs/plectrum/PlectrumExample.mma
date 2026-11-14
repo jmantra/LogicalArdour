@@ -1,0 +1,55 @@
+// PlectrumDemo.mma A simple example of the new Plectrum pattern
+// For Musical MIDI Accompaniment (MMA) see:    http://mellowood.ca/mma/
+// Type "mma PlectrumExample.mma" on the command line to generate the midi file.
+
+
+
+// ==================== THE "FingerPicking" Groove =====================
+
+SeqClear                            // Marks the beginning of the Groove
+SeqSize 1
+Time 4
+Timesig 4 4                         // Set the time Signature to 4/4 Time
+
+
+Begin Plectrum-FingerPicking        // Begin a new track
+    Voice       NylonGuitar
+    Sequence {
+            1.0    0   5:100 2:80;  // On the 1st beat pluck strings 5 + 2
+            1.5    0   3:80;        // pluck string number 3 with a velocity of 80
+            2.0    0   4:90  2:80;  // The 2nd beat of the bar pluck strings 4 + 2
+            2.5    0   3:80;
+            3.0    0   1:80;
+            3.5    0   2:80;
+            4.0    0   3:80;
+            4.5    0   4:80  }
+End
+
+// We could add more tracks here (eg add a drums track)
+
+DefGroove FingerPicking             // Finishes the groove and sets the groove name.
+
+
+// ==================== THE "FinalStrum" Groove =====================
+
+SeqClear  // Starts another Groove (Forgets the previous Groove)
+
+Tempo 120                           // Set the tempo and time signature
+Timesig 4 4
+
+
+Groove FingerPicking                // Now use the "FingerPicking" Groove
+
+1          G   // The cords we want to be played in the first bar
+2          /   // The '\' means use the same chord as the previous bar
+3          D
+4          C
+5        G:8   // This is barred chord played on the 8 fret
+6        G:8   // This chord is still pitched as G
+7        D:8
+8        C:8  
+
+//Groove FinalStrum                   // Now finish with a single strum
+
+Plectrum Capo 4          // instead of barre notation, we can capo the guitar
+9        G

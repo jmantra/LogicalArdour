@@ -1,0 +1,133 @@
+// 8beat3
+
+Begin Doc  
+      Pop-rock 8beat with a cool bass (002)
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 2
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    Sequence {1 0 104; 2.5 0 104; 3 0 104}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence {2 0 100; 4 0 100}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {2 0 100; 2.5 0 100; 3 0 100; 3.7 0 100; 4.5 0 100} \
+             {1 0 100; 1.2 0 100; 2 0 100; 2.5 0 100; \
+                2.7 0 100; 3 0 100; 3.5 0 100; 4 0 100; 4.5 0 100}
+End
+
+Begin Drum-LowTom1
+    Tone LowTom1
+    Volume m
+    Sequence z     {4.5 0 30} 
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence {1 0 70} \
+             {3.2 0 60}
+End
+
+Begin Drum-HighTom2
+    Tone HighTom2
+    Volume m
+    Sequence z {4 0 30}
+End
+
+Begin Drum-Cabasa
+    Tone Cabasa
+    Volume m
+    Sequence {1.5 0 60; 3.5 0 60}
+End
+
+Begin Bass-9
+    Voice SynthBass2
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 3 1 90; 3 8 1 90; 3.8 6 1 63}
+End
+
+Begin Bass-6
+    Voice Piano1
+    Octave 5
+    Harmony OpenBelow
+    Articulate 100
+    Volume m
+    Sequence {1 1 3 100; 1 1 5 96; 1.1 1 1 112} \
+             {3 4 5 100; 4 8 1 104}
+End
+
+
+Begin Bass-8
+    Voice SweepPad
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {1 1 1 40}     z
+End
+
+DefGroove 8Beat3   Electro-sounding 8beat.
+
+//////////////////////////////////////////////
+///////  Ending
+
+Groove 8Beat3
+
+Drum-KickDrum2    Sequence   D13  D1
+Drum-SnareDrum2   Sequence   *    D1
+Drum-ClosedHiHat  Sequence   D8   D1
+Drum-LowTom1      Sequence   -
+Drum-OpenHiHat    Sequence   D1   D1
+Drum-HighTom2     Sequence   -
+Drum-Cabasa       Sequence   *    D1
+
+Bass-9            Sequence   B11  B1
+
+Bass-6            Sequence   *    {1 4 1 80}
+
+Bass-8            Sequence  *   z
+
+DefGroove   8Beat3End     2 bar ending.
+
+//////////////////////////////////////////////
+///////  Intro
+
+Groove 8Beat3
+SeqSize 4
+
+Drum-KickDrum2    Sequence   *  *  D13  D1
+Drum-SnareDrum2   Sequence   *  *  *  D1
+Drum-ClosedHiHat  Sequence   D8  *  D4  D1
+Drum-LowTom1      Sequence   *   *   *  D1
+Drum-OpenHiHat    Sequence   D4  /   *  D1
+Drum-HighTom2     Sequence   *   *   *  D1
+Drum-Cabasa       Sequence   *   *   *  D1
+
+Bass-9            Sequence   *  *  B1234  B1
+
+Bass-6            Sequence   *  *  *   B1
+
+Bass-8            Sequence  *   *   *  {1 2 1 50}
+
+DefGroove   8Beat3Intro   4 bar intro.

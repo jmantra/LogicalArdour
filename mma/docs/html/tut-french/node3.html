@@ -1,0 +1,453 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Un exemple simple</TITLE>
+<META NAME="description" CONTENT="Un exemple simple">
+<META NAME="keywords" CONTENT="mma-tutorial">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mma-tutorial.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="mma-tutorial.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html62"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html60"
+  HREF="mma-tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html54"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> suivant:</B> <A NAME="tex2html63"
+  HREF="node4.html">Un exemple plus complexe</A>
+<B> monter:</B> <A NAME="tex2html61"
+  HREF="mma-tutorial.html">Tutorial</A>
+<B> pr&eacute;c&eacute;dent:</B> <A NAME="tex2html55"
+  HREF="node2.html">Installation</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Sous-sections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html64"
+  HREF="node3.html#SECTION00310000000000000000">Fella Bird; version simple</A>
+<LI><A NAME="tex2html65"
+  HREF="node3.html#SECTION00320000000000000000">Fella Bird, version am&#233;lior&#233;e</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00300000000000000000">
+Un exemple simple</A>
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION00310000000000000000">
+Fella Bird; version simple</A>
+</H1>
+
+<P>
+
+		<Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="#efefef" Border=3>
+		   <tr><td Align="CENTER" BGColor="White">
+	      <SPAN  CLASS="textbf"><BIG CLASS="XLARGE">Partition pour une chanson populaire</BIG></SPAN>  <A NAME="eg:birthday"></A>	
+	 	   </tr> </td>
+           <tr> <td >
+		     
+    <IMG WIDTH="95%"  SRC="mup/fella.png" ALT="Lost Image">
+
+	
+	       </td> </tr>
+        </Table>
+
+<P>
+
+<P>
+Ce type de partition est un <SPAN  CLASS="textsl">conducteur</SPAN>. Il vous montre
+la m&#233;lodie, les paroles et les accords sur un m&#281;me document.
+
+<P>
+Pour notre premier fichier MIDI d'accompagnement, nous avons cr&#233;&#233; le fichier <TT>*.mma</TT> suivant:
+
+<P>
+<SPAN  CLASS="textbf">//&nbsp;Sample&nbsp;tutorial&nbsp;file
+<BR>//&nbsp;Fella&nbsp;Bird,&nbsp;try&nbsp;1
+<BR>&nbsp;
+<BR>
+Tempo&nbsp;120
+<BR>
+Groove&nbsp;Rhumba
+<BR>&nbsp;
+<BR>
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gm
+<BR>
+10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gm
+<BR>
+14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F&nbsp;&nbsp;/&nbsp;&nbsp;/&nbsp;z!
+<BR>&nbsp;
+<BR></SPAN>
+
+<P>
+Apr&#269;s les 2 lignes de commentaires au d&#233;but du fichier, la premi&#269;re ligne &#341; noter est:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tempo 120  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Elle donne le tempo (ou vitesse) du morceau ; ici, <SPAN  CLASS="textsl">120</SPAN> pulsations par minute. 
+Parfois, vous aurez &#341; le deviner s'il n'est pas indiqu&#233; sur votre partition. Pour les morceaux lents, vous pourrez commencer avec un tempo &#341; <SPAN  CLASS="textsl">80</SPAN>; 
+pour les plus rapides, comme les swings, essayez autour <SPAN  CLASS="textsl">150</SPAN> ; 
+les polkas et les marches, qui sont souvent en <SPAN  CLASS="textbf">2/2</SPAN>, peuvent exiger des tempos beaucoup plus rapides, comme <SPAN  CLASS="textsl">250</SPAN>. 
+N'h&#233;sitez pas &#341; modifier le r&#233;glage du tempo dans les exemples propos&#233;s... vous ne casserez rien !
+
+<P>
+Puisque nous utilisons la biblioth&#269;que standard qui a &#233;t&#233; livr&#233; 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> , nous pouvons s&#233;lectionner l'un des <SPAN  CLASS="textsl">grooves</SPAN> pr&#233;d&#233;finis:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Rhumba  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Notez que cette commande met &#233;galement en place la battue en <SPAN  CLASS="textbf">4/4</SPAN>. 
+Ce n'est pas tout &#341; fait la m&#281;me battue que sur la partition, mais elle assez proche. Et en parlant d'<SPAN  CLASS="textsl">assez proche</SPAN>, nous utilisons un rythme <SPAN  CLASS="textsl">rumba</SPAN> au lieu du <SPAN  CLASS="textsl">merengue</SPAN> indiqu&#233;.
+
+<P>
+Enfin, nous avons la partie relative aux accords. 
+La mesure <TT><SPAN  CLASS="textbf">1</SPAN></TT> (dans la partition) indique un accord de Fa. 
+C'est ce que nous demandons &#341; 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  :
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>1 F  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Nous continuons de la m&#281;me mani&#269;re pour le reste du morceau.
+
+<P>
+Nous l'avons un peu simplifi&#233; afin de n'avoir qu'un accord par mesure. 
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  remplit automatiquement les mesures de telle sorte que chacune dispose de quatre accords. 
+Nous aurions pu saisir la mesure <TT><SPAN  CLASS="textbf">2</SPAN></TT> ainsi:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>2 F F F F  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+ou plus simplement:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>2 F / / /  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+... pour un r&#233;sultat identique. Mais qui voudrait se fatiguer &#341; saisir tout cela ?
+
+<P>
+Le dernier temps de la derni&#269;re mesure est un silence.
+
+<P>
+La ligne:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>16  F / / z!  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+signifie que l'accord de Fa est utilis&#233; sur les trois premiers temps, et que le 4<SUP>&#269;me</SUP> est totalement silencieux en raison du <SPAN  CLASS="textbf"><TT>z!</TT></SPAN>. Notez la diff&#233;rence entre <SPAN  CLASS="textbf"><TT>z</TT></SPAN> et <SPAN  CLASS="textbf"><TT>z!</TT></SPAN> : alors que les <SPAN  CLASS="textbf"><TT>z</TT></SPAN> ne laissent entendre que la piste <SPAN  CLASS="textsl">Drum</SPAN> (batterie), les <SPAN  CLASS="textbf"><TT>z!</TT></SPAN> rendent tous les instruments silencieux. Voir le <SPAN  CLASS="textsl">Manuel de R&#233;f&#233;rence</SPAN> pour plus de d&#233;tails sur les <SPAN  CLASS="textbf"><TT>z</TT></SPAN>.
+
+<P>
+Nous allons maintenant cr&#233;er notre premier fichier MIDI ! 
+si vous utilisez la distribution standard, vous devriez trouver le fichier <TT>fella1.mma</TT> dans le dossier de ce tutoriel. 
+Placez-vous dans ce dossier &#341; l'aide l'invite de commande, et saisissez :
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>mma fella1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Votre ordinateur doit ex&#233;cuter le script python appel&#233; <TT>mma.py</TT> pour traiter le fichier <TT>fella1.mma</TT>. 
+Un fichier MIDI <TT>fella1.mid</TT> devrait &#281;tre cr&#233;&#233;. Si ce n'est pas le cas, veuillez v&#233;rifier que Python est correctement install&#233;, 
+et assurez-vous que <TT>mma.py</TT> est bien &#341; l'endroit o&#367; votre shell pourra le trouver. 
+Si vous &#281;tes compl&#269;tement bloqu&#233;s, envoyez-moi un e-mail.
+
+<P>
+Maintenant, utilisez votre lecteur MIDI pr&#233;r&#233;f&#233; pour lire le morceau... 
+<P>
+... quelques accords de piano, une ligne de basse jazzy, un peu de batterie... et voil&#341; le travail !
+
+<P>
+
+<H1><A NAME="SECTION00320000000000000000">
+Fella Bird, version am&#233;lior&#233;e</A>
+</H1>
+
+<P>
+En &#233;coutant le fichier MIDI cr&#233;&#233; dans la section pr&#233;c&#233;dente, vous rel&#269;verez certaines lacunes :
+
+<P>
+
+<UL>
+<LI>il est difficile de chanter parce qu'il n'y a aucune indication sonore du moment o&#367; commencer
+</LI>
+<LI>tout le morceau est au m&#281;me volume
+</LI>
+<LI>c'est un morceau assez court... nous allons donc jouer deux fois!
+</LI>
+</UL>
+
+<P>
+L'exemple suivant pr&#233;sente un certain nombre d'am&#233;liorations:
+
+<P>
+<SPAN  CLASS="textbf"> //&nbsp;Sample&nbsp;tutorial&nbsp;file
+<BR>//&nbsp;Fella&nbsp;Bird,&nbsp;try&nbsp;2
+<BR>&nbsp;
+<BR>
+Tempo&nbsp;120
+<BR>
+Groove&nbsp;Metronome2-4
+<BR>&nbsp;
+<BR>
+z&nbsp;*&nbsp;2
+<BR>&nbsp;
+<BR>
+Groove&nbsp;Rhumba
+<BR>
+Repeat
+<BR>
+Volume&nbsp;mp
+<BR>
+Cresc&nbsp;mf&nbsp;4
+<BR>&nbsp;
+<BR>
+1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>
+8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gm
+<BR>
+10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+11&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>&nbsp;
+<BR>
+Decresc&nbsp;p&nbsp;4
+<BR>&nbsp;
+<BR>
+12&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+13&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gm
+<BR>
+14&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F
+<BR>
+15&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C7
+<BR>&nbsp;
+<BR>
+RepeatEnding
+<BR>&nbsp;
+<BR>
+16&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F&nbsp;&nbsp;/&nbsp;&nbsp;/&nbsp;z
+<BR>&nbsp;
+<BR>
+RepeatEnd
+<BR>&nbsp;
+<BR>
+17&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F&nbsp;&nbsp;/&nbsp;&nbsp;/&nbsp;z!
+<BR>
+cut&nbsp;-1
+<BR>&nbsp;
+<BR>&nbsp;
+<BR></SPAN>
+
+<P>
+R&#233;ex&#233;cutez 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  et &#233;coutez &#341; nouveau. C'est quand-m&#281;me mieux ! non ?
+
+<P>
+Jetons-un &#339;il sur les changements apport&#233;s.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Metronome2-4  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Ceci applique le <SPAN  CLASS="textsl">groove</SPAN> en cours &#341; un m&#233;tronome : c'est le <SPAN  CLASS="textsl">clic</SPAN>.
+Pour le trouver, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  traite automatiquement le fichier <TT>metronome</TT> de la biblioth&#269;que.
+
+<P>
+Le <SPAN  CLASS="textsl">clic</SPAN> du m&#233;tronome se compose de coups de <SPAN  CLASS="textsl">wood-blocks</SPAN> dans une structure en <SPAN  CLASS="textbf">4/4</SPAN>. 
+Pour l'entendre, nous avons cr&#233;&#233; une mesure vide :
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>&nbsp;&nbsp;&nbsp;z * 2  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Rappelez-vous, nous aurions pu saisir un accord ici, et obtenu le m&#281;me r&#233;sultat puisque
+(le <SPAN  CLASS="textsl">clic</SPAN> n'est d&#233;fini pour aucun instrument except&#233; le <SPAN  CLASS="textsl">wood-block</SPAN>; aucun autre son ne serait audible). 
+Mais, il semble plus appropri&#233; de saisir un <SPAN  CLASS="textbf"><TT>z</TT></SPAN>.
+
+<P>
+Bon, d'accord, nous vous avons menti. 
+Nous n'avons effectivement pas cr&#233;&#233; une mesure vide pour le m&#233;tronome. 
+Si vous avez bien suivi, vous avez remarqu&#233; que le <SPAN  CLASS="textbf"><TT>z</TT></SPAN> est suivie par <SPAN  CLASS="textbf"><TT>* 2</TT></SPAN>. 
+Cela signifie que cette mesure sera jou&#233;e 2 fois. Ainsi, vous obtenez 2 mesures de <SPAN  CLASS="textsl">clic</SPAN> ; &#231;a aide !
+
+<P>
+Nous n'avons rien chang&#233; aux accords, mais quelques modifications peuvent am&#233;liorer ce simple morceau. 
+Vous vous souvenez du volume identique durant tout le morceau ? eh bien, jetez un &#339;il &#341; cette nouvelle version. 
+Le morceau commence &#341; un volume mod&#233;r&#233; et augmente en plusieurs &#233;tapes. 
+Et, &#341; la fin, un <TT><SPAN  CLASS="textbf">decresc</SPAN></TT> le r&#233;duit pour qu'il soit plus calme lors des 4 derni&#269;res mesures.
+
+<P>
+Veuillez consulter le <SPAN  CLASS="textsl">Manuel de R&#233;f&#233;rence</SPAN> pour plus de d&#233;tails sur les commandes du volume.
+
+<P>
+Nous avons l&#233;g&#269;rement modifi&#233; les accords entre les mesures 16 et 17. 
+Dans la premi&#269;re, nous avons un <SPAN  CLASS="textbf"><TT>z</TT></SPAN>, dans la seconde un <SPAN  CLASS="textbf"><TT>z!</TT></SPAN>. 
+La diff&#233;rence entre les deux est que nous voulons que la piste des percussions continue jusqu'&#341; la fin de la mesure 16, mais pas sur le dernier temps de la mesure 17.
+
+<P>
+Enfin, pour assurer une fin  nette dans la derni&#269;re mesure, nous avons ajout&#233; une commande <TT><SPAN  CLASS="textbf">cut</SPAN></TT>. 
+Nous sommes s&#369;rs que vous trouverez une grande am&#233;lioration bien que ces changements soient mineurs.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html62"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html60"
+  HREF="mma-tutorial.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html54"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> suivant:</B> <A NAME="tex2html63"
+  HREF="node4.html">Un exemple plus complexe</A>
+<B> monter:</B> <A NAME="tex2html61"
+  HREF="mma-tutorial.html">Tutorial</A>
+<B> pr&eacute;c&eacute;dent:</B> <A NAME="tex2html55"
+  HREF="node2.html">Installation</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+bob
+2010-12-31
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,22 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+
+<urn:zamaudio:ZamTube>
+    a lv2:Plugin ;
+    lv2:binary <ZamTube_dsp.so> ;
+    rdfs:seeAlso <ZamTube_dsp.ttl> .
+
+<urn:zamaudio:ZamTube#UI>
+    a ui:X11UI ;
+    ui:binary <ZamTube_ui.so> ;
+    rdfs:seeAlso <ZamTube_ui.ttl> .
+
+<urn:zamaudio:ZamTube#preset001>
+    a pset:Preset ;
+    lv2:appliesTo <urn:zamaudio:ZamTube> ;
+    rdfs:label "Default" ;
+    rdfs:seeAlso <presets.ttl> .
+
+

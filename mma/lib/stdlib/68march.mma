@@ -1,0 +1,214 @@
+
+// 68march
+
+
+Begin Doc
+
+   A 6/8 march in 2. Do note that there are 2 beats per bar in a 6/8 march!
+   Really, really needs work.
+   	
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 2
+Timesig 6 8
+
+////////////////////////////////////
+// Additional pattern defs
+
+/// Our basic 6/8 march, 4 bar pattern
+
+Seqsize 4
+
+Begin Drum-Kick
+    Tone     KickDrum1
+    Volume   mp
+    Rtime    5
+    Rvolume  10
+    Sequence {1 0 90} / / {1 0 90 ; 2 0 70}
+End
+
+Begin Drum-Snare
+    Tone     SnareDrum1
+    Volume   p
+    Rtime    5
+    Rvolume  7
+    RSkip    10
+    Accent   1 40 2 20
+    Sequence {1 0 90; 2 0 90; 2.66 0 90}
+End
+
+Begin Drum-HH
+    Tone     OpenHiHat
+    Volume   p
+    Rtime    5
+    RVolume  5
+    Rskip    10
+    Sequence {1 0 90}
+End
+
+Begin Drum-3
+    Tone     OpenTriangle
+    Volume   pp
+    Rtime    5
+    RVolume  5
+    Rskip    10
+    Sequence {1 0 90}
+End
+
+
+Begin Bass
+    Voice      Tuba
+    Volume     m
+    Articulate 70
+    Octave     3
+    Rtime      5
+    Rvolume    5
+    Sequence   {1 4. 1 90; 2 4 5 90} /  / {1 4. 5 90; 2 8 5 90; 2.66 8 3 90} 
+
+End
+
+Begin Chord
+    Voice      Piano1
+    Volume     m
+    Articulate 90
+    Octave     5
+    Rtime      5
+    Rvolume    5
+    Rskip      5
+    Sequence   {1 4 90 0;2 4. 90}
+End
+
+DefGroove 68March   A basic 6/8 march in 2.
+
+////////////////////////////////////////////
+//// Add in the piccolo
+
+Groove 68March
+
+Begin Bass-Piccolo
+    Voice      Piccolo
+    Harmony    OpenAbove
+    Volume     mf
+    Articulate 60
+    Octave     7
+    Sequence   {1 8 1 90; 2 8 1 90} / / z
+End
+
+Begin Arpeggio-Piccolo
+    ChShare    Bass-Piccolo
+    Volume     $_Bass-Piccolo_Volume
+    Harmony    $_Bass-Piccolo_Harmony
+    Articulate $_Bass-Piccolo_Articulate
+    Octave     $_Bass-Piccolo_Octave
+    Sequence   z  z  z  {2 8 90; 2.33 8 90; 2.66 8 90}
+End
+
+DefGroove 68MarchPlus   Our plain march with added piccolos.
+
+////////////////////////////////////////////
+///// Sustained
+
+Groove 68March
+
+Begin Chord-Sus
+    Voice      AltoSax
+    Volume     m
+    Articulate 100
+    Unify      Off
+    Octave     5
+    Sequence   {1 4. 90 0 80 0; 2 4. 90 0 80 0}
+End
+
+DefGroove 68MarchSus  Our basic march with a sax continuo.
+
+Groove 68MarchPlus
+Chord-sus Groove 68MarchSus
+DefGroove 68MarchSusPlus  Sustained with piccolos.
+
+//////////////////////////////////////////////
+/// Fill
+
+Groove 68March
+
+Seqsize 1
+
+Begin Chord
+    Voice    Trumpet
+    Octave   5
+    Sequence {1 4. 100 0 100 0; 2 8 0 100 0 }
+End
+
+Defgroove 68MarchFill   Single bar fill, for endings.
+
+Groove 68March
+
+Seqsize 1
+Drum-Snare        Sequence  {1 0 90; 1.33 0 60; 1.66 0 50; 2 0 60}
+Drum-Kick         Sequence  {1 0 100}
+Drum-HH           Sequence  {1 0 90; 2 0 70}
+Drum-3            Sequence  {1 0 90; 2 0 80}
+
+Begin Chord
+    Voice    Trumpet
+    Octave   5
+    Volume   +20%
+    Sequence {1 1 100 0 100 0 * 6}
+End
+
+Bass Sequence {1 4 1 90}
+
+Defgroove 68MarchFill2   Single bar fill with triplet, for endings.
+
+//////////////////////////////////////////////
+/// Intro
+
+Groove 68March
+
+Drum-Snare        Sequence  {1 0 90; 1.33 0 60; 1.66 0 50; 2 0 90; 2.33 0 50; 2.66 0 70}  / / \
+//Drum-Kick
+Drum-HH           Sequence  {1 0 90; 2 0 70}
+Drum-3            Sequence  {1 0 90; 2 0 80}
+
+Chord             Sequence  {1 4 90; 2 4 80} / / {1 2 80}
+Bass              Sequence  {1 4. 1 90; 2 8 5 90; 2.66 8 3 70} / / {1 2 1 90}
+
+DefGroove 68MarchIntro  A 4 bar introduction.
+
+
+////////////////////////////////////////////////
+//// Ending
+
+Groove 68MarchPlus
+SeqSize 2
+
+Drum-Snare        Sequence  {1 0 90; 2 0 90} {1 0 100}
+Drum-Kick         Sequence  {1 0 90; 2 0 90} {1 0 100}
+Drum-HH           Sequence  {1 0 90; 1.33 0 80; 1.66 0 70; 2 0 60; 2.33 0 50; 2.66 0 40} {1 0 90}
+Drum-3            Sequence  {1 0 90; 2 0 80} {1 0 90}
+
+Bass-Piccolo      Sequence  {1 1 1 90 * 6} {1 4 5 90}
+Arpeggio-Piccolo  Sequence  -
+Chord             Sequence  {1 4 90; 2 4 80} {1 2 80}
+Bass              Sequence  {1 4. 1 90; 2 8 5 90; 2.66 8 3 70} {1 2 1 90}
+
+
+DefGroove 68MarchEnd   A 2 bar ending. Kill Bass-Piccolo track if you don't like it.
+
+
+///////////////////////////
+/// Simple snaredrum metronome
+
+Seqclear
+Time 2
+Seqsize 2
+
+Begin Drum-snare
+    Tone SnareDrum1
+    Volume m
+    Sequence {1 0 90 ; 1.33 0 90; 1.66 0 90; 2 0 100} { 1 0 90 * 2}
+End
+
+DefGroove 68MarchMetronome   A military-like intro on snare.

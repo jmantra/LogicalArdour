@@ -1,0 +1,59 @@
+// Pattern: PUNK01
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-3----3--3-----|3-3----3--3-----|
+  Sequence { 1.0 0 90; 1.5 0 90; 2.8 0 90; 3.5 0 90 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |----3-3--3--3-33|----3-3--3--3-33|
+  Sequence { 2.0 0 90; 2.5 0 90; 3.2 0 90; 4.0 0 90; 4.5 0 90; 4.8 0 90 } / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2-2-2-2-2-1-2-2-|2-2-2-2-2-1-2-2-|
+  Sequence { 1.0 0 60; 1.5 0 60; 2.0 0 60; 2.5 0 60; 3.0 0 60; 3.5 0 30; 4.0 0 60; 4.5 0 60 } / 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |2-2-2112-11-212-|2-2-2112-11-212-|
+  Sequence { 1.0 0 60; 1.5 0 60; 2.0 0 60; 2.2 0 30; 2.5 0 30; 2.8 0 60; 3.2 0 30; 3.5 0 30; 4.0 0 60; 4.2 0 30; 4.5 0 60 } / 
+End
+
+DefGroove PUNK01 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, Ride.
+
+// Pattern: PUNK02
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3---3---3--3-3--|3---3---3--3-3--|
+  Sequence { 1.0 0 90; 2.0 0 90; 3.0 0 90; 3.8 0 90; 4.2 0 90 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |--3---2---3---3-|--3---3---3---3-|
+  Sequence { 1.5 0 90; 2.5 0 60; 3.5 0 90; 4.5 0 90 } \
+           { 1.5 0 90; 2.5 0 90; 3.5 0 90; 4.5 0 90 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |2-2-2-2-2-2-2-2-|2-2-2-2-2-2-2-2-|
+  Sequence { 1.0 0 60; 1.5 0 60; 2.0 0 60; 2.5 0 60; 3.0 0 60; 3.5 0 60; 4.0 0 60; 4.5 0 60 } / 
+End
+
+DefGroove PUNK02 Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat.
+

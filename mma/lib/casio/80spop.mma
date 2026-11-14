@@ -1,0 +1,159 @@
+// 80spop.mma
+
+Begin Doc  
+      80s Pop (028). I'm glad I don't remember the repetitive 80s. 
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    RVolume 10
+    Sequence {1 0 127; 2.5 0 41; 3 0 126}   {1 0 109; 1.8 0 41; 2.5 0 55; 3 0 126} 
+End
+
+Begin Drum-HandClap
+    Tone HandClap
+    Volume m
+    RVolume 10
+    Sequence {2 0 98; 4 0 127}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    RVolume 10
+    Sequence {2 0 117; 4 0 121} 
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    RVolume 10
+    Sequence {1 0 127; 1.5 0 54; 2 0 127; 2.5 0 35; 3 0 127; 3.5 0 31; 4 0 127; 4.5 0 43}
+End
+
+Begin Drum-Tambourine
+    Tone Tambourine
+    Volume m
+    RVolume 10
+    Sequence {1 0 56; 1.5 0 22; 2 0 51; 2.5 0 13; 3 0 48; 3.5 0 21; 4 0 57; 4.5 0 22}
+End
+
+Begin Drum-CowBell
+    Tone CowBell
+    Volume m
+    RVolume 10
+    Sequence {1 0 106; 2 0 124; 3 0 84; 4 0 127}
+End
+
+Begin Drum-Cabasa
+    Tone Cabasa
+    Volume m
+    RVolume 10
+    Sequence z  {1 0 18}  /   /
+
+End
+
+Begin Drum-Shaker
+    Tone Shaker
+    Volume m
+    RVolume 10
+    Sequence {4.8 0 33}
+End
+
+Begin Bass-9
+    Voice SynthBass1
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 8 1 101; 2.5 32 1 79; 3 4 1 93} \
+             {1 4 1 102; 2.5 64 1 77; 3 8 1 103} \
+             {1 8 1 94; 2.5 64 1 80; 3 8 1 94} \
+             {1 8 1 101; 2.5 64 1 79; 3 8 1 102; 4.5 16 5 90; 4.8 6 6 69}
+End
+
+Begin Chord-6
+    Voice Bass&Lead
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume p
+    RVolume 10
+    Sequence {1 8 90; 1.5 32 90; 1.8 6 90; 2.5 6 90; 3.5 32 90; 3.8 6 90; 4.5 6 90}
+End
+
+
+Begin Chord-7
+    Voice PolySynth
+    Octave 5
+    Voicing Mode=Key
+    Articulate 80
+    Volume p
+    RVolume 10
+    Sequence {1 64 90; 1.2 64 90; 1.5 64 90; 1.8 64 90; 2 64 90; \
+                2.2 64 90; 2.5 64 90; 2.8 64 90; 3 64 90; 3.2 64 90; \
+                3.5 64 90; 3.8 64 90; 4 64 90; 4.2 64 90; 4.5 64 90; 4.8 64 90}
+End
+
+DefGroove 80sPop   Remember the 80s?
+
+//////////////////////////////////////////////////////////////
+////  Intro
+
+Groove 80sPop
+
+Drum-KickDrum1    Sequence D1234    *    *    D13
+Drum-HandClap     Sequence D1234    *    *    *
+Drum-SnareDrum2   Sequence D1       D1   *    D13
+Drum-ClosedHiHat  Sequence *        *    *    DRoll
+Drum-Tambourine   Sequence D13      *    *    D1234
+Drum-CowBell      Sequence D1       D2   D3   *
+Drum-Cabasa       Sequence z        *    *    z
+Drum-Shaker       Sequence *        *    *    z
+
+Bass-9            Sequence B1234    *    *    B13
+
+// bass&lead
+Chord-6           Sequence  *        *    *    C1
+
+// polysynth
+Chord-7           Sequence C8       *    *    C1234
+
+DefGroove 80sPopIntro  A 4 bar intro
+
+//////////////////////////////////////////////////////////////
+////  Ending
+
+Groove 80sPop
+Seqsize 2
+
+Drum-KickDrum1    Sequence D1234      D1
+Drum-HandClap     Sequence D1234      D1
+Drum-SnareDrum2   Sequence D1         D1
+Drum-ClosedHiHat  Sequence DRoll      D1
+Drum-Tambourine   Sequence D13        D1
+Drum-CowBell      Sequence D1         D1
+Drum-Cabasa       Sequence *          z
+Drum-Shaker       Sequence *          z
+
+Bass-9            Sequence B1234     B1
+
+// bass&lead
+Chord-6           Sequence  *        C1
+
+// polysynth
+Chord-7           Sequence C8        C1
+
+DefGroove 80sPopEnd   A 2 bar ending
+

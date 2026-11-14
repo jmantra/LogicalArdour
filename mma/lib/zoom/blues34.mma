@@ -1,0 +1,28 @@
+// Pattern: BLUS04
+
+SeqClear
+SeqSize 2
+Time 6/8
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |3-2--2|3-3--2|
+  Sequence { 1.0 0 90; 3.0 0 60; 6.0 0 60 } \
+           { 1.0 0 90; 3.0 0 90; 6.0 0 60 } 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |---3--|---3--|
+  Sequence { 4.0 0 90 } / 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |222222|221222|
+  Sequence { 1.0 0 60; 2.0 0 60; 3.0 0 60; 4.0 0 60; 5.0 0 60; 6.0 0 60 } \
+           { 1.0 0 60; 2.0 0 60; 3.0 0 30; 4.0 0 60; 5.0 0 60; 6.0 0 60 } 
+End
+
+DefGroove BLUS04 Time = 6/8, SeqLen = 2; Kick, Snare, Ride.
+

@@ -1,0 +1,172 @@
+
+// 8beat1.mma
+
+Begin Doc  
+      Pop-rock 8beat. (000)
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+////////////////////////
+// Basic rhythm
+
+Begin Drum-OpenSurdo
+    Tone OpenSurdo
+    Volume m
+    Sequence {2 0 80; 4 0 85}
+End
+
+Begin Drum-ScratchPush
+    Tone ScratchPush
+    Volume m
+    Sequence z \
+             {4.5 0 60} \
+             z \
+             {4.5 0 60}
+End
+
+Begin Drum-ScratchPull
+    Tone ScratchPull
+    Volume m
+    Sequence z \
+             {4.8 0 60} \
+             z \
+             {4.8 0 60}
+End
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 90; 2.5 0 90; 4.5 0 90} \
+             {1 0 90; 2.5 0 90} \
+             {1 0 90; 2.5 0 90; 4.5 0 90} \
+             {1 0 90; 2.5 0 90}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence {2 0 100; 4 0 100} \
+             {2 0 100; 2.3 0 30; 2.5 0 40; 2.8 0 30; 4 0 100} \
+             {2 0 100; 4 0 100} \
+             {2 0 100; 2.3 0 30; 2.5 0 40; 2.8 0 30; 4 0 100}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 90; 2 0 90; 2.5 0 117; 3 0 90; 3.5 0 117; 4 0 90; 4.5 0 117} \
+             {1 0 90; 1.5 0 117; 2 0 90; 2.5 0 117; 3 0 90; 3.5 0 117; 4 0 90; 4.5 0 117} \
+             {1 0 90; 2 0 90; 2.5 0 117; 3 0 90; 3.5 0 117; 4 0 90; 4.5 0 117} \
+             {1 0 90; 1.5 0 117; 2 0 90; 2.5 0 117; 3 0 90; 3.5 0 117; 4 0 90; 4.5 0 117}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence {1.5 0 90} \
+             z \
+             {1.5 0 90} \
+             z
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 3 1 114; 2.5 32 5 111; 3 8 1 105; 3.8 32 1 96} \
+             {1 3 1 114; 2.5 64 5 119; 3 8 1 101; 3.8 64 1 96; 4.5 3 5 101} \
+             {1 3 1 114; 2.5 32 5 111; 3 8 1 105; 3.8 32 1 96} \
+             {1 3 1 114; 2.5 64 5 119; 3 8 1 101; 3.8 64 1 96; 4.5 3 5 101}
+End
+
+Begin Chord-6
+    Voice SteelGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 8 90; 1.8 3 90; 2.3 6 90; 2.5 6 90; 4.5 64 90} \
+             {1 3 90; 1.5 16 90; 1.8 6 90; 2.3 0 90; 2.5 4 90; 4.3 6 90; 4.5 3 90; 4.8 64 90} \
+             {1 8 90; 1.8 3 90; 2.3 6 90; 2.5 6 90; 4.5 64 90} \
+             {1 3 90; 1.5 16 90; 1.8 6 90; 2.3 0 90; 2.5 4 90; 4.3 6 90; 4.5 3 90; 4.8 64 90}
+End
+
+
+Begin Chord-7
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 1 90} \
+             {4 8 90} \
+             {1 1 90} \
+             {4 8 90}
+End
+
+
+DefGroove 8Beat1   Basic 8beat pop-rock.
+
+/////////////////////////////////////////
+//// Ending
+
+Groove 8Beat1
+
+SeqSize 2
+
+Drum-OpenSurdo     Sequence -
+Drum-ScratchPush   Sequence - 
+Drum-ScratchPull   Sequence z   D1
+Drum-KickDrum1     Sequence *   D1
+Drum-SnareDrum2    Sequence *   D1
+Drum-ClosedHiHat   Sequence *   D1
+Drum-OpenHiHat     Sequence {1.5 0 90} z
+
+Bass-9             Sequence {1 2 1 90 * 4 }  B1
+
+Begin Chord-6
+                   Sequence  C1234   C1
+                   Strum 10
+End
+
+Chord-7            Sequence C1  /
+
+DefGroove 8Beat1End   2 bar ending.
+
+
+/////////////////////////////////////////////////
+//// Intro
+//// Follows the standard beat except for a "pause" on bar 4
+
+
+Groove 8Beat1
+
+
+Drum-OpenSurdo     Sequence  *   *   *  z
+Drum-ScratchPush   Sequence  *   *   *  z
+Drum-ScratchPull   Sequence  *   *   *  D1
+Drum-KickDrum1     Sequence  *   *   *  D1234
+Drum-SnareDrum2    Sequence  *   *   *  D1234
+Drum-ClosedHiHat   Sequence  *   *   *  D1234
+Drum-OpenHiHat     Sequence  *   *   *  z
+
+Bass-9             Sequence  *   *   *  B1
+
+Begin Chord-6
+                   Sequence  *   *   *  L1
+                   Strum     0   0   0  20
+End
+
+Chord-7            Sequence  *   *   *  L1
+
+DefGroove 8Beat1Intro   4 bar introduction
+

@@ -1,0 +1,257 @@
+
+// slowblues
+
+
+Begin Doc
+
+	A variation of "blues.mma" for slower tempos.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////
+/// Pattern definitions
+
+Begin Walk Define
+	W1+34   1 4 80; 2.5 8 70; 3 4 80; 4 4 80 
+End
+
+Begin Chord Define
+   T3 1 8 90; 1.33 8 85; 1.66 8 80
+End
+
+/// SlowBlues
+
+SeqSize 4
+
+Begin Chord
+	Voice JazzGuitar
+	Sequence	  C1234  {C124; 3.5 8 70 }  C1234  {C13 ; 3.5 8 70; 4 4 80}
+	Voicing    Mode=Optimal
+	RVolume 10
+	Volume mp 
+	Octave 5
+	Strum          5           0                5        0
+	Articulate    80
+	Accent 1 20 3 10
+End
+
+Begin Bass
+	Voice AcousticBass
+	Sequence     B13  B11  B13  z
+	Octave 3
+	Volume mp
+	Articulate 70
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence     z  z  z  W1+34
+	Volume mp
+	Articulate 70
+End
+
+Begin Drum-OHH
+	Sequence     D8
+	Rvolume 5
+	RSKip  30
+	Tone ClosedHiHat
+	Volume pp
+End
+
+Begin Drum-Side
+	Tone SideKick
+	Sequence     D1
+	Volume pp
+	Rtime 5
+	Rvolume 10
+End
+
+Begin Drum-PHH
+	Sequence     D24
+	Tone PedalHiHat
+	Volume mp
+End
+
+DefGroove SlowBlues    Simple guitar chords.
+
+////////////// A fill groove
+
+Groove SlowBlues
+
+Walk Sequence -
+Begin Bass
+	Sequence B11
+	Volume f
+	Articulate 100
+End
+
+Begin Chord
+	Sequence {1 1 90}
+	Volume p
+End
+
+Begin Arpeggio
+	Voice JazzGuitar
+	Sequence  { 1 1 90 * 4; 3.666 2 90 * 4 }
+	RVolume 20
+	Volume p
+	Octave 5
+	Harmony Open
+	Articulate  100
+	Rskip 10
+End
+
+
+DefGroove SlowBluesFill  Full chord plus argeggio for fills.
+Arpeggio Sequence A8
+DefGroove SlowBluesFill1 Same as Fill but with straight 8ths.
+
+Groove SlowBluesFill
+Arpeggio Sequence -
+
+Begin Scale
+	Voice JazzGuitar
+	Sequence  { 1 1 90 * 4; 3.666 2 90 * 4 }
+	Direction Up
+	RVolume 20
+	Volume p
+	Octave 5
+	Articulate  100
+	Rskip 10
+End
+
+Bass Sequence -
+Begin Walk 
+	Sequence W1234
+	Volume f
+	Articulate 90
+End
+	
+DefGroove SlowBluesFill2 Full chord plus scale for fills.
+Scale Sequence Scale8
+DefGroove SlowBluesFill3 Same as fill2 but with straight 8ths.
+
+////////////// Sustain
+
+Groove SlowBlues
+
+Begin Chord-Sus
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Volume ppp
+	Voice ChoirAahs
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+
+DefGroove SlowBluesSus  Our simple blues with the choir added.
+
+
+////  4 to the bar walking bassline
+
+Groove SlowBlues
+
+Bass Sequence -
+
+Begin Walk
+	Sequence  W1234  / / W1+34 
+	Articulate 65
+End
+
+DefGroove SlowBluesWalk4	Same as SlowBlues but with \
+                            a strong quarter note walking bass.
+                            
+Chord-Sus Groove SlowBluesSus
+
+DefGroove SlowBluesWalk4Sus  Choir added to Walk4.
+
+///////  8 to bar walk
+
+Groove SlowBlues
+
+Begin Chord
+	Articulate 80
+	Volume p
+End
+
+Begin Walk
+  Sequence  W8 / / W1234
+  Articulate 60
+  Volume mp
+End
+
+DefGroove SlowBluesWalk8	Same as SlowBlues but with a strong eight \
+                            note walking bass. This works nicely with \
+                            SlowBluesWalk4 in an A-A-B-A selection with \
+                            the B section using this groove and the A \
+                            using SlowBLuesWalk4.
+
+Chord-Sus Groove SlowBLuesWalk4Sus
+
+DefGroove SlowBluesWalk8Sus  Choir added to Walk8.
+
+/////////////////////////////////
+/// Triplet variations
+
+Groove SlowBlues
+
+
+Chord Sequence {T3; T3 Shift 1; 2 8 90; 2.33 8 90; 2.66 8 90; 3 4 90; 4 4 80}
+
+DefGroove SlowBlues12Triple   Triplets on beats 1,2.
+
+Chord Sequence {1 4 90; 2 4 80; T3 Shift 2; T3 Shift 3}
+
+DefGroove SlowBlues34Triple   Triplets on beats 3,4.
+
+Chord Sequence {T3; T3 Shift 1; T3 Shift 2; T3 Shift 3}
+
+DefGroove SlowBlues4Triple   Triplets on beats 1,2,3 and 4.
+
+////////////////////////
+/// Intro
+
+Groove SlowBlues
+
+Chord     Sequence  *  *  *  L1
+Bass      Sequence  *  *  *  {1 4 5 90; 2 4 4 90; 3 4 3 90; 4 4 2 90}
+Walk      Sequence -
+Drum-OHH  Sequence  *  *  * D1234
+
+DefGroove SlowBluesIntro  Standard 4 bar introduction with walking bass on 4th bar.
+
+///////////////////////
+/// Ending
+
+
+Groove SlowBlues
+
+Begin Drum-OHH
+   Sequence  D16  D8 D1234 D13
+   RSkip 0
+End
+
+Drum-PHH  Sequence  D13
+Chord     Sequence  C1234 / C13 {1 2 80}
+Begin Chord-Sus
+	Groove SlowBluesSus
+	Sequence  {1 1 80 0 * 2} /  / {1 2 70 0}
+End	
+Bass      Sequence  B11
+Walk      Sequence  -
+
+DefGroove SlowBluesEnd  Quite a dull  ending. The High Hats play 16 \
+                        notes on the first bar, 8 on the second, \
+                        4 on the third and 2 on the fourth. Set the \
+                        SEQ point appropiately for your ending.
+

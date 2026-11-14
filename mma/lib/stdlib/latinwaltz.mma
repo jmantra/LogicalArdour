@@ -1,0 +1,232 @@
+
+// latinwaltz
+
+Begin Doc
+
+ This is a reworked waltz with more latin-sounding instrumentation.
+    
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 3
+TimeSig 3 4
+Include stdpats34
+
+
+//////////////////////////////////////
+/////  Basic 3/4 rhythm
+
+
+SeqSize 4
+
+Begin Drum-CowBell
+	Tone CowBell
+	Sequence   D13	D23 D2 D13
+	Volume mp
+	Rvolume 10
+	Rtime 3
+End
+
+Begin Drum-LowConga
+    Tone LowConga
+	Sequence  D13 D2 z  z
+	Volume mp
+	Rskip 5
+	Rvolume 10
+	Rtime 3
+End
+
+Begin Drum-HighConga
+	Tone OpenHighConga
+	Sequence  D2 D13 D123 D123  
+	Volume mp
+	Rskip 2
+	Rvolume 20
+	Rtime 2
+End
+
+Begin Drum-Maraca
+    Tone Maracas
+	Sequence D123
+	Volume mp
+    Rskip 30
+	Rvolume 10
+	Rtime 2
+End
+
+Begin Drum-Claves
+    Tone Claves
+    Sequence  D1 D3 D2 D1
+    Volume m
+    Rvolume 10
+End
+
+Begin Chord
+	Sequence	C13  {C123; C2 Shift .5}  C13  {C13; C23 Shift .5}
+	Accent 1 40
+	Voicing Mode=Key
+	Volume mp
+	Voice Piano2
+	Articulate 70
+	Octave 5
+End
+
+// Alternate bass on root/five bar to bar
+
+Begin Bass
+	Voice AcousticBass
+	Sequence	B1   B1/5   B1   z
+	Octave  3
+	Volume m
+	Articulate 70
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence	z    z    z   W123
+	Volume m
+	Articulate 70
+End
+
+DefGroove LatinWaltz    Our basic latin-waltz.
+
+//////////////////////////////////
+//// Sustained
+
+Groove LatinWaltz
+
+Begin Chord-Sus
+    Voice Strings
+    Octave 5
+    Rskip 10
+    Volume mp
+    Unify ON
+    Rskip 20
+    Voicing Mode=Optimal
+    Articulate 100
+    Sequence {1 2. 80 0 70 0 * 2} 
+End
+
+DefGroove LatinWaltzSus   Same latin waltz with strings.
+
+
+///////////////////////////////////////////////
+/// Plus ... random guitar accompaniment
+
+Groove LatinWaltz
+
+Begin Arpeggio
+	Voice NylonGuitar
+	Articulate 160
+	Octave 5
+	Volume mp
+    Range 2
+    Harmony OpenAbove+8Above
+    RVolume 20
+    RTime 10
+    Direction Random
+    RSkip 30
+    SeqRnd On
+	Sequence A6 A3 / /
+End
+
+DefGroove LatinWaltzPlus   Adds a bit of a background guitar melody.
+
+Groove LatinWaltzSus
+Arpeggio Groove LatinWaltzPlus
+DefGroove LatinWaltzSusPlus  Guitar background and sustained strings.
+
+//////////////////////////
+/// Fill
+
+Groove LatinWaltz
+
+SeqSize 1
+
+Alltracks SeqRnd Off
+
+Begin Drum-CowBell
+	Sequence   D123
+    Volume mf
+End
+
+Begin Drum-LowConga
+    Sequence   D123
+	Rskip 0
+End
+Begin Drum-HighConga
+	Sequence  D13
+	Rskip 0
+End
+
+Begin Drum-Maraca
+	Sequence D6
+    volume f
+    Rskip 20
+End
+
+Drum-Claves   Sequence  D1
+Chord         Sequence 	{C123 * 2} 
+Bass          Sequence  - 
+Walk          Sequence  W123
+
+DefGroove LatinWaltzFill  Single bar fill, can be used in endings.
+
+////////////////////////////////////////////
+/// Intro
+
+Groove LatinWaltz
+
+Drum-CowBell	Sequence  *  *  *  D1
+Drum-LowConga   Sequence  *  *  z  z
+Drum-HighConga  Sequence  *  *  *  z
+Drum-Maraca     Sequence D123 D1 / /
+//Drum-Claves     Sequence  D1 D3 D2 D1
+
+Chord          	Sequence	C13  C1  C123  C1
+
+// Bass        
+// Walk
+
+
+DefGroove LatinWaltzIntro   Simple 4 bar introduction.
+
+Groove LatinWaltz
+SeqSize 8
+
+Drum-CowBell	Sequence  *  *  *  *  *  *  *  D1
+Drum-LowConga   Sequence  *  *  *  *  *  *  z  z 
+Drum-HighConga  Sequence  *  *  *  *  *  *  *  z
+Drum-Maraca     Sequence D123 D1 /  D23 D1 D3 / D1
+//Drum-Claves     Sequence  D1 D3 D2 D1
+
+Chord          	Sequence	C13  C1  C123  C23  C1 C13 C123 C1
+
+// Bass        
+// Walk
+
+DefGroove LatinWaltzIntro8   Simple 8 bar introduction.
+
+/////////////////////////////////////////////////////////
+////////  Ending
+
+Groove LatinWaltz
+SeqSize 2
+
+Drum-CowBell	Sequence  *    D1
+Drum-LowConga   Sequence  *    z
+Drum-HighConga  Sequence  *    z
+Drum-Maraca     Sequence D123 D1 
+Drum-Claves     Sequence  D1  /
+
+Chord          	Sequence	C13  {1 2 90}
+
+Bass            Sequence  z     {1 2 1 90}
+Walk            Sequence  W123  z
+
+
+DefGroove LatinWaltzEnd     Simple 2 bar ending.
+

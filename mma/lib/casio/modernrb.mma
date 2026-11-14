@@ -1,0 +1,123 @@
+ // modernrb.mma
+
+Begin Doc  
+      ModernRB (062). A newish rhythm and blues.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 2
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 100; 2 0 100; 3 0 100; 4 0 100}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence {2 0 100; 4 0 100}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 100; 1.5 0 100; 2 0 100; 2.5 0 100; 3 0 100; 3.5 0 100; 4 0 100; 4.5 0 100} \
+             {1 0 100; 1.5 0 100; 2 0 100; 2.5 0 100; 3 0 100; 3.5 0 100; 4 0 100} 
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence z    {4.5 0 80}
+End
+
+Begin Drum-Shaker
+    Tone Shaker
+    Volume m
+    Sequence {1.5 0 90; 2.5 0 90; 3.5 0 90; 4.5 0 90}
+End
+
+Begin Bass-9
+    Voice SlapBass1
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 16 1 69; 1.75 16 5 56; 2.5 3 1 77} \
+             {1 16 1 56; 1.75 16 5 67; 2.5 8 1 77; 3.5 3 5 69; 4 8 1 58; 4.5 3 5 74} 
+End
+
+Begin Chord-6
+    Voice ChurchOrgan
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {1 64 50; 2 2 60; 4.5 32 50} \
+             {2 2 40; 4.5 3 50} 
+End
+
+
+Begin Chord-7
+    Voice Piano1
+    Octave 6
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Strum 20
+    Sequence {2.5 2 90}
+End
+
+
+DefGroove ModernR&B      Basic pattern
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove ModernR&B 
+Seqsize 4
+
+Drum-KickDrum1   Sequence  D13  *   *   D34
+Drum-SnareDrum2  Sequence   *   *   *   D1234
+Drum-ClosedHiHat Sequence   *   *   *   D13
+Drum-OpenHiHat   Sequence   z   z   z   {4.5 0 120}
+Drum-Shaker      Sequence   D8  *   *   D8
+
+Bass-9           Sequence  B1234  *   *  B11
+
+//  ChurchOrgan
+Chord-6          Sequence   *     *    *  {1 4 50}
+
+//  Piano1
+Chord-7          Sequence   *     *    *  {1 2 50; 2.5 4 60}
+
+DefGroove ModernR&BIntro 4 bar intro
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove ModernR&B 
+
+Drum-KickDrum1   Sequence  D13     D1
+Drum-SnareDrum2  Sequence  D1234   D1
+Drum-ClosedHiHat Sequence   *      D1
+Drum-OpenHiHat   Sequence   *      z
+Drum-Shaker      Sequence   D8     D1
+
+Bass-9           Sequence  B1234   B1
+
+//  ChurchOrgan
+Chord-6          Sequence   *      {1 4 50}
+
+//  Piano1
+Chord-7          Sequence   *      {1 2 50}
+
+DefGroove ModernR&BEnd  2 bar ending

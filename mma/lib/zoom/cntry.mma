@@ -1,0 +1,41 @@
+// Pattern: CNTRY
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |1--11--1|1--11--1|
+  Sequence { 1.0 0 30; 2.5 0 30; 3.0 0 30; 4.5 0 30 } / 
+End
+
+Begin Drum-Snare
+  Tone     SnareDrum1
+           // |--2---1-|--1---1-|
+  Sequence { 2.0 0 60; 4.0 0 30 } \
+           { 2.0 0 30; 4.0 0 30 } 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |--1---2-|--3---2-|
+  Sequence { 2.0 0 30; 4.0 0 60 } \
+           { 2.0 0 90; 4.0 0 60 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |11212121|10211021|
+  Sequence { 1.0 0 30; 1.5 0 30; 2.0 0 60; 2.5 0 30; 3.0 0 60; 3.5 0 30; 4.0 0 60; 4.5 0 30 } \
+           { 1.0 0 30; 1.5 0 0; 2.0 0 60; 2.5 0 30; 3.0 0 30; 3.5 0 0; 4.0 0 60; 4.5 0 30 } 
+End
+
+Begin Drum-Tambourine
+  Tone     Tambourine
+           // |--3---3-|--3---3-|
+  Sequence { 2.0 0 90; 4.0 0 90 } / 
+End
+
+DefGroove CNTRY Time = 4/4, SeqLen = 2; Kick, Snare, ClosedHat, Maracas, Tambourine.
+

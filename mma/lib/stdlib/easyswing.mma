@@ -1,0 +1,296 @@
+
+// easyswing
+
+// converted to use plectrum, bvdp, Feb/2010
+
+Begin Doc
+
+ Soft guitar strumming. Great for tunes like "Beyond The Sea"
+ and "Summertime".
+  
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+
+///////////////////////////
+/// EasySwing
+
+
+SeqSize 4
+
+Begin Plectrum Define
+   Pl4 1 5 90 80 80 80 70 70; \ 
+      2 6 80 80 80 80 70 70; \
+      3 5 90 90 80 80 70 70; \
+      4 4 80 80 70 70 70 60
+
+   Pl2 1 5 80 80 70 70 80 90; \
+       3 6 80 80 70 70 75 60
+
+   Pslow1 1 20 90 88 85 80 77 75 
+
+End
+
+Begin Plectrum
+	Sequence  Pl4 / / Pl2
+	Voice JazzGuitar
+	Volume m
+	Accent 1 10 3 5
+	RVolume 10
+	Octave 5
+End
+
+Begin Bass
+	Voice AcousticBass
+	Sequence	B13	  /  / 	z
+	Octave 3
+	Articulate 80
+	Volume mp
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence	z	z	z	W1234
+	Articulate 80
+	Volume mp
+End
+
+Begin Drum-HH
+	Sequence   D1234
+	Rvolume 5
+	RSkip 40
+	Tone OpenHihat
+	Volume p
+End	
+
+Begin Drum-PHH
+	Sequence	D24
+	Tone PedalHiHat
+	Volume p
+End
+
+Begin Drum-Kick
+	Copy Drum
+	Sequence D13
+	Tone KickDrum1
+	Volume m
+End
+
+DefGroove EasySwing       Nice/simple jazz guitar in 4.
+
+
+Begin Chord-Sus
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Volume p
+	Voice TremoloStrings
+	Octave 5
+	Articulate 99
+	Unify On
+End
+
+DefGroove EasySwingSus    Adds a sustained strings (2 part) to EasySwing.
+
+Groove EasySwing
+
+Begin Arpeggio
+	Voice JazzGuitar
+	Sequence  A4 / / A8
+	RVolume 20
+	Volume mp
+	Octave 5
+	Harmony Open
+	Direction Both Random Both Down
+	Articulate  99
+	Rskip 5
+End
+
+DefGroove EasySwingFill  Adds guitar apreggio. Quarters on \
+                         bar 1,2,3 and eights on bar 4.
+
+// EasySwingWalk
+// Same as above with with constant walking bass line
+
+Groove EasySwing
+
+Begin Walk
+	Sequence W1234
+	Articulate 70
+	Volume mf
+End
+	
+Bass SeqClear
+
+DefGroove EasySwingWalk    The EasySwing Groove with a full walking \
+                           bass line. The bass volume has been increased \
+                           as well.
+
+Chord-Sus Groove EasySwingSus
+
+DefGroove EasySwingWalkSus   The EasySwing with a walking bass line and \
+                             a sustained string.
+
+
+Groove Easyswing
+Arpeggio Groove EasySwingFill
+DefGroove EasySwingWalkFill   Walking bass fill.
+
+Groove EasySwingSus
+Arpeggio Groove EasySwingFill
+DefGroove EasySwingSusFill   Sustained strings and fill.
+
+
+////////////////////////////////////////////////////////
+///// Easy Swing1  - Same, but with 1 chord per bar
+
+Groove EasySwing	// Just modify the easyswing pattern
+
+Plectrum 	Sequence  Pslow1
+
+DefGroove EasySwing1    One strum per bar. Okay if the tempo is \
+                        quite fast, or as an introduction.
+
+Chord-Sus Groove EasySwingSus
+DefGroove EasySwing1Sus     Adds sustained strings to EasySwing1.
+
+Groove EasySwing1
+Arpeggio Groove EasySwingFill
+DefGroove EasySwing1Fill    Add apreggios to single chord swing.
+
+////////////////////////////////////////////////////////
+///// Easy Swing2  - Same, but with 2 chords per bar
+
+Groove EasySwing
+
+Plectrum 	Sequence  Pl2
+
+DefGroove EasySwing2      Same EasySwing, but with 2 strums per bar.
+
+Chord-Sus Groove EasySwingSus
+DefGroove EasySwing2Sus      Adds ChoirAahs to EasySwing2.
+
+Groove EasySwing2
+Arpeggio Groove EasySwingFill
+DefGroove EasySwing2Fill    Add apreggios to two chord swing.
+
+/////////////////////////////////////////////
+/// EasySwing42  - alternate 4 and 2 strum bars
+
+Groove EasySwing
+Plectrum Sequence Pl4  Pl2
+DefGroove EasySwing42      For faster rhythms, a bar of 4 followed \
+                           by a bar of 2.
+
+Groove EasySwing42
+Chord-Sus Groove EasySwingSus
+DefGroove EasySwing42Sus     Add sustained strings to the 4-2 pattern.
+
+Groove EasySwing42
+Arpeggio Groove EasySwingFill
+DefGroove EasySwing42Fill   Add arpeggios to 4-2 pattern.
+
+Groove EasySwingWalk
+Plectrum Groove EasySwing42
+DefGroove EasySwing42Walk    A 4-2 pattern with 4 beat walking bass
+
+Chord-Sus Groove EasySwingSus
+DefGroove EasySwing42WalkSus  The 4-2 pattern with walking bass and \
+                              sustained strings.
+
+Groove EasySwing42Walk
+Arpeggio Groove EasySwingFill
+DefGroove EasySwing42WalkFill   Add arpeggios and walking bass with 4-2 pattern.
+
+////////////////////////////////
+/// Intros
+
+Groove Easyswing
+
+Begin Alltracks
+	SeqRnd Off
+	Rskip 0
+End
+
+Plectrum Sequence	Pl4 /  Pl2  Pslow1
+Bass     Sequence	{1 2. 1 90}  /  / 	{1 4 1 80; 2 4 3 85; 3 2 5 95}
+Walk     Sequence   -
+Drum-HH  Sequence   D1234 / /  D13
+Drum-PHH Sequence	D24   /  /  D1
+
+DefGroove EasySwingIntro       4 bar intro
+
+
+/////////////
+
+Groove EasySwingIntro
+
+Plectrum Sequence Pslow1
+Bass     Sequence {1 2. 1 90} 
+Drum-HH  Sequence D1234 / / D1
+
+DefGroove EasySwingIntro1    4 bar intro with 1 long chord per bar.
+
+//////////
+
+Groove EasySwingIntro
+
+Plectrum   Sequence Pl2
+
+Begin Drum-HH
+	Tone RideCymbal1
+	Sequence  D16 / / D12
+	Accent 1 60  
+End
+
+Drum-PHH Sequence D1234 / / D12
+
+DefGroove EasySwingIntro2      4 bar intro with cymbals and 2 strum chords.
+
+//////////////
+
+Groove EasySwingIntro
+
+Bass  Sequence  z z z {1 2. 1 95}
+Begin Arpeggio
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence {1 82 95; 1+81 82 90; 2+81 82 90; 3 2 95 } / / z
+	Articulate 90
+End
+
+DefGroove EasySwingIntro3      4 bar intro with triplet bass pattern.
+
+
+
+///////////////////////////////////////////////
+// EasySwingEnd  - a 2 bar ending
+
+
+SeqClear
+Groove EasySwing	// Just modify the easyswing pattern
+SeqSize 2
+
+Begin Alltracks
+	SeqRnd Off
+	Rskip 0
+	Rtime 0
+End
+
+Drum-HH  Sequence D16 D13
+Drum-PHH Sequence D16 D13
+
+Plectrum Sequence Pl4  Pslow1
+
+Walk Sequence	W1234  z
+Bass Sequence 	z	{1 1 1 90}
+
+DefGroove EasySwingEnd     Simple ending.
+
+

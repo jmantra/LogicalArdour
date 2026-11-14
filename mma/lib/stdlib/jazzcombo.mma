@@ -1,0 +1,336 @@
+
+// jazzcombo
+
+Begin Doc
+ A rip-off from the Casio Wk-3xxx. Sounds good for faster jazz songs.
+ I use it in the Cole Porter song "C'est Magnifique".
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////// Additional defines
+
+
+////////////////////////
+// Basic
+
+
+SeqSize 4
+
+Begin Drum-kick
+    Tone KickDrum1
+    Volume mp
+    Rtime 10
+    Rvolume 10
+    Sequence     D1   D34  /   D134
+End
+
+Begin Drum-Snare
+    Tone SnareDrum1
+	Volume mp
+	Rtime 10
+	Rvolume 10
+	Sequence    {D4 Shift .66} /  /  {D12; D24 Shift .66}
+End
+
+Begin Drum-CHH
+    Tone ClosedHiHat
+	Volume m
+	Rtime 10
+	Rvolume 10
+	Sequence   z   z   z   {D3 shift .66}
+End
+
+Begin Drum-PHH
+    Tone PedalHiHat
+	Volume mp
+	Rtime 10
+	Rvolume 10
+	Sequence   D13 /  /   {D13;D3 Shift .66}
+End
+
+Begin Drum-OHH
+    Tone OpenHiHat
+	Volume mp
+	Rtime 10
+	Rvolume 10
+	Sequence    D24   /  /   D234
+End
+
+Begin Walk
+    Voice FingeredBass
+	Volume m
+	Articulate   80
+    Rtime  10
+	Rvolume 10
+	Sequence   {1 8 90; 1.66 16 70; 2 4 80; 3 4 90; 4 8 80; 4.66 16 70} \
+	           {1 4 90; 2 8. 70; 3 4 90; 4 8. 80}                       \
+               {1 4 90; 2 4 80; 3 4 90; 4 8 60; 4.66 16 50}             \
+               {1 8 90; 1.66 16 70; 2 4 80; 3 4 90; 4 4 70}
+	Octave 3
+	Rskip  5
+	Direction Both / / Random
+End
+
+Begin Chord-Guitar
+   Voice JazzGuitar
+   Voicing Mode=Optimal
+   Articulate 60		
+   Octave 5
+   Rvolume 10
+   Rtime 10
+   Rskip 30   // this cuts notes, not chords ... so it opens up, but most hits sound
+   Volume mp
+   Sequence   { C13;C3 Shift .66 }      \
+              { C12; C124 Shift .66 }   \ 
+              { C1234; C124 Shift .66 } \
+              { C23; C1 Shift .66 }
+End
+
+Begin Arpeggio-Epiano
+   Voice Epiano
+   Articulate 90		
+   Octave 5
+   Range 1.8
+   Direction Up
+   Rvolume 10
+   Rtime 10
+   Rskip 10
+   Volume mp
+   Sequence  {1 8 90; 2.66 16 80; 3 8 90; 3.66 16 80} \
+             {2 8 80; 2.66 16 80; 3 4 90; 4 8 90; 4.66 16 80} \
+             {1 8 90; 1.66 16 90; 4 8 90; 4.66 16 70} \ 
+             z
+End
+
+Begin Chord-Piano
+   Voice Piano1
+   Voicing Mode=Optimal
+   Articulate 40		
+   Octave 5
+   Rvolume 10
+   Rtime 10
+   Rskip 10
+   Volume mp
+   Limit 3    // Dumb up the piano to root/3/5  ... no 7ths, etc.
+   Sequence   { 1 4 90; 2.66 8 80 0; 3 8 90; 3.66 16 70; 4.66 8 70 0 } \
+              { 1 4 90; 2.66 8 70; 4.66 8 70 } \
+              { 1 4 90; 2.66 16 70; 3.66 16 80; 4.66 16 70 } \
+              { 1.66 16 80; 2.66 16 80; 4 8 70}
+End
+
+DefGroove JazzCombo   A driving, straight-ahead jazz beat.
+
+/// Alternate ... change piano chords to a straight 1 & 3 with push on alt bars 
+
+Groove JazzCombo
+
+Begin Chord-Piano
+   Sequence     C13  {C13; C4 Shift .66}
+   Volume m
+   Articulate 90
+   Limit 0
+End
+
+Begin Arpeggio-Epiano
+   Sequence A4 {A4; 4.66 8 90}
+End
+
+DefGroove JazzCombo1  Basic beat with straighter piano
+
+//// Added interest ... more drums and arpeggios
+
+
+Groove JazzCombo
+
+Begin Drum-Crash
+    Tone CrashCymbal1
+    Volume mp
+   	Rtime 10
+	Rvolume 10
+	Sequence   D1  z  z  z
+End
+
+Begin Drum-RideC
+    Tone    RideCymbal1
+    Volume  mp
+   	Rtime   10
+	Rvolume 10
+	Rskip   5
+	Sequence   { D1234; D24 Shift .66 } z  z  z
+End
+
+Begin Drum-ChineseC
+    Tone    ChineseCymbal
+    Volume  mp
+   	Rtime   10
+	Rvolume 10
+    Rskip   5
+	Sequence  z z {D1; D4 Shift .66} z
+End
+
+Begin Drum-Splash
+    Tone SplashCymbal
+    Volume mp
+   	Rtime 10
+	Rvolume 10
+	Sequence   z   z    D1   z
+End
+
+Walk Sequence    { 1 8 90; 1.66 16 80; 2 4 90; 3 4 90; 4 4 90 } \
+                 { 1 4 90; 2 8. 70; 3 4 90; 4 8. 70 } \ 
+                 { 1 4 90; 2 8. 70; 3 4 90; 4 8 80; 4.66 16 80 } \
+                 { 1 4 90; 2 8. 80; 3 4 90; 4 8. 70 }
+
+Chord-Piano Sequence   { 1 4 90; 2.66 8 90; 4.66 8 80 } \
+                       { 1 4 90; 1.66 16 80; 2.66 16 80; 3.66 16 80; 4 4 70 } \ 
+                       { 1 8 90 } \
+                       { 1 4 90; 2 8 70; 3 4 90; 4 8 70 }
+
+Begin Arpeggio-Epiano
+     Sequence  z  z  { 1.66 8 90; 3 8 100; 3.66 8 90; 4.66 16 100 }  z
+	 Range 2
+	 Harmony 3
+	 Volume mf
+	 Direction Random
+End
+
+DefGroove JazzCombo2   The basic beat with added drums.
+
+
+
+////////////////////
+/// Sustained
+
+Groove JazzCombo     
+
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence  { 1 2 90 0 ; 3 2 80 0 90 0}    \
+              { 1 2 90 0 50 0; 3 2 60 0 90 } \
+			  { 1 2 0 90 0; 3 2 0 80 70 }    \ 
+			  { 1 2 80 0 50 0; 3 2 70 0 50 0 }
+	Voicing mode=optimal
+	SeqRnd On
+	Octave 5
+	Articulate 100
+	Unify On
+	Rvolume 5
+	Volume mp
+End
+
+DefGroove  JazzComboSus   Add some string players to the quartet. 
+
+Groove JazzCombo1
+Chord-Sus Groove JazzComboSus
+DefGroove  JazzCombo1Sus  Strings and straighter piano.
+
+Groove JazzCombo2
+Chord-Sus Groove JazzComboSus
+DefGroove  JazzCombo2Sus  Strings plus added drums.
+
+///////////////////////////////////
+/// Plus versions. These all mute the rhythm guitar and let it
+/// play a sort-of solo line.
+
+Groove JazzCombo
+
+Chord-Guitar Sequence -
+Begin Arpeggio-Guitar
+    Voice       $_Chord-Guitar_Voice
+    Articulate  110
+    Harmony     3Below
+    Octave      5
+    Rskip       30    40   40   70
+	Sequence    A2    A4   A4   A8
+    Volume      mp
+    Direction   Random
+	Range       1
+    SeqRnd      On
+End
+
+DefGroove JazzComboPlus   Guitar plays pseudo melody instead of rhythm.
+
+Groove JazzCombo1
+Chord-Guitar Sequence -
+Arpeggio-Guitar Copy  JazzComboPlus::Arpeggio-Guitar 
+DefGroove JazzCombo1Plus   Guitar melody with staighter piano.
+
+Groove JazzCombo2
+Chord-Guitar Sequence -
+Arpeggio-Guitar Copy  JazzComboPlus::Arpeggio-Guitar 
+DefGroove JazzCombo2Plus   More drums with guitar melody.
+
+Groove JazzComboSus
+Chord-Guitar Sequence -
+Arpeggio-Guitar Copy  JazzComboPlus::Arpeggio-Guitar 
+DefGroove JazzComboSusPlus   Strings with guitar.
+
+Groove JazzCombo1Sus
+Chord-Guitar Sequence -
+Arpeggio-Guitar Copy  JazzComboPlus::Arpeggio-Guitar 
+DefGroove JazzCombo1SusPlus   Strings, straight chords and guitar.
+
+Groove JazzCombo2Sus 
+Chord-Guitar Sequence -
+Arpeggio-Guitar Copy  JazzComboPlus::Arpeggio-Guitar 
+DefGroove JazzCombo2SusPlus    Strings, drums and guitar.
+
+////////////////////////////////
+/// Introduction
+
+Groove JazzCombo     
+
+Drum-kick    Sequence     D1   D34  D1   D1
+Drum-Snare   Sequence     *    *    *   D12
+Drum-CHH     Sequence     -
+Drum-PHH     Sequence     *    *    *   D1
+Drum-OHH     Sequence     *    *    *   D12
+
+Walk         Sequence     *    *    *  W1234
+
+Chord-Guitar Sequence     *    *    C1234  C13
+Arpeggio-Epiano Sequence  -
+
+Chord-Piano  Sequence     -
+
+
+DefGroove JazzComboIntro   A 4 bar introduction.
+
+Walk         Sequence     W1234   /    /    {1 2. 90}
+Chord-Guitar Sequence     *       /    /    L1
+Chord-Piano  Sequence     L1      /    /    /
+Drum-OHH     Sequence     *       *    *    D1
+Drum-Snare   Sequence     *       *    *    D1
+
+DefGroove JazzComboIntro2  Same intro with less stuff going on.
+
+/////////////////////////////////////////
+///// Ending
+
+Groove JazzCombo
+
+SeqSize 2
+
+Drum-kick    Sequence     D1234    D1
+Drum-Snare   Sequence     D1       D1
+Drum-CHH     Sequence     -
+Drum-PHH     Sequence     D1       z
+Drum-OHH     Sequence     D8       D1
+
+Walk         Sequence     *        {1 2 90}
+
+Chord-Guitar Sequence     C1234    L1
+Arpeggio-Epiano Sequence  -
+
+Chord-Piano  Sequence     -
+
+
+DefGroove  JazzComboEnd   Simple 2 bar ending.
+

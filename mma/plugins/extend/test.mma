@@ -1,0 +1,27 @@
+// Test: extend
+// This plugin adds an "extend" command to mma. This is the exact
+//  opposite of "truncate" and extends a chord. Alternately, extend
+//  can be used like truncate :)
+
+//  For a better usage, see the sample file "Promises Promises"
+
+Plugin extend     // load the plugin
+
+Groove JazzWaltzIntro
+
+// The first bar is in 3/4
+
+1   C
+// We are in 3/4 time. The next line truncates to 2/4. Yes,
+// we could use "truncate", but what the hell.
+// Sorry about the unfortunate syntax ... you must put the
+// @extend AND the data (chord) info all on line line! This
+// includes the optional line number.
+@Extend Timesig=2/4 Len=2 side=2  2   Am
+
+// Now, we create a 4/4 time bar
+@Extend Side=2 Len=4 Timesig=4/4  3   Dm
+
+// Finally, another 3/4
+4   G7
+

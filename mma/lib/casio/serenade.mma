@@ -1,0 +1,88 @@
+ // serenade.mma
+
+Begin Doc  
+      Serenade (039). Pretty boring.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 1
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-OpenTriangle
+    Tone OpenTriangle
+    Volume m
+    Sequence {1 0 110; 3 0 110}
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 90
+    Volume m
+    Sequence {1 8 1 95; 2 4 1 100; 3 4 5 105; 4 8 5 105}
+End
+
+Begin Bass-6
+    Voice Strings
+    Octave 5
+    Articulate 120
+    Volume m
+    Sequence {1 2 1 67; 1 2 5 69; 1 2 3 69; 3 4 3+ 66; 3 4 1 58; 3 4 5 66}
+End
+
+
+Begin Chord-7
+    Voice Harpsichord
+    Octave 5
+    Voicing Mode=Key
+    Articulate 90
+    Volume pp
+    Sequence {1 8 90; 2 8 90; 3 8 90; 4 8 90}
+End
+
+DefGroove Serenade   Basic 1 bar pattern
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove Serenade
+SeqSize 4
+
+Drum-OpenTriangle Sequence  *   *   *  D1
+
+Bass-9            Sequence  *   *   B13  B1
+
+//Strings
+Bass-6            Sequence  *   *   *   {1 2 1 60; 1 2 5 50; 1 2 3 50}
+
+// Harpsichord
+Chord-7           Sequence  C13  *   *   L1
+
+DefGroove SerenadeIntro   4 bar introduction
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove Serenade
+SeqSize 2
+
+Drum-OpenTriangle Sequence  *      D1
+
+Bass-9            Sequence  B13    B1
+
+//Strings
+Bass-6            Sequence  *      {1 2 1 60; 1 2 5 50; 1 2 3 50}
+
+// Harpsichord
+Chord-7           Sequence  C13    C1
+
+DefGroove SerenadeEnd   2 bar ending.
+
+

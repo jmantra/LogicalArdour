@@ -1,0 +1,282 @@
+
+// modernjazzwaltz
+
+Begin Doc
+      This is the ModernJazz style converted to 3/4 time. It
+      maintains voicing and volume between the two so you can
+      easily switch between 3/4 and 4/4 time.
+End
+  
+Author Bob van der Poel
+
+NewSet ArpeggioVoice MutedTrumpet
+
+Begin DocVar
+	  ArpeggioVoice  Voice for the alternating arpeggios in ModernJazzWaltz1 and ModernJazzWaltz2 (plus the SUS versions of 1 and 2). Default=MutedTrumpet. Also used in Introduction and Ending.
+End
+
+SeqClear
+Time 3
+Timesig 3 4
+Include stdpats34
+
+////////////////////////////////
+///////// Additional Patterns
+
+Begin Chord Define
+	Sync23  C2; C3 Shift .75
+	Sync33  C3; C3 Shift .75 
+End
+
+
+////////////////////////////////////
+
+
+SeqSize 4
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence   D1  z   D1    {D1 ; D3 Shift .75 }
+	Volume     mf  /   /     mp
+	RVolume 10
+	RTime   5
+End
+
+Begin Drum-Side
+	Tone SnareDrum1
+	Volume mp
+	Rvolume 10
+	Rtime 5
+//	Sequence   z   {D1 Shift .25 } z {D1 Shift .25; D3 }
+    Sequence   z    D1    z    {D1 ; D3 Shift .75 }
+End
+
+Begin Drum-PHH
+	Tone PedalHiHat
+	Sequence     D123
+	Volume mp
+	Rvolume 10
+	Rtime 5
+End
+
+Begin Drum-OHH
+	Tone OpenHiHat
+	Sequence     D1 z z z
+	Volume mp
+	Rvolume 10
+	Rtime 5
+End
+
+Begin Drum-Ride
+	Tone RideCymbal1
+	Sequence     D123  D13 
+	Volume mp
+	Rvolume 10
+	Rtime 5
+End
+
+Begin Walk
+	Voice AcousticBass
+	Volume mf
+	Articulate 60
+	Octave 3
+	Sequence  {1 4. 100; 2 4 90; 3 4 80}
+End
+
+Begin Chord-Guitar
+	Voice JazzGuitar
+	Volume mp
+	Voicing   Mode=Optimal
+	Articulate 40
+	Octave 5
+	Rtime 5
+	Rvolume 5
+	Sequence  C1  /  / C13
+End
+
+Begin Chord-Piano
+	Voice Piano2
+	Volume mf
+	Voicing   Mode=Optimal
+	Articulate 40
+	Octave 5
+	Rvolume 10
+	Rtime 5
+	Sequence   C123  C1  
+End
+
+DefGroove ModernJazzWaltz    ModernJazzWaltz with just a piano and guitar.
+
+
+Begin Arpeggio
+	Voice  $ArpeggioVoice
+	Octave 5
+	Range 1
+	Volume mf
+	Rvolume 5
+	Rtime 3
+	Rskip 5
+	Articulate 80
+	Sequence  {2 8 90; 2.75 8 90; 3.75 8 90 }  z  z  z
+End
+
+Begin Bass-Trp
+	Voice $ArpeggioVoice
+	Octave 5
+	Volume mf
+	Rvolume 5
+	Rtime 3
+	Rskip 10
+	Articulate 70
+	Sequence   z  z  {2 8 3 100; 2.5 8 5 80; 2.75 32 3 80; \
+	    3 8 5 100; 3.75 16 3 90 }   z
+End
+
+
+DefGroove ModernJazzWaltz1     Adds a muted trumpet on alternate bars.
+
+////////// Sustained versions
+
+Groove ModernJazzWaltz
+
+Begin Chord-sus
+	Voice VoiceOohs
+	Sequence	{ 1 1 90 0 50 0 * 3 } { 1 1 50 0 90 0 * 3 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+	Articulate 100
+	Unify On
+	Volume p
+	Octave 6
+End
+
+
+Chord-Piano	Sequence   z  Sync23   z  Sync33
+
+DefGroove ModernJazzWaltzSus     ModernJazzWaltz with added sustained violins.
+
+Groove ModernJazzWaltz1
+
+Chord-Sus Groove ModernJazzWaltzSus
+
+DefGroove ModernJazzWaltz1Sus   The full-meal-deal.
+
+///////// slower trumpets for faster tempo
+
+Groove ModernJazzWaltz1
+
+Begin Arpeggio
+    Rskip  10
+    Sequence  {2 4 90; 3.75 8 90 }  z  z  z
+End
+
+Begin Bass-Trp
+    Rskip 20
+    Sequence   z  z  {2 4 3 100; 3 8 3 100; 3.5 8 5 90 }   z
+End
+
+DefGroove ModernJazzWaltz2  A slower version of alternate-bar trumpet for faster tempos.
+
+Groove ModernJazzWaltz1Sus
+
+   Bass-Trp Groove ModernJazzWaltz2
+
+DefGroove ModernJazzWaltz2Sus Slower alternate-bar trumpets \
+                              with violins for faster tempos.
+
+/////////////////////////////////
+/// Fill
+
+Groove ModernJazzWaltz
+
+SeqSize 2
+
+Drum-Kick 	  Sequence   D13
+Drum-Side     Sequence   *
+Drum-PHH      Sequence   D13  {1 0 120}
+Drum-OHH      Sequence   D1   D1
+Drum-Ride     Sequence   -
+
+Walk          Sequence   W123
+Chord-Guitar  Sequence   C1   /
+Chord-Piano   Sequence   C23
+
+Begin Bass-Trp
+	Voice $ArpeggioVoice
+	Octave 5
+	Harmony OpenBelow
+	Volume mf
+	Rvolume 5
+	Rtime 3
+	Rskip 2
+	Articulate 80
+    Sequence  {1 43 1 90; 1.6 43 1 90; 2 43 1 9; 3 4 3 100; 3.5 8 5 90 } \
+	          {1 4 1 80; 2 4 3 90; 3 4 5 120}
+End
+
+DefGroove ModernJazzWaltzFill   A 2 bar horn fill good for endings.
+
+/////////////////////////////////////////////////
+///////// Intro
+
+Groove ModernJazzWaltz
+
+Drum-Kick  Sequence   D1  z   D1    D12
+Drum-Side  Sequence   z   {D1 Shift .75 } z D1
+Drum-PHH   Sequence   D13 /   /     D2
+Begin Drum-OHH
+           Sequence   D1  z   z     Droll
+           Volume     mp            ppp
+End
+Drum-Ride Sequence    -
+
+Walk Sequence  W123 / / {1 2 90}
+
+Chord-Guitar Sequence  C1   Sync23  C1  L1
+
+Chord-Piano Sequence   C13  Sync23  C2  C1
+
+Begin Chord-Trp
+	Voice $ArpeggioVoice
+	Octave     5
+	Volume     mf     /     /    mp
+	Rvolume    5
+	Articulate 60
+	Sequence  {C1 ; C2 Shift .5} / / C1
+End
+
+DefGroove ModernJazzWaltzIntro    4 bar introduction.
+
+
+//////// Ending 
+
+Groove ModernJazzWaltz
+SeqSize 2
+
+Arpeggio     Sequence  -
+
+Begin Bass-Trp
+	Voice $ArpeggioVoice
+	Octave 5
+	Volume mf
+	Articulate 70
+    Sequence  {1 8 1 90 ; 1.5 8 1 90 ; 2 8 1 90 ; \
+                   2.5 8 1 90 ; 3 8 5 90 }   B12
+End         
+     
+Chord-Guitar Sequence  C123   C13
+Chord-Piano  Sequence  C23    C1
+
+Drum-Kick    Sequence   D1
+Drum-OHH     Sequence   {D23 Shift .75 } z
+Drum-PHH     Sequence   D6 D13
+Drum-Ride    Sequence   D6 D13
+Drum-Side    Sequence   -
+
+Walk         Sequence   W123 W13
+                            
+DefGroove ModernJazzWaltzEnd   Nice, 2 bar, ending. First bar is full, \
+                          second has hits on 1 and 3.
+                          
+

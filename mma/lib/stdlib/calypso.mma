@@ -1,0 +1,212 @@
+
+// calypso
+
+
+Begin Doc
+	
+    Again, I'm no expert! I did this one to play with the 
+	Sonny Rollins song "St. Thomas".
+                   
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+	
+///////////////////////////
+// Define patterns
+
+Begin Chord Define
+	C12'3    C14 ;  2.5 16 80 
+	C12'34   C12'3 ; C4
+End
+
+Begin Drum Define
+	D13+    D13 ; D13 Shift .5
+	D2'4    2.5 0 90; 4 0 90
+End
+
+Begin Walk Define
+	W1'3  W13; 2.5 16 80
+	W13'  W13; 4.5 16 80
+End
+
+/////////////////
+// Calypso
+
+
+SeqSize 4
+
+Begin Chord
+	Sequence   C12'3  /  /  C12'34
+	Voice JazzGuitar
+	Volume mp
+	Voicing  Mode=Optimal   Rmove=10
+	Octave 6 
+	DupRoot -1
+	Articulate 90
+	Rvolume 5
+	Rtime 2
+	Rskip 5
+	Strum 6
+End
+
+Begin Drum-LowBongo
+	Sequence   D13  D13+
+	Tone LowBongo
+	Rvolume 20
+	Rtime 5
+End
+
+Begin Drum-LowConga
+	Sequence  D2'4
+	Tone LowConga
+	Rvolume 20
+	RTime 4
+End
+
+Begin Drum-Cym
+	Sequence  D1234
+	Tone CrashCymbal1
+	Volume ppp
+	Rtime 20
+	Rvolume 20
+	Rskip 90
+End
+
+Begin Walk
+	Sequence  W13  /   W1'3   W13'
+	Accent 1 10
+	SeqRnd On
+	Octave 3
+	Voice AcousticBass
+	Articulate 90
+	Volume f
+	Rvolume 4
+	Rtime 5
+End
+
+DefGroove Calypso	A nice, simple Calypos beat with lots of tom-drums.
+
+Begin Chord-Sus
+	Voice SynthVox
+	Sequence  { 1 1 90 0 80 0 * 2}  // Root and fifth notes only.
+	Voicing mode=optimal
+	Volume mp
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+DefGroove CalypsoSus   A synth voice sustained under the beat.
+
+
+//////////////
+// Alternate with a 4 to the bar walk
+
+Groove Calypso
+
+Begin Walk
+	Sequence  W1234
+	Direction Down
+	Octave 3
+	Articulate 70
+End
+
+DefGroove Calypso1   Walking Bass changed to 4-in-a-bar. 
+	
+Chord-Sus Groove CalypsoSus
+
+DefGroove Calypso1Sus   4-in-a-bar bass with sustained, artifical voices.
+
+/////////////////////////
+/// Plus versions, add in guitar solo line
+
+Groove Calypso
+
+Begin Arpeggio
+     Voice JazzGuitar
+     Harmony 2Above
+     Articulate 110
+     Octave 5
+     Volume f
+     Rskip      60             /  40     60
+     Direction  Up           Down Random Down
+     Range 1.5
+     Sequence  {A4; 2.5 8 90}  /  {A4}   {A2; 2.5 8 90}
+End
+
+DefGroove CalypsoPlus   Add solo-sounding guitar.
+
+Groove CalypsoSus
+Arpeggio Groove CalypsoPlus
+DefGroove CalypsoSusPlus   Guitar and synth voice.
+
+Groove Calypso1
+Arpeggio Groove CalypsoPlus
+DefGroove Calypso1Plus    4 to the bar bass and guitar.
+
+Groove Calypso1Sus
+Arpeggio Groove CalypsoPlus
+DefGroove Calypso1SusPlus  4 to the bar bass, guitar and voice.
+
+////////////////////
+/// Intro
+
+Groove Calypso
+
+Chord         Sequence   *    *    *     C13
+
+Drum-LowBongo Sequence   *    *    D13   D1
+Drum-LowConga Sequence   *    *    D24   D12
+
+Begin Drum-Cym
+      Sequence  D1
+      Rskip 0
+End
+
+Begin Walk
+   Sequence   *    *    *     W1234
+   Articulate 70
+   Direction up
+   SeqRnd Off
+End
+
+DefGroove CalypsoIntro   Simple 4 bar intro.
+
+Groove CalypsoIntro
+SeqSize 8
+
+Chord         Sequence   *    *    *   C1234  *  *  *  C13
+
+Drum-LowBongo Sequence   *    *    *   D1     *  *  D13   D1
+Drum-LowConga Sequence   *    *    *   D2     *  *  D24   D12
+
+Walk Sequence  *  *  *  W13  *  *  *  W1234
+
+DefGroove Calypso8Intro  An expansion of CalypsoIntro to 8 bars
+
+////////////////
+// A 1 bar ending. This uses all the same instruments
+// but puts everything on the beat.
+
+Groove Calypso
+SeqSize 1
+
+Alltracks Rskip 0
+
+Drum-LowBongo  Sequence D1234
+Drum-LowConga  Sequence D1234
+Drum-Cym       Sequence D12
+Walk           Sequence W1234
+Chord          Sequence C1234
+
+DefGroove CalypsoEnd    A very simple, finalized ending. All \
+                        the same instruments as Calypso, but \
+                        all are on beats 1,2,3 and 4.
+
+
+

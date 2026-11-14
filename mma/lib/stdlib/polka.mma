@@ -1,0 +1,238 @@
+
+// polka
+
+Begin Doc
+
+	This is good for, gosh, polkas. They are all set as 4/4 time, and 
+    as you know a polka is usually in 2/4. So, double up on the tempo 
+    and all should work just fine.
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+///////////////////////////
+// Additional patterns
+
+
+////////////////////////////////////////////////
+///// Polka
+
+SeqSize 4
+
+Begin Chord
+	Sequence        C13    /    /   { C1234; C2 Shift .5 }
+	Voicing   Mode=Optimal
+	Voice Accordion
+	Accent 1 10
+	Octave 5
+	Articulate 70
+	Volume p
+End
+
+Begin Chord-Guitar
+	Sequence       C1234  C24  /    /
+	Voicing   Mode=Optimal
+	Voice JazzGuitar
+	Octave 5
+	Articulate 80
+	Strum 4
+	Volume p
+End
+
+Begin Drum
+	Sequence  D13
+	Tone Slap
+	RVolume 5
+	RSkip 5
+	Rtime 2
+	Volume p
+End
+
+Begin Drum-HH
+	Sequence D13
+	Tone ClosedHiHat
+	RVolume 4
+	Rtime 4
+	Rskip 5
+	Volume p
+End
+
+Begin Drum-Snare
+	Sequence   D24   /   /   D1234
+	Tone SnareDrum1 
+	RVolume 10
+	RTime 3
+	Volume     p     p   p    pp
+End
+
+Begin Drum-Cym
+	Sequence  D1 
+	Tone CrashCymbal1
+	RVolume 20
+	RSkip 80
+	Volume p
+End
+
+Begin Bass
+	Voice Tuba
+	Sequence    B13   /    /    z
+	Octave 3
+	Articulate 60
+	Rvolume 10
+	Volume mf
+End
+
+Begin Walk
+	Voice $_Bass_Voice
+	Octave $_Bass_Octave
+	Sequence    z    z     z   W1234
+	Articulate 60
+	Volume mf
+	RVolume 4
+End
+
+DefGroove Polka       Simple, Barvarian-style polka.
+
+Begin Chord-Sus
+	Sequence { 1 1 90 0 90 0 * 4 }
+	Voice  ChoirAahs
+	Octave 5
+	Voicing Mode=Optimal
+	Articulate 100
+	Unify On
+End
+
+DefGroove PolkaSus     Same as Polka, but we add in singing frauleins.
+
+// Add in arp accordion
+
+Groove Polka
+
+Begin Arpeggio
+	Sequence A4 A8 A4 A8
+	Invert   0  0  1  1
+	Range 2
+	SeqRnd On
+	Voice Accordion
+	Octave 5
+	Rvolume 5
+	RSkip 20
+	Volume mp
+End
+
+DefGroove PolkaArp      Polka with a imported accordion player for arpeggios.
+
+Chord-Sus Groove PolkaSus
+
+DefGroove PolkaSusArp   Polka with frauleins and accordion player. Wow!
+
+// Polka1 Bass variation
+
+Groove Polka
+
+//Chord-Guitar  Sequence C24 / / C1234
+
+Bass Sequence    {B1234; 2.5 8 5 80 }   /   /   z
+Walk Sequence       z                   z  z  { W1234 ; 2.5 8 80 }
+
+DefGroove Polka1           Similar to Polka, but with a snazzier bass.
+
+Chord-Sus Groove PolkaSus
+DefGroove Polka1Sus        Polka1 with sustained voices.
+
+Groove Polka1 
+Arpeggio Groove PolkaArp	
+DefGroove Polka1Arp         Polka1 with Accordion arpeggios.
+
+Chord-Sus Groove PolkaSusArp
+DefGroove Polka1SusArp      Polka1 with voices and arpeggios.
+
+//////////////////////////////////
+// PolkaIntro
+
+Groove Polka
+
+Chord            Sequence  C13    /    /   C1
+Chord-Guitar     Sequence  C13    /    /   C1
+Drum             Sequence  D13    /    /   D1
+Drum-HH          Sequence  D13    /    /   D1
+Drum-Snare       Sequence  D24    /    /   D2
+Begin Drum-Cym 
+                 Sequence  z      /    /   D1 
+                 RVolume   0
+                 RSkip     0
+                 Volume    mf
+End
+
+Begin Bass
+	Voice       Tuba
+	Sequence    B13   /    /    {1 4 5 80; 2 4 4 90; 3 4 3 100; 4 4 2 120}
+	Octave      3
+	Articulate  70
+	Rvolume     0
+	Volume      f
+End
+
+Walk            Sequence    -
+
+DefGroove PolkaIntro    A nice little 4 bar intro.
+
+Groove Polka
+SeqSize 8
+
+Chord            Sequence  C13    /    /   /     /    /    /   C1
+Chord-Guitar     Sequence  C13    /    /   /     /    /    /   C1
+Drum             Sequence  D13    /    /   D1234 D13  /    /   D1
+Drum-HH          Sequence  D13    /    /   /     /    /    /   D1
+Drum-Snare       Sequence  D24    /    /   D1234 D24  /    /   D2
+Begin Drum-Cym 
+                 Sequence  z      z    z   z     z    z    z   D1 
+                 RVolume   0
+                 RSkip     0
+                 Volume    mf
+End
+
+Begin Bass
+	Voice       Tuba
+	Sequence    B13   /    /   /  /  /  / {1 4 5 80; 2 4 4 90; 3 4 3 100; 4 4 2 120}
+	Octave      3
+	Articulate  70
+	Rvolume     0
+	Volume      f
+End
+
+Walk            Sequence    -
+
+DefGroove PolkaIntro8    Expanded version of PolkaIntro for 8 bars.
+
+
+//////////////////////////////////
+// PolkaEnd
+// 1 bar ending
+
+Groove Polka
+SeqSize 1
+
+Begin Chord
+	Sequence C13 
+	Invert 0
+	Volume mf
+End
+
+Walk        Sequence -
+Bass        Sequence B11
+Drum-Snare  Sequence D1234
+Drum-Cym    Sequence D1
+
+DefGroove PolkaEnd    A repeatable, single bar ending.
+
+
+
+
+

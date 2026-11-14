@@ -1,0 +1,280 @@
+
+// tango
+
+Begin Doc
+
+	This is a stronger, heavy version of Tango. You might also
+	want to look at the "LightTango" for an alternative.
+ 
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+/////////////////////////////////////////
+//// Additional patterns
+
+
+Begin Drum Define
+	D1234+   D1234 Shift .5
+	D12+3+4  D1234; D23 Shift .5
+	Roll4  4.5 0 80; 4.625 0 75;  4.75 0 75; 4.875 0 88 
+End
+
+Begin Chord Define
+	OffBeat1   C12 Shift .5 ; C4
+	OffBeat2   C124 Shift .5; C4
+End
+
+Begin Bass Define
+	V1-1  1.5 4 1 90; 2.5 8 1 90; 3 8 1 90 
+	V1-3  1.5 4 3 90; 2.5 8 3 90; 3 8 3 90 
+	V1-5  1.5 4 5 90; 2.5 8 5 90; 3 8 5 90 
+	V2-1  1 1 1 90 
+	V2-3  1 1 3 90 
+	V2-5  1 1 5 90 
+End
+
+Begin Arpeggio Define
+	AR1 2 8 90; 2.5 8 90; 3 8 90; 3.5 4 90 
+	AR2 1.5 4 90; 2.5 8 90; 3 8 90; 4 8 90 
+	AR3 1 8 90; 1.5 8 90; 2 8 90; 4 8 90 
+End
+
+/////////////////////////////////
+///////// Tango
+
+
+SeqSize 8
+
+Begin Drum
+	Sequence D1234 
+	Tone SnareDrum1
+	Rvolume 10
+	Rtime 1
+End
+
+Begin Drum-Rolls
+	Sequence Roll4   z z z
+	Tone SnareDrum1
+	Rvolume 20
+	Rtime 1
+End
+
+Begin Drum-Kick
+	Sequence D1234 / / D1234+
+	Tone KickDrum1
+	Rskip 40
+	Rtime 3
+	Rvolume 10
+End
+
+Begin Drum-HH
+	Sequence D1234
+	Tone PedalHiHat
+	Rskip 10
+	Rtime 4
+	Rvolume 20
+End
+
+Begin Drum-OHH
+	Sequence D4 z D4 z
+	Tone OpenHiHat
+	Rvolume 10
+	Rtime 1
+End
+
+Begin Walk
+	Sequence W1234
+	Rskip 10
+	Rtime 5
+	Octave 3
+	Volume mf
+	Articulate 60
+	Voice AcousticBass
+End
+
+Begin Arpeggio
+	Sequence AR1 AR2 AR3 z
+	Voice Bandoneon
+	Octave 6
+	SeqRnd On
+	Articulate 70
+	Rskip 5
+	Rvolume 20
+	Volume mf
+	Rtime 5
+	Direction Down
+End
+
+Begin Chord
+	Voice Bandoneon
+	Voicing Mode=Optimal
+	Sequence C1234  OffBeat1  C134  OffBeat2
+	Articulate 40
+	Volume mp
+	Octave 5
+End
+
+// This bass slot is used for the violin counter melody
+
+Begin Bass-Violin	
+	Sequence V1-1  V1-3  V1-5  V1-1  V2-1  V2-3  V2-5  V1-1
+	Voice Violin
+	Articulate 99
+	Volume mp
+	Octave 5
+End
+
+DefGroove Tango     Basic tango.
+
+//////////////////////////////////
+// Tango1 -- More March-like version
+//           The chords are changed to piano from accordion,
+//           minor tweaks to the accordion-aprs and violin counter.
+
+Groove Tango
+
+Begin Chord
+	SeqClear
+	Sequence  C1234   OffBeat1  C1234   OffBeat2
+	Articulate 70
+	Voicing Mode=Optimal
+	Voice Piano1
+	Octave 5
+	Volume mp
+End
+
+Begin Arpeggio
+	Volume pp
+	Articulate 95
+End
+
+Begin Bass-Violin
+	Volume p
+	SeqRnd On
+	Octave 5
+	Rskip 50
+End
+
+DefGroove Tango1     Our basic Tango with a March feel.
+
+///////////////////////////////////////
+// A cleaner version. Takes out the arpeggios and
+// just has chords playing on the bandoneon
+
+//Drum
+//Drum-Rolls
+//Drum-Kick
+//Drum-HH
+//Drum-OHH
+//Walk
+Arpeggio Sequence -
+Begin Chord
+	SeqClear
+	Sequence   C1234   {1 8 90; OffBeat1}  C1234   OffBeat2
+	Articulate   60     50         60       50
+	Voicing Mode=Optimal
+	Voice Bandoneon
+	Octave 5
+	Volume m
+End
+
+//	Voice Bandoneon
+//	Voicing Mode=Optimal
+//	Sequence C1234  OffBeat1  C134  OffBeat2
+//	Articulate 40
+//	Volume mp
+//	Octave 5
+//End
+
+Bass-Violin	Sequence -
+
+DefGroove TangoClean A simpler version with just block chords
+
+/// Clean tango with sustained strings
+
+Begin Chord-Sus
+	Voice      Strings
+	Sequence   {1 1 90 0 90 0 * 4}
+	Voicing Mode=Optimal
+	Octave     5
+	Articulate 100
+	Unify On
+	Volume     mp   
+End
+
+DefGroove TangoCleanSus  Simple tango with sustained strings.
+
+Groove TangoClean
+ Begin Bass-Violin  // Simple mod, just bring in the violin in
+    Groove Tango    // a higher octave
+    Octave +1
+ End
+DefGroove TangoCleanPlus  Clean version with a violin alternate.
+
+/////////////////////////////////
+// TangoIntro
+//  Simple 4 bar intro
+
+Groove Tango
+
+// Drum
+// Drum-rolls
+// Drum-kick
+// Drum-HH
+Drum-OHH Sequence D4   /// do a OHH on each bar
+
+Walk Sequence {1 4 100; 3 8 90; 3.5 8 90; 4 4 90;}
+
+Arpeggio Sequence -
+
+// Chord
+
+Bass-Violin Sequence -
+
+DefGroove TangoIntro  Simple 4 bar introduction.
+
+//////////////////////////////////
+//    TangoEnd
+//    2 bar ending 
+
+Groove Tango
+SeqSize 2
+
+// Turn off the apreggiating accordion, walking bass and drum rolls
+
+Arpeggio     Sequence   -
+Walk         Sequence   -
+Drum-Roll    Sequence   -
+
+// Change remaining drums, bass and accordion chords
+//  to 1-2-3-4 , 1-3 pattern
+
+Drum         Sequence   D1234  D13
+Drum-Kick    Sequence   D1234  D13
+Drum-HH      Sequence   D13
+
+Begin Bass
+    Sequence   B1234   B13
+	Octave 3
+	Volume f
+	Articulate 60
+	Voice AcousticBass
+End
+
+Chord        Sequence   C1234   C13
+
+// Funky violin only plays on the 1st bar
+
+Bass-Violin	 Sequence  V2-1  z
+
+
+DefGroove TangoEnd  A nice ending for our dance.
+
+
+

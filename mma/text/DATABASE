@@ -1,0 +1,26 @@
+
+MMA maintains database files in each lib directory. These are simple
+ files consisting of a single dictionary which is saved to disk using
+ the pickle module.
+
+You can read this file with a simple python program:
+
+   #!/usr/bin/python
+   import pickle
+
+   infile = ".mmaDB"
+   f = open(infile, "r")  # you have to be in the lib directory
+   f.readline()           # Read/discard comment line
+   g = pickle.load(f)
+   f.close()
+   print(g)
+
+We seriously considered switching to a json format, but several other
+ programs rely on this behavior so we'll leave well enough alone. 
+
+We use pickle protocol 2 for saving data. Don't use 3 or HIGHEST_PROTOCOL!
+ This results in database files which are not compatible been py2 and p3.
+ (And don't ask how I figured this out!)
+
+bvdp, 2019/03/09
+

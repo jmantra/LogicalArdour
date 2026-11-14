@@ -1,0 +1,34 @@
+
+// Demo to show how to use MidiInc to create solo riffs.
+
+// This is much like the file frankie.mma, but shows many more options.
+
+Tempo 115   // again, a different tempo from the included file
+
+
+Groove Foxtrot
+Transpose 2     // move song from C to D
+
+Begin Solo
+ Voice Marimba                  // winter holiday sounds
+ Mallet Rate=30t Decay=-2       //  BANG, Bang, bang...
+ Harmony 3Above+8Below+16Above  // lots of hands on the bones
+ Articulate 200                 // stretch the note durations
+ Volume m                       // medium volume
+End
+
+// Include the recorded MIDI. Note the RIFF option ...
+// a bunch of riff command lines are generated and pushed
+// into the Solo track. When played they are treated just
+// like solo notes entered by hand. 
+
+Midiinc File=rec1.mid Solo=1,Riff  Volume=70 Octave=2
+
+// And play it
+
+	C * 4
+	F * 3
+	C
+	G7 * 2
+	C
+    z!

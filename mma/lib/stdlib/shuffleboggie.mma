@@ -1,0 +1,228 @@
+
+// shuffleboggie.mma
+
+Begin Doc
+
+	  A blues-like shuffle beat. Written for Kansas City.
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+//////// Additional patterns
+
+
+/////////////
+
+SeqSize 2
+Begin Drum-Kick
+	  Tone KickDrum1
+	  Volume mp
+	  Sequence D1234
+End
+
+Begin Drum-Clap
+	  Tone HandClap
+	  Volume p
+	  Sequence D24
+End
+
+Begin Drum-Snare
+	  Tone SnareDrum2
+	  Volume mp
+	  Sequence D24
+End
+
+Begin Drum-CHH
+	  Tone ClosedHiHat
+	  Volume p
+	  Sequence {D1234; D24 Shift .666}
+End
+
+Begin Drum-OHH
+	  Tone OpenHiHat
+	  Volume mp
+	  Sequence {D1 Shift .666}
+	  RSkip 50
+End
+
+Begin Chord-Sax
+	  Voice TenorSax
+	  Octave 4
+	  Voicing Mode=Optimal
+	  Volume p
+	  Articulate 80
+	  Sequence {1 8. 100 0; 1.66 16 80; 3 8 90 }
+End
+
+Begin Chord-Piano
+	  Voice Piano2
+	  Octave 5
+	  Volume mp
+	  Sequence { C1234 Shift .666}
+	  Articulate 60
+End
+
+Begin Bass-Piano
+	  Voice $_Chord-Piano_Voice
+	  Octave 4
+	  Volume $_Chord-Piano_Volume
+	  Articulate $_Chord-Piano_Articulate
+	  Sequence {1 1 1 90 * 4}
+End
+
+Begin Chord-Guitar
+	  Voice MutedGuitar
+	  Volume m
+	  Articulate 100
+	  Octave 5
+	  Sequence {1 4 90; 2 16 90; 2.666 8 100 0; 3 4 90; 4 16 90; 4.666 8 100 0}
+End
+
+Begin Bass
+	  Voice SlapBass1
+	  Volume f
+	  Articulate 80
+	  Octave 3
+	  Sequence {1 4 1 90; 2 4 3 90; 3 8. 5 90; 4 8. 3 90}
+End
+
+
+DefGroove ShuffleBoggie  Blues with a shuffle style.
+
+Groove ShuffleBoggie
+
+Alltracks Chord Bass Volume -20%
+
+Begin Arpeggio
+	  Voice CleanGuitar
+	  Octave 5
+	  Range 1
+	  Articulate 70
+	  Harmony Open
+	  Sequence  A4  {1 4 90; 2 16 90; 2.666 8 90; 3 4 90; 4 4 16; 4.666 8 90}
+	  SeqRnd On
+	  Rskip 10
+	  Rtime 20
+	  Rvolume 20
+End
+
+DefGroove ShuffleBoggie1  Adds an articulated guitar riff to the basic beat.
+
+
+
+/////////////////
+/// Sustained
+
+Groove ShuffleBoggie
+
+Alltracks Chord Bass Volume -30%
+
+Begin Chord-Sus
+	Voice Strings
+	Sequence	{ 1 1 90 0 50 0 * 4 } { 1 1 50 0 90 0 * 4 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+	Articulate 100
+	Unify On
+	Volume m
+	Octave 5
+End
+
+DefGroove ShuffleBoggieSus  Blues with violins. Sort of odd, but we can call them fiddles!
+	  
+
+/////////////
+/// Introduction
+
+Groove ShuffleBoggie
+
+Drum-Kick     Sequence   *   D1
+Drum-Clap     Sequence   *   D1
+Drum-Snare    Sequence   *   D1
+Drum-CHH      Sequence   *   D16
+Drum-OHH      Sequence   -
+
+Chord-Sax     Sequence  *    {1 2 90}
+
+Chord-Piano   Sequence  *    C1
+Bass-Piano    Sequence  -
+Chord-Guitar  Sequence  *    C1
+
+Bass          Sequence  *    {1 1 1 90}
+	  
+
+DefGroove ShuffleBoggieIntro   A two bar intro. Short, loud and sweet.
+
+Groove ShuffleBoggie
+SeqSize 4
+
+Drum-Kick     Sequence   *   *  *   D1
+Drum-Clap     Sequence   *   *  *   D1
+Drum-Snare    Sequence   *   *  *   D1
+Drum-CHH      Sequence   *   *  *   D16
+Drum-OHH      Sequence   -
+
+Chord-Sax     Sequence  *    *  *   {1 2 90}
+
+Chord-Piano   Sequence  *    *  *    C1
+Bass-Piano    Sequence  -
+Chord-Guitar  Sequence  *    *  *    C1
+
+Bass          Sequence  *    *  *    {1 1 1 90}
+	  
+
+DefGroove ShuffleBoggieIntro4  A four bar intro.
+
+/////////////
+/// Ending
+
+Groove ShuffleBoggie
+
+
+Drum-Kick     Sequence   *   D123
+Drum-Clap     Sequence   *   D123
+Drum-Snare    Sequence   *   D13
+Drum-CHH      Sequence   *   z
+Drum-OHH      Sequence   -
+
+Chord-Sax     Sequence  *    C13
+
+Chord-Piano   Sequence  *    C123
+Bass-Piano    Sequence  -
+Chord-Guitar  Sequence  *    C123
+
+Bass          Sequence  *    B13
+	  
+
+DefGroove ShuffleBoggieEnd   Very simple ending, hits on 1, 2 and 3 of last bar.
+
+
+///////////////////////////////
+/// 1 bar fill
+
+
+Groove ShuffleBoggie
+SeqSize 1
+
+Drum-Kick     Sequence   D1234
+Drum-Clap     Sequence   D13
+Drum-Snare    Sequence   D13
+Drum-CHH      Sequence   z
+Drum-OHH      Sequence   D1234
+
+Chord-Sax     Sequence   C13
+
+Chord-Piano   Sequence   C1234
+Bass-Piano    Sequence   z
+Chord-Guitar  Sequence   C1234
+
+Bass          Sequence   {1 4 5 110; 2 4 3 100; 3 4 2 90; 4 4 1 100;}
+
+DefGroove ShuffleBoggieFill   Single bar fill.

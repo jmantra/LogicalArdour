@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Ornament</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node17.html">
+<LINK REL="previous" HREF="node15.html">
+<LINK REL="next" HREF="node17.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node17.html">Tempo and Timing</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node15.html">Harmony</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION001600000000000000000"></A>
+<A ID="chap-ornament"></A>
+<BR>
+Ornament
+</H1>
+
+<P>
+Individual notes in various tracks can be embellished or ornamented by
+using standard musical &ldquo;tricks&rdquo; like grace notes, mordents, etc.
+This is specified with the O<SMALL>RNAMENT</SMALL> command. This command is
+valid in C<SMALL>HORD</SMALL>, B<SMALL>ASS</SMALL>, W<SMALL>ALK</SMALL>, A<SMALL>RPEGGIO</SMALL> and
+S<SMALL>CALE</SMALL> tracks. This command has a number of valid options, all
+set in the OPTION=VALUE format. Following are the recognized options:
+
+<P>
+<DL>
+<DT><STRONG>Type</STRONG></DT>
+<DD>This is the type of embellishment to use. Valid settings
+  are M<SMALL>ORDENT</SMALL>, T<SMALL>URN</SMALL>, T<SMALL>RILL</SMALL>, G<SMALL>RACE</SMALL>,
+  3A<SMALL>FTER</SMALL>, G<SMALL>LISS</SMALL><A ID="tex2html77"
+  HREF="#foot9518"><SUP><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> and G<SMALL>LISS</SMALL>A<SMALL>FTER</SMALL>.<A ID="tex2html78"
+  HREF="#foot2856"><SUP><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A> The effects are
+  best illustrated in standard notation:
+
+<P>
+<DIV class="CENTER">
+  <IMG WIDTH="80%"  SRC="mupex/ornaments.png" ALT="Lost Image">
+
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+
+<P>
+In the above illustrations each T<SMALL>YPE</SMALL> of ornament is show with
+the P<SMALL>LACE</SMALL> option (see below) set to the default of
+A<SMALL>BOVE</SMALL>. For a number of these you'll really want to use
+P<SMALL>LACE=</SMALL>B<SMALL>ELOW</SMALL> for conventional results.
+
+<P>
+</DD>
+<DT><STRONG>Chromatic</STRONG></DT>
+<DD>By default, when selecting the additional notes to
+  use, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  uses the scale list for the current chord. This ensures
+  that the added notes blend with the rest of the accompaniment. The
+  exception occurs when the initial note is part of a modified
+  pattern;<A ID="tex2html79"
+  HREF="#foot9519"><SUP><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A> in this case a chromatic note is
+  used.
+
+<P>
+The C<SMALL>HROMATIC</SMALL> option forces the use of chromatic notes. It is
+  set with C<SMALL>HROMATIC=</SMALL>O<SMALL>N</SMALL>. You can also use T<SMALL>RUE</SMALL> to
+  enable; O<SMALL>FF</SMALL> or F<SMALL>ALSE</SMALL> to disable.
+
+<P>
+</DD>
+<DT><STRONG>Place</STRONG></DT>
+<DD>Valid settings are A<SMALL>BOVE</SMALL>, B<SMALL>ELOW</SMALL>,
+  R<SMALL>ANDOM</SMALL>. The examples shown above are all with the default
+  option A<SMALL>BOVE</SMALL> in effect. Using the P<SMALL>LACE=</SMALL>B<SMALL>ELOW</SMALL> setting
+  moves the embellishments down below the note. The final option,
+  P<SMALL>LACE=</SMALL>R<SMALL>ANDOM</SMALL>, places the ornament randomly.
+
+<P>
+</DD>
+<DT><STRONG>Count</STRONG></DT>
+<DD>Used only in G<SMALL>LISS</SMALL> and G<SMALL>LISS</SMALL>A<SMALL>FTER</SMALL>
+  ornaments. This specifies how many notes are played in the
+  glissando. If you use short note durations or a large C<SMALL>OUNT</SMALL>
+  value 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  may truncate the value to give each ornament note a
+  duration of a single MIDI tick. By default C<SMALL>OUNT</SMALL> is set to 5.
+
+<P>
+</DD>
+<DT><STRONG>Duration</STRONG></DT>
+<DD>The time-slice ratio given to the main note and the
+  embellishment can be set with this option. By default the
+  embellishment is given 20% of the duration (the remaining 80%
+  going to the note). This is pretty straightforward to use, except
+  that in the T<SMALL>RILL</SMALL> setting this sets the number of pairs of
+  notes to use (for example, in T<SMALL>YPE=</SMALL>T<SMALL>RILL </SMALL>D<SMALL>URATION=25</SMALL> you will
+  get each note divided into 4 pairs). The A<SMALL>RTICULATE</SMALL> setting
+  will effect both the main note and the embellishments. When using
+  the 3A<SMALL>FTER</SMALL> setting a duration of 75 will set all 4 notes to
+  the same duration.
+
+<P>
+</DD>
+<DT><STRONG>Pad</STRONG></DT>
+<DD>This option adds (or subtracts) duration to both the
+  ornamented and main portion of the note(s). Optionally, you can set
+  2 values (a comma separated pair, e.g., P<SMALL>AD=10,20</SMALL>) which will
+  set different values for the main note and the ornamentation (in
+  that order). The value(s) are set as percentage value(s). The
+  default is to add 10% to each note. The placement (the start time)
+  of both notes is determined by the note duration specified in the
+  pattern; this option effects the &ldquo;overlay&rdquo; time. Judicious use of
+  this option will give the notes/ornamentation a more legato or
+  staccato feel. Both values must be in the range of -100 to 100.
+
+<P>
+</DD>
+<DT><STRONG>Volume</STRONG></DT>
+<DD>The relative volume (actually MIDI velocity) of the
+  embellishments defaults to 75% of the main note. You can make added
+  notes louder (V<SMALL>OLUME=150</SMALL>) or softer (V<SMALL>OLUME=50</SMALL>).
+
+<P>
+</DD>
+<DT><STRONG>Beats</STRONG></DT>
+<DD>Set the offsets on which the embellishments will be
+  applied. Beats are specified in the same manner as pattern offsets
+  (<A HREF="node4.html#beat-offset">here</A>). The beats (offsets)
+  are a comma separated list:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Scale Ornament Beats=1,3.25,4   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can disable this setting (the default) with the special value
+  &ldquo;All&rdquo;.
+
+<P>
+</DD>
+<DT><STRONG>Bars</STRONG></DT>
+<DD>Limit the ornamentation to specified bars in the sequence.
+  This is a comma separated list. For example, if you have a 4 bar
+  sequence you could limit the ornamentation to the first and third
+  bars in the sequence with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Arpeggio Ornament Type=Moderent Bars=1,3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+To make life more interesting (and confusing) this can be combined
+  with the B<SMALL>EATS</SMALL> option, above. You can disable this setting
+  (the default) with the special value &ldquo;All&rdquo;.
+
+<P>
+</DD>
+<DT><STRONG>Rskip</STRONG></DT>
+<DD>Skip a random number of ornamented notes. The setting
+  must be in the 0 to 100 range (with 0 turning the feature off and
+  100 skipping every event). R<SMALL>SKIP</SMALL> is only applied to events
+  permitted by the B<SMALL>EATS</SMALL> and B<SMALL>ARS</SMALL> options. Also, the
+  track setting for R<SMALL>SKIP</SMALL> is further applied to generated
+  notes.
+
+<P>
+</DD>
+<DT><STRONG>Rvolume</STRONG></DT>
+<DD>Applies randomization to the volume (velocity) of the
+  generated notes. The syntax for this is the same as the
+  R<SMALL>VOLUME</SMALL> command, described <A HREF="node19.html#rvolume">here</A>. Please note that if you have a R<SMALL>VOLUME</SMALL>
+  setting for this track, it will be applied to the ornament notes
+  already &ldquo;randomized&rdquo;. The main use of this command is to apply a
+  random volume to the ornaments, but not the main note.
+
+<P>
+</DD>
+<DT><STRONG>Offset</STRONG></DT>
+<DD>Add in a further offset for the ornamented notes. The
+  main note is not effected. This can be used to insert additional
+  space between the ornament and actual note:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Walk Ornament Type=Grace Chromatic=On Offset=-20  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The argument is the additional number of MIDI ticks to shift the
+  ornamentation. It must be in the range -194 to 194 (equivalent to a
+  quarter note).
+
+<P>
+</DD>
+</DL>
+
+<P>
+For reference, here is a setting line which duplicates the defaults:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Type=NONE Chromatic=OFF Duration=20.0 Count=5 Pad=10.0,0
+  Offset=10.0 Volume=75.0 RVolume=0,0 Place=ABOVE Beats=ALL Rskip=0
+  Bars=ALL  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+To disable all ornamantations you can use an empty command or the
+single keywords &ldquo;None&rdquo; or &ldquo;Off&rdquo;:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Scale Ornament 
+<BR>
+Scale Ornament Off   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+There are a number of examples in the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">egs/ornament</SPAN></SPAN> directory.
+
+<P>
+Some points to note:
+
+<UL>
+<LI>If the H<SMALL>ARMONY</SMALL> setting is enabled, the O<SMALL>RNAMENT</SMALL>
+  options are applied only to the main note, not the harmony.
+
+<P>
+</LI>
+<LI>In C<SMALL>HORD</SMALL> tracks <SPAN  CLASS="textit">only</SPAN> the top (highest pitch) note
+  is ornamented.
+
+<P>
+</LI>
+<LI>Chords (ie, the main note plus any harmony notes) may be shifted
+  so that all the notes in the chord sound at the same time. Since
+  S<SMALL>TRUM</SMALL> is applied after the ornament is applied, you may still
+  get overlapping (and truncated) notes.
+
+<P>
+</LI>
+<LI>The A<SMALL>RTICULATE</SMALL> setting <SPAN  CLASS="textit">is</SPAN> applied to the
+  ornamented and original notes. In some cases this can lead to
+  overlaps or a gap between the notes.
+
+<P>
+</LI>
+<LI>All options are reset to default when the O<SMALL>RNAMENT</SMALL>
+  command is encountered. It probably makes more sense this way than
+  only changing some ... certainly there should be less confusion.
+  If you want to change only one or two options you can do:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Ornament $_Chord_Ornament Beats=1,3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+in which case only the B<SMALL>EATS</SMALL> are modified.
+
+<P>
+</LI>
+<LI>The duration of the ornament notes are determined by 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> ; you
+  can't set them. The duration is determined by the length of the main
+  note (derived from the pattern) and the D<SMALL>URATION</SMALL> setting.
+
+<P>
+</LI>
+<LI>You <SPAN  CLASS="textit">cannot</SPAN> set different ornaments for bar sequences,
+  only limit them with the B<SMALL>ARS</SMALL> option. If you need, for
+  example, an ornament in first bar, and a different one in the third,
+  simply make a copies of the track, set the sequence for the first
+  track's bars so that you have an empty first track; set the second
+  track's sequence to compliment and set the ornament,
+  etc.<A ID="tex2html80"
+  HREF="#foot9520"><SUP><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A>
+
+<P>
+</LI>
+<LI>Empty option strings (e.g., B<SMALL>EATS=</SMALL> ) are not permitted.
+
+<P>
+</LI>
+<LI>To copy setting between different tracks, you can do something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Ornament $_Walk_Ornament  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</LI>
+</UL>
+
+<P>
+There are some examples in the directory <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">egs/ornament</SPAN></SPAN> which
+illustrate many of these options.
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot9518">...G<SMALL>LISS</SMALL></A><A
+ HREF="node16.html#tex2html77"><SUP><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>In traditional music a start
+    note is given for a glissando. In 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  we just count back
+    C<SMALL>OUNT</SMALL> notes.
+
+</DD>
+<DT><A ID="foot2856">...G<SMALL>LISS</SMALL>A<SMALL>FTER</SMALL>.</A><A
+ HREF="node16.html#tex2html78"><SUP><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>This might be
+    more correctly called a &ldquo;drop&rdquo; or &ldquo;fall&rdquo;.
+
+</DD>
+<DT><A ID="foot9519">... pattern;</A><A
+ HREF="node16.html#tex2html79"><SUP><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>This can occur in B<SMALL>ASS</SMALL> patterns which have
+    a <SPAN CLASS="MATH"><IMG
+ STYLE="height: 2.21ex; vertical-align: -0.55ex; " SRC="img2.png"
+ ALT="$\sharp$"></SPAN> or <SPAN CLASS="MATH"><IMG
+ STYLE="height: 1.81ex; vertical-align: -0.10ex; " SRC="img1.png"
+ ALT="$\flat$"></SPAN> modifier.
+
+</DD>
+<DT><A ID="foot9520">... etc.</A><A
+ HREF="node16.html#tex2html80"><SUP><SPAN CLASS="arabic">16</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>This is a deliberate departure from the normal 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 
+    syntax. It's quite unlikely that you would want more that one
+    ornamentation setting in a sequence, but quite likely that you'd
+    only want a setting to be applied to a certain bar in the
+    sequence.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node17.html">Tempo and Timing</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node15.html">Harmony</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,780 @@
+@prefix doap:       <http://usefulinc.com/ns/doap#> .
+@prefix dc:         <http://purl.org/dc/terms/> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lv2:        <http://lv2plug.in/ns/lv2core#> .
+@prefix lv2ext:     <http://lv2plug.in/ns/ext/> .
+@prefix pp:         <http://lv2plug.in/ns/ext/port-props#> .
+@prefix pg:         <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix ui:         <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units:      <http://lv2plug.in/ns/extensions/units#> .
+@prefix atom:       <http://lv2plug.in/ns/ext/atom#> .
+@prefix urid:       <http://lv2plug.in/ns/ext/urid#> .
+@prefix opts:       <http://lv2plug.in/ns/ext/options#> .
+@prefix work:       <http://lv2plug.in/ns/ext/worker#> .
+@prefix rsz:        <http://lv2plug.in/ns/ext/resize-port#> .
+@prefix patch:      <http://lv2plug.in/ns/ext/patch#> .
+@prefix state:      <http://lv2plug.in/ns/ext/state#> .
+@prefix time:       <http://lv2plug.in/ns/ext/time#> .
+@prefix hcid:       <http://harrisonconsoles.com/lv2/inlinedisplay#> .
+@prefix plug:       <http://lsp-plug.in/plugins/lv2/> .
+@prefix plug_pg:    <http://lsp-plug.in/plugins/lv2/autogain_stereo/port_groups#> .
+@prefix plug_ui:    <http://lsp-plug.in/ui/lv2/> .
+@prefix plug_dev:   <http://lsp-plug.in/developers/> .
+@prefix plug_p:     <http://lsp-plug.in//ports#> .
+
+
+hcid:queue_draw
+	a lv2:Feature
+	.
+hcid:interface
+	a lv2:ExtensionData
+	.
+
+plug_dev:v_sadovnikov
+	a foaf:Person ;
+	foaf:name "Vladimir Sadovnikov" ;
+	foaf:nick "SadKo" ;
+	foaf:mbox <mailto:sadko4u@gmail.com> ;
+	foaf:homepage <http://lsp-plug.in/#v_sadovnikov>
+	.
+
+plug_dev:lsp
+	a foaf:Person ;
+	foaf:name "LSP LV2" ;
+	foaf:mbox <mailto:lsp.plugin@gmail.com> ;
+	foaf:homepage <https://lsp-plug.in/>
+	.
+
+
+plug_pg:stereo_in
+	a pg:StereoGroup, pg:InputGroup ;
+	lv2:symbol "stereo_in" ;
+	rdfs:label "Stereo Input" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_pg:stereo_out
+	a pg:StereoGroup, pg:OutputGroup ;
+	lv2:symbol "stereo_out" ;
+	rdfs:label "Stereo Output" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	]
+	.
+
+plug_p:link
+	a lv2:Parameter ;
+	rdfs:label "Side-chain shared memory link name" ;
+	rdfs:range atom:String
+	.
+
+plug:autogain_stereo
+	a lv2:EnvelopePlugin, doap:Project ;
+	doap:name "LSP Autogain Stereo" ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 9 ;
+	doap:developer plug_dev:v_sadovnikov ;
+	doap:maintainer plug_dev:lsp ;
+	doap:license <http://usefulinc.com/doap/licenses/lgpl> ;
+	lv2:binary <lsp-plugins-lv2.so> ;
+	ui:ui plug_ui:autogain_stereo ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature lv2:hardRTCapable, hcid:queue_draw, work:schedule, opts:options, state:mapPath ;
+	lv2:extensionData state:interface, work:interface, hcid:interface ;
+	opts:supportedOption ui:updateRate ;
+	pg:mainInput plug_pg:stereo_in ;
+	pg:mainOutput plug_pg:stereo_out ;
+	dc:replaces <urn:ladspa:5002275> ;
+
+	patch:writable plug_p:link ;
+
+	lv2:port [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 0 ;
+		lv2:symbol "in_l" ;
+		lv2:name "Input L" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:InputPort, lv2:AudioPort ;
+		lv2:index 1 ;
+		lv2:symbol "in_r" ;
+		lv2:name "Input R" ;
+		pg:group plug_pg:stereo_in ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 2 ;
+		lv2:symbol "out_l" ;
+		lv2:name "Output L" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:left ;
+	] , [
+		a lv2:OutputPort, lv2:AudioPort ;
+		lv2:index 3 ;
+		lv2:symbol "out_r" ;
+		lv2:name "Output R" ;
+		pg:group plug_pg:stereo_out ;
+		lv2:designation pg:right ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 4 ;
+		lv2:symbol "enabled" ;
+		lv2:name "Enabled" ;
+		lv2:designation lv2:enabled ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 5 ;
+		lv2:symbol "preamp" ;
+		lv2:name "Sidechain preamp" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -60.000000 ;
+		lv2:maximum 40.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 6 ;
+		lv2:symbol "lkahead" ;
+		lv2:name "Sidechain lookahead" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 40.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 7 ;
+		lv2:symbol "scmode" ;
+		lv2:name "Sidechain mode" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "Internal"; rdf:value 0 ] ,
+			[ rdfs:label "Control Link"; rdf:value 1 ] ,
+			[ rdfs:label "Match Link"; rdf:value 2 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 2 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 8 ;
+		lv2:symbol "e_sc_l" ;
+		lv2:name "Sidechain metering enable for long period" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 9 ;
+		lv2:symbol "e_sc_s" ;
+		lv2:name "Sidechain metering enable for short period" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 10 ;
+		lv2:symbol "g_sc_l" ;
+		lv2:name "Sidechain loudness meter for long period" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 11 ;
+		lv2:symbol "g_sc_s" ;
+		lv2:name "Sidechain loudness meter for short period" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 12 ;
+		lv2:symbol "lperiod" ;
+		lv2:name "Loudness measuring long period" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 100.000000 ;
+		lv2:maximum 2000.000000 ;
+		lv2:default 400.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 13 ;
+		lv2:symbol "speriod" ;
+		lv2:name "Loudness measuring short period" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 5.000000 ;
+		lv2:maximum 100.000000 ;
+		lv2:default 20.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 14 ;
+		lv2:symbol "weight" ;
+		lv2:name "Weighting function" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "None"; rdf:value 0 ] ,
+			[ rdfs:label "A-Weighted"; rdf:value 1 ] ,
+			[ rdfs:label "B-Weighted"; rdf:value 2 ] ,
+			[ rdfs:label "C-Weighted"; rdf:value 3 ] ,
+			[ rdfs:label "D-Weighted"; rdf:value 4 ] ,
+			[ rdfs:label "K-Weighted"; rdf:value 5 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 5 ;
+		lv2:default 5 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 15 ;
+		lv2:symbol "level" ;
+		lv2:name "Desired loudness level" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "LUFS" ;
+			units:symbol "LUFS" ;
+			units:render "%.2f LUFS" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -60.000000 ;
+		lv2:maximum 0.000000 ;
+		lv2:default -23.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 16 ;
+		lv2:symbol "drift" ;
+		lv2:name "Level drift" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 24.000000 ;
+		lv2:default 12.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 17 ;
+		lv2:symbol "silence" ;
+		lv2:name "The level of silence" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "LUFS" ;
+			units:symbol "LUFS" ;
+			units:render "%.2f LUFS" ;
+		] ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum -84.000000 ;
+		lv2:maximum -36.000000 ;
+		lv2:default -72.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 18 ;
+		lv2:symbol "max_on" ;
+		lv2:name "Enable maximum amplification gain limitation" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 19 ;
+		lv2:symbol "max_amp" ;
+		lv2:name "The maximum amplification gain" ;
+		units:unit units:db ;
+		lv2:portProperty pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 108.000000 ;
+		lv2:default 36.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 20 ;
+		lv2:symbol "qamp" ;
+		lv2:name "Enable quick amplifier" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 0 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 21 ;
+		lv2:symbol "vgrow_l" ;
+		lv2:name "Long gain grow amount" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "0.1 dB"; rdf:value 0 ] ,
+			[ rdfs:label "0.5 dB"; rdf:value 1 ] ,
+			[ rdfs:label "1 dB"; rdf:value 2 ] ,
+			[ rdfs:label "3 dB"; rdf:value 3 ] ,
+			[ rdfs:label "6 dB"; rdf:value 4 ] ,
+			[ rdfs:label "9 dB"; rdf:value 5 ] ,
+			[ rdfs:label "10 dB"; rdf:value 6 ] ,
+			[ rdfs:label "12 dB"; rdf:value 7 ] ,
+			[ rdfs:label "15 dB"; rdf:value 8 ] ,
+			[ rdfs:label "18 dB"; rdf:value 9 ] ,
+			[ rdfs:label "20 dB"; rdf:value 10 ] ,
+			[ rdfs:label "21 dB"; rdf:value 11 ] ,
+			[ rdfs:label "24 dB"; rdf:value 12 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 12 ;
+		lv2:default 7 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 22 ;
+		lv2:symbol "tgrow_l" ;
+		lv2:name "Long gain grow time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 500.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 23 ;
+		lv2:symbol "vfall_l" ;
+		lv2:name "Long gain fall amount" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "0.1 dB"; rdf:value 0 ] ,
+			[ rdfs:label "0.5 dB"; rdf:value 1 ] ,
+			[ rdfs:label "1 dB"; rdf:value 2 ] ,
+			[ rdfs:label "3 dB"; rdf:value 3 ] ,
+			[ rdfs:label "6 dB"; rdf:value 4 ] ,
+			[ rdfs:label "9 dB"; rdf:value 5 ] ,
+			[ rdfs:label "10 dB"; rdf:value 6 ] ,
+			[ rdfs:label "12 dB"; rdf:value 7 ] ,
+			[ rdfs:label "15 dB"; rdf:value 8 ] ,
+			[ rdfs:label "18 dB"; rdf:value 9 ] ,
+			[ rdfs:label "20 dB"; rdf:value 10 ] ,
+			[ rdfs:label "21 dB"; rdf:value 11 ] ,
+			[ rdfs:label "24 dB"; rdf:value 12 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 12 ;
+		lv2:default 7 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 24 ;
+		lv2:symbol "tfall_l" ;
+		lv2:name "Long gain fall time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 10.000000 ;
+		lv2:maximum 10000.000000 ;
+		lv2:default 500.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 25 ;
+		lv2:symbol "vgrow_s" ;
+		lv2:name "Short gain grow amount" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "0.1 dB"; rdf:value 0 ] ,
+			[ rdfs:label "0.5 dB"; rdf:value 1 ] ,
+			[ rdfs:label "1 dB"; rdf:value 2 ] ,
+			[ rdfs:label "3 dB"; rdf:value 3 ] ,
+			[ rdfs:label "6 dB"; rdf:value 4 ] ,
+			[ rdfs:label "9 dB"; rdf:value 5 ] ,
+			[ rdfs:label "10 dB"; rdf:value 6 ] ,
+			[ rdfs:label "12 dB"; rdf:value 7 ] ,
+			[ rdfs:label "15 dB"; rdf:value 8 ] ,
+			[ rdfs:label "18 dB"; rdf:value 9 ] ,
+			[ rdfs:label "20 dB"; rdf:value 10 ] ,
+			[ rdfs:label "21 dB"; rdf:value 11 ] ,
+			[ rdfs:label "24 dB"; rdf:value 12 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 12 ;
+		lv2:default 7 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 26 ;
+		lv2:symbol "tgrow_s" ;
+		lv2:name "Short gain grow time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 1.000000 ;
+		lv2:maximum 500.000000 ;
+		lv2:default 40.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 27 ;
+		lv2:symbol "vfall_s" ;
+		lv2:name "Short gain fall amount" ;
+		lv2:portProperty lv2:integer, lv2:enumeration, pp:hasStrictBounds ;
+		lv2:scalePoint
+			[ rdfs:label "0.1 dB"; rdf:value 0 ] ,
+			[ rdfs:label "0.5 dB"; rdf:value 1 ] ,
+			[ rdfs:label "1 dB"; rdf:value 2 ] ,
+			[ rdfs:label "3 dB"; rdf:value 3 ] ,
+			[ rdfs:label "6 dB"; rdf:value 4 ] ,
+			[ rdfs:label "9 dB"; rdf:value 5 ] ,
+			[ rdfs:label "10 dB"; rdf:value 6 ] ,
+			[ rdfs:label "12 dB"; rdf:value 7 ] ,
+			[ rdfs:label "15 dB"; rdf:value 8 ] ,
+			[ rdfs:label "18 dB"; rdf:value 9 ] ,
+			[ rdfs:label "20 dB"; rdf:value 10 ] ,
+			[ rdfs:label "21 dB"; rdf:value 11 ] ,
+			[ rdfs:label "24 dB"; rdf:value 12 ] ;
+		lv2:minimum 0 ;
+		lv2:maximum 12 ;
+		lv2:default 7 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 28 ;
+		lv2:symbol "tfall_s" ;
+		lv2:name "Short gain fall time" ;
+		units:unit units:ms ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.100000 ;
+		lv2:maximum 40.000000 ;
+		lv2:default 10.000000 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 29 ;
+		lv2:symbol "e_in_l" ;
+		lv2:name "Input metering enable for long period" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 30 ;
+		lv2:symbol "e_in_s" ;
+		lv2:name "Input metering enable for short period" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 31 ;
+		lv2:symbol "e_out_l" ;
+		lv2:name "Output metering enable for long period" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 32 ;
+		lv2:symbol "e_out_s" ;
+		lv2:name "Output metering enable for short period" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:InputPort, lv2:ControlPort ;
+		lv2:index 33 ;
+		lv2:symbol "e_g" ;
+		lv2:name "Gain correction metering" ;
+		lv2:portProperty lv2:toggled ;
+		lv2:minimum 0 ;
+		lv2:maximum 1 ;
+		lv2:default 1 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 34 ;
+		lv2:symbol "g_in_l" ;
+		lv2:name "Input loudness meter for long period" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 35 ;
+		lv2:symbol "g_in_s" ;
+		lv2:name "Input loudness meter for short period" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 36 ;
+		lv2:symbol "g_out_l" ;
+		lv2:name "Output loudness meter for long period" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 37 ;
+		lv2:symbol "g_out_s" ;
+		lv2:name "Output loudness meter for short period" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 251.188614 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 38 ;
+		lv2:symbol "g_g" ;
+		lv2:name "Gain correction meter" ;
+		units:unit [
+			a units:Unit ;
+			rdfs:label "gain" ;
+			units:symbol "G" ;
+			units:render "%.8f G" ;
+		] ;
+		lv2:portProperty pp:logarithmic, pp:hasStrictBounds ;
+		lv2:minimum 0.000000 ;
+		lv2:maximum 1000000.000000 ;
+		lv2:default 0.000000 ;
+	] , [
+		a lv2:InputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 39 ;
+		lv2:symbol "in_ui" ;
+		lv2:name "UI Input" ;
+		rdfs:comment "UI -> DSP communication" ;
+		rsz:minimumSize 7168 ;
+	] , [
+		a lv2:OutputPort, atom:AtomPort ;
+		atom:bufferType atom:Sequence ;
+		atom:supports atom:Sequence, patch:Message, time:Position ;
+		lv2:portProperty lv2:connectionOptional ;
+		lv2:designation lv2:control ;
+		lv2:index 40 ;
+		lv2:symbol "out_ui" ;
+		lv2:name "UI Output" ;
+		rdfs:comment "DSP -> UI communication" ;
+		rsz:minimumSize 93184 ;
+	] , [
+		a lv2:OutputPort, lv2:ControlPort ;
+		lv2:index 41 ;
+		lv2:symbol "out_latency" ;
+		lv2:name "Latency OUT" ;
+		lv2:designation lv2:latency ;
+		rdfs:comment "DSP -> Host latency report" ;
+		lv2:portProperty pp:hasStrictBounds, lv2:integer, lv2:reportsLatency ;
+		lv2:minimum 0 ;
+		lv2:maximum 384000 ;
+		lv2:default 0 ;
+	]
+	.
+
+
+plug_ui:autogain_stereo
+	a ui:X11UI ;
+	lv2:minorVersion 0 ;
+	lv2:microVersion 9 ;
+	lv2:requiredFeature urid:map ;
+	lv2:optionalFeature ui:parent, ui:resize, ui:idleInterface, lv2ext:instance-access ;
+	lv2:extensionData ui:idleInterface, ui:resize ;
+	ui:binary <lsp-plugins-lv2ui.so> ;
+
+	ui:portNotification [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 4 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 5 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 6 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 7 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 8 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 9 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 10 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 11 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 12 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 13 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 14 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 15 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 16 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 17 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 18 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 19 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 20 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 21 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 22 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 23 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 24 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 25 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 26 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 27 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 28 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 29 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 30 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 31 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 32 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 33 ;
+		ui:protocol ui:floatProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 34 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 35 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 36 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 37 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 38 ;
+		ui:protocol ui:peakProtocol ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 39 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 40 ;
+		ui:protocol atom:eventTransfer ;
+		ui:notifyType atom:Sequence ;
+	] , [
+		ui:plugin plug:autogain_stereo ;
+		ui:portIndex 41 ;
+		ui:protocol ui:floatProtocol ;
+	]
+	.
+

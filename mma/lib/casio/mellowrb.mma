@@ -1,0 +1,145 @@
+// mellowrb.mma
+
+Begin Doc  
+      Mellow rhythm & blues (026). Okay, not what I'd call this, but it's interesting.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-Slap
+    Tone Slap
+    Volume m
+    Sequence {2 0 112; 4 0 112}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1.8 0 100; 2.5 0 100; 3.8 0 100; 4.5 0 100}
+End
+
+Begin Drum-Tambourine
+    Tone Tambourine
+    Volume m
+    Sequence {3.5 0 45; 3.8 0 45}     z 
+End
+
+Begin Drum-HighBongo
+    Tone HighBongo
+    Volume m
+    Sequence {1.5 0 45; 2.3 0 45}      z 
+End
+
+Begin Drum-LowConga
+    Tone LowConga
+    Volume m
+    Sequence z    {3.5 0 60; 4.3 0 60} 
+End
+
+Begin Drum-LongGuiro
+    Tone LongGuiro
+    Volume m
+    Sequence z  {4.5 0 35} 
+End
+
+Begin Drum-Shaker
+    Tone Shaker
+    Volume m
+    Sequence {1 0 70; 2 0 70; 3 0 70; 4 0 70}
+End
+
+Begin Drum-Kickdrum1
+    Tone Kickdrum1
+    Volume m
+    Sequence {1 0 110; 2.8 0 90; 3 0 110} \
+             {1 0 110; 3 0 110}
+End
+
+Begin Bass-9
+    Voice FingeredBass
+    Octave 3
+    Articulate 100
+    Volume m
+    RVolume 10
+    Sequence {1 16 1 106; 1.8 16 5 95; 2.5 16 1 106; 4.5 32 3 81; 4.8 6 5 78}
+End
+
+Begin Bass-6
+    Voice NylonGuitar
+    Octave 5
+    Articulate 100
+    Volume m
+    RVolume 10
+    Sequence {1 2 1 92; 1.8 2 5 84; 4 8 1 76; 4.3 4 5 80; 4.5 2 1 96; 4.8 2 1 80} \
+             {1.8 4 5 84; 3.3 4 1 74; 3.8 4 5 70; 4.3 8 1 92}
+End
+
+Begin Chord-7
+    Voice Piano3
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume mp
+    Sequence {2.8 2 90}
+End
+
+DefGroove MellowRB   Interesting rhythm.
+
+////////////////////////////////////////////////////
+///////  Intro
+
+Groove MellowRB
+
+Drum-Slap         Sequence  *     *      *     D2
+Drum-ClosedHiHat  Sequence  D8    *      *     *
+Drum-Tambourine   Sequence  *     *      D13   D1234
+Drum-HighBongo    Sequence  D1    D2     D3    D4
+Drum-LowConga     Sequence  *     *      *     D1234
+Drum-LongGuiro    Sequence  *     *      *     z
+Drum-Shaker       Sequence  *     *      *     D8
+Drum-Kickdrum1    Sequence  *     *      *     D1234
+
+Bass-9            Sequence B1234  *      *     B11
+
+// nylonguitar
+Bass-6            Sequence  *     *      *     B1234
+
+// piano2
+Chord-7           Sequence  *     *      *     {L1 Shift 1.8}
+
+
+DefGroove MellowRBIntro   A 4 bar intro
+
+////////////////////////////////////////////////////
+///////  ending
+
+Groove MellowRB
+
+Drum-Slap         Sequence  *        D1
+Drum-ClosedHiHat  Sequence  D8       z
+Drum-Tambourine   Sequence  *        D1
+Drum-HighBongo    Sequence  D1       /
+Drum-LowConga     Sequence  D8       D1
+Drum-LongGuiro    Sequence  *         z
+Drum-Shaker       Sequence  D8        z
+Drum-Kickdrum1    Sequence  D1234     D1
+
+Bass-9            Sequence  *        B1
+
+// nylonguitar
+Bass-6            Sequence  *        B1
+
+// piano2
+Chord-7           Sequence  *        C1
+
+
+DefGroove MellowRBEnd   A 2 bar ending

@@ -1,0 +1,1 @@
+/home/justin/LogicalArdour/soundfont-browser/target/release/soundfont-browser: /home/justin/LogicalArdour/soundfont-browser/src/gm.rs /home/justin/LogicalArdour/soundfont-browser/src/main.rs /home/justin/LogicalArdour/soundfont-browser/src/sf2.rs

@@ -1,0 +1,107 @@
+// Twinkle, Twinkle, Little Star
+// Yet another lyric AND macro demo. If you compile
+// this with the -r command line flag you'll see the
+// lyrics being assigned to the proper chord lines :)
+
+// Set the tempo, etc.
+
+Tempo 250
+Groove Folk
+
+// Create a macro with the chords... we'll use this
+// instead of fooling with repeats.
+
+Mset Chords
+	1	G 
+	2	G 
+	3	C 
+	4	G 
+	5	Am 
+	6	G 
+	7	D7 
+	8	G 
+	9	G 
+	10	D7
+	11	G 
+	12	D 
+	13	G 
+	14	D7 
+	15	G 
+	16	D7
+	17	G 
+	18	G 
+	19	C 
+	20	G 
+	21	Am
+	22	G 
+	23	D7 
+	24	G 
+EndMset
+
+// Verse 1. Here we push the entire lryic set for verse 1
+// on the stack.
+
+Begin Lyric Set
+	Twinkle,
+	Twinkle 
+	little 
+	star; \n
+	How I 
+	wonder
+	what you 
+	are. \n 
+	Up a- 
+	bove the
+	world so
+	high, \n
+	Like a 
+	diamond
+	in the 
+	sky! \n
+	Twinkle,
+	twinkle
+	Little
+	star, \n
+	How I
+	wonder
+	what you
+	are. \n \n
+End
+
+$Chords       // Expand macro for the chords, 1st verse
+ 
+Lyric Verse=Inc  // set lyric counter to '2'
+
+Begin Lyric Set  // lyrics for verse 2
+	When the 
+	blazing  
+	sun is 
+	gone, \n 
+	When he  
+	nothing 
+	shines u- 
+	pon. \n 
+	then you 
+	show your 
+	little 
+	light, \n 
+	Twinkle,  
+	twinkle, 
+	all the 
+	night. \n 
+	Twinkle,
+	twinkle
+	Little
+	star, \n
+	How I
+	wonder
+	what you
+	are. \n \n
+End
+
+$Chords       // Expand macro for the chords, 2nd verse
+
+
+
+
+

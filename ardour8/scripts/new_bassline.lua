@@ -124,7 +124,7 @@ else
   print("Track '" .. (last_route_name or "nil") .. "' not found")
 end
 
-local user_config_directory = ARDOUR.user_config_directory(8)
+local user_config_directory = ARDOUR.user_config_directory(-1)
 
 -- Define the subdirectory you want to concatenate
 local subdir = "route_templates"

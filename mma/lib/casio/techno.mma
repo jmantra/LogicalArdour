@@ -1,0 +1,126 @@
+ // techno.mma
+
+Begin Doc  
+      Techno (056). Ummm?
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-HighQ
+    Tone HighQ
+    Volume m
+    Sequence {1 0 111; 1.25 0 54; 1.5 0 74; 1.75 0 54; 2 0 111; \
+              2.25 0 54; 2.5 0 74; 2.75 0 54; 3 0 111; 3.25 0 54; \
+              3.5 0 74; 3.75 0 54; 4 0 111; 4.25 0 54; 4.5 0 74; 4.75 0 54}
+End
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 108; 2 0 108; 3 0 108; 4 0 108}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    Sequence {1 0 101; 1.75 0 64; 2 0 101; 2.75 0 64; 3 0 101; \
+                3.75 0 64; 4 0 101; 4.76 0 64}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence {1.5 0 101; 2.5 0 101; 3.5 0 101; 4.5 0 101}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {1.5 0 97; 2 0 96; 2.75 0 97; 3.25 0 97; 4 0 97}
+End
+
+Begin Bass-9
+    Voice SynthBass1
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 6 1 111; 1.25 6 1 79; 1.5 6 1 94; 1.75 6 1 79; 2 6 1 111; \
+               2.25 6 1 79; 2.5 6 1 94; 2.75 6 1 79; 3 6 1 111; 3.25 6 1 79; \
+               3.5 6 1 94; 3.75 3 1 111; 4.25 6 3 79; 4.5 6 3 94; 4.75 6 3 79}
+End
+
+
+Begin Bass-6
+    Voice ChifferLead
+    Octave 4
+    Articulate 100
+    Volume m
+    Sequence {1 4 1 66; 1 4 1 90; 2.5 8 1 70; 2.5 8 1 85; 3.5 8 1 66; \
+                 3.5 8 1 80; 4.25 8 3 85; 4.25 8 3 75} 
+End
+
+Begin Chord-7
+    Voice EchoDrops
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 3 90 0 70 0; 2.5 16 90 0 80 0} \
+             {1 16 90 0 60 0 ; 2.5 16 90 0 100 0; 4.5 16 90 0 80 0} 
+End
+
+DefGroove Techno   Main pattern
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove Techno
+
+Drum-HighQ      Sequence   *    *    *    D1234
+Drum-KickDrum1  Sequence   *    *    *    D13
+Drum-PedalHiHat Sequence   *    *    D16  D16
+Drum-OpenHiHat  Sequence   *    *    z    z
+Drum-SnareDrum1 Sequence   *    *    *    D16
+
+Bass-9          Sequence  B1234 *    *    B1234
+
+//  ChifferLead
+Bass-6          Sequence   *    *    *    B1234
+
+//  EchoDrops
+Chord-7         Sequence   *    *    {1 2 90} C1234
+
+DefGroove TechnoIntro  4 bar introduction
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove Techno
+SeqSize 2
+
+Drum-HighQ      Sequence    D1234   D1
+Drum-KickDrum1  Sequence    D13     D1
+Drum-PedalHiHat Sequence    D16     D1
+Drum-OpenHiHat  Sequence    *        z
+Drum-SnareDrum1 Sequence    D16     D1
+
+Bass-9          Sequence  B1234     B1
+
+//  ChifferLead
+Bass-6          Sequence   *        B1
+
+//  EchoDrops
+Chord-7         Sequence   C1234     {1 2 90}
+
+DefGroove TechnoEnd   2 bar ending
+
+

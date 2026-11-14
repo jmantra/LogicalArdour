@@ -1,0 +1,174 @@
+
+// DooWop
+
+Begin Doc
+
+ A faster version of Doo Wop (see rock-128 for an alternative).
+ This is in 4/4 and is good for songs around 180 bpm.
+ This was written for "Book Of Love".
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////// Basic groove
+
+SeqSize 4
+Begin Bass
+	Sequence B13
+	Octave 3
+	Voice FretlessBass
+	Articulate 70
+	Volume f
+End
+
+Begin Chord
+	Sequence C13   /   /  C1234
+	Voice Piano1
+	Voicing   Mode=RootKey
+	Articulate 90
+	Volume mf
+	Octave 5
+	Rtime 4
+	Rvolume 10
+End
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence D13   /   /   D1234 
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Clap
+	Tone HandClap
+	Sequence D24
+	Volume p
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-HH
+	Tone OpenHiHat
+	Sequence D1234  D13
+	Volume pp
+	Accent 1 90  3 90
+	Rvolume 5
+	Rtime 5
+End
+
+
+DefGroove DooWop           Basic DooWop
+
+
+//////// Add in sustained strings
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence  { 1 1 90 0 * 2 }
+	Voicing Mode=Optimal
+	Articulate 100
+	Unify On
+	Volume mp
+	Octave 5
+End
+
+Begin Chord-SusHarmony
+	Voice ChoirAAHs
+	Voicing Mode=Optimal
+	Sequence { 1 1 0 0 70 * 2 }
+	Volume p
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+
+DefGroove DooWopSus      Add in sustained strings and voices.
+
+//////////////////////////////
+/// Plus versions add more piano
+
+Groove DooWop
+
+Begin Arpeggio
+   Voice Piano1
+   Volume m
+   Articulate 110
+   Octave 5
+   Range 1.8
+   Rtime 10
+   Rvolume 20
+   Sequence   A4  A2
+   Harmony  OpenBelow  
+   SeqRnd On
+   Rskip  20
+End
+
+DefGroove  DooWopPlus   Add some piano notes for interest.
+
+Groove DooWopSus
+Arpeggio Groove DooWopPlus
+DefGroove  DooWopSusPlus   Plus version with strings.
+
+
+///////////////////////////////
+// Intro
+
+Groove DooWop
+
+Bass         Sequence   B11           /     /   { 1 4 1 90; 2 4 3 90; 3 2 1 90 }
+Chord        Sequence   C1234         /     /   L1
+Drum-Kick    Sequence   D1234         /     /   D12
+Drum-Clap    Sequence   D1234         /     /   D1
+Drum-HH      Sequence   D1234    {D1234 * 3}  D1234  D12
+
+DefGroove DooWopIntro   A 4 bar introduction.
+
+Groove DooWopIntro
+Chord-Sus Groove DooWopSus
+DefGroove DooWopIntroSus   Same 4 bar intro with strings.
+
+//////////////////////////////
+/// One bar fill
+
+Groove DooWop
+
+SeqSize 1
+
+Begin Bass
+   Sequence  {3 4. 5 120}
+   Volume   f
+End
+Begin Chord
+   Sequence  {1 4. 120}
+   Volume f
+End
+Drum-Kick    Sequence   D3
+Drum-Clap    Sequence   D1
+Drum-HH      Sequence   D13
+
+DefGroove DooWopFill   One bar fill.
+
+///////////////////////////////
+// Ending
+
+
+Groove DooWop
+Seqsize 2
+
+Bass         Sequence   B11           { 1 2 1 90 } 
+Chord        Sequence   C13           { 1 2 90 }
+Drum-Kick    Sequence   D1234         D1
+Drum-Clap    Sequence   D1234         D1
+Drum-HH      Sequence   {D1234 * 3}   D1
+
+DefGroove DooWopEnd           Simple ending.
+

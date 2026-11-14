@@ -1,0 +1,163 @@
+// popwaltz.mm
+
+Begin Doc  
+      Pop Waltz (029). A respectable waltz.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 3
+
+Include stdpats34
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    Sequence {1 0 65}    {1 0 60; 3.7 0 37}
+End
+
+Begin Drum-SideKick
+    Tone SideKick
+    Volume m
+    Sequence {3 0 57} /  {1.7 0 46; 3 0 59} /
+End
+
+Begin Drum-HandClap
+    Tone HandClap
+    Volume m
+    Sequence {1.7 0 52} \
+             {2 0 50} \
+             {2 0 67; 2.7 0 60; 3.7 0 45} \
+             {2 0 54; 2.7 0 68; 3.7 0 69}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    RVolume 10
+    Sequence {1 0 38; 3 0 38}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    RVolume 10
+    Sequence {2 0 59; 3 0 62} 
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence z    z    z    {3.7 0 45}
+End
+
+Begin Drum-Maracas
+    Tone Maracas
+    Volume m
+    RVolume 10
+    Sequence {2 0 40; 3 0 38}
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 2 1 83; 3.7 16 5 70}    {1 8 1 73; 2 8 5 63; 3 8 3 68}
+End
+
+Begin Chord-6
+    Voice Piano1
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume p
+    Sequence {1 2 90; 2 4 90; 3.7 16 90} \
+             {1 4 90; 2 8 90; 3 8 90} \
+             {1 2 90; 2.7 3 90; 3.3 8 90; 3.7 16 90} \
+             {1 8 90; 2 4 90; 3 8 90}
+End
+
+
+Begin Chord-7
+    Voice NylonGuitar
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume p
+    Sequence {1 8 90; 2 8 90; 3 8 90; 3.7 16 90}
+End
+
+
+Begin Bass-8
+    Voice Strings
+    Octave 6
+    Articulate 100
+    Volume m
+    Unify On
+    Sequence {1 2. 3 68} \
+             {1 2. 5 64} \
+             {1 4 3 67; 2.7 8 3 67; 3 4 5 56} \
+             {1 2. 1 58}
+End
+
+DefGroove PopWaltz
+
+//////////////////////////////////////////////////////////////////
+////// Intro
+
+Groove PopWaltz
+
+Drum-KickDrum2   Sequence D13      *     *     D13
+Drum-SideKick    Sequence  *       *     *     D1
+Drum-HandClap    Sequence  *       *     *     D123
+Drum-SnareDrum2  Sequence  *       *     *     D123
+Drum-PedalHiHat  Sequence  *       *     *     D123
+Drum-OpenHiHat   Sequence  -
+Drum-Maracas     Sequence  *       *     *     D1
+
+Bass-9           Sequence  B123    *     *     B1
+
+/// Piano1
+Chord-6          Sequence  *       *     *     {1 16 90; C1 Shift .2}
+
+// nylonguitar
+Chord-7          Sequence  *       *     *     C123
+
+// strings
+Bass-8          Sequence  -
+
+DefGroove PopWaltzIntro
+
+//////////////////////////////////////////////////////////////////
+////// Ending
+
+Groove PopWaltz
+SeqSize 2
+
+Drum-KickDrum2   Sequence  D13         D1
+Drum-SideKick    Sequence  *          D1
+Drum-HandClap    Sequence  D123       D1
+Drum-SnareDrum2  Sequence  *          D1
+Drum-PedalHiHat  Sequence  *          D1
+Drum-OpenHiHat   Sequence  D6         z
+Drum-Maracas     Sequence  *          D1
+
+Bass-9           Sequence  B123       B1
+
+/// Piano1
+Chord-6          Sequence  *          L1
+
+// nylonguitar
+Chord-7          Sequence  C123       C1
+
+// strings
+Bass-8          Sequence   {1 2. 1 60 * 3}   {1 4 1 60}
+
+DefGroove PopWaltzEnd   A 2 bar ending
+

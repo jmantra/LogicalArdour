@@ -1,0 +1,195 @@
+
+// ska
+
+Begin Doc
+
+ This was written for the Beatle's song "Ob-La-Di, Ob-La-Da". 
+ You will probably want double the tempo when using this.
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+	
+///////////////////////////
+// Additional  patterns
+
+Begin Bass Define
+	B134   B13 ;  4 8 3 120 
+	B1135  1 4 1 90 ; 2 4 1 90 ; 3 4 1 90 ; 4 4 5 90
+	
+End
+
+/////////////////
+// Ska
+
+SeqSize 2
+
+Begin Drum
+	Volume mf
+	Rvolume 20
+	Rtime 10
+	Rskip 10
+End
+
+Begin Drum-Kick
+	Copy Drum
+	Tone KickDrum1
+	Sequence   D1  { D1 ; 4.5 0 50 }
+	Volume mp
+End
+
+Begin Drum-Snare
+	Copy Drum
+	Tone Snaredrum2
+	Sequence D24
+End
+
+Begin Drum-hh
+	Copy Drum
+	Tone ClosedHiHat
+	Sequence   { D1234  shift .75 }
+End
+
+Begin Drum-Cym
+	Copy Drum
+	Tone ChineseCymbal
+	Sequence    D1
+	Rskip 50
+End
+
+Begin Drum-Cabasa
+	Copy Drum
+	Tone Cabasa
+	Sequence   { D24; D24 shift -.25 }
+End
+
+
+Begin Drum-Maraca
+	Copy Drum
+	Tone Maracas
+	Sequence    { D24 shift .25 } 
+End
+
+Begin Drum-Shake
+	Copy Drum
+	Tone Shaker
+	Sequence    { D1234 Shift .75 }
+	Volume pp
+End
+
+Begin Bass
+	Sequence   B13   B134
+	Articulate 90
+	Voice AcousticBass
+	Rtime 10
+	Rvolume 10
+	Octave 3
+End
+
+Begin Chord
+	Voice Piano1
+	Sequence   C124  C24
+	Rvolume 20
+	Articulate 80
+End
+
+Begin Chord-Sax
+	Voice AltoSax
+	Sequence   C24
+	Rskip 10
+	Rtime 10
+	Rvolume 20
+	Articulate 70
+End
+
+DefGroove Ska	Good if you're from Trinidad.
+
+/////////////////////////////////////
+/// Ska1 - simple variation
+
+Groove Ska
+
+// change piano to steels
+
+Begin Chord
+	Voice Steeldrums
+	Octave 5
+	Strum 10
+	Articulate 99
+End
+
+// Add in 1/8 note claves 
+
+Begin Drum-Clave
+	Copy Drum
+	Tone Claves
+	Sequence    { D1234 * 2 }
+	Rskip 12
+	Volume ff
+End
+
+DefGroove Ska1   Change Piano to SteelDrums and add \
+			in some eight note Claves.
+
+/////////////////////////////////
+//// Add sustained strings to SKA
+
+Groove Ska
+
+Begin Chord-Sus
+	Voice SynthVox
+	Sequence   { 1 1 90 0 90 0 * 4 }
+	Octave 5
+	Voicing Mode=Optimal
+	Articulate 100
+	Unify On
+End
+
+DefGroove SkaSus	Adds sustained voices to Ska.
+
+Groove Ska1
+Chord-Sus Groove SkaSus
+DefGroove Ska1Sus	Adds sustained voices to Ska1.
+
+
+/////////////////////////////////////////////
+/// Handclap
+
+Groove Ska
+
+Begin Drum-Clap
+	Tone HandClap
+	Sequence    { D1234 }
+	Rskip 20
+	Volume ffff
+End
+
+DefGroove SkaClap	Adds a rather loud handclap to the basic beat. \
+                    Good for repeatendings, etc.
+
+
+////////////////////////////////
+/// Ending
+
+Groove Ska
+
+Begin Bass
+	Sequence   B1135
+	Articulate 60
+End
+
+Begin Chord-Sax
+	Sequence   C1234
+End
+
+Begin Chord
+	Sequence   C1234 
+End
+
+DefGroove SkaEnd  A funky ending. Really does need some work.
+

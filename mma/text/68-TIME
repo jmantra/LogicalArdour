@@ -1,0 +1,108 @@
+          6/8 And Other Time Signatures
+
+MMA does have a few problems. A biggie is how it deals with compound
+time signatures.
+
+MMA really expects to have quarter notes as the denominator in a time signature.
+So, times like 3/4, 4/4 and even 5/4 work just fine (assuming that someone has
+written an appropriate groove!). However, when it encounters signatures with an
+8 (or 16 or 32) as the denominator things get tricky. For writers of groove
+files I'll try to give a few pointers.
+
+It is important to remember that time signatures are NOT fractions!
+6/8 and 3/4 are NOT the same. This is music, NOT math. But, MMA is a
+dumb computer program and based on math, not music. So, how should this be
+handled?
+
+OPTION 1
+--------
+
+Well, says the groove writer: Since a song in 6/8 time is probably a march
+or jig-like song AND you know from your musical education that 6/8 time is
+a duple time which is counted in 2 (NOT 6!) using a TIME value of 2 makes
+sense. You can do this quite easily with the following sequence of commands:
+
+    Time 2
+    TimeSig  6/8
+
+Now, when you set up sequences and chord lines you need to remember that
+you only have 2 beats and 2 tab stops. So, for a sequence you can have:
+
+    Chord  Sequence  {1 4 90; 2 4 90}
+
+Which plays a chord on beats 1 and 2. Now, when you enter chord lines you
+do:
+
+    1   Am   Bm
+    2   C    G
+
+and it all works. Writing solo lines becomes a bit more complicated: we
+only have 2 beats, which are really quarter notes. So ... if we have a
+nice little line of 6 eight notes on a piece of sheet music we need
+to translate this to 2 sets of eight note triplets. Using the built in
+command option for Solo/Melody tracks you can also use STRETCH.
+
+OPTION 2
+--------
+
+Another option is to write the groove in 3/4 time. Mathematically this will
+work, but it may create more problems than you expect. So, we start off
+with:
+
+    Time 3 Tabs=1,2.5
+    TimeSig  6/8
+
+Note that here we have used the TABS= option which will help in keeping
+chord lines sane. But, for defining a sequence we have to do something
+like: 
+
+    Chord  Sequence  {1 4 90; 2.5 4 90}
+
+And those fractional offsets will be a bit of a nightmare. This is
+not a recommended method. But, in your songs you can nicely do:
+
+    1  Am Bm
+    2  G  F
+
+And it'll all work. Even Solo/Melody lines work on a one-to-one setting
+from the sheet music.
+
+OPTION 3
+--------
+
+The final method, and probably the best one, is to "pretend" that
+the song is written using 1/4 notes (not 1/8th):
+
+    Time 6 Tabs=1,4
+    Timesig 6/8
+
+    Chord Sequence {1 4 90;  4 4 90}
+
+And, again, our song file is:
+ 
+    1  Am Bm
+    2  G  F
+
+For chords which are not on 1 or 2 (which is actually 4) you can use
+the handy @ notation. So, to play chords on beats 1,2,3,4,5,6:
+
+    1 Am Bm@2 C@3 D@4 F7@5 G@6
+    
+The only problem with this is that since MMA thinks we have 6 1/4 notes
+you will need to change the note duration for a Solo by doubling the
+duration of each note (1/8ths become 1/4, 1/2 becomes 1, etc.) Using
+the Solo option "Stretch" is very handy in this case.
+
+RECOMMENDATION
+--------------
+
+It's really up to you, the song, the style of of the groove and song. If
+you look at the supplied grooves you'll see that more use a TIME of 6, some
+a TIME of 2 and one with TIME 4.
+
+Isn't MMA nice to give you all those options!
+
+Have fun.
+
+bvdp, April 2020.
+

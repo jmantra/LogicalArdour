@@ -1,0 +1,300 @@
+// HipHop
+
+Begin Doc
+	Poor attempt to dive into Hip Hop.
+	Borrowed from Computer Music Special #32:
+	"Make music now".
+End
+ 
+  
+Author Alexis Archambault
+
+SeqClear
+Time 4
+Timesig 4 4
+
+
+////////////////////////////////////
+
+SeqSize 2
+
+Begin Drum Define
+	C1 2 0 100 ; 4 0 100 
+	C2 2 0 100 ; 4 4 127
+	S  2 0 100 ; 4 0 100
+	K  1 0 100 ; 2.75 0 90 ; 3.25 0 90 ; 3.50 0 90
+	H  1.25 0 80 ; 1.50 0 80 ; 1.75 0 80 ; 2.50 0 80 ; 3.00 0 80 ; 3.75 0 80
+End
+
+Begin Bass Define
+	B 1 4+8+16+32 1 90 ; 2.77 16+32+64 1 90 ; 3.25 32 1 90 ; 3.5 8+16 1 90
+	L	1.25 16 1 90; 1.5 16 4 90; 1.75 16 6 90; \
+		2 16 1+ 90;  2.25 16 3+ 90; 2.75 16 1 90; \
+		3.25 16 1 90; 3.5 16 4 90; 3.75 16 6 90; \
+		4 16 1+ 90;  4.25 16 3+ 90
+End
+
+Begin Chord Define
+	C	 1 1 100
+	C1   4 4 90
+	C2   1 2+4 100
+	C13- 4 4 90 0 90
+	C23- 1 2+4 100 0 100
+End
+
+Begin Arpeggio Define
+	A1	1 1 90 * 8
+	A2	1 4 90 * 4 ; 1 4 90 * 4
+End
+
+
+////////////////////////////////////
+
+Begin Drum-Clap
+	Sequence S
+	Tone HandClap
+End
+
+Begin Drum-Slap
+	Sequence S
+	Tone Slap
+End
+
+Begin Drum-Kick
+	Sequence K
+	Tone KickDrum1
+End
+
+Begin Drum-HiHat
+	Sequence H
+	Tone PedalHiHat
+End
+
+
+Begin Bass-SynthDrum
+	Sequence B
+	Voice SynthDrum
+	Chords iii	// Forces root
+End
+
+Begin Bass-SynthBass
+	Sequence B
+	Voice SynthBass1
+	Volume pp
+	Chords iii	// Forces root
+End
+
+
+Begin Bass-Lead
+	Voice SquareWave
+	Articulate 100
+	Octave 5
+	Chords iii	// Forces root
+	Sequence z L
+End
+
+
+// Pad
+Begin Chord-SweepPad
+	Sequence C1 C2
+	Articulate 100
+	Voice WarmPad
+	Octave 7
+	DupRoot 1 1
+	Volume p
+End
+
+// Chord-SweepPad and Chord-SweepPadSub make an unique MIDI track
+Begin Chord-SweepPadSub
+	Sequence C13- C23-
+	Articulate 100
+	chShare Chord-SweepPad
+	Octave 6
+	DupRoot -1 -1
+	Volume p
+End
+
+
+DefGroove HipHop   Rythmic line and off-beat pads
+
+
+/////////////////////////////////////////////
+/// Sustained
+
+Begin Chord-Strings
+	Sequence C
+	Voice SynthStrings1
+	Octave 6
+	Unify On
+	Articulate 100
+	Volume ppp
+End
+
+DefGroove HipHopSus     HipHop groove + basic strings
+
+
+/////////////////////////////////////////////
+/// Plus1
+
+Groove HipHop
+
+Begin Arpeggio-Piano
+	Sequence A1
+	Voice Piano1
+	Octave 4
+	Articulate 120
+	RTime 4
+	RVolume 6
+	Volume pp
+	Rskip 10
+End
+
+DefGroove HipHopPlus1   Adds piano arpeggios
+
+
+/////////////////////////////////////////////
+/// Sustained Plus1
+
+Chord-Strings Groove HipHopSus
+
+DefGroove HipHopSusPlus1  Piano arpeggios and strings
+
+
+/////////////////////////////////////////////
+/// Plus2
+
+Groove HipHop
+
+Begin Arpeggio-Sawtooth
+	Sequence A2
+	Voice SawWave
+	Octave 5
+	Volume pp
+End
+
+DefGroove HipHopPlus2 Adds sawtooth arpeggios
+
+
+/////////////////////////////////////////////
+/// Sustained Plus2
+
+Chord-Strings Groove HipHopSus
+
+DefGroove HipHopSusPlus2 Sawtooth arpeggios and strings
+
+
+/////////////////////////////////////////////
+/// PlusPlus
+
+Groove HipHopPlus1
+
+Arpeggio-Sawtooth Groove HipHopPlus2
+
+DefGroove HipHopPlusPlus Sawtooth and piano arpeggios 
+
+
+/////////////////////////////////////////////
+/// Sustained PlusPlus
+
+Chord-Strings Groove HipHopSus
+
+DefGroove HipHopSusPlusPlus Sawtooth and piano arpeggios and strings
+
+
+/////////////////////////////////////////////
+/// Intro
+
+Groove HipHop
+
+Chord-SweepPad Sequence -
+Chord-SweepPadSub Sequence -
+
+DefGroove HipHopIntro     Only drums and bass
+
+
+
+/////////////////////////////////////////////
+/// Ending
+
+Groove HipHopSus
+
+Bass-SynthDrum Sequence -
+Bass-SynthBass Sequence -
+Bass-Lead Sequence -
+
+DefGroove HipHopEnd  Removes basses
+
+
+If Def Test
+
+///////////////////////////////////////////////////
+// Test file for style HipHop
+// To compile: "mma -DTEST hiphop"
+
+Tempo 90
+KeySig Eb
+
+Keysig C minor
+
+Groove HipHopIntro
+iii
+iii
+iii
+iii
+
+
+Groove HipHop
+vi
+V
+V
+IV
+V
+vi
+
+Groove HipHopSus
+vi
+V
+V
+IV
+
+Groove HipHopPlus1
+vi
+V
+V
+IV
+
+Groove HipHopSusPlus1
+vi
+V
+V
+IV
+
+Groove HipHopPlus2
+vi
+V
+V
+IV
+
+Groove HipHopSusPlus2
+vi
+V
+V
+IV
+
+Groove HipHopPlusPlus
+vi
+V
+V
+IV
+
+Groove HipHopSusPlusPlus
+vi
+V
+V
+IV
+
+Groove HipHopEnd
+-I
+-I
+
+Endif

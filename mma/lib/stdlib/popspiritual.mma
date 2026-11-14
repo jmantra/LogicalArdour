@@ -1,0 +1,135 @@
+
+// popspiritual
+
+Begin Doc
+  
+ Not really a true spiritual or gospel style, more in the "sort of" mode.
+ Written for the Paul Simon song "Bridge Over Troubled Water".
+ Good for slow tempo songs in which the lyrics are more important than
+ the melody. Mostly uses piano, bass and some guitar.
+
+End
+
+Author Bob van der Poel
+
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////////////
+/////// Instrument patterns
+
+
+/////////////////////////////////
+// Main pattern
+
+SeqSize 4
+
+Begin Chord
+   Voice Piano1
+   Octave 5
+   Voicing Mode=Optimal
+   Articulate 90
+   Volume m
+   RVolume 5
+   RTime 5
+   Sequence  {1 4. 90; 2.5 2 90} \
+             {1 2. 80} \
+             {1 4. 90; 2.5 2 80} \
+             {C1234}
+End
+
+Begin Plectrum
+   Voice JazzGuitar
+   Octave 5
+   Volume p
+   Sequence {1.0   +5      90   88    86   82   80   77; 
+             3.0   +5      88   84    80   77   74   72; }
+End
+
+Begin Bass
+    Voice FingeredBass
+    Sequence {1 4. 1 90; 2.5 4 1 80; 3.5 4. 1 85} / / \
+             {1 4. 1 90; 2.5 8 1 80; 3 2 1 70}
+    Octave 3  
+	Volume mf
+	RVolume 5
+	Articulate 80
+End
+
+
+DefGroove PopSpiritual  Basic pattern.
+
+/////////////////////////////////////////////
+/// Sustained ... big organ sound
+
+Groove PopSpiritual
+
+Begin Chord-Sus
+    Voice ChurchOrgan
+    Volume pp
+    Octave 4
+    Voicing Mode=Optimal
+    Articulate 100
+    Unify On
+    Rvolume 10
+    DupRoot 1 
+    Sequence {1 1 90 80 70 0 * 4 }
+End
+
+DefGroove PopSpiritualSus  Piano with big sustained organ.
+
+///////////////////////////////////////////////
+//// Plus  ... change the guitar strum to arpeggios
+
+Groove PopSpiritual
+
+Plectrum Sequence -
+
+Begin Arpeggio
+    Voice $_Plectrum_Voice
+    Octave $_Plectrum_Octave
+    Articulate 120
+    Harmony OpenBelow
+    Volume p
+    Range 1.5
+    Direction Up
+    Sequence A8 / / A4
+End
+
+DefGroove PopSpiritualPlus   Let the guitar apreggiate.
+Begin Chord-Sus
+  Groove PopSpiritualSus
+  Volume -40%
+End
+
+DefGroove PopSpiritualSusPlus  Organ and guitar.
+
+
+///////////////////////////////////////////////////////////
+/// Intro
+
+Groove PopSpiritual
+
+Chord    Sequence   L2   /  /   L1
+Plectrum Sequence  {1.0  +1   80   90    90   90   90   80;
+                    3.0   -1  80   90    90   90   90   80;} / / \
+                    {1.0 +4 80}
+Bass     Sequence   B11  /  /  B1
+
+DefGroove PopSpiritualIntro  4 bar introduction
+
+//////////////////////////////////////////////////////////
+/// Ending
+
+Groove PopSpiritualSus
+
+Chord     Sequence  L2           L1
+Plectrum  Sequence  {1.0 +5 80}  {1.0 +10 60}
+Chord-Sus Sequence  {1 1 70 * 2} {1 1 50 * 2}
+Bass      Sequence  B1           B1
+
+DefGroove PopSpiritualEnd   Simple ending.

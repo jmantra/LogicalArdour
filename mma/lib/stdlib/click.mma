@@ -1,0 +1,101 @@
+///  click.mma
+
+Begin Doc
+
+      All a click track on top of any groove. Please note the variables
+      listed below and their defaults.
+      <p>
+      The subroutines ClickOn and ClickOff are created. These can be used
+      in a song file to enable/disable the clicking for sections using the
+      commands "Call Clickon" or "Call Clickoff".
+      <p>
+      Notes:
+      <p>There is NOT a TIME or TIMESIG setting in this groove. We use
+         the existing groove value for that.
+      <p>Since there is not a "SeqClear" in this file the current groove settings
+         will not be changed. However, the name of the current groove "$_Groove"
+         will be "Click". For this reason, call click before the wanted groove.
+End
+
+Author Bob van der Poel 
+
+/// Set up our variables. Note that by using NewSet we
+/// can override this in the caller song.
+/// IMPORTANT: set things up in the song, then call click.
+
+DocVar ClickTone1 The drum tone used on primary beats. Default: ShortHiWhistle
+NewSet ClickTone1 ShortHiWhistle /// this needs a DRUM TONE
+DocVar ClickTone2 The drum tone used on secondary beats. Default: ShortGuiro
+NewSet ClickTone2 ShortGuiro     /// off beats
+DocVar ClickPattern The pattern 1, 13, 123 or 1234. Default: 1
+Newset ClickPattern  1          /// 1=start of bar by default
+
+Begin Drum-ClickTrack1
+      Tone $ClickTone1
+      Volume fff
+      Sticky True
+End
+
+Begin Drum-ClickTrack2
+      Tone $ClickTone2
+      Volume fff
+      Sticky True
+End
+
+/// Set the pattern. Note the ugly GOTOs, but MMA is not a full language :)
+/// When adding patterns make sure each If/Endif ends with a GOTO!
+
+If Eq $ClickPattern 1
+       Drum-ClickTrack1 Sequence { 1 0 120  }
+       Goto End_Of_Patterns
+Endif
+
+If Eq $ClickPattern  13
+   If LT $_Time 3
+      Error A 13 pattern requires a TIME value of 3 or more, not $_Time
+   Endif
+   Drum-ClickTrack1 Sequence { 1 0 120 }
+   Drum-ClickTrack2 Sequence { 3 0 100 }
+   Goto End_of_Patterns
+Endif
+
+If Eq $ClickPattern 123
+   If LT $_Time 3
+       Error A 123 pattern requires a TIME value of 3 or more, not $_Time
+   Endif
+   Drum-ClickTrack1 Sequence { 1 0 120 }
+   Drum-ClickTrack2 Sequence { 2 0 100; 3 0 100 }
+   Goto End_Of_Patterns
+Endif
+
+If Eq $ClickPattern 1234
+   If LT $_Time 4
+      Error A 1234 pattern requires a TIME value of 4 or more, not $_Time
+   Endif
+     Drum-ClickTrack1 Sequence { 1 0 120;  3 0 100 }
+     Drum-ClickTrack2 Sequence { 2 0 90 ;  4 0 90 }
+     Goto End_of_Patterns
+Endif
+
+Error You must set the ClickPattern to 1, 13, 123 or 1234, not $ClickPattern
+
+Label End_Of_Patterns
+
+DefGroove Click   A simple click track
+
+// Create subroutines to turn this off.
+// Issue the command:
+//    Call ClickOff
+// or Call ClickOn
+
+DefCall ClickOff
+     Drum-ClickTrack1 Off
+     Drum-ClickTrack2 Off
+EndDefCall
+
+DefCall ClickOn
+     Drum-ClickTrack1 On
+     Drum-ClickTrack2 On
+EndDefCall
+
+/// EOF

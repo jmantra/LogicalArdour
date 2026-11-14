@@ -1,0 +1,85 @@
+
+// Standard defines for 3/4 time.
+
+// All volumes are 90. If you need different volumes use
+// one of (or combination) of Volume and Accent. Or redefine
+// the sequence.
+
+if NE  $_TIME 3
+	Print Warning: Including pattern defs for TIME 3, but TIME is $_TIME !
+Endif
+
+
+Begin Chord Define
+	C1     1 4 90             // Chord on 1 		
+	C2     C1 Shift 1         // on 2
+	C3     C1 Shift 2         // on 3
+	C12    C1; C2             // 1 and 2
+	C13    C1; C3             // 1 and 3
+	C23    C12 Shift 1        // 2 and 3
+	C123   C12; C3            // 1, 2 and 3
+
+	L1     1 2. 90            // Sustained 3 beat chord on 1 		
+	L2     1 2 90             // Sustained 2 beat chord on 2
+End
+
+Begin Drum Define
+	D1     1 0 90             // hit on 1
+	D2     D1 Shift 1         // hit on 2
+	D3     D1 Shift 2         // hit on 3
+	D12    D1; D2             // hits on 1 and 2
+	D13    D1; D3             // hits on 1 and 3
+	D23    D12 Shift 1        // hits on 2 and 3
+	D123   D1 * 3             // hits on 1, 2 and 3
+	D6     D1 * 6             // 8th note roll
+	Droll  D1 * 6             // 16th note roll
+
+	// These give 2, 4 or 8 hits on beat 1; use shift to expand to beat 2 or 3.
+
+	2S       1 0 90; 1.5 0 90
+	4S       2S; 2S Shift .25
+	8S       4S; 4S Shift .125
+End
+
+Begin Bass Define
+	B1	  1 4 1 90 	          // Root on beat 1
+	B1/5  1 4 5 90            // 5th on beat 1
+
+ 	B123  1 4 1 90 ; 2 4 3 90 ; 3 4 5 90    // Root on 1, 3rd on 2, 5th on 3
+    B11     B1 ; B1 Shift 2        // Root on 1 and 3
+    B12   1 4 1 90 ; 2 4 3 90      // Root on 1 and 2
+
+    // For sustained string
+	
+	Sus1   1  2.  1  90 * 3      // root dotted half note 
+	Sus3   1  2.  3  90 * 3      // 3rd, dotted half
+	Sus5   1  2.  5  90 * 3      // 5th, dotted half
+
+End
+
+Begin Walk Define
+    W1      1 4 90            // Walk 1 per bar
+    W2      W1 Shift 1        //  1 per bar on 2
+    W3      W1 Shift 2        //  1 per bar on 3
+    W12     W1; W2            //  2 per bar on 1 and 2
+    W13     W1; W3            //  2 per bar on 1 and 3
+    W23     W1; W3            //  2 per bar on 2 and 3
+	W123	1 2. 90 * 3       // Walk quarters on 1, 2 and 3       
+End
+
+Begin Arpeggio Define
+	 A1  	1  2+4 90         // 1 dotted half
+	 A3	    A1 * 3            // 3 quarters
+	 A6     A1 * 6            // 6 eights
+	 A12    A1 * 12           // 12 sixteenths
+End
+
+Begin Scale Define
+	S1    1 2+4 90              // 1 dotted half
+	S3    S1 * 3                // 3 quarters
+	S6    S1 * 6                // 6 eights
+	S12   S1 * 12               // 12 sixteenths
+End
+
+
+

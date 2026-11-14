@@ -1,0 +1,356 @@
+
+// This is a short demo/test to show how one can steal a few bars
+// of rhythm out of an existing midi file and convert that into
+// a sequence for use in a library/groove file.
+
+// The MIDI file is one I found on the 'net many years ago "Count Me In". A hit
+// for Gary Lewis and the Playboys. We use the drum track from that song
+// to play in the Lewis song "She's Just My Style".
+
+// All we're doing right now are drums, in other words: all of track 10.
+
+// First we'll create all the "other" tracks. This is stolen from the 50srock file.
+// You might want to compare that with this file. The "un-shuffled" versions are
+// skipped, but I've attempted to include the intro and end grooves.
+
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+Seqsize 4
+
+Begin Walk
+	Voice AcousticBass
+	Sequence    W1234  { W1234; 4.75 8 90 }
+	Octave 3
+	Articulate 50
+	Accent 1 10 3 10
+	Rvolume 20
+   	Rtime 10
+	Volume mf
+End
+
+Begin Bass-Sax
+	Voice TenorSax
+	Sequence     B1    B3
+	Articulate 90
+	Octave 4
+	Rvolume 30
+	Volume p
+	Rtime 10
+End
+
+
+Begin Chord-Piano
+	Voice Piano3
+	Sequence  { C1234; 1.75 8 90 ; 3.75 8 90} { C14; 1.75 8 90; 3.75 8 90 }
+	Accent 1 20 3 20
+	Voicing   Mode=Optimal
+	DupRoot -1
+	Articulate 74
+	Rvolume 20
+	Rskip 10
+	Rtime 10
+	Volume mp
+	Octave 5
+End
+
+Begin Chord-Sax
+	Voice TenorSax
+	Sequence    { C2; C3 Shift .75 }   { C1; C3 Shift .75 }
+	Voicing  Mode=Optimal
+	SeqRnd On
+	Articulate 60
+	Octave 5
+	Rvolume 30
+	Volume p
+	Rtime 10
+	Rskip 10
+End
+
+Begin Melody-Drum
+      Drumtype
+End
+
+MidiInc file=countme.mid StripSilence=Off Melody-Drum=10,sequence start=36 end=52 Volume=60
+
+DefGroove 50sRock               Your basic rock beat from the 50s.
+
+///////////////////////////////////
+//////// Add in sustained strings
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence {1 1 90 0 90 0 * 4}
+	Voicing Mode=Optimal
+	Unify On
+	Volume p
+	Octave 5
+	Articulate 100
+End
+
+DefGroove 50sRockSus           Sustained strings added.
+
+/////////////////////////////////////////////
+/// Plus ... add in some random arps.
+
+Groove 50sRock
+SeqSize 4
+
+Begin Arpeggio
+	Voice CleanGuitar
+	Sequence  {A4; 1.75 8 90; 3.75 8 90} \
+              {A2; 1.75 4 90; 3.75 4 90} \
+              {A4 Shift .75} \
+              {A2; A4 Shift .75}
+    Harmony OpenBelow+OpenAbove
+	Articulate 130
+	Rvolume 0,20
+	Rskip 30
+    Range 1.5
+    SeqRnd ON
+    Direction Random
+	Volume m
+	Octave 5
+End
+
+DefGroove 50sRockPlus  Basic with extra guitar arpeggios.
+
+Groove 50sRockPlus
+Chord-Sus Groove 50sRockSus
+DefGroove 50sRockSusPlus  Basic sustained with arpeggions.
+
+////////////////////////
+////// Intro
+
+/// Here we turn off the imported drums and use our own.
+
+Groove 50sRock
+SeqSize 4
+Alltracks SeqRnd Off
+
+Melody-Drum Sequence -
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence  D1234  /  /  D1234
+	Volume    mp   mp mf fff
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Clap
+	Tone HandClap
+	Sequence  D24    /  /  D1
+	Volume pp
+	Rskip 5
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Snare
+	Tone SnareDrum2
+    Sequence  {D1234; 2.5 0 90; 4.5 0 90 }  /  /  D1234
+	Volume    p    p  mp  fff
+	SeqRnd On
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-HH
+	Tone ClosedHiHat
+	Sequence   D1234  /  /  D13
+	Volume mp
+	Rvolume 5
+	Rtime 5
+	Volume mf
+End
+
+Walk        Sequence    {W1234; 4.75 8 90} / /  {1 2 90 }
+
+Begin Bass-Sax
+	Sequence     {1 2 1 90}
+	Octave   3
+	Volume   pp p mp f
+End
+
+Chord-Piano Sequence L1 C24  L1  {1 2 90} 
+
+Chord-Sax   Sequence { C2; C3 Shift .75 } / / {1 2 90}
+
+DefGroove  50sRockIntro		A 4 bar introduction.
+
+
+///// alternate intro without sax bop in bar 4
+
+Groove 50sRockIntro
+SeqSize 4
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence D1234 
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Drum-Clap   Sequence *  *  * {1 0 90; 1.5 0 70; 2 0 80; 2.5 0 70;3 0 100}
+Drum-Snare  Groove 50sRockIntro
+Drum-HH     Sequence *  *  * D123
+
+Walk        Sequence  *  *  *  {1 4 90; 2 2 70}
+Bass-Sax    Sequence  *  *  *  B1
+Begin Chord-Piano
+   Sequence  *  /  /  L1
+   Volume mf
+   Articulate 90
+End
+Chord-Sax   Groove  50sRockIntro
+
+
+DefGroove 50sRockIntro1   Alternate introduction (no big sax bop on bar 4).
+
+//////////////////////////////////
+////////// Simple Ending
+
+Groove 50sRockIntro
+
+Drum-Snare 	 Sequence D24 
+Drum-HH      Sequence D1234
+Walk         Sequence -
+Chord-Sax    Sequence C13
+Bass-Sax     Sequence -
+
+Begin Bass
+	Voice $_Walk_Voice
+	Octave $_Walk_Octave
+	Sequence B13
+	Volume ff
+	Articulate 80
+End
+
+DefGroove 50sRockEnd          Simple, single bar ending.
+
+
+/// Now we are ready for the song. Here we've include our complete, original file.
+
+
+////////////////////////////////////////////////////////////////
+
+// Shes Just My Style
+// Hit for Gary Lewis and the Playboys in 1965.
+
+Tempo 148
+Keysig G
+
+Groove Metronome2-4
+ z * 2
+
+// For the intro we create patterns on-the-fly
+
+SeqClear
+Include stdpats
+SeqSize 8
+
+Begin Solo
+    Voice FingeredBass
+    Volume fff
+    Articulate 90
+    Octave 2
+End
+
+Begin Chord-Piano
+	Voice Piano3
+    Volume m
+    Octave 5
+	Sequence z  z  L1  C13  C1234  C14  C1234  L1
+End
+
+Begin Drum-Snare
+	Tone SnareDrum2
+	Sequence  z  z  D1  /  D24  /  D16  D1
+	Volume    m  /  /   /  mf   f  ff   f
+	Rvolume 5
+	Rtime 5
+End
+
+Repeat
+1         G / -D      { 4d+; b; a; 8b; d+; }
+2         G / -D      { 8r; d+; r; b; 4a; b; }
+RepeatEnd 3
+
+3        G / -D       { 4d+; b; a; g; }
+4       -D           { 2d+; }
+
+// This is the verse
+
+Repeat
+Groove 50sRock
+
+5         G
+6         /
+7        Eb      /      F
+8         G
+
+Groove 50sRockSus
+
+9         /
+10        /
+11       Eb      /      F      G
+12        /
+
+Groove 50sRockPlus
+
+13       Bm
+14       Em
+15       Bm
+16       Em
+
+Groove 50sRockSusPlus
+
+17      Am7
+18        /
+19        /
+
+Label Ending
+20       D7
+
+/// The chorus.
+
+Groove 50sRockSus
+
+21        G
+22        /
+23        C
+24        /
+
+Groove 50sRockPlus
+
+25        G
+26        /
+27        C
+28        /
+
+if def EOF
+ eof
+endif
+
+Groove 50sRockSus
+
+29        F
+30        /
+31        D
+32        /
+
+RepeatEnd 3
+
+// We've played 3 times ... now do a 8 bar ending
+// by repeating/fading bars 20-28
+
+Decresc pppp 8
+Set EOF
+Goto ending
+
+

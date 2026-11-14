@@ -147,7 +147,7 @@ local dialog_options = {
     step = "set"
   end
   	-- Fetch the user config directory
-local user_config_directory = ARDOUR.user_config_directory(8) -- get the config directory (using version 8)
+local user_config_directory = ARDOUR.user_config_directory(-1) -- running config (honors XDG_CONFIG_HOME)
 
 print(user_config_directory)
 

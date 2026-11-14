@@ -141,7 +141,7 @@ mod tests {
     #[test]
     fn reads_stereo_grand_presets() {
         let path =
-            Path::new(env!("CARGO_MANIFEST_DIR")).join("../soundfonts/Stereo Grand Piano.sf2");
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("../resources/soundfonts/soundfonts/Stereo Grand Piano.sf2");
         let presets = read_presets(&path).expect("Stereo Grand Piano should parse");
         assert!(!presets.is_empty());
         assert!(presets.iter().all(|preset| !preset.name.is_empty()));
@@ -149,14 +149,14 @@ mod tests {
             .iter()
             .all(|preset| preset.bank != 128 || preset.category == "Drum Kits"));
         assert!(presets.iter().any(|preset| preset.category == "Piano"));
-        let drums = Path::new(env!("CARGO_MANIFEST_DIR")).join("../soundfonts/808_909.sf2");
+        let drums = Path::new(env!("CARGO_MANIFEST_DIR")).join("../resources/soundfonts/soundfonts/808_909.sf2");
         let kits = read_presets(&drums).expect("drum font should parse");
         assert!(kits.iter().any(|preset| preset.category == "Drum Kits"));
     }
 
     #[test]
     fn library_uses_bank_and_program_categories() {
-        let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../soundfonts");
+        let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("../resources/soundfonts/soundfonts");
         let mut presets = 0;
         let mut drums = 0;
         for entry in std::fs::read_dir(&dir).unwrap() {

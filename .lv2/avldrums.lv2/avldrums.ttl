@@ -1,0 +1,617 @@
+@prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
+@prefix doap:  <http://usefulinc.com/ns/doap#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix kx:    <http://kxstudio.sf.net/ns/lv2ext/external-ui#> .
+@prefix lv2:   <http://lv2plug.in/ns/lv2core#> .
+@prefix midi:  <http://lv2plug.in/ns/ext/midi#> .
+@prefix pg:    <http://lv2plug.in/ns/ext/port-groups#> .
+@prefix pprop: <http://lv2plug.in/ns/ext/port-props#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix state: <http://lv2plug.in/ns/ext/state#> .
+@prefix ui:    <http://lv2plug.in/ns/extensions/ui#> .
+@prefix units: <http://lv2plug.in/ns/extensions/units#> .
+@prefix urid:  <http://lv2plug.in/ns/ext/urid#> .
+@prefix work:  <http://lv2plug.in/ns/ext/worker#> .
+
+@prefix avldrums: <http://gareus.org/oss/lv2/avldrums#> .
+
+<http://gareus.org/rgareus#me>
+  a foaf:Person;
+  foaf:name "Robin Gareus";
+  foaf:mbox <mailto:robin@gareus.org>;
+  foaf:homepage <http://gareus.org/> .
+
+<http://ardour.org/lv2/midnam#interface> a lv2:ExtensionData .
+<http://ardour.org/lv2/midnam#update> a lv2:Feature .
+
+avldrums:Cymbals
+  a pg:OutputGroup, pg:DiscreteGroup;
+	lv2:symbol "Cymbals" ;
+	rdfs:label "Cymbals" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	] .
+
+avldrums:Percussions
+	a pg:OutputGroup, pg:DiscreteGroup;
+	lv2:symbol "Percussions" ;
+	rdfs:label "Percussions" ;
+	pg:element [
+		lv2:index 0 ;
+		lv2:designation pg:left
+	] , [
+		lv2:index 1 ;
+		lv2:designation pg:right
+	] .
+
+avldrums:BlackPearl
+  a doap:Project, lv2:InstrumentPlugin, lv2:Plugin ;
+
+  doap:name "Black Pearl Drumkit" ;
+  rdfs:comment "AVLinux MIDI Drumkit" ;
+
+  doap:maintainer <http://gareus.org/rgareus#me>;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+
+  lv2:microVersion 0 ;lv2:minorVersion 1796 ;
+  ui:ui avldrums:ui_gl ;
+  
+
+  lv2:requiredFeature urid:map, work:schedule ;
+  lv2:extensionData work:interface, <http://ardour.org/lv2/midnam#interface>;
+  lv2:optionalFeature lv2:hardRTCapable, <http://ardour.org/lv2/midnam#update>;
+
+  lv2:port [
+      a lv2:InputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      atom:supports midi:MidiEvent;
+      lv2:designation lv2:control ;
+      lv2:index 0 ;
+      lv2:symbol "control" ;
+      lv2:name "Midi In" ;
+  ] , [
+      a lv2:OutputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      lv2:designation lv2:control ;
+      lv2:index 1 ;
+      lv2:symbol "notify" ;
+      lv2:name "UI Notifications" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 2 ;
+      lv2:symbol "outL" ;
+      lv2:name "Output Left" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 3 ;
+      lv2:symbol "outR" ;
+      lv2:name "Output Right" ;
+  ] .
+avldrums:RedZeppelin
+  a doap:Project, lv2:InstrumentPlugin, lv2:Plugin ;
+
+  doap:name "Red Zeppelin Drumkit" ;
+  rdfs:comment "AVLinux MIDI Drumkit" ;
+
+  doap:maintainer <http://gareus.org/rgareus#me>;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+
+  lv2:microVersion 0 ;lv2:minorVersion 1796 ;
+  ui:ui avldrums:ui_gl ;
+  
+
+  lv2:requiredFeature urid:map, work:schedule ;
+  lv2:extensionData work:interface, <http://ardour.org/lv2/midnam#interface>;
+  lv2:optionalFeature lv2:hardRTCapable, <http://ardour.org/lv2/midnam#update>;
+
+  lv2:port [
+      a lv2:InputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      atom:supports midi:MidiEvent;
+      lv2:designation lv2:control ;
+      lv2:index 0 ;
+      lv2:symbol "control" ;
+      lv2:name "Midi In" ;
+  ] , [
+      a lv2:OutputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      lv2:designation lv2:control ;
+      lv2:index 1 ;
+      lv2:symbol "notify" ;
+      lv2:name "UI Notifications" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 2 ;
+      lv2:symbol "outL" ;
+      lv2:name "Output Left" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 3 ;
+      lv2:symbol "outR" ;
+      lv2:name "Output Right" ;
+  ] .
+avldrums:BlondeBop
+  a doap:Project, lv2:InstrumentPlugin, lv2:Plugin ;
+
+  doap:name "Blonde Bop Drumkit" ;
+  rdfs:comment "AVLinux MIDI Drumkit" ;
+
+  doap:maintainer <http://gareus.org/rgareus#me>;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+
+  lv2:microVersion 0 ;lv2:minorVersion 1796 ;
+  ui:ui avldrums:ui_gl ;
+  
+
+  lv2:requiredFeature urid:map, work:schedule ;
+  lv2:extensionData work:interface, <http://ardour.org/lv2/midnam#interface>;
+  lv2:optionalFeature lv2:hardRTCapable, <http://ardour.org/lv2/midnam#update>;
+
+  lv2:port [
+      a lv2:InputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      atom:supports midi:MidiEvent;
+      lv2:designation lv2:control ;
+      lv2:index 0 ;
+      lv2:symbol "control" ;
+      lv2:name "Midi In" ;
+  ] , [
+      a lv2:OutputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      lv2:designation lv2:control ;
+      lv2:index 1 ;
+      lv2:symbol "notify" ;
+      lv2:name "UI Notifications" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 2 ;
+      lv2:symbol "outL" ;
+      lv2:name "Output Left" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 3 ;
+      lv2:symbol "outR" ;
+      lv2:name "Output Right" ;
+  ] .
+avldrums:BlondeBopHR
+  a doap:Project, lv2:InstrumentPlugin, lv2:Plugin ;
+
+  doap:name "Blonde Bop HotRod Drumkit" ;
+  rdfs:comment "AVLinux MIDI Drumkit" ;
+
+  doap:maintainer <http://gareus.org/rgareus#me>;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+
+  lv2:microVersion 0 ;lv2:minorVersion 1796 ;
+  ui:ui avldrums:ui_gl ;
+  
+
+  lv2:requiredFeature urid:map, work:schedule ;
+  lv2:extensionData work:interface, <http://ardour.org/lv2/midnam#interface>;
+  lv2:optionalFeature lv2:hardRTCapable, <http://ardour.org/lv2/midnam#update>;
+
+  lv2:port [
+      a lv2:InputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      atom:supports midi:MidiEvent;
+      lv2:designation lv2:control ;
+      lv2:index 0 ;
+      lv2:symbol "control" ;
+      lv2:name "Midi In" ;
+  ] , [
+      a lv2:OutputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      lv2:designation lv2:control ;
+      lv2:index 1 ;
+      lv2:symbol "notify" ;
+      lv2:name "UI Notifications" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 2 ;
+      lv2:symbol "outL" ;
+      lv2:name "Output Left" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 3 ;
+      lv2:symbol "outR" ;
+      lv2:name "Output Right" ;
+  ] .
+avldrums:BlackPearlMulti
+  a doap:Project, lv2:InstrumentPlugin, lv2:Plugin ;
+
+  doap:name "Black Pearl Drumkit Multi" ;
+  rdfs:comment "AVLinux MIDI Drumkit" ;
+
+  doap:maintainer <http://gareus.org/rgareus#me>;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+
+  lv2:microVersion 0 ;lv2:minorVersion 1796 ;
+  ui:ui avldrums:ui_gl ;
+  
+
+  lv2:requiredFeature urid:map, work:schedule ;
+  lv2:extensionData work:interface, <http://ardour.org/lv2/midnam#interface>;
+  lv2:optionalFeature lv2:hardRTCapable, <http://ardour.org/lv2/midnam#update>;
+
+  lv2:port [
+      a lv2:InputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      atom:supports midi:MidiEvent;
+      lv2:designation lv2:control ;
+      lv2:index 0 ;
+      lv2:symbol "control" ;
+      lv2:name "Midi In" ;
+  ] , [
+      a lv2:OutputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      lv2:designation lv2:control ;
+      lv2:index 1 ;
+      lv2:symbol "notify" ;
+      lv2:name "UI Notifications" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 2 ;
+      lv2:symbol "out1" ;
+      lv2:name "Kick" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 3 ;
+      lv2:symbol "out2" ;
+      lv2:name "Snare" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 4 ;
+      lv2:symbol "out3" ;
+      lv2:name "HiHat" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 5 ;
+      lv2:symbol "out4" ;
+      lv2:name "Tom" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 6 ;
+      lv2:symbol "out5" ;
+      lv2:name "Floor Tom" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 7 ;
+      lv2:symbol "out6" ;
+      lv2:name "Cymbals L" ;
+      lv2:designation pg:left ;
+      pg:group avldrums:Cymbals;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 8 ;
+      lv2:symbol "out7" ;
+      lv2:name "Cymbals R" ;
+      lv2:designation pg:right ;
+      pg:group avldrums:Cymbals;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 9 ;
+      lv2:symbol "out8" ;
+      lv2:name "Percussions L" ;
+      lv2:designation pg:left ;
+      pg:group avldrums:Percussions;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 10 ;
+      lv2:symbol "out9" ;
+      lv2:name "Percussions R" ;
+      lv2:designation pg:right ;
+      pg:group avldrums:Percussions;
+  ] .
+avldrums:RedZeppelinMulti
+  a doap:Project, lv2:InstrumentPlugin, lv2:Plugin ;
+
+  doap:name "Red Zeppelin Drumkit Multi" ;
+  rdfs:comment "AVLinux MIDI Drumkit" ;
+
+  doap:maintainer <http://gareus.org/rgareus#me>;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+
+  lv2:microVersion 0 ;lv2:minorVersion 1796 ;
+  ui:ui avldrums:ui_gl ;
+  
+
+  lv2:requiredFeature urid:map, work:schedule ;
+  lv2:extensionData work:interface, <http://ardour.org/lv2/midnam#interface>;
+  lv2:optionalFeature lv2:hardRTCapable, <http://ardour.org/lv2/midnam#update>;
+
+  lv2:port [
+      a lv2:InputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      atom:supports midi:MidiEvent;
+      lv2:designation lv2:control ;
+      lv2:index 0 ;
+      lv2:symbol "control" ;
+      lv2:name "Midi In" ;
+  ] , [
+      a lv2:OutputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      lv2:designation lv2:control ;
+      lv2:index 1 ;
+      lv2:symbol "notify" ;
+      lv2:name "UI Notifications" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 2 ;
+      lv2:symbol "out1" ;
+      lv2:name "Kick" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 3 ;
+      lv2:symbol "out2" ;
+      lv2:name "Snare" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 4 ;
+      lv2:symbol "out3" ;
+      lv2:name "HiHat" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 5 ;
+      lv2:symbol "out4" ;
+      lv2:name "Tom" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 6 ;
+      lv2:symbol "out5" ;
+      lv2:name "Floor Tom" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 7 ;
+      lv2:symbol "out6" ;
+      lv2:name "Cymbals L" ;
+      lv2:designation pg:left ;
+      pg:group avldrums:Cymbals;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 8 ;
+      lv2:symbol "out7" ;
+      lv2:name "Cymbals R" ;
+      lv2:designation pg:right ;
+      pg:group avldrums:Cymbals;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 9 ;
+      lv2:symbol "out8" ;
+      lv2:name "Percussions L" ;
+      lv2:designation pg:left ;
+      pg:group avldrums:Percussions;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 10 ;
+      lv2:symbol "out9" ;
+      lv2:name "Percussions R" ;
+      lv2:designation pg:right ;
+      pg:group avldrums:Percussions;
+  ] .
+avldrums:BlondeBopMulti
+  a doap:Project, lv2:InstrumentPlugin, lv2:Plugin ;
+
+  doap:name "Blonde Bop Drumkit Multi" ;
+  rdfs:comment "AVLinux MIDI Drumkit" ;
+
+  doap:maintainer <http://gareus.org/rgareus#me>;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+
+  lv2:microVersion 0 ;lv2:minorVersion 1796 ;
+  ui:ui avldrums:ui_gl ;
+  
+
+  lv2:requiredFeature urid:map, work:schedule ;
+  lv2:extensionData work:interface, <http://ardour.org/lv2/midnam#interface>;
+  lv2:optionalFeature lv2:hardRTCapable, <http://ardour.org/lv2/midnam#update>;
+
+  lv2:port [
+      a lv2:InputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      atom:supports midi:MidiEvent;
+      lv2:designation lv2:control ;
+      lv2:index 0 ;
+      lv2:symbol "control" ;
+      lv2:name "Midi In" ;
+  ] , [
+      a lv2:OutputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      lv2:designation lv2:control ;
+      lv2:index 1 ;
+      lv2:symbol "notify" ;
+      lv2:name "UI Notifications" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 2 ;
+      lv2:symbol "out1" ;
+      lv2:name "Kick" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 3 ;
+      lv2:symbol "out2" ;
+      lv2:name "Snare" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 4 ;
+      lv2:symbol "out3" ;
+      lv2:name "HiHat" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 5 ;
+      lv2:symbol "out4" ;
+      lv2:name "Tom" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 6 ;
+      lv2:symbol "out5" ;
+      lv2:name "Floor Tom" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 7 ;
+      lv2:symbol "out6" ;
+      lv2:name "Cymbals L" ;
+      lv2:designation pg:left ;
+      pg:group avldrums:Cymbals;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 8 ;
+      lv2:symbol "out7" ;
+      lv2:name "Cymbals R" ;
+      lv2:designation pg:right ;
+      pg:group avldrums:Cymbals;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 9 ;
+      lv2:symbol "out8" ;
+      lv2:name "Percussions L" ;
+      lv2:designation pg:left ;
+      pg:group avldrums:Percussions;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 10 ;
+      lv2:symbol "out9" ;
+      lv2:name "Percussions R" ;
+      lv2:designation pg:right ;
+      pg:group avldrums:Percussions;
+  ] .
+avldrums:BlondeBopHRMulti
+  a doap:Project, lv2:InstrumentPlugin, lv2:Plugin ;
+
+  doap:name "Blonde Bop HotRod Drumkit Multi" ;
+  rdfs:comment "AVLinux MIDI Drumkit" ;
+
+  doap:maintainer <http://gareus.org/rgareus#me>;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+
+  lv2:microVersion 0 ;lv2:minorVersion 1796 ;
+  ui:ui avldrums:ui_gl ;
+  
+
+  lv2:requiredFeature urid:map, work:schedule ;
+  lv2:extensionData work:interface, <http://ardour.org/lv2/midnam#interface>;
+  lv2:optionalFeature lv2:hardRTCapable, <http://ardour.org/lv2/midnam#update>;
+
+  lv2:port [
+      a lv2:InputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      atom:supports midi:MidiEvent;
+      lv2:designation lv2:control ;
+      lv2:index 0 ;
+      lv2:symbol "control" ;
+      lv2:name "Midi In" ;
+  ] , [
+      a lv2:OutputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      lv2:designation lv2:control ;
+      lv2:index 1 ;
+      lv2:symbol "notify" ;
+      lv2:name "UI Notifications" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 2 ;
+      lv2:symbol "out1" ;
+      lv2:name "Kick" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 3 ;
+      lv2:symbol "out2" ;
+      lv2:name "Snare" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 4 ;
+      lv2:symbol "out3" ;
+      lv2:name "HiHat" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 5 ;
+      lv2:symbol "out4" ;
+      lv2:name "Tom" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 6 ;
+      lv2:symbol "out5" ;
+      lv2:name "Floor Tom" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 7 ;
+      lv2:symbol "out6" ;
+      lv2:name "Cymbals L" ;
+      lv2:designation pg:left ;
+      pg:group avldrums:Cymbals;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 8 ;
+      lv2:symbol "out7" ;
+      lv2:name "Cymbals R" ;
+      lv2:designation pg:right ;
+      pg:group avldrums:Cymbals;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 9 ;
+      lv2:symbol "out8" ;
+      lv2:name "Percussions L" ;
+      lv2:designation pg:left ;
+      pg:group avldrums:Percussions;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 10 ;
+      lv2:symbol "out9" ;
+      lv2:name "Percussions R" ;
+      lv2:designation pg:right ;
+      pg:group avldrums:Percussions;
+  ] .
+avldrums:BuskmansHoliday
+  a doap:Project, lv2:InstrumentPlugin, lv2:Plugin ;
+
+  doap:name "Buskman's Holiday Percussion" ;
+  rdfs:comment "AVLinux MIDI Drumkit" ;
+
+  doap:maintainer <http://gareus.org/rgareus#me>;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+
+  lv2:microVersion 0 ;lv2:minorVersion 1796 ;
+  ui:ui avldrums:ui_gl ;
+  
+
+  lv2:requiredFeature urid:map, work:schedule ;
+  lv2:extensionData work:interface, <http://ardour.org/lv2/midnam#interface>;
+  lv2:optionalFeature lv2:hardRTCapable, <http://ardour.org/lv2/midnam#update>;
+
+  lv2:port [
+      a lv2:InputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      atom:supports midi:MidiEvent;
+      lv2:designation lv2:control ;
+      lv2:index 0 ;
+      lv2:symbol "control" ;
+      lv2:name "Midi In" ;
+  ] , [
+      a lv2:OutputPort, atom:AtomPort ;
+      atom:bufferType atom:Sequence ;
+      lv2:designation lv2:control ;
+      lv2:index 1 ;
+      lv2:symbol "notify" ;
+      lv2:name "UI Notifications" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 2 ;
+      lv2:symbol "outL" ;
+      lv2:name "Output Left" ;
+  ] , [
+      a lv2:OutputPort, lv2:AudioPort ;
+      lv2:index 3 ;
+      lv2:symbol "outR" ;
+      lv2:name "Output Right" ;
+  ] .
+
+avldrums:ui_gl
+	a ui:X11UI ;
+	lv2:requiredFeature ui:idleInterface;
+	lv2:extensionData ui:idleInterface;
+	lv2:requiredFeature urid:map
+	.

@@ -1,0 +1,98 @@
+Changes file for the 2014 series
+
+This reflects changes to MMA since the release of version 13.12.
+
+================================
+
+
+A considerable amount of work has been done is preparing MMA for Python 3.
+ This work is not complete, and may entail more work. Hopefully it will
+ be transparent to the user.
+
+A minor error in the error reporting of DEFCHORD has been fixed.
+
+An error in handling double sharps in the debug code in the ROMAN functions has been fixed.
+
+MIIDWHEEL: values were being cut off at 1023 (0x3FF) instead of 16383 (0x3FFF). Opps :)
+  Also worked on the docs for this to make it more clear.
+
+  The original spec on using a bar count for offset used a 'B'. To end confusion over bar,
+     measure   and beat the spec is now 'm'. So, to start the offset in 1 bar or measure use
+     '1m'. This has also been added to specifying the duration. Use of 'b' was stupid.
+
+MIDISPLIT: you can now use channel numbers (1,2,etc) or a track name 
+ (Drum, Chord, Bass-Crummy). See the docs for more details.
+
+HARMONY and HARMONYONLY can now accept "0", "-" or "None" to indicate no harmony
+ for a sequence.
+
+PRINTACTIVE: enhanced the output to include channel assignments and MIDI event counts.
+
+MMASTART and MMAEND were not parsing file paths correctly. They now, as it says in
+ the manual, search all the directories in the INCLUDEPATH. And they don't
+ dump core anymore either.
+
+I really, really think that midiInc now works properly. Number of fixes made, including
+ the sending of program change messages properly, fixed the "measure" option for 
+ start/end, and other minor things ... most caused by not recalculating when different
+ tick settings between mma and imported file.
+
+You can use the standard notation "3/4", etc. to specify a time sig.
+
+When using +/- to adjust track volumes, all were set to the first (original) volume in
+  the sequence. It now adjusts each seq point individually.
+
+Added an ARTICULATE option to the Plectrum tracks. This makes the chords
+  more staccato sounding. See the Plectrum docs in the manual.
+
+Fixed bug which caused a crash with the SetMidiPlayer command.
+
+Fixed bug in generating a strum line in the html docs.
+
+Released 14.07 July 9, 2014.
+
+========================================
+
+Added Gliss and GlissAfter to Ornamentation options.
+
+Modifed the calls to Ornament: It now correctly adjusts the offset so
+ that all the notes in the chord/harmony sound at the same time; fixed the note
+ selection from the chord so that we don't try to ornament a silent
+ note (volume==0).
+
+Fixed some error() calls in the ornamentation function.
+
+Fixed crash if a empty macro was used.
+
+Added RVOLUME option to Ornament.
+
+Added a single '-' as an option to using '/' to indicate a repeated chord.
+
+Added /* */ for multi-line or block comment.
+
+New command CmdLine. This lets you set various command line options from
+ inside a mma script. Some commands (-V, -G, etc) are not permitted. Handy
+ for things like -T (set tracks) and -b/B (limit output). 
+
+Fixed bugs in Midi(de)Cresc both in the track and global variants.
+
+Thanks to gentle prodding from Ignazio Di Napoli a new feature, TIGGER,
+ has been added. This lets you set conditions (beat, chord change,
+ rest, etc) for a pattern to activate. Read all about it in the fine manual.
+
+New command Sticky. This sets a track as "Sticky" which means that
+ it is not restored (and overwritten) by groove commands.
+
+Added "OFF" to trigger.
+
+Added test to avoid warnings when using sequence lists in AllGrooves.
+
+Added a trigger option: STICKY. This is a convience option and is
+ identical to the standalone STICKY option, just handy to have it
+ all in one place.
+
+Added the 'StrumAdd' option. This simple option adds an additional value
+ to the offset as the chord is processed. This lets you get more (or less)
+ spacing between the notes as the chord is processed. 
+
+Released 15.01 January 27, 2015.

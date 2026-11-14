@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Automatic Melodies: Aria Tracks</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node13.html">Randomizing</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node11.html">Emulating plucked instruments: Plectrum</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION001200000000000000000"></A>
+<A ID="chap-aria"></A>
+<BR>
+Automatic Melodies: Aria Tracks
+</H1>
+
+<P>
+A<SMALL>RIA</SMALL> tracks are designed to let 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  automatically generate
+something resembling melody. Honest, this will never put real
+composers on the unemployment line (well, no more than they are mostly
+there already).
+
+<P>
+You might want to use an A<SMALL>RIA</SMALL> to embellish a section of a song
+(like an introduction or an ending). Or you can have 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  generate a
+complete melody over the song chords.
+
+<P>
+In a traditional song the melody depends on two parts: patterns (IE.
+note lengths, volume, articulation) and pitch (usually determined by
+the chords in a song). If you have been using 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  at all you will
+know that that chords are the building block of what 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  does
+already. So, to generate a melody we just need some kind of pattern.
+And, since 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  already uses patterns in most things it does, it is a
+short step to use a specialized pattern to generate a melody.
+
+<P>
+It might serve to look at the sample song files enclosed in this
+package in the directory <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">egs/aria</SPAN></SPAN>. Compile and play them. Not
+too bad?
+
+<P>
+Just like other track, you can create as many A<SMALL>RIA</SMALL>s as you
+want. So, you can have the tracks A<SMALL>RIA-1</SMALL>, A<SMALL>RIA</SMALL>, and
+A<SMALL>RIA-SILLY</SMALL> all at the same time. And, the majority of other
+commands (like O<SMALL>CTAVE</SMALL>, A<SMALL>RTICULATE</SMALL>, H<SMALL>ARMONY</SMALL>, etc.)
+apply to A<SMALL>RIA</SMALL>s.
+
+<P>
+The following commands are important to note:
+
+<P>
+<DL>
+<DT><STRONG>Range</STRONG></DT>
+<DD>Set the octave range to use. A R<SMALL>ANGE</SMALL> of 2.5 would let
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  work over two and one-half octaves, etc.
+
+<P>
+</DD>
+<DT><STRONG>ScaleType</STRONG></DT>
+<DD>Set the type of &ldquo;scale&rdquo; to use. By default, the setting for
+  this is CHORD. But, you can use AUTO, SCALE, CHORD, KEY or
+  CHROMATIC. AUTO and SCALE are identical and force 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to select
+  notes from the scale associated with the current chord; CHROMATIC
+  uses a twelve tone scale starting at the root note of the chord;
+  CHORD forces the selection to use the notes in the current chord; KEY
+  sets the scale to one based on the current key signature (see
+  <A HREF="node30.html#keysignature">here</A>).
+
+<P>
+In addition, each of the above listed S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL>s can have a
+  single &ldquo;-&rdquo; (minus sign) appended to it. In this case the list of notes used
+  for the melody will be depleted until all the notes are used or
+  there is a key change, chord change, etc. This mode will, mostly, avoid
+  repeated notes. You might even think of it as a poor man's 12 tone
+  composition tool (it really, really isn't).
+
+<P>
+</DD>
+<DT><STRONG>Direction</STRONG></DT>
+<DD>As 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  processes the song it moves a
+  note-selection pointer up or down a list containing the notes in the
+  selected scale. The scale can be any of the S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL>s
+  described above. By default D<SMALL>IRECTION</SMALL> is set to the single
+  value &ldquo;1&rdquo; which tells 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  to add 1 to the pointer after each note is generated.
+  However, you can set the value to an integer -4 to 4 or 1, 2, 3 or 4
+  &ldquo;r&rdquo;s. The &ldquo;r&rdquo; settings create random directions (you can have 1
+  to 4 &ldquo;r&rdquo;s):
+
+<P>
+<BLOCKQUOTE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"># of 'r's</TD>
+<TD ALIGN="LEFT">Direction Adjust</TD>
+</TR>
+<TR><TD ALIGN="LEFT">r</TD>
+<TD ALIGN="LEFT">-1 to 1</TD>
+</TR>
+<TR><TD ALIGN="LEFT">rr</TD>
+<TD ALIGN="LEFT">-2 to 2</TD>
+</TR>
+<TR><TD ALIGN="LEFT">rrr</TD>
+<TD ALIGN="LEFT">-3 to 3</TD>
+</TR>
+<TR><TD ALIGN="LEFT">rrrr</TD>
+<TD ALIGN="LEFT">-4 to 4</TD>
+</TR>
+</TABLE>
+</BLOCKQUOTE>
+
+<P>
+<SPAN  CLASS="textit">Important: in an A<SMALL>RIA</SMALL> track the sequence size and its
+    current value (based on the current bar) is ignored for D<SMALL>IRECTION</SMALL>.</SPAN>
+
+<P>
+</DD>
+</DL>
+
+<P>
+A bit more detail on defining an A<SMALL>RIA</SMALL>:
+
+<P>
+First, here is a simplified sample track definition:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Aria
+<BR>&nbsp;&nbsp; Voice JazzGuitar
+<BR>&nbsp;&nbsp;  Volume f 
+<BR>&nbsp;&nbsp;  Sequence {1.5 8 90; 2 8 90; 2.5 8 90; \
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 8 90; 3.5 8 90; 4 8 90; 4.5 8 90} 
+<BR>&nbsp;&nbsp; ScaleType Scale 
+<BR>&nbsp;&nbsp; Range 1 
+<BR>&nbsp;&nbsp; Direction 0 0 1 2 -4 0 1 r  
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Next assume that we have a few bars of music with only a CMajor chord.
+The following table shows the notes which would be generated for each
+event in the set S<SMALL>EQUENCE</SMALL>:
+
+<P>
+<BLOCKQUOTE>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Event</TD>
+<TD ALIGN="LEFT">Direction</TD>
+<TD ALIGN="LEFT">Offset Pointer</TD>
+<TD ALIGN="LEFT">Note</TD>
+</TR>
+<TR><TD ALIGN="LEFT">1</TD>
+<TD ALIGN="LEFT">0</TD>
+<TD ALIGN="LEFT">0</TD>
+<TD ALIGN="LEFT">c</TD>
+</TR>
+<TR><TD ALIGN="LEFT">2</TD>
+<TD ALIGN="LEFT">0</TD>
+<TD ALIGN="LEFT">0</TD>
+<TD ALIGN="LEFT">c</TD>
+</TR>
+<TR><TD ALIGN="LEFT">3</TD>
+<TD ALIGN="LEFT">1</TD>
+<TD ALIGN="LEFT">1</TD>
+<TD ALIGN="LEFT">d</TD>
+</TR>
+<TR><TD ALIGN="LEFT">4</TD>
+<TD ALIGN="LEFT">2</TD>
+<TD ALIGN="LEFT">3</TD>
+<TD ALIGN="LEFT">f</TD>
+</TR>
+<TR><TD ALIGN="LEFT">5</TD>
+<TD ALIGN="LEFT">-4</TD>
+<TD ALIGN="LEFT">6</TD>
+<TD ALIGN="LEFT">b</TD>
+</TR>
+<TR><TD ALIGN="LEFT">6</TD>
+<TD ALIGN="LEFT">0</TD>
+<TD ALIGN="LEFT">6</TD>
+<TD ALIGN="LEFT">b</TD>
+</TR>
+<TR><TD ALIGN="LEFT">7</TD>
+<TD ALIGN="LEFT">1</TD>
+<TD ALIGN="LEFT">0</TD>
+<TD ALIGN="LEFT">c</TD>
+</TR>
+<TR><TD ALIGN="LEFT">8</TD>
+<TD ALIGN="LEFT">r</TD>
+<TD ALIGN="LEFT">??</TD>
+<TD ALIGN="LEFT">??</TD>
+</TR>
+</TABLE>
+</BLOCKQUOTE>
+
+<P>
+If you were to change the S<SMALL>CALE</SMALL>T<SMALL>YPE</SMALL> or R<SMALL>ANGE</SMALL> you would
+get a completely different series. Really, tables like this one are
+very difficult to determine and quite useless. Just try different
+D<SMALL>IRECTION</SMALL> and R<SMALL>ANGE</SMALL> settings, S<SMALL>CALETYPE</SMALL>s, etc.
+Most combinations will sound fine, but Chromatic scales might not be
+to your liking.
+
+<P>
+Please note the following:
+
+<P>
+
+<UL>
+<LI>A<SMALL>RIA</SMALL>s are <SPAN  CLASS="textit">not</SPAN> saved or modified by G<SMALL>ROOVE</SMALL>
+  commands. Well, almost ... the sequence size will be adjusted to
+  match the new size from the groove. This might be unexpected:
+
+<P>
+
+<UL>
+<LI>Load a groove. Let's say it has a S<SMALL>EQSIZE</SMALL> of 4.
+</LI>
+<LI>Create an A<SMALL>RIA</SMALL>. Use 4 patterns to match the groove size
+    (if you don't 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will expand the sequence size for the
+    A<SMALL>RIA</SMALL>, just like other tracks).
+</LI>
+<LI>Process a few bars of music.
+</LI>
+<LI>Load a new groove, but this time with a S<SMALL>EQSIZE</SMALL> of 2.
+    Now, the A<SMALL>RIA</SMALL> will be truncated. This behavior is
+    duplicated in other tracks as well, but it might be unexpected
+    here.
+  
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>D<SMALL>IRECTION</SMALL> <SPAN  CLASS="textit">cannot</SPAN> be changed on a bar by bar basis.
+  It applies to the entire sequence. After each note in the
+  A<SMALL>RIA</SMALL> is generated a pointer advances to the next direction
+  value in the list.
+
+<P>
+</LI>
+</UL>
+
+<P>
+You can make dramatic changes to your songs with a few simple tricks.
+Try modifying the D<SMALL>IRECTION</SMALL> settings just slightly; use several
+patterns and S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL> to generate less predictable patterns; use
+H<SMALL>ARMONY</SMALL>O<SMALL>NLY</SMALL> with a different voice and pattern.
+
+<P>
+<SPAN  CLASS="textit">Suggestion: Since very minor changes in any A<SMALL>RIA</SMALL>
+setting can make dramatic changes in the resulting output we strongly
+suggest that you start with very simple S<SMALL>EQUENCE</SMALL> and
+D<SMALL>IRECTION</SMALL> commands. Trying to listen to and debug complicated
+settings will be a frustrating experience. Start simple and listen to
+what is going on. Then add enhancements to your liking.</SPAN>
+
+<P>
+Oh, and have fun!
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node13.html">Randomizing</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node11.html">Emulating plucked instruments: Plectrum</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

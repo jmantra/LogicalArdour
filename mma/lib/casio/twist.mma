@@ -1,0 +1,111 @@
+ // twist.mma
+
+Begin Doc  
+      Twist (049). Pretty repetitive, but the melody's up to you.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    RVolume 10
+    Sequence {1 0 100; 3 0 95} \
+             {1 0 100; 3 0 95; 4.5 0 81} 
+End
+
+Begin Drum-HandClap
+    Tone HandClap
+    Volume m
+    RVolume 20
+    Sequence {1 0 71; 1.5 0 63; 2 0 55; 2 0 127; 2.5 0 71; 3 0 79; \
+                 3.5 0 63; 4 0 127; 4.5 0 79}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    Sequence {1 0 70; 2 0 127; 3 0 71; 4 0 123}
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    RVolume 10
+    Sequence {1 6 1 111; 1.5 3 1 84; 2 16 3 111; 2.5 3 3 92; 
+                3 16 5 92; 3.5 3 5 88; 4 16 6 92; 4.5 3 5 96}
+End
+
+Begin Chord-6
+    Voice Piano1
+    Octave 6
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    RVolume 20
+    RSkip 10
+    Sequence {1 6 90; 1.5 6 90; 2 64 90; 2.5 6 90; 3 64 90; 3.5 32 90; 4 6 90; 4.5 32 90}
+End
+
+
+Begin Chord-7
+    Voice CleanGuitar
+    Octave 6
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {4 16 90; 4.1 16 90} /  \
+             {2 16 90; 2.1 16 90; 4 16 90; 4.1 16 90}  /
+End
+
+DefGroove Twist   Basic pattern
+
+//////////////////////////////////////////////////////////////////////
+///////// Intro
+
+Groove Twist
+
+Drum-KickDrum2    Sequence  D1234  *   *   D1234
+Drum-HandClap     Sequence  *      *   *   D13
+Drum-PedalHiHat   Sequence  *      *   D8  D8
+
+Bass-9            Sequence  *      *   *   B1234
+
+//  Piano1
+Chord-6           Sequence  *      *   *   C1234
+
+// CleanGuitar
+Chord-7           Sequence  *      *   {C13 Shift .5} {C134;C1 Shift .5}
+
+DefGroove TwistIntro A 4 bar introduction
+
+//////////////////////////////////////////////////////////////////////
+///////// Ending
+
+Groove Twist
+SeqSize 2
+
+Drum-KickDrum2    Sequence  D1234   D1
+Drum-HandClap     Sequence  *       D1
+Drum-PedalHiHat   Sequence  D8      D1
+
+Bass-9            Sequence  B11     B1
+
+//  Piano1
+Chord-6           Sequence  *       C1
+
+// CleanGuitar
+Chord-7           Sequence  *       C1
+
+DefGroove TwistEnd   A 2 bar ending

@@ -1,0 +1,195 @@
+
+// blues
+
+
+Begin Doc
+
+	If you don't understand the Blues, don't use these grooves 
+   	... they will make you way too sad.
+
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4		// All these patterns are 4/4
+Timesig 4 4
+Include stdpats
+
+////////////////////////////
+/// Pattern definitions
+
+Begin Walk Define
+	W1+34   1 4 80; 2.5 8 70; 3 4 80; 4 4 80 
+End
+
+
+///////////////////////////
+/// Groove definitons
+
+// Blues
+
+SeqSize 4
+
+Begin Drum		
+	Sequence D1234
+	Tone SnareDrum1 
+	Rvolume 10
+	Rskip 50
+	Rtime 4
+	Volume ppp
+End
+
+Begin Drum-Clap
+	Sequence D24 
+	Tone HandClap
+	SeqRnd On
+	Rvolume 10
+	RSkip 50
+	Rtime 4
+	Volume pp
+End
+
+Begin Drum-HH
+	Sequence D1234
+	Tone ClosedHiHat
+	RVolume 10
+	Volume mp
+End
+
+Begin Walk
+	Voice AcousticBass
+	Sequence W1234 / / z
+	Octave 3
+	Volume mp
+	Articulate 80
+End
+
+Begin Bass
+	Voice $_Walk_Voice
+	Octave $_Walk_Octave
+	Sequence z / / B11
+	Volume mp
+	Articulate 80
+End
+
+Begin Chord
+	Sequence C13 / /  C1234
+	Voicing   Mode=Optimal
+	Voice Piano1
+	Octave 4
+	Volume mp
+	Articulate 99
+End	
+	
+DefGroove Blues   Straight-ahead blues.
+
+Begin Chord
+	Sequence  {C1234 * 3}
+	Octave 5
+End
+
+DefGroove BluesTriple   Change the piano chords to triplets. Nice for \
+                        a transition bar.
+
+
+Groove Blues
+
+
+Begin Chord-sus
+	Sequence	{ 1 1 90 0 50 0 * 4 } { 1 1 50 0 90 0 * 4 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+	Voice Harmonica
+	Articulate 100
+	Unify On
+	Volume pp
+	Octave 5
+End
+
+DefGroove BluesSus      Add a sustained harmonica. Annoying.
+
+Chord Groove BluesTriple
+
+DefGroove BluesTripleSus   Sustained 'arp and chord triplets.
+
+/// Left side triplet
+
+Groove Blues
+
+Begin Chord
+	Sequence  {1 3 90; 1.33 3 80; 1.66 3 80; 2 8 90; 2.33 3 80; 2.66 3 80; 3 4 90; 4 4 90}
+	Octave 5
+End
+
+DefGroove BluesTripleL  Same as BluesTriple with triplets on beats 1 and 2.
+
+
+Chord-Sus Groove BluesSus
+DefGroove BluesTripleLSus  Same as BluesTripleSus with triplets on beats 1 and 2.
+
+/// Right side triplet
+
+Groove Blues
+
+Begin Chord
+	Sequence  {1 4 90; 2 4 90; 3 3 90; 3.33 3 80; 3.66 3 80; 4 8 90; 4.33 3 80; 4.66 3 80}
+	Octave 5
+End
+
+DefGroove BluesTripleR  Same as BluesTriple with triplets on beats 3 and 4.
+
+
+Chord-Sus Groove BluesSus
+DefGroove BluesTripleRSus  Same as BluesTripleSus with triplets on beats 3 and 4.
+
+//////////////////////////////////////
+// Alternate with piano
+
+Groove Blues
+
+Begin Arpeggio
+	Voice $_Chord_Voice
+	Volume mf
+    Octave 4
+	Articulate 80
+	RSkip 40
+	Sequence Swing8
+	Rtime 10
+	RVolume 15
+End
+
+DefGroove Blues1    Add honky-piano.
+
+Chord-Sus  Groove  BluesSus
+
+DefGroove Blues1Sus  The honky-piano meets the mouth-arp.
+
+//////////////////////////////////////
+/// Intro
+
+Groove Blues
+
+Drum        Sequence D1234 / / D1
+Drum-Clap   Sequence D1
+Drum-HH     Sequence D1234 / / D1
+// Leave WALK as W1234 / / z
+Bass        Sequence z z z {1 2 1 90}
+Chord       Sequence C13 / /  L1
+
+DefGroove BluesIntro    Simple, 4 bar, introduction.	
+	
+/// Ending
+
+
+Chord     Sequence C1234 / C13 /
+Bass      Sequence B11
+Walk      Sequence -
+Drum-Clap Sequence D13
+Drum      Sequence D1234 / D13 /
+Drum-HH   Sequence D1234 / D13 /
+
+DefGroove BluesEnd  A 4 bar ending. First 2 bars have 4 "hits", \
+                    the last 2 have 2.
+                    

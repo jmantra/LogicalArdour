@@ -1,0 +1,2139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//en">
+
+<!--Converted with LaTeX2HTML 2024 (Released January 1, 2024) -->
+<HTML lang="en">
+<HEAD>
+<TITLE>Variables, Conditionals and Jumps</TITLE>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2024">
+
+<LINK REL="STYLESHEET" HREF="mma.css">
+
+<LINK REL="next" HREF="node22.html">
+<LINK REL="previous" HREF="node20.html">
+<LINK REL="next" HREF="node22.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node22.html">Subroutines</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node20.html">Repeats</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html632"
+  HREF="node21.html#SECTION002110000000000000000">Variables</A>
+<UL>
+<LI><A ID="tex2html633"
+  HREF="node21.html#SECTION002111000000000000000">Set</A>
+<LI><A ID="tex2html634"
+  HREF="node21.html#SECTION002112000000000000000">NewSet</A>
+<LI><A ID="tex2html635"
+  HREF="node21.html#SECTION002113000000000000000">Mset</A>
+<LI><A ID="tex2html636"
+  HREF="node21.html#SECTION002114000000000000000">RndSet</A>
+<LI><A ID="tex2html637"
+  HREF="node21.html#SECTION002115000000000000000">UnSet VariableName</A>
+<LI><A ID="tex2html638"
+  HREF="node21.html#SECTION002116000000000000000">ShowVars</A>
+<LI><A ID="tex2html639"
+  HREF="node21.html#SECTION002117000000000000000">Inc and Dec</A>
+<LI><A ID="tex2html640"
+  HREF="node21.html#SECTION002118000000000000000">VExpand On or Off</A>
+<LI><A ID="tex2html641"
+  HREF="node21.html#SECTION002119000000000000000">StackValue</A>
+</UL>
+<BR>
+<LI><A ID="tex2html642"
+  HREF="node21.html#SECTION002120000000000000000">Predefined Variables</A>
+<LI><A ID="tex2html643"
+  HREF="node21.html#SECTION002130000000000000000">Indexing and Slicing</A>
+<LI><A ID="tex2html644"
+  HREF="node21.html#SECTION002140000000000000000">Mathematical Expressions</A>
+<LI><A ID="tex2html645"
+  HREF="node21.html#SECTION002150000000000000000">Conditionals</A>
+<LI><A ID="tex2html646"
+  HREF="node21.html#SECTION002160000000000000000">Goto</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A ID="SECTION002100000000000000000"></A>
+<A ID="sec-variables"></A>
+<BR>
+Variables, Conditionals and Jumps
+</H1>
+
+<P>
+To make the processing of your music easier, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  supports a very
+primitive set for variable manipulations along with some conditional
+testing and the oft-frowned-upon <SMALL>GOTO</SMALL> command.
+
+<P>
+
+<H1><A ID="SECTION002110000000000000000">
+Variables</A>
+</H1>
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  lets you set a variable, much like in other programming
+languages and to do some basic manipulations on them. Variables are
+most likely to be used for two reasons:
+
+<P>
+
+<UL>
+<LI>For use in setting up conditional segments of your file,
+
+<P>
+</LI>
+<LI>As a shortcut to entering complex chord sequences.
+
+<P>
+</LI>
+</UL>
+
+<P>
+To begin, the following list shows the available commands to set and
+manipulate variables:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set VariableName <SPAN  CLASS="textit">String</SPAN> 
+<BR>
+Mset VariableName ...MsetEnd 
+<BR>
+UnSet VariableName 
+<BR>
+ShowVars 
+<BR>
+Inc Variablename [value] 
+<BR>
+Dec Variablename [value] 
+<BR>
+Vexpand ON/Off   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+All variable names are case-insensitive. Any characters can be used in
+a variable name. The only exceptions are that a variable name cannot
+start with a &ldquo;$&rdquo; or a &ldquo;_&rdquo; (an underscore&mdash;this is reserved for
+internal variables, see below) <SPAN  CLASS="textit">and</SPAN> names cannot contain a &ldquo;[&rdquo;
+or &ldquo;]&rdquo; character (brace characters are reserved for indexing,
+<A HREF="#slicing">details here</A>).
+
+<P>
+Variables are set and manipulated by using their names. Variables are
+expanded when their name is prefaced by a space followed by single
+&ldquo;$&rdquo; sign. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set Silly Am / Bm / 
+<BR>
+1 $Silly   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The first line creates the variable &ldquo;Silly&rdquo;; the second creates a
+bar of music with the chords &ldquo;Am / Bm /&rdquo;.
+
+<P>
+<SPAN  CLASS="textit">Note that the &ldquo;$&rdquo; must be the first item on a line or follow
+  a space character. The variable name must be terminated by a space
+  or the end of a line.</SPAN> For example, the following will NOT work:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set Silly 4a;b;c;d; 
+<BR>
+1 Am {$Silly } //  <em><Font color=Red>
+	¡¡Wrong!!
+    <Font color=Black > </em>  needs space before the $  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Nor will:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>1 Am { $Silly} //  <em><Font color=Red>
+	¡¡Wrong!!
+    <Font color=Black > </em>  needs space at the end of the
+  name  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+However:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>1 Am { $Silly }   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will work fine.
+
+<P>
+Following are details on all the available variable commands:
+
+<P>
+
+<H2><A ID="SECTION002111000000000000000">
+Set</A>
+</H2>
+
+<P>
+Set or create a variable. You can skip the <SPAN  CLASS="textit">String</SPAN> if you do
+want to assign an empty string to the variable. A valid example is:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set PassCount 1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can concatenate variables or constants by using a single &ldquo;+&rdquo;.
+For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove Rhumba 
+<BR>
+Repeat 
+<BR>  ...
+<BR>
+Set a $_Groove + Sus 
+<BR>
+Groove $a 
+<BR>  ...
+<BR>
+Groove Rhumba1 
+<BR>
+Repeatend   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This can be useful in calling G<SMALL>ROOVE</SMALL> variations.
+
+<P>
+
+<H2><A ID="SECTION002112000000000000000">
+NewSet</A>
+</H2>
+
+<P>
+The N<SMALL>EW</SMALL>S<SMALL>ET</SMALL> command works the same as S<SMALL>ET</SMALL> with the
+exception that that it is completely ignored if the variable already
+exists. So,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>NewSet ChordVoice JazzGuitar   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>If NDef ChordVoice
+<BR>
+Set ChordVoice JazzGuitar
+<BR>
+Endif  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+have identical results.
+
+<P>
+
+<H2><A ID="SECTION002113000000000000000"></A> <A ID="sec-mset"></A>
+<BR>
+Mset
+</H2>   
+
+<P>
+This command is quite similar to S<SMALL>ET</SMALL>, but M<SMALL>SET</SMALL> expects
+multiple lines. An example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>MSet LongVar 
+<BR>
+1 Cm 
+<BR>
+2 Gm 
+<BR>
+3 G7 
+<BR>
+MsetEnd   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+It is quite possible to set a variable to hold an entire section of
+music (perhaps a chorus) and insert this via macro expansion at
+various places in your file.
+
+<P>
+Each M<SMALL>SET</SMALL> must be terminated by a E<SMALL>ND</SMALL>M<SMALL>SET</SMALL> or
+M<SMALL>SET</SMALL>E<SMALL>ND</SMALL> command (on its own separate line).
+
+<P>
+Be careful if you use an MS<SMALL>ET</SMALL> variable in a P<SMALL>RINT</SMALL>
+statement ... you'll probably get an error. The P<SMALL>RINT</SMALL>
+command will print the <SPAN  CLASS="textit">first</SPAN> line of the variable and the
+remainder will be reinserted into the input stream for interpretation.
+
+<P>
+Variables are <SPAN  CLASS="textit">not</SPAN> expanded when creating an M<SMALL>SET</SMALL> macro
+(lines are read verbatim from the input path)&mdash;this makes M<SMALL>SET</SMALL>
+subtly different from S<SMALL>ET</SMALL>. Variables <SPAN  CLASS="textit">are</SPAN> expanded when
+the macro is executed.
+
+<P>
+Special code in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will maintain the block settings from
+B<SMALL>EGIN</SMALL>/E<SMALL>ND</SMALL>. So, you can do something like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Mset Spam 
+<BR>&nbsp;&nbsp;Line one 
+<BR>&nbsp;&nbsp;Line 2 
+<BR>&nbsp;&nbsp;333 
+<BR>
+EndMset 
+<BR>
+Begin Print 
+<BR>&nbsp;&nbsp;$Spam 
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION002114000000000000000"></A>
+
+<A ID="rndset"></A>
+<BR>
+RndSet
+</H2>
+
+<P>
+There are times when you may want a random value to use in selecting a
+G<SMALL>ROOVE</SMALL> or for other more creative purposes. The R<SMALL>ND</SMALL>S<SMALL>ET</SMALL>
+command sets a variable from a value in a list. The list can be
+anything; just remember that each white space forms the start of a new
+item. So,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>RndSet Var 1 2 3 4 5  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set $V<SMALL>AR</SMALL> to one of the values 1, 2, 3, 4 or 5.
+
+<P>
+You could use this to randomly select a G<SMALL>ROOVE</SMALL>:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove $var Groove1 Groove2 Groove3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Alternately,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>RndSet Grv Groove1 Groove2 Groove3  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will set $G<SMALL>RV</SMALL> to one of &ldquo;Groove1&rdquo;, &ldquo;Groove2&rdquo; or
+&ldquo;Groove3&rdquo;.
+
+<P>
+Then you can do the same as in the earlier example with:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove $Grv  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+You can also have fun using random values for timing, transposition,
+etc.
+
+<P>
+
+<H2><A ID="SECTION002115000000000000000">
+UnSet VariableName</A>
+</H2>
+
+<P>
+Removes the variable. This can be useful if you have conditional tests
+which simply rely on a certain variable being &ldquo;defined&rdquo;.
+
+<P>
+
+<H2><A ID="SECTION002116000000000000000">
+ShowVars</A>
+</H2>
+
+<P>
+Mainly used for debugging, this command displays the names of the
+defined variables and their contents. The display will preface each
+variable name with a &ldquo;$&rdquo;. Note that internal 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variables are
+not displayed with this command.
+
+<P>
+You can call S<SMALL>HOW</SMALL>V<SMALL>ARS</SMALL> with an argument list. In this case the
+values of the variables names in the list will be printed. Variables
+which do not exist will <SPAN  CLASS="textit">not</SPAN> cause an error, e.g.,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>ShowVars xXx Count foo 
+<BR>&nbsp;&nbsp;&nbsp;$XXX - not defined 
+<BR>&nbsp;&nbsp;&nbsp;$COUNT: 11 
+<BR>&nbsp;&nbsp;&nbsp;$FOO: This is Foo   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H2><A ID="SECTION002117000000000000000">
+Inc and Dec</A>
+</H2>
+
+<P>
+These commands increment or decrement a variable. If no argument is
+given, a value of 1 is used; otherwise, the value specified is used.
+The value can be an integer or a floating point number.
+
+<P>
+A short example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set PassCount 1 
+<BR>
+Set Foobar 4 
+<BR>
+Showvars 
+<BR>
+Inc FooBar 4 
+<BR>
+Inc PassCount 
+<BR>
+ShowVars   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+This command is quite useful for creating conditional tests for proper
+handling of codas or groove changes in repeats.
+
+<P>
+
+<H2><A ID="SECTION002118000000000000000">
+VExpand On or Off</A>
+</H2>
+
+<P>
+Normally variable expansion is enabled. These two options will turn
+expansion on or off. Why would you want to do this? Well, here's a
+simple example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set LeftC Am Em 
+<BR>
+Set RightC G / 
+<BR>
+VExpand Off 
+<BR>
+Set Full $LeftC $RightC 
+<BR>
+VExpand On   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+In this case the actual contents of the variable &ldquo;Full&rdquo; is &ldquo;$LeftC
+$RightC&rdquo;. If the O<SMALL>FF/</SMALL>O<SMALL>N</SMALL> option lines had not been used, the
+contents would be &ldquo;Am Em G /&rdquo;. You can easily verify this with the
+S<SMALL>HOW</SMALL>V<SMALL>ARS</SMALL> option.
+
+<P>
+When 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  processes a file it expands variables in a recursive
+manner. This means that, in the above example, the line:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>1 $Full  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will be changed to:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>1 Am Em G /  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+However, if later in the file, you change the definition of one of the
+variables ... for example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set LeftC Am /  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+the same line will now be &ldquo;1 Am / G /&rdquo;.
+
+<P>
+Most of 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's internal commands <SPAN  CLASS="textit">can</SPAN> be redefined with
+variables. However, you really shouldn't use this feature. It's been
+left for two reasons: it might be useful, and, it's hard to disable.
+
+<P>
+Not all commands can be redefined. The following examples will work,
+however <SPAN  CLASS="textit">in most cases we recommend that you do not redefine
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  commands</SPAN>.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set Rate Tempo 120 
+<BR>  $Rate 
+<BR>
+Set  R Repeat 
+<BR>  $R   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set B Begin 
+<BR>
+Set  E End 
+<BR>  $B Arpeggio Define 
+<BR>  ...
+<BR>  $E   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set A Define Arpeggio 
+<BR>
+Begin 
+<BR>  $a ...
+<BR>
+End   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Even though you can use a variable to substitute for the R<SMALL>EPEAT</SMALL>
+or I<SMALL>F</SMALL> directives, using one for R<SMALL>EPEAT</SMALL>E<SMALL>ND</SMALL>,
+E<SMALL>ND</SMALL>R<SMALL>EPEAT</SMALL>, R<SMALL>EPEAT</SMALL>E<SMALL>NDING</SMALL>, L<SMALL>ABEL</SMALL>, I<SMALL>F</SMALL>E<SMALL>ND</SMALL> or
+E<SMALL>ND</SMALL>I<SMALL>F</SMALL> will fail.
+
+<P>
+Variable expansion should usually not be a concern. In most normal
+files, 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will expand variables as they are encountered. However,
+when reading the data in a R<SMALL>EPEAT</SMALL>, I<SMALL>F</SMALL> or M<SMALL>SET</SMALL>
+section the expansion function is skipped&mdash;but, when the lines are
+processed, after being stored in an internal queue, variables are
+expanded.
+
+<P>
+V<SMALL>EXPAND</SMALL> only has an effect when creating a macro using
+S<SMALL>ET</SMALL>. It has <SPAN  CLASS="textit">no</SPAN> effect when using M<SMALL>SET</SMALL>.
+
+<P>
+
+<H2><A ID="SECTION002119000000000000000"></A>
+<A ID="stackvalue"></A>
+<BR>
+StackValue
+</H2>
+
+<P>
+Sometimes you just want to save a value for a few lines of code. The
+S<SMALL>TACK</SMALL>V<SMALL>ALUE</SMALL> command will save its arguments. You can later
+retrieve them via the $_StackValue macro. For example (taken from
+the <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">stdpats.mma</SPAN></SPAN> file):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>StackValue $_SwingMode 
+<BR>
+SwingMode On 
+<BR>
+Begin Drum Define 
+<BR>&nbsp;&nbsp;Swing8 1 0 90 * 8 
+<BR>
+End 
+<BR>&nbsp;&nbsp;...
+<BR>
+SwingMode $_StackValue   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that the $_StackValue macro removes the last value from the
+stack. If you invoke the macro when there is nothing saved an error
+will occur.
+
+<P>
+
+<H1><A ID="SECTION002120000000000000000"></A>
+<A ID="sec-sysvariables"></A>
+<BR>
+Predefined Variables
+</H1>
+
+<P>
+For your convenience 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tracks a number of internal settings and
+you can access these values with special macros.<A ID="tex2html92"
+  HREF="#foot3823"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A> All of these &ldquo;system&rdquo; variables are
+prefaced with a single underscore. For example, the current tempo can
+be retrieved using the $_TEMPO variable.
+
+<P>
+There are two categories of system variables. The first are the simple
+values for global settings:
+
+<P>
+<DL>
+<DT><STRONG>&nbsp;&nbsp;$_AutoLibPath</STRONG></DT>
+<DD>Current A<SMALL>UTO</SMALL>L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> setting.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_BarNum</STRONG></DT>
+<DD>Current bar number of song.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_ChordAdjust</STRONG></DT>
+<DD>The chord adjustment table values
+  <A HREF="node14.html#sec-chordadjust">(see here)</A>. Note,
+  you cannot use this value to reset the table.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_CTabs</STRONG></DT>
+<DD>List of the time-set chord tabs. The positions in
+  this list indicate the offsets used for chord placement on a chord
+  data line. The values are set with TIME and TIMESIG
+  changes.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_DateDate</STRONG></DT>
+<DD>The current date in yyyy-mm-dd format.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_DateTime</STRONG></DT>
+<DD>The current time in hh-mm-ss format.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_DateYear</STRONG></DT>
+<DD>The current year in yyyy format.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Debug</STRONG></DT>
+<DD>Current debug settings.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_FileName</STRONG></DT>
+<DD>The name of the file being processed as entered
+  on the command line (returns an empty string if input is from
+  STDIN).
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_FilePath</STRONG></DT>
+<DD>Absolute (expanded) name of the file currently
+  being processed. This is not necessarily the same as the
+  $_FileName macro since the current file might be a library file.
+  An empty string is returned if input is from STDIN. If 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  added
+  a &ldquo;.mma&rdquo; suffix to the filename that will be included.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Env(n)</STRONG></DT>
+<DD>Returns the value of an environment variable. For
+  example: 
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$_Env(PATH)  </B> 
+   
+	    </td></tr>
+      </Table>
+ will return the current setting of the
+  shell PATH variable. If the variable is not defined or if it has no
+  value an empty string will be returned. The case of the argument
+  must match that of the variable in the shell.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Groove</STRONG></DT>
+<DD>Name of the currently selected groove. May be
+  empty if no groove has been selected.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Groovelist</STRONG></DT>
+<DD>List of all currently defined G<SMALL>ROOVE</SMALL>
+  names.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_KeySig</STRONG></DT>
+<DD>Key signature as defined in song file. If no key
+  signature is set the somewhat cryptic 0# will be returned.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_IncPath</STRONG></DT>
+<DD>Current I<SMALL>NC</SMALL>P<SMALL>ATH</SMALL> setting.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_LastDebug</STRONG></DT>
+<DD>Debug settings prior to last D<SMALL>EBUG</SMALL>
+  command. This setting can be used to restore settings, e.g.,
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Debug Warnings=off 
+<BR>    ...stuff generating annoying warnings
+<BR>
+Debug $_LastDebug   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_LastGroove</STRONG></DT>
+<DD>Name of the groove selected <SPAN  CLASS="textit">before</SPAN> the
+  currently selected groove.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_LastVolume</STRONG></DT>
+<DD>Previously set global volume setting.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_LibPath</STRONG></DT>
+<DD>Current L<SMALL>IB</SMALL>P<SMALL>ATH</SMALL> setting.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_LineNum</STRONG></DT>
+<DD>Line number in current file.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Lyric</STRONG></DT>
+<DD>Current L<SMALL>YRIC</SMALL> settings.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_MMAPath</STRONG></DT>
+<DD>The root directory used by 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> . The modules,
+  library, etc. are in this directory. This is set at startup and
+  cannot be modified by the user.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_MIDIassigns</STRONG></DT>
+<DD>A list of all in-use MIDI channels and the
+  
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  tracks assigned to them. Useful for debugging channel
+  overflow issues.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_MIDISplit</STRONG></DT>
+<DD>List of S<SMALL>PLIT</SMALL>C<SMALL>HANNELS</SMALL>.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_MIDIPlayer</STRONG></DT>
+<DD>Current M<SMALL>IDI</SMALL>P<SMALL>LAYER</SMALL> setting, including
+  options.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_NoteLen(n)</STRONG></DT>
+<DD>Returns value of the duration in MIDI ticks of
+  &ldquo;n&rdquo;. Note: No spaces are permitted. Examples:
+  
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$_NoteLen(8.)  </B> 
+   
+	    </td></tr>
+      </Table>
+ returns 144T, the duration of a dotted eight
+  note, 
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>$_NoteLen(5:4+16)  </B> 
+   
+	    </td></tr>
+      </Table>
+ returns 86T, the duration of a 5:4
+  tuplet plus a 16th.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_OutPath</STRONG></DT>
+<DD>Current O<SMALL>UT</SMALL>P<SMALL>ATH</SMALL> setting.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Plugins</STRONG></DT>
+<DD>A list of registered simple plugins.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_PWD</STRONG></DT>
+<DD>Returns the current system working directory (same as
+  the unix system command &ldquo;pwd&rdquo;).
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_DataPlugins</STRONG></DT>
+<DD>A list of registered data plugins.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TrackPlugins</STRONG></DT>
+<DD>A list of registered track plugins (same as
+  $_T<SMALL>RACKNAME</SMALL>_P<SMALL>LUGINS</SMALL>, below).
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Seq</STRONG></DT>
+<DD>Current S<SMALL>EQ</SMALL> point (0 to S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL>).
+  Useful in debugging.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_SeqRnd</STRONG></DT>
+<DD>Global S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL> setting (on, off or track
+  list).
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_SeqRndWeight</STRONG></DT>
+<DD>Global S<SMALL>EQ</SMALL>R<SMALL>ND</SMALL>W<SMALL>EIGHT</SMALL> settings.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_SeqSize</STRONG></DT>
+<DD>Current S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL> setting.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_SwingMode</STRONG></DT>
+<DD>Current S<SMALL>WING</SMALL>M<SMALL>ODE</SMALL> setting (On or Off)
+  and the Skew value.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_StackValue</STRONG></DT>
+<DD>The last value stored on the S<SMALL>TACK</SMALL>V<SMALL>ALUE</SMALL>
+  stack.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_SongPath</STRONG></DT>
+<DD>Absolute (expanded) filename of the file being
+  processed as entered on the command line. This is the expanded
+  version of $_FileName. It is set to an empty string if input is
+  from STDIN. The filename suffix, &ldquo;.mma&rdquo; will be added if it was
+  supplied by 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Tempo</STRONG></DT>
+<DD>Current T<SMALL>EMPO</SMALL>. Note that if you have used
+  the optional <SPAN  CLASS="textit">bar count</SPAN>, <SPAN  CLASS="textit">offset</SPAN> or <SPAN  CLASS="textit">restore</SPAN>
+  settings the tempo this will be the one at the current point in the
+  MIDI track, not the target tempo.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TickPos</STRONG></DT>
+<DD>Helpful in debugging, this variable is set to the
+  current tick position in the generated MIDI file.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Time</STRONG></DT>
+<DD>The current T<SMALL>IME</SMALL> (beats per bar) setting.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TimeSig</STRONG></DT>
+<DD>The last value set for TimeSig.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_ToneTr</STRONG></DT>
+<DD>List of all T<SMALL>ONE</SMALL>TR settings.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Tracklist</STRONG></DT>
+<DD>List of all currently defined T<SMALL>RACK</SMALL>
+  names.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Transpose</STRONG></DT>
+<DD>Current T<SMALL>RANSPOSE</SMALL> setting.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_VExpand</STRONG></DT>
+<DD>VExpand value (On/Off). Not very useful since you
+  can't enable VEXPAND back with a macro.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_VoiceTr</STRONG></DT>
+<DD>List of all V<SMALL>OICE</SMALL>TR settings.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_Volume</STRONG></DT>
+<DD>Current global volume setting.
+
+<P>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_VolumeRatio</STRONG></DT>
+<DD>Global volume ratio (track vrs. master) from
+  A<SMALL>DJUST</SMALL>V<SMALL>OLUME</SMALL> Ratio setting.
+
+<P>
+</DD>
+</DL>
+
+<P>
+The second type of system variable is for settings in a certain track.
+Each of these variables is in the form $_TRACKNAME_VALUE. For
+example, the current voice setting for the &ldquo;Bass-Sus&rdquo; track can be
+accessed with the variable $_Bass-Sus_Voice.
+
+<P>
+If the associated command permits a value for each sequence in your
+pattern, the macro will more than one value. For example (assuming a
+S<SMALL>EQ</SMALL>S<SMALL>IZE</SMALL> of 4):
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Bass Octave 3 4 2 4 
+<BR>
+Print $_Bass_Octave  
+<BR>  ...
+<BR>
+3 4 2 4   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The following are the available &ldquo;TrackName&rdquo; macros:
+
+<P>
+<DL>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Accent</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Articulate</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Channel</STRONG></DT>
+<DD>Assigned MIDI channel 1&ndash;16, 0 if not
+  assigned.
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Compress</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Delay</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Direction</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_DupRoot</STRONG></DT>
+<DD>(only permitted in Chord Tracks)
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Harmony</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_HarmonyOnly</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_HarmonyVolume</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Invert</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Limit</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Mallet</STRONG></DT>
+<DD>Rate and delay values (only valid in
+  Solo and Melody tracks)
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_MidiNote</STRONG></DT>
+<DD>Current setting
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_MOctave</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_MIDIVolume</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_NoteSpan</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Octave</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Ornament</STRONG></DT>
+<DD>(all options)
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Plugins</STRONG></DT>
+<DD>(track registered plugins, the same
+  for all tracks)
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Range</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_RDuration</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Rpitch</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Rskip</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Rtime</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Rvolume</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_SeqRnd</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_SeqRndWeight</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Sequence</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Span</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Sticky</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Strum</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_StrumAdd</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Tone</STRONG></DT>
+<DD>(only permitted in Drum tracks)
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Trigger</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Unify</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Voice</STRONG></DT>
+<DD>
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Voicing</STRONG></DT>
+<DD>(only permitted in Chord tracks)
+</DD>
+<DT><STRONG>&nbsp;&nbsp;$_TRACKNAME_Volume</STRONG></DT>
+<DD><P>
+</DD>
+</DL>
+
+<P>
+The &ldquo;TrackName&rdquo; macros are useful in copying values between
+non-similar tracks and C<SMALL>H</SMALL>S<SMALL>HARE</SMALL> tracks. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Begin Bass
+<BR>&nbsp;&nbsp;Voice AcousticBass  
+<BR>&nbsp;&nbsp;Octave 3    
+<BR>&nbsp;&nbsp;...
+<BR>
+End
+<BR>
+Begin Walk
+<BR>&nbsp;&nbsp;ChShare Bass
+<BR>&nbsp;&nbsp;Voice $_Bass_Voice
+<BR>&nbsp;&nbsp;Octave $_Bass_Octave
+<BR>&nbsp;&nbsp;...
+<BR>
+End  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H1><A ID="SECTION002130000000000000000"></A>
+ <A ID="slicing"></A>
+<BR>
+Indexing and Slicing
+</H1>
+
+<P>
+All variables can have an option <SPAN  CLASS="textit">slice</SPAN> or <SPAN  CLASS="textit">index</SPAN> appended
+to them using &ldquo;[]&rdquo; notation. The exact syntax of the data in the
+&ldquo;[]&rdquo;s is dependent on the underlying Python interpreter. But, as a
+summary:
+
+<P>
+<table width="90%"><tr><td valign="top">&nbsp;<SPAN  CLASS="textbf">[2]</SPAN> - selects the 3rd item in the list,</td></tr>
+<tr><td valign="top">&nbsp;<SPAN  CLASS="textbf">[1:2]</SPAN> - selects the 2nd to 3rd item (which means only
+  the 2nd),</td></tr>
+<tr><td valign="top">&nbsp;<SPAN  CLASS="textbf">[0:2]</SPAN> - selects items 1 and 2,</td></tr>
+<tr><td valign="top">&nbsp;<SPAN  CLASS="textbf">[-1]</SPAN> - selects the last item.
+</td></tr></table>
+
+<P>
+It is possible to use the <SPAN  CLASS="textit">step</SPAN> option as well, but we don't
+know when you would.
+
+<P>
+When indexing or slicing a variable, the following should be kept in
+mind:
+
+<P>
+
+<UL>
+<LI>For simple variables which contain only one element (e.g.,
+  $_Tempo) any index other than &ldquo;[0]&rdquo;, &ldquo;[-1]&rdquo;<A ID="tex2html93"
+  HREF="#foot3888"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>, etc. will return an empty string.
+
+<P>
+</LI>
+<LI>Variables containing multiple values (e.g., $_Bass_Volume)
+  are treated as list. Slicing and indexing is useful to extract a
+  single value.
+
+<P>
+</LI>
+<LI>Variables created with M<SMALL>SET</SMALL> are treated a list of lines.
+  Slicing returns multiple (or single) lines. This can be useful in
+  selecting only a portion of a previously created variable.
+
+<P>
+</LI>
+<LI>Using an empty &ldquo;[]&rdquo; will return the number of elements in the
+  variable.<A ID="tex2html94"
+  HREF="#foot9552"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A> This can be useful in writing
+  S<SMALL>UB</SMALL>R<SMALL>OUTINES</SMALL> where you need to know the number of arguments
+  which have been passed. For example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>defCall Count Args 
+<BR>
+print $Args[] args passed 
+<BR>
+EndDefCall  
+<BR>
+Call Count Am Bm Cm Dm   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Using an empty &ldquo;[]&rdquo; on a variable which does <SPAN  CLASS="textit">not</SPAN> exist does
+  not generate and error; instead, a &ldquo;-1&rdquo; is returned.
+
+<P>
+</LI>
+<LI>The &ldquo;[]&rdquo; must follow the variable <SPAN  CLASS="textit">without</SPAN> any space
+  characters. The expression inside the &ldquo;[<SPAN  CLASS="textit">value[s]</SPAN>]&rdquo; must not
+  contain any spaces.
+
+<P>
+</LI>
+<LI>The index or slice expression cannot be a variable.
+
+<P>
+</LI>
+</UL>
+
+<P>
+An example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Groove bossanova 
+<BR>
+Bass Volume m mf p mp 
+<BR>
+print $_Bass_Volume 
+<BR>
+print $_Bass_Volume[1:3] 
+<BR>
+print $_Bass_volume[2]   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will display:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>100 110 40 70 
+<BR>
+110 40 
+<BR>
+40   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+<H1><A ID="SECTION002140000000000000000"></A>
+
+<A ID="mathexpression"></A>
+<BR>
+Mathematical Expressions
+</H1>
+
+<P>
+Anywhere you can use a variable (user defined or built-in) you can
+also use a mathematical expression. Expressions delimited in a
+$(...) set are passed to the underlying Python interpreter,
+parsed and expanded. Included in an expression can be any combination
+of values, operators, and 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variables.
+
+<P>
+Here are a couple of examples with the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  generated values:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Print  $( 123 * (4.0/5) ) 
+<BR>
+98.4   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Tempo 100 
+<BR>
+Set V $( $_Tempo + 44) 
+<BR>
+Print $v 
+<BR>
+144   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+How it works: 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  first parses each line and expands any variables
+it finds. In the second example this means that the $_Tempo is
+converted to &ldquo;100&rdquo;. After all the variable expansion is done a check
+is made to find math delimiters. Anything inside these delimiters is
+evaluated by Python.
+
+<P>
+You can even use this feature to modify values stored in
+lists.<A ID="tex2html95"
+  HREF="#foot9553"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A> A bit complex, but well worthwhile! In the following
+example we add &ldquo;10&rdquo; to the current A<SMALL>RTICULATE</SMALL> setting. It's
+split into three lines to make it clearer:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>set a $( ' $_Chord_Articulate '.split() )   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note the use of single quotes to convert the 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  &ldquo;string&rdquo; to
+something Python can deal with. You could just as easily use double
+quotes, but do note that the spaces before the &ldquo;$&rdquo; and before the
+final &ldquo; ' &rdquo; are needed. The result of the above is that the variable
+&ldquo;$a&rdquo; now is set to something like: &ldquo;['100', '100', '90', '80']&rdquo;.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>set b $([str(int(x)+10)for x in $a ] )   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Next we use a list comprehension to add &ldquo;10&rdquo; to each value in the
+list. Our new list (contained in &ldquo;$b&rdquo;) will be: &ldquo;['110', '110',
+'100', '90']&rdquo;. Notice how the strings were converted from strings to
+integers (for the addition) and then back to strings.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>set c $( ' '.join( $b ) )   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The new list is now converted to a string which 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  can deal with
+and store it in &ldquo;$c&rdquo;. In this case: &ldquo;110 110 100 90&rdquo;.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Articulate $c   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Finally, C<SMALL>HORD</SMALL> A<SMALL>RTICULATE</SMALL> is modified.
+
+<P>
+Now, that that is clear, you can easily combine the operation using no
+variables at all:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Chord Articulate $(' '.join([str(int(x)+10)for x in'
+  $_Chord_Articulate '.split()]))   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Some additional notes:
+
+<P>
+
+<UL>
+<LI>To keep your computer safe from malicious scripts, only the
+  following operators and functions are permitted.
+
+<P>
+The unary operators:
+
+<P>
+<PRE>
+    - + ~
+</PRE>
+
+<P>
+the basic operators:
+
+<P>
+<PRE>
+    + - / // % * **
+</PRE>
+
+<P>
+the bitwise operators:
+
+<P>
+<PRE>
+    &amp; | ^ &lt;&lt; &gt;&gt;
+</PRE>
+
+<P>
+the constants:
+
+<P>
+<PRE>
+    e pi
+</PRE>
+
+<P>
+the functions:
+
+<P>
+<PRE>
+    ceil() fabs() floor() exp() log() log10() pow()
+    sqrt() acos() asin()  atan() atan2() cos() hypot()
+    sin()  tan()  degrees() radians() cosh() sinh()
+    tanh() abs()  chr()  int()
+</PRE>
+
+<P>
+the miscellaneous functions:<A ID="tex2html96"
+  HREF="#foot3933"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A>
+
+<P>
+<PRE>
+    for, in, str(), .join(), .split(), randint()
+</PRE>
+
+<P>
+and values and parentheses.
+
+<P>
+</LI>
+<LI>As a general rule, you cannot use alpha arguments in any functions.
+
+<P>
+</LI>
+<LI>For details on the use/format of the above please refer to the
+  Python documentation.
+
+<P>
+</LI>
+<LI>$(...) expressions cannot be nested. However, you can use
+  nested functions such as:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Print $(ceil(log(44))   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+</LI>
+<LI>There must be a whitespace character before the leading $.
+
+<P>
+</LI>
+<LI>Any 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  variables must be delimited with whitespace. For
+  example $( $_Tempo + 44) will work; however, both $($_Tempo +
+  44) and $( $_Tempo+ 44) will cause an error.
+
+<P>
+</LI>
+<LI>The supplied file <SPAN  CLASS="texttt"><SPAN  CLASS="textbf">egs/misc/math.mma</SPAN></SPAN> shows a number of
+  examples.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A ID="SECTION002150000000000000000">
+Conditionals</A>
+</H1>
+
+<P>
+One of the most important reasons to have variables in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is to
+use them in conditionals. In 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  a conditional consists of a line
+starting with an I<SMALL>F</SMALL> directive, a test, a series of lines to
+process (depending upon the result of the test), and a closing
+E<SMALL>ND</SMALL>I<SMALL>F</SMALL> or I<SMALL>F</SMALL>E<SMALL>ND</SMALL><A ID="tex2html97"
+  HREF="#foot9554"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A> directive. An optional E<SMALL>LSE</SMALL> statement may be included.
+
+<P>
+The first set of tests are unary (they take one argument):
+
+<P>
+<DL>
+<DT><STRONG>Def <SPAN  CLASS="textit">VariableName</SPAN></STRONG></DT>
+<DD>Returns true if the variable has been defined.
+
+<P>
+</DD>
+<DT><STRONG>Ndef <SPAN  CLASS="textit">VariableName</SPAN></STRONG></DT>
+<DD>Returns true if the variable has not been
+  defined.
+
+<P>
+</DD>
+<DT><STRONG>IsEmpty <SPAN  CLASS="textit">VariableName</SPAN></STRONG></DT>
+<DD>Returns true if the variable exists, but
+  has no value/content.
+
+<P>
+</DD>
+<DT><STRONG>IsNotEmpty <SPAN  CLASS="textit">VariableName</SPAN></STRONG></DT>
+<DD>Returns true if the variable exists and
+  has a value or content.
+
+<P>
+</DD>
+</DL>
+
+<P>
+In the above tests you must supply the name of a variable&mdash;don't make
+the mistake of including a &ldquo;$&rdquo; which will invoke expansion and
+result in something you were not expecting.
+
+<P>
+The following file operations let you program file/directory access
+into a 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  script. Tilde expansion is supported. Note that,
+depending on your operating system, case may or may not be important.
+
+<P>
+<DL>
+<DT><STRONG>Exists <SPAN  CLASS="textit">Filename</SPAN></STRONG></DT>
+<DD>Returns True if the specified file is
+  present.
+
+<P>
+</DD>
+<DT><STRONG>IsFile <SPAN  CLASS="textit">Pathname</SPAN></STRONG></DT>
+<DD>Returns True if the specified path is
+  a file.
+
+<P>
+</DD>
+<DT><STRONG>IsDir <SPAN  CLASS="textit">Pathname</SPAN></STRONG></DT>
+<DD>Returns True is the specified path is a
+  directory.
+
+<P>
+</DD>
+</DL>
+
+<P>
+A simple example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>If Def InCoda 
+<BR>&nbsp;&nbsp;5 Cm 
+<BR>&nbsp;&nbsp;6 / 
+<BR>
+Endif  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The other tests are binary. Each test requires a conditional (symbolic
+or mnemonic as detailed in the following table) and two arguments.
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="CENTER">Mnemonic</TD>
+<TD ALIGN="CENTER">Symbolic</TD>
+<TD ALIGN="LEFT">Condition</TD>
+</TR>
+<TR><TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+</TR>
+<TR><TH ALIGN="CENTER"><SPAN  CLASS="textbf">LT</SPAN></TH>
+<TD ALIGN="CENTER"><SPAN  CLASS="textbf">&lt;</SPAN></TD>
+<TD ALIGN="LEFT">True if <SPAN  CLASS="textit">Str1</SPAN> is less than  <SPAN  CLASS="textit">Str2</SPAN></TD>
+</TR>
+<TR><TH ALIGN="CENTER"><SPAN  CLASS="textbf">LE</SPAN></TH>
+<TD ALIGN="CENTER"><SPAN  CLASS="textbf">&lt;=</SPAN></TD>
+<TD ALIGN="LEFT">True if <SPAN  CLASS="textit">Str1</SPAN> is less than or equal to
+                                        <SPAN  CLASS="textit">Str2</SPAN></TD>
+</TR>
+<TR><TH ALIGN="CENTER"><SPAN  CLASS="textbf">EQ</SPAN></TH>
+<TD ALIGN="CENTER"><SPAN  CLASS="textbf">==</SPAN></TD>
+<TD ALIGN="LEFT">True if <SPAN  CLASS="textit">Str1</SPAN> is equal to   <SPAN  CLASS="textit">Str2</SPAN></TD>
+</TR>
+<TR><TH ALIGN="CENTER"><SPAN  CLASS="textbf">NE</SPAN></TH>
+<TD ALIGN="CENTER"><SPAN  CLASS="textbf">!=</SPAN></TD>
+<TD ALIGN="LEFT">True if <SPAN  CLASS="textit">Str1</SPAN> is not equal to   <SPAN  CLASS="textit">Str2</SPAN></TD>
+</TR>
+<TR><TH ALIGN="CENTER"><SPAN  CLASS="textbf">GT</SPAN></TH>
+<TD ALIGN="CENTER"><SPAN  CLASS="textbf">&gt;</SPAN></TD>
+<TD ALIGN="LEFT">True if <SPAN  CLASS="textit">Str1</SPAN> is greater than <SPAN  CLASS="textit">Str2</SPAN></TD>
+</TR>
+<TR><TH ALIGN="CENTER"><SPAN  CLASS="textbf">GE</SPAN></TH>
+<TD ALIGN="CENTER"><SPAN  CLASS="textbf">&gt;=</SPAN></TD>
+<TD ALIGN="LEFT">True if <SPAN  CLASS="textit">Str1</SPAN> is greater than or
+                                            equal to <SPAN  CLASS="textit">Str2</SPAN></TD>
+</TR>
+</TABLE>
+
+<P>
+In the above tests you have several choices in specifying <SPAN  CLASS="textit">Str1</SPAN>
+and <SPAN  CLASS="textit">Str2</SPAN>. At some point, when 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  does the actual
+comparison, two strings or numeric values are expected. So, you really
+could do:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>If EQ abc ABC  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and get a &ldquo;true&rdquo; result. The reason that &ldquo;abc&rdquo; equals &ldquo;ABC&rdquo; is
+that all the comparisons in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  are case-insensitive.
+
+<P>
+You can also compare a variable to a string:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>If &gt; $foo abc  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+will evaluate to &ldquo;true&rdquo; if the <SPAN  CLASS="textit">contents</SPAN> of the variable
+&ldquo;foo&rdquo; evaluates to something &ldquo;greater than&rdquo; &ldquo;abc&rdquo;. But, there is
+a bit of a &ldquo;gotcha&rdquo; here. If you have set &ldquo;foo&rdquo; to a two word
+string, then 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  will choke on the command. In the following
+example:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set Foo A B 
+<BR>
+If GT $Foo abc   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+the comparison is passed the line:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>If GT A B abc  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+and 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  seeing three arguments generates an error. If you want the
+comparison done on a variable which might be more than one word, use
+the &ldquo;$$&rdquo; syntax. This delays the expansion of the variable until
+the I<SMALL>F</SMALL> directive is entered. So:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>If GT $$foo abc  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+would generate a comparison between &ldquo;A B&rdquo; and &ldquo;ABC&rdquo;.
+
+<P>
+Delayed expansion can be applied to either variable. It only works in
+an I<SMALL>F</SMALL> directive.
+
+<P>
+Strings and numeric values can be confusing in comparisons. For
+example, if you have the strings &ldquo;22&rdquo; and &rdquo;3&rdquo; and compare them as
+strings, &ldquo;3&rdquo; is greater than &ldquo;22&rdquo;; however, if you compare them as
+values then 3 is less than 22. The rule in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  is quite simple: If
+both strings can be converted to a value, a numeric comparison is
+done; otherwise they are compared as strings.<A ID="tex2html98"
+  HREF="#foot4006"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A>
+
+<P>
+This lets you do consistent comparisons in situations like:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Set Count 1 
+<BR>
+If LE $$Count 4 
+<BR>&nbsp;&nbsp;...
+<BR>
+IfEnd  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+Note that the above example could have used &ldquo;$Count&rdquo;, but you
+should probably always use the &ldquo;$$&rdquo; in tests.
+
+<P>
+Much like other programming languages, an optional E<SMALL>LSE</SMALL>
+condition may be used:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>If Def Coda 
+<BR>&nbsp;&nbsp;Groove Rhumba1 
+<BR>
+Else 
+<BR>&nbsp;&nbsp;Groove Rhumba 
+<BR>
+Endif   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The E<SMALL>LSE</SMALL> statement(s) are processed only if the test for the
+I<SMALL>F</SMALL> test is false.
+
+<P>
+Nesting of I<SMALL>F</SMALL>s is permitted:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>If ndef Foo 
+<BR>&nbsp;&nbsp;Print Foo has been defined. 
+<BR>
+Else 
+<BR>&nbsp;&nbsp;If def bar 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Print bar has been defined. Cool. 
+<BR>&nbsp;&nbsp;Else 
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;Print no bar ...go thirsty. 
+<BR>&nbsp;&nbsp;Endif 
+<BR>
+Endif   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+works just fine. Indentation has been used in these examples to
+clearly show the nesting and conditions. You should do the same.
+
+<P>
+
+<H1><A ID="SECTION002160000000000000000">
+Goto</A>
+</H1>
+
+<P>
+The G<SMALL>OTO</SMALL> command redirects the execution order of your script
+to the point at which a L<SMALL>ABEL</SMALL> or line number has been defined.
+There are really two parts to this:
+
+<P>
+
+<OL>
+<LI>A command defining a label, and,
+
+<P>
+</LI>
+<LI>The G<SMALL>OTO</SMALL> command.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<P>
+A label is set with the L<SMALL>ABEL</SMALL> directive:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Label Point1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+The string defining the label can be any sequence of characters.
+Labels are case-insensitive.
+
+<P>
+To make this look a lot more line those old BASIC programs, any lines
+starting with a line number are considered to be label lines as well.
+
+<P>
+A few considerations on labels and line numbers:
+
+<P>
+
+<UL>
+<LI>A duplicate label generated with a L<SMALL>ABEL</SMALL> command will
+  generate an error.
+
+<P>
+</LI>
+<LI>A line number label duplicating a L<SMALL>ABEL</SMALL> is an error.
+
+<P>
+</LI>
+<LI>A L<SMALL>ABEL</SMALL> duplicating a line number is an error.
+
+<P>
+</LI>
+<LI>Duplicate line numbers are permitted. The last one encountered
+  will be the one used.
+
+<P>
+</LI>
+<LI>All label points are generated when the file is opened, not as
+  it is parsed.
+
+<P>
+</LI>
+<LI>Line numbers (really, just comments) do not need to be in any
+  order.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<P>
+The command:
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Goto Point1  </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+causes an immediate jump to a new point in the file. If you are
+currently in repeat or conditional segment of the file, the remaining
+lines in that segment will be ignored.
+
+<P>
+
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT>  does not check to see if you are jumping into a repeat or
+conditional section of code&mdash;but doing so will usually cause an
+error. Jumping out of these sections is usually safe.
+
+<P>
+The following example shows the use of both types of label. In this
+example only lines 2, 3, 5 and 6 will be processed.
+
+<P>
+
+      <Table Hspace="40%" CellSpacing=0 CellPadding=10 BGColor="OldLace" Border=3>
+        <tr><td>
+    <B>Goto Foo 
+<BR>
+1 Cm 
+<BR>
+Label Foo 
+<BR>
+2 Dm 
+<BR>
+3 / 
+<BR>
+Goto 5 
+<BR>
+4 Am 
+<BR>
+5 Cm 
+<BR>
+6 Dm   </B> 
+   
+	    </td></tr>
+      </Table>
+
+<P>
+For an example of how to use some simple labels to simulate a &ldquo;DS al
+Coda&rdquo; examine the file &ldquo;lullaby-of-Broadway&rdquo; in the sample songs
+directory.
+
+<P>
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A ID="foot3823">... macros.</A><A
+ HREF="node21.html#tex2html92"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></DT>
+<DD>The values
+  are dynamically created and reflect the current settings, and may
+  not be exactly the same as the value you originally set due to
+  internal roundings, etc.
+
+</DD>
+<DT><A ID="foot3888">... &ldquo;[-1]&rdquo;</A><A
+ HREF="node21.html#tex2html93"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A></DT>
+<DD>Please
+    refer to the Python documentation for lots and lots of details on
+    slice notation.
+
+</DD>
+<DT><A ID="foot9552">... variable.</A><A
+ HREF="node21.html#tex2html94"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A></DT>
+<DD>This is not a standard Python convention, but can
+    be handy in 
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> .
+
+</DD>
+<DT><A ID="foot9553">...
+lists.</A><A
+ HREF="node21.html#tex2html95"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">4</SPAN></SUP></A></DT>
+<DD>this was written before the introduction of slices,
+  (<A HREF="#slicing">details here</A>). Slices make this
+  much easier, but let's leave the hard stuff in just to show what can
+  be done.
+
+</DD>
+<DT><A ID="foot3933">... functions:</A><A
+ HREF="node21.html#tex2html96"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">5</SPAN></SUP></A></DT>
+<DD>It is possible that the
+    following functions could be used to do &ldquo;bad&rdquo; things. If you see
+    code using these commands from a suspect source you should be
+    careful.
+
+</DD>
+<DT><A ID="foot9554">...I<SMALL>F</SMALL>E<SMALL>ND</SMALL></A><A
+ HREF="node21.html#tex2html97"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">6</SPAN></SUP></A></DT>
+<DD>
+<FONT Face="Serif"  Color="Navy"><I>MMA</I></FONT> 's author probably suffers
+  from mild dyslexia and can't remember if the command is IfEnd or
+  EndIf, so both are permitted. Use whichever is more comfortable for
+  you.
+
+</DD>
+<DT><A ID="foot4006">... strings.</A><A
+ HREF="node21.html#tex2html98"><SUP><SPAN CLASS="arabic">21</SPAN>.<SPAN CLASS="arabic">7</SPAN></SUP></A></DT>
+<DD>For this
+  comparison float values are used. Rounding errors can cause equality
+  comparisons to fail.
+
+</DD>
+</DL>
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="mma.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node22.html">Subroutines</A>
+<B> Up:</B> <A
+ HREF="mma.html">Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="node20.html">Repeats</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

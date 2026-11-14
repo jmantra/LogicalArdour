@@ -1,0 +1,234 @@
+
+// jazzguitar
+
+Begin Doc
+ Some things just don't fit! This is a soft-of-jazz and sort-of-folk set with
+ a guitar and piano. I'm trying to emulate the background used by Madeleine Peyroux
+ doing "Everybody's Talkin'". The "Piano" set has the guitar replaced with a piano
+ for a different effect.
+End
+
+
+Begin DocVar
+  WalkMode   If this variable is set the bass line is replaced in all patterns with a 4 beat walking bass. By default a 1/3 bass line is used. In the Piano variations WalkMode replaces the piano bass with an acoustic bass.
+End
+
+Author Bob van der Poel
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+////////// Additional defines
+
+Walk Define  W1  1 2 90
+
+////////////////////////
+// Basic
+
+
+SeqSize 4
+
+Begin Drum-Tom
+    Tone LowTom2
+    Volume ppp
+    Sequence { D13 ; D2 Shift .5} 
+End
+
+Begin Bass-High
+	Voice      JazzGuitar
+	Articulate 120
+	Volume     m
+	Octave     5
+	Sequence  {1 2. 3 90; 3 2 5 90; 4 2 3 90 } { 1 2. 1 90; 3 4. 3 90; 4 2 5 90}
+    Harmony   OpenBelow
+    HarmonyVOlume 50 
+End
+
+Begin Bass
+	Voice      $_Bass-High_Voice
+	Articulate 105
+	Octave     3
+	Volume     mf
+	Sequence   B13 
+End
+
+Begin Walk
+   Voice $_Bass-High_Voice
+   Articulate 90
+   Volume m
+   Octave 3
+   Sequence W1234    
+End
+
+If Def WalkMode
+   Bass Sequence -
+Else
+   Walk Sequence -
+Endif
+
+DefGroove FolkyJazzGuitar    Basic pattern with bass, guitar notes and drum.
+
+Groove FolkyJazzGuitar
+
+Begin Arpeggio
+    Voice Clavinet
+    Articulate 120
+    Volume mp
+    Octave 6
+    Sequence  A4
+    Harmony OpenBelow
+    HarmonyVolume 100
+    Rtime 10
+    RVolume 10
+    Rskip 70
+End
+
+DefGroove FolkyJazzGuitarPlus Add in some Clavinet notes.
+
+///////////////////////////
+//// Sustained
+
+Groove FolkyJazzGuitar
+
+Begin Chord-Sus
+	Voice     VoiceOohs 
+	Sequence  {1 2 90 0 90 0; 3 2 90 0 90 0}  
+	Voicing   Mode=Optimal
+	Volume    p
+	Octave    5
+	Articulate 120
+End
+
+DefGroove FolkyJazzGuitarSus  Basic with sustained voices.
+
+Groove FolkyJazzGuitarPlus
+ Chord-Sus Groove FolkyJazzGuitarSus
+DefGroove FolkyJazzGuitarSusPlus  Added Clavinet and sustained voices.
+
+////////////////////////////
+///////////// Intro
+
+Groove FolkyJazzGuitar
+
+Drum-Tom  Sequence D1234 * D13 D1
+Bass-High Sequence  *  *  *  {1 1 1 90}
+
+If Def WalkMode
+  Walk      Sequence  *  *  *  W1
+Else
+  Bass      Sequence  *  *  *  B1 
+Endif
+
+DefGroove FolkyJazzGuitarIntro   A basic 4 bar introduction.
+
+
+//////////////////////////////////////////////
+//// Ending
+
+Groove FolkyJazzGuitar
+
+SeqSize 2
+
+Drum-Tom  Sequence D1234 D1
+Bass-High Sequence {1 2. 1 90; 3 2. 1 90}  {1 1 1 90}
+If Def WalkMode
+  Walk      Sequence  *  W1
+Else
+  Bass      Sequence  *  B1 
+Endif
+
+DefGroove FolkyJazzGuitarEnd    A 2 bar ending.
+
+
+////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+/// This is mostly a duplicate with a piano sub. Slightly differnt
+/// sequences, etc. Can be used side-by-side.
+
+Groove FolkyJazzGuitar
+
+Begin Bass-High
+  Voice Piano1
+  Octave 6
+  Articulate 130
+  HarmonyVolume 70
+  Harmony OpenBelow+8Below
+  Sequence  {1 2. 3 90; 3 2 5 90; 4 2 3 90 } \
+            {1 2. 1 90; 3 4. 3 90; 4 2 5 90} \
+            {1 2  5 90; 3 4  3 90; 4 2 5 90 } \
+            {1 2. 1 90; 3 4. 2 80; 4 2. 3 90}    
+
+End
+
+Walk Voice AcousticBass    // This is a change! The guitar bass is too much twang.
+
+DefGroove FolkyJazzPiano Piano with guitar bass and drum.
+
+Groove FolkyJazzPiano
+
+ Begin Arpeggio
+    Groove FolkyJazzGuitarPlus
+    Voice JazzGuitar
+    Harmony OpenBelow+8Below
+    Sequence  {A4; A2 Shift .5} {A8; A2 Shift .5} {A4; A4 Shift .5} /
+ End
+
+DefGroove FolkyJazzPianoPlus Add in some guitar notes.
+
+////// Sustained
+
+Groove FolkyJazzPiano
+
+ Begin Chord-Sus
+    Groove FolkyJazzGuitarSus
+	Voice     SynthVox
+	Sequence  {1 2 90 60 50 40; 3 2 80 70 50 30}  
+End
+
+Bass-High Volume  mp
+
+DefGroove FolkyJazzPianoSus  Our piano groove with sustained voices.
+
+
+Groove FolkyJazzPianoPlus
+ Chord-Sus Groove FolkyJazzPianoSus
+ Arpeggio Volume pp
+DefGroove FolkyJazzPianoSusPlus  Added guitar and sustained voices.
+
+////////////////////////////
+///////////// Intro
+
+Groove FolkyJazzPiano
+
+Drum-Tom  Sequence  D1234  *  D134   D1
+Bass-High Sequence  *      *  *     {1 2. 1 90}
+If Def WalkMode
+   Walk      Sequence  *      *  *     W1
+Else
+   Bass      Sequence  *      *  *     B1 
+Endif
+
+DefGroove FolkyJazzPianoIntro   A basic 4 bar introduction.
+
+
+//////////////////////////////////////////////
+//// Ending
+
+Groove FolkyJazzPiano
+
+SeqSize 2
+
+Drum-Tom  Sequence D1234 D1
+Bass-High Sequence {1 2. 1 90; 3 2. 1 80}  {1 2. 1 75}
+
+If Def WalkMode
+  Walk      Sequence  *  W1
+Else
+  Bass      Sequence  *  B1 
+Endif
+
+DefGroove FolkyJazzPianoEnd    A 2 bar ending.
+
+

@@ -1,0 +1,153 @@
+// 8beatballad3.mma
+
+Begin Doc  
+      8 Beat Ballad3 (032). A brighter version of 8 beat ballad 2.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 100; 2.5 0 103} \
+             {1 0 100; 2.5 0 102; 4.5 0 102} 
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence {4 0 76}
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    RVolume 5
+    Sequence {1 0 91; 2 0 94; 3 0 101; 4 0 108} \
+             {1 0 108; 2 0 101; 3 0 101; 4 0 99}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence  z   z   z   {4.5 0 62}
+End
+
+Begin Drum-Tambourine
+    Tone Tambourine
+    Volume m
+    Sequence  z   {4 0 48}
+End
+
+Begin Drum-Cabasa
+    Tone Cabasa
+    Volume m
+    RVolume 10
+    RSkip 5
+    Sequence {2 0 32; 4 0 32; 4.5 0 32} 
+End
+
+Begin Bass-9
+    Voice FretlessBass
+    Octave 3
+    Articulate 100
+    Volume m
+    RVolume 5
+    Sequence {1 4 1 71; 2.5 2 1 72} \
+             {1 4 1 67; 2.5 4 1 72; 4.5 3 5 84}
+End
+
+Begin Bass-6
+    Voice Piano3
+    Octave 5
+    Articulate 100
+    Volume mp
+    RVolume 10
+    Sequence {1 2 5 98; 1.5 4 1 106; 2 2 3 102; 2.5 4 5 96; \
+                3.5 4 5 91; 4 4 1 103; 4.5 4 3 106}
+End
+
+
+Begin Bass-7
+    Voice NylonGuitar
+    Octave 5
+    Articulate 100
+    Volume mp
+    RVolume 10
+    Sequence {1 4 5 89; 1.5 4 1 97; 2 4 3 103; 2.5 4 5 87; \
+                  3 8 1 97; 3.5 4 3 106; 4 8 5 100; 4.5 3 1 106}
+End
+
+
+Begin Bass-8
+    Voice Glockenspiel
+    Octave 6
+    Articulate 100
+    Volume mp
+    RVolume 10
+    Sequence {1 2 1 49}     z
+End
+
+DefGroove 8BeatBallad3  Basic track.
+
+//////////////////////////////////////////////////////////////////
+///////  Intro
+
+Groove 8BeatBallad3
+SeqSize 4    /// was 2, expand
+
+Drum-KickDrum1     Sequence  *    *    *     D1
+Drum-SnareDrum2    Sequence  *    *    *     D24
+Drum-PedalHiHat    Sequence  *    *    *     z
+Drum-OpenHiHat     Sequence  z    z    z     D8
+Drum-Tambourine    Sequence  z    *    *     D1234
+Drum-Cabasa        Sequence  z    z    *     *
+
+Bass-9             Sequence  B1234 *   *     B13
+
+// Piano3
+Bass-6             Sequence  B1234  *   *    {1 2 1 90; 1.2 4. 3 90; 1.4 4 5 90}
+ 
+// nylon guitar
+Bass-7             Sequence  *     *   *     B1234
+
+// glockenspiel
+Bass-8             Sequence  B1   B13    B1   B1
+
+DefGroove 8BeatBallad3Intro   4 bar intro
+
+//////////////////////////////////////////////////////////////////
+///////  Ending
+
+Groove 8BeatBallad3
+
+Drum-KickDrum1     Sequence  *     D1
+Drum-SnareDrum2    Sequence  *     D1
+Drum-PedalHiHat    Sequence  *     z
+Drum-OpenHiHat     Sequence  z     D1
+Drum-Tambourine    Sequence  z     D1
+Drum-Cabasa        Sequence  *     z
+
+Bass-9             Sequence  B1234    B1
+
+// Piano3
+Bass-6             Sequence  B1234  {1 4. 1 90; 1 4. 3 90; 1  4. 5 90}
+ 
+// nylon guitar
+Bass-7             Sequence  *        B1
+
+// glockenspiel
+Bass-8             Sequence  B13     B1
+
+DefGroove 8BeatBallad3End  2 bar end
+
+

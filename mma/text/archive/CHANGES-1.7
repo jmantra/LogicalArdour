@@ -1,0 +1,125 @@
+
+Added Truncate command. Shorten the next bar to the specified
+ setting. Effects only one bar. Useful when you have a 2/4 bar in
+ a 4/4 song, etc:  Truncate <value> [count=x] [side=x]
+
+The internal functions to save/restore grooves on-the-fly when
+ switching contexts have been improved. It should now work properly
+ with nested INCLUDEs, etc.
+
+=== Decemeber 3, 2010 - Released 1.7a
+
+Fixed bug in MidiInc which transposed drum tracks. 
+  
+Extended groove name notation: a groove name can include a filename in
+ the manner "filename:groovename".
+
+Polychords can be constructed in the manner "G|D".
+
+=== December 24, 2010 - Released 1.7b
+
+The macro commands INC and DEC will now work with real values as well
+  as ints.
+
+Fixed up extended groove parsing. I think it works now.
+
+=== January 12, 2011 - Released 1.7c
+
+Rewrote the timsplit utility. It's renamed to mma-splitrec. It will
+  now use timidity OR an external synth to create split tracks.
+
+A warning has been inserted into the AllGrooves code to warn if a
+  SEQUENCE is being changed. You most likely never want to do this
+  since many tracks are silenced simply by setting the SEQUENCE to
+  null and you'll get it playing in all the grooves.
+ 
+A new voicing mode, KEY, has been added. This attempts to cluster the
+  chord's notes around the tonic of the key. Chordal pitching will
+  change with the KEYSIG. This is a simplistic algrorithm which
+  actually ends up sounding pretty decent.
+
+===  April 16, 2011 - Released 1.7d
+
+A lot of minor redundancies, dups, etc. fixed in the code.
+
+Plectrum tracks were not saving the tuning in grooves. I think they
+ should, and they now do.
+
+MidiInc: IgnorePC was not working. Wrong spelling in the source code.
+ Also, if MidiInc was used a second time in the same program a number
+ of (ugly) globals were not being reset.
+
+Fixed cp-install to have the right path for its library update.
+
+Added strum option to plectrum tracks (start, center, end of bar
+ calculation). This changes the default configuration which was to
+ calculate the strum value from the center string. Problem with that
+ was on beat one the 1st strings were not getting a strum delay since
+ mma was converting negative times to the start of bar. In most cases
+ I don't see a reason to use anything but the 'start' default.
+
+=== July 2011 - Released 1.7e
+
+Fixed a minor bug in user defined chords. We were sorting the notes
+ specified by alpha (text) values which was giving inconsistent
+ results. Notes/scales are no longer sorted.
+
+With CHORD tracks (and others supporting strum on harmony) the
+ duration of the notes was NOT adjusted to compensate for the strum
+ delay setting. This meant that the chord notes started at different
+ times and ended at different points as well. This is not how a real
+ player would do it. We now adjust the end times of the notes so that
+ it sounds more realistic. Note we've put in some sanity logic so that the
+ total duration of a note will never be less than 1/3 of the
+ original ... a 1/4 note will never be shorter than dotted 1/16, etc
+ (this only becomes a problem with short notes and large strum
+ settings). Also, as a result of this change the Harmony notes in
+ Bass, Walk, Arpeggio and Scale tracks now obey the Accent command (I
+ think it makes sense for the harmony notes to be varied with the
+ melody). Please note that SOLO/MELODY tracks don't obey this new rule
+ (mainly because the embedded accent options will clobber it anyway).
+
+MidiInc: when importing MIDI data to use as riffs there were 3 errors:
+    - warning flag was not restored properly and didn't achive
+      anything either. It's way too hard to eliminate overlap warnings.
+    - riff data not always ordered properly,
+    - "rest measures" in the imported data were not inserted as "rest
+      riffs". This caused serious sync problems!
+
+SetMidiPlayer: options like "--port=123" are now passed as an arg for
+ the player, not a MMA option.
+
+A pseudo voicename has been added to the available set of voices: NONE
+ If you set a track VOICE to NONE then the midi code for a program
+ change will not be sent. This is to accomodate users who preset an
+ external synth and don't want the MMA stuff to bugger with it.
+ 
+Some improvements made to mma-gb.
+
+=== August 2011 - Released 1.7f
+
+Added the SetSyncCode command to change the tone and velocity of the
+ tone generated with the -0 option.
+
+MIDICresc, MIDIDecresc & MIDIVolume now accept mnemonic values (m, mf,
+ etc). These are derived from the same table used by velocity based
+ volume commands.
+
+A new command option has been added: Delay. This applies a delay
+ factor to each note in the track. This can be
+ used as a pseudo strum or echo. Have a look at the sample song
+ "Thinking of You" which uses 2 solo tracks with the nearly the same
+ settings, execpt for the octave and delay. Sounds sort-of like a 12-string.
+
+Scale has a "CHORD" scaletype. This gives results similar to Arpeggio
+ tracks, however niceties like Limit, Compress, etc are not honored.
+
+Most tracks can now ornament the notes with trills, mordents, turns,
+ etc. See the manual for full details.
+
+Changed version numbering scheme. Future releases will be in the
+format YY.MM. Interim/Test releases will have a single letter (a..z)
+appended.
+
+=== January 2, 2012  -- Released 12.01
+ 

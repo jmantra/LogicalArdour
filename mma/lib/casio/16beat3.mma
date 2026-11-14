@@ -1,0 +1,134 @@
+
+// 16beat3.mma 
+
+Begin Doc  
+      16 Beat3 (012) Trance dance beat.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum2
+    Tone KickDrum2
+    Volume m
+    Rvolume 8
+    Sequence {1 0 110; 2.8 0 95; 3.3 0 97} / /  \
+             {1 0 110; 2.8 0 103; 3.3 0 98; 4.3 0 103}
+End
+
+Begin Drum-SnareDrum2
+    Tone SnareDrum2
+    Volume m
+    Sequence  D24  D24  {D24; 4.8 0 91}  D24
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Rvolume 5
+    Sequence {1 0 74; 1.3 0 35; 1.5 0 76; 1.8 0 35; 2 0 54; 2.3 0 35; \
+                2.5 0 74; 2.8 0 35; 3 0 74; 3.3 0 35; 3.5 0 74; \
+                3.8 0 35; 4 0 54; 4.3 0 35; 4.5 0 74; 4.8 0 35}
+End
+
+Begin Bass-9
+    Voice FretlessBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 4 1 100; 2.8 64 1 85; 3.5 4 1 100}
+End
+
+
+Begin Bass-6
+    Voice MutedGuitar
+    Octave 5
+    Articulate 100
+    Volume m
+    Rvolume 10
+    Sequence {1 32 1 93; 1.5 32 1 67; 2.3 32 1 84; 2.8 32 1 84; 3.5 32 1 78; 4.5 32 1 78}
+End
+
+Begin Chord-7
+    Voice EPiano
+    Octave 5
+    Voicing Mode=Key
+    Articulate 100
+    Volume m
+    Sequence {1 1 90} \
+             {4 8 90} \
+             {1 1 90} \
+             z
+End
+
+Begin Chord-8
+    Voice WarmPad
+    Octave 5
+    Articulate 100
+    Volume m
+    Invert   0 1 2 1
+    Unify On
+    Sequence {1 1 90 * 2} 
+End
+
+DefGroove 16Beat3   A techno-sounding dance beat.
+
+///////////////////////////////////////////////////////////
+/// Ending
+
+Groove 16Beat3
+SeqSize 2
+
+Drum-KickDrum2     Sequence   *    D1
+Drum-SnareDrum2    Sequence  D24   D1
+Drum-ClosedHiHat   Sequence   *    D1
+
+Bass-9             Sequence   *    B1
+
+// Muted guitar
+Bass-6             Sequence  B1234  B1
+
+// epiano
+Chord-7            Sequence  L1     /
+
+// warmpad
+Chord-8            Sequence   *    C1
+
+DefGroove 16Beat3End   2 Bar ending
+
+///////////////////////////////////////////////////
+/////// Introduction
+
+
+///////////////////////////////////////////////////////////
+/// Ending
+
+Groove 16Beat3
+
+Drum-KickDrum2     Sequence   *    *   D1234 D13
+Drum-SnareDrum2    Sequence   D1   D1  D13   D1
+Drum-ClosedHiHat   Sequence   *    *   *     D1234
+
+Bass-9             Sequence   B1234 *  *     B13
+
+// Muted guitar
+Bass-6             Sequence  *     *   *     z
+
+// epiano
+Chord-7            Sequence  *     *   C13   L1
+
+// warmpad
+Chord-8            Sequence   *   *     *    L1
+
+DefGroove 16Beat3Intro   4 bar introduction
+
+
+

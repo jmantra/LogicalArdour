@@ -1,0 +1,100 @@
+
+MMA is a Python program. If you don't have Python installed you should
+do this first. You'll need version 2.4 or greater of Python for MMA to
+work. Python is available for most operating systems at: http://www.python.org
+
+
+MMA consists of several parts. They should be installed as follows:
+
+1. The main executable script, mma, should be in /usr/local/bin or
+   somewhere else in your executable path.
+
+2. A number of modules which MMA needs (in the distro they are the files
+   ending in .py in the MMA directory). They should be installed in
+   /usr/local/share/mma/MMA.
+
+3. Some other files used by the library and user extensions. These are
+   installed in /usr/local/share/mma/includes.
+
+4. The standard MMA library. These are a number of style files. They
+   are installed in /usr/local/share/lib.
+
+There are 2 install scripts you can use.
+
+The first and recommended one is a python script called ln-install.
+This simply creates the symbolic link /usr/local/share/mma pointing
+to the current directory where the uncompressed tar file you downloaded
+exists. I have used the link method for years now and it works fine.
+The only problem you have with this is that you must not delete
+or move the files from the tarball.
+
+ln-install has only 2 important lines of code: both create a single
+symbolic link. You must be root for this to work: on a Linux system
+the command:
+
+	su -c './ln-install'
+
+should be fine. If you have previously run this script it will fail since
+the directory link it is creating already exists. As root delete that one
+link and all will be fine.
+
+
+The second method copies all the files in the distribution to
+/usr/local/share/mma. To do this just run the script 'cp-install'.
+You must be 'root' to do this. On a Linux system the command:
+
+	 su -c './cp-install'
+
+should work just fine. If it doesn't work, you might need to use:
+
+	   su -c 'python cp-install'
+
+or some varient which finds Python. If you don't have Python
+installed, go back to the top of this file!
+
+The install file runs MMA with the -G command as its final step. It is
+important to let this happen:
+
+1. It updates the auto-load library data base,
+2. It will create the compiled python modules while you are still
+   logged in as 'root'.
+
+
+If you want to install the python modules in the python
+tree, that will work. Just create a file called 'MMA.pth'
+in the python/site-packages directory, a directory called
+'MMA' and copy the contents of the MMA directory in this
+distribution to that location. However, you will still need
+to have the library and include files in a location known to
+MMA. For this reason, we really do recommend that you install
+all of MMA in the recommended location.
+
+You can if you want install the main MMA tree in /usr/share without
+changing MMA. But, the install script will need to be changed.
+
+You can change this to something else entirely. You'll have to make
+changes to the main mma executable to reflect the location of the
+module directory AND the gbl.py file for proper library file
+locations. We really don't recommend you do this.
+
+You can run MMA from the directory you unpacked it in as well without
+installing. Just issue the command './mma someMMAfile'.
+
+     !!!! NOTE FOR UPGRADING MMA !!!!!!
+
+If you run the install script the existing /usr/local/bin/mma will be
+overwritten and your existing /usr/local/share/mma directory will be
+renamed to /usr/local/share/mma-old. You will receive prompts for
+this before action is taken. However, if you already have a backup
+directory you will need to delete this by hand. This just a bit of
+safety so I don't get blamed to deleting stuff off your (or my) hard
+drive.
+
+Exercise normal prudent behaviour with backups, etc. Pay attention to
+any songs you might have stored in your mma directory tree --- they
+should NOT be there, but ...
+
+
+Shout if problems!
+
+bvdp, March/2006

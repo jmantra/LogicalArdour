@@ -1,0 +1,112 @@
+// Pattern: BOSSA01
+
+SeqClear
+SeqSize 4
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |2--22--2|2--22--2|2--22--2|2--22--2|
+  Sequence { 1.0 0 60; 2.5 0 60; 3.0 0 60; 4.5 0 60 } / / / 
+End
+
+Begin Drum-Ride
+  Tone     RideCymbal1
+           // |31202212|21312212|21312232|22212222|
+  Sequence { 1.0 0 90; 1.5 0 30; 2.0 0 60; 2.5 0 0; 3.0 0 60; 3.5 0 60; 4.0 0 30; 4.5 0 60 } \
+           { 1.0 0 60; 1.5 0 30; 2.0 0 90; 2.5 0 30; 3.0 0 60; 3.5 0 60; 4.0 0 30; 4.5 0 60 } \
+           { 1.0 0 60; 1.5 0 30; 2.0 0 90; 2.5 0 30; 3.0 0 60; 3.5 0 60; 4.0 0 90; 4.5 0 60 } \
+           { 1.0 0 60; 1.5 0 60; 2.0 0 60; 2.5 0 30; 3.0 0 60; 3.5 0 60; 4.0 0 60; 4.5 0 60 } 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |--2--2--|2--2--2-|--2--2--|2-2--22-|
+  Sequence { 2.0 0 60; 3.5 0 60 } \
+           { 1.0 0 60; 2.5 0 60; 4.0 0 60 } \
+           { 2.0 0 60; 3.5 0 60 } \
+           { 1.0 0 60; 2.0 0 60; 3.5 0 60; 4.0 0 60 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |21211121|21211121|21211121|21211121|
+  Sequence { 1.0 0 60; 1.5 0 30; 2.0 0 60; 2.5 0 30; 3.0 0 30; 3.5 0 30; 4.0 0 60; 4.5 0 30 } / / / 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |-1----21|-1----21|-1----21|-1----21|
+  Sequence { 1.5 0 30; 4.0 0 60; 4.5 0 30 } / / / 
+End
+
+Begin Drum-MutHiConga
+  Tone     MuteHighConga
+           // |--2-----|--2-----|--2-----|--2-----|
+  Sequence { 2.0 0 60 } / / / 
+End
+
+Begin Drum-OpenHiConga
+  Tone     OpenHighConga
+           // |1----2--|1----2--|1----2--|1----2--|
+  Sequence { 1.0 0 30; 3.5 0 60 } / / / 
+End
+
+DefGroove BOSSA01 Time = 4/4, SeqLen = 4; Kick, Ride, Stick, Maracas, LowConga, MutHiConga, OpenHiConga.
+
+// Pattern: BOSSA02
+
+SeqClear
+SeqSize 4
+Time 4/4
+
+Begin Drum-Kick
+  Tone     KickDrum1
+           // |1--11--1|1--11--1|1--11--1|1--11--1|
+  Sequence { 1.0 0 30; 2.5 0 30; 3.0 0 30; 4.5 0 30 } / / / 
+End
+
+Begin Drum-ClosedHat
+  Tone     ClosedHiHat
+           // |21022112|20122112|21022112|20122112|
+  Sequence { 1.0 0 60; 1.5 0 30; 2.0 0 0; 2.5 0 60; 3.0 0 60; 3.5 0 30; 4.0 0 30; 4.5 0 60 } \
+           { 1.0 0 60; 1.5 0 0; 2.0 0 30; 2.5 0 60; 3.0 0 60; 3.5 0 30; 4.0 0 30; 4.5 0 60 } \
+           { 1.0 0 60; 1.5 0 30; 2.0 0 0; 2.5 0 60; 3.0 0 60; 3.5 0 30; 4.0 0 30; 4.5 0 60 } \
+           { 1.0 0 60; 1.5 0 0; 2.0 0 30; 2.5 0 60; 3.0 0 60; 3.5 0 30; 4.0 0 30; 4.5 0 60 } 
+End
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |--2--2--|2-2--2--|--2--2--|2-2--22-|
+  Sequence { 2.0 0 60; 3.5 0 60 } \
+           { 1.0 0 60; 2.0 0 60; 3.5 0 60 } \
+           { 2.0 0 60; 3.5 0 60 } \
+           { 1.0 0 60; 2.0 0 60; 3.5 0 60; 4.0 0 60 } 
+End
+
+Begin Drum-Maracas
+  Tone     Maracas
+           // |21211121|21211121|21211121|21211121|
+  Sequence { 1.0 0 60; 1.5 0 30; 2.0 0 60; 2.5 0 30; 3.0 0 30; 3.5 0 30; 4.0 0 60; 4.5 0 30 } / / / 
+End
+
+Begin Drum-LowConga
+  Tone     LowConga
+           // |-1----21|-1----21|-1----21|-1----21|
+  Sequence { 1.5 0 30; 4.0 0 60; 4.5 0 30 } / / / 
+End
+
+Begin Drum-MutHiConga
+  Tone     MuteHighConga
+           // |--2-----|--2-----|--2-----|--2-----|
+  Sequence { 2.0 0 60 } / / / 
+End
+
+Begin Drum-OpenHiConga
+  Tone     OpenHighConga
+           // |1----2--|1----2--|1----2--|1----2--|
+  Sequence { 1.0 0 30; 3.5 0 60 } / / / 
+End
+
+DefGroove BOSSA02 Time = 4/4, SeqLen = 4; Kick, ClosedHat, Stick, Maracas, LowConga, MutHiConga, OpenHiConga.
+

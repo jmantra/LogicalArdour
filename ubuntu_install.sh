@@ -40,18 +40,7 @@ while true; do
     n|N )
       echo "Installing Ardour"
       cd $HOME
-    sudo apt install build-essential git libboost-all-dev gcc g++ pkg-config libasound2-dev libgtk2.0-dev libglibmm-2.4-dev libsndfile1-dev libarchive-dev liblo-dev libtag1-dev vamp-plugin-sdk librubberband-dev libfftw3-dev libaubio-dev libxml2-dev libsamplerate0-dev lv2-dev libserd-dev libsord-dev libsratom-dev liblilv-dev libgtkmm-2.4-dev libjack-jackd2-dev libogg-dev libcppunit-dev libudev-dev libwebsockets-dev libusb-dev libsuil-dev libdbus-1-dev xjadeo libusb-1.0-0-dev libreadline-dev  libarchive-dev liblo-dev libtag1-dev libvamp-sdk2v5 librubberband-dev libaubio-dev libpangomm-1.4-dev libserd-dev libsord-dev libsratom-dev liblilv-dev libgtkmm-2.4-dev libsuil-dev libcppunit-dev python3 liblrdf0-dev libraptor2-dev python-is-python3 git -y
-wget https://jmantra.blob.core.windows.net/data/ardour.zip
-
-unzip ardour.zip
- #   git clone https://github.com/Ardour/ardour.git
-    cd ardour
-  #  git checkout 8.10
-
-   # ./waf configure --cxx11 --optimize
-    #./waf -j `nproc`
-   sudo ./waf install
-
+   sudo apt install ardour -y
     compiled=true
 
 
@@ -148,7 +137,7 @@ wget https://github.com/surge-synthesizer/releases-xt/releases/download/1.3.1/su
 
 sudo apt install xclip -y
 
-sudo apt install libxcb-cursor0 -y
+sudo apt install libxcb-cursor -y
 
 
 sudo dpkg -i surge-xt-linux-x64-1.3.1.deb
@@ -168,7 +157,21 @@ cd LogicalArdour
 
 sudo mkdir  /opt/LogicalArdour
 
+sudo cp LogicalArdour.sh /opt/LogicalArdour/LogicalArdour.sh
+sudo chmod 755 /opt/LogicalArdour/LogicalArdour.sh
 
+mkdir -p "$HOME/.local/share/applications"
+cp LogicalArdour.desktop "$HOME/.local/share/applications/LogicalArdour.desktop"
+if command -v update-desktop-database >/dev/null 2>&1; then
+  update-desktop-database "$HOME/.local/share/applications"
+fi
+
+sudo cp resources/melody_generator /opt/LogicalArdour/melody_generator
+sudo chmod 755 /opt/LogicalArdour/melody_generator
+sudo cp resources/genres.json /opt/LogicalArdour/genres.json
+sudo cp resources/mma_genres.json /opt/LogicalArdour/mma_genres.json
+sudo rm -rf /opt/LogicalArdour/mma
+sudo cp -a mma /opt/LogicalArdour/mma
 
 sudo cp minibpm /opt/LogicalArdour/minibpm
 sudo chmod +x /opt/LogicalArdour/minibpm
@@ -210,6 +213,9 @@ sudo cp -rf ladspa-rubberband.so $folder
 
 sudo cp -rf samples/* /opt/LogicalArdour
 
+sudo mkdir -p /opt/LogicalArdour/soundfonts/soundfonts
+sudo cp -a resources/soundfonts/soundfonts/. /opt/LogicalArdour/soundfonts/soundfonts/
+
 sudo apt install libfuse3-3 libfuse3-dev libfuse2t64 -y
 wget https://jmantra.blob.core.windows.net/data/mscore
 sudo cp -rf mscore /opt/LogicalArdour
@@ -243,7 +249,14 @@ sudo mkdir /usr/local/lib/vst3
 
 
 
-folder="$HOME/.config/ardour8"
+sudo apt install -y libwebkit2gtk-4.1-dev libwebkit2gtk-4.1-0 cargo rustc pkg-config
+if [ -f score-editor/Cargo.toml ]; then
+  cargo build --release --no-default-features --manifest-path score-editor/Cargo.toml
+  sudo cp score-editor/target/release/score-editor /opt/LogicalArdour/score-editor
+  sudo chmod 755 /opt/LogicalArdour/score-editor
+fi
+
+folder="$HOME/.config/LogicalArdour/ardour8"
 backup_or_create_folder "$folder"
 
 cp -rf ardour8/*  $folder
@@ -253,12 +266,12 @@ backup_or_create_folder "$folder"
 
 cp -rf guitarix/*  $folder
 
-for file in $HOME/.config/ardour8/*; do
+for file in $HOME/.config/LogicalArdour/ardour8/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi
 done
-for file in $HOME/.config/ardour8/route_templates/*; do
+for file in $HOME/.config/LogicalArdour/ardour8/route_templates/*; do
     if [ -f "$file" ]; then
         awk -v home="$HOME" '{gsub("/home/justin", home); print}' "$file" > tmp && mv tmp "$file"
     fi

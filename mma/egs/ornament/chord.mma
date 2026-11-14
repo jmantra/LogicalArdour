@@ -1,0 +1,30 @@
+// A short demo using ornaments with a chord track
+
+// Make this a 4 bar sequence with ornaments on beats 1,3 of alternate bars
+
+Seqsize 4
+
+Begin Bass
+    Voice AcousticBass
+    Octave 3
+    Articulate 90
+    Sequence { 1 4 1 90; 3 4 5 90 }  // simple 1/5 bass line
+End
+
+Begin Chord
+     Voice Nylonguitar
+     Octave 5
+     Articulate 110
+     Sequence {1 1 90 * 4 }  /// very simple 4 strums per bar
+     // Comment out the following line or play with the various settings
+     Ornament Type=grace Duration=10  Beats=1 Place=Below Bars=1,3 
+End
+
+C
+G
+F
+Em
+Dm
+C
+G / C
+C

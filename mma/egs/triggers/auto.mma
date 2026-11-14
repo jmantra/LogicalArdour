@@ -1,0 +1,58 @@
+// Demo to create chords only when a chord changes in 
+// a song. 
+
+include stdpats
+
+Groove Metronome4
+
+// This is a nice sustained background string section
+
+Begin Chord-Sus
+    Voice Strings
+    Octave 6
+    Volume p
+    Articulate 100
+    Unify On
+    Sequence C1234
+End
+
+
+Begin Chord-Trigger
+    Voice JazzGuitar
+    Octave 5
+    Volume mf
+    Articulate 120  // nice long tones
+    Sequence C1234
+End
+
+// Doesn't get more basic than this
+
+Chord-Trigger Trigger Auto
+
+1  C
+2  /
+3  / / Am
+4  G7
+
+// Set our trigger with it's own sequence. In this case it's 
+// it's a set of triplets.
+
+Chord-Trigger Trigger Auto Sequence={1 3 90; 1.33 3 90; 1.66 3 90} Count=3
+
+5  C
+6  /
+7  / / Am
+8  G7
+
+// Using the same trigger settings we add in playing the
+// sequence from the track (chords on 1,2,3,4) when
+// the trigger doesn't...
+
+Chord-Trigger Trigger Auto override=true
+
+9  C
+10  /
+11  / / Am
+12  G7
+
+

@@ -1,0 +1,125 @@
+// 8beatpop3
+
+Begin Doc  
+      8Beat Pop Rock 3. A brighter, driving, version. (005)
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume m
+    Sequence {1 0 100; 3 0 100} \
+             {1 0 100; 3 0 100; 3.5 0 100} 
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {2 0 100; 4 0 100}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1 0 103; 1.5 0 86; 2 0 101; 2.5 0 93; 3 0 101; 3.5 0 93; 4 0 103; 4.5 0 93} \
+             {1 0 103; 1.5 0 92; 2 0 103; 2.5 0 93; 3 0 101; 3.5 0 95; 4 0 101; 4.5 0 103} \
+             {1 0 103; 1.5 0 86; 2 0 101; 2.5 0 93; 3 0 101; 3.5 0 93; 4 0 103; 4.5 0 93} \
+             {1 0 103; 1.5 0 92; 2 0 103; 2.5 0 93; 3 0 101; 3.5 0 95; 4 0 101}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Sequence z       z      z      {4.5 0 103}
+End
+
+Begin Bass-9
+    Voice SynthBass2
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 32 1 106; 1.5 32 1 102; 2 32 1 103; 2.5 32 1 105; 3 32 1 105; 3.5 32 1 105; 4 32 1 106; 4.5 32 1 102} \
+             {1 32 1 106; 1.5 32 1 105; 2 32 1 105; 2.5 32 1 105; 3 32 1 103; 3.5 32 1 105; 4 32 1 107; 4.5 16 5 105} \
+             {1 6 1 104; 1.5 32 1 101; 2 32 1 103; 2.5 6 1 105; 3 32 1 103; 3.5 32 1 105; 4 32 1 105; 4.5 32 1 104} \
+             {1 32 1 103; 1.5 32 1 105; 2 32 1 104; 2.5 32 1 103; 3 16 1 105; 3.5 6 1 101; 4 16 1 105; 4.5 16 1 106}
+End
+
+
+Begin Bass-6
+    Voice Piano2
+    Octave 5
+    Articulate 100
+    Volume m
+    Sequence {1 2 1 71; 1 2 3 70; 1 2 5 71} \
+             {1 4 1 73; 1 4 3 73; 1 4 5 73; 2.5 2 1 75; 2.5 2 3 70; 2.5 2 5 68}
+End
+
+Begin Chord-7
+    Voice Clavinet
+    Octave 6
+    Voicing Mode=Key
+    Articulate 90
+    Volume mp
+    Sequence {1 32 90; 1.5 32 90; 2 32 90; 2.5 32 90; 3 32 90; 3.5 32 90; 4 32 90; 4.5 32 90}
+End
+
+
+Begin Chord-8
+    Voice MutedGuitar
+    Octave 6
+    Voicing Mode=Key
+    Articulate 90
+    Volume p
+    Sequence {1.5 64 90; 2.5 64 90; 3.5 0 90; 4.5 64 90}
+End
+
+DefGroove 8BeatPop3   A more driving 8 beat rhythm.
+
+////////////////////////////////////////////////////////
+//// Intro
+
+Groove 8BeatPop3
+
+Drum-KickDrum1      Sequence *  *  *  D1234
+Drum-SnareDrum1     Sequence *  *  *  D1234
+Drum-ClosedHiHat    Sequence *  *  D8  D1
+Drum-OpenHiHat      Sequence *  *  D8  D1
+
+Bass-9              Sequence *  *  B1234   B1
+  
+Bass-6              Sequence *  *   *      B1
+
+Chord-7             Sequence  * *   *    L1
+Chord-8             Sequence  * *   *    L1
+
+DefGroove 8BeatPop3Intro   4 bar intro.
+
+////////////////////////////////////////////////////////
+//// Ending
+
+Groove 8BeatPop3
+SeqSize 2
+
+Drum-KickDrum1      Sequence *  D1
+Drum-SnareDrum1     Sequence *  D12
+Drum-ClosedHiHat    Sequence D8  D1
+Drum-OpenHiHat      Sequence D8  D1
+
+Bass-9              Sequence B1234   B1
+  
+Bass-6              Sequence  *      B1
+
+Chord-7             Sequence  *    L1
+Chord-8             Sequence  *    L1
+
+DefGroove 8BeatPop3End   2 bar ending.

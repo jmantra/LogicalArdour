@@ -1,0 +1,54 @@
+// Cascading chord-like harmonies
+
+// This sounds pretty crappy, and it is much easier to do
+// the same with a chord pattern and 'strum'. But, it
+// shows some nice tricks:
+//    - using Shift in a pattern to move a pattern a little bit,
+//    - using HarmonyOnly
+//    - using a bass pattern to generate chords.
+
+Include stdpats
+Time 4
+Tempo 120
+
+// This defines a single bass note pattern. It will play
+// longish quarter note root, third, fifth, third on each bar.
+
+Bass Define Just4 1 4. 1 90; 2 4. 3 90; 3 4. 5 90; 4 4. 3 90
+
+// Try this with the sequence for Bass-1 and Bass-2 commented out
+// the hear how the effect is built.
+
+Begin Bass
+	Voice Vibraphone
+	Volume m
+	Octave 5
+	Articulate 100
+	Sequence Just4
+End
+
+Begin Bass-1
+	Voice $_Bass_voice
+	Octave $_Bass_octave
+	Volume $_Bass_Volume
+	HarmonyVolume 60
+	HarmonyOnly 2Below
+	Articulate $_Bass_articulate
+	Sequence {Just4 Shift .2}
+End
+
+Begin Bass-2
+	Voice $_Bass_voice
+	Octave $_Bass_octave
+	Volume $_Bass_Volume
+	HarmonyVolume 50
+	HarmonyOnly OpenBelow
+	Articulate $_Bass_articulate
+	Sequence {Just4 Shift .4}
+End
+
+Am7 / D7
+Gm  / C7
+Cm7 / F7
+B&M7 / E&M7
+

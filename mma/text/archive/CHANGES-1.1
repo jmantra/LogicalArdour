@@ -1,0 +1,28 @@
+
+Fixed bug in MIDIPAN. Only first digit of argument was being used.
+
+Added the -P command line option: plays the midi file and deletes it.
+
+Added SETMIDIPLAYER. By default -P uses "aplaymidi" but you can change
+  it.
+
+MMA now attempts to track the length (time or duration) of the
+  generated MIDI. Pretty accurate. Reported at end of run.
+
+The error exit routine now checks the data reported as an error for
+  illegal characters and reports.
+
+Added a sanity check in input which converts any 0xa0 (non-breakable
+  space) to 0x20 (space).
+
+For folks using seq24 or other looping software another
+  command line option (-1) has been added. This will force
+  truncation of all tracks at the end of song position.
+
+If you don't like too many command line args (which MMA is well on the
+  way to getting), you can apply the -0 or -1 options via the
+  SYNCRONIZE command (use Syncronize END and/or START).
+ 
+This is way overdue! (De)Crescendos now do adjustments within the
+bar(s). Makes for smoother changes.
+ 

@@ -1,0 +1,55 @@
+// A few bars of "Boo Hoo" to show how you can split a
+// melody line into parts to use for harmony.
+
+Tempo 150
+
+// This sets up 3 solo tracks, each one shares the same solo
+// line.
+
+AutoSolotracks  Solo-1 Solo-2 Solo-3 
+
+// Create voicing for each solo track.
+// Note that '2' and '3' are HarmonyOnly tracks.
+
+begin Solo-1
+	   Voice Violin
+	   Volume f
+	   Octave 5
+	   Articulate 100
+end
+
+begin Solo-2
+	   Volume f
+	   Voice Marimba
+	   HarmonyOnly 3above
+	   Mallet Rate=16 Decay=-2
+	   Octave 5
+end
+
+begin Solo-3
+	   Volume f
+	   Voice AltoSax
+	   HarmonyOnly Open
+	   Octave 5
+	   Articulate 90
+end
+
+keysig 2b
+
+// And here's a few bars of melody.
+
+groove Swing
+	   z   z  F7#5        {2r;f;} 
+	   Bb  F+ Bb          {1+2.f~;}
+	   Bb  F+ Bb          
+	   /   /  Cm7 C#dim   {4r;d;e;en;}
+	   Bb  /  Dbdim       {4f;2a;4g;} 
+	   F7  /  Fm7b5       {1+2.e~;} 
+	   F7 Fm7b5 F7
+	   
+
+// This could have been done by duplicating the
+// solos with repeated {}s:
+//     Bb F+ Bb {4a;b;c;d;} {4a;b;c;d;} {4a;b;c;d;}
+// but it's easier for the computer to do the duplications.
+

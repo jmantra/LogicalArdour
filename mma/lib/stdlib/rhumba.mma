@@ -1,0 +1,369 @@
+
+// rhumba
+
+Begin Doc
+
+ I created this for the Cole Porter tune "I've Got You 
+ Under My Skin.". Traditional Latin rhythms generally have 
+ a full percussion with lots of off-beats, but don't overdo it.
+
+End
+
+Author Bob van der Poel
+
+// Converted chord-guitar to plectrum, May/2010, bvdp.
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////////////////////////////////////////
+/////// Instrument patterns
+
+
+Begin Drum Define
+	D3+       D3 Shift .5
+	D1+3+     D13 Shift .5
+	D2+4+     D24 Shift .5
+	D12+4     D14 ; D2 Shift .5  
+	D13+      D1 ; D3+
+	D3+4      D3+ ; D4
+	D1+2+3+   D1+3+; D3+
+End
+
+Begin Walk Define
+	W12+4       1 4 100 ; 2.5 4 100 ; 4 4 90 
+	W12+4+      W12+4 ; 4.5 8 77  
+End
+
+Begin Bass Define
+	B12+4       1 4 1 90 ; 2.5 4 5 70 ; 4 4 1 90 
+End
+
+Begin Chord Define
+	C30         1 81 70 ; 1+81 82 70 ; 2+81 82 70
+End 
+
+/////////////////////////////////
+///////// Rhumba
+
+
+//////// Lots of drum stuff going on, but on
+//////// my synth it doesn't sound too busy.
+
+SeqSize 4
+
+Begin Drum-Claves
+	Sequence     D12+4 D13+ D1+3+ D1+2+3+
+	Tone  Claves
+	SeqRnd On
+	Rvolume 10
+	Rtime 2
+	Volume ff
+End
+
+Begin Drum-Maraca
+	Sequence     D8 / / D1234
+	Tone Maracas
+	SeqRnd On
+	Rvolume 5
+	Rtime 2
+End
+	
+Begin Drum-LoConga
+	Sequence     D4  D3+4
+	Tone LowConga
+	Rvolume 5
+	Rtime 2
+	Volume ff
+End
+
+Begin Drum-HH
+	Sequence      D3             D3+        /  z
+	Tone          OpenHighConga  OpenHiHat  /  /
+	SeqRnd On
+	Rvolume 5
+	Rtime 2
+End
+
+Begin Drum-MuteConga
+	Sequence     D2 { D1 Shift .5 }
+	Tone MuteHighConga
+	Rvolume 5
+	Rtime 2
+End
+
+Begin Drum-Bongo
+	Sequence     D3        D2+4+
+	Tone         LowBongo  HighBongo
+	Rvolume 5
+	Rtime 2
+End
+
+
+Begin Drum-Chh
+	Sequence     D8
+	Tone  ClosedHiHat
+	Volume mp
+	Rvolume 5
+	Rtime 2
+End
+
+/////// Main chording is the piano ... this is for all the variations.
+
+	
+Begin Chord
+	Sequence	C134  C123 { C1; C34 Shift .5 }	{ C2; C34 Shift .5 } 
+	Accent 1 20 3 10
+	Voicing Mode=Optimal
+	SeqRnd On
+	Rvolume 10
+	Voice Piano2
+	Articulate 93
+	Octave 5
+	Volume mp
+End
+
+
+//////// The walk and bass alternate bars. Gives a nice feeling.
+
+Begin Bass
+	Voice      FretLessBass
+	Sequence   B12+4   z    B12+4  z
+	Articulate 60
+	Accent 1 20
+	Rvolume 15
+	Rtime 4
+	Octave 3
+	Volume mp 
+End
+
+Begin Walk
+	Voice      $_Bass_Voice
+	Octave     $_Bass_Octave
+	Rvolume    $_Bass_Rvolume
+	Rtime      $_Bass_Rtime
+	Accent     $_Bass_Accent
+	Articulate 55
+	Volume     $_Bass_Volume
+	Sequence   z   W12+4   z   W12+4+   
+End
+
+DefGroove Rhumba    Nice, smooth easy listening.
+
+//////// Add sustained strings
+
+/// The chord pattern just plays the root and 5th. The 2 defs
+/// vary the volume of the root/5th.
+
+Begin Chord-sus
+	Sequence	{ 1 1 90 0 50 0 * 4 } { 1 1 50 0 90 0 * 4 }
+	SeqRnd On
+	Voicing Mode=Optimal
+	Rvolume 10
+	Voice Strings
+	Articulate 110
+	Unify On
+	Volume p
+	Octave 5
+End
+
+DefGroove RhumbaSus  Sustained strings make it smoother.
+
+////////////////////////////
+//  RhumbaTriple
+// Change the piano in rhumba to 2 sets of triplets
+///////////////////////////
+
+Groove Rhumba
+SeqSize 1
+
+Begin Chord
+	Sequence	{ 1 1 70 * 6 }    // Piano set to 1/4 triplets
+	Accent 1 40 3 40              // Accent beats 1/3
+End
+
+Walk    Sequence     -     // Change walking bass
+Bass    Sequence     B11   // to a 1/3 
+
+
+DefGroove RhumbaTriple      Rhumba with quarter note triplet chords. \
+                            Good for emphasizing a single bar in a piece. \
+                            Not great for more than one bar in 	a row.
+
+Chord-sus Groove RhumbaSus
+DefGroove RhumbaTripleSus   Triplets and sustained strings.
+
+
+//// 1/4 triple on beats 1/2, regular stuff on beats 3/4
+
+Groove RhumbaTriple
+
+Begin Chord
+    Sequence    { C30; C34; C3 Shift .5 }
+    Accent 1 10 3 20
+End
+
+
+DefGroove RhumbaTriple12   Variation of RhumbaTriple with triplets on \
+                           beats 1/2 and quarters on 3/4.
+
+Chord-sus Groove RhumbaSus
+DefGroove RhumbaTriple12Sus  Triplet on 1/2 and strings.
+
+
+Begin Chord
+	Sequence    { C12; C1 Shift .5;  C30 Shift 2 }
+	Accent 1 20 3 10
+End
+
+DefGroove RhumbaTriple34   Variation of RhumbaTriple with triplets on \
+                           beats 3/4 and quarters on 1/2.
+
+
+Chord-sus Groove RhumbaSus
+DefGroove RhumbaTriple34Sus  Triplet on 3/4 and strings.
+
+
+
+////////////////////////////
+//  Rhumba1
+
+
+Groove Rhumba
+
+Begin Arpeggio
+	Sequence    A4  A8  A4  A8
+	Invert      0   0   1   1
+	SeqRnd On
+	Voice PizzicatoString
+	Articulate 100
+	Octave 5
+	Volume mp
+	Rvolume 10
+	Rskip  30
+End
+
+DefGroove Rhumba1     Adds pizzicato arpeggios.
+
+Chord-sus Groove RhumbaSus
+DefGroove Rhumba1Sus  Apreggios and sustained strings.
+
+
+
+//////////////////////////////
+// Rhumba2
+
+Groove Rhumba
+
+Begin Chord-Mallet
+	Voice Marimba
+	Sequence  {C1234; C1234 Shift .2; C1234 Shift .4; C1234 Shift .6; C1234 Shift .8} \
+              {C24; C24 Shift .2; C24 Shift .4 ; C24 Shift .6; C24 Shift .8}
+	Articulate 60
+	Voicing  Mode=Optimal
+	Octave 5
+	DupRoot -1
+	Accent 1 40 
+	Volume p
+End
+
+DefGroove Rhumba2    Add articulated Marimbas.
+
+Chord-sus Groove RhumbaSus
+DefGroove Rhumba2Sus  Marimbas  and sustained strings.
+
+
+//////////////////////////////////////
+//////// Rhumba3
+
+Groove Rhumba
+
+Begin Plectrum
+	Voice JazzGuitar
+	Sequence  {1 5 90; 2 -5 5-6:0 1-4:80; 3 5 90; 4 -5  6:0 1-5:80} \
+              {1 5 90; 3 5 90; 4 -5 5-6:0 1-4:80 } \
+              {2 -5 70; 4 -5 70 } \
+              {1 5 80; 3 5 90}
+	SeqRnd On
+	Octave 5
+	Accent 1 20 3 20 
+	Volume pp
+End
+
+DefGroove Rhumba3    Add jazz guitar chords.
+
+Chord-sus Groove RhumbaSus
+DefGroove Rhumba3Sus  Guitar chords and sustained strings.
+
+///////////////////////////
+// Intro
+
+Groove Rhumba
+
+AllTracks SeqRnd Off
+
+Drum-Claves     Sequence     D12+4   D13+   D1+3+   D1234
+Drum-Maraca     Sequence     D8     /       /       D13
+Drum-LoConga    Sequence     D4     D3+4    D2      D1
+Drum-HH         Sequence     D3     D3+     /       z
+Drum-MuteConga  Sequence     D2    { D1 Shift .5 }  D2  z
+Drum-Bongo      Sequence     D3     D2+4+   D3      D3
+Drum-Chh        Sequence     D8     /       /       D1234
+
+Chord           Sequence	C134  /        /        {1 1 8	0}
+Bass            Sequence    B12+4   /     /        {1 2 1 90}
+Walk           Sequence -
+
+DefGroove RhumbaIntro   4 bar intro to go with standard Rhumba.
+
+
+///////////////////////////
+// Endings
+
+// Just add a string run to the basic rhumba
+
+Groove Rhumba
+
+Chord-sus  Sequence -
+
+Begin Scale
+	Sequence Scale8 Scale4 Scale2 Scale
+	Voice SlowStrings
+	Articulate 100
+	Volume mf
+	Octave 6
+	Direction Up
+	Range 5
+End
+
+
+DefGroove RhumbaEnd    Ending with string scales. The scales use \
+                       8th, quarter, half and finally a whole note. \
+                       Setting the seq to different values for each \
+                       bar of the ending will create proper effects. 
+
+
+
+/// Easy 2 bar ending
+
+Groove Rhumba
+Seqsize 2
+
+Alltracks SeqRnd Off
+
+Drum-Claves     Sequence  D8 D12
+Drum-Maraca     Sequence  D1 
+Drum-LoConga    Sequence  D1234 D12
+Drum-HH         Sequence  D3+   D1
+Drum-MuteConga  Sequence  D2 
+Drum-Bongo      Sequence  D3    D2
+Drum-Chh        Sequence  D8    D12
+Chord           Sequence  C134  C12
+Bass            Sequence  B12+4 B1
+Walk            Sequence -
+
+DefGroove  RhumbaEnd1   Simpler, 2 bar, ending.
+	

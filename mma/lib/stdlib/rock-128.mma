@@ -1,0 +1,181 @@
+
+// rock128
+
+Begin Doc
+
+ Doo-Wop rock from the 50s. These songs are mostly written 
+ in 12/8 time, but this file assumes 4/4. So, when figuring 
+ tempo use a dotted quarter for the beat count (of course, if
+ the song is in 4/4 time, then you don't need to figure!). We
+ use this for the song "Sea Of Love". 
+
+End
+
+Author Bob van der Poel 
+
+SeqClear
+Time 4
+Timesig 4 4
+Include stdpats
+
+
+/////// Basic groove
+
+SeqSize 4
+Begin Bass
+	Sequence B11
+	Octave 3
+	Voice FretlessBass
+	Articulate 70
+	Volume f
+End
+
+Begin Chord
+	Sequence {C1234 * 3 } / / C1234
+	Voice Piano2
+	Voicing   Mode=Optimal
+	Accent 1 90 2 10 3 90 4 10
+	Articulate 70
+	Volume pp
+	Octave 5
+	Rtime 4
+	Rvolume 10
+End
+
+Begin Drum-Kick
+	Tone KickDrum1
+	Sequence D1234 
+	Volume mp
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-Clap
+	Tone HandClap
+	Sequence D24
+	Volume p
+	Rvolume 5
+	Rtime 5
+End
+
+Begin Drum-HH
+	Tone OpenHiHat
+	Sequence D1234  {D1234 * 3}
+	Volume pp
+	Accent 1 90 2 10 3 90 4 10
+	Rvolume 5
+	Rtime 5
+End
+
+
+DefGroove Rock128           Basic 12/8 beat with the piano \
+                            doing most of the work.
+
+
+Groove Rock128
+
+Begin Chord
+    Sequence   {C1234; C2 Shift .5}   /   /   C1234
+    Volume p
+End
+
+DefGroove Rock128Plain    Piano changes from triplets to 4 in the bar.
+
+
+//////// Add in sustained strings
+
+Begin Chord-Sus
+	Voice TremoloStrings
+	Sequence  { 1 1 90 0 * 2 }
+	Voicing Mode=Optimal
+	Articulate 100
+	Unify On
+	Volume mp
+	Octave 5
+End
+
+Begin Chord-SusHarmony
+	Voice ChoirAAHs
+	Voicing Mode=Optimal
+	Sequence { 1 1 0 0 70 * 2 }
+	Volume p
+	Octave 5
+	Articulate 100
+	Unify On
+End
+
+
+DefGroove Rock128Sus      Add in sustained strings and voices.
+
+Groove Rock128Sus
+Chord Groove Rock128Plain
+DefGroove Rock128PlainSus  Piano 4-to-the bar with strings.
+
+
+//////////////////////////////
+/// Plus versions add in piano
+
+Groove Rock128
+
+Begin Arpeggio
+   Voice Piano1
+   Volume m
+   Articulate 110
+   Octave 5
+   Range 1.8
+   Rtime 10
+   Rvolume 20
+   Sequence   A8  A16 A8  A4
+   Harmony  OpenBelow  
+   SeqRnd On
+   Rskip  20
+End
+
+DefGroove  Rock128Plus   Add some piano notes for interest.
+
+Groove Rock128Sus
+Arpeggio Groove Rock128Plus
+DefGroove  Rock128SusPlus  Strings and piano.
+
+Groove Rock128Plain
+Arpeggio Groove Rock128Plus
+DefGroove  Rock128PlainPlus  Straight version with piano.
+
+Groove Rock128PlainSus
+Arpeggio Groove Rock128Plus
+DefGroove  Rock128PlainSusPlus Straight version with strings and piano.
+
+
+///////////////////////////////
+// Intro
+
+Groove Rock128
+
+Bass         Sequence   B11           /     /   { 1 4 1 90; 2 4 3 90; 3 2 1 90 }
+Chord        Sequence   {C1234 * 3 }  /     /   L1
+Drum-Kick    Sequence   D1234         /     /   D12
+Drum-Clap    Sequence   D1234         /     /   D1
+Drum-HH      Sequence   D1234    {D1234 * 3}  D1234  D12
+
+DefGroove Rock128Intro   A 4 bar introduction.
+
+Groove Rock128Intro
+Chord-Sus Groove Rock128Sus
+DefGroove Rock128IntroSus   Same 4 bar intro with strings.
+
+
+///////////////////////////////
+// Ending
+
+
+Groove Rock128
+Seqsize 2
+
+Bass         Sequence   B11           { 1 2 1 90 } 
+Chord        Sequence   {C1234 * 3 }  { 1 2 90 }
+Drum-Kick    Sequence   D1234         D1
+Drum-Clap    Sequence   D1234         D1
+Drum-HH      Sequence   {D1234 * 3}   D1
+
+DefGroove Rock128End           Simple ending.
+

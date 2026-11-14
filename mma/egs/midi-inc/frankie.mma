@@ -1,0 +1,80 @@
+
+// The tempo is different from both include midi files.
+
+tempo 115
+
+// We could use a different rhythm, and we do change later.
+
+Groove Foxtrot
+
+// First solo voice is track 'SOLO'. This does a number of things:
+//  - it creates a track (although MIDIINC would do that as well),
+//  - it sets a voicing (TenorSax)
+
+Solo Voice Tenorsax
+
+// Include the recorded MIDI. In the recording the
+// notes are all channel 1. The command 'Solo=1' copies
+// the notes from channel 1 to the SOLO track. Also,
+// we change the volume and the octave.
+
+midiInc file=rec1.mid Solo=1 Volume=70 octave=-1 
+
+// Generate the accomp. 
+
+	C * 4
+	F * 3
+	C
+	G7 * 2
+	C
+
+// Grab the 1 bar drum solo we recorded. The drum was played on
+// with the keyboard set to a drum kit. And it was recorded on
+// channel 1. We add in the 'transpose=0' to over-ride any
+// global tranpose which might be in effect since we don't want
+// drum tones moved. Note how this include overlays the last bar
+// of the solo we included above and that we've turned off
+// the chords and drums in the next bar as well.
+
+midiInc file=drum.mid Drum=1 Transpose=0 Volume=80
+
+ z!
+
+// Now do all this over with the 2nd recorded track. This
+// is the one with the funky vibratos, etc. Make it a clarinet.
+
+Solo-Clr Voice Clarinet
+
+Groove EasySwing
+
+midiInc file=rec2.mid Solo-Clr=1 Volume=90
+
+	C * 4
+	F * 3
+	C
+	G7 * 2
+	C * 2
+
+// Third chorus. We take our recording and change the voicings.
+// rec1.mid is played by an alto and rec2.mid is played by vibs.
+// Note that this time we're doing a duet.
+
+Groove Blues
+
+Solo Voice Altosax
+Solo-Clr Voice Vibraphone
+
+midiInc file=rec1.mid Solo=1 Volume=70 
+midiInc file=rec1.mid Solo-Clr=1 Volume=100
+
+	C * 4
+	F * 3
+	C
+	G7 * 2
+Groove BluesEnd
+Seq 3
+	C 
+	/ z!
+
+
+

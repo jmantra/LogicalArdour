@@ -1,0 +1,237 @@
+// worldpop.mma
+
+Begin Doc  
+      World Pop (025). Casio figure adding a "fantasy" voice makes it "world". Okay.
+      Converted from Casio Wk-3000.
+End
+
+Author Bob van der Poel && Casio
+
+SeqClear
+SeqSize 4
+Time 4
+
+Include stdpats
+
+// Basic rhythm
+
+Begin Drum-KickDrum1
+    Tone KickDrum1
+    Volume mp
+    Sequence {1 0 127; 1.8 0 60; 2.5 0 67; 3 0 112; 3.8 0 37; 4.8 0 78} \
+             {1 0 127; 1.8 0 51; 2.5 0 60; 3 0 69; 4.8 0 34}
+End
+
+Begin Drum-SnareDrum1
+    Tone SnareDrum1
+    Volume m
+    Sequence {3.8 0 12; 4 0 111}     {4 0 106}
+End
+
+Begin Drum-ClosedHiHat
+    Tone ClosedHiHat
+    Volume m
+    Sequence {1.2 0 67; 2.2 0 102; 3.2 0 63; 3.8 0 63; 4.2 0 45} \
+             {1.2 0 66; 1.8 0 45; 2.2 0 88; 3.2 0 60; 3.8 0 66; 4.2 0 46} 
+End
+
+Begin Drum-LowTom1
+    Tone LowTom1
+    Volume m
+    Sequence z   {4.8 0 114}    z      z
+End
+
+Begin Drum-PedalHiHat
+    Tone PedalHiHat
+    Volume m
+    RVolume 10
+    Sequence {1 0 51; 1.5 0 63; 3 0 120}
+End
+
+Begin Drum-MidTom2
+    Tone MidTom2
+    Volume m
+    Rvolume 10
+    Sequence {4 0 114} /  /   {2.3 0 114; 4 0 118}
+End
+
+Begin Drum-OpenHiHat
+    Tone OpenHiHat
+    Volume m
+    Rvolume 10
+    Sequence {2 0 127; 4.5 0 120}
+End
+
+Begin Drum-MidTom1
+    Tone MidTom1
+    Volume mp
+    RTime 5
+    Sequence {2.2 0 102}  /   /   z
+End
+
+Begin Drum-VibraSlap
+    Tone VibraSlap
+    Volume m
+    Sequence  z    {4.5 0 76}
+End
+
+Begin Drum-LowBongo
+    Tone LowBongo
+    Volume mp
+    RVolume 6
+    Sequence {4.5 0 88}
+End
+
+Begin Drum-MuteHighConga
+    Tone MuteHighConga
+    Volume m
+    RVolume 10
+    Sequence {1.5 0 87; 3 0 84}
+End
+
+Begin Drum-OpenHighConga
+    Tone OpenHighConga
+    Volume m
+    Sequence {2 0 15; 3.8 0 43; 4.3 0 42; 4.8 0 34} \
+             {2 0 27; 3.8 0 45; 4.3 0 39}
+End
+
+Begin Drum-Cabasa
+    Tone Cabasa
+    Volume m
+    RVolume 10
+    Sequence {1.5 0 91; 2.5 0 90; 3.5 0 79; 4.5 0 85}
+End
+
+Begin Drum-ShortGuiro
+    Tone ShortGuiro
+    Volume m
+    RTime 10
+    RVolume 10
+    Sequence {2.7 0 67; 3.3 0 61}
+End
+
+Begin Drum-HighWoodBlock
+    Tone HighWoodBlock
+    Volume m
+    RVolume 10
+    Sequence {2.8 0 73}
+End
+
+Begin Drum-Shaker
+    Tone Shaker
+    Volume m
+    RVolume 10
+    Sequence {1.8 0 57; 2.8 0 43; 3.8 0 54; 4.8 0 52}
+End
+
+Begin Bass-9
+    Voice AcousticBass
+    Octave 3
+    Articulate 100
+    Volume m
+    Sequence {1 2 1 105; 3.8 64 1 70; 4.3 32 1 105; 4.5 16 5 70; 4.8 32 6 70} \
+             {1 2 1 105; 4.8 32 6 70} \
+             {1 2 1 105; 3.8 64 1 70; 4.3 32 1 104; 4.5 6 5 70; 4.8 32 6 70} \
+             {1 2 1 103; 3.8 0 2 83; 3.9 32 3 70; 4 6 2 70; 4.3 16 1 70; 4.5 6 6 70; 4.8 32 5 70}
+End
+
+
+Begin Bass-6
+    Voice Vibraphone
+    Octave 5
+    Articulate 100
+    Volume m
+    RVolume 10
+    Rtime 5
+    RSkip 5
+    Sequence {1 0 1 68; 1.2 0 5 49; 1.5 0 6 52; 1.8 0 1 69; 2 6 3 61; 2 6 6 53;\
+                2.3 32 2 46; 2.3 64 5 47; 2.8 64 1 48; 2.8 32 3 48; 3.3 64 1 35; \
+                3.3 64 3 34; 3.5 32 2 56; 3.5 6 5 53; 4.3 0 1 66; 4.5 0 5 47; 4.8 0 6 43}
+End
+
+
+Begin Bass-7
+    Voice Fantasia
+    Octave 3
+    Articulate 130
+    Volume m
+    RVolume 10
+    RTime 5
+    Sequence {1 4 1 84; 1.5 2 5 64; 2 2 1 62; 2.5 2 3 61} \
+             {1 4 1 75; 1.5 2 5 60; 2 4 1 54; 2.5 2 3 62; 4 8 1 60; 4.5 3 5 62}
+End
+
+DefGroove WorldPop   A percusion heavy beat
+
+///////////////////////////////////////////////////////////////////
+/////  Intro
+
+Groove WorldPop
+
+Drum-KickDrum1     Sequence  *     *     D124     D13
+Drum-SnareDrum1    Sequence  D1234 *     *        D14
+Drum-ClosedHiHat   Sequence  *     *     *        z
+Drum-LowTom1       Sequence  -
+Drum-PedalHiHat    Sequence  *     *     *        D13
+Drum-MidTom2       Sequence  *     *     *        D4
+Drum-OpenHiHat     Sequence  *     *     *        D2
+Drum-MidTom1       Sequence  *     *     *        z
+Drum-VibraSlap     Sequence  *     *     *        D1
+Drum-LowBongo      Sequence  *     *     *        z
+Drum-MuteHighConga Sequence  *     *     *        {D1 Shift .5}
+Drum-OpenHighConga Sequence  *     *     D1234    D2
+Drum-Cabasa        Sequence  *     *     *        z
+Drum-ShortGuiro    Sequence  *     z     *        z
+Drum-HighWoodBlock Sequence  *     *     z        z
+Drum-Shaker        Sequence  *     *     *        {D13 Shift .8}
+
+Bass-9 Sequence {1 2 1 105; 3.8 64 1 70; 4.3 32 1 105; 4.5 16 5 70; 4.8 32 6 70} \
+             {1 2 1 105; 4.8 32 6 70} \
+             {1 2 1 105; 3.8 64 1 70; 4.3 32 1 104; 4.5 6 5 70; 4.8 32 6 70} \
+             {1 2 1 103; 3.8 0 2 83; 3.9 32 3 70; 4 6 2 70; 4.3 16 1 70; 4.5 6 6 70; 4.8 32 5 70}
+
+// Vibraphone
+Bass-6    Sequence {1 0 1 68; 1.2 0 5 49; 1.5 0 6 52; 1.8 0 1 69; 2 6 3 61; 2 6 6 53;\
+                2.3 32 2 46; 2.3 64 5 47; 2.8 64 1 48; 2.8 32 3 48; 3.3 64 1 35; \
+                3.3 64 3 34; 3.5 32 2 56; 3.5 6 5 53; 4.3 0 1 66; 4.5 0 5 47; 4.8 0 6 43}
+
+// Fatasia
+Bass-7  Sequence {1 4 1 84; 1.5 2 5 64; 2 2 1 62; 2.5 2 3 61} \
+             {1 4 1 75; 1.5 2 5 60; 2 4 1 54; 2.5 2 3 62; 4 8 1 60; 4.5 3 5 62}
+
+
+DefGroove WorldPopIntro    4 bar intro
+
+
+///////////////////////////////////////////////////////////////////
+/////  Ending
+
+Groove WorldPop
+
+Drum-KickDrum1     Sequence  *          D1
+Drum-SnareDrum1    Sequence  D1234      D1
+Drum-ClosedHiHat   Sequence  *           z
+Drum-LowTom1       Sequence  -
+Drum-PedalHiHat    Sequence  *          D1
+Drum-MidTom2       Sequence  *          D1
+Drum-OpenHiHat     Sequence  D8         D1
+Drum-MidTom1       Sequence  *           z
+Drum-VibraSlap     Sequence  *          D1
+Drum-LowBongo      Sequence  *           z
+Drum-MuteHighConga Sequence  *          D1
+Drum-OpenHighConga Sequence  *          D1
+Drum-Cabasa        Sequence  *          z
+Drum-ShortGuiro    Sequence  *           z
+Drum-HighWoodBlock Sequence  *           D1
+Drum-Shaker        Sequence  *           z
+
+Bass-9             Sequence B1234        B1
+
+// Vibraphone
+Bass-6             Sequence   *         {1 4 1 90; 1 4 3 80; 1 4 5 70}
+
+// Fatasia
+Bass-7            Sequence    *         {1 4 1 90; 1.1 4 3 80; 1.2 4 5 70}
+
+DefGroove WorldPopEnd    2 bar ending

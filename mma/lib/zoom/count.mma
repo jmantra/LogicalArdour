@@ -1,0 +1,15 @@
+// Pattern: COUNT
+
+SeqClear
+SeqSize 2
+Time 4/4
+
+Begin Drum-Stick
+  Tone     SideKick
+           // |3-3-|333-|
+  Sequence { 1.0 0 90; 3.0 0 90 } \
+           { 1.0 0 90; 2.0 0 90; 3.0 0 90 } 
+End
+
+DefGroove COUNT Time = 4/4, SeqLen = 2; Stick.
+
