@@ -25,6 +25,16 @@ sudo_backup_or_create_folder() {
     fi
 }
 
+chmod_opt_binaries() {
+    sudo bash -c 'while IFS= read -r -d "" path; do
+        sig=$(od -An -t x1 -N 4 "$path" 2>/dev/null | tr -d " \n" || true)
+        if [ "$sig" = "7f454c46" ]; then
+            chmod 755 "$path"
+        fi
+    done < <(find /opt/LogicalArdour -type f -print0)
+    exit 0'
+}
+
 cd "$HOME/Downloads"
 
 # Check if yay or paru is installed for AUR packages
@@ -188,16 +198,15 @@ sudo mkdir -p /opt/LogicalArdour
 sudo cp LogicalArdour.sh /opt/LogicalArdour/LogicalArdour.sh
 sudo chmod 755 /opt/LogicalArdour/LogicalArdour.sh
 
-mkdir -p "$HOME/.local/share/applications"
-cp LogicalArdour.desktop "$HOME/.local/share/applications/LogicalArdour.desktop"
+rm -f "$HOME/.local/share/applications/LogicalArdour.desktop"
+sudo cp LogicalArdour.desktop /usr/share/applications/LogicalArdour.desktop
+sudo chmod 644 /usr/share/applications/LogicalArdour.desktop
 if command -v update-desktop-database >/dev/null 2>&1; then
-  update-desktop-database "$HOME/.local/share/applications"
+  sudo update-desktop-database /usr/share/applications
 fi
 
-sudo cp resources/melody_generator /opt/LogicalArdour/melody_generator
-sudo chmod 755 /opt/LogicalArdour/melody_generator
-sudo cp resources/genres.json /opt/LogicalArdour/genres.json
-sudo cp resources/mma_genres.json /opt/LogicalArdour/mma_genres.json
+sudo cp -a resources/. /opt/LogicalArdour/
+chmod_opt_binaries
 sudo rm -rf /opt/LogicalArdour/mma
 sudo cp -a mma /opt/LogicalArdour/mma
 
@@ -235,9 +244,6 @@ sudo cp -rf ladspa-rubberband.so $folder
 
 sudo cp -rf samples/* /opt/LogicalArdour
 
-sudo mkdir -p /opt/LogicalArdour/soundfonts/soundfonts
-sudo cp -a resources/soundfonts/soundfonts/. /opt/LogicalArdour/soundfonts/soundfonts/
-
 sudo pacman -S --needed fuse3 fuse2 --noconfirm
 wget https://jmantra.blob.core.windows.net/data/mscore
 sudo cp -rf mscore /opt/LogicalArdour
@@ -249,24 +255,6 @@ backup_or_create_folder "$folder"
 cp MuseScore3.ini $HOME/.config/MuseScore
 cp MuseScore2.ini $HOME/.config/MuseScore
 
-wget https://jmantra.blob.core.windows.net/data/key
-
-sudo cp key /opt/LogicalArdour
-
-sudo chmod 755 /opt/LogicalArdour/key
-
-wget https://jmantra.blob.core.windows.net/data/newchord
-
-sudo cp newchord /opt/LogicalArdour
-
-sudo chmod 755 /opt/LogicalArdour/newchord
-
-wget https://jmantra.blob.core.windows.net/data/bassline_generator
-
-sudo cp bassline_generator /opt/LogicalArdour
-sudo chmod 755 /opt/LogicalArdour/bassline_generator
-
-sudo chmod 755 /opt/LogicalArdour/bassline_generator.py
 sudo mkdir -p /usr/local/lib/vst3
 
 sudo pacman -S --needed webkit2gtk-4.1 rust pkgconf --noconfirm
@@ -275,6 +263,7 @@ if [ -f score-editor/Cargo.toml ]; then
   sudo cp score-editor/target/release/score-editor /opt/LogicalArdour/score-editor
   sudo chmod 755 /opt/LogicalArdour/score-editor
 fi
+chmod_opt_binaries
 
 folder="$HOME/.config/LogicalArdour/ardour8"
 backup_or_create_folder "$folder"
